@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'Gill';
+  src: url('../fonts/gillsansstd-light-webfont.ttf') format('truetype'),
+       url('../fonts/gillsansstd-light-webfont.eot') format('embedded-opentype'),
+       url('../fonts/gillsansstd-light-webfont.woff') format('woff'),
+       url('../fonts/gillsansstd-light-webfont.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
