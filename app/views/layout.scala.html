@@ -1,4 +1,4 @@
-@(title: String, content: String)
+@(title: String, content: List[String])
 
 @main(title) {
 
@@ -29,7 +29,9 @@
 			<div style="clear:both"></div>
 		</div>
 		<div class="content">
-			<h1> @content </h1>
+			@for(c <- content) {
+				<li>@c</li>
+			}
 		</div>
 		<div id="footer">
 		</div>
