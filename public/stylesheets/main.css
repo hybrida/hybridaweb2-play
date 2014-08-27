@@ -36,10 +36,14 @@ a img {
 
 .navigation_pane li {
   margin-top: 10px;
-  display: inline;
+  display: inline-block;
   list-style-type: none;
   padding-right: 0px;
   color: white;
+}
+
+#footer {
+	clear: both;
 }
 
 .g-button a {
@@ -83,7 +87,10 @@ a img {
 }
 
 .content {
-	
+	font-family: "Gill";
+	background-color: rgba(255, 255, 255, 0.1);
+	margin: 1em;
+	padding: 1em;
 }
 
 .search input[type="text"] {
