@@ -58,6 +58,11 @@ a img {
   background-image: linear-gradient(top,#185c9b,#003b8e);
 }
 
+#logx-button {
+	float: right;
+	padding-right: 1em;
+}
+
 .g-button:hover a {
   background-color: #154e87;
   background-image: -webkit-linear-gradient(top,#154e87,#003a75);
