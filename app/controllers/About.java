@@ -9,6 +9,6 @@ import play.db.*;
 
 public class About extends Controller {
 	public static Result index() {
-		return ok(about.render("This page is about Hybrida"));
+		return ok(showsimple.render("This page is about Hybrida"));
 	}	
 }
