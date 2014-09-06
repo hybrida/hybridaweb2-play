@@ -42,7 +42,7 @@ public class About extends Controller {
         } else if (name.equals("sindre")) {
             return "Sindre har en grønn klokke";
         }else if (name.toLowerCase().equals("ivar")){
-            return "Ivar er en magisk magiker som spiler magic, han bruker masse penger på pappbiter! <img src=\"ivar.jpg\" alt=\"ivar\">";
+            return "Ivar er en magisk magiker som spiler magic, han bruker masse penger på pappbiter! <img src=\"assets/images/ivar.jpg\" alt=\"ivar\">";
         }
 
 
