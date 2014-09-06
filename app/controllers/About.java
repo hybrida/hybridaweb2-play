@@ -43,9 +43,11 @@ public class About extends Controller {
             return "Sindre har en grønn klokke";
         } else if (name.equals("ivar")) {
             return "Ivar er en magisk magiker som spiller magic, han bruker masse penger på pappbiter! <img src=\"/assets/images/ivar.jpg\" alt=\"ivar\">";
+        } else if (name.equals("kia")) {
+            return "Kiakiakiakiakiakiakiakiakiakiakiakiakiakaikia";
         }
 
 
-        return "Dust, " + name + "går ikke på Hybrida!";
+        return "Dust, " + name + "  går ikke på Hybrida!";
     }
 }
