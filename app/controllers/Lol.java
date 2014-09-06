@@ -11,10 +11,8 @@ import java.util.ArrayList;
  */
 public class Lol extends Controller{
     public static Result index(){
-        ArrayList<String> content = new ArrayList<>();
+        ArrayList<String> content = new ArrayList<String>();
         content.add("Dj Syndeflood");
         return ok(layout.render("Hybrida MLG proffesional LoL team", content));
         }
     }
-
-}
