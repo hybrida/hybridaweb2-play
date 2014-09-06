@@ -22,6 +22,14 @@ public class Lol extends Controller{
 
         return ok(layout.render("Hybrida MLG proffesional LoL team: ", content));
     }
+        public static Result noindex(){
+            ArrayList<String> content = new ArrayList<>();
+            content.add("<img src=\"/assets/images/mlg.jpg\" alt=\"rect\">");
+            content.add("<h1> Hybrida proffesional MLG diamond league Lol team:<h1> <p> <p>");
+            content.add("Dj Syndeflood <p>");
+
+            return ok(layout.render("Hybrida MLG proffesional LoL team: ", content));
+        }
 }
 
 
