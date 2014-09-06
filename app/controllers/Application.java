@@ -25,5 +25,6 @@ public class Application extends Controller {
     	return ok(layout.render("A message was recorded: " + str, stuff_to_render));
     }
 
+
 }
 
