@@ -31,9 +31,9 @@ public class About extends Controller {
         } else if (name.equals("tormod")) {
             return "Tormod har mange bokser med smoothie";
         } else if (name.equals("henrik")) {
-            return "Henrik er selverklært norgesmester i LoL, henrik is a pretty cool guy, eh loves may mays and doesn't afraid of anything";
+            return "<h1>Henrik er selverklært norgesmester i LoL, henrik is a pretty cool guy, eh loves may mays and doesn't afraid of anything</h1>";
         } else if (name.equals("kevin")) {
-            return "<h1>Kevin er 1337 nosc0per som pwner på NTNU</h1><p style=\"font-size:300px;\">#RECT</p>";
+            return "<h1>Kevin er 1337 MLG nosc0per som pwner på NTNU</h1><p style=\"font-size:300px;\">#SHREKT</p>";
         } else if (name.equals("elias")) {
             return "Elias er en kjernekar! Han skal progge hybrida-app!";
         } else if (name.equals("oystein")) {
