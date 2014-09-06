@@ -11,8 +11,8 @@ import play.db.*;
 public class Application extends Controller {
 
     public static Result index() throws java.sql.SQLException {
-	java.util.ArrayList<String> names = new java.util.ArrayList<String>();    	
-return ok(layout.render("Hybrida", names));
+		java.util.ArrayList<String> names = new java.util.ArrayList<String>();    	
+		return ok(layout.render("Hybrida", names));
     }
 
     public static Result getter(String str) {
