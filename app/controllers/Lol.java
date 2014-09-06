@@ -18,6 +18,7 @@ public class Lol extends Controller{
             content.add(name);
             content.add("<p>");
         }
+        content.add("<img src=\"/assets/images/mlg.jpg\" alt=\"rect\">");
         return ok(layout.render("Hybrida MLG proffesional LoL team: ", content));
     }
 }
