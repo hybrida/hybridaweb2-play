@@ -12,6 +12,7 @@ GET        /assets/*file        controllers.Assets.at(path="/public", file)
 # Other root pages
 GET        /about               controllers.About.index()
 GET        /yeah                controllers.Yeah.index()
+<<<<<<< HEAD
 
 # Info til introkurs
 GET        /info/:name          controllers.About.personInfo(name)
@@ -19,6 +20,12 @@ GET        /info/:name          controllers.About.personInfo(name)
 # Heftig blæstiside
 
 GET         /oystein/:number            controllers.Oystein.someCode(number)
+=======
+GET        /lol                 controllers.Lol.index()
+
+# Info til introkurs
+GET        /info/:name          controllers.About.personInfo(name)
+
 
 # Show some page describing the URL if all else fails
 GET        /:arg                controllers.Application.getter(arg: String)
