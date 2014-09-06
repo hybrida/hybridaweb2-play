@@ -31,6 +31,9 @@ public class About extends Controller {
         } else if (name.toLowerCase().equals("kevin")) {
             return "Kevin er en 1337 nosc0per som pwner på NTNU";
         }
+        else if (name.toLowerCase().equals("elias")){
+            return "Elias er en kjernekar! Han skal progge hybrida-app!";
+        }
 
         return "Ingen beskrivelse for " + name + "!";
     }
