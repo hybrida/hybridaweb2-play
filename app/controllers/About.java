@@ -38,6 +38,9 @@ public class About extends Controller {
             return "Elias er en kjernekar! Han skal progge hybrida-app!";
         } else if (name.equals("oystein")) {
             return "Øystein er en trivelig type, født og oppvokst i strengkassa på et piano/n" +
+        }
+        else if (name.toLowerCase().equals("oystein")){
+            return "Øystein er en trivelig type, født og oppvokst i strengkassa på et piano \n" +
                     "for øyeblikket spiller han i Hybridas eget stolte linjeband, Ståpels";
         } else if (name.equals("sindre")) {
             return "Sindre har en grønn klokke";
