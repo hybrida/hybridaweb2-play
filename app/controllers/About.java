@@ -44,3 +44,4 @@ public class About extends Controller {
         }
         return "Ingen beskrivelse for " + name + "!";
     }
+}
