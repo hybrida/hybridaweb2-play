@@ -21,7 +21,7 @@ GET        /info/:name             controllers.About.personInfo(name)
 GET        /oystein/:number        controllers.Oystein.someCode(number)
 
 
-GET        /lol                    controllers.Lol.index()
+GET        /lol/:name              controllers.Lol.index(name)
 
 # Info til introkurs
 GET        /info/:name             controllers.About.personInfo(name)
