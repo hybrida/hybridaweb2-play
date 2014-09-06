@@ -19,7 +19,7 @@ public class About extends Controller {
 
     public static Result personInfo(String name) {
         java.util.ArrayList<String> names = new java.util.ArrayList<String>();      
-        names.add(describe(name.toLowerCase()));
+        names.add(describe(name));
         return ok(layout.render("Hybrida", names));
     }
 
@@ -38,9 +38,12 @@ public class About extends Controller {
             return "Elias er en kjernekar! Han skal progge hybrida-app!";
         } else if (name.equals("oystein")) {
             return "Øystein er en trivelig type, født og oppvokst i strengkassa på et piano/n" +
+        }
+        else if (name.toLowerCase().equals("oystein")){
+            return "Øystein er en trivelig type, født og oppvokst i strengkassa på et piano \n" +
                     "for øyeblikket spiller han i Hybridas eget stolte linjeband, Ståpels";
         } else if (name.equals("sindre")) {
-            return "Sindre er en grønn kokk";
+            return "Sindre har en grønn klokke";
         }
         return "Ingen beskrivelse for " + name + "!";
     }
