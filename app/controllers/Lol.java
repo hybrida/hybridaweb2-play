@@ -9,9 +9,6 @@ import java.util.ArrayList;
 /**
  * Created by eliasbragstadhagen on 06.09.14.
  */
-
-
-
 public class Lol extends Controller{
     public static Result index(){
         ArrayList<String> content = new ArrayList<>();
