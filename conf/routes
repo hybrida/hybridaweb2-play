@@ -11,6 +11,7 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 # Other root pages
 GET 	/about						controllers.About.index()
+GET 	/ivar						controllers.Ivar.index()
 
 # Show some page describing the URL if all else fails
 GET		/:arg 						controllers.Application.getter(arg: String)
