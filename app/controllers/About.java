@@ -29,18 +29,12 @@ public class About extends Controller {
         } else if (name.equals("henrik")){
             return "Henrik er selverklært norgesmester i LoL";
         } else if (name.equals("kevin")) {
-            return "Kevin er en 1337 nosc0per som pwner på NTNU";
-        }
-        else if (name.toLowerCase().equals("elias")){
+            return "Kevin is #rect";
+        } else if (name.toLowerCase().equals("elias")){
             return "Elias er en kjernekar! Han skal progge hybrida-app!";
-        }
-        else if (name.toLowerCase().equals("oystein")){
+        } else if (name.toLowerCase().equals("oystein")){
             return "Øystein er en trivelig type, født og oppvokst i strengkassa på et piano/n" +
                     "for øyeblikket spiller han i Hybridas eget stolte linjeband, Ståpels";
-        }
-
-        if (name.toLowerCase().equals("kevin")) {
-            return "Kevin is #rect";
         }
 
         return "Ingen beskrivelse for " + name + "!";
