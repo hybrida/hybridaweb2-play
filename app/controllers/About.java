@@ -1,4 +1,4 @@
-package controllers;
+﻿package controllers;
 
 import models.Company;
 import play.*;
@@ -41,7 +41,11 @@ public class About extends Controller {
                     "for øyeblikket spiller han i Hybridas eget stolte linjeband, Ståpels";
         } else if (name.equals("sindre")) {
             return "Sindre har en grønn klokke";
+        }else if (name.toLowerCase().equals("ivar")){
+            return "Ivar er en magisk magiker som spiler magic, han bruker masse penger på pappbiter!";
         }
+
+
         return "Ingen beskrivelse for " + name + "!";
     }
 }
