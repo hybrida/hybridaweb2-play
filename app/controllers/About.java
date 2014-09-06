@@ -29,9 +29,8 @@ public class About extends Controller {
             return "Simen er den eneste i Norge som heter Simen Norderud Jensen";
         }else if (name.equalsIgnoreCase("henrik")){
             return "Henrik er selverklært norgesmester i LoL";
-        }
-        else if (name.toLowerCase().equals("kevin")) {
-            return "1337 nosc0per som pwner på NTNU";
+        } else if (name.toLowerCase().equals("kevin")) {
+            return "Kevin er en 1337 nosc0per som pwner på NTNU";
         }
 
         return "Ingen beskrivelse for " + name + "!";
