@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Lol extends Controller{
     public static Result index(String name){
         ArrayList<String> content = new ArrayList<>();
-        content.add("<h1> Hybrida proffetional MLG diamond leauge Lol team:<h1> <p> <p>");
+        content.add("<h1> Hybrida proffesional MLG diamond league Lol team:<h1> <p> <p>");
         content.add("Dj Syndeflood <p>");
         if (name != null){
             content.add(name);
