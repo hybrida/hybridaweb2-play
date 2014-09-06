@@ -11,6 +11,8 @@ GET        /assets/*file           controllers.Assets.at(path="/public", file)
 
 # Other root pages
 GET        /about                  controllers.About.index()
+
+# Mmmhyeah
 GET        /yeah                   controllers.Yeah.index()
 
 # Info til introkurs
