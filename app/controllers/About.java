@@ -40,10 +40,8 @@ public class About extends Controller {
         } else if (name.equals("oystein")){
             return "Øystein er en trivelig type, født og oppvokst i strengkassa på et piano/n" +
                     "for øyeblikket spiller han i Hybridas eget stolte linjeband, Ståpels";
-        }
-        else if (name.equals("sindre")) {
+        } else if (name.equals("sindre")) {
             return "Sindre har en grønn klokke";
         }
         return "Ingen beskrivelse for " + name + "!";
     }
-}
