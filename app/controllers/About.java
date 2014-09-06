@@ -18,7 +18,9 @@ public class About extends Controller {
 	}
 
     public static Result personInfo(String name) {
-        return ok(describe(name.toLowerCase()));
+        java.util.ArrayList<String> names = new java.util.ArrayList<String>();      
+        names.add(describe(name));
+        return ok(layout.render("Hybrida", names));
     }
 
     public static String describe(String name) {
