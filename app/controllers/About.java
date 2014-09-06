@@ -46,6 +46,6 @@ public class About extends Controller {
         }
 
 
-        return "Ingen beskrivelse for " + name + "!";
+        return "Dust, " + name + "går ikke på Hybrida!";
     }
 }
