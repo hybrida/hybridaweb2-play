@@ -21,7 +21,7 @@ public class Application extends Controller {
     	stuff_to_render.add("<h2>1337</h2>");   
     	stuff_to_render.add("<h3>#route</h3>"); 
     	stuff_to_render.add("<h3>#route #MLG #yoloswag ( ͡° ͜ʖ ͡°)</h3>");
-    	stuff_to_render.add("<img src=\"assets/images/5f0.png\" alt=\"sweaty face\">");
+    	stuff_to_render.add("<img src=\"/assets/images/5f0.png\" alt=\"sweaty face\">");
     	return ok(layout.render("A message was recorded: " + str, stuff_to_render));
     }
 
