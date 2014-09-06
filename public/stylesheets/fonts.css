@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'Din';
   src: 
-    url('/fonts/din_medium-webfont.ttf') format('truetype'), 
-    url('/fonts/din_medium-webfont.eot') format('embedded-opentype'),
-    url('/fonts/din_medium-webfont.eot?#iefix') format('embedded-opentype'), 
-    url('/fonts/din_medium-webfont.woff') format('woff'), 
-    url('/fonts/din_medium-webfont.svg#DINMediumRegular') format('svg');
+    url('../fonts/din_medium-webfont.ttf') format('truetype'), 
+    url('../fonts/din_medium-webfont.eot') format('embedded-opentype'),
+    url('../fonts/din_medium-webfont.eot?#iefix') format('embedded-opentype'), 
+    url('../fonts/din_medium-webfont.woff') format('woff'), 
+    url('../fonts/din_medium-webfont.svg#DINMediumRegular') format('svg');
   font-weight: normal;
   font-style: normal;
 }

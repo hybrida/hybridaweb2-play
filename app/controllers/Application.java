@@ -20,7 +20,9 @@ public class Application extends Controller {
     	stuff_to_render.add("<h1>This is not escaped</h1>");
     	stuff_to_render.add("<h2>1337</h2>");   
     	stuff_to_render.add("<h3>#route</h3>"); 
+
     	return ok(layout.render("A message was recorded: " + str, stuff_to_render));
     }
 
 }
+
