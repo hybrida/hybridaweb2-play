@@ -18,17 +18,17 @@ public class About extends Controller {
 	}
 
     public static Result personInfo(String name) {
-        return ok(describe(name));
+        return ok(describe(name.toLowerCase()));
     }
 
     public static String describe(String name) {
-        if (name.toLowerCase().equals("teodor")) {
+        if (name.equals("teodor")) {
             return "Teodor er en fyr som studerer på NTNU";
-        } else if (name.equalsIgnoreCase("simen")){
+        } else if (name.equals("simen")){
             return "Simen er den eneste i Norge som heter Simen Norderud Jensen";
-        } else if (name.equalsIgnoreCase("henrik")){
+        } else if (name.equals("henrik")){
             return "Henrik er selverklært norgesmester i LoL";
-        } else if (name.toLowerCase().equals("kevin")) {
+        } else if (name.equals("kevin")) {
             return "Kevin er en 1337 nosc0per som pwner på NTNU";
         }
 
