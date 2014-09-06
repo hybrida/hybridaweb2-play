@@ -24,6 +24,8 @@ public class About extends Controller {
     public static String describe(String name) {
         if (name.toLowerCase().equals("teodor")){
             return "Teodor er en fyr som studerer på NTNU";
+        }else if (name.toLowerCase().equals("simen")){
+            return "Simen er den eneste i Norge som heter Simen Norderud Jensen";
         }
 
         return "Ingen beskrivelse for " + name + "!";
