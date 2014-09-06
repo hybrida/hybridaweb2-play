@@ -15,5 +15,17 @@ public class About extends Controller {
             info += c.toString() + "\n";
 
 		return ok(showsimple.render("This page is about Hybrida. Company listing: " + info));
-	}	
+	}
+
+    public static Result personInfo(String name) {
+        return ok(describe(name));
+    }
+
+    public static String describe(String name) {
+        if (name.toLowerCase().equals("teodor")){
+            return "Teodor er en fyr som studerer på NTNU";
+        }
+
+        return "Ingen beskrivelse for " + name + "!";
+    }
 }

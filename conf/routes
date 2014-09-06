@@ -13,5 +13,8 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 GET 	/about						controllers.About.index()
 GET 	/yeah						controllers.Yeah.index()
 
+# Info til introkurs
+GET     /info/:name                 controllers.About.personInfo(name)
+
 # Show some page describing the URL if all else fails
 GET		/:arg 						controllers.Application.getter(arg: String)
