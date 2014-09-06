@@ -24,10 +24,13 @@ public class About extends Controller {
     }
 
     public static String describe(String name) {
+        if (name.toLowerCase().equals("teodor")){
         if (name.equals("teodor")) {
             return "Teodor er en fyr som studerer på NTNU";
         } else if (name.equals("simen")){
             return "Simen er den eneste i Norge som heter Simen Norderud Jensen";
+        }else if (name.equals("tormod")){
+            return "Tormod har mange bokser med smoothie";
         } else if (name.equals("henrik")){
             return "Henrik er selverklært norgesmester i LoL";
         } else if (name.equals("kevin")) {
@@ -38,7 +41,7 @@ public class About extends Controller {
             return "Øystein er en trivelig type, født og oppvokst i strengkassa på et piano/n" +
                     "for øyeblikket spiller han i Hybridas eget stolte linjeband, Ståpels";
         }
-        else if (name.toLowerCase().equals("sindre")) {
+        else if (name.equals("sindre")) {
             return "Sindre har en grønn klokke";
         }
         return "Ingen beskrivelse for " + name + "!";
