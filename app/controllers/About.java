@@ -26,6 +26,10 @@ public class About extends Controller {
             return "Teodor er en fyr som studerer på NTNU";
         }
 
+        if (name.toLowerCase().equals("kevin")) {
+            return "Kevin is #rect";
+        }
+
         return "Ingen beskrivelse for " + name + "!";
     }
 }
