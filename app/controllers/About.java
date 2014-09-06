@@ -36,8 +36,6 @@ public class About extends Controller {
             return "Kevin er 1337 nosc0per som pwner på NTNU";
         } else if (name.equals("elias")) {
             return "Elias er en kjernekar! Han skal progge hybrida-app!";
-        } else if (name.equals("oystein")) {
-            return "Øystein er en trivelig type, født og oppvokst i strengkassa på et piano/n" +
         }
         else if (name.toLowerCase().equals("oystein")){
             return "Øystein er en trivelig type, født og oppvokst i strengkassa på et piano \n" +
