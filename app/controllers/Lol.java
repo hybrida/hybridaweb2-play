@@ -12,13 +12,14 @@ import java.util.ArrayList;
 public class Lol extends Controller{
     public static Result index(String name){
         ArrayList<String> content = new ArrayList<>();
+        content.add("<img src=\"/assets/images/mlg.jpg\" alt=\"rect\">");
         content.add("<h1> Hybrida proffesional MLG diamond league Lol team:<h1> <p> <p>");
         content.add("Dj Syndeflood <p>");
         if (name != null){
             content.add(name);
             content.add("<p>");
         }
-        content.add("<img src=\"/assets/images/mlg.jpg\" alt=\"rect\">");
+
         return ok(layout.render("Hybrida MLG proffesional LoL team: ", content));
     }
 }
