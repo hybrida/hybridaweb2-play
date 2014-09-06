@@ -1,4 +1,4 @@
-package controllers;
+﻿package controllers;
 
 import models.Company;
 import play.*;
@@ -19,7 +19,7 @@ public class About extends Controller {
 
     public static Result personInfo(String name) {
         java.util.ArrayList<String> names = new java.util.ArrayList<String>();      
-        names.add(describe(name));
+        names.add(describe(name.toLowerCase()));
         return ok(layout.render("Hybrida", names));
     }
 
@@ -41,8 +41,8 @@ public class About extends Controller {
                     "for øyeblikket spiller han i Hybridas eget stolte linjeband, Ståpels";
         } else if (name.equals("sindre")) {
             return "Sindre har en grønn klokke";
-        }else if (name.toLowerCase().equals("ivar")){
-            return "Ivar er en magisk magiker som spiler magic, han bruker masse penger på pappbiter! <img src=\"../assets/images/ivar.jpg\" alt=\"sweaty face\">";
+        }else if (name.equals("ivar")){
+            return "Ivar er en magisk magiker som spiler magic, han bruker masse penger på pappbiter! <img src=\"ivar.jpg\" alt=\"ivar\">";
         }
 
 
