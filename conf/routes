@@ -22,7 +22,7 @@ GET        /oystein/:number        controllers.Oystein.someCode(number)
 
 
 GET        /lol/:name              controllers.Lol.index(name)
-GET        /lol                    controllers.Lol.index()
+GET        /lol                    controllers.Lol.noindex()
 GET        /indok                  controllers.Indok.facepalm()                 
 # Info til introkurs
 GET        /info/:name             controllers.About.personInfo(name)
