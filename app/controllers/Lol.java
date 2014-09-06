@@ -12,8 +12,9 @@ import java.util.ArrayList;
 public class Lol extends Controller{
     public static Result index(){
         ArrayList<String> content = new ArrayList<>();
+        content.add("<h1> Hybrida proffetional MLG diamond leauge Lol team:<h1> <p> <p>");
         content.add("Dj Syndeflood");
-        return ok(layout.render("Hybrida MLG proffesional LoL team", content));
+        return ok(layout.render("Hybrida MLG proffesional LoL team: ", content));
     }
 }
 
