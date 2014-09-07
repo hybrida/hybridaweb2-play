@@ -122,3 +122,16 @@ a img {
   text-shadow: 0 2px 3px rgba(0,0,0,0.1);
   outline: none;
 }
+
+#notFound
+{
+  padding-top: 5%;
+  position: relative;
+  text-align: center;
+  height: 100%;
+}
+
+#notFound img
+{
+  max-width: 50%;
+}

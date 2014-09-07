@@ -11,29 +11,26 @@ import play.db.*;
 public class Application extends Controller {
 
     public static Result index() throws java.sql.SQLException {
-		java.util.ArrayList<String> names = new java.util.ArrayList<String>();    	
+    	java.util.ArrayList<String> names = new java.util.ArrayList<String>();    	
+
+    	String x = session("visited");
+    	if (x == null)
+    	{
+    		session("visited", "0");
+    	}
+		else
+		{
+			session("visited", Integer.toString(Integer.valueOf(x) + 1));
+			if (Integer.parseInt(x) > 10)
+				names.add("You're a true hybrid");
+    	}
 		return ok(layout.render("Hybrida", names));
     }
 
-    public static Result getter(String str) {
-    	java.util.ArrayList<String> is = new java.util.ArrayList<String>();
-    	java.util.ArrayList<String> is2 = new java.util.ArrayList<String>();
-    	
-    	for (int i = 0; i < 5; ++i) {
-	    	is.add(new Integer(i).toString());
-	    	String x = layout.render("I dunno m89", is).toString();
-	    	is.remove(is.size() - 1);
-	    	is.add(x);
-	    }
-
-    	is.add("<h1>This is not escaped</h1>");
-    	is.add("<h2>1337</h2>");   
-    	is.add("<h3>#route</h3>"); 
-    	is.add("<h3>#route #MLG #yoloswag ( ͡° ͜ʖ ͡°)</h3>");
-    	is.add("<img src=\"/assets/images/5f0.png\" alt=\"sweaty face\">");
-
-
-    	return ok(layout.render("A message was recorded: " + str, is));
+    public static Result show404(String get_value) {
+    	java.util.ArrayList<String> four = new java.util.ArrayList<String>();
+    	four.add(notFoundErrorPage.render(get_value).toString());
+    	return notFound(layout.render("404", four));
     }
 
 

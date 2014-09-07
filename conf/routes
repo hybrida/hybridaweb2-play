@@ -1,15 +1,11 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
-# ~~~~
 
-# Home page
-GET        /                       controllers.Application.index()
+# Standard layout accessible pages
+GET 		/                       controllers.Application.index()
+GET			/kalender				controllers.Calender.index()
 
 
-# Map static resources from the /public folder to the /assets URL path
-GET        /assets/*file           controllers.Assets.at(path="/public", file)
-
-# Other root pages
 GET        /about                  controllers.About.index()
 GET        /yeah                   controllers.Yeah.index()
 
@@ -27,6 +23,8 @@ GET        /indok                  controllers.Indok.facepalm()
 # Info til introkurs
 GET        /info/:name             controllers.About.personInfo(name)
 
+# Map static resources from the /public folder to the /assets URL path
+GET        /assets/*file           controllers.Assets.at(path="/public", file)
 
 # Show some page describing the URL if all else fails
-GET        /:arg                   controllers.Application.getter(arg: String)
+GET        /$anything<.*>                   controllers.Application.show404(anything: String)
