@@ -28,11 +28,15 @@ GET        /random                 controllers.RandomInt.randomPage()
 POST       /random                 controllers.RandomInt.newRandom()
 
 GET			/ExampleCookies			controllers.ExampleCookies.index()
-POST       /ExampleCookies                 controllers.ExampleCookies.updateCookie()
-POST		/ExampleCookies2			controllers.ExampleCookies.clearAllCookies()
+POST       	/UpdateCookies         	controllers.ExampleCookies.updateCookie()
+GET       	/UpdateCookies        	controllers.ExampleCookies.updateCookie()
+POST		/ClearCookies			controllers.ExampleCookies.clearAllCookies()
+GET			/ClearCookies			controllers.ExampleCookies.clearAllCookies()
 
 # Map static resources from the /public folder to the /assets URL path
 GET        /assets/*file           controllers.Assets.at(path="/public", file)
+
+HEAD		/HEAD					controllers.Application.index()
 
 # Show some page describing the URL if all else fails
 GET        /$anything<.*>          controllers.Application.show404(anything: String)
