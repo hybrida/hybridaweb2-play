@@ -13,10 +13,6 @@ public class Application extends Controller {
 
 	final static play.data.Form<SearchForm> userForm = play.data.Form.form(SearchForm.class);
 
-	public static play.twirl.api.Html renderMainLayout(String title, java.util.ArrayList<String> content) {
-    	return layout.render(title, content);
-	}
-
     public static Result index() throws java.sql.SQLException {
     	java.util.ArrayList<String> names = new java.util.ArrayList<String>();    	
 
@@ -45,10 +41,7 @@ public class Application extends Controller {
     }
 
     public static Result show404(String get_value) {
-    	java.util.ArrayList<String> four = new java.util.ArrayList<String>();
-    	four.add(notFoundErrorPage.render(get_value).toString());
-    	//play.data.Form<Search> userForm = play.data.Form.form(Search.class);
-    	return notFound(renderMainLayout("404", four));
+    	return notFound(layoutHtml.render("404", notFoundErrorPage.render(get_value)));
     }
 
 
