@@ -24,7 +24,7 @@ public class ExampleCookies extends Controller {
 	public final static String counter_cookie_key = "cookie_count";
 
 	public static Result index() {
-		return ok(layoutString.render("hybrida", exampleCookies.render("You have " + getCookieCount() + " cookies. You can create or clear cookies here.")));
+		return ok(layoutHtml.render("hybrida", exampleCookies.render("You have " + getCookieCount() + " cookies. You can create or clear cookies here.")));
 	}
 
 	public static void createCookie(String key) {
@@ -41,7 +41,7 @@ public class ExampleCookies extends Controller {
 
 	public static Result clearAllCookies() {
 		session().clear();
-		return ok(layoutString.render("hybrida", exampleCookies.render("You have " + getCookieCount() + " cookies. You can create or clear cookies here.")));
+		return ok(layoutHtml.render("hybrida", exampleCookies.render("You have " + getCookieCount() + " cookies. You can create or clear cookies here.")));
 	}
 
 	public static void storeCookie(String key, String value) {
@@ -83,7 +83,7 @@ public class ExampleCookies extends Controller {
             }
 
             storeCookie(key, value);
-            return ok(layoutString.render("hybrida", exampleCookies.render("The cookie came in succesfully. You now have " + getCookieCount() + " cookies.")));
+            return ok(layoutHtml.render("hybrida", exampleCookies.render("The cookie came in succesfully. You now have " + getCookieCount() + " cookies.")));
         }
     }
 
