@@ -2,14 +2,10 @@
 @import helper._
 
 @main("RandomInt"){
-    <div class="content">
     @helper.form(action = routes.RandomInt.newRandom()){
         <input type="number" name="numberFrom" value="@saved.numberFrom" required="true"><br/>
         <input type="number" name="numberTo" value="@saved.numberTo" required="true"> <br/>
         <input type="submit" value="generer">
     }
-    </div>
-    <div class="content">
         <p style="color: white">@generated<p/>
-    </div>
 }
