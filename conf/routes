@@ -27,6 +27,9 @@ GET        /info/:name             controllers.About.personInfo(name)
 GET        /random                 controllers.RandomInt.randomPage()
 POST       /random                 controllers.RandomInt.newRandom()
 
+GET			/ExampleCookies			controllers.ExampleCookies.index()
+POST       /ExampleCookies                 controllers.ExampleCookies.updateCookie()
+POST		/ExampleCookies2			controllers.ExampleCookies.clearAllCookies()
 
 # Map static resources from the /public folder to the /assets URL path
 GET        /assets/*file           controllers.Assets.at(path="/public", file)
