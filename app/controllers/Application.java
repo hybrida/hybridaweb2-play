@@ -11,10 +11,9 @@ import play.db.*;
 
 public class Application extends Controller {
 
-	final static play.data.Form<Search> userForm = play.data.Form.form(Search.class);
+	final static play.data.Form<SearchForm> userForm = play.data.Form.form(SearchForm.class);
 
 	public static play.twirl.api.Html renderMainLayout(String title, java.util.ArrayList<String> content) {
-    	play.data.Form<Search> userForm = play.data.Form.form(Search.class);
     	return layout.render(title, content);
 	}
 
@@ -33,14 +32,13 @@ public class Application extends Controller {
 				names.add("You're a true hybrid");
     	}
 
-    	userForm.fill(new Search());
-
-    	return ok(Application.renderMainLayout("Hybrida", names));
+        return ok(layoutHtml.render("Hybrida", escapeText.render("<h1> derp </h1>")));
+    	//return ok(Application.renderMainLayout("Hybrida", names));
     }
 
     public static Result processForm() {
-    	play.data.Form<Search> s = userForm.bindFromRequest();
-    	Search x = s.get();
+    	play.data.Form<SearchForm> s = userForm.bindFromRequest();
+    	SearchForm x = s.get();
     	if (x.term != null)
     		return ok(x.term);
     	return badRequest("Whut");

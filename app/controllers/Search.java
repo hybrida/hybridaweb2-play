@@ -19,13 +19,13 @@ public class Search extends Controller {
 
         if (input.hasErrors()) {
             SearchForm form = new SearchForm();
-            return ok(layoutString.render("hybrida", "Error wrong search term"));
+            return ok(layoutHtml.render("hybrida", play.twirl.api.Html.apply("Error wrong search term")));
         } else {
 
             SearchForm saved = input.get();
             String key = input.get().term;
 
-            return ok(layoutString.render("hybrida", key));
+            return ok(layoutHtml.render("hybrida", play.twirl.api.Html.apply(key)));
         }
 	}
 
