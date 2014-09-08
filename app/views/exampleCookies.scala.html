@@ -1,18 +1,15 @@
 @(saved: CookieForm, message: String)
-@import helper._
 
-@main("Cookies"){
-    <div class="content">
-    @helper.form(action = routes.ExampleCookies.updateCookie()){
-        <input type="text" name="key" value="@saved.key" required="true"><br/>
-        <input type="text" name="value" value="@saved.value" required="false"> <br/>
-        <input type="submit" value="Create">
-    }
-    @helper.form(action = routes.ExampleCookies.clearAllCookies()) {
-    	<input type="submit" value="Clear">
-    }
-    </div>
-    <div class="content">
-        <p style="color: white">@message<p/>
-    </div>
+<div class="content">
+@helper.form(action = routes.ExampleCookies.updateCookie()){
+    <input type="text" name="key" value="@saved.key" required="true"><br/>
+    <input type="text" name="value" value="@saved.value" required="false"> <br/>
+    <input type="submit" value="Create">
 }
+@helper.form(action = routes.ExampleCookies.clearAllCookies()) {
+	<input type="submit" value="Clear">
+}
+</div>
+<div class="content">
+    <p style="color: white">@message<p/>
+</div>

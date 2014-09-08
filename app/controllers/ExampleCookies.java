@@ -25,7 +25,7 @@ public class ExampleCookies extends Controller {
 
 	public static Result index() {
 		CookieForm form = new CookieForm();
-		return ok(exampleCookies.render(form, "You have " + getCookieCount() + " cookies. You can create or clear cookies here."));
+		return ok(layoutString.render("hybrida", exampleCookies.render(form, "You have " + getCookieCount() + " cookies. You can create or clear cookies here.")));
 	}
 
 	public static void createCookie(String key) {
@@ -84,7 +84,7 @@ public class ExampleCookies extends Controller {
             }
 
             storeCookie(key, value);
-            return ok(exampleCookies.render(input.get(), "The cookie came in succesfully. You now have " + getCookieCount() + " cookies."));
+            return ok(layoutString.render("hybrida", exampleCookies.render(input.get(), "The cookie came in succesfully. You now have " + getCookieCount() + " cookies.")));
         }
     }
 
