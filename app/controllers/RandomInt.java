@@ -34,7 +34,7 @@ public class RandomInt extends Controller{
             int numberTo = input.get().numberTo;
             if (numberFrom < numberTo) {
                 int generated = rand.nextInt((numberTo - numberFrom) + 1) + numberFrom;
-                return ok(randomview.render(randomForm, generated + " er tilfeldig nok", saved));
+                return ok(randomview.render(randomForm, generated + " er tilfeldig nok for meg", saved));
             } else {
                 return ok(randomview.render(randomForm, numberTo + " er ikke større enn " + numberFrom, saved));
             }
