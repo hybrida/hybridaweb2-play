@@ -17,7 +17,7 @@ public class RandomInt extends Controller{
     public static Result randomPage(){
         RandomForm created = new RandomForm();
         created.numberTo = 1;
-        return ok(randomview.render("",created));
+        return ok(layoutString.render("random",randomview.render("",created).toString()));
     }
 
     public static Result newRandom(){
