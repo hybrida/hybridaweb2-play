@@ -11,18 +11,26 @@ import play.db.*;
 public class Application extends Controller {
 
     public static Result index() throws java.sql.SQLException {
-		java.util.ArrayList<String> names = new java.util.ArrayList<String>();    	
+    	java.util.ArrayList<String> names = new java.util.ArrayList<String>();    	
+
+    	String x = session("visited");
+    	if (x == null)
+    	{
+    		session("visited", "0");
+    	}
+		else
+		{
+			session("visited", Integer.toString(Integer.valueOf(x) + 1));
+			if (Integer.parseInt(x) > 10)
+				names.add("You're a true hybrid");
+    	}
 		return ok(layout.render("Hybrida", names));
     }
 
-    public static Result getter(String str) {
-    	java.util.ArrayList<String> stuff_to_render = new java.util.ArrayList<String>();
-    	stuff_to_render.add("<h1>This is not escaped</h1>");
-    	stuff_to_render.add("<h2>1337</h2>");   
-    	stuff_to_render.add("<h3>#route</h3>"); 
-    	stuff_to_render.add("<h3>#route #MLG #yoloswag ( ͡° ͜ʖ ͡°)</h3>");
-    	stuff_to_render.add("<img src=\"/assets/images/5f0.png\" alt=\"sweaty face\">");
-    	return ok(layout.render("A message was recorded: " + str, stuff_to_render));
+    public static Result show404(String get_value) {
+    	java.util.ArrayList<String> four = new java.util.ArrayList<String>();
+    	four.add(notFoundErrorPage.render(get_value).toString());
+    	return notFound(layout.render("404", four));
     }
 
 
