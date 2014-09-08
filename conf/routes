@@ -25,7 +25,7 @@ GET        /info/:name             controllers.About.personInfo(name)
 
 # Random number generator
 GET        /random                 controllers.RandomInt.randomPage()
-POST       /newRandom              controllers.RandomInt.newRandom()
+POST       /random                 controllers.RandomInt.newRandom()
 
 
 # Map static resources from the /public folder to the /assets URL path
