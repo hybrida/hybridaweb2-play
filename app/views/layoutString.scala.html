@@ -1,8 +1,8 @@
-@(title: String, content: Html)
+@(title: String, content: String)
 
 @main(title) {
 
 	@layoutTop()
-	@content
+	@Html(content)
 	@layoutBottom()
 }
