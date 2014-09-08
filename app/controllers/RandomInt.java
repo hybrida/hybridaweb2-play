@@ -3,7 +3,7 @@ package controllers;
 import models.RandomForm;
 import play.data.Form;
 import play.mvc.*;
-import views.html.randomview;
+import views.html.*;
 
 import java.util.Random;
 
