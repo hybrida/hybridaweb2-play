@@ -24,8 +24,7 @@ public class ExampleCookies extends Controller {
 	public final static String counter_cookie_key = "cookie_count";
 
 	public static Result index() {
-		CookieForm form = new CookieForm();
-		return ok(layoutString.render("hybrida", exampleCookies.render(form, "You have " + getCookieCount() + " cookies. You can create or clear cookies here.")));
+		return ok(layoutString.render("hybrida", exampleCookies.render("You have " + getCookieCount() + " cookies. You can create or clear cookies here.")));
 	}
 
 	public static void createCookie(String key) {
@@ -42,7 +41,7 @@ public class ExampleCookies extends Controller {
 
 	public static Result clearAllCookies() {
 		session().clear();
-		return ok("The cookies got cleared!");
+		return ok(layoutString.render("hybrida", exampleCookies.render("You have " + getCookieCount() + " cookies. You can create or clear cookies here.")));
 	}
 
 	public static void storeCookie(String key, String value) {
@@ -72,7 +71,7 @@ public class ExampleCookies extends Controller {
 
         if (input.hasErrors()) {
             CookieForm form = new CookieForm();
-            return ok(exampleCookies.render(form, "The input has some errors, please retry"));
+            return ok(exampleCookies.render("The input has some errors, please retry"));
         } else {
 
             CookieForm saved = input.get();
@@ -84,7 +83,7 @@ public class ExampleCookies extends Controller {
             }
 
             storeCookie(key, value);
-            return ok(layoutString.render("hybrida", exampleCookies.render(input.get(), "The cookie came in succesfully. You now have " + getCookieCount() + " cookies.")));
+            return ok(layoutString.render("hybrida", exampleCookies.render("The cookie came in succesfully. You now have " + getCookieCount() + " cookies.")));
         }
     }
 

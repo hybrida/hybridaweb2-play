@@ -1,9 +1,9 @@
-@(saved: CookieForm, message: String)
+@(message: String)
 
 <div class="content">
 @helper.form(action = routes.ExampleCookies.updateCookie()){
-    <input type="text" name="key" value="@saved.key" required="true"> <strong>Key (required)</strong> <br/>
-    <input type="text" name="value" value="@saved.value" required="false"> <strong>Value</strong> <br/>
+    <input type="text" name="key" required="true"> <strong>Key (required)</strong> <br/>
+    <input type="text" name="value" required="false"> <strong>Value</strong> <br/>
     <input type="submit" value="Create">
 }
 @helper.form(action = routes.ExampleCookies.clearAllCookies()) {
