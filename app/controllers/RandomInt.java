@@ -17,7 +17,7 @@ public class RandomInt extends Controller{
     public static Result randomPage(){
         RandomForm created = new RandomForm();
         created.numberTo = 1;
-        return ok(randomview.render("",created));
+        return ok(layoutString.render("random",randomview.render("",created).toString()));
     }
 
     public static Result newRandom(){
@@ -27,16 +27,16 @@ public class RandomInt extends Controller{
         if(input.hasErrors()){
             RandomForm created = new RandomForm();
             created.numberTo = 1;
-            return ok(randomview.render("",created));
+            return ok(layoutString.render("",randomview.render("",created).toString()));
         }else {
             RandomForm saved = input.get();
             int numberFrom = input.get().numberFrom;
             int numberTo = input.get().numberTo;
             if (numberFrom < numberTo) {
                 int generated = rand.nextInt((numberTo - numberFrom) + 1) + numberFrom;
-                return ok(randomview.render(generated + " er tilfeldig nok for meg", saved));
+                return ok(layoutString.render("",randomview.render(generated + " er tilfeldig nok for meg", saved).toString()));
             } else {
-                return ok(randomview.render(numberTo + " er ikke større enn " + numberFrom, saved));
+                return ok(layoutString.render("",randomview.render(numberTo + " er ikke større enn " + numberFrom, saved).toString()));
             }
         }
     }
