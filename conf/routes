@@ -36,6 +36,7 @@ GET         /ClearCookies           controllers.ExampleCookies.clearAllCookies()
 GET         /search                 controllers.Search.index()
 
 GET         /ExampleDatabase        controllers.ExampleDatabase.index()
+GET         /ExampleFeide           controllers.ExampleFeide.index()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file           controllers.Assets.at(path="/public", file)
