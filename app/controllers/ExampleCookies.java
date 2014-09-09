@@ -23,8 +23,21 @@ public class ExampleCookies extends Controller {
 	
 	public final static String counter_cookie_key = "cookie_count";
 
+    public static String getSortedCookies() {
+        String x = "<br><br> Here is a list of all cookies: <br>";
+        java.util.Set<String> keys = session().keySet();
+        java.util.Iterator<String> i = keys.iterator();
+        for (; i.hasNext();) {
+            String u = i.next();
+            x += u;
+            x += " -> ";
+            x += session(u) + "<br>";
+        }
+        return x;
+    }
+
 	public static Result index() {
-		return ok(layoutHtml.render("hybrida", exampleCookies.render("You have " + getCookieCount() + " cookies. You can create or clear cookies here.")));
+		return ok(layoutHtml.render("hybrida", exampleCookies.render(play.twirl.api.Html.apply("You have " + getCookieCount() + " cookies. You can create or clear cookies here." + getSortedCookies()))));
 	}
 
 	public static void createCookie(String key) {
@@ -41,7 +54,7 @@ public class ExampleCookies extends Controller {
 
 	public static Result clearAllCookies() {
 		session().clear();
-		return ok(layoutHtml.render("hybrida", exampleCookies.render("You have " + getCookieCount() + " cookies. You can create or clear cookies here.")));
+		return ok(layoutHtml.render("hybrida", exampleCookies.render(play.twirl.api.Html.apply("You have " + getCookieCount() + " cookies. You can create or clear cookies here." + getSortedCookies()))));
 	}
 
 	public static void storeCookie(String key, String value) {
@@ -71,7 +84,7 @@ public class ExampleCookies extends Controller {
 
         if (input.hasErrors()) {
             CookieForm form = new CookieForm();
-            return ok(exampleCookies.render("The input has some errors, please retry"));
+            return ok(layoutHtml.render("hybrida", exampleCookies.render(play.twirl.api.Html.apply("The input has some errors, please retry" + getSortedCookies()))));
         } else {
 
             CookieForm saved = input.get();
@@ -83,7 +96,7 @@ public class ExampleCookies extends Controller {
             }
 
             storeCookie(key, value);
-            return ok(layoutHtml.render("hybrida", exampleCookies.render("The cookie came in succesfully. You now have " + getCookieCount() + " cookies.")));
+            return ok(layoutHtml.render("hybrida", exampleCookies.render(play.twirl.api.Html.apply("The cookie came in succesfully. You now have " + getCookieCount() + " cookies." + getSortedCookies()))));
         }
     }
 

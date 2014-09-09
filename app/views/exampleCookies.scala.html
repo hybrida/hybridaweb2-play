@@ -1,6 +1,5 @@
-@(message: String)
+@(message: Html)
 
-<div class="content">
 <form action="/UpdateCookies" method="GET">
     <input type="text" name="key" required="true"> <strong>Key (required)</strong> <br/>
     <input type="text" name="value" required="false"> <strong>Value</strong> <br/>
@@ -9,7 +8,4 @@
 <form action="/ClearCookies" method="POST">
 	<input type="submit" value="Clear">
 </form>
-</div>
-<div class="content">
-    <p style="color: white">@message<p/>
-</div>
+<p style="color: white">@message<p/>
