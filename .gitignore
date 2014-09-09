@@ -1,5 +1,7 @@
 # Ignore Intellij
-/.idea/
+.idea/
+*.iml
+*.iws
 
 # Ignore Play! working directory #
 bin/

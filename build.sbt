@@ -10,5 +10,10 @@ libraryDependencies ++= Seq(
   javaJdbc,
   javaEbean,
   cache,
-  javaWs
+  javaWs,
+  javaJpa
 )
+
+libraryDependencies += "org.hibernate" % "hibernate-entitymanager" % "3.6.9.Final" // replace by your jpa implementation
+
+libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.18"

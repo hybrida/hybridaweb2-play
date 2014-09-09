@@ -28,24 +28,37 @@ public class About extends Controller {
             return "Teodor er en fyr som studerer på NTNU";
         } else if (name.equals("simen")) {
             return "Simen er den eneste i Norge som heter Simen Norderud Jensen";
-        }else if (name.equals("tormod")) {
+        } else if (name.equals("tormod")) {
             return "Tormod har mange bokser med smoothie";
         } else if (name.equals("henrik")) {
-            return "Henrik er selverklært norgesmester i LoL, henrik is a pretty cool guy, eh loves may mays and doesn't afraid of anything";
+            return "<h1>Henrik er selverklært norgesmester i LoL, henrik is a pretty cool guy, eh loves may mays and doesn't afraid of anything</h1>";
         } else if (name.equals("kevin")) {
-            return "<h1>Kevin er 1337 nosc0per som pwner på NTNU</h1><p style=\"font-size:300px;\">#RECT</p>";
+            return "<link href='http://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>"
+            +"<h1>Kevin er 1337 MLG nosc0per som pwner på NTNU</h1>"
+            +"<div style=\"-webkit-transform:rotate(-15deg);-moz-transform:rotate(-15deg);-o-transform:rotate(-15deg);"
+            +"-ms-transform:rotate(-15deg);transform:rotate(-15deg);position:fixed;top:-80px;left:10px;\">"
+            +"<p style=\"font: 200px 'Rock Salt', cursive; color: #FFF;\">"
+            +"<img src=\"/assets/images/k.jpg\" style=\"margin:30px;border-radius:10px;\" alt=\"kevin\">#SHREKT</p>";
         } else if (name.equals("elias")) {
             return "Elias er en kjernekar! Han skal progge hybrida-app!";
+<<<<<<< HEAD
         } else if (name.equals("oystein")){
             return "<h1>Øystein er en trivelig type, født og oppvokst i strengkassa på et piano \n" +
                     "for øyeblikket spiller han i Hybridas eget stolte linjeband</h1> <p style=\"font-size:150px;\">STåPeLS!!</p>";
+=======
+        } else if (name.equals("oystein")) {
+            return "Øystein er en trivelig type, født og oppvokst i strengkassa på et piano \n" +
+                    "for øyeblikket spiller han i Hybridas eget stolte linjeband, Ståpels";
+>>>>>>> e9826f56bbb86d0e7462b8fa1690011facb85504
         } else if (name.equals("sindre")) {
             return "Sindre har en grønn klokke";
-        }else if (name.equals("ivar")){
-            return "Ivar er en magisk magiker som spiler magic, han bruker masse penger på pappbiter! <img src=\"/assets/images/ivar.jpg\" alt=\"ivar\">";
+        } else if (name.equals("ivar")) {
+            return "Ivar er en magisk magiker som spiller magic, han bruker masse penger på pappbiter! <img src=\"/assets/images/ivar.jpg\" alt=\"ivar\">";
+        } else if (name.equals("kia")) {
+            return "Kiakiakiakiakiakiakiakiakiakiakiakiakiakaikia";
         }
 
 
-        return "Dust, " + name + "går ikke på Hybrida!";
+        return "Dust, " + name + "  går ikke på Hybrida!";
     }
 }

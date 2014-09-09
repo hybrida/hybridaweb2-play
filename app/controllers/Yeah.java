@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Yeah extends Controller {
     public static Result index() {
         ArrayList<String> content = new ArrayList<>();
-        content.add("Yeah buddy");
+        content.add("<iframe width=\"420\" height=\"315\" src=\"//www.youtube.com/embed/mznsEcZlM2I?rel=0&autoplay=1\" frameborder=\"0\" allowfullscreen></iframe>");
         return ok(layout.render("Hehehe", content));
     }
 }
