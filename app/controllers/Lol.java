@@ -40,7 +40,7 @@ public class Lol extends Controller{
                 content.add(savedNames.get(i));
             }
 
-            return ok(layoutHtml.render("Hybrida MLG proffesional LoL team: ", lolContent.render()));
+            return ok(layoutHtml.render("Hybrida MLG proffesional LoL team: ", lolContent.render(content)));
         }
 
     public static Html toHtml(ArrayList<String> list){
