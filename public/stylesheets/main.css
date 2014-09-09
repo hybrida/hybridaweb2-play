@@ -15,17 +15,17 @@ a img {
 
 .wrap {
   width: 100%;
-  margin: 0 auto;
+  margin: 0;
 }
 
 .head img {
   float: left;
-  border: 0;
+  border: 0 auto;
 }
 
 .banner {
   margin-bottom: 0.5%;
-  margin-left: 0.5%;
+  margin-left: 0.0%;
 }
 
 .search {
@@ -40,6 +40,10 @@ a img {
   list-style-type: none;
   padding-right: 0px;
   color: white;
+}
+
+.navigation_pane ul {
+    padding-left: 1em;
 }
 
 #footer {
