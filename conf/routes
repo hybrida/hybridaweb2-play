@@ -2,24 +2,25 @@
 # This file defines all application routes (Higher priority routes first)
 
 # Standard layout accessible pages
-GET         /                       controllers.Application.index()
-GET         /kalender               controllers.Calender.index()
+GET 		/                       controllers.Application.index()
+GET			/kalender				controllers.Calender.index()
 
 
-GET         /about                  controllers.About.index()
-GET         /yeah                   controllers.Yeah.index()
+GET        /about                  controllers.About.index()
+GET        /yeah                   controllers.Yeah.index()
 
 # Info til introkurs
-GET         /info/:name             controllers.About.personInfo(name)
+GET        /info/:name             controllers.About.personInfo(name)
 
 # Heftig blæstiside
+GET        /gitgud                 controllers.GitGud.shrek()
 
-GET         /oystein/:number        controllers.Oystein.someCode(number)
+GET        /oystein/:number        controllers.Oystein.someCode(number)
 
 
-GET         /lol/:name              controllers.Lol.index(name)
-GET         /lol                    controllers.Lol.noindex()
-GET         /indok                  controllers.Indok.facepalm()
+GET        /lol/:name              controllers.Lol.index(name)
+GET        /lol                    controllers.Lol.noindex()
+GET        /indok                  controllers.Indok.facepalm()                 
 # Info til introkurs
 GET         /info/:name             controllers.About.personInfo(name)
 
@@ -37,9 +38,10 @@ GET         /search                 controllers.Search.index()
 
 GET         /ExampleDatabase        controllers.ExampleDatabase.index()
 GET         /ExampleFeide           controllers.ExampleFeide.index()
+GET        /info/:name             controllers.About.personInfo(name)
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file           controllers.Assets.at(path="/public", file)
+GET        /assets/*file           controllers.Assets.at(path="/public", file)
 
 # Show some page describing the URL if all else fails
-GET         /$anything<.*>          controllers.Application.show404(anything: String)
+GET        /$anything<.*>                   controllers.Application.show404(anything: String)
