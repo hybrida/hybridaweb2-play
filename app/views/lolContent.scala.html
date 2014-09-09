@@ -1,14 +1,12 @@
 
-@(content: List[String])
+@(content: Html)
 
 <img src="/assets/images/mlg.jpg" alt="rect"/>
     <p><h1><b>Hybrida professional MLG diamond league Lol team:</b></h1></p>
     <h2>
         <p><a href="http://euw.leagueoflegends.com/en " target="_blank"> Visit LoL </a></p>
         <p><h2>Dj Syndeflood</h2> </p>
-        @for(c <- content) {
-            @Html(c)
-        }
+        @content
     </h2>
 
 

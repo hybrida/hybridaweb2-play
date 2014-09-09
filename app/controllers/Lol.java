@@ -18,37 +18,22 @@ import java.util.ArrayList;
  */
 public class Lol extends Controller{
 
-    public static ArrayList<String> savedNames = new ArrayList<String>();
-
-    public static Result index(String name){
+    public static Result index(String name) throws SQLException{
         ArrayList<String> content = new ArrayList<String>();
         if (name != null){
-            savedNames.add("<p><h2>"+name+"</h2></p>");
+            setNameData(name);
         }
-        for (int i = 0; i < savedNames.size(); i++ ){
-            content.add(savedNames.get(i));
-        }
-
-
-
-
-        return ok(layoutHtml.render("Hybrida MLG proffesional LoL team: ", lolContent.render(content)));
+        content.add(getNameData());
+        return ok(layoutHtml.render("Hybrida MLG professional LoL team: ", lolContent.render(toHtml(getNameData()))));
     }
-        public static Result noindex(){
+        public static Result noindex() throws SQLException{
             ArrayList<String> content = new ArrayList<String>();
-            for (int i = 0; i < savedNames.size(); i++ ){
-                content.add(savedNames.get(i));
-            }
+            content.add(getNameData());
 
-            return ok(layoutHtml.render("Hybrida MLG proffesional LoL team: ", lolContent.render(content)));
+            return ok(layoutHtml.render("Hybrida MLG professional LoL team: ", lolContent.render(toHtml(getNameData()))));
         }
 
-    public static Html toHtml(ArrayList<String> list){
-
-        String string = "";
-        for (int i = 0; i < list.size(); i++){
-            string += list.get(i);
-        }
+    public static Html toHtml(String string){
         return play.twirl.api.Html.apply(string);
     }
 
@@ -70,13 +55,19 @@ public class Lol extends Controller{
        return lolNames;
     }
 
-    /*public static Void setNameData(String name) throws SQLException{
+    public static void setNameData(String name) throws SQLException{
         javax.sql.DataSource ds = DB.getDataSource();
         java.sql.Connection connection = ds.getConnection("sa", "");
         java.sql.Statement statement = connection.createStatement();
 
-        ResultSet
-    }*/
+        ResultSet result = statement.executeQuery("SELECT COUNT(*) FROM names");
+        result.absolute(1);
+        int length = result.getInt(1);
+        int val = length + 1;
+
+        statement.executeUpdate("INSERT INTO names VALUES('" + val + "','" + name + "')");
+                //VALUES('" + name + "')");
+    }
 
 }
 
