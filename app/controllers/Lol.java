@@ -5,7 +5,12 @@ import play.mvc.Result;
 import play.twirl.api.Html;
 import views.html.layoutHtml;
 import views.html.lolContent;
+import java.sql.*;
+import play.db.*;
+import play.mvc.*;
 
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -45,6 +50,17 @@ public class Lol extends Controller{
             string += list.get(i);
         }
         return play.twirl.api.Html.apply(string);
+    }
+
+    public static ArrayList<String> getNameData() throws SQLException{
+        javax.sql.DataSource ds = DB.getDataSource();
+        java.sql.Connection connection = ds.getConnection("sa", "");
+        java.sql.Statement statement = connection.createStatement();
+
+        ResultSet result = statement.executeQuery("SELECT * FROM names");
+
+
+       }
     }
 
 }
