@@ -41,9 +41,9 @@ public class About extends Controller {
             +"<img src=\"/assets/images/k.jpg\" style=\"margin:30px;border-radius:10px;\" alt=\"kevin\">#SHREKT</p>";
         } else if (name.equals("elias")) {
             return "Elias er en kjernekar! Han skal progge hybrida-app!";
-        } else if (name.equals("oystein")) {
-            return "Øystein er en trivelig type, født og oppvokst i strengkassa på et piano \n" +
-                    "for øyeblikket spiller han i Hybridas eget stolte linjeband, Ståpels";
+        } else if (name.equals("oystein")){
+            return "<h1>Øystein er en trivelig type, født og oppvokst i strengkassa på et piano \n" +
+                    "for øyeblikket spiller han i Hybridas eget stolte linjeband</h1> <p style=\"font-size:150px;\">STåPeLS!!</p>";
         } else if (name.equals("sindre")) {
             return "Sindre har en grønn klokke";
         } else if (name.equals("ivar")) {
