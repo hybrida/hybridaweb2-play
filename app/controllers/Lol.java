@@ -16,14 +16,16 @@ public class Lol extends Controller{
     public static ArrayList<String> savedNames = new ArrayList<String>();
 
     public static Result index(String name){
+        ArrayList<String> content = new ArrayList<String>();
+        if (name != null){
+            savedNames.add("<p><h2>"+name+"</h2></p>");
+        }
         for (int i = 0; i < savedNames.size(); i++ ){
             content.add(savedNames.get(i));
         }
-        if (name != null){
-            content.add(name + "<p>");
-            savedNames.add(name + "<p>");
 
-        }
+
+
 
         return ok(layoutHtml.render("Hybrida MLG proffesional LoL team: ", lolContent.render(content)));
     }
