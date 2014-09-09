@@ -14,10 +14,6 @@ public class Application extends Controller {
 	final static play.data.Form<SearchForm> userForm = play.data.Form.form(SearchForm.class);
 
     public static Result index() throws java.sql.SQLException {
-<<<<<<< HEAD
-		java.util.ArrayList<String> names = new java.util.ArrayList<String>();    	
-		return ok(layout.render("HybridaAAaAaAAAaaa", names));
-=======
     	java.util.ArrayList<String> names = new java.util.ArrayList<String>();    	
 
     	String x = session("visited");
@@ -42,7 +38,6 @@ public class Application extends Controller {
     	if (x.term != null)
     		return ok(x.term);
     	return badRequest("Whut");
->>>>>>> e9826f56bbb86d0e7462b8fa1690011facb85504
     }
 
     public static Result show404(String get_value) {
