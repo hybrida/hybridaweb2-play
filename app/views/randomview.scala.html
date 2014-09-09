@@ -3,11 +3,15 @@
 
 @main("RandomInt"){
     <div style="width:200px;margin:0 auto;">
-    @helper.form(action = routes.RandomInt.newRandom()){
+    <!--
+    scala helper form
+    (alfakrøll)helper.form(action = routes.RandomInt.newRandom()){ (inputgreiene)  }
+    -->
+    <form action="/random" method="POST">
         <input type="number" name="numberFrom" value="@saved.numberFrom" required="true"><br/>
         <input type="number" name="numberTo" value="@saved.numberTo" required="true"> <br/>
         <input type="submit" value="generer">
-    }
+    </form>
         <p>@generated<p/>
     </div>
 }
