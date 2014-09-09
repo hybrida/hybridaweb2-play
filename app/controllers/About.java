@@ -33,7 +33,12 @@ public class About extends Controller {
         } else if (name.equals("henrik")) {
             return "<h1>Henrik er selverklært norgesmester i LoL, henrik is a pretty cool guy, eh loves may mays and doesn't afraid of anything</h1>";
         } else if (name.equals("kevin")) {
-            return "<h1>Kevin er 1337 MLG nosc0per som pwner på NTNU</h1><p style=\"font-size:300px;\">#SHREKT</p>";
+            return "<link href='http://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>"
+            +"<h1>Kevin er 1337 MLG nosc0per som pwner på NTNU</h1>"
+            +"<div style=\"-webkit-transform:rotate(-15deg);-moz-transform:rotate(-15deg);-o-transform:rotate(-15deg);"
+            +"-ms-transform:rotate(-15deg);transform:rotate(-15deg);position:fixed;top:-80px;left:10px;\">"
+            +"<p style=\"font: 200px 'Rock Salt', cursive; color: #FFF;\">"
+            +"<img src=\"/assets/images/k.jpg\" style=\"margin:30px;border-radius:10px;\" alt=\"kevin\">#SHREKT</p>";
         } else if (name.equals("elias")) {
             return "Elias er en kjernekar! Han skal progge hybrida-app!";
         } else if (name.equals("oystein")) {
