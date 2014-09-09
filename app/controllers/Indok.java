@@ -13,13 +13,6 @@ import java.util.ArrayList;
  */
 
 public class Indok extends Controller {
-    public static Result index() {
-        String info = "";
-        for (Company c : Company.all())
-            info += c.toString() + "\n";
-
-        return ok(showsimple.render("This page is about Hybrida. Company listing: " + info));
-    }
 
 
     public static Result facepalm(){
