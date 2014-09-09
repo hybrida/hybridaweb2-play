@@ -6,7 +6,9 @@
     <h2>
         <p><a href="http://euw.leagueoflegends.com/en " target="_blank"> Visit LoL </a></p>
         <p><h2>Dj Syndeflood</h2> </p>
-        @content
+        @for(c <- content) {
+            @Html(c)
+        }
     </h2>
 
 
