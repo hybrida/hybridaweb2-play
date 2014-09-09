@@ -13,8 +13,9 @@ public class Lol extends Controller{
     public static Result index(String name){
         ArrayList<String> content = new ArrayList<>();
         content.add("<img src=\"/assets/images/mlg.jpg\" alt=\"rect\">");
-        content.add("<h1> <b> Hybrida proffesional MLG diamond league Lol team: <h2> <b> <p> <p>");
-        content.add("Dj Syndeflood <p>");
+        content.add("<h1><b>Hybrida proffesional MLG diamond league Lol team:</h1><b/><p>");
+        content.add("<h2>Dj Syndeflood</h2> <p>");
+        content.add("<h2>");
         if (name != null){
             content.add(name + "<p>");
 
