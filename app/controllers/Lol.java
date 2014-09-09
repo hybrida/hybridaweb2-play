@@ -52,16 +52,31 @@ public class Lol extends Controller{
         return play.twirl.api.Html.apply(string);
     }
 
-    public static ArrayList<String> getNameData() throws SQLException{
+    public static String getNameData() throws SQLException{
         javax.sql.DataSource ds = DB.getDataSource();
         java.sql.Connection connection = ds.getConnection("sa", "");
         java.sql.Statement statement = connection.createStatement();
 
-        ResultSet result = statement.executeQuery("SELECT * FROM names");
+        ResultSet result = statement.executeQuery("SELECT COUNT(*) FROM names");
+        result.absolute(1);
+        int length = result.getInt(1);
+        result = statement.executeQuery("SELECT * FROM names");
+        String lolNames = "";
+        for (int i = 1; i <= length; ++i) {
+            result.absolute(i);
+            lolNames += "<p><h1>" + result.getString(2) + "</h1></p>";
+        }
 
-
-       }
+       return lolNames;
     }
+
+    /*public static Void setNameData(String name) throws SQLException{
+        javax.sql.DataSource ds = DB.getDataSource();
+        java.sql.Connection connection = ds.getConnection("sa", "");
+        java.sql.Statement statement = connection.createStatement();
+
+        ResultSet
+    }*/
 
 }
 
