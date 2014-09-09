@@ -51,6 +51,6 @@ public class Indok extends Controller {
 
         ArrayList<String> content = new ArrayList<>();
         content.add(str);
-        return ok(layout.render("mehmehmehmehmeh", content));
+        return ok(layout.render("INDØK ER HOMOOOOOOOOOO", content));
         }
         }
