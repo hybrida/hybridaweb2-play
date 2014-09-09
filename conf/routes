@@ -34,6 +34,9 @@ GET         /UpdateCookies          controllers.ExampleCookies.updateCookie()
 POST        /ClearCookies           controllers.ExampleCookies.clearAllCookies()
 GET         /ClearCookies           controllers.ExampleCookies.clearAllCookies()
 
+GET         /GoThere                controllers.Loop.goThere()
+GET 		/GoBack					controllers.Loop.goBack()
+
 GET         /search                 controllers.Search.index()
 
 GET         /ExampleDatabase        controllers.ExampleDatabase.index()
