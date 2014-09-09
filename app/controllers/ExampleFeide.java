@@ -3,9 +3,6 @@ package controllers;
 import play.mvc.Controller;
 import views.html.*;
 import play.mvc.Result;
-import no.ntnu.it.fw.saml2api.http.*;
-
-import javax.servlet.ServletException;
 
 public class ExampleFeide extends Controller {
 
