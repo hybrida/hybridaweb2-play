@@ -35,10 +35,7 @@ public class Lol extends Controller{
         return ok(layoutHtml.render("Hybrida MLG proffesional LoL team: ", toHtml(content)));
     }
         public static Result noindex(){
-            ArrayList<String> content = new ArrayList<>();
-            content.add("<img src=\"/assets/images/mlg.jpg\" alt=\"rect\">");
-            content.add("<h1> Hybrida professional MLG diamond league Lol team:<h1> <p> <p>");
-            content.add("Dj Syndeflood <p>");
+            ArrayList<String> content = new ArrayList<String>();
             for (int i = 0; i < savedNames.size(); i++ ){
                 content.add(savedNames.get(i));
             }
