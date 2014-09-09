@@ -8,6 +8,7 @@ import play.db.*;
 public class ExampleDatabase extends Controller {
 
     public static Result index() throws SQLException {
+
         javax.sql.DataSource ds = DB.getDataSource();
         java.sql.Connection connection = ds.getConnection("sa", "");
         java.sql.Statement statement = connection.createStatement();

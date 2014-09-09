@@ -11,9 +11,8 @@ libraryDependencies ++= Seq(
   javaEbean,
   cache,
   javaWs,
-  javaJpa
+  javaJpa,
+  "org.mindrot" % "jbcrypt" % "0.3m",
+  "org.hibernate" % "hibernate-entitymanager" % "3.6.9.Final",
+  "mysql" % "mysql-connector-java" % "5.1.18"
 )
-
-libraryDependencies += "org.hibernate" % "hibernate-entitymanager" % "3.6.9.Final" // replace by your jpa implementation
-
-libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.18"

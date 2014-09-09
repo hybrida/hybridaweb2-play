@@ -5,7 +5,6 @@ import play.mvc.*;
 import views.html.*;
 
 import models.*;
-
 import play.db.*;
 
 
@@ -17,19 +16,16 @@ public class Application extends Controller {
     	java.util.ArrayList<String> names = new java.util.ArrayList<String>();    	
 
     	String x = session("visited");
-    	if (x == null)
-    	{
+    	if (x == null) {
     		session("visited", "0");
     	}
-		else
-		{
+		else {
 			session("visited", Integer.toString(Integer.valueOf(x) + 1));
 			if (Integer.parseInt(x) > 10)
 				names.add("You're a true hybrid");
     	}
 
         return ok(layoutHtml.render("Hybrida", escapeText.render("<h1> derp </h1>")));
-    	//return ok(Application.renderMainLayout("Hybrida", names));
     }
 
     public static Result processForm() {
