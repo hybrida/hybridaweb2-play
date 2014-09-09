@@ -16,13 +16,6 @@ public class Lol extends Controller{
     public static ArrayList<String> savedNames = new ArrayList<String>();
 
     public static Result index(String name){
-        ArrayList<String> content = new ArrayList<>();
-        content.add("<img src=\"/assets/images/mlg.jpg\" alt=\"rect\">");
-        content.add("<p>");
-        content.add("<h1><b>Hybrida professional MLG diamond league Lol team:</h1><b/><p>");
-        content.add("<a href=\"http://euw.leagueoflegends.com/en \" target=\"_blank\"> Visit LoL </a>");
-        content.add("<h2>Dj Syndeflood</h2> <p>");
-        content.add("<h2>");
         for (int i = 0; i < savedNames.size(); i++ ){
             content.add(savedNames.get(i));
         }
@@ -32,7 +25,7 @@ public class Lol extends Controller{
 
         }
 
-        return ok(layoutHtml.render("Hybrida MLG proffesional LoL team: ", toHtml(content)));
+        return ok(layoutHtml.render("Hybrida MLG proffesional LoL team: ", lolContent.render(content)));
     }
         public static Result noindex(){
             ArrayList<String> content = new ArrayList<String>();
