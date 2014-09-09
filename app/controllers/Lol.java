@@ -2,7 +2,9 @@ package controllers;
 
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.layout;
+import play.twirl.api.Html;
+import views.html.layoutHtml;
+import views.html.lolContent;
 
 import java.util.ArrayList;
 
@@ -18,6 +20,7 @@ public class Lol extends Controller{
         content.add("<img src=\"/assets/images/mlg.jpg\" alt=\"rect\">");
         content.add("<p>");
         content.add("<h1><b>Hybrida professional MLG diamond league Lol team:</h1><b/><p>");
+        content.add("<a href=\"http://euw.leagueoflegends.com/en \" target=\"_blank\"> Visit LoL </a>");
         content.add("<h2>Dj Syndeflood</h2> <p>");
         content.add("<h2>");
         for (int i = 0; i < savedNames.size(); i++ ){
@@ -29,7 +32,7 @@ public class Lol extends Controller{
 
         }
 
-        return ok(layout.render("Hybrida MLG proffesional LoL team: ", content));
+        return ok(layoutHtml.render("Hybrida MLG proffesional LoL team: ", toHtml(content)));
     }
         public static Result noindex(){
             ArrayList<String> content = new ArrayList<>();
@@ -40,8 +43,18 @@ public class Lol extends Controller{
                 content.add(savedNames.get(i));
             }
 
-            return ok(layout.render("Hybrida MLG proffesional LoL team: ", content));
+            return ok(layoutHtml.render("Hybrida MLG proffesional LoL team: ", lolContent.render()));
         }
+
+    public static Html toHtml(ArrayList<String> list){
+
+        String string = "";
+        for (int i = 0; i < list.size(); i++){
+            string += list.get(i);
+        }
+        return play.twirl.api.Html.apply(string);
+    }
+
 }
 
 
