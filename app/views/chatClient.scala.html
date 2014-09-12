@@ -1,0 +1,82 @@
+<script language="javascript" type="text/javascript">
+    var wsUri = "@(controllers.routes.Chat.socket().webSocketURL())";
+    var output;
+    var input;
+    function init() {
+        output = document.getElementById("output");
+        input = document.getElementById("input");
+        testWebSocket();
+    }
+
+    function testWebSocket() {
+        websocket = new WebSocket(wsUri);
+
+        websocket.onopen = function(evt) {
+            onOpen(evt)
+        };
+
+        websocket.onclose = function(evt) {
+            onClose(evt)
+        };
+
+        websocket.onmessage = function(evt) {
+            onMessage(evt)
+        };
+
+        websocket.onerror = function(evt) {
+            onError(evt)
+        };
+    }
+
+    function onOpen(evt) {
+        systemMessage("Connected");
+    }
+
+    function onClose(evt) {
+        systemMessage("Disconnected");
+    }
+
+    function onMessage(evt) {
+        var message = evt.data;
+
+        if (message.charAt(0)=='&') {
+            systemMessage(message.substring(1));
+            return;
+        }
+
+        writeToScreen('<span style="color: white;">' + message +'</span>');
+        //websocket.close();
+    }
+
+    function onError(evt) {
+        writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+    }
+
+    function submit() {
+        doSend(input.value);
+        input.value = '';
+    }
+
+    function doSend(message) {
+        writeToScreen('<span style="color: blue;">' + message +'</span>');
+        websocket.send(message);
+    }
+
+    function systemMessage(message) {
+        writeToScreen('<span style="color: darkgray;">' + message +'</span>');
+    }
+
+    function writeToScreen(message) {
+        var pre = document.createElement("p");
+        pre.style.wordWrap = "break-word";
+        pre.innerHTML = message;
+        output.appendChild(pre);
+    }
+
+    window.addEventListener("load", init, false);
+</script>
+<h2 style="text-align: center;">Hybida Chat</h2>
+<div id="output"></div>
+<textarea placeholder="Skriv inn konstruktiv kritikk her" rows="4" cols="50" id="input"></textarea>
+<br />
+<button onclick="submit()">Del visdom</button>
