@@ -23,7 +23,7 @@ public class ChatActor extends UntypedActor {
         this.out = out;
         clients.add(this);
         //this.name = "Anonymous";
-        tellAll("&A chatter connected");
+        tellAll("%A chatter connected");
     }
 
     private void tellAll(String message) {
@@ -34,12 +34,12 @@ public class ChatActor extends UntypedActor {
 
     public void postStop() throws Exception {
         clients.remove(this);
-        tellAll("&A chatter disconnected");
+        tellAll("%A chatter disconnected");
     }
 
     public void onReceive(Object message) throws Exception {
         if (message instanceof String) {
-            message = ((String) message).charAt(0)=='&' ? ((String) message).substring(1) : ((String) message);
+            message = ((String) message).replace('%','\0');
             tellAll((String) message);
         }
     }
