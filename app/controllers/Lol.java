@@ -30,7 +30,7 @@ public class Lol extends Controller{
             ArrayList<String> content = new ArrayList<String>();
             content.add(getNameData());
 
-            return ok(layoutHtml.render("Hybrida MLG professional LoL team: ", lolContent.render(toHtml(getNameData()))));
+            return ok(layoutHtml.render("Anakonda Buns ", lolContent.render(toHtml(getNameData()))));
         }
 
     public static Html toHtml(String string){
