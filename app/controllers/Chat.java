@@ -15,7 +15,7 @@ import views.html.layoutHtml;
 public class Chat extends Controller {
 
     public static Result connectClient(String name) {
-        return ok(layoutHtml.render(name, chatClient.render()));
+        return ok(layoutHtml.render(name, chatClient.render(name)));
     }
 
     public static WebSocket<String> socket() {

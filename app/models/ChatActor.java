@@ -18,12 +18,12 @@ public class ChatActor extends UntypedActor {
     }
 
     private final ActorRef out;
+    private String name = null;
 
     public ChatActor(ActorRef out) {
         this.out = out;
-        clients.add(this);
         //this.name = "Anonymous";
-        tellAll("%A chatter connected");
+        //tellAll("%A chatter connected");
     }
 
     private void tellAll(String message) {
@@ -34,13 +34,37 @@ public class ChatActor extends UntypedActor {
 
     public void postStop() throws Exception {
         clients.remove(this);
-        tellAll("%A chatter disconnected");
+        tellAll("%" + name + " disconnected");
     }
 
     public void onReceive(Object message) throws Exception {
         if (message instanceof String) {
-            message = ((String) message).replace('%','\0');
-            tellAll((String) message);
+            if (name == null) {
+                name = (String) message;
+                tellAll("%" + name + " connected");
+
+                String welcome_message = "%Welcome " + name + "!\n";
+                for (int i = 0; i < clients.size(); ++i) {
+                    ChatActor client = clients.get(i);
+                    if (client.equals(this)) continue;
+                    else if (i < clients.size()-2)
+                        welcome_message += client.name + ", ";
+                    else if (i < clients.size()-1)
+                        welcome_message += client.name + " and ";
+                    else
+                    if (clients.size()==1)
+                        welcome_message += client.name + " is currently online!";
+                    else
+                        welcome_message += client.name + " are currently online!";
+                }
+
+                clients.add(this);
+                out.tell(welcome_message, self());
+
+            } else {
+                message = ((String) message).replace('%', '\0');
+                tellAll(name + ": " + message);
+            }
         }
     }
 }

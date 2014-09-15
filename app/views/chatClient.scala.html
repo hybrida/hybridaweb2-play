@@ -1,7 +1,9 @@
+@(name: String)
 <script language="javascript" type="text/javascript">
     var wsUri = "@(controllers.routes.Chat.socket().webSocketURL())";
     var output;
     var input;
+    var websocket;
     function init() {
         output = document.getElementById("output");
         input = document.getElementById("input");
@@ -29,7 +31,8 @@
     }
 
     function onOpen(evt) {
-        systemMessage("Connected");
+        websocket.send("@name");
+        systemMessage("Connected as @name");
     }
 
     function onClose(evt) {
