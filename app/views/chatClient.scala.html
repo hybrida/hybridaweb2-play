@@ -7,10 +7,10 @@
     function init() {
         output = document.getElementById("output");
         input = document.getElementById("input");
-        testWebSocket();
+        WebSocket();
     }
 
-    function testWebSocket() {
+    function WebSocket() {
         websocket = new WebSocket(wsUri);
 
         websocket.onopen = function(evt) {
@@ -78,7 +78,7 @@
 
     window.addEventListener("load", init, false);
 </script>
-<h2 style="text-align: center;">Hybida Chat</h2>
+<h2 style="text-align: center;">Hybrida Chat</h2>
 <div id="output"></div>
 <textarea placeholder="Skriv inn konstruktiv kritikk her" rows="4" cols="50" id="input"></textarea>
 <br />
