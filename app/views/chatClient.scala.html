@@ -7,10 +7,10 @@
     function init() {
         output = document.getElementById("output");
         input = document.getElementById("input");
-        WebSocket();
+        connect();
     }
 
-    function WebSocket() {
+    function connect() {
         websocket = new WebSocket(wsUri);
 
         websocket.onopen = function(evt) {
