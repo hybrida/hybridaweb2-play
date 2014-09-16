@@ -58,7 +58,7 @@ public class Lol extends Controller{
         String lolNames = "";
         for (int i = 1; i <= length; ++i) {
             result.absolute(i);
-            lolNames += "<p><img src=\"/assets/images/favicon.ico\" alt=\"rect\"/><h1>" + result.getString(2) + "</h1></p>";
+            lolNames += "<p><h1><img src=\"/assets/images/favicon.ico\" alt=\"rect\"/>- " + result.getString(2) + "</h1></p>";
         }
 
        return lolNames;
