@@ -13,7 +13,7 @@ public class Application extends Controller {
 	final static play.data.Form<SearchForm> userForm = play.data.Form.form(SearchForm.class);
 
     public static Result index() throws java.sql.SQLException {
-    	java.util.ArrayList<String> names = new java.util.ArrayList<String>();    	
+    	java.util.ArrayList<String> names = new java.util.ArrayList<String>();
 
     	String x = session("visited");
     	if (x == null) {
@@ -25,7 +25,7 @@ public class Application extends Controller {
 				names.add("You're a true hybrid");
     	}
 
-        return ok(layoutHtml.render("Hybrida", escapeText.render("<h1> derp </h1>")));
+        return ok(layoutHtml.render("Hybrida", escapeText.render("Vælkømmen tell Hybrida! ")));
     }
 
     public static Result processForm() {
