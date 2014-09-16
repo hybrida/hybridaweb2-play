@@ -12,7 +12,7 @@ GET         /about                  controllers.About.index()
 
 
 
-GET         /article                controllers.Article.index()
+GET         /article                controllers.Articles.index()
 GET         /yeah                   controllers.Yeah.index()
 
 # Info til introkurs
