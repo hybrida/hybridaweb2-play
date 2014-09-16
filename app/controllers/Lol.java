@@ -1,5 +1,6 @@
 package controllers;
 
+import models.LolForm;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.twirl.api.Html;
@@ -8,6 +9,9 @@ import views.html.lolContent;
 import java.sql.*;
 import play.db.*;
 import play.mvc.*;
+import models.LolForm;
+import play.data.Form;
+import static play.data.Form.form;
 
 
 import java.sql.SQLException;
@@ -18,13 +22,18 @@ import java.util.ArrayList;
  */
 public class Lol extends Controller{
 
-    public static Result index(String name) throws SQLException{
-        ArrayList<String> content = new ArrayList<String>();
-        if (name != null){
+    final static Form<LolForm> lolForm = form(LolForm.class);
+
+    public static Result index() throws SQLException, IllegalStateException{
+        String name = new String();
+        Form<LolForm> input = lolForm.bindFromRequest();
+        if(input.hasErrors() == false) {
+            name = input.get().gamertag;
+        }
+        if (name != null) {
             setNameData(name);
         }
-        content.add(getNameData());
-        return ok(layoutHtml.render("Hybrida MLG professional LoL team: ", lolContent.render(toHtml(getNameData()))));
+        return noindex();
     }
         public static Result noindex() throws SQLException{
             ArrayList<String> content = new ArrayList<String>();
@@ -49,7 +58,7 @@ public class Lol extends Controller{
         String lolNames = "";
         for (int i = 1; i <= length; ++i) {
             result.absolute(i);
-            lolNames += "<p><h1>" + result.getString(2) + "</h1></p>";
+            lolNames += "<p><img src=\"/assets/images/favicon.ico\" alt=\"rect\"/><h1>" + result.getString(2) + "</h1></p>";
         }
 
        return lolNames;
@@ -67,6 +76,15 @@ public class Lol extends Controller{
 
         statement.executeUpdate("INSERT INTO names VALUES('" + val + "','" + name + "')");
                 //VALUES('" + name + "')");
+    }
+
+    public static Result clearNameData() throws SQLException{
+        javax.sql.DataSource ds = DB.getDataSource();
+        java.sql.Connection connection = ds.getConnection("sa", "");
+        java.sql.Statement statement = connection.createStatement();
+
+        statement.executeUpdate("DELETE FROM names");
+        return redirect(routes.Lol.noindex().absoluteURL(request()));
     }
 
 }
