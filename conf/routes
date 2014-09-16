@@ -7,6 +7,11 @@ GET         /kalender               controllers.Calender.index()
 
 
 GET         /about                  controllers.About.index()
+
+
+
+
+GET         /article                controllers.Article.index()
 GET         /yeah                   controllers.Yeah.index()
 
 # Info til introkurs
@@ -38,7 +43,7 @@ GET         /ChatServer             controllers.Chat.socket()
 GET         /search                 controllers.Search.index()
 
 GET         /ExampleDatabase        controllers.ExampleDatabase.index()
-GET         /ExampleSSO           controllers.ExampleSSO.index()
+GET         /ExampleSSO             controllers.ExampleSSO.index()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file           controllers.Assets.at(path="/public", file)
