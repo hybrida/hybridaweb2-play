@@ -1,0 +1,85 @@
+@(name: String)
+<script language="javascript" type="text/javascript">
+    var wsUri = "@(controllers.routes.Chat.socket().webSocketURL())";
+    var output;
+    var input;
+    var websocket;
+    function init() {
+        output = document.getElementById("output");
+        input = document.getElementById("input");
+        connect();
+    }
+
+    function connect() {
+        websocket = new WebSocket(wsUri);
+
+        websocket.onopen = function(evt) {
+            onOpen(evt)
+        };
+
+        websocket.onclose = function(evt) {
+            onClose(evt)
+        };
+
+        websocket.onmessage = function(evt) {
+            onMessage(evt)
+        };
+
+        websocket.onerror = function(evt) {
+            onError(evt)
+        };
+    }
+
+    function onOpen(evt) {
+        websocket.send("@name");
+        systemMessage("Connected as @name");
+    }
+
+    function onClose(evt) {
+        systemMessage("Disconnected");
+    }
+
+    function onMessage(evt) {
+        var message = evt.data;
+
+        if (message.charAt(0)=='%') {
+            systemMessage(message.substring(1));
+            return;
+        }
+
+        writeToScreen('<span style="color: white;">' + message +'</span>');
+        //websocket.close();
+    }
+
+    function onError(evt) {
+        writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+    }
+
+    function submit() {
+        doSend(input.value.replace(/&/g,'&amp;' ).replace(/>/g,'&gt;' ).replace(/</g,'&lt;' ).replace(/"/g,'&quot;'));
+        input.value = '';
+    }
+
+    function doSend(message) {
+        writeToScreen('<span style="color: blue;">' + message +'</span>');
+        websocket.send(message);
+    }
+
+    function systemMessage(message) {
+        writeToScreen('<span style="color: darkgray;">' + message +'</span>');
+    }
+
+    function writeToScreen(message) {
+        var pre = document.createElement("p");
+        pre.style.wordWrap = "break-word";
+        pre.innerHTML = message;
+        output.appendChild(pre);
+    }
+
+    window.addEventListener("load", init, false);
+</script>
+<h2 style="text-align: center;">Hybrida Chat</h2>
+<div id="output"></div>
+<textarea placeholder="Skriv inn konstruktiv kritikk her" rows="4" cols="50" id="input"></textarea>
+<br />
+<button onclick="submit()">Del visdom</button>
