@@ -16,7 +16,7 @@ public class ExampleSSO extends Controller {
     }
 
     public static Result verify(String data, String sign64, String clientip) {
-        //String sign = javax.xml.bind.DatatypeConverter.printBase64Binary(sign64);
+        String sign = javax.xml.bind.DatatypeConverter.printBase64Binary(sign64.getBytes());
         return ok(data);
     }
 

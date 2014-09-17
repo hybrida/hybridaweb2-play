@@ -1,17 +1,10 @@
 package controllers;
 
-import org.apache.commons.collections.iterators.EntrySetMapIterator;
-import play.*;
-import play.data.DynamicForm;
 import play.mvc.*;
 import views.html.*;
 import play.data.Form;
 
 import models.*;
-
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 
 import static play.data.Form.form;
 
@@ -24,6 +17,7 @@ import static play.data.Form.form;
 	Cookies are accessed via the "session()" function.
 	This function is located in play.mvc.Http.Session.
 	The cookie is sent when you return a result (together with the rest of the page).
+	The client sends the cookie back to the server during each request.
 */
 public class ExampleCookies extends Controller {
 	
@@ -33,7 +27,7 @@ public class ExampleCookies extends Controller {
         String x = "<br><br> Here is a list of all cookies: <br>";
         java.util.Set<String> keys = session().keySet();
         java.util.Iterator<String> i = keys.iterator();
-        for (; i.hasNext();) {
+        while (i.hasNext()) {
             String u = i.next();
             x += u;
             x += " -> ";
