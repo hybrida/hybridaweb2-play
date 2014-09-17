@@ -1,8 +1,8 @@
 @(message: Html)
 
 <form action="/UpdateCookies" method="POST">
-    <input type="text" name="key" required="true"> <strong>Key (required)</strong> <br/>
-    <input type="text" name="value" required="false"> <strong>Value</strong> <br/>
+    <input type="text" name="key" required> <strong>Key (required)</strong> <br/>
+    <input type="text" name="value"> <strong>Value</strong> <br/>
     <input type="submit" value="Create" name="button">
 </form>
 <form action="/ClearCookies" method="POST">
