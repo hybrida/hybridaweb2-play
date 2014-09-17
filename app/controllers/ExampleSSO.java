@@ -24,8 +24,9 @@ public class ExampleSSO extends Controller {
         /*String to_route = routes.ExampleSSO.verify().absoluteURL(request());
         to_route = to_route.replaceFirst("^https?://", "");
         System.out.println(innsida_login_link + to_route + "," + "/info/henrik");
-        */
         return redirect("https://innsida.ntnu.no/sso/?target=hybridaweb&returnargs=");
+        */
+        return ok(layoutHtml.render("Hybrida", escapeText.render("")));
     }
 }
 
