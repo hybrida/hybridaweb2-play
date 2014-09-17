@@ -25,7 +25,7 @@ public class Application extends Controller {
 				names.add("You're a true hybrid");
     	}
 
-        return ok(layoutHtml.render("Hybrida", escapeText.render("Vælkømmen tell Hybrida! ")));
+        return ok(layoutHtml.render("Hybrida", escapeText.render("<p><h1>Vælkømmen tell Hybrida! </h1></p>")));
     }
 
     public static Result processForm() {
