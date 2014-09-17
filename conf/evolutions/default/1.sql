@@ -1,5 +1,5 @@
-# --- Created by Ebean DDL
-# To stop Ebean DDL generation, remove this comment and start using Evolutions
+--- Created by Ebean DDL
+To stop Ebean DDL generation, remove this comment and start using Evolutions
 
 # --- !Ups
 
@@ -20,6 +20,9 @@ create table user (
 create sequence company_seq;
 
 
+INSERT INTO company VALUES (1, "Hybrida #1!");
+INSERT INTO company VALUES (2, "NTNU #2!");
+INSERT INTO company VALUES (3, "En bedrift");
 
 
 # --- !Downs
