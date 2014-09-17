@@ -17,7 +17,7 @@ public class Oystein extends Controller{
         int num = Integer.parseInt(number);
         ArrayList<String> list = new ArrayList<String>();
         for (int i = 0; i<num; i++){
-            list.add("\nAntall pushups hittil: " + i);
+            list.add("<p><h1>Antall pushups hittil: " + i + "</h1></p>");
         }
 
         return ok(layout.render("Jassejass", list));

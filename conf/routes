@@ -7,6 +7,11 @@ GET         /kalender               controllers.Calender.index()
 
 
 GET         /about                  controllers.About.index()
+
+
+
+
+GET         /article                controllers.Article.index()
 GET         /yeah                   controllers.Yeah.index()
 
 # Info til introkurs
@@ -18,8 +23,9 @@ GET         /gitgud                 controllers.GitGud.shrek()
 GET         /oystein/:number        controllers.Oystein.someCode(number)
 
 
-GET         /lol/:name              controllers.Lol.index(name)
 GET         /lol                    controllers.Lol.noindex()
+GET         /lol/clear                    controllers.Lol.clearNameData()
+POST        /lol                    controllers.Lol.index()
 GET         /indok                  controllers.Indok.facepalm()
 
 # Random number generator
@@ -40,6 +46,7 @@ GET         /search                 controllers.Search.index()
 GET         /ExampleDatabase        controllers.ExampleDatabase.index()
 GET         /ExampleSSO             controllers.ExampleSSO.index()
 POST         /verify                 controllers.ExampleSSO.verify(data, sign64, clientip)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file           controllers.Assets.at(path="/public", file)
