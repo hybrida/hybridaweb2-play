@@ -1,0 +1,49 @@
+@(title: String, content: Html)
+@main(title) {
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+    $("document").ready(function($){
+        var nav = $('#navmenu');
+
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 125) {
+                nav.addClass("fixed");
+            } else {
+                nav.removeClass("fixed");
+            }
+        });
+    });
+    </script>
+    <div class="wrap">
+        <div class="head">
+            <div class="banner">
+                <a href="/">
+                    <img
+                    src="/assets/images/logo_head_2.png"
+                    alt=""
+                    />
+                </a>
+                <div class="search">
+                    <form action="/search" method="GET">
+                        <input type="text" name="term" id="searchField" placeholder="Søk"/>
+                    </form>
+                </div>
+            </div>
+            <div style="clear:both"></div>
+            <div id="navmenu">
+                <ul>
+                        <!--<img src="/assets/images/logo_head_2.png" alt="" /></li>-->
+                    <li><a href="/">Hjem</a></li>
+                    <li><a href="/kalender">Kalender</a></li>
+                    <li><a href="/Bedrift">Bedrift</a></li>
+                    <li><a href="/IKT-ringen">I&IKT-Ringen</a></li>
+                    <li><a href="/Om-Hybrida">Om Hybrida</a></li>
+                    <li id="logx-button"><a href="/site/login?page=%2F">Logg inn</a></li>
+                </ul>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+        <div class="content">
+            @content
+            @layoutBottom()
+}
