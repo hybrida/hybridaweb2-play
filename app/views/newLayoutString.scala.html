@@ -6,7 +6,7 @@
         var nav = $('#navmenu');
 
         $(window).scroll(function () {
-            if ($(this).scrollTop() > 125) {
+            if ($(this).scrollTop() > 150) {
                 nav.addClass("fixed");
             } else {
                 nav.removeClass("fixed");
@@ -45,5 +45,5 @@
         </div>
         <div class="content">
             @content
-            @layoutBottom()
+        @layoutBottom()
 }
