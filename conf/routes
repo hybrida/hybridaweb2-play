@@ -24,9 +24,11 @@ GET         /oystein/:number        controllers.Oystein.someCode(number)
 
 
 GET         /lol                    controllers.Lol.noindex()
-GET         /lol/clear              controllers.Lol.clearNameData()
+POST        /lol/clear              controllers.Lol.clearNameData()
 POST        /lol                    controllers.Lol.index()
 GET         /indok                  controllers.Indok.facepalm()
+GET         /feed                   controllers.Feed.index()
+POST        /feed                   controllers.Feed.save()
 
 # Random number generator
 GET         /random                 controllers.RandomInt.randomPage()

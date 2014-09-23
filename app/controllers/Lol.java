@@ -78,11 +78,11 @@ public class Lol extends Controller{
                 //VALUES('" + name + "')");
     }
 
-    public static Result clearNameData() throws SQLException{
+    public static Result clearNameData() throws SQLException {
         javax.sql.DataSource ds = DB.getDataSource();
         java.sql.Connection connection = ds.getConnection("sa", "");
         java.sql.Statement statement = connection.createStatement();
-
+        System.out.println("Outputfdsfds");
         statement.executeUpdate("DELETE FROM names");
         return redirect(routes.Lol.noindex().absoluteURL(request()));
     }
