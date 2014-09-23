@@ -13,17 +13,12 @@ public class Application extends Controller {
 	final static play.data.Form<SearchForm> userForm = play.data.Form.form(SearchForm.class);
 
     public static Result index() throws java.sql.SQLException {
-    	java.util.ArrayList<String> names = new java.util.ArrayList<String>();
 
-    	String x = session("visited");
-    	if (x == null) {
-    		session("visited", "0");
-    	}
-		else {
-			session("visited", Integer.toString(Integer.valueOf(x) + 1));
-			if (Integer.parseInt(x) > 10)
-				names.add("You're a true hybrid");
-    	}
+        String login = session("LOGGED IN COMPLETED");
+        login = play.api.libs.Crypto.decryptAES(login);
+        if (login != null) {
+            return ok(layoutHtml.render("Hybrida", escapeText.render("Welcome " + login)));
+        }
 
         return ok(layoutHtml.render("Hybrida", escapeText.render("<p><h1>Vælkømmen tell Hybrida! </h1></p>")));
     }

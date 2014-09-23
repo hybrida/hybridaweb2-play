@@ -35,10 +35,13 @@ public class ExampleSSO extends Controller {
         }
         String username = values.get("username");
 
+        String encrypted_username = play.api.libs.Crypto.encryptAES(username);
+
+        session("LOGGED IN COMPLETED", encrypted_username);
         // Get the public key of the crt file:
         //java.util.Scanner scanner = new java.util.Scanner(Paths.get("crtfile"));
 
-        return ok(username);
+        return redirect(routes.Application.index().url());
     }
 
     public static Result index() {
