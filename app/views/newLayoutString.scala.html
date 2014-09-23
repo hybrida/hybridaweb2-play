@@ -15,36 +15,31 @@
         });
     });
     </script>-->
-    <div class="wrap">
-        <div class="head">
-            <div class="banner">
-                <a href="/">
-                    <img
-                    src="/assets/images/logo_head_2.png"
-                    alt=""
-                    />
-                </a>
-                <div class="search">
+    <div id="navmenu">
+        <ul>
+            <li id="logo"><img src="/assets/images/logo_final.png" alt="SUPERLOGO"/></li>
+            <li id="logotext"><a href="/layout">HYBRIDA</a></li>
+            <li class="navelement"><a href="/lol">Lol</a></li>
+            <li class="navelement"><a href="/indok">Indøk</a></li>
+            <li class="navelement"><a href="/random">Random</a></li>
+            <li class="navelement"><a href="/Chat">Chat</a></li>
+            <li style="float: right" class="navelement">
+                <a href="/site/login?page=%2F">Logg inn</a>
+            </li>
+            <li style="float: right" class="navelement">
+                <div class="search" style="padding-top: 0.4em">
                     <form action="/search" method="GET">
                         <input type="text" name="term" id="searchField" placeholder="Søk"/>
                     </form>
                 </div>
-            </div>
-            <div style="clear:both"></div>
-            <div id="navmenu">
-                <ul>
-                        <!--<img src="/assets/images/logo_head_2.png" alt="" /></li>-->
-                    <li><a href="/">Hjem</a></li>
-                    <li><a href="/kalender">Kalender</a></li>
-                    <li><a href="/Bedrift">Bedrift</a></li>
-                    <li><a href="/IKT-ringen">I&IKT-Ringen</a></li>
-                    <li><a href="/Om-Hybrida">Om Hybrida</a></li>
-                    <li style="float: right"><a href="/site/login?page=%2F">Logg inn</a></li>
-                </ul>
-            </div>
-            <div style="clear:both"></div>
+            </li>
+        </ul>
+    </div>
+    <div class="wrap" style="padding-top: 3em">
+        <div class="head">
+
         </div>
-        <div class="content">
+        <div>
             @content
         @layoutBottom()
 }
