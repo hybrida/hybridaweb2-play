@@ -45,7 +45,7 @@ GET         /search                 controllers.Search.index()
 
 GET         /ExampleDatabase        controllers.ExampleDatabase.index()
 GET         /ExampleSSO             controllers.ExampleSSO.index()
-POST         /verify                 controllers.ExampleSSO.verify(data, sign64, clientip)
+GET         /verify                 controllers.ExampleSSO.verify()
 
 
 # Map static resources from the /public folder to the /assets URL path
