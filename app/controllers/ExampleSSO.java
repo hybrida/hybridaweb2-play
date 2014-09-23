@@ -18,13 +18,13 @@ public class ExampleSSO extends Controller {
     }
 
     // TODO: Put most code into a model class
-    public static Result verifylogin() throws java.io.IOException {
+    public static Result verifylogin() throws java.io.IOException, java.security.cert.CertificateException {
         HttpRequestData http_data = new HttpRequestData();
         String data = http_data.get("data");
         String sign64 = http_data.get("sign64");
         String clientip = http_data.get("clientip");
 
-        // String sign = javax.xml.bind.DatatypeConverter.printBase64Binary(sign64.getBytes());
+        String sign = javax.xml.bind.DatatypeConverter.printBase64Binary(sign64.getBytes());
 
         // Create a hashmap of all the data.
         String[] data_separated = data.split(",");
@@ -36,6 +36,9 @@ public class ExampleSSO extends Controller {
         String username = values.get("username");
 
         String encrypted_username = play.api.libs.Crypto.encryptAES(username);
+
+
+
 
         session("LOGGED IN COMPLETED", encrypted_username);
         // Get the public key of the crt file:

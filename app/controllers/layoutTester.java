@@ -10,7 +10,7 @@ import static play.mvc.Results.ok;
 public class layoutTester {
 
     public static Result test () {
-        return ok(newLayoutString.render("layoutTest",showsimple.render("\n" +
+        return ok(newLayoutString.render("layoutTest", showsimple.render("\n" +
                 "\n" +
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean congue et eros ut hendrerit. Mauris feugiat mauris ultricies, vulputate metus in, imperdiet quam. Morbi placerat nisi lacus, nec vehicula lacus euismod eget. Nullam vel scelerisque turpis, non sodales diam. Morbi eu dui ut velit fringilla porta vitae eu eros. Vestibulum ante tortor, sagittis eu arcu sed, finibus malesuada ipsum. Donec vehicula nunc eget est ultricies blandit. Ut faucibus gravida tellus, non vulputate quam rutrum id. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris lacus ligula, ultricies quis eros vel, egestas elementum odio. Donec sodales erat eu volutpat tempor. Donec nulla ex, dignissim sed est aliquet, congue condimentum erat. Cras in euismod nulla, non sollicitudin metus.\n" +
                 "\n" +
