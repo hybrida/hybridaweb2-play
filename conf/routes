@@ -27,6 +27,8 @@ GET         /lol                    controllers.Lol.noindex()
 POST        /lol/clear              controllers.Lol.clearNameData()
 POST        /lol                    controllers.Lol.index()
 GET         /indok                  controllers.Indok.facepalm()
+
+# Newsfeed
 GET         /feed                   controllers.Feed.index()
 POST        /feed                   controllers.Feed.save()
 

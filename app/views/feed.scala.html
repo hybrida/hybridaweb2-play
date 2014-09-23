@@ -1,8 +1,12 @@
+@(content: Html)
+
 <h1>
-   Maddafakking awesome NewsFeed
+   <div class="content3"><div class="textColourWhite"> Maddafakking awesome NewsFeed </div></div>
 </h1>
+@content
+    <div class="content3">
     <form name="Article" action="/feed" method="POST">
         <input type="text" value="Title" name="title">
-        <textarea rows="5" cols="20"></textarea>
-        <input type="submit" value="Submit">
-    </form>
+        <input type="submit" value="Submit"><br>
+        <textarea rows="10" cols="50" name="article" value="Skriv ditt innlegg her"></textarea>
+    </form></div><br>
