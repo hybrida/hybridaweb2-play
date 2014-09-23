@@ -181,6 +181,8 @@ a img {
     -moz-border-radius: 5px;
     border-radius: 5px;
     -webkit-border-radius: 5px;
+    border-style: solid;
+    border-color: black;
 }
 .textColourWhite{
     color: rgba(255, 255, 255, 1);
