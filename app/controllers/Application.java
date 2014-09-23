@@ -15,11 +15,15 @@ public class Application extends Controller {
     public static Result index() throws java.sql.SQLException {
 
         String login = session("LOGGED IN COMPLETED");
-        login = play.api.libs.Crypto.decryptAES(login);
         if (login != null) {
-            return ok(layoutHtml.render("Hybrida", escapeText.render("Welcome " + login)));
+            login = play.api.libs.Crypto.decryptAES(login);
+            if (login != null) {
+                return ok(layoutHtml.render("Hybrida", escapeText.render("Welcome " + login)));
+            }
+            else {
+                return ok(layoutHtml.render("Hybrida", escapeText.render("Your sign is invalid, must implement auto-logout now...")));
+            }
         }
-
         return ok(layoutHtml.render("Hybrida", escapeText.render("<p><h1>Vælkømmen tell Hybrida! </h1></p>")));
     }
 

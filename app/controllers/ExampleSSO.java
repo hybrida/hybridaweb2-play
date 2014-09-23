@@ -19,6 +19,7 @@ public class ExampleSSO extends Controller {
 
     // TODO: Put most code into a model class
     public static Result verifylogin() throws java.io.IOException {
+        javax.net.ssl.
         HttpRequestData http_data = new HttpRequestData();
         String data = http_data.get("data");
         String sign64 = http_data.get("sign64");
