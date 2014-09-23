@@ -49,9 +49,9 @@ a img {
     margin: 0;
     box-shadow: 0 2px 10px black;
     font-family: sans-serif;
-}
+/*}
 
-.fixed {
+.fixed {*/
     position: fixed;
 }
 
