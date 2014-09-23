@@ -67,7 +67,9 @@ public class Feed {
         String finalPost = "";
         for (int i = 1; i <= length; ++i) {
             result.absolute(i);
-            finalPost +=  "<div class=\"content2\"><h1>" + result.getString(2) + "</h1>" + "<h2><p><div class=\"content3\">" + result.getString(3) + "</div></div></p></h2><br><br>";
+            finalPost +=  "<div class=\"content2\"><h1><img src=\"/assets/images/favicon.ico\" alt=\"rect\"/>" +
+                    result.getString(2) + "</h1>" + "<h2><div class=\"content3\">" +
+                    result.getString(3) + "</div></div></h2>";
         }
 
         return finalPost;

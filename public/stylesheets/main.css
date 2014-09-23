@@ -172,10 +172,12 @@ a img {
     -moz-border-radius: 5px;
     border-radius: 5px;
     -webkit-border-radius: 5px;
+    border-style: solid;
+    border-color: #185c9b;
 }
 .content3 {
     font-family: "Gill";
-    background-color: rgba(160, 255, 255, 0.3);
+    background-color: #185c9b;
     margin: 1em;
     padding: 1em;
     -moz-border-radius: 5px;
