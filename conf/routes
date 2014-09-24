@@ -3,6 +3,7 @@
 
 # Standard layout accessible pages
 GET         /                       controllers.Application.index()
+GET         /testhome               controllers.TestHome.indexTest()
 GET         /kalender               controllers.Calender.index()
 
 
