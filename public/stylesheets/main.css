@@ -61,9 +61,11 @@ a img {
     margin: 0;
     height: 4em;
     min-width: 929px;
+    z-index: -9999;
 }
 
 #navmenu {
+    z-index: 9999;
     background-color: #ffffff;
     left: 0;
     right: 0;
