@@ -1,0 +1,38 @@
+<!--
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$("document").ready(function($){
+    var nav = $('#navmenu');
+
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 149) {
+            nav.addClass("fixed");
+        } else {
+            nav.removeClass("fixed");
+        }
+    });
+});
+</script>-->
+<div id="navmenu">
+    <ul>
+        <li id="logo"><img src="/assets/images/logo_final.png" alt="SUPERLOGO"/></li>
+        <li id="logotext"><a href="/layout">HYBRIDA</a></li>
+        <li class="navelement"><a href="/lol">Lol</a></li>
+        <li class="navelement"><a href="/indok">Indøk</a></li>
+        <li class="navelement"><a href="/random">Random</a></li>
+        <li class="navelement"><a href="/Chat">Chat</a></li>
+        <li style="float: right" class="navelement">
+            <a href="/site/login?page=%2F">Logg inn</a>
+        </li>
+        <li style="float: right" class="navelement">
+            <div class="search" style="padding-top: 0.4em">
+                <form action="/search" method="GET">
+                    <input type="text" name="term" id="searchField" placeholder="Søk"/>
+                </form>
+            </div>
+        </li>
+    </ul>
+</div>
+<div id="navghost">
+
+</div>
