@@ -36,8 +36,6 @@ POST        /feed                   controllers.Feed.save()
 GET         /random                 controllers.RandomInt.randomPage()
 POST        /random                 controllers.RandomInt.newRandom()
 
-GET         /layout                 controllers.layoutTester.test()
-
 
 GET         /ExampleCookies         controllers.ExampleCookies.index()
 POST        /UpdateCookies          controllers.ExampleCookies.updateCookie()
