@@ -2,7 +2,8 @@ package controllers;
 import models.FeedForm;
 import play.mvc.Result;
 import views.html.feed;
-import views.html.newLayoutString;
+import views.html.layoutHtml;
+import views.html.navmenu;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -26,7 +27,8 @@ public class Feed {
 
     public static Result index() throws SQLException{
 
-        return ok(newLayoutString.render("NewsFeed", feed.render(toHtml(getArticleData()))));
+        return ok(layoutHtml.render("NewsFeed", feed.render(toHtml(getArticleData()))));
+
     }
 
     public static Result save() throws SQLException{
