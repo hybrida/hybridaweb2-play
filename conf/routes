@@ -32,6 +32,7 @@ GET         /indok                  controllers.Indok.facepalm()
 # Newsfeed
 GET         /feed                   controllers.Feed.index()
 POST        /feed                   controllers.Feed.save()
+POST        /feedClear              controllers.Feed.clearAll()
 
 # Random number generator
 GET         /random                 controllers.RandomInt.randomPage()

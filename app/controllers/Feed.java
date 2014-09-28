@@ -2,7 +2,7 @@ package controllers;
 import models.FeedForm;
 import play.mvc.Result;
 import views.html.feed;
-import views.html.layoutHtml;
+import views.html.newLayoutString;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -11,8 +11,10 @@ import play.data.Form;
 
 import static controllers.Lol.toHtml;
 import static play.data.Form.form;
+import static play.mvc.Controller.request;
 import static play.mvc.Results.ok;
 import static play.mvc.Results.redirect;
+import static play.mvc.Http.Request;
 
 /**
  * Created by eliasbragstadhagen on 23.09.14.
@@ -24,7 +26,7 @@ public class Feed {
 
     public static Result index() throws SQLException{
 
-        return ok(layoutHtml.render("NewsFeed", feed.render(toHtml(getArticleData()))));
+        return ok(newLayoutString.render("NewsFeed", feed.render(toHtml(getArticleData()))));
     }
 
     public static Result save() throws SQLException{
@@ -73,5 +75,13 @@ public class Feed {
         }
 
         return finalPost;
+    }
+
+    public static Result clearAll() throws SQLException{
+        javax.sql.DataSource ds = DB.getDataSource();
+        java.sql.Connection connection = ds.getConnection("sa", "");
+        java.sql.Statement statement = connection.createStatement();
+        statement.executeUpdate("DELETE FROM feed");
+        return redirect(routes.Feed.index().absoluteURL(request()));
     }
 }

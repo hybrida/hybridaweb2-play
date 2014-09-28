@@ -183,9 +183,9 @@ a img {
     background-color: rgba(255, 255, 255, 1);
     margin: 1em;
     padding: 1em;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
     border-style: solid;
     border-color: #185c9b;
 }
@@ -194,9 +194,9 @@ a img {
     background-color: #185c9b;
     margin: 1em;
     padding: 1em;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
     border-style: solid;
     border-color: black;
 }
