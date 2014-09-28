@@ -71,9 +71,11 @@ public class Feed {
         String finalPost = "";
         for (int i = 1; i <= length; ++i) {
             result.absolute(i);
-            finalPost +=  "<div class=\"content2\"><h1><img src=\"/assets/images/favicon.ico\" alt=\"rect\"/>" +
-                    result.getString(2) + "</h1>" + "<h2><div class=\"content3\">" +
-                    result.getString(3) + "</div></div></h2>";
+            finalPost += "<div class=\"content2\">"+
+                    "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
+                    "<img src=\"/assets/images/favicon.ico\" alt=\"rect\"/>" +
+                    result.getString(2).toUpperCase() + "</div>" +
+                    result.getString(3) + "</div></div>";
         }
 
         return finalPost;
