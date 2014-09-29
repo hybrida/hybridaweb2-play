@@ -74,8 +74,8 @@ public class Feed {
             finalPost += "<div class=\"content2\">"+
                     "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
                     "<img src=\"/assets/images/favicon.ico\" alt=\"rect\"/>" +
-                    result.getString(2).toUpperCase() + "</div>" +
-                    result.getString(3) + "</div></div>";
+                    result.getString(2).toUpperCase() + "</div><br>" +
+                    result.getString(3) + "</div>";
         }
 
         return finalPost;

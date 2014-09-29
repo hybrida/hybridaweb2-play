@@ -34,6 +34,9 @@ GET         /feed                   controllers.Feed.index()
 POST        /feed                   controllers.Feed.save()
 POST        /feedClear              controllers.Feed.clearAll()
 
+GET         /ImgUp                  controllers.ImageUploadExample.index()
+POST        /ImgUp                  controllers.ImageUploadExample.upload()
+
 # Random number generator
 GET         /random                 controllers.RandomInt.randomPage()
 POST        /random                 controllers.RandomInt.newRandom()
