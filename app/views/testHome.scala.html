@@ -1,6 +1,6 @@
-@(title: String, content: String)
+@(content: List[List[String]])
 
-@main(title) {
+@main("Hjem") {
     @navmenu()
     <div style="min-width: 929px">
         <img src="/assets/images/hybirda.png" alt="HYBIRDA!!!!!" width="100%" />
@@ -8,8 +8,22 @@
             <div style="border-bottom: 2px solid  #9e9d98 ">
                 <p style="font-family:sans-serif;color: #9e9d98;">NEWSFEED</p>
             </div>
-            <div style="background-color: #ffffff">
-                <p>@Html(content)</p>
+            <div class="news">
+                <ul>
+                    @for(c <- content) {
+                        <li>
+                            <p>
+                                @if(c!=0){
+                                    @Html(c(2))
+                                }
+                            </p>
+                            <h2>
+                                @Html(c(1))
+                            </h2>
+                        </li>
+                    }
+                </ul>
+                <div style="clear:both"></div>
             </div>
         </div>
     </div>
