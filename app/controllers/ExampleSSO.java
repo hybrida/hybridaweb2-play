@@ -8,10 +8,7 @@ import play.mvc.Result;
 
 import java.io.FileInputStream;
 import java.nio.file.Paths;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.SignatureException;
+import java.security.*;
 import java.util.regex.Pattern;
 
 public class ExampleSSO extends Controller {
@@ -26,10 +23,11 @@ public class ExampleSSO extends Controller {
     public static Result verifylogin() throws java.io.IOException, java.security.cert.CertificateException, NoSuchAlgorithmException, SignatureException, InvalidKeyException, NoSuchProviderException {
         HttpRequestData http_data = new HttpRequestData();
         String data = http_data.get("data");
-        String sign = http_data.get("sign");
+        String sign64 = http_data.get("sign");
         String clientip = http_data.get("clientip");
 
-        String sign64 = javax.xml.bind.DatatypeConverter.printBase64Binary(sign.getBytes());
+        ;
+        byte[] sign = java.util.Base64.getDecoder().decode(sign64);
 
         // Create a hashmap of all the data.
         String[] data_separated = data.split(",");
@@ -46,12 +44,30 @@ public class ExampleSSO extends Controller {
         java.security.cert.Certificate cert = cf.generateCertificate(filestream);
 
         java.security.PublicKey pubkey = cert.getPublicKey();
-        System.out.println(pubkey);
-        //cert.verify(pubkey, sign64);
+        try {
+            if (verifySignature(data, pubkey, sign)) {
+                System.out.println("It works YEAH!");
+            } else {
+                System.out.println("It didnt sign!!");
+            }
+        } catch (InvalidKeyException inv) {
+            return ok(escapeText.render(inv.toString()));
+        } catch (NoSuchProviderException noprov) {
+            return ok(escapeText.render(noprov.getMessage() + "<br>" + sign));
+        } catch (java.lang.Exception e) {
+            return ok(escapeText.render(e.toString()));
+        }
 
         session("LOGGED IN COMPLETED", encrypted_username);
 
         return redirect(routes.Application.index().url());
+    }
+
+    public static boolean verifySignature(String data, PublicKey key, byte[] signature) throws Exception {
+        Signature signer = Signature.getInstance("SHA1withRSA");
+        signer.initVerify(key);
+        signer.update(data.getBytes());
+        return (signer.verify(signature));
     }
 
     public static Result index() {

@@ -24,7 +24,9 @@ public class Application extends Controller {
                 return ok(layoutHtml.render("Hybrida", escapeText.render("Your sign is invalid, must implement auto-logout now...")));
             }
         }
+
         return ok(layoutHtml.render("Hybrida", escapeText.render("<p><h1>Vælkømmen tell Hybrida! </h1></p>")));
+
     }
 
     public static Result processForm() {
