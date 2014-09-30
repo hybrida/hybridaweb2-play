@@ -7,7 +7,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.twirl.api.Html;
 import views.html.layoutHtml;
-import views.html.lolContent;
+import views.html.lolContent2;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class Lol2 extends Controller{
             ArrayList<String> content = new ArrayList<String>();
             content.add(getNameData());
 
-            return ok(layoutHtml.render("Anakonda Buns ", lolContent.render(toHtml(getNameData()))));
+            return ok(layoutHtml.render("Anakonda Buns ", lolContent2.render(toHtml(getNameData()))));
         }
 
     public static Html toHtml(String string){

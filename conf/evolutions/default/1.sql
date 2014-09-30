@@ -73,3 +73,4 @@ drop sequence if exists company_seq;
 drop sequence if exists feed_seq;
 
 drop sequence if exists lol_name_seq;
+

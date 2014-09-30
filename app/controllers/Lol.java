@@ -66,7 +66,7 @@ public class Lol extends Controller{
 
     public static void setNameData(String name) throws SQLException{
         javax.sql.DataSource ds = DB.getDataSource();
-        java.sql.Connection connection = ds.getConnection("sa", "");
+        java.sql.Connection connection = ds.getConnection("hybrid", "");
         java.sql.Statement statement = connection.createStatement();
 
         ResultSet result = statement.executeQuery("SELECT COUNT(*) FROM lol_name");
@@ -80,7 +80,7 @@ public class Lol extends Controller{
 
     public static Result clearNameData() throws SQLException {
         javax.sql.DataSource ds = DB.getDataSource();
-        java.sql.Connection connection = ds.getConnection("sa", "");
+        java.sql.Connection connection = ds.getConnection("hybrid", "");
         java.sql.Statement statement = connection.createStatement();
         System.out.println("Outputfdsfds");
         statement.executeUpdate("DELETE FROM lol_name");
