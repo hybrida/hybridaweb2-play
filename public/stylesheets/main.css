@@ -52,7 +52,20 @@ a img {
     float: left;
 }
 
+#navghost {/*en tom div som fyller plassen navmenu ville hvis navmenu ikke var fixed*/
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: 0;
+    margin: 0;
+    height: 4em;
+    min-width: 929px;
+    z-index: -9999;
+}
+
 #navmenu {
+    z-index: 9999;
     background-color: #ffffff;
     left: 0;
     right: 0;
@@ -63,6 +76,7 @@ a img {
     font-family: sans-serif;
     text-align: center;
     height: 4em;
+    min-width: 929px;
 /*}
 
 .fixed {*/
@@ -70,7 +84,7 @@ a img {
 }
 
 #navmenu ul {
-    padding: 0 4em;
+    padding: 0 4%;
     margin: 0;
     height: 2em;
 }
@@ -165,24 +179,24 @@ a img {
     -webkit-border-radius: 5px;
 }
 .content2 {
-    font-family: "Gill";
+    font-family: "sans-serif"; color: #9e9d98;
     background-color: rgba(255, 255, 255, 1);
     margin: 1em;
     padding: 1em;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
     border-style: solid;
-    border-color: #185c9b;
+    border-color: #9e9d98;
 }
 .content3 {
-    font-family: "Gill";
-    background-color: #185c9b;
+    font-family: "sans-serif"; color: #000000;
+    background-color: #9e9d98;
     margin: 1em;
     padding: 1em;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
     border-style: solid;
     border-color: black;
 }
@@ -195,7 +209,7 @@ a img {
   border: 0 none;
   font: bold 12px Arial, Helvetica, Sans-serif;
   color: #d7d7d7;
-  width: 150px;
+  width: 50px;
   padding: 6px 15px 6px 35px;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
@@ -212,7 +226,7 @@ a img {
 .search input[type="text"]:focus {
   background: url(../images/search-white.png) no-repeat 10px 6px #fcfcfc;
   color: #6a6f75;
-  width: 200px;
+  width: 100px;
   -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.1), 0 1px 0 rgba(0,0,0,0.9) inset;
   -moz-box-shadow: 0 1px 0 rgba(255,255,255,0.1), 0 1px 0 rgba(0,0,0,0.9) inset;
   box-shadow: 0 1px 0 rgba(255,255,255,0.1), 0 1px 0 rgba(0,0,0,0.9) inset;
