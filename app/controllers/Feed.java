@@ -60,7 +60,7 @@ public class Feed {
     }
     public static String getArticleData() throws SQLException{
         javax.sql.DataSource ds = DB.getDataSource();
-        java.sql.Connection connection = ds.getConnection("sa", "");
+        java.sql.Connection connection = ds.getConnection("hybrid", "");
         java.sql.Statement statement = connection.createStatement();
 
         ResultSet result = statement.executeQuery("SELECT COUNT(*) FROM feed");
