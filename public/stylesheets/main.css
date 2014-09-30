@@ -208,7 +208,7 @@ a img {
   padding: 6px 15px 6px 35px;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
-  border-radius: 2px;
+  border-radius: 4px;
   border: solid 1px #9e9d98;
   -webkit-transition: all 0.7s ease 0s;
   -moz-transition: all 0.7s ease 0s;
