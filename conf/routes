@@ -32,8 +32,9 @@ POST        /lol                    controllers.Lol.index()
 GET         /indok                  controllers.Indok.facepalm()
 
 # Lol 2 ebean test
-GET         /lol2                    controllers.Lol2.noindex()
-POST        /lol2                    controllers.Lol2.index()
+GET         /lol2                   controllers.Lol2.noindex()
+POST        /lol2/clear             controllers.Lol2.clearNameData()
+POST        /lol2                   controllers.Lol2.index()
 
 # Newsfeed
 GET         /feed                   controllers.Feed.index()

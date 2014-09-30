@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.*;
 import models.LolForm;
 import models.LolName;
 import play.data.Form;
@@ -17,6 +18,7 @@ import static play.data.Form.form;
 
 /**
  * Created by eliasbragstadhagen on 06.09.14.
+ * Modified by ivarhk on 30.09.14
  */
 public class Lol2 extends Controller{
 
@@ -44,21 +46,37 @@ public class Lol2 extends Controller{
         return Html.apply(string);
     }
 
-    public static String getNameData() throws SQLException{
 
-        String returnString = "";
+
+
+    // Ebean example:
+
+    public static String getNameData() {
+
         LolName.Finder<String, LolName> finder = new LolName.Finder<String, LolName>(String.class, LolName.class);
         List<LolName> lolNames = finder.all();
+        String returnString = "";
         for (LolName lolName : lolNames) {
             returnString += "<p><h1><img src=\"/assets/images/favicon.ico\" alt=\"rect\"/>- " + lolName.getName() + "</h1></p>";
         }
         return returnString;
     }
 
-    public static void setNameData(String name) throws SQLException{
+    public static void setNameData(String name) {
 
         LolName lolName = new LolName(name);
         lolName.save();
+    }
+
+    public static Result clearNameData() {
+
+        LolName.Finder<String, LolName> finder = new LolName.Finder<String, LolName>(String.class, LolName.class);
+        List<LolName> lolNames = finder.all();
+        String returnString = "";
+        for (LolName lolName : lolNames) {
+            lolName.delete();
+        }
+        return redirect(routes.Lol2.noindex().absoluteURL(request()));
     }
 
 }
