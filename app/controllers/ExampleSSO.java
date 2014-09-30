@@ -6,7 +6,12 @@ import scala.util.matching.Regex$;
 import views.html.*;
 import play.mvc.Result;
 
+import java.io.FileInputStream;
 import java.nio.file.Paths;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.SignatureException;
 import java.util.regex.Pattern;
 
 public class ExampleSSO extends Controller {
@@ -18,13 +23,13 @@ public class ExampleSSO extends Controller {
     }
 
     // TODO: Put most code into a model class
-    public static Result verifylogin() throws java.io.IOException {
+    public static Result verifylogin() throws java.io.IOException, java.security.cert.CertificateException, NoSuchAlgorithmException, SignatureException, InvalidKeyException, NoSuchProviderException {
         HttpRequestData http_data = new HttpRequestData();
         String data = http_data.get("data");
-        String sign64 = http_data.get("sign64");
+        String sign = http_data.get("sign");
         String clientip = http_data.get("clientip");
 
-        // String sign = javax.xml.bind.DatatypeConverter.printBase64Binary(sign64.getBytes());
+        String sign64 = javax.xml.bind.DatatypeConverter.printBase64Binary(sign.getBytes());
 
         // Create a hashmap of all the data.
         String[] data_separated = data.split(",");
@@ -34,12 +39,16 @@ public class ExampleSSO extends Controller {
                 values.put(data_separated[i + 0], data_separated[i + 1]);
         }
         String username = values.get("username");
-
         String encrypted_username = play.api.libs.Crypto.encryptAES(username);
 
+        java.io.FileInputStream filestream = new java.io.FileInputStream(new java.io.File("innsida.crt"));
+        java.security.cert.CertificateFactory cf = java.security.cert.CertificateFactory.getInstance("X.509");
+        java.security.cert.Certificate cert = cf.generateCertificate(filestream);
+
+        java.security.PublicKey pubkey = cert.getPublicKey();
+        cert.verify(pubkey, sign64);
+
         session("LOGGED IN COMPLETED", encrypted_username);
-        // Get the public key of the crt file:
-        //java.util.Scanner scanner = new java.util.Scanner(Paths.get("crtfile"));
 
         return redirect(routes.Application.index().url());
     }
