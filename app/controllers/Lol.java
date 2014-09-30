@@ -51,10 +51,10 @@ public class Lol extends Controller{
         java.sql.Connection connection = ds.getConnection("hybrid", "");
         java.sql.Statement statement = connection.createStatement();
 
-        ResultSet result = statement.executeQuery("SELECT COUNT(*) FROM names");
+        ResultSet result = statement.executeQuery("SELECT COUNT(*) FROM lol_names");
         result.absolute(1);
         int length = result.getInt(1);
-        result = statement.executeQuery("SELECT * FROM names");
+        result = statement.executeQuery("SELECT * FROM lol_names");
         String lolNames = "";
         for (int i = 1; i <= length; ++i) {
             result.absolute(i);
@@ -69,12 +69,12 @@ public class Lol extends Controller{
         java.sql.Connection connection = ds.getConnection("sa", "");
         java.sql.Statement statement = connection.createStatement();
 
-        ResultSet result = statement.executeQuery("SELECT COUNT(*) FROM names");
+        ResultSet result = statement.executeQuery("SELECT COUNT(*) FROM lol_names");
         result.absolute(1);
         int length = result.getInt(1);
         int val = length + 1;
 
-        statement.executeUpdate("INSERT INTO names VALUES('" + val + "','" + name + "')");
+        statement.executeUpdate("INSERT INTO lol_names VALUES('" + val + "','" + name + "')");
                 //VALUES('" + name + "')");
     }
 
@@ -83,7 +83,7 @@ public class Lol extends Controller{
         java.sql.Connection connection = ds.getConnection("sa", "");
         java.sql.Statement statement = connection.createStatement();
         System.out.println("Outputfdsfds");
-        statement.executeUpdate("DELETE FROM names");
+        statement.executeUpdate("DELETE FROM lol_names");
         return redirect(routes.Lol.noindex().absoluteURL(request()));
     }
 
