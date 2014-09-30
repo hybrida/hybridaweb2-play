@@ -44,5 +44,4 @@ public class TestHome extends Controller{
 
     public static Result indexTest() throws SQLException{
         return ok(testHome.render(getNews()));
-    }
-}
+    }}
