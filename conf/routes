@@ -14,7 +14,9 @@ GET         /about                  controllers.About.index()
 
 GET         /article                controllers.Articles.index()
 GET         /yeah                   controllers.Yeah.index()
-
+GET         /update                 controllers.Update.index()
+GET         /update/utgaver         controllers.Update.utgaver()
+GET         /update/redaksjon       controllers.Update.redaksjon()
 # Info til introkurs
 GET         /info/:name             controllers.About.personInfo(name)
 

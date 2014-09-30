@@ -1,0 +1,9 @@
+#updatebilde {
+    box-shadow: 0px 0px 50px rgba(0,0, 0, 0.9);
+}
+
+.articletext{
+    font-family: "Trebuchet MS";
+    font-size: 20px;
+    text-shadow: 3px, 3px   , #333;
+}
