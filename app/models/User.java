@@ -1,12 +1,14 @@
 package models;
 
+import play.db.ebean.Model;
+
 import javax.persistence.Entity;
 
 /**
  * Created by Ivar on 09.09.2014.
  */
 @Entity
-public class User {
+public class User extends Model {
     private String lName;
     private String fName;
     private boolean student;

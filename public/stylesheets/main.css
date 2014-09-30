@@ -106,8 +106,9 @@ body {
 }
 
 .content {
+    background: url("../images/tempbackground.jpg") fixed;
 	font-family: sans-serif;
-	background-color: #ffffff;
+	background-color: #FAF8ED;
 	padding: 1em;
 }
 .content2 {
