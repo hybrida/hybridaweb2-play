@@ -46,7 +46,8 @@ public class ExampleSSO extends Controller {
         java.security.cert.Certificate cert = cf.generateCertificate(filestream);
 
         java.security.PublicKey pubkey = cert.getPublicKey();
-        cert.verify(pubkey, sign64);
+        System.out.println(pubkey);
+        //cert.verify(pubkey, sign64);
 
         session("LOGGED IN COMPLETED", encrypted_username);
 

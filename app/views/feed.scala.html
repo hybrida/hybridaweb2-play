@@ -1,12 +1,23 @@
 @(content: Html)
 
-<h1>
-   <div class="content3"><div class="textColourWhite"> Maddafakking awesome NewsFeed </div></div>
-</h1>
+<div style="padding: 2em 4%; background-color: #ffffff; margin-top: -5px;">
+    <div style="border-bottom: 2px solid  #9e9d98 ">
+        <p style="font-family:sans-serif;color: #9e9d98;">NEWSFEED</p>
+    </div>
+    <div style="background-color: #ffffff">
 @content
+    </div>
+
+
     <div class="content3">
     <form name="Article" action="/feed" method="POST">
-        <input type="text" value="Title" name="title">
-        <input type="submit" value="Submit"><br>
+        <input type="text" value="Title" name="title" size="56" >
+        <input type="submit" value="Submit">
+        <br>
         <textarea rows="10" cols="50" name="article" value="Skriv ditt innlegg her"></textarea>
+    </form>
+    <form name="clear" action="/feedClear" method="POST">
+        <input type="submit" value="Clear Feed">
     </form></div><br>
+    </div>
+

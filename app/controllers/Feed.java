@@ -3,6 +3,7 @@ import models.FeedForm;
 import play.mvc.Result;
 import views.html.feed;
 import views.html.layoutHtml;
+import views.html.navmenu;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -11,8 +12,10 @@ import play.data.Form;
 
 import static controllers.Lol.toHtml;
 import static play.data.Form.form;
+import static play.mvc.Controller.request;
 import static play.mvc.Results.ok;
 import static play.mvc.Results.redirect;
+import static play.mvc.Http.Request;
 
 /**
  * Created by eliasbragstadhagen on 23.09.14.
@@ -25,6 +28,7 @@ public class Feed {
     public static Result index() throws SQLException{
 
         return ok(layoutHtml.render("NewsFeed", feed.render(toHtml(getArticleData()))));
+
     }
 
     public static Result save() throws SQLException{
@@ -67,11 +71,21 @@ public class Feed {
         String finalPost = "";
         for (int i = 1; i <= length; ++i) {
             result.absolute(i);
-            finalPost +=  "<div class=\"content2\"><h1><img src=\"/assets/images/favicon.ico\" alt=\"rect\"/>" +
-                    result.getString(2) + "</h1>" + "<h2><div class=\"content3\">" +
-                    result.getString(3) + "</div></div></h2>";
+            finalPost += "<div class=\"content2\">"+
+                    "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
+                    "<img src=\"/assets/images/favicon.ico\" alt=\"rect\"/>" +
+                    result.getString(2).toUpperCase() + "</div><br>" +
+                    result.getString(3) + "</div>";
         }
 
         return finalPost;
+    }
+
+    public static Result clearAll() throws SQLException{
+        javax.sql.DataSource ds = DB.getDataSource();
+        java.sql.Connection connection = ds.getConnection("sa", "");
+        java.sql.Statement statement = connection.createStatement();
+        statement.executeUpdate("DELETE FROM feed");
+        return redirect(routes.Feed.index().absoluteURL(request()));
     }
 }

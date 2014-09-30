@@ -11,4 +11,6 @@ public class FeedForm {
     @Constraints.Required
     public String title;
     public String article;
+
+
 }
