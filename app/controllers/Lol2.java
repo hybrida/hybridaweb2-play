@@ -61,10 +61,6 @@ public class Lol2 extends Controller{
         lolName.save();
     }
 
-    public static Result clearNameData() throws SQLException {
-        return redirect(Lol2.noindex().absoluteURL(request()));
-    }
-
 }
 
 

@@ -29,6 +29,10 @@ POST        /lol/clear              controllers.Lol.clearNameData()
 POST        /lol                    controllers.Lol.index()
 GET         /indok                  controllers.Indok.facepalm()
 
+# Lol 2 ebean test
+GET         /lol2                    controllers.Lol.noindex()
+POST        /lol2                    controllers.Lol.index()
+
 # Newsfeed
 GET         /feed                   controllers.Feed.index()
 POST        /feed                   controllers.Feed.save()

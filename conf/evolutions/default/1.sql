@@ -3,6 +3,12 @@
 
 # --- !Ups
 
+create table article (
+  title                     varchar(255),
+  content                   varchar(255),
+  posted                    timestamp)
+;
+
 create table company (
   id                        bigint not null,
   name                      varchar(255),
@@ -47,6 +53,8 @@ create sequence lol_name_seq;
 # --- !Downs
 
 SET REFERENTIAL_INTEGRITY FALSE;
+
+drop table if exists article;
 
 drop table if exists company;
 
