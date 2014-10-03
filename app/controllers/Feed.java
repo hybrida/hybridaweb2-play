@@ -1,6 +1,7 @@
 package controllers;
 import models.FeedForm;
 import play.mvc.Result;
+import views.html.escapeText;
 import views.html.feed;
 import views.html.layoutHtml;
 import views.html.navmenu;
@@ -74,8 +75,8 @@ public class Feed {
             finalPost += "<div class=\"content2\">"+
                     "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
                     "<img src=\"/assets/images/favicon.ico\" alt=\"rect\"/>" +
-                    result.getString(2).toUpperCase() + "</div><br>" +
-                    result.getString(3) + "</div>";
+                    escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div><br>" +
+                    escapeText.apply(result.getString(3)).toString().replace("\n", "<br />") + "</div>";
         }
 
         return finalPost;
