@@ -3,10 +3,7 @@ import models.FeedForm;
 import org.apache.commons.io.FileUtils;
 import play.mvc.Http;
 import play.mvc.Result;
-import views.html.escapeText;
-import views.html.feed;
-import views.html.layoutHtml;
-import views.html.navmenu;
+import views.html.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -97,19 +94,20 @@ public class Feed {
         for (int i = 1; i <= length; ++i) {
             result.absolute(i);
             String check = result.getString(3);
+            String url = routes.Feed.generateArticle(result.getString(1).replace(" ", "_")).absoluteURL(request());
             if (!check.equalsIgnoreCase("null")) {
-                finalPost += "<div class=\"content2\">" +
+                finalPost += "<a href=" + url +"><div class=\"content2\">" +
                         "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
-                        "<img src=\"/assets/Upload/" + result.getString(3) + "\" alt=\"rect\" width=50% height=50%/><br>" +
+                        "<img src=\"/assets/Upload/" + result.getString(3) + "\" alt=\"rect\" width=50% height=50%/><br></a>" +
                         escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div><br>" +
-                        escapeText.apply(result.getString(4)).toString().replace("\n", "<br />") + "</div>";
+                        escapeText.apply(result.getString(5)).toString().replace("\n", "<br />") + "</div>";
             }
             else{
-                finalPost += "<div class=\"content2\">" +
+                finalPost += "<a href=" + url +"><div class=\"content2\">" +
                         "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
-                        "<img src=\"/assets/images/favicon.ico\" alt=\"rect\"/><br>" +
+                        "<img src=\"/assets/images/favicon.ico\" alt=\"rect\"/><br></a>" +
                         escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div><br>" +
-                        escapeText.apply(result.getString(4)).toString().replace("\n", "<br />") + "</div>";
+                        escapeText.apply(result.getString(5)).toString().replace("\n", "<br />") + "</div>";
 
             }
         }
@@ -123,5 +121,44 @@ public class Feed {
         java.sql.Statement statement = connection.createStatement();
         statement.executeUpdate("DELETE FROM feed");
         return redirect(routes.Feed.index().absoluteURL(request()));
+    }
+
+    public static Result generateArticle(String newsTitle) throws SQLException{
+        javax.sql.DataSource ds = DB.getDataSource();
+        java.sql.Connection connection = ds.getConnection("hybrid", "");
+        java.sql.Statement statement = connection.createStatement();
+
+        String sqlStatement = "SELECT * FROM feed WHERE id = '" + newsTitle +"'";
+
+        ResultSet result = statement.executeQuery(sqlStatement);
+        result.absolute(1);
+        String finalPost = "";
+
+        String check = result.getString(3);
+
+        if (!check.equalsIgnoreCase("null")) {
+            finalPost += "<div class=\"content2\">" +
+                    "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
+                    "<img src=\"/assets/Upload/" + result.getString(3) + "\" alt=\"rect\" width=50% height=50%/><br>" +
+                    escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div><br>" +
+                    escapeText.apply(result.getString(4)).toString().replace("\n", "<br />") + "</div></a>";
+        }
+        else{
+            finalPost += "<div class=\"content2\">" +
+                    "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
+                    "<img src=\"/assets/images/favicon.ico\" alt=\"rect\"/><br>" +
+                    escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div><br>" +
+                    escapeText.apply(result.getString(4)).toString().replace("\n", "<br />") + "</div>";
+
+        }
+
+
+
+
+
+
+
+        return ok(layoutHtml.render("NewsFeed", generateArticle.render(toHtml(finalPost))));
+
     }
 }
