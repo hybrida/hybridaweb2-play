@@ -16,9 +16,11 @@ public class Feed extends Model {
     public Long id;
 
     public String title;
+    public String imageTitle;
 
 
     @Column(columnDefinition = "text")
     public String article;
+    public String ingress;
 
 }

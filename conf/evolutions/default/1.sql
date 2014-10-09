@@ -18,11 +18,15 @@ create table company (
 create table feed (
   id                        bigint not null,
   title                     varchar(255),
+  image_title               varchar(255),
   article                   text,
+  ingress                   varchar(255),
   constraint pk_feed primary key (id))
 ;
 
 create table feed_form (
+  image_title               varchar(255),
+  ingress                   varchar(255),
   title                     varchar(255),
   article                   varchar(255))
 ;
