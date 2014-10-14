@@ -3,9 +3,8 @@ package controllers;
 import models.User;
 import play.mvc.Controller;
 import java.io.File;
-import java.security.Timestamp;
 import java.util.Date;
-
+import java.sql.Timestamp;
 import views.html.*;
 import play.mvc.Result;
 
@@ -29,21 +28,17 @@ public class ExampleSSO extends Controller {
         try {
             String return_url = new models.HttpRequestData().get("returnargs");
             if (data.login()) {
+                User user = User.find.where().eq("username", data.getLoginInfo().get("username")).findUnique();
+                if (user != null) { // Check if user exists
+                    if (user.getLastLoginTime().before(new Timestamp(new Date(System.currentTimeMillis()).getTime()))) { // Check if the current user is logging in AFTER the last valid login.
+                        System.out.println(data.getLoginInfo().get("username") + " has logged in.");
+                        user.setLastLoginTimeNow();
+                        session("user", play.api.libs.Crypto.encryptAES(data.getLoginInfo().get("username") + "," + String.valueOf(System.currentTimeMillis())));
+                    }
+                } else {
+                    System.out.println("Username: " + data.getLoginInfo().get("username") + " does not exist in the database.");
+                }
 
-                /// TODO HERE:
-                /**
-                 * 1. We know now that the data is sound and valid. The next thing to do is to check if the
-                 * given username is in the database, and that it is possible to set it to "logged in".
-                 * The reason for this extra security is to avoid having sneaky packet duplicators
-                 * logging in to multiple accounts simultaneously.
-                 * PROBLEM: If a user disconnects/clears cookies he will not be able to login again,...
-                 *
-                 * 2. Generate a salty cookie encrypted with at least 256 bit AES containing the username.
-                 * The cookie must use the "time" given in the SSO request header. This allows each login to give a uniquely
-                 * salted and encrypted username. Thus; no one can ever duplicate a header or cookie.
-                 */
-
-                System.out.println(data.getLoginInfo().get("username"));
                 return redirect(return_url);
             }
             else {

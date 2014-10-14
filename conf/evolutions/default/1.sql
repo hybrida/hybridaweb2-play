@@ -37,15 +37,18 @@ create table lol_name (
   constraint pk_lol_name primary key (id))
 ;
 
-create table user (
+create table USER (
   id                        bigint not null,
+  username                  varchar(255),
   l_name                    varchar(255),
   f_name                    varchar(255),
   student                   boolean,
   admin                     boolean,
   bedkom                    boolean,
+  email                     varchar(255),
   last_login                timestamp,
-  constraint pk_user primary key (id))
+  constraint uq_USER_1 unique (id,username),
+  constraint pk_USER primary key (id))
 ;
 
 create sequence company_seq;
@@ -54,7 +57,7 @@ create sequence feed_seq;
 
 create sequence lol_name_seq;
 
-create sequence user_seq;
+create sequence USER_seq;
 
 
 
@@ -73,7 +76,7 @@ drop table if exists feed_form;
 
 drop table if exists lol_name;
 
-drop table if exists user;
+drop table if exists USER;
 
 SET REFERENTIAL_INTEGRITY TRUE;
 
@@ -83,5 +86,5 @@ drop sequence if exists feed_seq;
 
 drop sequence if exists lol_name_seq;
 
-drop sequence if exists user_seq;
+drop sequence if exists USER_seq;
 
