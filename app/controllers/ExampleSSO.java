@@ -41,11 +41,6 @@ public class ExampleSSO extends Controller {
                  * 2. Generate a salty cookie encrypted with at least 256 bit AES containing the username.
                  * The cookie must use the "time" given in the SSO request header. This allows each login to give a uniquely
                  * salted and encrypted username. Thus; no one can ever duplicate a header or cookie.
-                 *
-                 * 3. Generate correct code for each page's login button as to redirect you to that specific page.
-                 * In addition; we must put code here reading from "returnargs".
-                 *
-                 * 4. Put code in the else clause notifying the user has failed to log in correctly.
                  */
 
                 System.out.println(data.getLoginInfo().get("username"));
