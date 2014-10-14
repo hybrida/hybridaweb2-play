@@ -17,6 +17,7 @@ GET         /yeah                    controllers.Yeah.index()
 GET         /update                  controllers.Update.index()
 GET         /update/utgaver          controllers.Update.utgaver()
 GET         /update/redaksjon        controllers.Update.redaksjon()
+
 # Info til introkurs
 GET         /info/:name              controllers.About.personInfo(name)
 
@@ -25,7 +26,7 @@ GET         /gitgud                  controllers.GitGud.shrek()
 
 GET         /oystein/:number         controllers.Oystein.someCode(number)
 
-
+GET         /styret                  controllers.Sample.index()
 GET         /lol                     controllers.Lol.noindex()
 POST        /lol/clear               controllers.Lol.clearNameData()
 POST        /lol                     controllers.Lol.index()
