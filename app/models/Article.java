@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import java.util.*;
+import javax.persistence.*;
+
 /**
  * Created by Ivar on 16.09.2014.
  */
@@ -30,4 +33,8 @@ public class Article extends Model {
     public String getAuthorName() { return author.getName(); }
 
     public Date getPosted() { return new Date(posted.getTime()); }
+
+    public static Finder<Long, Article> find = new Finder<>(
+            Long.class, Article.class
+    );
 }
