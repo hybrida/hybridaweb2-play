@@ -63,8 +63,8 @@ GET         /ChatServer              controllers.Chat.socket()
 GET         /search                  controllers.Search.index()
 
 GET         /ExampleDatabase         controllers.ExampleDatabase.index()
-GET         /ExampleSSO              controllers.ExampleSSO.index()
 
+GET         /login                   controllers.ExampleSSO.login(returnarg: String)
 GET         /verifylogin             controllers.ExampleSSO.verifylogin()
 
 

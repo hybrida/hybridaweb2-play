@@ -23,7 +23,8 @@ $("document").ready(function($){
         <li class="navelement"><a href="/Chat">Chat</a></li>
         <li class="navelement"><a href="/styret">Om Styret</a></li>
         <li style="float: right" class="navelement">
-            <a href="https://innsida.ntnu.no/sso?target=hybridawebtest&returnargs=@(play.mvc.Http.Context.current().request().path())">Logg inn</a>
+            <!-- @(play.mvc.Http.Context.current().request().path()) -->
+            <a href="@(routes.ExampleSSO.login(play.mvc.Http.Context.current().request().path()))">Logg inn</a>
         </li>
         <li style="float: right; padding-top: .8em;" class="navelement">
             <div class="search" style="padding-top: 0.4em">

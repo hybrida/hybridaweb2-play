@@ -7,10 +7,10 @@ import play.mvc.Result;
 
 public class ExampleSSO extends Controller {
 
-    public static String innsida_login_link = "https://innsida.ntnu.no/sso/?target=hybridaweb&returnargs=";
+    public static String innsida_login_link = "https://innsida.ntnu.no/sso/?target=hybridawebtest&returnargs=";
 
-    public static Result redirect() {
-        return ok("");
+    public static Result login(String returnarg) {
+        return redirect(innsida_login_link + (returnarg.length() == 0 ? request().path() : returnarg));
     }
 
     public static Result verifylogin() {
@@ -48,10 +48,6 @@ public class ExampleSSO extends Controller {
         } catch (Exception exc_obj) {
             return ok(escapeText.render(exc_obj.toString()));
         }
-    }
-
-    public static Result index() {
-        return redirect(innsida_login_link); // returnargs is void here, later we must add the return page.
     }
 }
 
