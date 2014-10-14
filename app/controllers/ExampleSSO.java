@@ -1,6 +1,7 @@
 package controllers;
 
 import play.mvc.Controller;
+import play.mvc.Http;
 import views.html.*;
 import play.mvc.Result;
 
@@ -14,7 +15,6 @@ public class ExampleSSO extends Controller {
 
     public static Result verifylogin() {
         models.SSOData data = new models.SSOData();
-
 
         try {
             String return_url = new models.HttpRequestData().get("returnargs");

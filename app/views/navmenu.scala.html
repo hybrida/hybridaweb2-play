@@ -22,7 +22,7 @@ $("document").ready(function($){
         <li class="navelement"><a href="/random">Random</a></li>
         <li class="navelement"><a href="/Chat">Chat</a></li>
         <li style="float: right" class="navelement">
-            <a href="https://innsida.ntnu.no/sso?target=hybridawebtest&returnargs=jadda">Logg inn</a>
+            <a href="https://innsida.ntnu.no/sso?target=hybridawebtest&returnargs=@(play.mvc.Http.Context.current().request().path())">Logg inn</a>
         </li>
         <li style="float: right; padding-top: .8em;" class="navelement">
             <div class="search" style="padding-top: 0.4em">
