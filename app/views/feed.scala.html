@@ -1,13 +1,27 @@
-@(content: Html)
+<head>
+    <meta charset="utf-8">
+    <title>Replace Textarea with Inline Editor &mdash; CKEditor Sample</title>
+    <script src="/assets/ckeditor/ckeditor.js"></script>
+    <link href="sample.css" rel="stylesheet">
+    <style>
+
+    /* Style the CKEditor element to look like a textfield */
+    .cke_textarea_inline
+    {
+    padding: 10px;
+    height: 200px;
+    overflow: auto;
+
+    border: 1px solid gray;
+    -webkit-appearance: textfield;
+    }
+
+    </style>
+</head>
+<body>
 
 <div style="padding: 10%">
 <div style="padding: 2em 4%; background-color: #ffffff; border-radius: 5px;">
-    <div style="border-bottom: 2px solid  #9e9d98 ">
-        <p style="font-family:sans-serif;color: #9e9d98;">NEWSFEED</p>
-    </div>
-    <div style="background-color: #ffffff">
-@content
-    </div>
 
 
     <div class="content3">
@@ -19,10 +33,17 @@
         Ingress: <br>
         <textarea rows="10" cols="50" name="ingress" value="Skriv en kort oppsummering her"></textarea><br>
         Artikkel: <br>
+        <div style = "background-color: #ffffff">
         <textarea rows="10" cols="100" name="article" value="Skriv ditt innlegg her"></textarea>
+        </div>
     </form>
+        <script>
+        CKEDITOR.inline( 'article' );
+        </script>
     <form name="clear" action="/feedClear" method="POST">
         <input type="submit" value="Clear Feed">
     </form></div><br>
     </div>
 </div>
+    </body>
+

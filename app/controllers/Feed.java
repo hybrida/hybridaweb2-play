@@ -30,7 +30,7 @@ public class Feed {
 
     public static Result index() throws SQLException{
 
-        return ok(layoutHtml.render("NewsFeed", feed.render(toHtml(getArticleData()))));
+        return ok(layoutHtml.render("NewsFeed", feed.render()));
 
     }
 
@@ -114,6 +114,7 @@ public class Feed {
 
         return finalPost;
     }
+    //TODO:Install CKEditor
 
     public static Result clearAll() throws SQLException{
         javax.sql.DataSource ds = DB.getDataSource();
@@ -162,3 +163,7 @@ public class Feed {
 
     }
 }
+
+/*TODO:  Funksjonalitet som skal dekkes av denne klassen, Admin for å ha tilgang, mulighet for å opprette hendelse,
+ *TODO: Bredere mulighet for å redigere artikkelen ( flere bilder, med ulik plassering osv..)
+* TODO: Innstillingsfelt for artikkelen etter opprettelse, med mulighet til å pinne, slette osv */
