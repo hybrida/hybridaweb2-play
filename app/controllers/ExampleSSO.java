@@ -14,7 +14,7 @@ public class ExampleSSO extends Controller {
         if(file.exists() && !file.isDirectory()) {
             return redirect(innsida_login_link + (returnarg.length() == 0 ? request().path() : returnarg));
         } else {
-            session("user", "su," + String.valueOf(System.currentTimeMillis()));
+            session("user", play.api.libs.Crypto.encryptAES("su," + String.valueOf(System.currentTimeMillis())));
             return redirect(returnarg.length() == 0 ? request().path() : returnarg);
         }
     }
