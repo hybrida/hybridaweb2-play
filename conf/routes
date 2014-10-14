@@ -12,8 +12,11 @@ GET         /about                  controllers.About.index()
 
 
 
-GET         /article                controllers.Article.index()
+GET         /article                controllers.Articles.index()
 GET         /yeah                   controllers.Yeah.index()
+GET         /update                  controllers.Update.index()
+GET         /update/utgaver          controllers.Update.utgaver()
+GET         /update/redaksjon        controllers.Update.redaksjon()
 
 # Info til introkurs
 GET         /info/:name             controllers.About.personInfo(name)
@@ -30,9 +33,9 @@ POST        /lol                    controllers.Lol.index()
 GET         /indok                  controllers.Indok.facepalm()
 
 # Lol 2 ebean test
-GET         /lol2                    controllers.Lol2.noindex()
-POST        /lol2/clear              controllers.Lol2.clearNameData()
-POST        /lol2                    controllers.Lol2.index()
+GET         /lol2                   controllers.Lol2.noindex()
+POST        /lol2/clear             controllers.Lol2.clearNameData()
+POST        /lol2                   controllers.Lol2.index()
 
 # Newsfeed
 GET         /feed                   controllers.Feed.index()
