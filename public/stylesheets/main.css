@@ -1,5 +1,5 @@
 html {
-	background: url("../images/backgroundtest.jpg") fixed;
+	background: url("../images/backbackground.png") fixed;
 	font-family: "Gill", Georgia;
 }
 
@@ -106,7 +106,7 @@ body {
 }
 
 .content {
-    background: url("../images/tempbackground.jpg") fixed;
+
 	font-family: sans-serif;
 	background-color: #FAF8ED;
 	padding: 1em;
