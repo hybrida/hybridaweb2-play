@@ -1,5 +1,5 @@
 html {
-	background: url("../images/backgroundtest.jpg") fixed;
+	background: url("../images/backbackground.png") fixed;
 	font-family: "Gill", Georgia;
 }
 
@@ -9,9 +9,18 @@ body {
 	margin: 0;
 }
 
+a img {
+  border: 0;
+}
+
 .wrap {
   width: 100%;
   margin: 0;
+}
+
+.head img {
+  float: left;
+  border: 0 auto;
 }
 
 .banner {
@@ -24,6 +33,8 @@ body {
   padding-top: 3em;
   padding-right: 1em;
 }
+
+/*begynnelsen på utkast til forslag til mulig måte å kanskje prøve å lage menubaren på (kanskje), kan testes på /layout*/
 
 #logo{
     height: 5em;
@@ -100,13 +111,66 @@ body {
 .navelement {
     padding: 1em 0;
 }
+/*---------------------------------------------------------------------------------------------------------------------*/
+
+.navigation_pane li {
+  margin-top: 10px;
+  display: inline-block;
+  list-style-type: none;
+  padding-right: 0px;
+  color: white;
+}
+
+.navigation_pane ul {
+    padding-left: 1em;
+}
 
 #footer {
 	clear: both;
 }
 
+.g-button a {
+  color: white;
+  text-decoration: none;
+  font-weight: 550;
+  padding: 5px 15px;
+  border: 0;
+  border-radius: 2px;
+  margin-right: 2px;
+  background-color: #185c9b;
+  background-image: -webkit-linear-gradient(top,#185c9b,#003b8e);
+  background-image: -moz-linear-gradient(top,#185c9b,#003b8e);
+  background-image: -o-linear-gradient(top,#185c9b,#003b8e);
+  background-image: -ms-linear-gradient(top,#185c9b,#003b8e);
+  background-image: linear-gradient(top,#185c9b,#003b8e);
+}
+
+#logx-button {
+	float: right;
+	padding-right: 1em;
+}
+
+.g-button:hover a {
+  background-color: #154e87;
+  background-image: -webkit-linear-gradient(top,#154e87,#003a75);
+  background-image: -moz-linear-gradient(top,#154e87,#003a75);
+  background-image: -o-linear-gradient(top,#154e87,#003a75);
+  background-image: -ms-linear-gradient(top,#154e87,#003a75);
+  background-image: linear-gradient(top,#154e87,#003a75);
+  cursor: pointer;
+}
+
+.g-button:active a {
+  background-color: #14427f;
+  background-image: -webkit-linear-gradient(top,#14427f,#004063);
+  background-image: -moz-linear-gradient(top,#14427f,#004063);
+  background-image: -o-linear-gradient(top,#14427f,#004063);
+  background-image: -ms-linear-gradient(top,#14427f,#004063);
+  background-image: linear-gradient(top,#14427f,#004063);
+}
+
 .content {
-    background: url("../images/tempbackground.jpg") fixed;
+
 	font-family: sans-serif;
 	background-color: #FAF8ED;
 	padding: 1em;
@@ -132,6 +196,9 @@ body {
     -webkit-border-radius: 0px;
     border-style: solid;
     border-color: black;
+}
+.textColourWhite{
+    color: rgba(255, 255, 255, 1);
 }
 
 .search input[type="text"] {

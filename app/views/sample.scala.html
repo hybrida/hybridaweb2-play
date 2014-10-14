@@ -1,0 +1,214 @@
+
+<div style="background-image:url('../assets/images/office_background.png'); height:210px;  "></div>
+    <style type="text/css">
+
+        .styretprofil{                  /*profilbildet av hvert styremedlem */
+            height:450px;
+            padding-top:9em;
+            padding-left:1.8em;
+        }
+        .styretprofil:hover {
+            height :480px ;
+            padding-top :4em ;
+            padding-left:1.15em;
+            transition:o.2s ease-in-out;
+        }
+        .omStyretBoks {
+            border-width:2px;
+            border-style:solid;
+            border-color:lightgrey;
+            position:absolute;
+            left:35%;
+            right:35%;
+            background-color:ghostwhite;
+            width:30%;
+            height:35%;
+            top:8em;
+            border-radius:50%;
+            box-shadow:0 5px 15px 5px #aaa inset;
+        }
+        .omstyret {
+            color:darkslategrey;
+            padding-left:2.4em;
+            padding-right:2.4em;
+            padding-top:1em;
+            font-size: 18px;
+            text-align:center ;
+        }
+        #link:link {                    /* ståpels link */
+            color:darkslategrey;
+            background-color:transparent;
+            text-decoration:none;
+        }
+        #link:visited {
+            color:darkslategrey;
+            background-color:transparent;
+        }
+        #link:hover {
+            color:darkslategrey;
+            font-weight: bold;
+        }
+        #jentesjef {                    /* tekst om hvert medlem */
+            color:transparent;
+            position:absolute;
+            left:10%;
+            top:2em;
+        }
+        #bksjef {
+            color:transparent;
+            position:absolute;
+            left:10%;
+            top:2em;
+
+        }
+        #nestleder {
+            color:transparent;
+            position:absolute;
+            left:10%;
+            top:2em;
+
+        }
+        #leder {
+            color:transparent;
+            position:absolute;
+            left:10%;
+            top:2em;
+        }
+        #skattmester {
+            color:transparent;
+            position:absolute;
+            left:10%;
+            top:2em;
+        }
+        #festivalus {
+            color:transparent;
+            position:absolute;
+            left:10%;
+            top:2em;
+        }
+        #vevsjef {
+            color:transparent;
+            position:absolute;
+            left:10%;
+            top:2em;
+        }
+
+        .styretprofil:hover + #jentesjef {        /* hover for hver tekst om styremedlem */
+            color:darkslategrey;
+            background:ghostwhite;
+            font-size:17px;
+            text-align:center;
+            border-radius:30%;
+            position:absolute;
+            left:37%;
+            right:37%;
+            top:12em;
+        }
+        .styretprofil:hover + #bksjef {
+            color:darkslategrey;
+            background:ghostwhite;
+            font-size:17px;
+            text-align:center;
+            border-radius:30%;
+            position:absolute;
+            left:37%;
+            right:37%;
+            top:12em;
+        }
+        .styretprofil:hover + #nestleder {
+            color:darkslategrey;
+            background:ghostwhite;
+            font-size:17px;
+            text-align:center;
+            border-radius:30%;
+            position:absolute;
+            left:37%;
+            right:37%;
+            top:12em;
+        }
+        .styretprofil:hover + #leder {
+            color:darkslategrey;
+            background:ghostwhite;
+            font-size:17px;
+            text-align:center;
+            border-radius:30%;
+            position:absolute;
+            left:37%;
+            right:37%;
+            top:12em;
+        }
+        .styretprofil:hover + #skattmester {
+            color:darkslategrey;
+            background:ghostwhite;
+            font-size:17px;
+            text-align:center;
+            border-radius:30%;
+            position:absolute;
+            left:37%;
+            right:37%;
+            top:12em;
+        }
+        .styretprofil:hover + #festivalus {
+            color:darkslategrey;
+            background:ghostwhite;
+            font-size:17px;
+            text-align:center;
+            border-radius:30%;
+            position:absolute;
+            left:37%;
+            right:37%;
+            top:12em;
+        }
+        .styretprofil:hover + #vevsjef {
+            color:darkslategrey;
+            background:ghostwhite;
+            font-size:17px;
+            text-align:center;
+            border-radius:30%;
+            position:absolute;
+            left:37%;
+            right:37%;
+            top:12em;
+        }
+    </style>
+
+    <!-- StyretBoksen + tekst om styret -->
+
+    <div class="omStyretBoks">
+        <h2 style="padding-left:5em; padding-top:1em; color:darkslategrey; ">Styret i Hybrida</h2>
+        <p class="omstyret"><br>Styret i Hybrida består av syv medlemmer. I tillegg til Minttu, så er Hybridastyret veldig
+         begeistret for Hybrida sitt eget linjeband <a id="link" href="http://www.ståpels.no" target="_blank">Ståpels</a>.</p>
+    </div>
+
+        <!-- profilbilde + tilhørende tekst til hvert styremedlem -->
+
+        <div>
+        <img class="styretprofil" src="/assets/images/jentekomsjef.jpg" "/>
+            <div id="jentesjef"><b>Helene Dypbukt</b><br>Jentekomitésjef<br><br>
+                Sjef for jentekomiteen, eller chicas united som det kalles i spania. Sørger for at damene oppfører seg i henhold.<br><br></div>
+        <img class="styretprofil" src="/assets/images/bksjef.jpg" />
+            <div id="bksjef"><b>Andrea Marie Festøy</b><br>Bedriftskomitésjef<br><br>
+                Fikser og ordner med profileringen av linja og linjeforeningen utad til bedrifter og næringslivet. Sørger for at vi får de saftigste jobbene på markedet.
+            </div>
+        <img class="styretprofil" src="/assets/images/nestleder.jpg"  />
+            <div id="nestleder"><b>Stephanie Buadu</b><br>Nestleder<br>
+                <br>
+                "Samarbeider" med lederen om det organisatoriske og administrative ansvaret i styret.<br><br>
+            </div>
+        <img class="styretprofil" src="/assets/images/leder.jpg" />
+            <div id="leder"><b>Simen Lillehagen</b><br>Leder<br><br>
+                Har det overordnede ansvaret i Hybrida, og er rett og slett helt sjef. Glad for å ha mange jenter i styret.<br><br>
+            </div>
+        <img class="styretprofil" src="/assets/images/skattemester.jpg"/>
+            <div id="skattmester"><b>Astrid Nerhus Dale</b><br>Skattmester<br><br>
+                Ansvaret for pengestrømmen inn og, selvfølgelig mest, ut. Driver i følge pålitelige kilder ikke med underslag (men man vet jo aldri).<br><br>
+            </div>
+        <img class="styretprofil" src="/assets/images/festivalus.jpg" />
+            <div id="festivalus"><b>Live Jacobsen</b><br>Festivalus<br><br>
+                Ansvaret for det som blir arrangert av fester, turer og en hel rekke andre arrangementer. Er også daglig leder på Hybridas eksklusive bar på Moholt.
+            </div>
+        <img class="styretprofil" src="/assets/images/vevsjef.jpg"/>
+            <div id="vevsjef"><b>Øystein Hauan</b><br>Vevsjef<br><br>
+                Ansvar for utvikling og drift av nettsidene, samt informasjonsflyten i linjeforeningen og HybridLAN. Tar det mye med ro, særlig når det kommer til matte to.
+            </div>
+        </div>

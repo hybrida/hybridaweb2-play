@@ -24,7 +24,7 @@ public class GitGud extends Controller{
         ArrayList<String> content = new ArrayList<>();
         content.add(" <iframe width=\"853\" height=\"480\" src=\"//www.youtube.com/embed/ZzbvV4l-26U?autoplay=1\" frameborder=\"0\" allowfullscreen></iframe>");
 
-        return ok(layout.render("SHREIKING", content));
+        return ok(layout.render("SHRIEKING", content));
     }
 
 
