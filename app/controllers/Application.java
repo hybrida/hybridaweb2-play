@@ -1,5 +1,6 @@
 package controllers;
 
+import org.apache.commons.codec.DecoderException;
 import play.*;
 import play.mvc.*;
 import views.html.*;
@@ -15,15 +16,19 @@ public class Application extends Controller {
     public static Result index() throws java.sql.SQLException {
 
         String login = session("user");
-        if (login != null) {
-            login = play.api.libs.Crypto.decryptAES(login);
-            login = login.split(",")[0];
+        try {
             if (login != null) {
-                return ok(layoutHtml.render("Hybrida", escapeText.render("Welcome " + login)));
+                login = play.api.libs.Crypto.decryptAES(login);
+
+                login = login.split(",")[0];
+                if (login != null) {
+                    return ok(layoutHtml.render("Hybrida", escapeText.render("Welcome " + login)));
+                } else {
+                    return ok(layoutHtml.render("Hybrida", escapeText.render("Your sign is invalid, must implement auto-logout now...")));
+                }
             }
-            else {
-                return ok(layoutHtml.render("Hybrida", escapeText.render("Your sign is invalid, must implement auto-logout now...")));
-            }
+        } catch (Exception exc) {
+            session().clear();
         }
 
 
