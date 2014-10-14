@@ -60,7 +60,7 @@ public class SSOData extends play.db.ebean.Model {
             return false;
         }
 
-        // Generate our public key. innsida.crt is ONLY available on the server. It MUST REMAIN PRIVATE. DO NOT COMMIT IT. EVER.
+        // Generate our public key from innsida.crt. innsida.crt is ONLY available on the server. It MUST REMAIN PRIVATE. DO NOT COMMIT IT. EVER.
         java.io.FileInputStream filestream = new java.io.FileInputStream(new java.io.File(models.Certificate.getPath()));
         java.security.cert.CertificateFactory cf = java.security.cert.CertificateFactory.getInstance("X.509");
         java.security.cert.Certificate cert = cf.generateCertificate(filestream);
