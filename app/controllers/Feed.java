@@ -1,9 +1,12 @@
 package controllers;
 import models.FeedForm;
+import org.apache.commons.io.FileUtils;
+import play.mvc.Http;
 import play.mvc.Result;
-import views.html.feed;
-import views.html.layoutHtml;
-import views.html.navmenu;
+import views.html.*;
+
+import java.io.File;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -33,14 +36,33 @@ public class Feed {
 
     public static Result save() throws SQLException{
         String title;
+        String ingress;
         String article;
+        String imageTitle;
         int id;
 
         Form<FeedForm> input = feedForm.bindFromRequest();
 
         if(input.hasErrors() == false) {
             title = input.get().title;
+            ingress = input.get().ingress;
             article = input.get().article;
+
+            Http.MultipartFormData body = request().body().asMultipartFormData();
+            Http.MultipartFormData.FilePart picture = body.getFile("picture");
+            if (picture != null) {
+                String fileName = picture.getFilename();
+                String contentType = picture.getContentType();
+                File file = picture.getFile();
+                try {
+                    FileUtils.moveFile(file, new File("public/Upload", fileName));
+                } catch (IOException ioe) {
+                    System.out.println("Problem operating on filesystem");
+                }
+                imageTitle = fileName;
+            }else{
+                imageTitle = null;
+            }
 
 
             javax.sql.DataSource ds = DB.getDataSource();
@@ -52,7 +74,7 @@ public class Feed {
             int length = result.getInt(1);
             int val = length + 1;
 
-            statement.executeUpdate("INSERT INTO feed VALUES('" + val + "','" + title + "','" + article + "')");
+            statement.executeUpdate("INSERT INTO feed VALUES('" + val + "','" + title + "','" + imageTitle + "','" + article + "','" + ingress + "')");
 
 
         }
@@ -71,11 +93,23 @@ public class Feed {
         String finalPost = "";
         for (int i = 1; i <= length; ++i) {
             result.absolute(i);
-            finalPost += "<div class=\"content2\">"+
-                    "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
-                    "<img src=\"/assets/images/favicon.ico\" alt=\"rect\"/>" +
-                    result.getString(2).toUpperCase() + "</div><br>" +
-                    result.getString(3) + "</div>";
+            String check = result.getString(3);
+            String url = routes.Feed.generateArticle(result.getString(1).replace(" ", "_")).absoluteURL(request());
+            if (!check.equalsIgnoreCase("null")) {
+                finalPost += "<a href=" + url +"><div class=\"content2\">" +
+                        "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
+                        "<img src=\"/assets/Upload/" + result.getString(3) + "\" alt=\"rect\" width=50% height=50%/><br></a>" +
+                        escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div><br>" +
+                        escapeText.apply(result.getString(5)).toString().replace("\n", "<br />") + "</div>";
+            }
+            else{
+                finalPost += "<a href=" + url +"><div class=\"content2\">" +
+                        "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
+                        "<img src=\"/assets/images/favicon.ico\" alt=\"rect\"/><br></a>" +
+                        escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div><br>" +
+                        escapeText.apply(result.getString(5)).toString().replace("\n", "<br />") + "</div>";
+
+            }
         }
 
         return finalPost;
@@ -87,5 +121,44 @@ public class Feed {
         java.sql.Statement statement = connection.createStatement();
         statement.executeUpdate("DELETE FROM feed");
         return redirect(routes.Feed.index().absoluteURL(request()));
+    }
+
+    public static Result generateArticle(String newsTitle) throws SQLException{
+        javax.sql.DataSource ds = DB.getDataSource();
+        java.sql.Connection connection = ds.getConnection("hybrid", "");
+        java.sql.Statement statement = connection.createStatement();
+
+        String sqlStatement = "SELECT * FROM feed WHERE id = '" + newsTitle +"'";
+
+        ResultSet result = statement.executeQuery(sqlStatement);
+        result.absolute(1);
+        String finalPost = "";
+
+        String check = result.getString(3);
+
+        if (!check.equalsIgnoreCase("null")) {
+            finalPost += "<div class=\"content2\">" +
+                    "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
+                    "<img src=\"/assets/Upload/" + result.getString(3) + "\" alt=\"rect\" width=50% height=50%/><br>" +
+                    escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div><br>" +
+                    escapeText.apply(result.getString(4)).toString().replace("\n", "<br />") + "</div></a>";
+        }
+        else{
+            finalPost += "<div class=\"content2\">" +
+                    "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
+                    "<img src=\"/assets/images/favicon.ico\" alt=\"rect\"/><br>" +
+                    escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div><br>" +
+                    escapeText.apply(result.getString(4)).toString().replace("\n", "<br />") + "</div>";
+
+        }
+
+
+
+
+
+
+
+        return ok(layoutHtml.render("NewsFeed", generateArticle.render(toHtml(finalPost))));
+
     }
 }

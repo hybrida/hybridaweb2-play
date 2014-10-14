@@ -9,6 +9,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static controllers.Feed.getArticleData;
+import static controllers.Lol.toHtml;
+
 
 public class TestHome extends Controller{
 
@@ -43,5 +46,5 @@ public class TestHome extends Controller{
     }
 
     public static Result indexTest() throws SQLException{
-        return ok(testHome.render(getNews()));
+        return ok(testHomeFeedTest.render(toHtml(getArticleData())));
     }}

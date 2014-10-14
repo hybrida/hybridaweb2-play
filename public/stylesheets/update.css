@@ -3,7 +3,8 @@
 }
 
 .articletext{
-    font-family: "Trebuchet MS";
+    font-family: "Sans-serif";
+    color: #9e9d98;
     font-size: 20px;
     text-shadow: 3px, 3px   , #333;
 }

@@ -8,6 +8,8 @@ import play.data.validation.Constraints;
  */
 @Entity
 public class FeedForm {
+    public String imageTitle;
+    public String ingress;
     @Constraints.Required
     public String title;
     public String article;

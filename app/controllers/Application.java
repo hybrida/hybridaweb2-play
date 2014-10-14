@@ -13,7 +13,7 @@ public class Application extends Controller {
 	final static play.data.Form<SearchForm> userForm = play.data.Form.form(SearchForm.class);
 
     public static Result index() throws java.sql.SQLException {
-
+        /*
         String login = session("LOGGED IN COMPLETED");
         if (login != null) {
             login = play.api.libs.Crypto.decryptAES(login);
@@ -24,7 +24,10 @@ public class Application extends Controller {
                 return ok(layoutHtml.render("Hybrida", escapeText.render("Your sign is invalid, must implement auto-logout now...")));
             }
         }
+        */
+
         return ok(layoutHtml.render("Hybrida", escapeText.render("<p><h1>Vælkømmen tell Hybrida! </h1></p>")));
+
     }
 
     public static Result processForm() {

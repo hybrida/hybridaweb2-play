@@ -11,11 +11,15 @@
 
 
     <div class="content3">
-    <form name="Article" action="/feed" method="POST">
+    <form name="Article" action="/feed" method="POST" enctype="multipart/form-data">
         <input type="text" value="Title" name="title" size="56" >
+        <input type="file" name="picture">
         <input type="submit" value="Submit">
         <br>
-        <textarea rows="10" cols="50" name="article" value="Skriv ditt innlegg her"></textarea>
+        Ingress: <br>
+        <textarea rows="10" cols="50" name="ingress" value="Skriv en kort oppsummering her"></textarea><br>
+        Artikkel: <br>
+        <textarea rows="10" cols="100" name="article" value="Skriv ditt innlegg her"></textarea>
     </form>
     <form name="clear" action="/feedClear" method="POST">
         <input type="submit" value="Clear Feed">
