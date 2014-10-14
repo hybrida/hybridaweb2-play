@@ -13,10 +13,11 @@ public class Application extends Controller {
 	final static play.data.Form<SearchForm> userForm = play.data.Form.form(SearchForm.class);
 
     public static Result index() throws java.sql.SQLException {
-        /*
-        String login = session("LOGGED IN COMPLETED");
+
+        String login = session("user");
         if (login != null) {
             login = play.api.libs.Crypto.decryptAES(login);
+            login = login.split(",")[0];
             if (login != null) {
                 return ok(layoutHtml.render("Hybrida", escapeText.render("Welcome " + login)));
             }
