@@ -1,7 +1,7 @@
 package controllers;
 
 import play.mvc.Controller;
-import play.mvc.Http;
+import java.io.File;
 import views.html.*;
 import play.mvc.Result;
 
@@ -10,7 +10,13 @@ public class ExampleSSO extends Controller {
     public static String innsida_login_link = "https://innsida.ntnu.no/sso/?target=hybridawebtest&returnargs=";
 
     public static Result login(String returnarg) {
-        return redirect(innsida_login_link + (returnarg.length() == 0 ? request().path() : returnarg));
+        File file = new File(models.Certificate.getPath());
+        if(file.exists() && !file.isDirectory()) {
+            return redirect(innsida_login_link + (returnarg.length() == 0 ? request().path() : returnarg));
+        } else {
+            session("user", "su," + String.valueOf(System.currentTimeMillis()));
+            return redirect(returnarg.length() == 0 ? request().path() : returnarg);
+        }
     }
 
     public static Result verifylogin() {
