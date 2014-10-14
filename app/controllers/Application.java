@@ -1,12 +1,9 @@
 package controllers;
 
-import org.apache.commons.codec.DecoderException;
-import play.*;
+import com.avaje.ebean.Page;
 import play.mvc.*;
 import views.html.*;
-
 import models.*;
-import play.db.*;
 
 
 public class Application extends Controller {
@@ -14,7 +11,6 @@ public class Application extends Controller {
 	final static play.data.Form<SearchForm> userForm = play.data.Form.form(SearchForm.class);
 
     public static Result index() throws java.sql.SQLException {
-
         String login = session("user");
         try {
             if (login != null) {

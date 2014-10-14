@@ -38,11 +38,14 @@ create table lol_name (
 ;
 
 create table user (
+  id                        bigint not null,
   l_name                    varchar(255),
   f_name                    varchar(255),
   student                   boolean,
   admin                     boolean,
-  bedkom                    boolean)
+  bedkom                    boolean,
+  last_login                timestamp,
+  constraint pk_user primary key (id))
 ;
 
 create sequence company_seq;
@@ -50,6 +53,8 @@ create sequence company_seq;
 create sequence feed_seq;
 
 create sequence lol_name_seq;
+
+create sequence user_seq;
 
 
 
@@ -77,4 +82,6 @@ drop sequence if exists company_seq;
 drop sequence if exists feed_seq;
 
 drop sequence if exists lol_name_seq;
+
+drop sequence if exists user_seq;
 
