@@ -12,11 +12,6 @@ public class Application extends Controller {
 
     public static Result index() throws java.sql.SQLException {
 
-        User kevin = new User("kevin", "strav");
-        kevin.setLastLoginTimeNow();
-        kevin.setUsername("kevinrs");
-        kevin.save();
-
         String login = session("user");
         try {
             if (login != null) {

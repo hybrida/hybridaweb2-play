@@ -20,7 +20,7 @@ public class User extends Model {
     private String      username;  // Assigned by NTNU
     private String      first_name = null;
     private String      surname = null;
-    private String      email = null; 
+    private String      email = null;
     private String      title = null; // Ph.D., Civ.Eng., Stud., Chief, Commander, General,...
 
     // Privilege status
