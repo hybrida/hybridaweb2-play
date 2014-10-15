@@ -24,15 +24,15 @@ public class ExampleSSO extends Controller {
 
     public static Result verifylogin() {
         models.SSOData data = new models.SSOData();
-
         try {
             String return_url = new models.HttpRequestData().get("returnargs");
             if (data.login()) {
                 User user = User.find.where().eq("username", data.getLoginInfo().get("username")).findUnique();
                 if (user != null) { // Check if user exists
-                    if (user.getLastLoginTime().before(new Timestamp(new Date(System.currentTimeMillis()).getTime()))) { // Check if the current user is logging in AFTER the last valid login.
+                    if (user.getLastLoginTime().before(new Timestamp(new Date(Integer.valueOf(data.getLoginInfo().get("time")) * 1000L).getTime()))) { // Check if the current user is logging in AFTER the last valid login.
                         System.out.println(data.getLoginInfo().get("username") + " has logged in.");
                         user.setLastLoginTimeNow();
+                        user.save();
                         session("user", play.api.libs.Crypto.encryptAES(data.getLoginInfo().get("username") + "," + String.valueOf(System.currentTimeMillis())));
                     }
                 } else {
