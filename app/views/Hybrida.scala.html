@@ -20,11 +20,15 @@
     </div>
     <div class="column2">
         <div id="hybb">
-            <p id="hybrida">
-                <img id="grifflogo" src="/assets/images/logo_big.png" />
-                <br><b>Hybrida</b> er linjeforeningen for studieprogrammet <b>Ingeniørvitenskap og IKT</b> ved NTNU i Trondheim.
-                Foreningens formål er å fremme samhold og kameratskap innad på studieprogrammet ved bla.a. å avholde arrangementer av både sosial og faglig karakter.
-            </p>
+            <div id="grifflogo">
+                <section id="transition">
+                    <img src="/assets/images/logo_big_transparent.png" />
+                </section>
+            </div>
+                <p id="hybrida">
+                    <br><b>Hybrida</b> er linjeforeningen for studieprogrammet <b>Ingeniørvitenskap og IKT</b> ved NTNU i Trondheim.
+                        Foreningens formål er å fremme samhold og kameratskap innad på studieprogrammet ved bla.a. å avholde arrangementer av både sosial og faglig karakter.
+                </p>
         </div>
     </div>
     <div class="column3">
@@ -83,6 +87,7 @@
             width: 30%;
             float: left;
             height:620px;
+            background-color: #ffffff;
         }
         .column3 {
             width: 35%;
@@ -128,9 +133,33 @@
             width:100%;
             background-color:cornflowerblue;
         }
+
         #grifflogo {
+            padding-top: 2em;
             height: 140px;
-            width: 140px;
-            padding: 1em;
+            width: 100%;
+            text-align: center;
+            background-color: #ffffff;
+        }
+        #transition img {
+        height:140px;
+        width:140px;
+        background-size: 200% 100%;
+        background-color: red;
+        background-image: -webkit-linear-gradient(left, dodgerblue, blue, darkblue, darkblue, mediumblue, dodgerblue);
+        background-image:    -moz-linear-gradient(left, dodgerblue, blue, darkblue, darkblue, mediumblue, dodgerblue);
+        background-image:     -ms-linear-gradient(left, dodgerblue, blue, darkblue, darkblue, mediumblue, dodgerblue);
+        background-image:      -o-linear-gradient(left, dodgerblue, blue, darkblue, darkblue, mediumblue, dodgerblue);
+        background-image:         linear-gradient(left, dodgerblue, blue, darkblue, darkblue, mediumblue, dodgerblue);
+
+        -moz-transition: all 0.3s ease-out;  /* FF4+ */
+        -o-transition: all 0.3s ease-out;  /* Opera 10.5+ */
+        -webkit-transition: all 0.3s ease-out;  /* Saf3.2+, Chrome */
+        -ms-transition: all 0.3s ease-out;  /* IE10? */
+        transition: all 0.3s ease-out;
+        }
+
+        #transition img:hover {
+        background-position: -100% 100%;
         }
     </style>
