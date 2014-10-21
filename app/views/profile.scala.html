@@ -1,0 +1,39 @@
+@(username: String, lName: String, fName: String, mName: String, altEmail: String,
+        website: String, phone: String, isMale: Boolean, birthdate: String,
+        specialization: String, graduationYear: Integer, imageName: String)
+
+<h5 class="title">Din profil</h5>
+<a class="float-right button" href="profil/rediger">Rediger</a>
+<div class="profile">
+    <img class="pic" src="assets/profiles/@username/@imageName">
+    <h1 class="name">@fName @lName</h1>
+    <h3 class="name-with-mName">@fName @mName @lName</h3>
+    <div class="info-block">
+        <ul class="left">
+            <li>NTNU-E-POST</li>
+            <li>ALTERNATIV E-POST</li>
+            <li>HJEMMESIDE</li>
+            <li>TELEFON</li>
+        </ul>
+        <ul class="right">
+            <li>@(username)@@stud.ntnu.no</li>
+            <li>@altEmail</li>
+            <li>@website</li>
+            <li>@phone</li>
+        </ul>
+    </div>
+    <div class="info-block">
+        <ul class="left">
+            <li>KJØNN</li>
+            <li>FØDSELSDATO</li>
+            <li>SPESIALISERING</li>
+            <li>AVGANGSÅR</li>
+        </ul>
+        <ul class="right">
+            <li>@(if(isMale) "Mann" else "Kvinne")</li>
+            <li>@birthdate</li>
+            <li>@specialization</li>
+            <li>@graduationYear</li>
+        </ul>
+    </div>
+</div>
