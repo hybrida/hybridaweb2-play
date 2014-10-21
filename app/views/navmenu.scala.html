@@ -23,7 +23,11 @@ $("document").ready(function($){
         <li class="navelement"><a href="/hybrida">Om Hybrida</a></li>
         <li style="float: right" class="navelement">
             <!-- @(play.mvc.Http.Context.current().request().path()) -->
-            <a href="@(routes.ExampleSSO.login(play.mvc.Http.Context.current().request().path()))">Logg inn</a>
+            @if(models.LoginState.isValidlyLoggedIn()) {
+                <a href=""https://innsida.ntnu.no/c/portal/logout"">Logg ut</a>
+            } else {
+                <a href="@(routes.ExampleSSO.login(play.mvc.Http.Context.current().request().path()))">Logg inn</a>
+            }
         </li>
         <li style="float: right; padding-top: .8em;" class="navelement">
             <div class="search" style="padding-top: 0.4em">

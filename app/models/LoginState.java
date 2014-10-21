@@ -12,23 +12,23 @@ public class LoginState extends Model {
 
     private User user = null;
 
-    public boolean isUserInDatabase(String username) {
+    private static boolean isUserInDatabase(String username) {
         return User.find.where().eq("username", username).findUnique() != null;
     }
 
-    public boolean isUserTimeValid(String username, String usertime) {
+    private static boolean isUserTimeValid(String username, String usertime) {
         User user = User.find.where().eq("username", username).findUnique();
         int usertime_int = Integer.valueOf(usertime) + 1;
         return user.getLastLoginTime().before(new java.util.Date(usertime_int));
     }
 
-    public boolean isValidlyLoggedIn() {
+    public static boolean isValidlyLoggedIn() {
         String user = play.mvc.Controller.session("user");
         if (user != null) {
             String data[] = play.api.libs.Crypto.decryptAES(user).split(",");
             if (isUserInDatabase(data[0])) {
                 if (isUserTimeValid(data[0], data[1])) {
-                    this.user = User.find.where().eq("username", data[0]).findUnique();
+                    //User.find.where().eq("username", data[0]).findUnique();
                     return true;
                 }
             }
@@ -37,7 +37,7 @@ public class LoginState extends Model {
     }
 
     public User getUser() {
-        return this.user;
+        return isValidlyLoggedIn() ? this.user : null;
     }
 
 }
