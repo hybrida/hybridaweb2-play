@@ -7,6 +7,7 @@ import java.util.Date;
 import java.sql.Timestamp;
 import views.html.*;
 import play.mvc.Result;
+import models.LoginState;
 
 public class ExampleSSO extends Controller {
 
@@ -20,6 +21,11 @@ public class ExampleSSO extends Controller {
             session("user", play.api.libs.Crypto.encryptAES("su," + String.valueOf(System.currentTimeMillis())));
             return redirect(returnarg.length() == 0 ? request().path() : returnarg);
         }
+    }
+
+    public static Result logout() {
+        session().clear();
+        return redirect("https://innsida.ntnu.no/c/portal/logout");
     }
 
     public static Result verifylogin() {
