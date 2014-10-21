@@ -37,7 +37,16 @@ public class LoginState extends Model {
     }
 
     public static User getUser() {
-        return isValidlyLoggedIn() ? User.find.where().eq("username", data[0]).findUnique() : null;
+        String user = play.mvc.Controller.session("user");
+        if (user != null) {
+            String data[] = play.api.libs.Crypto.decryptAES(user).split(",");
+            if (isUserInDatabase(data[0])) {
+                if (isUserTimeValid(data[0], data[1])) {
+                    return User.find.where().eq("username", data[0]).findUnique();
+                }
+            }
+        }
+        return null;
     }
 
 }
