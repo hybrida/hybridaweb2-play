@@ -36,8 +36,8 @@ public class LoginState extends Model {
         return false;
     }
 
-    public User getUser() {
-        return isValidlyLoggedIn() ? this.user : null;
+    public static User getUser() {
+        return isValidlyLoggedIn() ? User.find.where().eq("username", data[0]).findUnique() : null;
     }
 
 }
