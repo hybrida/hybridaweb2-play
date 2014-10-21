@@ -24,11 +24,11 @@ public class User extends Model {
     private String      title = null; // Ph.D., Civ.Eng., Stud., Chief, Commander, General,...
 
     // Privilege status
-    private boolean             student = true;    // No special privileges.
-    private boolean             bedkom = false;    // Control over bedpress.
-    private boolean             admin = false;     // For control over the entire page.
-    private boolean             root = false;      // Powers too great for mere mortals.
-    private char                sex = '\0';        // For specific events.
+    private Boolean             student = true;    // No special privileges.
+    private Boolean             bedkom = false;    // Control over bedpress.
+    private Boolean             admin = false;     // For control over the entire page.
+    private Boolean             root = false;      // Powers too great for mere mortals.
+    private Character           sex = '\0';        // For specific events.
     private java.util.Date      enrolled = null;   // For specific bedpresses.
     private Date                date_of_birth = null;
 
