@@ -24,7 +24,7 @@ $("document").ready(function($){
         <li style="float: right" class="navelement">
             <!-- @(play.mvc.Http.Context.current().request().path()) -->
             @if(models.LoginState.isValidlyLoggedIn()) {
-                <a href=""https://innsida.ntnu.no/c/portal/logout"">Logg ut</a>
+                <a href="@(routes.ExampleSSO.logout())">Logg ut</a>
             } else {
                 <a href="@(routes.ExampleSSO.login(play.mvc.Http.Context.current().request().path()))">Logg inn</a>
             }

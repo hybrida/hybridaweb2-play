@@ -65,6 +65,7 @@ GET         /search                  controllers.Search.index()
 GET         /ExampleDatabase         controllers.ExampleDatabase.index()
 
 GET         /login                   controllers.ExampleSSO.login(returnarg: String)
+GET         /logout                  controllers.ExampleSSO.logout()
 GET         /verifylogin             controllers.ExampleSSO.verifylogin()
 
 

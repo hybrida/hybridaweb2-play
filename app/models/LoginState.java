@@ -18,7 +18,7 @@ public class LoginState extends Model {
 
     private static boolean isUserTimeValid(String username, String usertime) {
         User user = User.find.where().eq("username", username).findUnique();
-        int usertime_int = Integer.valueOf(usertime) + 1;
+        Long usertime_int = Long.valueOf(usertime) + 1000L;
         return user.getLastLoginTime().before(new java.util.Date(usertime_int));
     }
 
