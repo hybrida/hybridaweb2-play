@@ -4,8 +4,8 @@
 # Standard layout accessible pages
 GET         /                        controllers.Application.index()
 GET         /testhome                controllers.TestHome.indexTest()
-GET         /kalender                controllers.Calender.index()
-
+GET         /calender                controllers.Calender.index()
+GET         /kalender                controllers.Calendar.calendarRender()
 
 GET         /about                   controllers.About.index()
 
@@ -25,7 +25,7 @@ GET         /info/:name              controllers.About.personInfo(name)
 GET         /gitgud                  controllers.GitGud.shrek()
 
 GET         /oystein/:number         controllers.Oystein.someCode(number)
-
+GET         /hybrida                 controllers.omHybrida.index()
 GET         /styret                  controllers.Sample.index()
 GET         /lol                     controllers.Lol.noindex()
 POST        /lol/clear               controllers.Lol.clearNameData()
