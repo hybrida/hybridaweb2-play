@@ -6,16 +6,20 @@
 <div class="innhold">
     <div class="column1">
         <div id="styret">
-            <a id="link" href="/styret">
-                <p class="bildetekst">
-                    <br><br><br>Styret i Hybrida
-                </p>
+            <a class="link" href="/styret">
+               <p class="bildetekst">
+                   <br><br><br>Styret i Hybrida
+               </p>
             </a>
         </div>
+        <div id="update"><div style="font-size: 90px; text-align: center;"><a class="link" href="/update">Update^k</a></div></div>
         <div id="student">
             <p class="bildetekst">
                 <br>Er du ny student?
             </p>
+        </div>
+        <div id="kontaktinfo">
+            Kontaktinfo
         </div>
     </div>
     <div class="column2">
@@ -30,38 +34,90 @@
                         Foreningens formål er å fremme samhold og kameratskap innad på studieprogrammet ved bla.a. å avholde arrangementer av både sosial og faglig karakter.
                 </p>
         </div>
+        <div id="tillitsvalgte">
+            Her finner du informasjon om de tillitsvalgte på linja.
+        </div>
     </div>
     <div class="column3">
-        <div id="lenker">
-            <p class="bildetekst">
+       <!-- <div class="flip-container">
+            <div class="flipper">
+                <div class="front">
+                    <span class="name">David Walsh</span>
+                </div>
+                <div class="back">
+                    <div class="back-logo"></div>
+                    <div class="back-title">hei</div>
+                    <p>hei</p>
+                </div>
+            </div>
+        </div> -->
+        <div class="flip-container">
+            <div class="flipper">
+                <div class="front">
+                    <div style="background-color: rgba(255,255,255,0.6);">
+                    <p style="font-size: 28px; padding:2em; margin-top: 2em; color:#212121; ">Her kan du finne noen nyttige lenker</p></div>
+                </div>
+                <div class="back">
+                    <table class="tekst">
+                        <tr>
+                            <td style="width: 35%; padding-right: 0.4em;"><strong>I & IKT<br>Timeplaner <br>Studentservice<br>ITEAs infoweb<br>Orakeltjenesten
+                                <br>Studentersamfundet
+                                i Trondhjem<br>Universitesavisa<br>Under Dusken<br>Studentrådene<br></strong>
+
+                            </td>
+                            <td style="width: 65%;">
+                                 	Rekrutterings- og infosider.<br>
+                                     Timeplanene til alle klassetrinn.<br>
+                                    Svarer på alle spørsmål du måtte ha<br>
+                                    Informasjonsbase for IT-systemet <br>
+                                    Support for IT-systemer under NTNU <br>
+                                    Norges største studentersamfunn. <br><br>
+                                    Nyheter fra campus. <br>
+                                    Trondheims studentavis <br>
+                                    Studentrådene ved NTNU
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+          <!--  <p class="bildetekst">
                 <br>Her er noen nyttige lenker
-            </p>
+            </p> -->
         </div>
         <div id="griff">
             <p class="bildetekst">
                 <br><br><br>Griffens Orden
             </p>
         </div>
+        <div id="sanger">
+            Sanger
+        </div>
     </div>
 </div>
 
     <style type="text/css">
+        .tekst {
+            font-size: 16px;
+            padding-top: 1em;
+            padding-left:1em;
+            line-height: 1.6em;
+        }
         .innhold {
             background: transparent;
             min-width:929px;
             width: 100%;
             overflow: auto;
-            height: 100vh;
+            height: 800px;
         }
-        #link {
+        .link {
             height: 100%;
         }
-        #link:link {
+        .link:link {
             color:#212121;
             background-color:transparent;
             text-decoration:none;
         }
-        #link:visited {
+        .link:visited {
             color:#212121;
             background-color:transparent;
         }
@@ -77,6 +133,7 @@
         }
         .bildetekst:hover {
             opacity: 0.6;
+            text-decoration-color: #212121;
         }
         .column1 {
             margin: 0 0 ;
@@ -98,20 +155,31 @@
         #styret {
             margin: 0 auto;
             width: 100%;
-            height:60%;
+            height:50%;
             background-image:url(../assets/images/styret.jpg );
             background-repeat:no-repeat;
             background-size:cover;
             background-position:center;
         }
-        #student {
-
-            height:40%;
+        #update {
             width:100%;
+            height: 15%;
+        }
+        #student {
+            float: left;
+            height:35%;
+            width:60%;
             background-color:cadetblue;
+        }
+        #kontaktinfo {
+            float: left;
+            width:40%;
+            height:35%;
+            background-color: steelblue;
         }
         #hybb {
             width:100%;
+            height:75%;
             background-color: transparent;
 
         }
@@ -122,11 +190,16 @@
             font-size: 24px;
         }
         #griff {
-            height: 60%;
+            height:400px;
             width:100%;
             background-image:url(../assets/images/griffens_orden.jpg);
             background-size: cover;
             background-position: center;
+        }
+        #tillitsvalgte {
+            width:100%;
+            height:25%;
+            background-color: darkseagreen;
         }
         #lenker {
             margin: 0 auto;
@@ -140,7 +213,7 @@
             height: 140px;
             width: 100%;
             text-align: center;
-            background-color:blue #ffffff;
+            background-color: #ffffff;
         }
         #transition img {
             height:140px;
@@ -163,4 +236,86 @@
         #transition img:hover {
             background-position: -100% 100%;
         }
+        #sanger {
+            width: 100%;
+            height:100px;
+            background-color:lightskyblue;
+        }
     </style>
+
+<style type="text/css"> /* all css til flipper */
+.flip-container {
+-webkit-perspective: 1000;
+-moz-perspective: 1000;
+-o-perspective: 1000;
+perspective: 1000;
+}
+
+.flip-container:hover .flipper,
+.flip-container.hover .flipper {
+-webkit-transform: rotateY(180deg);
+-moz-transform: rotateY(180deg);
+-o-transform: rotateY(180deg);
+transform: rotateY(180deg);
+}
+
+.flip-container, .front, .back {
+width: 100%;
+height: 300px;
+}
+
+.flipper {
+-webkit-transition: 0.6s;
+-webkit-transform-style: preserve-3d;
+
+-moz-transition: 0.6s;
+-moz-transform-style: preserve-3d;
+
+-o-transition: 0.6s;
+-o-transform-style: preserve-3d;
+
+transition: 0.6s;
+transform-style: preserve-3d;
+
+position: relative;
+}
+
+.front, .back {
+-webkit-backface-visibility: hidden;
+-moz-backface-visibility: hidden;
+-o-backface-visibility: hidden;
+backface-visibility: hidden;
+
+position: absolute;
+top: 0;
+left: 0;
+}
+
+.front {
+background-image:url(../assets/images/høst_kontrast2014.jpg);
+background-size: cover;
+
+    background-repeat: no-repeat;
+
+z-index: 2;
+}
+
+.back {
+-webkit-transform: rotateY(180deg);
+-moz-transform: rotateY(180deg);
+-o-transform: rotateY(180deg);
+transform: rotateY(180deg);
+
+background: #ffffff;
+}
+
+.back p {
+left: 0;
+right: 0;
+text-align: left;
+padding:1em;
+font-family: arial;
+line-height: 2em;
+
+}
+</style>
