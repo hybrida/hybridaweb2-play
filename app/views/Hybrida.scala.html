@@ -1,0 +1,165 @@
+<!-- Need Fix:
+    height 100% av skjerm
+    styret-bildet bedre midtstilling
+    innhold    -->
+
+<div class="innhold">
+    <div class="column1">
+        <div id="styret">
+            <a id="link" href="/styret">
+                <p class="bildetekst">
+                    <br><br><br>Styret i Hybrida
+                </p>
+            </a>
+        </div>
+        <div id="student">
+            <p class="bildetekst">
+                <br>Er du ny stydent?
+            </p>
+        </div>
+    </div>
+    <div class="column2">
+        <div id="hybb">
+            <div id="grifflogo">
+                <section id="transition">
+                    <img src="/assets/images/logo_big_transparent.png" />
+                </section>
+            </div>
+                <p id="hybrida">
+                    <br><b>Hybrida</b> er linjeforeningen for studieprogrammet <b>Ingeniørvitenskap og IKT</b> ved NTNU i Trondheim.
+                        Foreningens formål er å fremme samhold og kameratskap innad på studieprogrammet ved bla.a. å avholde arrangementer av både sosial og faglig karakter.
+                </p>
+        </div>
+    </div>
+    <div class="column3">
+        <div id="lenker">
+            <p class="bildetekst">
+                <br>Her er noen nyttige lenker
+            </p>
+        </div>
+        <div id="griff">
+            <p class="bildetekst">
+                <br><br><br>Griffens Orden
+            </p>
+        </div>
+    </div>
+</div>
+
+    <style type="text/css">
+        .innhold {
+            background: transparent;
+            width: 100%;
+            overflow: auto;
+            height: 100%;
+        }
+        #link {
+            height: 100%;
+        }
+        #link:link {
+            color:#212121;
+            background-color:transparent;
+            text-decoration:none;
+        }
+        #link:visited {
+            color:#212121;
+            background-color:transparent;
+        }
+        .bildetekst {
+            margin: 0 auto;
+            height: 100%;
+            background-size: cover;
+            background-color: honeydew;
+            font-size:50px;
+            text-align:center;
+            opacity: 0;
+            vertical-align: text-bottom;
+        }
+        .bildetekst:hover {
+            opacity: 0.6;
+        }
+        .column1 {
+            margin: 0 0 ;
+            width: 35%;
+            float: left;
+            height:620px;
+        }
+        .column2 {
+            width: 30%;
+            float: left;
+            height:620px;
+            background-color: #ffffff;
+        }
+        .column3 {
+            width: 35%;
+            float: left;
+            height: 620px;
+        }
+        #styret {
+            margin: 0 auto;
+            width: 100%;
+            height:60%;
+            background-image:url(../assets/images/styret.jpg );
+            background-repeat:no-repeat;
+            background-size:cover;
+            background-position:center;
+        }
+        #student {
+
+            height:40%;
+            width:100%;
+            background-color:cadetblue;
+        }
+        #hybb {
+            width:100%;
+            background-color: transparent;
+
+        }
+        #hybrida {
+            color:#212121;
+            padding:1em;
+            text-align: center;
+            font-size: 24px;
+        }
+        #griff {
+            height: 60%;
+            width:100%;
+            background-image:url(../assets/images/griffens_orden.jpg);
+            background-size: cover;
+            background-position: center;
+        }
+        #lenker {
+            margin: 0 auto;
+            height: 40%;
+            width:100%;
+            background-color:cornflowerblue;
+        }
+
+        #grifflogo {
+            padding-top: 2em;
+            height: 140px;
+            width: 100%;
+            text-align: center;
+            background-color: #ffffff;
+        }
+        #transition img {
+        height:140px;
+        width:140px;
+        background-size: 200% 100%;
+        background-color: red;
+        background-image: -webkit-linear-gradient(left, dodgerblue, blue, darkblue, darkblue, mediumblue, dodgerblue);
+        background-image:    -moz-linear-gradient(left, dodgerblue, blue, darkblue, darkblue, mediumblue, dodgerblue);
+        background-image:     -ms-linear-gradient(left, dodgerblue, blue, darkblue, darkblue, mediumblue, dodgerblue);
+        background-image:      -o-linear-gradient(left, dodgerblue, blue, darkblue, darkblue, mediumblue, dodgerblue);
+        background-image:         linear-gradient(left, dodgerblue, blue, darkblue, darkblue, mediumblue, dodgerblue);
+
+        -moz-transition: all 0.3s ease-out;  /* FF4+ */
+        -o-transition: all 0.3s ease-out;  /* Opera 10.5+ */
+        -webkit-transition: all 0.3s ease-out;  /* Saf3.2+, Chrome */
+        -ms-transition: all 0.3s ease-out;  /* IE10? */
+        transition: all 0.3s ease-out;
+        }
+
+        #transition img:hover {
+        background-position: -100% 100%;
+        }
+    </style>

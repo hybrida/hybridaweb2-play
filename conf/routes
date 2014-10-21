@@ -25,7 +25,7 @@ GET         /info/:name              controllers.About.personInfo(name)
 GET         /gitgud                  controllers.GitGud.shrek()
 
 GET         /oystein/:number         controllers.Oystein.someCode(number)
-
+GET         /hybrida                 controllers.omHybrida.index()
 GET         /styret                  controllers.Sample.index()
 GET         /lol                     controllers.Lol.noindex()
 POST        /lol/clear               controllers.Lol.clearNameData()
