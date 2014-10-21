@@ -15,6 +15,12 @@ create table company (
   constraint pk_company primary key (id))
 ;
 
+create table example_ebean_entity (
+  id                        bigint not null,
+  name                      varchar(255),
+  constraint pk_example_ebean_entity primary key (id))
+;
+
 create table feed (
   id                        bigint not null,
   title                     varchar(255),
@@ -40,18 +46,25 @@ create table lol_name (
 create table USER (
   id                        bigint not null,
   username                  varchar(255),
-  l_name                    varchar(255),
-  f_name                    varchar(255),
-  student                   boolean,
-  admin                     boolean,
-  bedkom                    boolean,
+  first_name                varchar(255),
+  surname                   varchar(255),
   email                     varchar(255),
+  title                     varchar(255),
+  student                   boolean,
+  bedkom                    boolean,
+  admin                     boolean,
+  root                      boolean,
+  sex                       varchar(255),
+  enrolled                  timestamp,
+  date_of_birth             timestamp,
   last_login                timestamp,
   constraint uq_USER_1 unique (id,username),
   constraint pk_USER primary key (id))
 ;
 
 create sequence company_seq;
+
+create sequence example_ebean_entity_seq;
 
 create sequence feed_seq;
 
@@ -70,6 +83,8 @@ drop table if exists article;
 
 drop table if exists company;
 
+drop table if exists example_ebean_entity;
+
 drop table if exists feed;
 
 drop table if exists feed_form;
@@ -81,6 +96,8 @@ drop table if exists USER;
 SET REFERENTIAL_INTEGRITY TRUE;
 
 drop sequence if exists company_seq;
+
+drop sequence if exists example_ebean_entity_seq;
 
 drop sequence if exists feed_seq;
 

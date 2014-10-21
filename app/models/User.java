@@ -3,6 +3,7 @@ package models;
 import play.db.ebean.Model;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(
@@ -11,25 +12,32 @@ import java.sql.Timestamp;
             @UniqueConstraint(columnNames={"id", "username"})
 )
 public class User extends Model {
-    @Id
-    @GeneratedValue
-    private Long        id;
-    private String      username;
-    private String      lName;
-    private String      fName;
-    private boolean     student;
-    private boolean     admin;
-    private boolean     bedkom;
-    private String      email;
-    private Timestamp   last_login;
 
-    public User(String lName, String fName) {
-        this.lName = lName;
-        this.fName = fName;
-        this.student = true;
-        this.admin = false;
-        this.bedkom = false;
-        this.last_login = null;
+    @Id @GeneratedValue
+    private Long        id;
+
+    // Name, identification, contact
+    private String      username;  // Assigned by NTNU
+    private String      first_name = null;
+    private String      surname = null;
+    private String      email = null;
+    private String      title = null; // Ph.D., Civ.Eng., Stud., Chief, Commander, General,...
+
+    // Privilege status
+    private boolean             student = true;    // No special privileges.
+    private boolean             bedkom = false;    // Control over bedpress.
+    private boolean             admin = false;     // For control over the entire page.
+    private boolean             root = false;      // Powers too great for mere mortals.
+    private char                sex = '\0';        // For specific events.
+    private java.util.Date      enrolled = null;   // For specific bedpresses.
+    private Date                date_of_birth = null;
+
+    // Misc. account info
+    private Timestamp           last_login = null; // Used to avoid cookie-stealing schemes and MITM attacks. Combined with AES with time and RNG padded encryption.
+
+    public User(String first_name, String surname) {
+        this.first_name = first_name;
+        this.surname = surname;
     }
 
     public void setLastLoginTimeNow() {
@@ -49,7 +57,7 @@ public class User extends Model {
     }
 
     public String getName() {
-        return fName + " " + lName;
+        return first_name + " " + surname;
     }
 
     public static Finder<Long, User> find = new Finder<>(
