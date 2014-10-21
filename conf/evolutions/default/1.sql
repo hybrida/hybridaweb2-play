@@ -47,9 +47,10 @@ create table USER (
   student                   boolean,
   bedkom                    boolean,
   admin                     boolean,
-  superuser                 boolean,
+  root                      boolean,
   sex                       varchar(255),
   enrolled                  timestamp,
+  date_of_birth             timestamp,
   last_login                timestamp,
   constraint uq_USER_1 unique (id,username),
   constraint pk_USER primary key (id))
