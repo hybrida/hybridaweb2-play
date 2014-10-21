@@ -149,7 +149,7 @@ public class Feed {
                     "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
                     "<img src=\"/assets/images/favicon.ico\" alt=\"rect\"/><br>" +
                     escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div><br>" +
-                    escapeText.apply(result.getString(4)).toString().replace("\n", "<br />") + "</div>";
+                    result.getString(4) + "</div>";
 
         }
 
