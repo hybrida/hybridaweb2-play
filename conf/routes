@@ -15,6 +15,7 @@ GET         /about                   controllers.About.index()
 GET         /article                 controllers.Articles.index()
 GET         /yeah                    controllers.Yeah.index()
 GET         /update                  controllers.Update.index()
+POST        /update                  controllers.Update.post()
 GET         /update/utgaver          controllers.Update.utgaver()
 GET         /update/redaksjon        controllers.Update.redaksjon()
 
@@ -24,6 +25,7 @@ GET         /info/:name              controllers.About.personInfo(name)
 # Heftig blæstiside
 GET         /gitgud                  controllers.GitGud.shrek()
 
+GET         /NyStudent               controllers.NyStudent.index()
 GET         /oystein/:number         controllers.Oystein.someCode(number)
 GET         /hybrida                 controllers.omHybrida.index()
 GET         /styret                  controllers.Sample.index()
