@@ -32,10 +32,10 @@ POST        /lol/clear               controllers.Lol.clearNameData()
 POST        /lol                     controllers.Lol.index()
 GET         /indok                   controllers.Indok.facepalm()
 
-# Lol 2 ebean test
-GET         /lol2                    controllers.Lol2.noindex()
-POST        /lol2/clear              controllers.Lol2.clearNameData()
-POST        /lol2                    controllers.Lol2.index()
+# Ebean example
+GET         /ebean                   controllers.ExampleEbean.index()
+POST        /ebean                   controllers.ExampleEbean.add()
+POST        /ebean/clear             controllers.ExampleEbean.clear()
 
 # Newsfeed
 GET         /feed                    controllers.Feed.index()
@@ -65,6 +65,7 @@ GET         /search                  controllers.Search.index()
 GET         /ExampleDatabase         controllers.ExampleDatabase.index()
 
 GET         /login                   controllers.ExampleSSO.login(returnarg: String)
+GET         /logout                  controllers.ExampleSSO.logout()
 GET         /verifylogin             controllers.ExampleSSO.verifylogin()
 
 

@@ -45,7 +45,7 @@ public class About extends Controller {
             return "<h1>Øystein er en trivelig type, født og oppvokst i strengkassa på et piano \n" +
                     "for øyeblikket spiller han i Hybridas eget stolte linjeband</h1> <p style=\"font-size:150px;\">STåPeLS!!</p>";
         } else if (name.equals("sindre")) {
-            return "Sindre har en grønn klokke";
+            return "Sindre har en grønn klokke <img src=\"/assets/images/euphorica.jpg\" alt=\"Euphoric\">\"" ;
         } else if (name.equals("ivar")) {
             return "Ivar er en magisk magiker som spiller magic, han bruker masse penger på pappbiter! <img src=\"/assets/images/ivar.jpg\" alt=\"ivar\">";
         } else if (name.equals("kia")) {
