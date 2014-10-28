@@ -13,7 +13,7 @@ import java.util.Date;
 )
 public class User extends Model {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private Long        id;
 
     // Name, identification, contact
