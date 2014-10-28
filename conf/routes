@@ -24,6 +24,7 @@ GET         /info/:name              controllers.About.personInfo(name)
 # Heftig blæstiside
 GET         /gitgud                  controllers.GitGud.shrek()
 
+GET         /NyStudent               controllers.NyStudent.index()
 GET         /oystein/:number         controllers.Oystein.someCode(number)
 GET         /hybrida                 controllers.omHybrida.index()
 GET         /styret                  controllers.Sample.index()
