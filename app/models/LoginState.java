@@ -2,6 +2,8 @@ package models;
 
 
 import play.db.ebean.Model;
+import views.html.escapeText;
+import views.html.layoutHtml;
 
 /**
  * \brief Login state manager.
@@ -40,11 +42,14 @@ public class LoginState extends Model {
 
     public static User getUser() {
         String user = play.mvc.Controller.session("user");
+        System.out.println(user);
         if (user != null) {
             String data[] = play.api.libs.Crypto.decryptAES(user).split(",");
             if (isUserInDatabase(data[0])) {
                 if (isUserTimeValid(data[0], data[1])) {
-                    return User.find.where().eq("username", data[0]).findUnique();
+                    User u = User.find.where().eq("username", data[0]).findUnique();
+                    System.out.println(u.canCreateNewArticle());
+                    return (u != null ? u : new User());
                 }
             }
         }

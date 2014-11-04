@@ -1,6 +1,9 @@
 package models;
 
 import play.db.ebean.Model;
+import views.html.escapeText;
+import views.html.layoutHtml;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -48,8 +51,12 @@ public class User extends Model {
         last_login = new Timestamp(new java.util.Date(System.currentTimeMillis()).getTime());
     }
 
-    public Boolean canCreateNewArticle() {
-        return bedkom || admin || root;
+    private boolean thisOrFalse(Boolean object) {
+        return (object != null ? object : false);
+    }
+
+    public boolean canCreateNewArticle() {
+        return thisOrFalse(bedkom) || thisOrFalse(admin) || thisOrFalse(root);
     }
 
     public void setUsername(String username) {
