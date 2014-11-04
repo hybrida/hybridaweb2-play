@@ -1,5 +1,15 @@
-<table>
-    <tr>
-        <td></td>
-    </tr>
-</table>
+@(title: String, titles: List[String], dates: List[String])
+@main(title) {
+
+    @navmenu()
+    @layoutTop()
+    <table>
+    @for(i <- 1 to 6) {
+        <tr>
+            <td>@Html(titles(i))</td>
+            <td>@Html(dates(i))</td>
+        </tr>
+    }
+    </table>
+    @layoutBottom()
+}
