@@ -42,14 +42,11 @@ public class LoginState extends Model {
 
     public static User getUser() {
         String user = play.mvc.Controller.session("user");
-        System.out.println(user);
         if (user != null) {
             String data[] = play.api.libs.Crypto.decryptAES(user).split(",");
             if (isUserInDatabase(data[0])) {
                 if (isUserTimeValid(data[0], data[1])) {
-                    User u = User.find.where().eq("username", data[0]).findUnique();
-                    System.out.println(u.canCreateNewArticle());
-                    return (u != null ? u : new User());
+                    return User.find.where().eq("username", data[0]).findUnique();
                 }
             }
         }
