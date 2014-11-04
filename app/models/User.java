@@ -37,9 +37,7 @@ public class User extends Model {
     // Misc. account info
     private Timestamp           last_login = null; // Used to avoid cookie-stealing schemes and MITM attacks. Combined with AES with time and RNG padded encryption.
 
-    public User() {
-        
-    }
+    public User() {}
 
     public User(String first_name, String surname) {
         this.first_name = first_name;
@@ -48,6 +46,10 @@ public class User extends Model {
 
     public void setLastLoginTimeNow() {
         last_login = new Timestamp(new java.util.Date(System.currentTimeMillis()).getTime());
+    }
+
+    public Boolean canCreateNewArticle() {
+        return bedkom || admin || root;
     }
 
     public void setUsername(String username) {
