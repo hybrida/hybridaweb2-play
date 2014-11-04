@@ -17,7 +17,7 @@ public class Profile extends Controller {
     public static Result index(String username) throws ParseException {
         User user = User.find.where().eq("username", username).findUnique();
         if(user == null) {
-            return redirect(routes.Application.show404());
+            return Application.show404("profil/" + username);
         }
         return ok(layoutHtml.render(user.getName(), profile.render(user)));
     }
