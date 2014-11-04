@@ -26,7 +26,6 @@ public class Profile extends Controller {
                     null,
                     2018,
                     "ivar.jpg",
-                    null,
                     true,
                     false,
                     true,

@@ -22,8 +22,13 @@ public class User extends Model {
     public String      username = "guest";  // Assigned by NTNU
     public String      first_name = null;
     public String      surname = null;
+    public String      middle_name = null;
     public String      email = null;
+    public String      website_url = null;
+    public String      phone = null;
     public String      title = null; // Ph.D., Civ.Eng., Stud., Chief, Commander, General, Lord, Admiral, Vevsjef,...
+    public String      profile_image_file_name = null;
+//    public int         graduation_year = 0;
 
     // Privilege status
     public Boolean             student = false;    // No special privileges.
@@ -31,23 +36,80 @@ public class User extends Model {
     public Boolean             admin = false;     // For control over the entire page. Check your privilege
     public Boolean             root = false;      // Powers too great for mere mortals.
     public Character           sex = '\0';        // For specific events.
-    public java.util.Date      enrolled = null;   // For specific bedpresses requiring a year number.
+    public Date      enrolled = null;   // For specific bedpresses requiring a year number.
     public Date                date_of_birth = null;
 
     // Misc. account info
     private Timestamp           last_login = null; // Used to avoid cookie-stealing schemes and MITM attacks. Combined with AES with time and RNG padded encryption.
 
     public User() {
-        
+
     }
 
-    public User(String first_name, String surname) {
+    public User(String username, String first_name, String surname) {
+        this.username = username;
         this.first_name = first_name;
         this.surname = surname;
     }
 
+    public User(String username, String first_name, String surname, String middle_name, String email, String website_url, String phone, String title, int graduation_year, String profile_image_file_name, Boolean student, Boolean bedkom, Boolean admin, Boolean root, Character sex, Date enrolled, Date date_of_birth) {
+        this.username = username;
+        this.first_name = first_name;
+        this.surname = surname;
+        this.middle_name = middle_name;
+        this.email = email;
+        this.website_url = website_url;
+        this.phone = phone;
+        this.title = title;
+//        this.graduation_year = graduation_year;
+        this.profile_image_file_name = profile_image_file_name;
+        this.student = student;
+        this.bedkom = bedkom;
+        this.admin = admin;
+        this.root = root;
+        this.sex = sex;
+        this.enrolled = enrolled;
+        this.date_of_birth = date_of_birth;
+    }
+
     public void setLastLoginTimeNow() {
         last_login = new Timestamp(new java.util.Date(System.currentTimeMillis()).getTime());
+    }
+
+    public boolean hasMiddleName() {
+        return middle_name != null;
+    }
+
+    public boolean hasAltEmail() {
+        return email != null;
+    }
+
+    public String getAltEmail() {
+        return email;
+    }
+
+    public boolean hasWebsite() {
+        return website_url != null;
+    }
+
+    public String getWebsite() {
+        return website_url;
+    }
+
+    public boolean hasPhone() {
+        return phone != null;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public boolean hasProfileImage() {
+        return profile_image_file_name != null;
+    }
+
+    public String getProfileImageFileName() {
+        return profile_image_file_name;
     }
 
     public void setUsername(String username) {
@@ -62,8 +124,18 @@ public class User extends Model {
         return last_login;
     }
 
+    public String getName(boolean showMiddleName) {
+        String m = "";
+        if(showMiddleName) m = " " + middle_name;
+        return first_name + m + " " + surname;
+    }
+
     public String getName() {
-        return first_name + " " + surname;
+        return getName(false);
+    }
+
+    public char getGender() {
+        return sex;
     }
 
     public static Finder<Long, User> find = new Finder<>(
