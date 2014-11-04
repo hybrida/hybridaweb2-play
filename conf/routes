@@ -4,7 +4,7 @@
 # Standard layout accessible pages
 GET         /                        controllers.Application.index()
 GET         /testhome                controllers.TestHome.indexTest()
-GET         /calender                controllers.Calender.index()
+GET         /calendar                controllers.Calender.index()
 GET         /kalender                controllers.Calendar.calendarRender()
 
 GET         /about                   controllers.About.index()

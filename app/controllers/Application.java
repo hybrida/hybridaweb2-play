@@ -6,7 +6,7 @@ import views.html.*;
 import models.*;
 
 
-public class Application extends Controller {
+public class    Application extends Controller {
 
 	final static play.data.Form<SearchForm> userForm = play.data.Form.form(SearchForm.class);
 
