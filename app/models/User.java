@@ -23,7 +23,9 @@ public class User extends Model {
 
     // Name, identification, contact
     public String      username = "guest";  // Assigned by NTNU
+    @Column(name = "first_name", columnDefinition = "varchar(256) default 'Fornavn'")
     public String      first_name = null;
+    @Column(name = "surname", columnDefinition = "varchar(256) default 'Etternavn'")
     public String      surname = null;
     public String      middle_name = null;
     public String      email = null;
@@ -34,9 +36,13 @@ public class User extends Model {
     // public int         graduation_year = 0;
 
     // Privilege status
+    @Column(name = "student", columnDefinition = "boolean default false")
     public Boolean             student = false;    // No special privileges.
+    @Column(name = "bedkom", columnDefinition = "boolean default false")
     public Boolean             bedkom = false;     // Control over bedpress.
+    @Column(name = "admin", columnDefinition = "boolean default false")
     public Boolean             admin = false;      // For control over the entire page. Check your privilege
+    @Column(name = "root", columnDefinition = "boolean default false")
     public Boolean             root = false;       // Powers too great for mere mortals.
     @Column(name = "sex", columnDefinition = "varchar(1) default '\0'")
     public Character           sex = '\0';         // For specific events.
