@@ -31,5 +31,4 @@ public class HttpRequestData extends java.util.HashMap<String, String> {
         return total;
     }
 
-
 }

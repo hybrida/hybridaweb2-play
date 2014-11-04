@@ -44,7 +44,7 @@ create table lol_name (
 ;
 
 create table USER (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   username                  varchar(255),
   first_name                varchar(255),
   surname                   varchar(255),
@@ -58,7 +58,7 @@ create table USER (
   enrolled                  timestamp,
   date_of_birth             timestamp,
   last_login                timestamp,
-  constraint uq_USER_1 unique (id,username),
+  constraint uq_USER_1 unique (username),
   constraint pk_USER primary key (id))
 ;
 
@@ -69,8 +69,6 @@ create sequence example_ebean_entity_seq;
 create sequence feed_seq;
 
 create sequence lol_name_seq;
-
-create sequence USER_seq;
 
 
 
@@ -102,6 +100,4 @@ drop sequence if exists example_ebean_entity_seq;
 drop sequence if exists feed_seq;
 
 drop sequence if exists lol_name_seq;
-
-drop sequence if exists USER_seq;
 

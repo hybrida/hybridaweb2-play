@@ -9,11 +9,13 @@ import java.util.Date;
 @Table(
         name="USER",
         uniqueConstraints=
-            @UniqueConstraint(columnNames={"id", "username"})
+            @UniqueConstraint(columnNames={"username"})
 )
 public class User extends Model {
 
-    @Id @GeneratedValue(strategy=GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long        id;
 
     // Name, identification, contact
@@ -21,15 +23,15 @@ public class User extends Model {
     private String      first_name = null;
     private String      surname = null;
     private String      email = null;
-    private String      title = null; // Ph.D., Civ.Eng., Stud., Chief, Commander, General,...
+    private String      title = null; // Ph.D., Civ.Eng., Stud., Chief, Commander, General, Lord, Admiral, Vevsjef,...
 
     // Privilege status
     private Boolean             student = true;    // No special privileges.
     private Boolean             bedkom = false;    // Control over bedpress.
-    private Boolean             admin = false;     // For control over the entire page.
+    private Boolean             admin = false;     // For control over the entire page. Check your privilege
     private Boolean             root = false;      // Powers too great for mere mortals.
     private Character           sex = '\0';        // For specific events.
-    private java.util.Date      enrolled = null;   // For specific bedpresses.
+    private java.util.Date      enrolled = null;   // For specific bedpresses requiring a year number.
     private Date                date_of_birth = null;
 
     // Misc. account info
