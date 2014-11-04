@@ -11,8 +11,10 @@ public class Application extends Controller {
 	final static play.data.Form<SearchForm> userForm = play.data.Form.form(SearchForm.class);
 
     public static Result index() throws java.sql.SQLException {
-
         String login = session("user");
+        if (login != null)
+            System.out.println(login);
+
         try {
             if (login != null) {
                 login = play.api.libs.Crypto.decryptAES(login);
