@@ -17,7 +17,9 @@ $("document").ready(function($){
     <ul>
        <a href="/testhome"><li id="logo"><img src="/assets/images/Griff, drop shadow.png" alt="SUPERLOGO"/></li></a>
         <li id="logotext"><a href="/testhome">HYBRIDA</a></li>
-        <li class="navelement"><a href="/feed">New</a></li>
+        @if(models.LoginState.getUser().admin || models.LoginState.getUser().bedkom){
+            <li class="navelement"><a href="/feed">New</a></li>
+        }
         <li class="navelement"><a href="/random">Random</a></li>
         <li class="navelement"><a href="/Chat">Chat</a></li>
         <li class="navelement"><a href="/hybrida">Om Hybrida</a></li>
