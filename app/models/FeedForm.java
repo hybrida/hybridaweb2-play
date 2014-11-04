@@ -14,5 +14,4 @@ public class FeedForm {
     public String title;
     public String article;
 
-
 }

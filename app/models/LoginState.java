@@ -10,8 +10,6 @@ import play.db.ebean.Model;
  */
 public class LoginState extends Model {
 
-    private User user = null;
-
     private static boolean isUserInDatabase(String username) {
         return User.find.where().eq("username", username).findUnique() != null;
     }
@@ -19,6 +17,8 @@ public class LoginState extends Model {
     private static boolean isUserTimeValid(String username, String usertime) {
         User user = User.find.where().eq("username", username).findUnique();
         Long usertime_int = Long.valueOf(usertime) + 1000L;
+        if (user.getLastLoginTime() == null)
+            return true;
         return user.getLastLoginTime().before(new java.util.Date(usertime_int));
     }
 
@@ -26,7 +26,9 @@ public class LoginState extends Model {
         String user = play.mvc.Controller.session("user");
         if (user != null) {
             String data[] = play.api.libs.Crypto.decryptAES(user).split(",");
+            System.out.println("Trying to login with username" + data[0]);
             if (isUserInDatabase(data[0])) {
+                System.out.println("User is in the db.");
                 if (isUserTimeValid(data[0], data[1])) {
                     //User.find.where().eq("username", data[0]).findUnique();
                     return true;
@@ -46,7 +48,7 @@ public class LoginState extends Model {
                 }
             }
         }
-        return null;
+        return new User();
     }
 
 }

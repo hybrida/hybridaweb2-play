@@ -15,6 +15,16 @@ create table company (
   constraint pk_company primary key (id))
 ;
 
+create table event_model (
+  id                        bigint not null,
+  title                     varchar(255),
+  image_title               varchar(255),
+  article                   varchar(255),
+  ingress                   varchar(255),
+  antall                    integer,
+  constraint pk_event_model primary key (id))
+;
+
 create table example_ebean_entity (
   id                        bigint not null,
   name                      varchar(255),
@@ -44,7 +54,7 @@ create table lol_name (
 ;
 
 create table USER (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   username                  varchar(255),
   first_name                varchar(255),
   surname                   varchar(255),
@@ -58,19 +68,19 @@ create table USER (
   enrolled                  timestamp,
   date_of_birth             timestamp,
   last_login                timestamp,
-  constraint uq_USER_1 unique (id,username),
+  constraint uq_USER_1 unique (username),
   constraint pk_USER primary key (id))
 ;
 
 create sequence company_seq;
+
+create sequence event_model_seq;
 
 create sequence example_ebean_entity_seq;
 
 create sequence feed_seq;
 
 create sequence lol_name_seq;
-
-create sequence USER_seq;
 
 
 
@@ -82,6 +92,8 @@ SET REFERENTIAL_INTEGRITY FALSE;
 drop table if exists article;
 
 drop table if exists company;
+
+drop table if exists event_model;
 
 drop table if exists example_ebean_entity;
 
@@ -97,11 +109,11 @@ SET REFERENTIAL_INTEGRITY TRUE;
 
 drop sequence if exists company_seq;
 
+drop sequence if exists event_model_seq;
+
 drop sequence if exists example_ebean_entity_seq;
 
 drop sequence if exists feed_seq;
 
 drop sequence if exists lol_name_seq;
-
-drop sequence if exists USER_seq;
 

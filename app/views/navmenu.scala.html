@@ -15,12 +15,17 @@ $("document").ready(function($){
 </script>-->
 <div id="navmenu">
     <ul>
-        <li id="logo"><img src="/assets/images/Griff, drop shadow.png" alt="SUPERLOGO"/></li>
+       <a href="/testhome"><li id="logo"><img src="/assets/images/Griff, drop shadow.png" alt="SUPERLOGO"/></li></a>
         <li id="logotext"><a href="/testhome">HYBRIDA</a></li>
         <li class="navelement"><a href="/feed">New</a></li>
         <li class="navelement"><a href="/random">Random</a></li>
         <li class="navelement"><a href="/Chat">Chat</a></li>
         <li class="navelement"><a href="/hybrida">Om Hybrida</a></li>
+        @if(models.LoginState.isValidlyLoggedIn()) {
+            <li style="float: right" class="navelement">
+                <a href="">@(models.LoginState.getUser().getName())</a>
+            </li>
+        }
         <li style="float: right" class="navelement">
             <!-- @(play.mvc.Http.Context.current().request().path()) -->
             @if(models.LoginState.isValidlyLoggedIn()) {
