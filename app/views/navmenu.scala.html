@@ -31,9 +31,9 @@ $("document").ready(function($){
         <li style="float: right" class="navelement">
             <!-- @(play.mvc.Http.Context.current().request().path()) -->
             @if(models.LoginState.isValidlyLoggedIn()) {
-                <a href="@(routes.ExampleSSO.logout())">Logg ut</a>
+                <a href="@(routes.SSOLogin.logout())">Logg ut</a>
             } else {
-                <a href="@(routes.ExampleSSO.login(play.mvc.Http.Context.current().request().path()))">Logg inn</a>
+                <a href="@(routes.SSOLogin.login(play.mvc.Http.Context.current().request().path()))">Logg inn</a>
             }
         </li>
         <li style="float: right; padding-top: .8em;" >

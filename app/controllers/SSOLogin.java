@@ -9,7 +9,7 @@ import views.html.*;
 import play.mvc.Result;
 import controllers.ContactForUser;
 
-public class ExampleSSO extends Controller {
+public class SSOLogin extends Controller {
 
     public static String innsida_login_link = "https://innsida.ntnu.no/sso/?target=hybridawebtest&returnargs=";
 
