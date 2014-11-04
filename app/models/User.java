@@ -36,15 +36,13 @@ public class User extends Model {
     public Boolean             admin = false;     // For control over the entire page. Check your privilege
     public Boolean             root = false;      // Powers too great for mere mortals.
     public Character           sex = '\0';        // For specific events.
-    public Date      enrolled = null;   // For specific bedpresses requiring a year number.
+    public Date                enrolled = null;   // For specific bedpresses requiring a year number.
     public Date                date_of_birth = null;
 
     // Misc. account info
     private Timestamp           last_login = null; // Used to avoid cookie-stealing schemes and MITM attacks. Combined with AES with time and RNG padded encryption.
 
-    public User() {
-
-    }
+    public User() {}
 
     public User(String username, String first_name, String surname) {
         this.username = username;
@@ -74,6 +72,10 @@ public class User extends Model {
 
     public void setLastLoginTimeNow() {
         last_login = new Timestamp(new java.util.Date(System.currentTimeMillis()).getTime());
+    }
+
+    public Boolean canCreateNewArticle() {
+        return bedkom || admin || root;
     }
 
     public boolean hasMiddleName() {
