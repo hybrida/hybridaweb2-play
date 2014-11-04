@@ -7,7 +7,7 @@ import java.util.Date;
 import java.sql.Timestamp;
 import views.html.*;
 import play.mvc.Result;
-import models.LoginState;
+import controllers.ContactForUser;
 
 public class ExampleSSO extends Controller {
 
@@ -44,6 +44,7 @@ public class ExampleSSO extends Controller {
                         }
                     } else {
                         System.out.println("Username: " + data.getLoginInfo().get("username") + " does not exist in the database.");
+                        return redirect(routes.ContactForUser.index());
                     }
 
                     return redirect(return_url);
