@@ -97,15 +97,15 @@ public class Feed {
             if (!check.equalsIgnoreCase("null")) {
                 finalPost += "<a href=" + url +"><div class=\"content2\">" +
                         "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
-                        "<img src=\"/assets/Upload/" + result.getString(3) + "\" alt=\"rect\" width=50% height=50%/><br></a>" +
-                        escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div><br>" +
+                        "<img src=\"/assets/Upload/" + result.getString(3) + "\" alt=\"rect\" width=50% height=50%/><br>" +
+                        escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div></a><br>" +
                         escapeText.apply(result.getString(5)).toString().replace("\n", "<br />") + "</div>";
             }
             else{
                 finalPost += "<a href=" + url +"><div class=\"content2\">" +
                         "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
-                        "<img src=\"/assets/images/favicon.ico\" alt=\"rect\"/><br></a>" +
-                        escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div><br>" +
+                        "<img src=\"/assets/images/favicon.ico\" alt=\"rect\"/><br>" +
+                        escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</a></div><br>" +
                         escapeText.apply(result.getString(5)).toString().replace("\n", "<br />") + "</div>";
 
             }
@@ -140,13 +140,15 @@ public class Feed {
                     "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
                     "<img src=\"/assets/Upload/" + result.getString(3) + "\" alt=\"rect\" width=50% height=50%/><br>" +
                     escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div><br>" +
+                    "<i>" + escapeText.apply(result.getString(5)).toString().replace("\n", "<br />") + "</i><br />" +
                     result.getString(4) + "</div></a>";
         }
         else{
             finalPost += "<div class=\"content2\">" +
                     "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
                     "<img src=\"/assets/images/favicon.ico\" alt=\"rect\"/><br>" +
-                    escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div><br>" +
+                    "<i>" + escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</i></div><br>" +
+                    escapeText.apply(result.getString(5)).toString().replace("\n", "<br />") + "<br />" +
                     result.getString(4) + "</div>";
         }
         return ok(layoutHtml.render("NewsFeed", generateArticle.render(toHtml(finalPost))));
