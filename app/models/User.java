@@ -31,15 +31,16 @@ public class User extends Model {
     public String      phone = null;
     public String      title = null; // Ph.D., Civ.Eng., Stud., Chief, Commander, General, Lord, Admiral, Vevsjef,...
     public String      profile_image_file_name = null;
-//    public int         graduation_year = 0;
+    // public int         graduation_year = 0;
 
     // Privilege status
     public Boolean             student = false;    // No special privileges.
-    public Boolean             bedkom = false;    // Control over bedpress.
-    public Boolean             admin = false;     // For control over the entire page. Check your privilege
-    public Boolean             root = false;      // Powers too great for mere mortals.
-    public Character           sex = '\0';        // For specific events.
-    public Date                enrolled = null;   // For specific bedpresses requiring a year number.
+    public Boolean             bedkom = false;     // Control over bedpress.
+    public Boolean             admin = false;      // For control over the entire page. Check your privilege
+    public Boolean             root = false;       // Powers too great for mere mortals.
+    @Column(name = "sex", columnDefinition = "varchar(1) default '\0'")
+    public Character           sex = '\0';         // For specific events.
+    public Date                enrolled = null;    // For specific bedpresses requiring a year number.
     public Date                date_of_birth = null;
 
     // Misc. account info
