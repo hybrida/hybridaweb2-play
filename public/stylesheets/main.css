@@ -9,18 +9,9 @@ body {
 	margin: 0;
 }
 
-a img {
-  border: 0;
-}
-
 .wrap {
   width: 100%;
   margin: 0;
-}
-
-.head img {
-  float: left;
-  border: 0 auto;
 }
 
 .banner {
@@ -34,7 +25,7 @@ a img {
   padding-right: 1em;
 }
 
-/*begynnelsen på utkast til forslag til mulig måte å kanskje prøve å lage menubaren på (kanskje), kan testes på /layout*/
+/*navmenu*/
 
 #logo{
     height: 5em;
@@ -77,9 +68,6 @@ a img {
     text-align: center;
     height: 4em;
     min-width: 929px;
-/*}
-
-.fixed {*/
     position: fixed;
 }
 
@@ -142,9 +130,6 @@ a img {
     -webkit-border-radius: 0px;
     border-style: solid;
     border-color: black;
-}
-.textColourWhite{
-    color: rgba(255, 255, 255, 1);
 }
 
 .search input[type="text"] {
