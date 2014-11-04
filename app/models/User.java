@@ -42,6 +42,8 @@ public class User extends Model {
 
     public User() {}
 
+
+
     public User(String first_name, String surname) {
         this.first_name = first_name;
         this.surname = surname;
