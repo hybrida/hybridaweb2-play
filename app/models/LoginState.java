@@ -10,8 +10,6 @@ import play.db.ebean.Model;
  */
 public class LoginState extends Model {
 
-    private User user = null;
-
     private static boolean isUserInDatabase(String username) {
         return User.find.where().eq("username", username).findUnique() != null;
     }
@@ -50,7 +48,7 @@ public class LoginState extends Model {
                 }
             }
         }
-        return null;
+        return new User();
     }
 
 }
