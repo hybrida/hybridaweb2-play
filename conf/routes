@@ -63,7 +63,7 @@ GET         /UpdateCookies           controllers.ExampleCookies.updateCookie()
 POST        /ClearCookies            controllers.ExampleCookies.clearAllCookies()
 GET         /ClearCookies            controllers.ExampleCookies.clearAllCookies()
 
-GET         /Chat                    controllers.Chat.connectClient(name: String ?= "Anonymous")
+GET         /Chat                    controllers.Chat.connectClient()
 GET         /ChatServer              controllers.Chat.socket()
 
 GET         /search                  controllers.Search.index()
