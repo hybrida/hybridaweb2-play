@@ -46,6 +46,4 @@ public class ImageUploadExample {
             return ok("file missing");
         }
     }
-
-
 }

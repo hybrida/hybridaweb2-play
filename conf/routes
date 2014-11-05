@@ -3,8 +3,12 @@
 
 # Standard layout accessible pages
 GET         /                        controllers.Application.index()
+<<<<<<< HEAD
 GET         /testhome                controllers.TestHome.indexTest()
 GET         /calendar                controllers.Calender.index()
+=======
+GET         /calender                controllers.Calender.index()
+>>>>>>> e8aa2c1d350db5488cf5d7d60c549b16eb115a10
 GET         /kalender                controllers.Calendar.calendarRender()
 
 GET         /about                   controllers.About.index()
@@ -45,6 +49,9 @@ POST        /feed                    controllers.Feed.save()
 POST        /feedClear               controllers.Feed.clearAll()
 GET         /feed/:newsTitle         controllers.Feed.generateArticle(newsTitle)
 
+GET         /event                   controllers.Event.index()
+POST        /event                   controllers.Event.save()
+
 GET         /ImgUp                   controllers.ImageUploadExample.index()
 POST        /ImgUp                   controllers.ImageUploadExample.upload()
 
@@ -52,6 +59,8 @@ POST        /ImgUp                   controllers.ImageUploadExample.upload()
 GET         /random                  controllers.RandomInt.randomPage()
 POST        /random                  controllers.RandomInt.newRandom()
 
+# Backup memory database
+GET         /backup                  controllers.BackupDB.index()
 
 GET         /ExampleCookies          controllers.ExampleCookies.index()
 POST        /UpdateCookies           controllers.ExampleCookies.updateCookie()
@@ -59,21 +68,26 @@ GET         /UpdateCookies           controllers.ExampleCookies.updateCookie()
 POST        /ClearCookies            controllers.ExampleCookies.clearAllCookies()
 GET         /ClearCookies            controllers.ExampleCookies.clearAllCookies()
 
-GET         /Chat                    controllers.Chat.connectClient(name: String ?= "Anonymous")
+GET         /Chat                    controllers.Chat.connectClient()
 GET         /ChatServer              controllers.Chat.socket()
 
 GET         /search                  controllers.Search.index()
 
 GET         /ExampleDatabase         controllers.ExampleDatabase.index()
 
-GET         /login                   controllers.ExampleSSO.login(returnarg: String)
-GET         /logout                  controllers.ExampleSSO.logout()
-GET         /verifylogin             controllers.ExampleSSO.verifylogin()
+GET         /login                   controllers.SSOLogin.login(returnarg: String)
+GET         /logout                  controllers.SSOLogin.logout()
+GET         /verifylogin             controllers.SSOLogin.verifylogin()
 GET         /contactforuser          controllers.ContactForUser.index()
+
+
+GET         /profil/:username        controllers.Profile.index(username)
 
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file            controllers.Assets.at(path="/public", file)
+
+GET         /unauthorized            controllers.Application.showUnauthorizedAccess()
 
 # Show some page describing the URL if all else fails
 GET         /$anything<.*>           controllers.Application.show404(anything: String)

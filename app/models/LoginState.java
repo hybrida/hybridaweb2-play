@@ -2,6 +2,8 @@ package models;
 
 
 import play.db.ebean.Model;
+import views.html.escapeText;
+import views.html.layoutHtml;
 
 /**
  * \brief Login state manager.
