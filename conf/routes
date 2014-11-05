@@ -3,7 +3,6 @@
 
 # Standard layout accessible pages
 GET         /                        controllers.Application.index()
-GET         /testhome                controllers.TestHome.indexTest()
 GET         /calender                controllers.Calender.index()
 GET         /kalender                controllers.Calendar.calendarRender()
 
@@ -45,6 +44,9 @@ POST        /feed                    controllers.Feed.save()
 POST        /feedClear               controllers.Feed.clearAll()
 GET         /feed/:newsTitle         controllers.Feed.generateArticle(newsTitle)
 
+GET         /event                   controllers.Event.index()
+POST        /event                   controllers.Event.save()
+
 GET         /ImgUp                   controllers.ImageUploadExample.index()
 POST        /ImgUp                   controllers.ImageUploadExample.upload()
 
@@ -68,13 +70,19 @@ GET         /search                  controllers.Search.index()
 
 GET         /ExampleDatabase         controllers.ExampleDatabase.index()
 
-GET         /login                   controllers.ExampleSSO.login(returnarg: String)
-GET         /logout                  controllers.ExampleSSO.logout()
-GET         /verifylogin             controllers.ExampleSSO.verifylogin()
+GET         /login                   controllers.SSOLogin.login(returnarg: String)
+GET         /logout                  controllers.SSOLogin.logout()
+GET         /verifylogin             controllers.SSOLogin.verifylogin()
+GET         /contactforuser          controllers.ContactForUser.index()
+
+
+GET         /profil/:username        controllers.Profile.index(username)
 
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file            controllers.Assets.at(path="/public", file)
+
+GET         /unauthorized            controllers.Application.showUnauthorizedAccess()
 
 # Show some page describing the URL if all else fails
 GET         /$anything<.*>           controllers.Application.show404(anything: String)

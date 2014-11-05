@@ -15,26 +15,28 @@ $("document").ready(function($){
 </script>-->
 <div id="navmenu">
     <ul>
-        <li id="logo"><img src="/assets/images/Griff, drop shadow.png" alt="SUPERLOGO"/></li>
-        <li id="logotext"><a href="/testhome">HYBRIDA</a></li>
-        <li class="navelement"><a href="/feed">New</a></li>
+       <a href="/"><li id="logo"><img src="/assets/images/Griff, drop shadow.png" alt="SUPERLOGO"/></li></a>
+        <li id="logotext"><a href="/">HYBRIDA</a></li>
+        @if(models.LoginState.getUser().canCreateNewArticle()){
+            <li class="navelement"><a href="/feed">New</a></li>
+        }
         <li class="navelement"><a href="/random">Random</a></li>
         <li class="navelement"><a href="/Chat">Chat</a></li>
         <li class="navelement"><a href="/hybrida">Om Hybrida</a></li>
         @if(models.LoginState.isValidlyLoggedIn()) {
             <li style="float: right" class="navelement">
-                <a href="">@(models.LoginState.getUser().getName())</a>
+                <a href=@("/profil/" + models.LoginState.getUser().getUsername())>@(models.LoginState.getUser().getName())</a>
             </li>
         }
         <li style="float: right" class="navelement">
             <!-- @(play.mvc.Http.Context.current().request().path()) -->
             @if(models.LoginState.isValidlyLoggedIn()) {
-                <a href="@(routes.ExampleSSO.logout())">Logg ut</a>
+                <a href="@(routes.SSOLogin.logout())">Logg ut</a>
             } else {
-                <a href="@(routes.ExampleSSO.login(play.mvc.Http.Context.current().request().path()))">Logg inn</a>
+                <a href="@(routes.SSOLogin.login(play.mvc.Http.Context.current().request().path()))">Logg inn</a>
             }
         </li>
-        <li style="float: right; padding-top: .8em;" class="navelement">
+        <li style="float: right; padding-top: .8em;" >
             <div class="search" style="padding-top: 0.4em">
                 <form action="/search" method="GET">
                     <input type="text" name="term" id="searchField" placeholder="Søk"/>
