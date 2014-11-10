@@ -3,12 +3,10 @@
 
 # Standard layout accessible pages
 GET         /                        controllers.Application.index()
-<<<<<<< HEAD
-GET         /testhome                controllers.TestHome.indexTest()
+
 GET         /calendar                controllers.Calender.index()
-=======
+
 GET         /calender                controllers.Calender.index()
->>>>>>> e8aa2c1d350db5488cf5d7d60c549b16eb115a10
 GET         /kalender                controllers.Calendar.calendarRender()
 
 GET         /about                   controllers.About.index()

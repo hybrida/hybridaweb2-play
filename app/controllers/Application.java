@@ -8,9 +8,7 @@ import models.*;
 import static controllers.Feed.getArticleData;
 import static controllers.Lol.toHtml;
 
-<<<<<<< HEAD
 public class    Application extends Controller {
-=======
 
 /**
  * \brief Application class, handles basic site functionality.
@@ -19,8 +17,7 @@ public class    Application extends Controller {
  * unauthorized access requests, 404 requests, etc.
  *
  */
-public class Application extends Controller {
->>>>>>> e8aa2c1d350db5488cf5d7d60c549b16eb115a10
+
 
 	final static play.data.Form<SearchForm> userForm = play.data.Form.form(SearchForm.class);
 
