@@ -54,6 +54,8 @@ POST        /ImgUp                   controllers.ImageUploadExample.upload()
 GET         /random                  controllers.RandomInt.randomPage()
 POST        /random                  controllers.RandomInt.newRandom()
 
+# Backup memory database
+GET         /backup                  controllers.BackupDB.index()
 
 GET         /ExampleCookies          controllers.ExampleCookies.index()
 POST        /UpdateCookies           controllers.ExampleCookies.updateCookie()
@@ -61,7 +63,7 @@ GET         /UpdateCookies           controllers.ExampleCookies.updateCookie()
 POST        /ClearCookies            controllers.ExampleCookies.clearAllCookies()
 GET         /ClearCookies            controllers.ExampleCookies.clearAllCookies()
 
-GET         /Chat                    controllers.Chat.connectClient(name: String ?= "Anonymous")
+GET         /Chat                    controllers.Chat.connectClient()
 GET         /ChatServer              controllers.Chat.socket()
 
 GET         /search                  controllers.Search.index()
