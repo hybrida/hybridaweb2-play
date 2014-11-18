@@ -25,7 +25,7 @@ $("document").ready(function($){
         <li class="navelement"><a class="navmenutext" href="/hybrida">Om Hybrida</a></li>
         @if(models.LoginState.isValidlyLoggedIn()) {
             <li style="float: right" class="navelement">
-                <a href=@("/profil/" + models.LoginState.getUser().getUsername())>@(models.LoginState.getUser().getName())</a>
+                <a class="navmenutext" href=@("/profil/" + models.LoginState.getUser().getUsername())>@(models.LoginState.getUser().getName())</a>
             </li>
         }
         <li style="float: right" class="navelement">
