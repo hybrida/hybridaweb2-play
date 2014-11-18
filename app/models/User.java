@@ -46,7 +46,9 @@ public class User extends Model {
     // Misc. account info
     private Timestamp           last_login = null; // Used to avoid cookie-stealing schemes and MITM attacks. Combined with AES with time and RNG padded encryption.
 
-    public User() {}
+    public User() {
+        student = false;
+    }
 
     public User(String username, String first_name, String surname) {
         this.username = username;
