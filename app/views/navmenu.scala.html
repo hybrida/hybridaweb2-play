@@ -15,13 +15,13 @@ $("document").ready(function($){
 </script>-->
 <div id="navmenu">
     <ul>
-       <a href="/testhome"><li id="logo"><img src="/assets/images/Griff, drop shadow.png" alt="SUPERLOGO"/></li></a>
-        <li id="logotext"><a href="/testhome">HYBRIDA</a></li>
+       <a href="/"><li id="logo"><img src="/assets/images/Griff, drop shadow.png" alt="SUPERLOGO"/></li></a>
+        <li id="logotext"><a href="/">HYBRIDA</a></li>
         @if(models.LoginState.getUser().canCreateNewArticle()){
             <li class="navelement"><a href="/feed">New</a></li>
         }
         <li class="navelement"><a href="/random">Random</a></li>
-        <li class="navelement"><a href="/Chat">Chat</a></li>
+        @if(models.LoginState.getUser().student) {<li class="navelement"><a href="/Chat">Chat</a></li>}
         <li class="navelement"><a href="/hybrida">Om Hybrida</a></li>
         @if(models.LoginState.isValidlyLoggedIn()) {
             <li style="float: right" class="navelement">
@@ -31,9 +31,9 @@ $("document").ready(function($){
         <li style="float: right" class="navelement">
             <!-- @(play.mvc.Http.Context.current().request().path()) -->
             @if(models.LoginState.isValidlyLoggedIn()) {
-                <a href="@(routes.ExampleSSO.logout())">Logg ut</a>
+                <a href="@(routes.SSOLogin.logout())">Logg ut</a>
             } else {
-                <a href="@(routes.ExampleSSO.login(play.mvc.Http.Context.current().request().path()))">Logg inn</a>
+                <a href="@(routes.SSOLogin.login(play.mvc.Http.Context.current().request().path()))">Logg inn</a>
             }
         </li>
         <li style="float: right; padding-top: .8em;" >

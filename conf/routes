@@ -2,77 +2,81 @@
 # This file defines all application routes (Higher priority routes first)
 
 # Standard layout accessible pages
-GET         /                         controllers.Application.index()
-GET         /testhome                 controllers.TestHome.indexTest()
-GET         /calender                 controllers.Calender.index()
-GET         /kalender                 controllers.Calendar.calendarRender()
+GET         /                        controllers.Application.index()
 
-GET         /about                    controllers.About.index()
+GET         /calendar                controllers.Calender.index()
+
+GET         /calender                controllers.Calender.index()
+GET         /kalender                controllers.Calendar.calendarRender()
+
+GET         /about                   controllers.About.index()
 
 
 
 
-GET         /article                  controllers.Articles.index()
-GET         /yeah                     controllers.Yeah.index()
-GET         /update                   controllers.Update.index()
-POST        /update                   controllers.Update.post()
-GET         /update/utgaver           controllers.Update.utgaver()
-GET         /update/redaksjon         controllers.Update.redaksjon()
+GET         /article                 controllers.Articles.index()
+GET         /yeah                    controllers.Yeah.index()
+GET         /update                  controllers.Update.index()
+POST        /update                  controllers.Update.post()
+GET         /update/utgaver          controllers.Update.utgaver()
+GET         /update/redaksjon        controllers.Update.redaksjon()
 
 # Info til introkurs
-GET         /info/:name               controllers.About.personInfo(name)
+GET         /info/:name              controllers.About.personInfo(name)
 
 # Heftig blæstiside
-GET         /gitgud                   controllers.GitGud.shrek()
+GET         /gitgud                  controllers.GitGud.shrek()
 
-GET         /NyStudent                controllers.NyStudent.index()
-GET         /oystein/:number          controllers.Oystein.someCode(number)
-GET         /hybrida                  controllers.omHybrida.index()
-GET         /styret                   controllers.Sample.index()
-GET         /lol                      controllers.Lol.noindex()
-POST        /lol/clear                controllers.Lol.clearNameData()
-POST        /lol                      controllers.Lol.index()
-GET         /indok                    controllers.Indok.facepalm()
+GET         /NyStudent               controllers.NyStudent.index()
+GET         /oystein/:number         controllers.Oystein.someCode(number)
+GET         /hybrida                 controllers.omHybrida.index()
+GET         /styret                  controllers.Sample.index()
+GET         /lol                     controllers.Lol.noindex()
+POST        /lol/clear               controllers.Lol.clearNameData()
+POST        /lol                     controllers.Lol.index()
+GET         /indok                   controllers.Indok.facepalm()
 
 # Ebean example
-GET         /ebean                    controllers.ExampleEbean.index()
-POST        /ebean                    controllers.ExampleEbean.add()
-POST        /ebean/clear              controllers.ExampleEbean.clear()
+GET         /ebean                   controllers.ExampleEbean.index()
+POST        /ebean                   controllers.ExampleEbean.add()
+POST        /ebean/clear             controllers.ExampleEbean.clear()
 
 # Newsfeed
-GET         /feed                     controllers.Feed.index()
-POST        /feed                     controllers.Feed.save()
-POST        /feedClear                controllers.Feed.clearAll()
-GET         /feed/:newsTitle          controllers.Feed.generateArticle(newsTitle)
+GET         /feed                    controllers.Feed.index()
+POST        /feed                    controllers.Feed.save()
+POST        /feedClear               controllers.Feed.clearAll()
+GET         /feed/:newsTitle         controllers.Feed.generateArticle(newsTitle)
 
-GET         /event                    controllers.Event.index()
-POST        /event                    controllers.Event.save()
+GET         /event                   controllers.Event.index()
+POST        /event                   controllers.Event.save()
 
-GET         /ImgUp                    controllers.ImageUploadExample.index()
-POST        /ImgUp                    controllers.ImageUploadExample.upload()
+GET         /ImgUp                   controllers.ImageUploadExample.index()
+POST        /ImgUp                   controllers.ImageUploadExample.upload()
 
 # Random number generator
-GET         /random                   controllers.RandomInt.randomPage()
-POST        /random                   controllers.RandomInt.newRandom()
+GET         /random                  controllers.RandomInt.randomPage()
+POST        /random                  controllers.RandomInt.newRandom()
 
+# Backup memory database
+GET         /backup                  controllers.BackupDB.index()
 
-GET         /ExampleCookies           controllers.ExampleCookies.index()
-POST        /UpdateCookies            controllers.ExampleCookies.updateCookie()
-GET         /UpdateCookies            controllers.ExampleCookies.updateCookie()
-POST        /ClearCookies             controllers.ExampleCookies.clearAllCookies()
-GET         /ClearCookies             controllers.ExampleCookies.clearAllCookies()
+GET         /ExampleCookies          controllers.ExampleCookies.index()
+POST        /UpdateCookies           controllers.ExampleCookies.updateCookie()
+GET         /UpdateCookies           controllers.ExampleCookies.updateCookie()
+POST        /ClearCookies            controllers.ExampleCookies.clearAllCookies()
+GET         /ClearCookies            controllers.ExampleCookies.clearAllCookies()
 
-GET         /Chat                     controllers.Chat.connectClient(name: String ?= "Anonymous")
-GET         /ChatServer               controllers.Chat.socket()
+GET         /Chat                    controllers.Chat.connectClient()
+GET         /ChatServer              controllers.Chat.socket()
 
-GET         /search                   controllers.Search.index()
+GET         /search                  controllers.Search.index()
 
-GET         /ExampleDatabase          controllers.ExampleDatabase.index()
+GET         /ExampleDatabase         controllers.ExampleDatabase.index()
 
-GET         /login                    controllers.ExampleSSO.login(returnarg: String)
-GET         /logout                   controllers.ExampleSSO.logout()
-GET         /verifylogin              controllers.ExampleSSO.verifylogin()
-GET         /contactforuser           controllers.ContactForUser.index()
+GET         /login                   controllers.SSOLogin.login(returnarg: String)
+GET         /logout                  controllers.SSOLogin.logout()
+GET         /verifylogin             controllers.SSOLogin.verifylogin()
+GET         /contactforuser          controllers.ContactForUser.index()
 
 
 GET         /profil/:u                controllers.Profile.index(u)
@@ -81,9 +85,9 @@ GET         /profil/lagre          controllers.Profile.submit
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file             controllers.Assets.at(path="/public", file)
+GET         /assets/*file            controllers.Assets.at(path="/public", file)
 
-GET         /unauthorized             controllers.Application.showUnauthorizedAccess()
+GET         /unauthorized            controllers.Application.showUnauthorizedAccess()
 
 # Show some page describing the URL if all else fails
-GET         /$anything<.*>            controllers.Application.show404(anything: String)
+GET         /$anything<.*>           controllers.Application.show404(anything: String)

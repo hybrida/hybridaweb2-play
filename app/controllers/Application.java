@@ -8,6 +8,7 @@ import models.*;
 import static controllers.Feed.getArticleData;
 import static controllers.Lol.toHtml;
 
+public class    Application extends Controller {
 
 /**
  * \brief Application class, handles basic site functionality.
@@ -16,12 +17,12 @@ import static controllers.Lol.toHtml;
  * unauthorized access requests, 404 requests, etc.
  *
  */
-public class Application extends Controller {
+
 
 	final static play.data.Form<SearchForm> userForm = play.data.Form.form(SearchForm.class);
 
     public static Result index() throws java.sql.SQLException {
-        return ok(testHomeFeedTest.render(toHtml(getArticleData())));
+        return ok(frontPage.render(toHtml(getArticleData())));
     }
 
     public static Result showUnauthorizedAccess() {
