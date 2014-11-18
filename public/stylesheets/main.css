@@ -191,17 +191,17 @@ body {
 }
 
 /**
- * Profil-side
+ * Profil
  */
 
 .profile {
-    width: 600px;
+    width: 70%;
     margin: 60px auto 100px;
     text-align: center;
 }
 
 .profile .pic {
-    max-width: 600px;
+    max-width: 100%;
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.4) -10px 12px 25px;
 }

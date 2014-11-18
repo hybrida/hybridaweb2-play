@@ -79,7 +79,9 @@ GET         /verifylogin             controllers.SSOLogin.verifylogin()
 GET         /contactforuser          controllers.ContactForUser.index()
 
 
-GET         /profil/:username        controllers.Profile.index(username)
+GET         /profil/:u                controllers.Profile.index(u)
+GET         /profil/:u/rediger        controllers.Profile.edit(u)
+GET         /profil/lagre          controllers.Profile.submit
 
 
 # Map static resources from the /public folder to the /assets URL path

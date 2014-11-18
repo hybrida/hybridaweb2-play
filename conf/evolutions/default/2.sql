@@ -3,6 +3,7 @@ INSERT INTO USER (username, first_name, surname, student, bedkom, admin, root) V
 
 INSERT INTO USER (username, first_name, surname) VALUES ('kevinrs', 'Kevin Robert', 'Stravers');
 INSERT INTO USER (username, first_name, surname) VALUES ('thormodm', 'Thormod', 'Myrvang');
-INSERT INTO USER (username, first_name, surname, middle_name, email, phone, sex) VALUES ('ivarhk', 'Ivar', 'Kråbøl', '"Touchpad"', 'ivarhk@gmail.com', '482 64 519', 'm')
+INSERT INTO USER (username, first_name, surname, middle_name, email, phone, sex) VALUES ('ivarhk', 'Ivar', 'Kråbøl', '"Touchpad"', 'ivarhk@gmail.com', '482 64 519', 'm');
+INSERT INTO USER (username) VALUES ('empty');
 
 # --- !Downs
