@@ -25,7 +25,7 @@ $("document").ready(function($){
         <li class="navelement"><a href="/hybrida">Om Hybrida</a></li>
         @if(models.LoginState.isValidlyLoggedIn()) {
             <li style="float: right" class="navelement">
-                <a href="">@(models.LoginState.getUser().getName())</a>
+                <a href=@("/profil/" + models.LoginState.getUser().getUsername())>@(models.LoginState.getUser().getName())</a>
             </li>
         }
         <li style="float: right" class="navelement">
@@ -36,7 +36,7 @@ $("document").ready(function($){
                 <a href="@(routes.ExampleSSO.login(play.mvc.Http.Context.current().request().path()))">Logg inn</a>
             }
         </li>
-        <li style="float: right; padding-top: .8em;" class="navelement">
+        <li style="float: right; padding-top: .8em;" >
             <div class="search" style="padding-top: 0.4em">
                 <form action="/search" method="GET">
                     <input type="text" name="term" id="searchField" placeholder="Søk"/>

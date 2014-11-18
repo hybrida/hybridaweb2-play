@@ -1,7 +1,9 @@
 @(user: User)
 
 <h5 class="title">Din profil</h5>
-<a class="float-right button" href="rediger">Rediger</a>
+@if(models.LoginState.getUser().getUsername == user.getUsername()) {
+    <a class="float-right button" href="rediger">Rediger</a>
+}
 <div class="profile">
     @if(user.hasProfileImage()) {
         <img class="pic" src="/assets/images/profiles/@user.getUsername()/@user.getProfileImageFileName()">
