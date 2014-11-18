@@ -29,6 +29,7 @@ public class User extends Model {
     public String      surname = null;
     public String      middle_name = null;
     public String      email = null;
+    public String      altemail = null;
     public String      website_url = null;
     public String      phone = null;
     public String      title = null; // Ph.D., Civ.Eng., Stud., Chief, Commander, General, Lord, Admiral, Vevsjef,...
