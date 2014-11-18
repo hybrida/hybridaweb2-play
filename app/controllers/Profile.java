@@ -65,7 +65,7 @@ public class Profile extends Controller {
         User user = User.find.where().eq("username", username).findUnique();
         if (user == null) return Application.show404("profil/" + username + "/edit");
         userForm.fill(user);
-        return ok(layoutHtml.render("Rediger "+user.getName(), profileEdit.render(userForm)));
+        return ok(layoutHtml.render("Rediger " + user.getName(), profileEdit.render(user)));
     }
 
     public static Result submit() {

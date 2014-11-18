@@ -1,11 +1,52 @@
-@(userForm: Form[User])
+@(user: User)
 
-@userForm("username")
+<h5 class="title">Din profil</h5>
+    <form action="lagre">
+    @if(models.LoginState.getUser().getUsername == user.getUsername()) {
+        <input class="float-right button" type="submit" value="Lagre">
+    }
 
-@helper.form(action = routes.Profile.submit) {
-
-    @helper.inputText(userForm("username"))
-
-    @helper.inputText(userForm("first_name"))
-
-}
+    <div class="profile">
+        @if(user.hasProfileImage()) {
+            <img class="pic" src="/assets/images/profiles/@user.getUsername()/@user.getProfileImageFileName()">
+        }
+    <h1 class="name">@user.getName()</h1>
+        @if(user.hasMiddleName()) {
+            <h3 class="name-with-mName">@user.getName(true)</h3>
+        }
+    <div class="info-block">
+        <ul>
+            <li>
+                <div class="label">BRUKERNAVN</div>
+                <div class="info"><input type="text" name="first_name" value="@(user.getUsername())"></div>
+            </li>
+            <li>
+                <div class="label">NTNU-E-POST</div>
+                <div class="info"><input type="text" name="surname" value="@(user.getUsername())@@stud.ntnu.no"></div>
+            </li>
+            <li>
+                <div class="label">ALTERNATIV E-POST</div>
+                <div class="info"><input type="text" name="email" value="@user.getAltEmail()"></div>
+            </li>
+            <li>
+                <div class="label">HJEMMESIDE</div>
+                <div class="info"><input type="text" name="email" value="@user.getWebsite()"></div>
+            </li>
+            <li>
+                <div class="label">TELEFON</div>
+                <div class="info"><input type="text" name="email" value="@user.getPhone()"></div>
+            </li>
+        </ul>
+    </div>
+    <div class="info-block">
+        <ul>
+        @if("mf".contains(user.getGender())) {
+            <li>
+                <div class="label">KJØNN</div>
+                <div class="info">@(if (user.getGender() == 'm') "Mann" else "Kvinne")</div>
+            </li>
+        }
+        </ul>
+    </div>
+    </div>
+    </form>

@@ -2,7 +2,7 @@
 
 <h5 class="title">Din profil</h5>
 @if(models.LoginState.getUser().getUsername == user.getUsername()) {
-    <a class="float-right button" href="user.getUsername()/rediger">Rediger</a>
+    <a class="float-right button" href="@(user.getUsername())/rediger">Rediger</a>
 }
 <div class="profile">
     @if(user.hasProfileImage()) {
