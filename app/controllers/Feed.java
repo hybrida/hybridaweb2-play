@@ -1,6 +1,7 @@
 package controllers;
 import models.FeedForm;
 import models.HttpRequestData;
+import models.LoginState;
 import org.apache.commons.io.FileUtils;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -20,22 +21,25 @@ import static play.mvc.Controller.request;
 import static play.mvc.Results.ok;
 import static play.mvc.Results.redirect;
 import static play.mvc.Http.Request;
+import static play.mvc.Results.unauthorized;
 
-/**
- * Created by eliasbragstadhagen on 23.09.14.
- */
+
 public class Feed {
 
     final static Form<FeedForm> feedForm = form(FeedForm.class);
 
 
     public static Result index() throws SQLException{
+        if (LoginState.getUser().canCreateNewArticle() == false)
+            return redirect(routes.Application.showUnauthorizedAccess());
 
         return ok(layoutHtml.render("NewsFeed", feed.render()));
-
     }
 
     public static Result save() throws SQLException{
+        if (LoginState.getUser().canCreateNewArticle() == false)
+            return redirect(routes.Application.showUnauthorizedAccess());
+
         String title;
         String ingress;
         String article;

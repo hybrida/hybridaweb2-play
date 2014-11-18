@@ -5,48 +5,33 @@ import play.mvc.*;
 import views.html.*;
 import models.*;
 
+import static controllers.Feed.getArticleData;
+import static controllers.Lol.toHtml;
 
-public class Application extends Controller {
+public class    Application extends Controller {
+
+/**
+ * \brief Application class, handles basic site functionality.
+ *
+ * Handles basic functionality and responses. Handles index site,
+ * unauthorized access requests, 404 requests, etc.
+ *
+ */
+
 
 	final static play.data.Form<SearchForm> userForm = play.data.Form.form(SearchForm.class);
 
     public static Result index() throws java.sql.SQLException {
-        String login = session("user");
-        if (login != null)
-            System.out.println(login);
-
-        try {
-            if (login != null) {
-                login = play.api.libs.Crypto.decryptAES(login);
-
-                login = login.split(",")[0];
-                if (login != null) {
-                    return ok(layoutHtml.render("Hybrida", escapeText.render("Welcome " + login)));
-                } else {
-                    return ok(layoutHtml.render("Hybrida", escapeText.render("Your sign is invalid, must implement auto-logout now...")));
-                }
-            }
-        } catch (Exception exc) {
-            session().clear();
-        }
-
-
-        return ok(layoutHtml.render("Hybrida", escapeText.render("<p><h1>Vælkømmen tell Hybrida! </h1></p>")));
-
+        return ok(frontPage.render(toHtml(getArticleData())));
     }
 
-    public static Result processForm() {
-    	play.data.Form<SearchForm> s = userForm.bindFromRequest();
-    	SearchForm x = s.get();
-    	if (x.term != null)
-    		return ok(x.term);
-    	return badRequest("Whut");
+    public static Result showUnauthorizedAccess() {
+        return unauthorized(layoutHtml.render("Unauthorized", unauthorizedAccess.render()));
     }
 
     public static Result show404(String get_value) {
     	return notFound(layoutHtml.render("404", notFoundErrorPage.render(get_value)));
     }
-
 
 }
 

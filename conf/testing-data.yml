@@ -1,5 +1,0 @@
-companies:
-  - !!models.Company
-    name: myFirstCompany
-  - !!models.Company
-    name: mySecondCompany
