@@ -1,0 +1,11 @@
+@(userForm: Form[User])
+
+@userForm("username")
+
+@helper.form(action = routes.Profile.submit) {
+
+    @helper.inputText(userForm("username"))
+
+    @helper.inputText(userForm("first_name"))
+
+}

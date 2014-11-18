@@ -7,9 +7,9 @@ import java.util.Date;
 import java.sql.Timestamp;
 import views.html.*;
 import play.mvc.Result;
-import models.LoginState;
+import controllers.ContactForUser;
 
-public class ExampleSSO extends Controller {
+public class SSOLogin extends Controller {
 
     public static String innsida_login_link = "https://innsida.ntnu.no/sso/?target=hybridawebtest&returnargs=";
 
@@ -18,7 +18,7 @@ public class ExampleSSO extends Controller {
         if(file.exists() && !file.isDirectory()) {
             return redirect(innsida_login_link + (returnarg.length() == 0 ? request().path() : returnarg));
         } else {
-            session("user", play.api.libs.Crypto.encryptAES("su," + String.valueOf(System.currentTimeMillis())));
+            session("user", play.api.libs.Crypto.encryptAES("hybrid," + String.valueOf(System.currentTimeMillis())));
             return redirect(returnarg.length() == 0 ? request().path() : returnarg);
         }
     }
@@ -44,6 +44,7 @@ public class ExampleSSO extends Controller {
                         }
                     } else {
                         System.out.println("Username: " + data.getLoginInfo().get("username") + " does not exist in the database.");
+                        return redirect(routes.ContactForUser.index());
                     }
 
                     return redirect(return_url);

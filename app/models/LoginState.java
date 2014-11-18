@@ -2,6 +2,8 @@ package models;
 
 
 import play.db.ebean.Model;
+import views.html.escapeText;
+import views.html.layoutHtml;
 
 /**
  * \brief Login state manager.
@@ -10,8 +12,6 @@ import play.db.ebean.Model;
  */
 public class LoginState extends Model {
 
-    private User user = null;
-
     private static boolean isUserInDatabase(String username) {
         return User.find.where().eq("username", username).findUnique() != null;
     }
@@ -19,6 +19,8 @@ public class LoginState extends Model {
     private static boolean isUserTimeValid(String username, String usertime) {
         User user = User.find.where().eq("username", username).findUnique();
         Long usertime_int = Long.valueOf(usertime) + 1000L;
+        if (user.getLastLoginTime() == null)
+            return true;
         return user.getLastLoginTime().before(new java.util.Date(usertime_int));
     }
 
@@ -46,7 +48,7 @@ public class LoginState extends Model {
                 }
             }
         }
-        return null;
+        return new User();
     }
 
 }

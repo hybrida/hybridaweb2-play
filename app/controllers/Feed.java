@@ -1,5 +1,7 @@
 package controllers;
 import models.FeedForm;
+import models.HttpRequestData;
+import models.LoginState;
 import org.apache.commons.io.FileUtils;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -19,27 +21,30 @@ import static play.mvc.Controller.request;
 import static play.mvc.Results.ok;
 import static play.mvc.Results.redirect;
 import static play.mvc.Http.Request;
+import static play.mvc.Results.unauthorized;
 
-/**
- * Created by eliasbragstadhagen on 23.09.14.
- */
+
 public class Feed {
 
     final static Form<FeedForm> feedForm = form(FeedForm.class);
 
 
     public static Result index() throws SQLException{
+        if (LoginState.getUser().canCreateNewArticle() == false)
+            return redirect(routes.Application.showUnauthorizedAccess());
 
         return ok(layoutHtml.render("NewsFeed", feed.render()));
-
     }
 
     public static Result save() throws SQLException{
+        if (LoginState.getUser().canCreateNewArticle() == false)
+            return redirect(routes.Application.showUnauthorizedAccess());
+
         String title;
         String ingress;
         String article;
         String imageTitle;
-        int id;
+        int id;//TODO Legge til Dato for Sortering
 
         Form<FeedForm> input = feedForm.bindFromRequest();
 
@@ -48,35 +53,33 @@ public class Feed {
             ingress = input.get().ingress;
             article = input.get().article;
 
-            Http.MultipartFormData body = request().body().asMultipartFormData();
-            Http.MultipartFormData.FilePart picture = body.getFile("picture");
-            if (picture != null) {
-                String fileName = picture.getFilename();
-                String contentType = picture.getContentType();
-                File file = picture.getFile();
-                try {
-                    FileUtils.moveFile(file, new File("public/Upload", fileName));
-                } catch (IOException ioe) {
-                    System.out.println("Problem operating on filesystem");
+                Http.MultipartFormData body = request().body().asMultipartFormData();
+                Http.MultipartFormData.FilePart picture = body.getFile("picture");
+                if (picture != null) {
+                    String fileName = picture.getFilename();
+                    String contentType = picture.getContentType();
+                    File file = picture.getFile();
+                    try {
+                        FileUtils.moveFile(file, new File("public/Upload", fileName));
+                    } catch (IOException ioe) {
+                        System.out.println("Problem operating on filesystem");
+                    }
+                    imageTitle = fileName;
+                } else {
+                    imageTitle = null;
                 }
-                imageTitle = fileName;
-            }else{
-                imageTitle = null;
-            }
 
 
-            javax.sql.DataSource ds = DB.getDataSource();
-            java.sql.Connection connection = ds.getConnection("hybrid", "");
-            java.sql.Statement statement = connection.createStatement();
+                javax.sql.DataSource ds = DB.getDataSource();
+                java.sql.Connection connection = ds.getConnection("hybrid", "");
+                java.sql.Statement statement = connection.createStatement();
 
-            ResultSet result = statement.executeQuery("SELECT COUNT(*) FROM feed");
-            result.absolute(1);
-            int length = result.getInt(1);
-            int val = length + 1;
+                ResultSet result = statement.executeQuery("SELECT COUNT(*) FROM feed");
+                result.absolute(1);
+                int length = result.getInt(1);
+                int val = length + 1;
 
-            statement.executeUpdate("INSERT INTO feed VALUES('" + val + "','" + title + "','" + imageTitle + "','" + article + "','" + ingress + "')");
-
-
+                statement.executeUpdate("INSERT INTO feed VALUES('" + val + "','" + title + "','" + imageTitle + "','" + article + "','" + ingress + "')");
         }
     return index();
     }
@@ -98,15 +101,15 @@ public class Feed {
             if (!check.equalsIgnoreCase("null")) {
                 finalPost += "<a href=" + url +"><div class=\"content2\">" +
                         "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
-                        "<img src=\"/assets/Upload/" + result.getString(3) + "\" alt=\"rect\" width=50% height=50%/><br></a>" +
-                        escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div><br>" +
+                        "<img src=\"/assets/Upload/" + result.getString(3) + "\" alt=\"rect\" width=50% height=50%/><br>" +
+                        escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div></a><br>" +
                         escapeText.apply(result.getString(5)).toString().replace("\n", "<br />") + "</div>";
             }
             else{
                 finalPost += "<a href=" + url +"><div class=\"content2\">" +
                         "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
-                        "<img src=\"/assets/images/favicon.ico\" alt=\"rect\"/><br></a>" +
-                        escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div><br>" +
+                        "<img src=\"/assets/images/favicon.ico\" alt=\"rect\"/><br>" +
+                        escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</a></div><br>" +
                         escapeText.apply(result.getString(5)).toString().replace("\n", "<br />") + "</div>";
 
             }
@@ -114,7 +117,6 @@ public class Feed {
 
         return finalPost;
     }
-    //TODO:Install CKEditor
 
     public static Result clearAll() throws SQLException{
         javax.sql.DataSource ds = DB.getDataSource();
@@ -142,13 +144,15 @@ public class Feed {
                     "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
                     "<img src=\"/assets/Upload/" + result.getString(3) + "\" alt=\"rect\" width=50% height=50%/><br>" +
                     escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div><br>" +
+                    "<i>" + escapeText.apply(result.getString(5)).toString().replace("\n", "<br />") + "</i><br />" +
                     result.getString(4) + "</div></a>";
         }
         else{
             finalPost += "<div class=\"content2\">" +
                     "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
                     "<img src=\"/assets/images/favicon.ico\" alt=\"rect\"/><br>" +
-                    escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div><br>" +
+                    "<i>" + escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</i></div><br>" +
+                    escapeText.apply(result.getString(5)).toString().replace("\n", "<br />") + "<br />" +
                     result.getString(4) + "</div>";
         }
         return ok(layoutHtml.render("NewsFeed", generateArticle.render(toHtml(finalPost))));
