@@ -7,11 +7,12 @@ package models;
  * The data is separated into a map for easy access. In other words,
  * this class separates the SSO data according to SSO standard (which is not strictly following
  * HTTP GET standard.).
- * We check if the login time. If the provided time is much larger than our current unix time.
- * If it is; we return false: the login fails.
+ * We check the login time. If the provided time is much larger than our current unix time;
+ * we return false: the login fails.
  *
- * We then generate a public key from our certificate and verify the signature to be
- * correct. If it happens to be correct, we return true. Else, false.
+ * If the login time is correct, the algorithm will generate a public key from the certificate (innsida.crt found in the root folder)
+ * and verify the signature to be
+ * correct. If it happens to be correct, it returns true. Else, false.
  *
  * This class does not check for immutable logins via the database.
  * This class does not check for correct IP addresses.

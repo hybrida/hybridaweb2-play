@@ -1,7 +1,5 @@
 package controllers;
-import models.FeedForm;
-import models.HttpRequestData;
-import models.LoginState;
+import models.*;
 import org.apache.commons.io.FileUtils;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -11,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import play.db.*;
 import play.data.Form;
@@ -90,6 +89,7 @@ public class Feed {
         java.sql.Statement statement = connection.createStatement();
 
         ResultSet result = statement.executeQuery("SELECT COUNT(*) FROM feed");
+        List<models.FeedEntity> entities = FeedEntity.find.all();
         result.absolute(1);
         int length = result.getInt(1);
         result = statement.executeQuery("SELECT * FROM feed ORDER BY id DESC");
