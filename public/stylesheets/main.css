@@ -177,6 +177,16 @@ body {
     padding: 2%;
     display: inline-block;
 }
+.center_block {
+    display: block;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+.center_text_no_resize {
+    text-align: center;
+    resize: none;
+}
 
 #notFound{
   padding-top: 5%;
