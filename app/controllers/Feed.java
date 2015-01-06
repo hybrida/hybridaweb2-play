@@ -89,7 +89,7 @@ public class Feed {
         java.sql.Statement statement = connection.createStatement();
 
         ResultSet result = statement.executeQuery("SELECT COUNT(*) FROM feed");
-        List<models.FeedEntity> entities = FeedEntity.find.all();
+
         result.absolute(1);
         int length = result.getInt(1);
         result = statement.executeQuery("SELECT * FROM feed ORDER BY id DESC");

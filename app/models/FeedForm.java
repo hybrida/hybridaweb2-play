@@ -12,7 +12,10 @@ public class FeedForm extends Model {
     public String imageTitle;
     public String ingress;
     @Constraints.Required
+
     public String title;
     public String article;
 
+    @javax.persistence.Id
+    public int id;
 }
