@@ -47,6 +47,7 @@ public class SSOLogin extends Controller {
                         return redirect(routes.ContactForUser.index());
                     }
 
+                    //return redirect(return_url);
                     return redirect(return_url);
                 }
                 else {

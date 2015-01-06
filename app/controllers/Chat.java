@@ -15,13 +15,13 @@ import views.html.layoutHtml;
  */
 public class Chat extends Controller {
     public static Result connectClient() {
-        if (LoginState.getUser().student == false)
+        if (LoginState.isValidlyLoggedIn() == false)
             return redirect(routes.Application.showUnauthorizedAccess());
         return ok(layoutHtml.render("Hybrida Chat", chatClient.render(LoginState.getUser().getName())));
     }
 
     public static WebSocket<String> socket() {
-        if (LoginState.getUser().student == false)
+        if (LoginState.isValidlyLoggedIn() == false)
             return null;
         return WebSocket.withActor(new Function<ActorRef, Props>() {
             public Props apply(ActorRef out) throws Throwable {
