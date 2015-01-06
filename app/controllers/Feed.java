@@ -52,33 +52,33 @@ public class Feed {
             ingress = input.get().ingress;
             article = input.get().article;
 
-                Http.MultipartFormData body = request().body().asMultipartFormData();
-                Http.MultipartFormData.FilePart picture = body.getFile("picture");
-                if (picture != null) {
-                    String fileName = picture.getFilename();
-                    String contentType = picture.getContentType();
-                    File file = picture.getFile();
-                    try {
-                        FileUtils.moveFile(file, new File("public/Upload", fileName));
-                    } catch (IOException ioe) {
-                        System.out.println("Problem operating on filesystem");
-                    }
-                    imageTitle = fileName;
-                } else {
-                    imageTitle = null;
+            Http.MultipartFormData body = request().body().asMultipartFormData();
+            Http.MultipartFormData.FilePart picture = body.getFile("picture");
+            if (picture != null) {
+                String fileName = picture.getFilename();
+                String contentType = picture.getContentType();
+                File file = picture.getFile();
+                try {
+                    FileUtils.moveFile(file, new File("public/Upload", fileName));
+                } catch (IOException ioe) {
+                    System.out.println("Problem operating on filesystem");
                 }
+                imageTitle = fileName;
+            } else {
+                imageTitle = null;
+            }
 
 
-                javax.sql.DataSource ds = DB.getDataSource();
-                java.sql.Connection connection = ds.getConnection("hybrid", "");
-                java.sql.Statement statement = connection.createStatement();
+            javax.sql.DataSource ds = DB.getDataSource();
+            java.sql.Connection connection = ds.getConnection("hybrid", "");
+            java.sql.Statement statement = connection.createStatement();
 
-                ResultSet result = statement.executeQuery("SELECT COUNT(*) FROM feed");
-                result.absolute(1);
-                int length = result.getInt(1);
-                int val = length + 1;
+            ResultSet result = statement.executeQuery("SELECT COUNT(*) FROM feed");
+            result.absolute(1);
+            int length = result.getInt(1);
+            int val = length + 1;
 
-                statement.executeUpdate("INSERT INTO feed VALUES('" + val + "','" + title + "','" + imageTitle + "','" + article + "','" + ingress + "')");
+            statement.executeUpdate("INSERT INTO feed VALUES('" + val + "','" + title + "','" + imageTitle + "','" + article + "','" + ingress + "')");
         }
         return redirect(routes.Application.index().absoluteURL(request()));
     }
