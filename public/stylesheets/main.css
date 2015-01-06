@@ -183,10 +183,21 @@ body {
     left: 50%;
     transform: translate(-50%, 0);
 }
+.center_inline_block {
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
 .center_text_no_resize {
     text-align: center;
     resize: none;
 }
+.pad_1percent_top
+{
+    margin-top: 1%;
+}
+
 
 #notFound{
   padding-top: 5%;
