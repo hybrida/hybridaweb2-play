@@ -176,6 +176,7 @@ body {
     width: auto;
     padding: 2%;
     display: inline-block;
+
 }
 .center_block {
     display: block;
@@ -196,6 +197,14 @@ body {
 .pad_1percent_top
 {
     margin-top: 1%;
+}
+.absolute_center
+{
+    width: auto;
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 
 

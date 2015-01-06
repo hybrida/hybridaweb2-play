@@ -33,7 +33,7 @@ public class Feed {
         if (LoginState.getUser().canCreateNewArticle() == false)
             return redirect(routes.Application.showUnauthorizedAccess());
 
-        return ok(layoutHtml.render("NewsFeed", feed.render()));
+        return ok(layoutHtml.render("NewsFeed", centerBlock.render(articleWriter.render("feed"))));
     }
 
     public static Result save() throws SQLException{
@@ -81,8 +81,9 @@ public class Feed {
 
                 statement.executeUpdate("INSERT INTO feed VALUES('" + val + "','" + title + "','" + imageTitle + "','" + article + "','" + ingress + "')");
         }
-    return index();
+        return redirect(routes.Application.index().absoluteURL(request()));
     }
+
     public static String getArticleData() throws SQLException{
         javax.sql.DataSource ds = DB.getDataSource();
         java.sql.Connection connection = ds.getConnection("hybrid", "");
@@ -123,7 +124,7 @@ public class Feed {
         java.sql.Connection connection = ds.getConnection("hybrid", "");
         java.sql.Statement statement = connection.createStatement();
         statement.executeUpdate("DELETE FROM feed");
-        return redirect(routes.Feed.index().absoluteURL(request()));
+        return redirect(routes.Application.index().absoluteURL(request()));
     }
 
     public static Result generateArticle(String newsTitle) throws SQLException{
