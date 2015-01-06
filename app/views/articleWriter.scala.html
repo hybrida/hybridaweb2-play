@@ -1,0 +1,16 @@
+@(link: String)
+<!--
+    This file defines a generic text editor that POSTs to the given route
+    It allows you to upload a file as well. The handler that will take in the
+    POST data should look for "title", "ingress", "article", and "picture".
+    The aforementioned will contain UTF-8 data and binary data respectively.
+-->
+<div class="article_writer">
+    <form name="Article" action="/@(link)" method="POST" enctype="multipart/form-data">
+        <textarea class="center_text_no_resize" placeholder="Skriv tittelen her" type="text" name="title" rows="1" cols="70" ></textarea>
+        <textarea class="center_block" placeholder="Skriv en kort oppsummering her" rows="3" cols="50" name="ingress" onfocus=""></textarea>
+        <textarea class="center_block" placeholder="Skriv ditt innlegg her" rows="12" cols="75" name="article"></textarea>
+        <input style="display: block; background-color: #ffffff; position: relative; left: 50%; transform: translate(-50%, 0);" type="file" name="picture">
+        <input style="display: inline-block; background-color: #ffffff; position: relative; left: 50%; transform: translate(-50%, 0);" type="submit" value="Post">
+    </form>
+</div>
