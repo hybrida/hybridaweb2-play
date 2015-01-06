@@ -7,7 +7,41 @@ import java.util.Date;
 import java.sql.Timestamp;
 import views.html.*;
 import play.mvc.Result;
-import controllers.ContactForUser;
+
+/**
+ * This class handles SSOLogins via Feide.
+ *
+ * How it works:
+ * First we let control enter the "login(String)" function.
+ * It checks if the certificate (innsida.crt in root folder) is present.
+ * If the certificate is not present, the login will occur as
+ * the standard root user.
+ *
+ * If the certificate is present, the user is redirected to innsida.ntnu.no
+ * (see innsida_login_link for full link). The parameter "target" tells innsida
+ * where to return to after a succesful login. The parameter "returnargs" is a
+ * bounced-back parameters that will inform this server where to go.
+ * The bounce-back is used so that login in from a specific page
+ * returns you to that same page after having logged in.
+ *
+ * The logout function simply clears the cookies via session().clear() first,
+ * it then redirects you to innsida's logout which will further invalidate
+ * other cookies.
+ *
+ * verifyLogin works by looking at the current HTTP data and validating its
+ * timestamp, encryption, and where the HTTP request originated from.
+ * This function accesses the database to check if the returned username
+ * actually exists there as well.
+ * If the login is succesful, verifyLogin stores the username with a timestamp.
+ * It also encrypts the cookie with the last login time using a private key.
+ *
+ * The encryption's justification:
+ * The login time is stored in the database. If anyone wishes to commit forgery
+ * by creating a custom cookie, they will have a hard time doing so because they
+ * will need to store unreadable text that must result in the form: "username, login_time"
+ * This is extremely difficuly to do as any change to the input should give big changes to the output
+ * like a hashing algorithm.
+ */
 
 public class SSOLogin extends Controller {
 
