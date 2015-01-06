@@ -167,16 +167,15 @@ body {
     border-color: #9e9d98;
 }
 
-.content3 {
+.article_writer {
     font-family: "sans-serif"; color: #000000;
-    background-color: #9e9d98;
-    margin: 1em;
-    padding: 1em;
-    -moz-border-radius: 0px;
-    border-radius: 0px;
-    -webkit-border-radius: 0px;
+    background-color: #d3d3d3;
+    border-radius: 2%;
     border-style: solid;
-    border-color: black;
+    border-color: #d3d3d3;
+    width: auto;
+    padding: 2%;
+    display: inline-block;
 }
 
 #notFound{

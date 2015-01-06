@@ -22,6 +22,14 @@ public class    Application extends Controller {
 	final static play.data.Form<SearchForm> userForm = play.data.Form.form(SearchForm.class);
 
     public static Result index() throws java.sql.SQLException {
+
+        if (LoginState.getUser() != null) {
+            User user = LoginState.getUser();
+            if (user.canCreateNewArticle()) {
+                return ok(layoutHtml.render("Ayy lmao", toHtml(articleWriter.render(new String("dumb")) + getArticleData())));
+            }
+        }
+
         return ok(frontPage.render(toHtml(getArticleData())));
     }
 

@@ -5,3 +5,9 @@ OpenOptions = function(){
     }
     else{x.innerHTML = ""}
 }
+clearSelf = function(obj){
+    obj.innerHTML="";
+}
+clearSelfValue = function(obj){
+    obj.value="";
+}
