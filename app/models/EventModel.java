@@ -3,9 +3,9 @@ package models;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by eliasbragstadhagen on 04.11.14.
@@ -13,14 +13,21 @@ import javax.persistence.Id;
 @Entity
 public class EventModel extends Model{
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private long id;
     private String title;
     private String image_title;
     private String article;
     private String ingress;
     private int antall; //Antall som får være med!
-    //TODO lage klasser for synlighet og tilgang
+    private String users;
+    //TODO lage klasser for synlighet og tilgang, samt lagring av påmeldte
+
+    public EventModel(){
+        //users = new ArrayList<User>();
+        users = "";
+    }
 
     public static Finder<String, EventModel> find = new Finder<String, EventModel> (
             String.class, EventModel.class
@@ -64,5 +71,40 @@ public class EventModel extends Model{
 
     public void setAntall(int antall) {
         this.antall = antall;
+    }
+    public long getId(){
+        return id;
+    }
+
+    public void addUser(User user){
+        if(!userExists(user.getID())) {
+            users += user.getID() + ";";
+        }
+    }
+
+    public String getUsers(){
+        return users;
+    }
+    public boolean userExists(String id){
+        String[] user = users.split(";");
+        for(String i : user){
+            if (id.equals(i)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void removeUser(User user){
+        String tempUsers = "";
+        if(userExists(user.getID())){
+            String[] bruker = users.split(";");
+            for(String i : bruker){
+                if(!i.equals(user.getID())){
+                    tempUsers += i + ";";
+                }
+            }
+            this.users = tempUsers;
+        }
     }
 }

@@ -22,7 +22,9 @@ import static play.mvc.Results.redirect;
 import static play.mvc.Http.Request;
 import static play.mvc.Results.unauthorized;
 
-
+/**
+ * Created by eliasbragstadhagen on 23.09.14.
+ */
 public class Feed {
 
     final static Form<FeedForm> feedForm = form(FeedForm.class);
@@ -103,7 +105,6 @@ public class Feed {
                 finalPost += "<a href=" + url +"><div class=\"content2\">" +
                         "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
                         "<img src=\"/assets/Upload/" + result.getString(3) + "\" alt=\"rect\" width=50% height=50%/><br>" +
-
                         escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div></a><br>" +
                         escapeText.apply(result.getString(5)).toString().replace("\n", "<br />") + "</div>";
             }
@@ -111,7 +112,6 @@ public class Feed {
                 finalPost += "<a href=" + url +"><div class=\"content2\">" +
                         "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
                         "<img src=\"/assets/images/favicon.ico\" alt=\"rect\"/><br>" +
-
                         escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</a></div><br>" +
                         escapeText.apply(result.getString(5)).toString().replace("\n", "<br />") + "</div>";
 
