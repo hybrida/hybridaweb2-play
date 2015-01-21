@@ -11,9 +11,6 @@ GET         /kalender                 controllers.Calendar.calendarRender()
 
 GET         /about                    controllers.About.index()
 
-
-
-
 GET         /article                  controllers.Articles.index()
 GET         /yeah                     controllers.Yeah.index()
 GET         /update                   controllers.Update.index()
@@ -47,8 +44,10 @@ POST        /feed                     controllers.Feed.save()
 POST        /feedClear                controllers.Feed.clearAll()
 GET         /feed/:newsTitle          controllers.Feed.generateArticle(newsTitle)
 
-GET         /event                    controllers.Event.index()
-POST        /event                    controllers.Event.save()
+GET         /event                   controllers.Event.index()
+POST        /event                   controllers.Event.save()
+GET         /event/:eventId          controllers.Event.generateEvent(eventId)
+POST        /event/updateUser        controllers.Event.updateUsers()
 
 GET         /ImgUp                    controllers.ImageUploadExample.index()
 POST        /ImgUp                    controllers.ImageUploadExample.upload()

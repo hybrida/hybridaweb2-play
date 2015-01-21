@@ -1,0 +1,18 @@
+@(content: java.util.List[String])
+<div style="padding: 10%">
+    <div style="padding: 2em 4%; background-color: #ffffff; border-radius: 5px;">
+        <div style="background-color: #ffffff">
+          @Html(content.get(0))
+            <br>
+            @Html(content.get(1))
+            @Html(content.get(2))
+            @Html(content.get(3))
+
+            <form name="UpdateEvent" action="/event/updateUser" method="POST">
+                <input type="submit" name="SignUp" value="Meld På">
+            </form>
+
+            @Html(content.get(5))
+        </div>
+    </div>
+</div>

@@ -160,4 +160,8 @@ public class User extends Model {
     public static Finder<Long, User> find = new Finder<>(
             Long.class, User.class
     );
+
+    public String getID(){
+        return String.valueOf(id);
+    }
 }
