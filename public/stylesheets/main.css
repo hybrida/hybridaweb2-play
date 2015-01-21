@@ -18,7 +18,7 @@ body {
 .content {
 }
 
-/*nav-menu*/
+/*navmenu*/
 
 #logo{
     height: 5em;
@@ -30,13 +30,13 @@ body {
     height: 7em;
 }
 
-#logo-text {
+#logotext {
     padding-top: 0.25em;
     font-size: 2em;
     float: left;
 }
 
-#nav-ghost {/*en tom div som fyller plassen nav-menu ville hvis nav-menu ikke var fixed*/
+#navghost {/*en tom div som fyller plassen navmenu ville hvis navmenu ikke var fixed*/
     position: relative;
     left: 0;
     right: 0;
@@ -48,7 +48,7 @@ body {
     z-index: -9999;
 }
 
-#navigation-menu {
+#navmenu {
     z-index: 9999;
     background-color: #ffffff;
     left: 0;
@@ -63,18 +63,18 @@ body {
     position: fixed;
 }
 
-#navigation-menu ul {
+#navmenu ul {
     padding: 0 4%;
     margin: 0;
     height: 2em;
 }
 
-#navigation-menu ul li {
+#navmenu ul li {
     display: inline-block;
     margin: 0;
 }
 
-.navigation-menu-text {
+.navmenutext {
     color: #9e9d98;
     font-size: 0.8em;
     text-decoration: none;
@@ -83,11 +83,11 @@ body {
     position: relative;
 }
 
-#navigation-menu ul li a:hover {
+#navmenu ul li a:hover {
     color: #000000;
 }
 
-.navigation-element {
+.navelement {
     padding: 1em 0;
 }
 
@@ -122,21 +122,21 @@ body {
         padding: 0;
         height: 3em;
     }
-    #logo-text {
+    #logotext{
         visibility: hidden;
         position: absolute;
     }
-    #navigation-menu ul {
+    #navmenu ul {
         padding: 0 0;
         margin: 0;
     }
-    .navigation-element {
+    .navelement {
         padding: 0.5em 0;
     }
-    #navigation-menu {
+    #navmenu{
         height: 3em;
     }
-    #nav-ghost {
+    #navghost {
         height: 3em;
     }
     .search {
@@ -145,7 +145,7 @@ body {
     .search input[type="text"]:focus {
         width: 4em;
     }
-    #navigation-menu ul li a {
+    #navmenu ul li a {
         font-size: 0.8em;
         color: #9e9d98;
     }
