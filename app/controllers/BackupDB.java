@@ -9,6 +9,8 @@ import java.io.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Tormod on 04.11.2014.
@@ -34,20 +36,46 @@ public class BackupDB {
 
     private static Boolean backup() {
         javax.sql.DataSource ds = DB.getDataSource();
-        String str = "# --- !Ups\r\n";
+        String str = "# --- !Ups" + System.lineSeparator();
         try {
             java.sql.Connection connection = ds.getConnection("hybrid", "");
             java.sql.Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery("SCRIPT");
+            ResultSet result = statement.executeQuery("SCRIPT SIMPLE NOSETTINGS"); // TO 'conf\\evolutions\\default\\2.sql'");
             while (result.next()) {
                 Reader reader = new InputStreamReader(result.getAsciiStream(1));
                 String everything = "";
+                List<String> lines = new ArrayList<>();
+                int count_of_qout = 0;
+                //char[] matchstring = "STRINGDECODE(".toCharArray();
+                //int matchlocation = 0;
+                //boolean findendtag = false;
                 while (reader.ready()) {
                     char character = (char) reader.read();
                     everything += character;
+                    if (character == '\'') count_of_qout++;
+                    else if (character == ';' && count_of_qout%2 == 0) {
+                        lines.add(everything + System.lineSeparator());
+                        everything = "";
+                    } else if (character == ';') {
+                        everything = everything.substring(0,everything.length()-1);
+                    }/* else if (findendtag) {
+                        if (character == ')' && count_of_qout%2 == 0) {
+                            findendtag = false;
+                            everything = everything.substring(0,everything.length()-1);
+                        }
+                    } else if (character == matchstring[matchlocation]) {
+                        if (matchlocation >= matchstring.length-1) {
+                            findendtag = true;
+                            matchlocation = 0;
+                            everything = everything.substring(0,everything.length()-matchstring.length);
+                        } else matchlocation++;
+                    } else matchlocation = 0;*/
                 }
-                for (String line : everything.split(";")) {
-                    if (line.toUpperCase().startsWith("INSERT") && !line.toUpperCase().startsWith("INSERT INTO PUBLIC.PLAY_EVOLUTIONS")) str += "\r\n" + line + ";";
+
+                for (String line : lines) {
+                    if (line.toUpperCase().startsWith("INSERT") && !line.toUpperCase().startsWith("INSERT INTO PUBLIC.PLAY_EVOLUTIONS")) {
+                        str += line;
+                    }
                 }
                 reader.close();
             }
