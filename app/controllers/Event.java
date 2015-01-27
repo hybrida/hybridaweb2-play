@@ -46,15 +46,20 @@ public class Event extends Controller{
             Http.MultipartFormData body = request().body().asMultipartFormData();
             Http.MultipartFormData.FilePart picture = body.getFile("picture");
             if (picture != null) {
-                String fileName = picture.getFilename();
                 String contentType = picture.getContentType();
-                File file = picture.getFile();
-                try {
-                    FileUtils.moveFile(file, new File("public/Upload", fileName));
-                } catch (IOException ioe) {
-                    System.out.println("Problem operating on filesystem");
+                if(checkImageType(contentType)){
+                    String fileName = picture.getFilename();
+                    System.out.println(contentType);
+                    File file = picture.getFile();
+                    try {
+                        FileUtils.moveFile(file, new File("public/Upload", fileName));
+                    } catch (IOException ioe) {
+                        System.out.println("Problem operating on filesystem");
+                    }
+                    model.setImage_title(fileName);}
+                else{
+                    model.setImage_title(null);
                 }
-                model.setImage_title(fileName);
             } else {
                 model.setImage_title(null);
             }
@@ -64,6 +69,15 @@ public class Event extends Controller{
         }
         return index();
     }
+
+    public static boolean checkImageType(String contentType){
+        String[] type = contentType.split("/");
+        if(type[0].equals("image")){
+            return true;
+        }
+        return false;
+    }
+
     public static Result generateEvent(String eventId){
         EventModel entity = EventModel.find.byId(eventId);
         model = entity;
@@ -86,6 +100,8 @@ public class Event extends Controller{
             }
         }
         contentList.add(userNames);
+        Boolean signed = isSignedUp();
+        contentList.add(signed.toString());
         return ok(layoutHtml.render("Hybrida", generatedEvent.render(contentList)));
     }
     public static Result listEvents(){
@@ -122,6 +138,15 @@ public class Event extends Controller{
         model.removeUser(user);
         model.update();
         return redirect(routes.Event.generateEvent(String.valueOf(model.getId())).absoluteURL(request()));
+    }
+
+    public static Boolean isSignedUp(){
+        User user = LoginState.getUser();
+        if ( user == null){
+            System.out.println("ERROR TO THE MAX");
+        }
+        Boolean isSignedUp = model.userExists(user.getID());
+        return isSignedUp;
     }
 
 }

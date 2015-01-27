@@ -4,14 +4,22 @@
         <div style="background-color: #ffffff">
           @Html(content.get(0))
             <br>
+            <img src="/assets/Upload/@Html(content.get(3))" height="50%" width="50%">
+            <br>
             @Html(content.get(1))
             @Html(content.get(2))
-            @Html(content.get(3))
 
+            @if(content.get(6) == "false"){
             <form name="UpdateEvent" action="/event/updateUser" method="POST">
                 <input type="submit" name="SignUp" value="Meld På">
             </form>
-
+            }
+            @if(content.get(6) == "true"){
+            <form name="UpdateEventR" action="/event/removeUser" method="POST">
+                <input type="submit" name="SignOf" value="Meld av">
+            </form>
+            }
+            <br>
             @Html(content.get(5))
         </div>
     </div>
