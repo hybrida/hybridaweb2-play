@@ -4,7 +4,6 @@ import play.mvc.*;
 import views.html.*;
 
 import static controllers.Feed.getArticleData;
-import static trash.controllers.Lol.toHtml;
 
 public class Application extends Controller {
 
@@ -16,8 +15,11 @@ public class Application extends Controller {
      *
      */
 
+    /**
+     * \brief Index entry point of the website.
+     */
     public static Result index() throws java.sql.SQLException {
-        return ok(frontPage.render(toHtml(getArticleData())));
+        return ok(frontPage.render(play.twirl.api.Html.apply(getArticleData())));
     }
 
     public static Result showUnauthorizedAccess() {
