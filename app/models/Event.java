@@ -1,5 +1,7 @@
 package models;
 
+import play.db.ebean.Model;
+
 import javax.persistence.*;
 import java.util.Calendar;
 
@@ -7,7 +9,7 @@ import java.util.Calendar;
  * Created by eliasbragstadhagen on 28.01.15.
  */
 @Entity
-public class Event {
+public class Event extends Model {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(nullable = false)
@@ -35,6 +37,14 @@ public class Event {
 
     public long getEventId() {
         return eventId;
+    }
+
+    public long getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(long articleId) {
+        this.articleId = articleId;
     }
 
     public int getTimeFrame() {
