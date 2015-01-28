@@ -31,5 +31,9 @@ public class Application extends Controller {
     	return notFound(layoutHtml.render("404", notFoundErrorPage.render(get_value)));
     }
 
+    public static Result show400(String get_value) {
+        return badRequest(layoutHtml.render("400", methodFailureErrorPage.render(get_value)));
+    }
+
 }
 
