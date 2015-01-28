@@ -3,7 +3,7 @@ package controllers;
 import play.mvc.*;
 import views.html.*;
 
-import static controllers.Feed.getArticleData;
+import static models.Article.getArticleData;
 
 public class Application extends Controller {
 
