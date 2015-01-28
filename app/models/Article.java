@@ -18,14 +18,14 @@ public class Article extends Model {
 
     @Id
     @GeneratedValue
-    private Integer id;
-    private String title;
-    private String ingress;
-    private String text;
-    private User author;
+    private Integer     id;
+    private String      title;
+    private String      ingress;
+    private String      text;
+    private User        author;
     @CreatedTimestamp
-    private Timestamp dateMade;
-    private String imagePath;
+    private Timestamp   dateMade;
+    private String      imagePath;
 
     public Article(String title, String text,String ingress, User author, String imagepath) {
         this.title = title;
@@ -52,6 +52,6 @@ public class Article extends Model {
     public User getAuthor() {    return author; }
 
     public static Finder<Long, Article> find = new Finder<>(
-            Long.class, Article.class
+        Long.class, Article.class
     );
 }

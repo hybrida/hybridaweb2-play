@@ -13,7 +13,7 @@ public class Application extends Controller {
      * \brief Application class, handles basic site functionality.
      *
      * Handles basic functionality and responses. Handles index site,
-     * unauthorized access requests, 404 requests, etc.
+     * unauthorized access requests, 404 and 400 results, etc.
      *
      */
 
