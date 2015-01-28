@@ -7,7 +7,6 @@ import akka.actor.*;
 import play.mvc.Result;
 import play.libs.F.*;
 import play.mvc.WebSocket;
-import views.html.chatClient;
 import views.html.layoutHtml;
 
 /**
@@ -17,7 +16,7 @@ public class Chat extends Controller {
     public static Result connectClient() {
         if (LoginState.isValidlyLoggedIn() == false)
             return redirect(routes.Application.showUnauthorizedAccess());
-        return ok(layoutHtml.render("Hybrida Chat", chatClient.render(LoginState.getUser().getName())));
+        return ok(layoutHtml.render("Hybrida Chat", views.html.Chat.connectClient.render(LoginState.getUser().getName())));
     }
 
     public static WebSocket<String> socket() {

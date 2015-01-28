@@ -72,6 +72,6 @@ public class Calendar extends Controller {
             //vise ex på feilsiden?
         }
 
-        return ok(calendar.render("KalenderTest",titles,summaries));
+        return ok(views.html.Calendar.calendarRender.render("KalenderTest",titles,summaries));
     }
 }

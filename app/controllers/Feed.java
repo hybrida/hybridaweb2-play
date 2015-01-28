@@ -1,6 +1,7 @@
 package controllers;
 import models.*;
 import org.apache.commons.io.FileUtils;
+import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import views.html.*;
@@ -14,15 +15,11 @@ import play.data.Form;
 
 import static trash.controllers.Lol.toHtml;
 import static play.data.Form.form;
-import static play.mvc.Controller.request;
-import static play.mvc.Results.ok;
-import static play.mvc.Results.redirect;
-import static play.mvc.Results.unauthorized;
 
 /**
  * Created by eliasbragstadhagen on 23.09.14.
  */
-public class Feed {
+public class Feed extends Controller {
 
     final static Form<FeedForm> feedForm = form(FeedForm.class);
 
@@ -31,7 +28,7 @@ public class Feed {
         if (LoginState.getUser().canCreateNewArticle() == false)
             return redirect(routes.Application.showUnauthorizedAccess());
 
-        return ok(layoutHtml.render("NewsFeed", centerBlock.render(articleWriter.render("feed"))));
+        return ok(layoutHtml.render("NewsFeed", centerBlock.render(views.html.Feed.index.render("feed"))));
     }
 
     public static Result save() throws SQLException{
