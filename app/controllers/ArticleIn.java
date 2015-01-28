@@ -1,9 +1,13 @@
 package controllers;
 
 import models.*;
+import org.apache.commons.io.FileUtils;
+import play.mvc.Http;
 import play.mvc.Result;
 
 import play.data.Form;
+
+import views.html.*;
 
 import static play.data.Form.form;
 import static play.mvc.Controller.request;
@@ -11,6 +15,9 @@ import static play.mvc.Results.ok;
 import static play.mvc.Results.redirect;
 
 import models.Event;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by eliasbragstadhagen on 28.01.15.
