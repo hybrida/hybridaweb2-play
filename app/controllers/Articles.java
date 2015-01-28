@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Article;
+import models.Renders;
 import models.User;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -17,9 +18,14 @@ public class Articles extends Controller {
     public static Result index(){
         String title = "Dette er en artikkel";
         User author = new User("ivarhk", "Ivar", "Kråbøl");
-        Date posted = new Date(System.currentTimeMillis());
+        String ingress = "HEI DETTE ER STARTEN!";
         String content = "ASDFIJASDKFJ KSJADF KJAHDKF JKDSAJF KAJSDKFJ KASDJFK AJSKDFJ KASJDFKJKSDJFKSAJ DKFJASDKJFKASJ FKJS KDF KDS KDFJ KDJF J KJD  KSJDF KJSDKFJ KS JKSDJF KAKSF JK ";
-        Article article = new Article(title, content, author, new Timestamp(posted.getTime()));
-        return ok(layoutHtml.render("Article", articleview.render(article)));
+        Article article = new Article(title, content,ingress, author, null);
+        Renders renders = new Renders();
+
+        article.save();
+        renders.render = article.getId();
+        renders.save();
+        return redirect("/backup");
     }
 }
