@@ -13,6 +13,9 @@ public class Event {
     @Column(name = "eventId", nullable = false)
     private long eventId;
 
+    @OneToOne
+    private long articleId;
+
     private int timeFrame;
     private String location;
 
