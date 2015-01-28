@@ -1,0 +1,33 @@
+<div id="navigation_menu">
+    <ul>
+        <li id="logo_image"><a href="/"><img src="/assets/images/logo_actual_head_64.png" alt="SUPERLOGO"/></a></li>
+        @if(models.LoginState.getUser().canCreateNewArticle()){
+            <li class="navigation_element"><a class="navigation_menu_link" href="/feed">Announce</a></li>
+        }
+        @if(models.LoginState.isValidlyLoggedIn()) {<li class="navigation_element"><a class="navigation_menu_link" href="/Chat">Chat</a></li>}
+        <li class="navigation_element"><a class="navigation_menu_link" href="/hybrida">Om Hybrida</a></li>
+        @if(models.LoginState.isValidlyLoggedIn()) {
+            <li style="float: right" class="navigation_element">
+                <a class="navigation_menu_link" href=@("/profil/" + models.LoginState.getUser().getUsername())>@(models.LoginState.getUser().getName())</a>
+            </li>
+        }
+        <li style="float: right" class="navigation_element">
+            <!-- @(play.mvc.Http.Context.current().request().path()) -->
+            @if(models.LoginState.isValidlyLoggedIn()) {
+                <a class="navigation_menu_link" href="@(routes.SSOLogin.logout())">Logg ut</a>
+            } else {
+                <a class="navigation_menu_link" href="@(routes.SSOLogin.login(play.mvc.Http.Context.current().request().path()))">Logg inn</a>
+            }
+        </li>
+        <li style="float: right;" class="navigation_element">
+            <div id="search_bar">
+                <form action="/search" method="GET">
+                    <input type="text" name="term" id="searchField" placeholder="Søk"/>
+                </form>
+            </div>
+        </li>
+    </ul>
+</div>
+<div id="navigation_ghost">
+
+</div>

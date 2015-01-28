@@ -18,6 +18,53 @@ body {
 .content {
 }
 
+/*navmenu_proto*/
+
+#navigation_menu {
+    z-index: 9999;
+    background-color: #00509E;
+    height: 64px;
+    position: fixed;
+    right: 0;
+    left: 0;
+    min-width: 800px;
+}
+
+#navigation_menu ul {
+    padding: 0;
+    margin: 0;
+}
+
+#navigation_menu ul li {
+    display: block;
+    float: left;
+}
+
+.navigation_element {
+    height: 64px;
+    top: 0;
+}
+
+.navigation_menu_link {
+    padding: 22px;
+    display: block;
+    text-decoration: none;
+    color: #ffffff;
+
+}
+
+.navigation_menu_link:hover {
+    background-color: #1F5F9B;
+}
+
+#logo_image {
+    float: left;
+}
+
+#search_bar {
+    padding: 22px 0 22px 0;
+}
+
 /*navmenu*/
 
 #logo{
