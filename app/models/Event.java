@@ -1,7 +1,7 @@
 package models;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  * Created by eliasbragstadhagen on 28.01.15.
@@ -29,9 +29,9 @@ public class Event {
     private int maxParticipants;
     private int maxParticipantsWaiting;
 
-    private Date signUpDeadline;
-    private Date eventHappens;
-    private Date secondSignUp;
+    private Calendar signUpDeadline;
+    private Calendar eventHappens;
+    private Calendar secondSignUp;
 
     public long getEventId() {
         return eventId;
@@ -109,27 +109,27 @@ public class Event {
         this.maxParticipantsWaiting = maxParticipantsWaiting;
     }
 
-    public Date getSignUpDeadline() {
+    public Calendar getSignUpDeadline() {
         return signUpDeadline;
     }
 
-    public void setSignUpDeadline(Date signUpDeadline) {
+    public void setSignUpDeadline(Calendar signUpDeadline) {
         this.signUpDeadline = signUpDeadline;
     }
 
-    public Date getEventHappens() {
+    public Calendar getEventHappens() {
         return eventHappens;
     }
 
-    public void setEventHappens(Date eventHappens) {
+    public void setEventHappens(Calendar eventHappens) {
         this.eventHappens = eventHappens;
     }
 
-    public Date getSecondSignUp() {
+    public Calendar getSecondSignUp() {
         return secondSignUp;
     }
 
-    public void setSecondSignUp(Date secondSignUp) {
+    public void setSecondSignUp(Calendar secondSignUp) {
         this.secondSignUp = secondSignUp;
     }
 }
