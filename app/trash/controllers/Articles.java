@@ -1,4 +1,4 @@
-package controllers;
+package trash.controllers;
 
 import models.Article;
 import models.Renders;

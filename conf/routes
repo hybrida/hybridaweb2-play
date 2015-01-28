@@ -4,14 +4,14 @@
 # Standard layout accessible pages
 GET         /                         controllers.Application.index()
 
-GET         /calendar                 controllers.Calender.index()
+GET         /calendar                 trash.controllers.Calender.index()
 
-GET         /calender                 controllers.Calender.index()
+GET         /calender                 trash.controllers.Calender.index()
 GET         /kalender                 controllers.Calendar.calendarRender()
 
-# GET         /about                    controllers.About.index()
+GET         /about                    trash.controllers.About.index()
 
-GET         /article                  controllers.Articles.index()
+GET         /article                  trash.controllers.Articles.index()
 GET         /yeah                     controllers.Yeah.index()
 GET         /update                   controllers.Update.index()
 POST        /update                   controllers.Update.post()
@@ -19,7 +19,7 @@ GET         /update/utgaver           controllers.Update.utgaver()
 GET         /update/redaksjon         controllers.Update.redaksjon()
 
 # Info til introkurs
-# GET         /info/:name               controllers.About.personInfo(name)
+GET         /info/:name               trash.controllers.About.personInfo(name)
 
 # Heftig blæstiside
 GET         /gitgud                   controllers.GitGud.shrek()
@@ -60,18 +60,18 @@ POST        /random                   controllers.RandomInt.newRandom()
 # Backup memory database
 GET         /backup                   controllers.BackupDB.index()
 
-GET         /ExampleCookies           controllers.ExampleCookies.index()
-POST        /UpdateCookies            controllers.ExampleCookies.updateCookie()
-GET         /UpdateCookies            controllers.ExampleCookies.updateCookie()
-POST        /ClearCookies             controllers.ExampleCookies.clearAllCookies()
-GET         /ClearCookies             controllers.ExampleCookies.clearAllCookies()
+GET         /ExampleCookies           examples.controllers.ExampleCookies.index()
+POST        /UpdateCookies            examples.controllers.ExampleCookies.updateCookie()
+GET         /UpdateCookies            examples.controllers.ExampleCookies.updateCookie()
+POST        /ClearCookies             examples.controllers.ExampleCookies.clearAllCookies()
+GET         /ClearCookies             examples.controllers.ExampleCookies.clearAllCookies()
 
 GET         /Chat                     controllers.Chat.connectClient()
 GET         /ChatServer               controllers.Chat.socket()
 
 GET         /search                   controllers.Search.index()
 
-GET         /ExampleDatabase          controllers.ExampleDatabase.index()
+GET         /ExampleDatabase          examples.controllers.ExampleDatabase.index()
 
 GET         /login                    controllers.SSOLogin.login(returnarg: String)
 GET         /logout                   controllers.SSOLogin.logout()

@@ -1,7 +1,8 @@
-package controllers;
+package examples.controllers;
 
 import play.mvc.*;
 import views.html.*;
+import examples.views.html.*;
 import play.data.Form;
 
 import models.*;

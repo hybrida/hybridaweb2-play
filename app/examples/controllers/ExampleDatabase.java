@@ -1,4 +1,4 @@
-package controllers;
+package examples.controllers;
 
 import play.mvc.*;
 import views.html.*;
