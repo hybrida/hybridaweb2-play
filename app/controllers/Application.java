@@ -19,6 +19,13 @@ public class Application extends Controller {
      * \brief Index entry point of the website.
      */
     public static Result index() throws java.sql.SQLException {
+        java.util.List<models.Article> articles = models.RenderArticle.getVisibleArticles();
+        String concatenation = "";
+        for (models.Article article : articles) {
+            concatenation += article.getText();
+        }
+        if (true)
+            return ok(frontPage.render(play.twirl.api.Html.apply(concatenation)));
         return ok(frontPage.render(play.twirl.api.Html.apply(getArticleData())));
     }
 

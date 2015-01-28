@@ -2,6 +2,7 @@ package models;
 
 import com.avaje.ebean.annotation.CreatedTimestamp;
 import controllers.routes;
+import examples.models.ExampleEbeanEntity;
 import play.db.DB;
 import play.db.ebean.Model;
 import play.mvc.Result;
@@ -12,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import static play.mvc.Controller.request;
 import static play.mvc.Results.redirect;
@@ -24,6 +26,7 @@ public class Article extends Model {
     private Long        id;
     private String      title;
     private String      ingress;
+    @Column(columnDefinition = "text")
     private String      text;
     @OneToOne
     private Long        author;
@@ -53,10 +56,6 @@ public class Article extends Model {
 
     public Long getAuthor() {    return author; }
 
-    public static Finder<Long, Article> find = new Finder<>(
-        Long.class, Article.class
-    );
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -78,6 +77,10 @@ public class Article extends Model {
     }
 
     public static String getArticleData() throws SQLException {
+
+        List<Article> entities = Article.find.all();
+        return "";
+        /*
         javax.sql.DataSource ds = DB.getDataSource();
         java.sql.Connection connection = ds.getConnection("hybrid", "");
         java.sql.Statement statement = connection.createStatement();
@@ -111,6 +114,7 @@ public class Article extends Model {
         }
 
         return finalPost;
+        */
     }
 
     public static Result clearAll() throws SQLException{
@@ -120,4 +124,8 @@ public class Article extends Model {
         statement.executeUpdate("DELETE FROM feed");
         return redirect(routes.Application.index().absoluteURL(request()));
     }
+
+    public static Finder<Long, Article> find = new Finder<>(
+            Long.class, Article.class
+    );
 }
