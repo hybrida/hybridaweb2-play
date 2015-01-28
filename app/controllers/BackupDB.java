@@ -57,7 +57,7 @@ public class BackupDB {
                         lines.add(everything + System.lineSeparator());
                         everything = "";
                     } else if (character == ';') {
-                        everything = everything.substring(0,everything.length()-1);
+                        everything = everything.substring(0,everything.length()-1) + ';';
                     }/* else if (findendtag) {
                         if (character == ')' && count_of_qout%2 == 0) {
                             findendtag = false;
@@ -71,9 +71,10 @@ public class BackupDB {
                         } else matchlocation++;
                     } else matchlocation = 0;*/
                 }
-
+                str += everything;
                 for (String line : lines) {
-                    if (line.toUpperCase().startsWith("INSERT") && !line.toUpperCase().startsWith("INSERT INTO PUBLIC.PLAY_EVOLUTIONS")) {
+                    String upper_line = line.toUpperCase();
+                    if (upper_line.startsWith("INSERT") && !upper_line.startsWith("INSERT INTO SYSTEM_LOB_STREAM") && !upper_line.startsWith("INSERT INTO PUBLIC.PLAY_EVOLUTIONS")) {
                         str += line;
                     }
                 }
