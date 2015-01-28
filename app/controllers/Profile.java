@@ -57,7 +57,7 @@ public class Profile extends Controller {
 
     public static boolean authorized(String username) {
         User loggedInUser = LoginState.getUser();
-        return username == loggedInUser.getUsername() || loggedInUser.admin || !loggedInUser.root;
+        return username.equals(loggedInUser.getUsername()) || loggedInUser.admin || !loggedInUser.root;
     }
 
     public static Result edit(String username) {

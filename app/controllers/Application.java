@@ -17,8 +17,6 @@ public class Application extends Controller {
      *
      */
 
-	final static play.data.Form<SearchForm> userForm = play.data.Form.form(SearchForm.class);
-
     public static Result index() throws java.sql.SQLException {
         return ok(frontPage.render(toHtml(getArticleData())));
     }

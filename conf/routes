@@ -13,6 +13,10 @@ GET         /about                    trash.controllers.About.index()
 
 GET         /article                  trash.controllers.Articles.index()
 GET         /yeah                     trash.controllers.Yeah.index()
+# Article and events
+GET         /ArticleIn                controllers.ArticleIn.index()
+POST        /ArticleIn                controllers.ArticleIn.save()
+
 GET         /update                   controllers.Update.index()
 POST        /update                   controllers.Update.post()
 GET         /update/utgaver           controllers.Update.utgaver()
