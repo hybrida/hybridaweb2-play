@@ -2,7 +2,6 @@ package controllers;
 
 import play.mvc.*;
 import views.html.*;
-import models.*;
 
 import static controllers.Feed.getArticleData;
 import static trash.controllers.Lol.toHtml;

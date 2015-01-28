@@ -14,14 +14,10 @@ import java.util.List;
 import play.data.Form;
 
 import static play.data.Form.form;
-import static play.mvc.Results.ok;
-import static play.mvc.Results.redirect;
 
 import play.mvc.Controller;
 
-/**
- * Created by eliasbragstadhagen on 04.11.14.
- */
+
 public class Event extends Controller{
 
     public static Result index(){

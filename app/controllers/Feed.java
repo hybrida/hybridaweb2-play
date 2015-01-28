@@ -17,7 +17,6 @@ import static play.data.Form.form;
 import static play.mvc.Controller.request;
 import static play.mvc.Results.ok;
 import static play.mvc.Results.redirect;
-import static play.mvc.Results.unauthorized;
 
 /**
  * Created by eliasbragstadhagen on 23.09.14.
