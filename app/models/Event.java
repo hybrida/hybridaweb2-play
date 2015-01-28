@@ -13,37 +13,33 @@ public class Event {
     @Column(name = "eventId", nullable = false)
     private long eventId;
 
-    private int timeframe;
+    private int timeFrame;
     private String location;
 
     private int firstUpperGraduationLimit;
     private int firstLowerGraduationLimit;
-    private int secoundUpperGraduationLimit;
-    private int secoundLowerGraduationLimit;
+    private int secondUpperGraduationLimit;
+    private int secondLowerGraduationLimit;
 
     private char sexAllowed;
 
-    private int max_participants;
-    private int max_participants_waiting;
+    private int maxParticipants;
+    private int maxParticipantsWaiting;
 
     private Date signUpDeadline;
     private Date eventHappens;
-    private Date secoundSignUp;
+    private Date secondSignUp;
 
     public long getEventId() {
         return eventId;
     }
 
-    public void setEventId(long eventId) {
-        this.eventId = eventId;
+    public int getTimeFrame() {
+        return timeFrame;
     }
 
-    public int getTimeframe() {
-        return timeframe;
-    }
-
-    public void setTimeframe(int timeframe) {
-        this.timeframe = timeframe;
+    public void setTimeFrame(int timeFrame) {
+        this.timeFrame = timeFrame;
     }
 
     public String getLocation() {
@@ -70,20 +66,20 @@ public class Event {
         this.firstLowerGraduationLimit = firstLowerGraduationLimit;
     }
 
-    public int getSecoundUpperGraduationLimit() {
-        return secoundUpperGraduationLimit;
+    public int getSecondUpperGraduationLimit() {
+        return secondUpperGraduationLimit;
     }
 
-    public void setSecoundUpperGraduationLimit(int secoundUpperGraduationLimit) {
-        this.secoundUpperGraduationLimit = secoundUpperGraduationLimit;
+    public void setSecondUpperGraduationLimit(int secondUpperGraduationLimit) {
+        this.secondUpperGraduationLimit = secondUpperGraduationLimit;
     }
 
-    public int getSecoundLowerGraduationLimit() {
-        return secoundLowerGraduationLimit;
+    public int getSecondLowerGraduationLimit() {
+        return secondLowerGraduationLimit;
     }
 
-    public void setSecoundLowerGraduationLimit(int secoundLowerGraduationLimit) {
-        this.secoundLowerGraduationLimit = secoundLowerGraduationLimit;
+    public void setSecondLowerGraduationLimit(int secondLowerGraduationLimit) {
+        this.secondLowerGraduationLimit = secondLowerGraduationLimit;
     }
 
     public char getSexAllowed() {
@@ -94,20 +90,20 @@ public class Event {
         this.sexAllowed = sexAllowed;
     }
 
-    public int getMax_participants() {
-        return max_participants;
+    public int getMaxParticipants() {
+        return maxParticipants;
     }
 
-    public void setMax_participants(int max_participants) {
-        this.max_participants = max_participants;
+    public void setMaxParticipants(int maxParticipants) {
+        this.maxParticipants = maxParticipants;
     }
 
-    public int getMax_participants_waiting() {
-        return max_participants_waiting;
+    public int getMaxParticipantsWaiting() {
+        return maxParticipantsWaiting;
     }
 
-    public void setMax_participants_waiting(int max_participants_waiting) {
-        this.max_participants_waiting = max_participants_waiting;
+    public void setMaxParticipantsWaiting(int maxParticipantsWaiting) {
+        this.maxParticipantsWaiting = maxParticipantsWaiting;
     }
 
     public Date getSignUpDeadline() {
@@ -126,11 +122,11 @@ public class Event {
         this.eventHappens = eventHappens;
     }
 
-    public Date getSecoundSignUp() {
-        return secoundSignUp;
+    public Date getSecondSignUp() {
+        return secondSignUp;
     }
 
-    public void setSecoundSignUp(Date secoundSignUp) {
-        this.secoundSignUp = secoundSignUp;
+    public void setSecondSignUp(Date secondSignUp) {
+        this.secondSignUp = secondSignUp;
     }
 }
