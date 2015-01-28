@@ -1,6 +1,6 @@
 package trash.controllers;
 
-import models.LolForm;
+import trash.models.LolForm;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.twirl.api.Html;
@@ -8,7 +8,6 @@ import views.html.layoutHtml;
 import views.html.lolContent;
 import java.sql.*;
 import play.db.*;
-import play.mvc.*;
 import play.data.Form;
 import static play.data.Form.form;
 

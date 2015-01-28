@@ -1,12 +1,8 @@
 package trash.controllers;
 
-import models.Company;
-import play.*;
+import trash.models.Company;
 import play.mvc.*;
 import views.html.*;
-
-
-import play.db.*;
 
 public class About extends Controller {
 	public static Result index() {

@@ -1,11 +1,9 @@
-package models;
+package trash.models;
 
-import play.data.validation.Constraints;
+import models.User;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by eliasbragstadhagen on 04.11.14.

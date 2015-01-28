@@ -8,7 +8,7 @@ import views.html.Hybrida;
 /**
  * Created by Kia on 16.10.14.
  */
-    public class omHybrida extends Controller {
+    public class OmHybrida extends Controller {
         final static public Result index(){  return ok(layoutHtml.render("", views.html.Hybrida.render()));
         }
 }

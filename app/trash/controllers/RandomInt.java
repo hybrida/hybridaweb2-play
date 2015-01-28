@@ -1,6 +1,6 @@
 package trash.controllers;
 
-import models.RandomForm;
+import trash.models.RandomForm;
 import play.data.Form;
 import play.mvc.*;
 import views.html.*;

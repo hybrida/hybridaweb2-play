@@ -1,11 +1,10 @@
 package examples.controllers;
 
 import play.mvc.*;
+import trash.models.CookieForm;
 import views.html.*;
 import examples.views.html.*;
 import play.data.Form;
-
-import models.*;
 
 import static play.data.Form.form;
 

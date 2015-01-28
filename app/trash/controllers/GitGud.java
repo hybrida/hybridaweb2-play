@@ -1,10 +1,8 @@
 package trash.controllers;
 
-import models.Company;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.layout;
-import views.html.showsimple;
 
 import java.util.ArrayList;
 

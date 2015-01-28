@@ -1,12 +1,6 @@
 package trash.controllers;
 
-import models.Company;
-import play.*;
 import play.mvc.*;
-import views.html.*;
-
-
-import play.db.*;
 
 
 public class Calender extends Controller {

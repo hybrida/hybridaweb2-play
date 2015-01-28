@@ -1,4 +1,4 @@
-package models;
+package trash.models;
 
 import play.db.ebean.Model;
 
