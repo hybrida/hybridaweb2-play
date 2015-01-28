@@ -25,9 +25,7 @@ public class Article extends Model {
     private User author;
     @CreatedTimestamp
     private Timestamp dateMade;
-
     private String imagePath;
-
 
     public Article(String title, String text,String ingress, User author, String imagepath) {
         this.title = title;
@@ -52,7 +50,6 @@ public class Article extends Model {
     public Integer getId() { return id;}
 
     public User getAuthor() {    return author; }
-
 
     public static Finder<Long, Article> find = new Finder<>(
             Long.class, Article.class
