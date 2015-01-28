@@ -14,7 +14,7 @@ public class Renders extends Model {
 
     @OneToOne
     @JoinColumn(name = "article", referencedColumnName = "id")
-    public Integer rendered;
+    public Integer render;
 
     public static Finder<Long, Renders> find = new Finder<>(
             Long.class, Renders.class

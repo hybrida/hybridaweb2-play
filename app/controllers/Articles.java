@@ -24,7 +24,7 @@ public class Articles extends Controller {
         Renders renders = new Renders();
 
         article.save();
-        renders.rendered=article.getId();
+        renders.render = article.getId();
         renders.save();
         return redirect("/backup");
     }
