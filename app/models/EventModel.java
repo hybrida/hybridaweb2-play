@@ -77,7 +77,7 @@ public class EventModel extends Model{
     }
 
     public void addUser(User user){
-        if(!userExists(user.getID())) {
+        if(!userExists(String.valueOf(user.getID()))) {
             users += user.getID() + ";";
         }
     }
@@ -97,7 +97,7 @@ public class EventModel extends Model{
 
     public void removeUser(User user){
         String tempUsers = "";
-        if(userExists(user.getID())){
+        if(userExists(String.valueOf(user.getID()))){
             String[] bruker = users.split(";");
             for(String i : bruker){
                 if(!i.equals(user.getID())){

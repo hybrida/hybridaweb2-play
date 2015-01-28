@@ -10,7 +10,7 @@ import java.util.Calendar;
 public class Event {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "eventId", nullable = false)
+    @Column(nullable = false)
     private long eventId;
 
     @OneToOne

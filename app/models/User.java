@@ -161,7 +161,7 @@ public class User extends Model {
             Long.class, User.class
     );
 
-    public String getID(){
-        return String.valueOf(id);
+    public Long getID(){
+        return id;
     }
 }

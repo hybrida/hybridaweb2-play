@@ -2,7 +2,6 @@ package controllers;
 
 import play.mvc.Result;
 import play.data.Form;
-
 import static play.data.Form.form;
 import static play.mvc.Controller.request;
 import static play.mvc.Results.ok;
@@ -13,8 +12,8 @@ import static play.mvc.Results.redirect;
  */
 public class EventWIP {
 
-    final static Form<Event> form = form(Event.class);
 
+    final static Form<Event> form = form(Event.class);
     private static Event model = null;
 
     public static Result index(){
@@ -28,6 +27,6 @@ public class EventWIP {
             model.save();
             return redirect(routes.Event.index().absoluteURL(request()));
         }
-        return Application.show400("Could not create the event. Boo hoo :(");
+        return index();
     }
 }
