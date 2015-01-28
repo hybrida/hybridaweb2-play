@@ -42,7 +42,7 @@ public class ArticleIn {
     public static Result save() {
         Form<Event> eventInput = eventForm.bindFromRequest();
         Form<Article> articleInput = articleForm.bindFromRequest();
-        eventInput.get().setArticleId(articleInput.get().getId());
+
         if (!articleInput.hasErrors() && !eventInput.hasErrors()) {
 
             //Start Imagehandeler
@@ -79,6 +79,7 @@ public class ArticleIn {
             //TODO HttpRequestData.get().getButton(ellernoe) - sjekke om event er valgt, slik at data ikke lagres unødvendig.
 
             articleModel.save();
+            eventModel.setArticleId(articleModel.getId());
             eventModel.save();
 
             return redirect(routes.Event.index().absoluteURL(request()));
