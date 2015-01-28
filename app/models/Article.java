@@ -47,4 +47,24 @@ public class Article extends Model {
     public static Finder<Long, Article> find = new Finder<>(
         Long.class, Article.class
     );
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setIngress(String ingress) {
+        this.ingress = ingress;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public void setAuthor(Long author) {
+        this.author = author;
+    }
 }

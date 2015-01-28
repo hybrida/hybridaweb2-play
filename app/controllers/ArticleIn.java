@@ -36,7 +36,7 @@ public class ArticleIn {
     final static Form<Article> articleForm = form(Article.class);
 
     public static Result index(){
-        return ok();
+        return ok(layoutHtml.render("Hybrida: Opprett Artikkel", articleAndEventCreator.render()));
     }
 
     public static Result save() {
@@ -44,12 +44,60 @@ public class ArticleIn {
         Form<Article> articleInput = articleForm.bindFromRequest();
         eventInput.get().setArticleId(articleInput.get().getId());
         if (!articleInput.hasErrors() && !eventInput.hasErrors()) {
-            Event model = eventInput.get();
-            model.save();
-            Article model2 = articleInput.get();
-            model2.save();
+
+            //Start Imagehandeler
+            Http.MultipartFormData body = request().body().asMultipartFormData();
+            Http.MultipartFormData.FilePart picture = body.getFile("picture");
+            Event eventModel = eventInput.get();
+            Article articleModel = articleInput.get();
+            if (picture != null) {
+                String contentType = picture.getContentType();
+                if(checkImageType(contentType)){
+                    String fileName = picture.getFilename();
+                    System.out.println(contentType);
+                    File file = picture.getFile();
+                    try {
+                        FileUtils.moveFile(file, new File("public/Upload", fileName));
+                    } catch (IOException ioe) {
+                        System.out.println("Problem operating on filesystem");
+                    }
+                    articleModel.setImagePath(fileName);}
+                else{
+                    articleModel.setImagePath(null);
+                }
+            } else {
+                articleModel.setImagePath(null);
+            }
+            //End Imagehandeler
+            //SetAuthor
+            User user = LoginState.getUser();
+            if (user == null)
+                System.out.println("ERROR TO THE MAX");
+            articleModel.setAuthor(user.getID());
+            //EndSetAuthor
+
+            //TODO HttpRequestData.get().getButton(ellernoe) - sjekke om event er valgt, slik at data ikke lagres unødvendig.
+
+            articleModel.save();
+            eventModel.save();
+
             return redirect(routes.Event.index().absoluteURL(request()));
         }
         return index();
+    }
+
+    public void saveArticle(){
+
+    }
+    public void saveEvent(long articleID){
+
+    }
+
+    public static boolean checkImageType(String contentType){
+        String[] type = contentType.split("/");
+        if(type[0].equals("image")){
+            return true;
+        }
+        return false;
     }
 }
