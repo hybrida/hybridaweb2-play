@@ -15,7 +15,7 @@ import java.util.Date;
  * Created by Ivar on 16.09.2014.
  */
 public class Articles extends Controller {
-    public static Result index(){
+    public static Result index() {
         String title = "Dette er en artikkel";
         User author = new User("ivarhk", "Ivar", "Kråbøl");
         String ingress = "HEI DETTE ER STARTEN!";

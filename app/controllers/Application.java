@@ -1,6 +1,5 @@
 package controllers;
 
-import com.avaje.ebean.Page;
 import play.mvc.*;
 import views.html.*;
 import models.*;
@@ -8,16 +7,15 @@ import models.*;
 import static controllers.Feed.getArticleData;
 import static controllers.Lol.toHtml;
 
-public class    Application extends Controller {
+public class Application extends Controller {
 
-/**
- * \brief Application class, handles basic site functionality.
- *
- * Handles basic functionality and responses. Handles index site,
- * unauthorized access requests, 404 requests, etc.
- *
- */
-
+    /**
+     * \brief Application class, handles basic site functionality.
+     *
+     * Handles basic functionality and responses. Handles index site,
+     * unauthorized access requests, 404 requests, etc.
+     *
+     */
 
 	final static play.data.Form<SearchForm> userForm = play.data.Form.form(SearchForm.class);
 
