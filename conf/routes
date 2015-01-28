@@ -11,6 +11,10 @@ GET         /kalender                 controllers.Calendar.calendarRender()
 
 # GET         /about                    controllers.About.index()
 
+# Article and events
+GET         /ArticleIn                controllers.ArticleIn.index()
+POST        /ArticleIn                controllers.ArticleIn.save()
+
 GET         /article                  controllers.Articles.index()
 GET         /yeah                     controllers.Yeah.index()
 GET         /update                   controllers.Update.index()

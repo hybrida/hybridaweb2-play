@@ -36,7 +36,7 @@ public class ArticleIn {
     final static Form<Article> articleForm = form(Article.class);
 
     public static Result index(){
-        return ok();
+        return ok(layout.render(articleIn.render()));
     }
 
     public static Result save() {
