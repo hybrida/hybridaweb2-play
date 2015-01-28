@@ -8,18 +8,15 @@ import views.html.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 import play.db.*;
 import play.data.Form;
 
-import static controllers.Lol.toHtml;
+import static trash.controllers.Lol.toHtml;
 import static play.data.Form.form;
 import static play.mvc.Controller.request;
 import static play.mvc.Results.ok;
 import static play.mvc.Results.redirect;
-import static play.mvc.Http.Request;
 import static play.mvc.Results.unauthorized;
 
 /**

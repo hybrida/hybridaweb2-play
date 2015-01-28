@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import static controllers.Lol.toHtml;
+import static trash.controllers.Lol.toHtml;
 import static play.mvc.Controller.flash;
 import static play.mvc.Controller.request;
 import static play.mvc.Results.TODO;

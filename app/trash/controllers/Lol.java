@@ -1,4 +1,4 @@
-package controllers;
+package trash.controllers;
 
 import models.LolForm;
 import play.mvc.Controller;
@@ -9,7 +9,6 @@ import views.html.lolContent;
 import java.sql.*;
 import play.db.*;
 import play.mvc.*;
-import models.LolForm;
 import play.data.Form;
 import static play.data.Form.form;
 
@@ -84,7 +83,7 @@ public class Lol extends Controller{
         java.sql.Statement statement = connection.createStatement();
         System.out.println("Outputfdsfds");
         statement.executeUpdate("DELETE FROM lol_name");
-        return redirect(routes.Lol.noindex().absoluteURL(request()));
+        return TODO; //Results.redirect(Lol.noindex().absoluteURL(request()));
     }
 
 }

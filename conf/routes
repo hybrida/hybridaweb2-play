@@ -12,7 +12,7 @@ GET         /kalender                 controllers.Calendar.calendarRender()
 GET         /about                    trash.controllers.About.index()
 
 GET         /article                  trash.controllers.Articles.index()
-GET         /yeah                     controllers.Yeah.index()
+GET         /yeah                     trash.controllers.Yeah.index()
 GET         /update                   controllers.Update.index()
 POST        /update                   controllers.Update.post()
 GET         /update/utgaver           controllers.Update.utgaver()
@@ -22,21 +22,21 @@ GET         /update/redaksjon         controllers.Update.redaksjon()
 GET         /info/:name               trash.controllers.About.personInfo(name)
 
 # Heftig blæstiside
-GET         /gitgud                   controllers.GitGud.shrek()
+GET         /gitgud                   trash.controllers.GitGud.shrek()
 
-GET         /NyStudent                controllers.NyStudent.index()
-GET         /oystein/:number          controllers.Oystein.someCode(number)
-GET         /hybrida                  controllers.omHybrida.index()
-GET         /styret                   controllers.Sample.index()
-GET         /lol                      controllers.Lol.noindex()
-POST        /lol/clear                controllers.Lol.clearNameData()
-POST        /lol                      controllers.Lol.index()
-GET         /indok                    controllers.Indok.facepalm()
+GET         /NyStudent                trash.controllers.NyStudent.index()
+GET         /oystein/:number          trash.controllers.Oystein.someCode(number)
+GET         /hybrida                  trash.controllers.omHybrida.index()
+GET         /styret                   trash.controllers.Sample.index()
+GET         /lol                      trash.controllers.Lol.noindex()
+POST        /lol/clear                trash.controllers.Lol.clearNameData()
+POST        /lol                      trash.controllers.Lol.index()
+GET         /indok                    trash.controllers.Indok.facepalm()
 
 # Ebean example
-GET         /ebean                    controllers.ExampleEbean.index()
-POST        /ebean                    controllers.ExampleEbean.add()
-POST        /ebean/clear              controllers.ExampleEbean.clear()
+GET         /ebean                    examples.controllers.ExampleEbean.index()
+POST        /ebean                    examples.controllers.ExampleEbean.add()
+POST        /ebean/clear              examples.controllers.ExampleEbean.clear()
 
 # Newsfeed
 GET         /feed                     controllers.Feed.index()
@@ -50,12 +50,12 @@ GET         /event/:eventId           controllers.Event.generateEvent(eventId)
 POST        /event/updateUser         controllers.Event.updateUsers()
 POST        /event/removeUser         controllers.Event.removeUsers()
 
-GET         /ImgUp                    controllers.ImageUploadExample.index()
-POST        /ImgUp                    controllers.ImageUploadExample.upload()
+GET         /ImgUp                    examples.controllers.ExampleImageUpload.index()
+POST        /ImgUp                    examples.controllers.ExampleImageUpload.upload()
 
 # Random number generator
-GET         /random                   controllers.RandomInt.randomPage()
-POST        /random                   controllers.RandomInt.newRandom()
+GET         /random                   trash.controllers.RandomInt.randomPage()
+POST        /random                   trash.controllers.RandomInt.newRandom()
 
 # Backup memory database
 GET         /backup                   controllers.BackupDB.index()

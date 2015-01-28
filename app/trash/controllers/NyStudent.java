@@ -1,4 +1,4 @@
-package controllers;
+package trash.controllers;
 
 import play.mvc.Controller;
 import play.mvc.Result;

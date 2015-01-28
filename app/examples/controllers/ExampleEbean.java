@@ -1,14 +1,12 @@
-package controllers;
+package examples.controllers;
 
-import models.ExampleEbeanEntity;
-import models.ExampleEbeanForm;
-import models.LolName;
+import examples.models.ExampleEbeanEntity;
+import examples.models.ExampleEbeanForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import play.mvc.Results;
 import play.twirl.api.Html;
-import views.html.exampleEbean;
+import examples.views.html.exampleEbean;
 import views.html.layoutHtml;
 
 import java.util.ArrayList;
@@ -54,7 +52,7 @@ public class ExampleEbean extends Controller{
         List<ExampleEbeanEntity> entities = ExampleEbeanEntity.find.all();
         for (ExampleEbeanEntity entity : entities) entity.delete();
 
-        return Results.redirect(routes.ExampleEbean.index().absoluteURL(request()));
+        return TODO; //Results.redirect(ExampleEbean.index().absoluteURL(request()));
     }
 
 }

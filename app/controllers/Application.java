@@ -5,7 +5,7 @@ import views.html.*;
 import models.*;
 
 import static controllers.Feed.getArticleData;
-import static controllers.Lol.toHtml;
+import static trash.controllers.Lol.toHtml;
 
 public class Application extends Controller {
 
