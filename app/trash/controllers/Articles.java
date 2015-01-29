@@ -5,11 +5,6 @@ import models.Renders;
 import models.User;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.articleview;
-import views.html.layoutHtml;
-
-import java.sql.Timestamp;
-import java.util.Date;
 
 /**
  * Created by Ivar on 16.09.2014.

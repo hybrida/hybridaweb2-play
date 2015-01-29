@@ -30,7 +30,7 @@ GET         /gitgud                   trash.controllers.GitGud.shrek()
 
 GET         /NyStudent                trash.controllers.NyStudent.index()
 GET         /oystein/:number          trash.controllers.Oystein.someCode(number)
-GET         /hybrida                  trash.controllers.omHybrida.index()
+GET         /hybrida                  controllers.OmHybrida.index()
 GET         /styret                   trash.controllers.Sample.index()
 GET         /lol                      trash.controllers.Lol.noindex()
 POST        /lol/clear                trash.controllers.Lol.clearNameData()

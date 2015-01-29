@@ -27,7 +27,7 @@ public class Event extends Controller{
 
     public static Result index(){
 
-        return ok(layoutHtml.render("Hybrida", EventMaker.render()));
+        return ok(layoutHtml.render("Hybrida", views.html.Event.index.render()));
     }
 
     final static Form<EventModel> form = form(EventModel.class);
@@ -97,7 +97,7 @@ public class Event extends Controller{
         contentList.add(userNames);
         Boolean signed = isSignedUp();
         contentList.add(signed.toString());
-        return ok(layoutHtml.render("Hybrida", generatedEvent.render(contentList)));
+        return ok(layoutHtml.render("Hybrida", views.html.Event.generateEvent.render(contentList)));
     }
     public static Result listEvents(){
         List<EventModel> entityList = EventModel.find.all();
