@@ -12,6 +12,8 @@ import java.sql.*;
 
 import play.db.*;
 import play.data.Form;
+import views.html.utils.centerBlock;
+import views.html.utils.escapeText;
 
 import static trash.controllers.Lol.toHtml;
 import static play.data.Form.form;
@@ -152,7 +154,7 @@ public class Feed extends Controller {
                     escapeText.apply(result.getString(5)).toString().replace("\n", "<br />") + "<br />" +
                     result.getString(4) + "</div>";
         }
-        return ok(layoutHtml.render("NewsFeed", generateArticle.render(toHtml(finalPost))));
+        return ok(layoutHtml.render("NewsFeed", views.html.Feed.generateArticle.render(toHtml(finalPost))));
 
     }
 }

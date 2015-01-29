@@ -6,8 +6,6 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.layoutHtml;
-import views.html.profile;
-import views.html.profileEdit;
 
 /**
  * Created by Ivar on 21.10.2014.
@@ -21,7 +19,7 @@ public class Profile extends Controller {
         if(user == null) {
             return Application.show404("profil/" + username);
         }
-        return ok(layoutHtml.render(user.getName(), profile.render(user)));
+        return ok(layoutHtml.render(user.getName(), views.html.Profile.index.render(user)));
     }
 
     public static Result editUserData() {
@@ -65,7 +63,7 @@ public class Profile extends Controller {
         User user = User.find.where().eq("username", username).findUnique();
         if (user == null) return Application.show404("profil/" + username + "/edit");
         userForm.fill(user);
-        return ok(layoutHtml.render("Rediger " + user.getName(), profileEdit.render(user)));
+        return ok(layoutHtml.render("Rediger " + user.getName(), views.html.Profile.edit.render(user)));
     }
 
     public static Result submit() {

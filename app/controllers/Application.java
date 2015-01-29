@@ -3,6 +3,7 @@ package controllers;
 import play.mvc.*;
 import views.html.*;
 import models.*;
+import views.html.Application.showUnauthorizedAccess;
 
 import static controllers.Feed.getArticleData;
 import static trash.controllers.Lol.toHtml;
@@ -18,19 +19,19 @@ public class Application extends Controller {
      */
 
     public static Result index() throws java.sql.SQLException {
-        return ok(frontPage.render(toHtml(getArticleData())));
+        return ok(views.html.Application.index.render(toHtml(getArticleData())));
     }
 
     public static Result showUnauthorizedAccess() {
-        return unauthorized(layoutHtml.render("Unauthorized", unauthorizedAccess.render()));
+        return unauthorized(layoutHtml.render("Unauthorized", views.html.Application.showUnauthorizedAccess.render()));
     }
 
     public static Result show404(String get_value) {
-    	return notFound(layoutHtml.render("404", notFoundErrorPage.render(get_value)));
+    	return notFound(layoutHtml.render("404", views.html.Application.show404.render(get_value)));
     }
 
     public static Result show400(String get_value) {
-        return badRequest(layoutHtml.render("400", methodFailureErrorPage.render(get_value)));
+        return badRequest(layoutHtml.render("400", views.html.Application.show400.render(get_value)));
     }
 
 }

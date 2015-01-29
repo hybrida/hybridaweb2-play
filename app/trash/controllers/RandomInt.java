@@ -3,7 +3,8 @@ package trash.controllers;
 import trash.models.RandomForm;
 import play.data.Form;
 import play.mvc.*;
-import views.html.*;
+import views.html.layoutHtml;
+import trash.views.html.random;
 
 import java.util.Random;
 
@@ -17,7 +18,7 @@ public class RandomInt extends Controller{
     public static Result randomPage(){
         RandomForm created = new RandomForm();
         created.numberTo = 1;
-        return ok(layoutHtml.render("random",randomview.render("",created)));
+        return ok(layoutHtml.render("random", random.render("", created)));
     }
 
     public static Result newRandom(){
@@ -27,16 +28,16 @@ public class RandomInt extends Controller{
         if(input.hasErrors()){
             RandomForm created = new RandomForm();
             created.numberTo = 1;
-            return ok(layoutHtml.render("",randomview.render("",created)));
+            return ok(layoutHtml.render("",random.render("",created)));
         }else {
             RandomForm saved = input.get();
             int numberFrom = input.get().numberFrom;
             int numberTo = input.get().numberTo;
             if (numberFrom < numberTo) {
                 int generated = rand.nextInt((numberTo - numberFrom) + 1) + numberFrom;
-                return ok(layoutHtml.render("",randomview.render(generated + " er tilfeldig nok for meg", saved)));
+                return ok(layoutHtml.render("",random.render(generated + " er tilfeldig nok for meg", saved)));
             } else {
-                return ok(layoutHtml.render("",randomview.render(numberTo + " er ikke større enn " + numberFrom, saved)));
+                return ok(layoutHtml.render("",random.render(numberTo + " er ikke større enn " + numberFrom, saved)));
             }
         }
     }

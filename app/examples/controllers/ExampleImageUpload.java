@@ -3,7 +3,6 @@ package examples.controllers;
 import org.apache.commons.io.FileUtils;
 import play.api.mvc.Call;
 import play.mvc.Http;
-import views.html.ImUpView;
 import play.mvc.Result;
 import views.html.layoutHtml;
 
@@ -21,7 +20,7 @@ import static views.html.layoutHtml.*;
 public class ExampleImageUpload {
 
     public static Result index(){
-       return ok(render("Image", ImUpView.render()));
+       return ok(render("Image", examples.views.html.exampleImageUpload.render()));
     }
 
     static final Call savePlace = controllers.routes.Assets.at("Upload");

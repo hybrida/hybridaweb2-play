@@ -7,6 +7,7 @@ import java.util.Date;
 import java.sql.Timestamp;
 import views.html.*;
 import play.mvc.Result;
+import views.html.utils.escapeText;
 
 /**
  * This class handles SSOLogins via Feide.
