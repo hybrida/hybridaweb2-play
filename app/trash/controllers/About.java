@@ -10,7 +10,7 @@ public class About extends Controller {
         for (Company c : Company.all())
             info += c.toString() + "\n";
 
-		return ok(showsimple.render("This page is about Hybrida. Company listing: " + info));
+		return TODO; // ok(showsimple.render("This page is about Hybrida. Company listing: " + info));
 	}
 
     public static Result personInfo(String name) {
