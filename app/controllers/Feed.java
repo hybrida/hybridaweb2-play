@@ -1,6 +1,7 @@
 package controllers;
 import models.*;
 import org.apache.commons.io.FileUtils;
+import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import views.html.*;
@@ -8,24 +9,19 @@ import views.html.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 import play.db.*;
 import play.data.Form;
+import views.html.utils.centerBlock;
+import views.html.utils.escapeText;
 
-import static controllers.Lol.toHtml;
+import static trash.controllers.Lol.toHtml;
 import static play.data.Form.form;
-import static play.mvc.Controller.request;
-import static play.mvc.Results.ok;
-import static play.mvc.Results.redirect;
-import static play.mvc.Http.Request;
-import static play.mvc.Results.unauthorized;
 
 /**
  * Created by eliasbragstadhagen on 23.09.14.
  */
-public class Feed {
+public class Feed extends Controller {
 
     final static Form<FeedForm> feedForm = form(FeedForm.class);
 
@@ -34,7 +30,7 @@ public class Feed {
         if (LoginState.getUser().canCreateNewArticle() == false)
             return redirect(routes.Application.showUnauthorizedAccess());
 
-        return ok(layoutHtml.render("NewsFeed", centerBlock.render(articleWriter.render("feed"))));
+        return ok(layoutHtml.render("NewsFeed", centerBlock.render(views.html.Feed.index.render("feed"))));
     }
 
     public static Result save() throws SQLException{
@@ -158,7 +154,7 @@ public class Feed {
                     escapeText.apply(result.getString(5)).toString().replace("\n", "<br />") + "<br />" +
                     result.getString(4) + "</div>";
         }
-        return ok(layoutHtml.render("NewsFeed", generateArticle.render(toHtml(finalPost))));
+        return ok(layoutHtml.render("NewsFeed", views.html.Feed.generateArticle.render(toHtml(finalPost))));
 
     }
 }

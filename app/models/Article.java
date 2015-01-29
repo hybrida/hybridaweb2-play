@@ -1,37 +1,43 @@
 package models;
 
 import com.avaje.ebean.annotation.CreatedTimestamp;
+import controllers.routes;
+import examples.models.ExampleEbeanEntity;
+import play.db.DB;
 import play.db.ebean.Model;
+import play.mvc.Result;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
-/**
- * Created by Ivar on 16.09.2014.
- */
+import static play.mvc.Controller.request;
+import static play.mvc.Results.redirect;
+
 @Entity
 public class Article extends Model {
 
     @Id
     @GeneratedValue
-    private Integer id;
-    private String title;
-    private String ingress;
-    private String text;
-    private User author;
+    private Long        id;
+    private String      title;
+    private String      ingress;
+    @Column(columnDefinition = "text")
+    private String      text;
+    @OneToOne
+    private Long        author;
     @CreatedTimestamp
-    private Timestamp dateMade;
-    private String imagePath;
+    private Timestamp   dateMade;
+    private String      imagePath;
 
-    public Article(String title, String text,String ingress, User author, String imagepath) {
+    public Article(String title, String text,String ingress, Long author_id, String imagepath) {
         this.title = title;
         this.text = text;
         this.ingress = ingress;
-        this.author = author;
+        this.author = author_id;
         this.imagePath = imagepath;
     }
 
@@ -41,15 +47,82 @@ public class Article extends Model {
 
     public String getText() { return text;}
 
-    public String getAuthorName() { return author.getName(); }
-
     public Date getDateMade() { return new Date(dateMade.getTime()); }
 
     public String getImagepath() { return imagePath;}
 
-    public Integer getId() { return id;}
+    public Long getId() { return id;}
 
-    public User getAuthor() {    return author; }
+    public Long getAuthor() {    return author; }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setIngress(String ingress) {
+        this.ingress = ingress;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public void setAuthor(Long author) {
+        this.author = author;
+    }
+
+    public static String getArticleData() throws SQLException {
+
+        List<Article> entities = Article.find.all();
+        return "";
+        /*
+        javax.sql.DataSource ds = DB.getDataSource();
+        java.sql.Connection connection = ds.getConnection("hybrid", "");
+        java.sql.Statement statement = connection.createStatement();
+
+        ResultSet result = statement.executeQuery("SELECT COUNT(*) FROM feed");
+
+        result.absolute(1);
+        int length = result.getInt(1);
+        result = statement.executeQuery("SELECT * FROM feed ORDER BY id DESC");
+
+        String finalPost = "";
+        for (int i = 1; i <= length; ++i) {
+            result.absolute(i);
+            String check = result.getString(3);
+            String url = routes.Feed.generateArticle(result.getString(1).replace(" ", "_")).absoluteURL(request());
+            if (!check.equalsIgnoreCase("null")) {
+                finalPost += "<a href=" + url +"><div class=\"content2\">" +
+                        "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
+                        "<img src=\"/assets/Upload/" + result.getString(3) + "\" alt=\"rect\" width=50% height=50%/><br>" +
+                        escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div></a><br>" +
+                        escapeText.apply(result.getString(5)).toString().replace("\n", "<br />") + "</div>";
+            }
+            else{
+                finalPost += "<a href=" + url +"><div class=\"content2\">" +
+                        "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
+                        "<img src=\"/assets/images/favicon.ico\" alt=\"rect\"/><br>" +
+                        escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</a></div><br>" +
+                        escapeText.apply(result.getString(5)).toString().replace("\n", "<br />") + "</div>";
+
+            }
+        }
+
+        return finalPost;
+        */
+    }
+
+    public static Result clearAll() throws SQLException{
+        javax.sql.DataSource ds = DB.getDataSource();
+        java.sql.Connection connection = ds.getConnection("hybrid", "");
+        java.sql.Statement statement = connection.createStatement();
+        statement.executeUpdate("DELETE FROM feed");
+        return redirect(routes.Application.index().absoluteURL(request()));
+    }
 
     public static Finder<Long, Article> find = new Finder<>(
             Long.class, Article.class

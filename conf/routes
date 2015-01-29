@@ -4,39 +4,43 @@
 # Standard layout accessible pages
 GET         /                         controllers.Application.index()
 
-GET         /calendar                 controllers.Calender.index()
+GET         /calendar                 trash.controllers.Calender.index()
 
-GET         /calender                 controllers.Calender.index()
+GET         /calender                 trash.controllers.Calender.index()
 GET         /kalender                 controllers.Calendar.calendarRender()
 
-GET         /about                    controllers.About.index()
+GET         /about                    trash.controllers.About.index()
 
-GET         /article                  controllers.Articles.index()
-GET         /yeah                     controllers.Yeah.index()
+GET         /article                  trash.controllers.Articles.index()
+GET         /yeah                     trash.controllers.Yeah.index()
+# Article and events
+GET         /ArticleIn                controllers.ArticleIn.index()
+POST        /ArticleIn                controllers.ArticleIn.save()
+
 GET         /update                   controllers.Update.index()
 POST        /update                   controllers.Update.post()
 GET         /update/utgaver           controllers.Update.utgaver()
 GET         /update/redaksjon         controllers.Update.redaksjon()
 
 # Info til introkurs
-GET         /info/:name               controllers.About.personInfo(name)
+GET         /info/:name               trash.controllers.About.personInfo(name)
 
 # Heftig blæstiside
-GET         /gitgud                   controllers.GitGud.shrek()
+GET         /gitgud                   trash.controllers.GitGud.shrek()
 
-GET         /NyStudent                controllers.NyStudent.index()
-GET         /oystein/:number          controllers.Oystein.someCode(number)
-GET         /hybrida                  controllers.omHybrida.index()
-GET         /styret                   controllers.Sample.index()
-GET         /lol                      controllers.Lol.noindex()
-POST        /lol/clear                controllers.Lol.clearNameData()
-POST        /lol                      controllers.Lol.index()
-GET         /indok                    controllers.Indok.facepalm()
+GET         /NyStudent                trash.controllers.NyStudent.index()
+GET         /oystein/:number          trash.controllers.Oystein.someCode(number)
+GET         /hybrida                  controllers.OmHybrida.index()
+GET         /styret                   trash.controllers.Sample.index()
+GET         /lol                      trash.controllers.Lol.noindex()
+POST        /lol/clear                trash.controllers.Lol.clearNameData()
+POST        /lol                      trash.controllers.Lol.index()
+GET         /indok                    trash.controllers.Indok.facepalm()
 
 # Ebean example
-GET         /ebean                    controllers.ExampleEbean.index()
-POST        /ebean                    controllers.ExampleEbean.add()
-POST        /ebean/clear              controllers.ExampleEbean.clear()
+GET         /ebean                    examples.controllers.ExampleEbean.index()
+POST        /ebean                    examples.controllers.ExampleEbean.add()
+POST        /ebean/clear              examples.controllers.ExampleEbean.clear()
 
 # Newsfeed
 GET         /feed                     controllers.Feed.index()
@@ -50,28 +54,28 @@ GET         /event/:eventId           controllers.Event.generateEvent(eventId)
 POST        /event/updateUser         controllers.Event.updateUsers()
 POST        /event/removeUser         controllers.Event.removeUsers()
 
-GET         /ImgUp                    controllers.ImageUploadExample.index()
-POST        /ImgUp                    controllers.ImageUploadExample.upload()
+GET         /ImgUp                    examples.controllers.ExampleImageUpload.index()
+POST        /ImgUp                    examples.controllers.ExampleImageUpload.upload()
 
 # Random number generator
-GET         /random                   controllers.RandomInt.randomPage()
-POST        /random                   controllers.RandomInt.newRandom()
+GET         /random                   trash.controllers.RandomInt.randomPage()
+POST        /random                   trash.controllers.RandomInt.newRandom()
 
 # Backup memory database
 GET         /backup                   controllers.BackupDB.index()
 
-GET         /ExampleCookies           controllers.ExampleCookies.index()
-POST        /UpdateCookies            controllers.ExampleCookies.updateCookie()
-GET         /UpdateCookies            controllers.ExampleCookies.updateCookie()
-POST        /ClearCookies             controllers.ExampleCookies.clearAllCookies()
-GET         /ClearCookies             controllers.ExampleCookies.clearAllCookies()
+GET         /ExampleCookies           examples.controllers.ExampleCookies.index()
+POST        /UpdateCookies            examples.controllers.ExampleCookies.updateCookie()
+GET         /UpdateCookies            examples.controllers.ExampleCookies.updateCookie()
+POST        /ClearCookies             examples.controllers.ExampleCookies.clearAllCookies()
+GET         /ClearCookies             examples.controllers.ExampleCookies.clearAllCookies()
 
 GET         /Chat                     controllers.Chat.connectClient()
 GET         /ChatServer               controllers.Chat.socket()
 
 GET         /search                   controllers.Search.index()
 
-GET         /ExampleDatabase          controllers.ExampleDatabase.index()
+GET         /ExampleDatabase          examples.controllers.ExampleDatabase.index()
 
 GET         /login                    controllers.SSOLogin.login(returnarg: String)
 GET         /logout                   controllers.SSOLogin.logout()

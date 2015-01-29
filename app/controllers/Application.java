@@ -4,8 +4,7 @@ import play.mvc.*;
 import views.html.*;
 import models.*;
 
-import static controllers.Feed.getArticleData;
-import static controllers.Lol.toHtml;
+import static models.Article.getArticleData;
 
 public class Application extends Controller {
 
@@ -13,26 +12,34 @@ public class Application extends Controller {
      * \brief Application class, handles basic site functionality.
      *
      * Handles basic functionality and responses. Handles index site,
-     * unauthorized access requests, 404 requests, etc.
+     * unauthorized access requests, 404 and 400 results, etc.
      *
      */
 
-	final static play.data.Form<SearchForm> userForm = play.data.Form.form(SearchForm.class);
-
+    /**
+     * \brief Index entry point of the website.
+     */
     public static Result index() throws java.sql.SQLException {
-        return ok(protoFrontPage.render(toHtml(getArticleData())));
+        java.util.List<models.Article> articles = models.RenderArticle.getVisibleArticles();
+        String concatenation = "";
+        for (models.Article article : articles) {
+            concatenation += article.getText();
+        }
+        if (true)
+            return ok(views.html.Application.index.render(play.twirl.api.Html.apply(concatenation)));
+        return ok(views.html.Application.index.render(play.twirl.api.Html.apply(getArticleData())));
     }
 
     public static Result showUnauthorizedAccess() {
-        return unauthorized(layoutHtml.render("Unauthorized", unauthorizedAccess.render()));
+        return unauthorized(layoutHtml.render("Unauthorized", views.html.Application.showUnauthorizedAccess.render()));
     }
 
     public static Result show404(String get_value) {
-    	return notFound(layoutHtml.render("404", notFoundErrorPage.render(get_value)));
+    	return notFound(layoutHtml.render("404", views.html.Application.show404.render(get_value)));
     }
 
     public static Result show400(String get_value) {
-        return badRequest(layoutHtml.render("400", methodFailureErrorPage.render(get_value)));
+        return badRequest(layoutHtml.render("400", views.html.Application.show400.render(get_value)));
     }
 
 }

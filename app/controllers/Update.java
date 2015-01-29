@@ -4,13 +4,12 @@ import org.apache.commons.io.FileUtils;
 import play.mvc.Http;
 import play.mvc.Result;
 import views.html.layoutHtml;
-import views.html.update;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import static controllers.Lol.toHtml;
+import static trash.controllers.Lol.toHtml;
 import static play.mvc.Controller.flash;
 import static play.mvc.Controller.request;
 import static play.mvc.Results.TODO;
@@ -24,7 +23,7 @@ public class Update {
 
     public static Result index(){
 
-        return ok(layoutHtml.render("Update!", update.render()));
+        return ok(layoutHtml.render("Update!", views.html.Update.index.render()));
     }
 
 

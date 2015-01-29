@@ -2,14 +2,10 @@ package controllers;
 
 import views.html.*;
 import play.mvc.*;
-import javax.xml.parsers.*;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-
-import org.xml.sax.*;
-import org.xml.sax.helpers.*;
 
 import java.net.URL;
 import java.util.*;
@@ -72,6 +68,6 @@ public class Calendar extends Controller {
             //vise ex på feilsiden?
         }
 
-        return ok(calendar.render("KalenderTest",titles,summaries));
+        return ok(views.html.Calendar.calendarRender.render("KalenderTest",titles,summaries));
     }
 }

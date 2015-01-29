@@ -7,8 +7,6 @@ import play.mvc.Results;
 
 import java.io.*;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +55,7 @@ public class BackupDB {
                         lines.add(everything + System.lineSeparator());
                         everything = "";
                     } else if (character == ';') {
-                        everything = everything.substring(0,everything.length()-1) + ';';
+                        everything += ';'; //everything.substring(0,everything.length()-1) + ";";
                     }/* else if (findendtag) {
                         if (character == ')' && count_of_qout%2 == 0) {
                             findendtag = false;

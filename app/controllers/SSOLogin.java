@@ -7,6 +7,7 @@ import java.util.Date;
 import java.sql.Timestamp;
 import views.html.*;
 import play.mvc.Result;
+import views.html.utils.escapeText;
 
 /**
  * This class handles SSOLogins via Feide.
@@ -42,7 +43,6 @@ import play.mvc.Result;
  * This is extremely difficuly to do as any change to the input should give big changes to the output
  * like a hashing algorithm.
  */
-
 public class SSOLogin extends Controller {
 
     public static String innsida_login_link = "https://innsida.ntnu.no/sso/?target=hybridawebtest&returnargs=";

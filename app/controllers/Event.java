@@ -4,35 +4,26 @@ import models.*;
 import org.apache.commons.io.FileUtils;
 import play.mvc.Http;
 import play.mvc.Result;
-import play.twirl.api.Html;
+import trash.models.EventModel;
 import views.html.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import play.db.*;
 import play.data.Form;
 
-import static controllers.Lol.toHtml;
 import static play.data.Form.form;
-import static play.mvc.Controller.request;
-import static play.mvc.Results.ok;
-import static play.mvc.Results.redirect;
-import static play.mvc.Http.Request;
 
 import play.mvc.Controller;
 
-/**
- * Created by eliasbragstadhagen on 04.11.14.
- */
+
 public class Event extends Controller{
 
     public static Result index(){
 
-        return ok(layoutHtml.render("Hybrida", EventMaker.render()));
+        return ok(layoutHtml.render("Hybrida", views.html.Event.index.render()));
     }
 
     final static Form<EventModel> form = form(EventModel.class);
@@ -102,7 +93,7 @@ public class Event extends Controller{
         contentList.add(userNames);
         Boolean signed = isSignedUp();
         contentList.add(signed.toString());
-        return ok(layoutHtml.render("Hybrida", generatedEvent.render(contentList)));
+        return ok(layoutHtml.render("Hybrida", views.html.Event.generateEvent.render(contentList)));
     }
     public static Result listEvents(){
         List<EventModel> entityList = EventModel.find.all();
@@ -145,7 +136,7 @@ public class Event extends Controller{
         if ( user == null){
             System.out.println("ERROR TO THE MAX");
         }
-        Boolean isSignedUp = model.userExists(user.getID());
+        Boolean isSignedUp = model.userExists(String.valueOf(user.getID()));
         return isSignedUp;
     }
 
