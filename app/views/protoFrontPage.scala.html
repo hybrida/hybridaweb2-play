@@ -2,13 +2,22 @@
 
 @main("Hybrida") {
     @navmenu_proto()
-    <div style="min-width: 800px">
-        <div style="padding: 2em 4%; background-color: #ffffff;">
-            <div style="border-bottom: 2px solid  #9e9d98 ">
-                <p style="font-family:sans-serif;color: #9e9d98;">NEWSFEED</p>
-            </div>
+    <div>
+        <div class="split_div">
+            <div style="padding: 2em 4%; background-color: #ffffff;">
+                <div style="border-bottom: 2px solid  #9e9d98 ">
+                    <p>NEWSFEED</p>
+                </div>
                 @content
-                <div style="clear:both"></div>
+            </div>
+        </div>
+        <div class="split_div">
+            <div style="padding: 2em 4%; background-color: #ffffff;">
+                <div style="border-bottom: 2px solid  #9e9d98 ">
+                    <p>NEWSFEED</p>
+                </div>
+                    @content
+            </div>
         </div>
     </div>
 }

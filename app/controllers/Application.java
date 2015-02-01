@@ -42,5 +42,14 @@ public class Application extends Controller {
         return badRequest(layoutHtml.render("400", views.html.Application.show400.render(get_value)));
     }
 
+    public static Result proto()  throws java.sql.SQLException {
+        java.util.List<models.Article> articles = models.RenderArticle.getVisibleArticles();
+        String concatenation = "";
+        for (models.Article article : articles) {
+            concatenation += article.getText();
+        }
+        if (true)
+            return ok(views.html.protoFrontPage.render(play.twirl.api.Html.apply(concatenation)));
+        return ok(views.html.protoFrontPage.render(play.twirl.api.Html.apply(getArticleData())));
+    }
 }
-

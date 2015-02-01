@@ -1,6 +1,25 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $("document").ready(function($){
+        var nav = $('#navigation_menu');
+        var lastScrollTop = 0;
+        $(window).scroll(function () {
+            var scrolltop = $(this).scrollTop();
+            if (scrolltop >= lastScrollTop && scrolltop > 64) {
+                nav.addClass("scroll_change");
+            } else {
+                nav.removeClass("scroll_change");
+            }
+            lastScrollTop = scrolltop;
+        });
+    });
+</script>
 <div id="navigation_menu">
+
     <ul>
         <li id="logo_image"><a href="/"><img src="/assets/images/logo_actual_head_64.png" alt="SUPERLOGO"/></a></li>
+        <input type="checkbox" name="burger" id="burger" />
+        <label for="burger" id="burger_label"><div id="burger_image"></div></label>
         @if(models.LoginState.getUser().canCreateNewArticle()){
             <li class="navigation_element"><a class="navigation_menu_link" href="/feed">Announce</a></li>
         }
@@ -20,9 +39,10 @@
             }
         </li>
         <li style="float: right;" class="navigation_element">
+            <!--<a class="navigation_menu_link" href=>Søk</a> -->
             <div id="search_bar">
                 <form action="/search" method="GET">
-                    <input type="text" name="term" id="searchField" placeholder="Søk"/>
+                    <input type="text" name="term" id="search_field" placeholder="Søk"/>
                 </form>
             </div>
         </li>

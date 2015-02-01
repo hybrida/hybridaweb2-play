@@ -3,6 +3,7 @@
 
 # Standard layout accessible pages
 GET         /                         controllers.Application.index()
+GET         /proto                    controllers.Application.proto()
 
 GET         /calendar                 trash.controllers.Calender.index()
 
