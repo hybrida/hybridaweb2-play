@@ -23,6 +23,7 @@ body {
 .split_div {
     width: 50%;
     float: left;
+
 }
 
 
@@ -31,7 +32,7 @@ body {
 
 #navigation_menu {
     z-index: 9999;
-    background-color: #00509E;
+    background-color: #105C75;
     height: 64px;
     right: 0;
     left: 0;
@@ -63,7 +64,7 @@ body {
     height: 64px;
     top: 0;
     float: left;
-    background-color: #00509E;
+    background-color: #105C75;
     transition: all 200ms ease;
 }
 
@@ -71,12 +72,13 @@ body {
     padding: 22px;
     display: block;
     text-decoration: none;
-    color: #ffffff;
+    color: #F2FAFF;
+    transition: background-color 200ms;
 
 }
 
 .navigation_menu_link:hover {
-    background-color: #1F5F9B;
+    background-color: #13515C;
 }
 
 #logo_image {
@@ -420,18 +422,23 @@ body {
     color: #046;
 }
 
-
-
-
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1440px) {
     .split_div {
         width: 100%;
     }
+}
+
+
+@media only screen and (max-width: 800px) {
 
     .navigation_element {
         clear: both;
         float: right;
         width: 200px;
+    }
+
+    #navigation_menu ul {
+        overflow-y: scroll;
     }
 
     #burger {
