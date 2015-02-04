@@ -5,7 +5,7 @@
 GET         /                         controllers.Application.index()
 GET         /proto                    controllers.Application.proto()
 
-GET         /calendar                 trash.controllers.Calender.index()
+GET         /calendar                 controllers.Calendar.index()
 
 GET         /calender                 trash.controllers.Calender.index()
 GET         /kalender                 controllers.Calendar.calendarRender()

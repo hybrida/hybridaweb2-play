@@ -12,6 +12,10 @@ import java.util.*;
 import java.io.*;
 
 public class Calendar extends Controller {
+    public static Result index() {
+        return ok();
+    }
+
     public static Result calendarRender() {
         ArrayList<String> titles = new ArrayList<>();
         ArrayList<String> summaries = new ArrayList<>();
