@@ -9,6 +9,7 @@ import play.mvc.Result;
 import play.data.Form;
 
 import views.html.layoutHtml;
+import views.html.utils.centerBlock;
 
 import static play.data.Form.form;
 
@@ -27,7 +28,7 @@ public class ArticleIn extends Controller {
     final static Form<Article> articleForm = form(Article.class);
 
     public static Result index(){
-        return ok(layoutHtml.render("Hybrida: Opprett Artikkel", views.html.ArticleIn.index.render()));
+        return ok(layoutHtml.render("Hybrida: Opprett Artikkel", centerBlock.render(views.html.ArticleIn.index.render())));
     }
 
     public static Result save() {
