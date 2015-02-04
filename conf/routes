@@ -97,3 +97,4 @@ GET         /unauthorized             controllers.Application.showUnauthorizedAc
 
 # Show some page describing the URL if all else fails
 GET         /$anything<.*>            controllers.Application.show404(anything: String)
+GET         /error400/:error          controllers.Application.show400(error)

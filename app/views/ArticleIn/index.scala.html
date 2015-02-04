@@ -10,33 +10,28 @@
 padding: 10px;
 height: 200px;
 overflow: auto;
-
+background-color: #ffffff;
 border: 1px solid gray;
 -webkit-appearance: textfield;
 }
 
 </style>
+<div class="article_writer">
+      <form name="Article" action="/ArticleIn" method="POST" enctype="multipart/form-data">
+          <textarea class="center_text_no_resize center_block" placeholder="Skriv tittelen her" type="text" name="title" rows="1" cols="75" ></textarea>
+          <textarea class="center_text_no_resize center_block" placeholder="Skriv en kort oppsummering her" rows="3" cols="75" name="ingress" onfocus=""></textarea>
+          <textarea id="editor1" class="center_block pad_1percent_top" value="Skriv ditt innlegg her" rows="12" cols="75" name="text"> Skriv din artikkel her!</textarea>
+          <input class="pad_1percent_top center_block" style="display: block; background-color: #c3c3c3; " type="file" name="picture">
 
-<div style="padding: 5%">
-    <div style="padding: 2em 4%; background-color: #ffffff; border-radius: 5px;">
+          <input type="checkbox" name="event" value="Event"> Create As event <br>
 
-        <div class="content">
-            <form name="Article" action="/ArticleIn" method="POST" enctype="multipart/form-data">
-                <input type="text" value="title" name="title" size="56" >
-                <input type="file" name="picture">
 
-                <br>
-                Oppsummering: <br>
-                <textarea rows="10" cols="50" name="ingress" value="Skriv en kort oppsummering her"></textarea><br>
-                Om eventet: <br>
-                <div style = "background-color: #ffffff">
-                    <textarea rows="10" cols="100" name="text" value="Skriv ditt innlegg her"></textarea>
-                </div>
-                <input type="submit" value="Submit">
-            </form>
-            <script>
-            CKEDITOR.inline( 'text' );
-            </script>
-        </div>
-    </div>
-        </div>
+
+
+          <input class="pad_1percent_top center_inline_block" type="submit" value="Post">
+
+      </form>
+    <script>
+    CKEDITOR.inline( 'editor1' );
+    </script>
+</div>

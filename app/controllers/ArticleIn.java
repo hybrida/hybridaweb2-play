@@ -9,6 +9,7 @@ import play.mvc.Result;
 import play.data.Form;
 
 import views.html.layoutHtml;
+import views.html.utils.centerBlock;
 
 import static play.data.Form.form;
 
@@ -27,23 +28,36 @@ public class ArticleIn extends Controller {
     final static Form<Article> articleForm = form(Article.class);
 
     public static Result index(){
-        return ok(layoutHtml.render("Hybrida: Opprett Artikkel", views.html.ArticleIn.index.render()));
+        return ok(layoutHtml.render("Hybrida: Opprett Artikkel", centerBlock.render(views.html.ArticleIn.index.render())));
     }
 
     public static Result save() {
-        Form<Event> eventInput = eventForm.bindFromRequest();
+        try {
+            long id = saveArticle();
+
+            if(!(new HttpRequestData().get("event") == null)) {
+                saveEvent(id);
+                System.out.println("TRUE");
+            }
+        }
+        catch (IllegalStateException e){
+            return redirect(routes.Application.show400("error").absoluteURL(request()));
+        }
+        return index();
+    }
+
+    public static long saveArticle() throws IllegalStateException {
         Form<Article> articleInput = articleForm.bindFromRequest();
 
-        if (!articleInput.hasErrors() && !eventInput.hasErrors()) {
+        if (!articleInput.hasErrors()) {
+            Article articleModel = articleInput.get();
 
             //Start Imagehandeler
             Http.MultipartFormData body = request().body().asMultipartFormData();
             Http.MultipartFormData.FilePart picture = body.getFile("picture");
-            Event eventModel = eventInput.get();
-            Article articleModel = articleInput.get();
             if (picture != null) {
                 String contentType = picture.getContentType();
-                if(checkImageType(contentType)){
+                if (checkImageType(contentType)) {
                     String fileName = picture.getFilename();
                     System.out.println(contentType);
                     File file = picture.getFile();
@@ -52,14 +66,15 @@ public class ArticleIn extends Controller {
                     } catch (IOException ioe) {
                         System.out.println("Problem operating on filesystem");
                     }
-                    articleModel.setImagePath(fileName);}
-                else{
+                    articleModel.setImagePath(fileName);
+                } else {
                     articleModel.setImagePath(null);
                 }
             } else {
                 articleModel.setImagePath(null);
             }
             //End Imagehandeler
+
             //SetAuthor
             User user = LoginState.getUser();
             if (user == null)
@@ -67,21 +82,18 @@ public class ArticleIn extends Controller {
             articleModel.setAuthor(user.getID());
             //EndSetAuthor
 
-            //TODO HttpRequestData.get().getButton(ellernoe) - sjekke om event er valgt, slik at data ikke lagres unødvendig.
-
             articleModel.save();
-            eventModel.setArticleId(articleModel.getId());
-            eventModel.save();
 
-            return redirect(routes.Event.index().absoluteURL(request()));
+            return articleModel.getAuthor();
         }
-        return index();
+        throw new IllegalStateException();
     }
 
-    public void saveArticle(){
-
-    }
-    public void saveEvent(long articleID){
+    public static void saveEvent(long articleID){
+        Form<Event> eventInput = eventForm.bindFromRequest();
+        Event eventModel = eventInput.get();
+        eventModel.setArticleId(articleID);
+        eventModel.save();
 
     }
 
