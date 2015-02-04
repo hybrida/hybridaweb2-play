@@ -37,6 +37,7 @@ body {
     right: 0;
     left: 0;
     position: fixed;
+    transition: all 400ms ease;
 }
 
 #navigation_ghost {
@@ -46,7 +47,7 @@ body {
 }
 
 .scroll_change {
-    top: -64px;
+    margin-top: -64px;
 }
 
 #navigation_menu ul {
@@ -65,7 +66,7 @@ body {
     top: 0;
     float: left;
     background-color: #105C75;
-    transition: all 200ms ease;
+    transition: all 400ms ease;
 }
 
 .navigation_menu_link {
@@ -438,7 +439,8 @@ body {
     }
 
     #navigation_menu ul {
-        overflow-y: scroll;
+
+
     }
 
     #burger {
