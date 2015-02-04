@@ -1,8 +1,6 @@
 package models;
 
 import play.db.ebean.Model;
-import views.html.escapeText;
-import views.html.layoutHtml;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
