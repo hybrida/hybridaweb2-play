@@ -13,7 +13,7 @@ import java.io.*;
 
 public class Calendar extends Controller {
     public static Result index() {
-        return ok();
+        return ok(layoutHtmlExt.render("Kalender", views.html.Calendar.calendarHead.render(), views.html.Calendar.calendarBody.render()));
     }
 
     public static Result calendarRender() {

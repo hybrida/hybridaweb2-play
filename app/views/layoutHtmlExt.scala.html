@@ -1,0 +1,10 @@
+@(title: String, head_content: Html, content: Html)
+
+@main_ext(title) {
+    @head_content
+} {
+    @navmenu()
+	@layoutTop()
+	@content
+	@layoutBottom()
+}
