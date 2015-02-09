@@ -35,6 +35,10 @@ public class Event extends Model {
     private Calendar eventHappens;
     private Calendar secondSignUp;
 
+    public static Finder<String, Event> find = new Finder<String, Event> (
+            String.class, Event.class
+    );
+
     public long getEventId() {
         return eventId;
     }

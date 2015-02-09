@@ -39,11 +39,12 @@ public class ArticleIn extends Controller {
                 saveEvent(id);
                 System.out.println("TRUE");
             }
+            return redirect(routes.ArticleOut.index("" + id).absoluteURL(request()));
         }
         catch (IllegalStateException e){
             return redirect(routes.Application.show400("error").absoluteURL(request()));
+
         }
-        return index();
     }
 
     public static long saveArticle() throws IllegalStateException {
@@ -84,7 +85,7 @@ public class ArticleIn extends Controller {
 
             articleModel.save();
 
-            return articleModel.getAuthor();
+            return articleModel.getId();
         }
         throw new IllegalStateException();
     }
