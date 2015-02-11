@@ -49,7 +49,7 @@ public class ArticleIn extends Controller {
 
     public static long saveArticle() throws IllegalStateException {
         Form<Article> articleInput = articleForm.bindFromRequest();
-
+        System.out.println(new HttpRequestData());
         if (!articleInput.hasErrors()) {
             Article articleModel = articleInput.get();
 
