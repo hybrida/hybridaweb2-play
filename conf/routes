@@ -5,7 +5,7 @@
 GET         /                         controllers.Application.index()
 GET         /proto                    controllers.Application.proto()
 
-GET         /calendar                 trash.controllers.Calender.index()
+GET         /calendar                 controllers.Calendar.index()
 
 GET         /calender                 trash.controllers.Calender.index()
 GET         /kalender                 controllers.Calendar.calendarRender()
@@ -17,6 +17,7 @@ GET         /yeah                     trash.controllers.Yeah.index()
 # Article and events
 GET         /ArticleIn                controllers.ArticleIn.index()
 POST        /ArticleIn                controllers.ArticleIn.save()
+GET         /ArticleOut/:id               controllers.ArticleOut.index(id)
 
 GET         /update                   controllers.Update.index()
 POST        /update                   controllers.Update.post()
