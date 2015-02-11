@@ -45,6 +45,11 @@ public class ArticleOut extends Controller {
     }
 
 
+    public static Result viewArticle(String id) {
+        return ok(layoutHtml.render("Artikkel", views.html.ArticleOut.viewArticle.render(Article.find.byId(Long.valueOf(id)))));
+    }
+
+
     public static Article getArticle(long articleId){
         Article article = Article.find.byId(articleId);
         return article;

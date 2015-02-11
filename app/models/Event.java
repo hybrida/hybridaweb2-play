@@ -1,6 +1,8 @@
 package models;
 
 import play.db.ebean.Model;
+import play.twirl.api.Html;
+import views.html.utils.escapeText;
 
 import javax.persistence.*;
 import java.util.Calendar;
@@ -9,7 +11,7 @@ import java.util.Calendar;
  * Created by eliasbragstadhagen on 28.01.15.
  */
 @Entity
-public class Event extends Model {
+public class Event extends Model implements Renderable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(nullable = false)
@@ -35,8 +37,8 @@ public class Event extends Model {
     private Calendar eventHappens;
     private Calendar secondSignUp;
 
-    public static Finder<String, Event> find = new Finder<String, Event> (
-            String.class, Event.class
+    public static Finder<Long, Event> find = new Finder<Long, Event> (
+            Long.class, Event.class
     );
 
     public long getEventId() {
@@ -145,5 +147,9 @@ public class Event extends Model {
 
     public void setSecondSignUp(Calendar secondSignUp) {
         this.secondSignUp = secondSignUp;
+    }
+
+    public Html render() {
+        return escapeText.render("HTML RENDER NOT IMPLEMENTED FOR ARTICLE.JAVA (MODELS)");
     }
 }

@@ -1,22 +1,18 @@
 package models;
 
 import com.avaje.ebean.annotation.CreatedTimestamp;
-import controllers.routes;
-import play.db.DB;
 import play.db.ebean.Model;
-import play.mvc.Result;
+import play.twirl.api.Html;
 
 import javax.persistence.*;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-
-import static play.mvc.Controller.request;
-import static play.mvc.Results.redirect;
+import views.html.Article.articleRender;
 
 @Entity
-public class Article extends Model {
+public class Article extends Model implements Renderable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -113,6 +109,10 @@ public class Article extends Model {
 
         return finalPost;
         */
+    }
+
+    public Html render() {
+        return articleRender.render(this);
     }
 
     public static Finder<Long, Article> find = new Finder<>(

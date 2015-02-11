@@ -18,6 +18,7 @@ GET         /yeah                     trash.controllers.Yeah.index()
 GET         /artikkel/ny              controllers.ArticleIn.index()
 POST        /artikkel/ny              controllers.ArticleIn.save()
 GET         /ArticleOut/:id           controllers.ArticleOut.index(id)
+GET         /artikkel/:id             controllers.ArticleOut.viewArticle(id)
 
 GET         /update                   controllers.Update.index()
 POST        /update                   controllers.Update.post()

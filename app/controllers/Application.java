@@ -21,10 +21,10 @@ public class Application extends Controller {
      * \brief Index entry point of the website.
      */
     public static Result index() throws java.sql.SQLException {
-        java.util.List<models.Article> articles = models.Renders.getVisibleArticles();
+        java.util.List<Renderable> articles = models.Renders.getVisibleRenderables();
         String concatenation = "";
-        for (models.Article article : articles) {
-            concatenation += articleRender.render(article);
+        for (Renderable renderable : articles) {
+            concatenation += renderable.render();
         }
         if (true)
             return ok(views.html.Application.index.render(play.twirl.api.Html.apply(concatenation)));
@@ -44,10 +44,10 @@ public class Application extends Controller {
     }
 
     public static Result proto()  throws java.sql.SQLException {
-        java.util.List<models.Article> articles = models.Renders.getVisibleArticles();
+        java.util.List<Renderable> articles = models.Renders.getVisibleRenderables();
         String concatenation = "";
-        for (models.Article article : articles) {
-            concatenation += articleRender.render(article);
+        for (Renderable renderable : articles) {
+            concatenation += renderable.render();
         }
         if (true)
             return ok(views.html.protoFrontPage.render(play.twirl.api.Html.apply(concatenation)));
