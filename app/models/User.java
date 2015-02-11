@@ -172,7 +172,7 @@ public class User extends Model {
     public String uploadPicture() {
         if (student == false && bedkom == false && admin == false && root == false)
             throw new Error("You do not have the privilege as a non-student to upload files!");
-        String userFolderPrefix = "public/Upload/" + LoginState.getUser().getUsername();
+        String userFolderPrefix = "public/upload/" + LoginState.getUser().getUsername();
         Http.MultipartFormData body = Controller.request().body().asMultipartFormData();
         Http.MultipartFormData.FilePart picture = body.getFile("picture");
         if (picture != null) {
@@ -196,7 +196,7 @@ public class User extends Model {
                 } catch (IOException ioe) {
                     System.out.println("Problem operating on filesystem");
                 }
-                return "/assets/Upload/" + LoginState.getUser().getUsername() + "/" + fileName;
+                return "/assets/upload/" + LoginState.getUser().getUsername() + "/" + fileName;
             }
         }
         return null;
