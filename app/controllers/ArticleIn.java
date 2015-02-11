@@ -59,19 +59,9 @@ public class ArticleIn extends Controller {
         System.out.println(new HttpRequestData());
         if (!articleInput.hasErrors()) {
             Article articleModel = articleInput.get();
-
-
-
-            //Start Imagehandeler
             articleModel.setImagePath(user.uploadPicture());
-
-            //End Imagehandeler
-
             articleModel.setAuthor(user.getID());
-            //EndSetAuthor
-
             articleModel.save();
-
             return articleModel.getId();
         }
         throw new IllegalStateException();

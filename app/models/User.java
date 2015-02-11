@@ -168,6 +168,7 @@ public class User extends Model {
         return id;
     }
 
+    // TODO: Check image size to be within a set range.
     public String uploadPicture() {
         if (student == false && bedkom == false && admin == false && root == false)
             throw new Error("You do not have the privilege as a non-student to upload files!");
