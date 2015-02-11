@@ -1,4 +1,14 @@
 @(article : models.Article)
 @(/*This is for rendering a single article preview. It returns the bare html needed for the article to be correctly displayed. CSS should be added as well...*/)
-@(article.getAuthor())
-<img src="@(article.getImagePath())" alt="image">
+<!--<img src="@(article.getImagePath())" alt="image">-->
+
+<a href="@(/*article.getUrl()*/)">
+    <div class="content2">
+        <div style="border-bottom: 2px solid #9e9d98 \">
+            <img src="@article.getImagePath" alt="No image available" width=50% height=50%/><br>
+            @(article.getIngress.toUpperCase.replace("\n", "<br />"))
+        </div>
+        <br>
+        @(article.getText.replace("\n", "<br />"))
+    </div>
+</a>

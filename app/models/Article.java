@@ -115,14 +115,6 @@ public class Article extends Model {
         */
     }
 
-    public static Result clearAll() throws SQLException{
-        javax.sql.DataSource ds = DB.getDataSource();
-        java.sql.Connection connection = ds.getConnection("hybrid", "");
-        java.sql.Statement statement = connection.createStatement();
-        statement.executeUpdate("DELETE FROM feed");
-        return redirect(routes.Application.index().absoluteURL(request()));
-    }
-
     public static Finder<Long, Article> find = new Finder<>(
             Long.class, Article.class
     );
