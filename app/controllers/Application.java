@@ -44,15 +44,15 @@ public class Application extends Controller {
     }
 
     public static Result proto()  throws java.sql.SQLException {
-        /*java.util.List<models.Article> articles = models.RenderArticle.getVisibleArticles();
+        java.util.List<models.Article> articles = models.Renders.getVisibleArticles();
         String concatenation = "";
         for (models.Article article : articles) {
-            concatenation += article.getText();
+            concatenation += articleRender.render(article);
         }
         if (true)
             return ok(views.html.protoFrontPage.render(play.twirl.api.Html.apply(concatenation)));
         return ok(views.html.protoFrontPage.render(play.twirl.api.Html.apply(getArticleData())));
-        */
-        return ok(views.html.Application.index.render(play.twirl.api.Html.apply("This is some stuff")));
+
+        //return ok(views.html.Application.index.render(play.twirl.api.Html.apply("This is some stuff")));
     }
 }

@@ -15,8 +15,8 @@ GET         /about                    trash.controllers.About.index()
 GET         /article                  trash.controllers.Articles.index()
 GET         /yeah                     trash.controllers.Yeah.index()
 # Article and events
-GET         /ArticleIn                controllers.ArticleIn.index()
-POST        /ArticleIn                controllers.ArticleIn.save()
+GET         /artikkel/ny              controllers.ArticleIn.index()
+POST        /artikkel/ny              controllers.ArticleIn.save()
 GET         /ArticleOut/:id           controllers.ArticleOut.index(id)
 
 GET         /update                   controllers.Update.index()
@@ -43,12 +43,6 @@ GET         /indok                    trash.controllers.Indok.facepalm()
 GET         /ebean                    examples.controllers.ExampleEbean.index()
 POST        /ebean                    examples.controllers.ExampleEbean.add()
 POST        /ebean/clear              examples.controllers.ExampleEbean.clear()
-
-# Newsfeed
-GET         /feed                     controllers.Feed.index()
-POST        /feed                     controllers.Feed.save()
-POST        /feedClear                controllers.Feed.clearAll()
-GET         /feed/:newsTitle          controllers.Feed.generateArticle(newsTitle)
 
 GET         /event                    controllers.Event.index()
 POST        /event                    controllers.Event.save()
