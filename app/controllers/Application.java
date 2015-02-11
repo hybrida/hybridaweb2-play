@@ -3,6 +3,7 @@ package controllers;
 import play.mvc.*;
 import views.html.*;
 import models.*;
+import views.html.Article.articleRender;
 
 import static models.Article.getArticleData;
 
@@ -20,16 +21,14 @@ public class Application extends Controller {
      * \brief Index entry point of the website.
      */
     public static Result index() throws java.sql.SQLException {
-        /*java.util.List<models.Article> articles = models.RenderArticle.getVisibleArticles();
+        java.util.List<models.Article> articles = models.Renders.getVisibleArticles();
         String concatenation = "";
         for (models.Article article : articles) {
-            concatenation += article.getText();
+            concatenation += articleRender.render(article);
         }
         if (true)
             return ok(views.html.Application.index.render(play.twirl.api.Html.apply(concatenation)));
         return ok(views.html.Application.index.render(play.twirl.api.Html.apply(getArticleData())));
-        */
-        return ok(views.html.Application.index.render(play.twirl.api.Html.apply("This is some stuff")));
     }
 
     public static Result showUnauthorizedAccess() {

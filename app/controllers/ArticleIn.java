@@ -53,6 +53,10 @@ public class ArticleIn extends Controller {
             articleModel.setImagePath(user.uploadPicture());
             articleModel.setAuthor(user.getID());
             articleModel.save();
+
+            // Husk å legge til artikkelen i renders! Da vises den nemlig på fremsiden ^_^
+            Renders.addArticle(articleModel);
+
             return articleModel.getId();
         }
         throw new IllegalStateException();

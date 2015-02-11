@@ -196,7 +196,7 @@ public class User extends Model {
                 } catch (IOException ioe) {
                     System.out.println("Problem operating on filesystem");
                 }
-                return fileName;
+                return "assets/Upload/" + LoginState.getUser().getUsername() + "/" + fileName;
             }
         }
         return null;
