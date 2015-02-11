@@ -28,6 +28,7 @@ public class ArticleIn extends Controller {
     final static Form<Article> articleForm = form(Article.class);
 
     public static Result index(){
+        System.out.println("public/Upload/" + LoginState.getUser().getUsername());
         return ok(layoutHtml.render("Hybrida: Opprett Artikkel", centerBlock.render(views.html.ArticleIn.index.render())));
     }
 
@@ -59,27 +60,11 @@ public class ArticleIn extends Controller {
         if (!articleInput.hasErrors()) {
             Article articleModel = articleInput.get();
 
+
+
             //Start Imagehandeler
-            Http.MultipartFormData body = request().body().asMultipartFormData();
-            Http.MultipartFormData.FilePart picture = body.getFile("picture");
-            if (picture != null) {
-                String contentType = picture.getContentType();
-                if (checkImageType(contentType)) {
-                    String fileName = picture.getFilename();
-                    System.out.println(contentType);
-                    File file = picture.getFile();
-                    try {
-                        FileUtils.moveFile(file, new File("public/Upload", fileName));
-                    } catch (IOException ioe) {
-                        System.out.println("Problem operating on filesystem");
-                    }
-                    articleModel.setImagePath(fileName);
-                } else {
-                    articleModel.setImagePath(null);
-                }
-            } else {
-                articleModel.setImagePath(null);
-            }
+            articleModel.setImagePath(user.uploadPicture());
+
             //End Imagehandeler
 
             articleModel.setAuthor(user.getID());

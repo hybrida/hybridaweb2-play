@@ -1,8 +1,13 @@
 package models;
 
+import org.apache.commons.io.FileUtils;
 import play.db.ebean.Model;
+import play.mvc.Controller;
+import play.mvc.Http;
 
 import javax.persistence.*;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -161,5 +166,40 @@ public class User extends Model {
 
     public Long getID(){
         return id;
+    }
+
+    public String uploadPicture() {
+        Http.MultipartFormData body = Controller.request().body().asMultipartFormData();
+        Http.MultipartFormData.FilePart picture = body.getFile("picture");
+        if (picture != null) {
+            String contentType = picture.getContentType();
+            if (checkImageType(contentType)) {
+                String fileName = picture.getFilename();
+                //System.out.println(contentType);
+                File file = picture.getFile();
+                try {
+                    System.out.println("public/Upload/" + LoginState.getUser().getUsername());
+                    File userFolder = new File("public/Upload/" + LoginState.getUser().getUsername());
+                    if (!userFolder.exists())
+                        userFolder.mkdir();
+                    Long prefix = -1L;
+                    File destination = new File("public/Upload/" + LoginState.getUser().getUsername() + "/" + fileName);
+                    while (destination.exists()) {
+                        ++prefix;
+                        destination = new File("public/Upload/" + LoginState.getUser().getUsername() + "/" + String.valueOf(prefix) + "_" + fileName);
+                    }
+                    FileUtils.moveFile(file, new File("public/Upload/" + LoginState.getUser().getUsername(), (prefix == -1L ? "" : String.valueOf(prefix) + "_") + fileName));
+                } catch (IOException ioe) {
+                    System.out.println("Problem operating on filesystem");
+                }
+                return fileName;
+            }
+        }
+        return null;
+    }
+
+    public static boolean checkImageType(String contentType){
+        String[] type = contentType.split("/");
+        return type[0].equals("image");
     }
 }
