@@ -41,7 +41,7 @@ public class User extends Model {
 
     // Privilege status
     @Column(name = "student", columnDefinition = "boolean default false")
-    public Boolean             student = false;    // No special privileges.
+    public Boolean             student = false;    // No special privileges except for file upload.
     @Column(name = "bedkom", columnDefinition = "boolean default false")
     public Boolean             bedkom = false;     // Control over bedpress.
     @Column(name = "admin", columnDefinition = "boolean default false")
@@ -169,6 +169,9 @@ public class User extends Model {
     }
 
     public String uploadPicture() {
+        if (student == false && bedkom == false && admin == false && root == false)
+            throw new Error("You do not have the privilege as a non-student to upload files!");
+        String userFolderPrefix = "public/Upload/" + LoginState.getUser().getUsername();
         Http.MultipartFormData body = Controller.request().body().asMultipartFormData();
         Http.MultipartFormData.FilePart picture = body.getFile("picture");
         if (picture != null) {
@@ -178,17 +181,17 @@ public class User extends Model {
                 //System.out.println(contentType);
                 File file = picture.getFile();
                 try {
-                    System.out.println("public/Upload/" + LoginState.getUser().getUsername());
-                    File userFolder = new File("public/Upload/" + LoginState.getUser().getUsername());
+                    System.out.println(userFolderPrefix);
+                    File userFolder = new File(userFolderPrefix);
                     if (!userFolder.exists())
                         userFolder.mkdir();
                     Long prefix = -1L;
-                    File destination = new File("public/Upload/" + LoginState.getUser().getUsername() + "/" + fileName);
+                    File destination = new File(userFolderPrefix + "/" + fileName);
                     while (destination.exists()) {
                         ++prefix;
-                        destination = new File("public/Upload/" + LoginState.getUser().getUsername() + "/" + String.valueOf(prefix) + "_" + fileName);
+                        destination = new File(userFolderPrefix + "/" + String.valueOf(prefix) + "_" + fileName);
                     }
-                    FileUtils.moveFile(file, new File("public/Upload/" + LoginState.getUser().getUsername(), (prefix == -1L ? "" : String.valueOf(prefix) + "_") + fileName));
+                    FileUtils.moveFile(file, new File(userFolderPrefix, (prefix == -1L ? "" : String.valueOf(prefix) + "_") + fileName));
                 } catch (IOException ioe) {
                     System.out.println("Problem operating on filesystem");
                 }
