@@ -2,13 +2,11 @@ package models;
 
 import com.avaje.ebean.annotation.CreatedTimestamp;
 import controllers.routes;
-import examples.models.ExampleEbeanEntity;
 import play.db.DB;
 import play.db.ebean.Model;
 import play.mvc.Result;
 
 import javax.persistence.*;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -21,8 +19,9 @@ import static play.mvc.Results.redirect;
 public class Article extends Model {
 
     @Id
-    @GeneratedValue
-    private Long        id;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(nullable = false)
+    Long articleId;
     private String      title;
     private String      ingress;
     @Column(columnDefinition = "text")
@@ -33,12 +32,12 @@ public class Article extends Model {
     private Timestamp   dateMade;
     private String      imagePath;
 
-    public Article(String title, String text,String ingress, Long author_id, String imagepath) {
+    public Article(String title, String text, String ingress, Long author, String imagePath) {
         this.title = title;
         this.text = text;
         this.ingress = ingress;
-        this.author = author_id;
-        this.imagePath = imagepath;
+        this.author = author;
+        this.imagePath = imagePath;
     }
 
     public String getTitle() { return title; }
@@ -49,9 +48,9 @@ public class Article extends Model {
 
     public Date getDateMade() { return new Date(dateMade.getTime()); }
 
-    public String getImagepath() { return imagePath;}
+    public String getImagePath() { return imagePath;}
 
-    public Long getId() { return id;}
+    public Long getId() { return articleId;}
 
     public Long getAuthor() {    return author; }
 
@@ -114,14 +113,6 @@ public class Article extends Model {
 
         return finalPost;
         */
-    }
-
-    public static Result clearAll() throws SQLException{
-        javax.sql.DataSource ds = DB.getDataSource();
-        java.sql.Connection connection = ds.getConnection("hybrid", "");
-        java.sql.Statement statement = connection.createStatement();
-        statement.executeUpdate("DELETE FROM feed");
-        return redirect(routes.Application.index().absoluteURL(request()));
     }
 
     public static Finder<Long, Article> find = new Finder<>(

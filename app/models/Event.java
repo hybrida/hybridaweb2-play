@@ -15,7 +15,7 @@ public class Event extends Model {
     @Column(nullable = false)
     private long eventId;
 
-    @OneToOne
+    @OneToOne // This is a foreign key. It points to an "Article".
     private long articleId;
 
     private int timeFrame;

@@ -24,13 +24,6 @@ GET         /event/:eventId                 controllers.Event.generateEvent(even
 POST        /event/oppdater                 controllers.Event.updateUsers()
 POST        /event/fjern                    controllers.Event.removeUsers()
 
-# Newsfeed
-GET         /feed                           controllers.Feed.index()
-POST        /feed                           controllers.Feed.save()
-POST        /feed/clear                     controllers.Feed.clearAll()
-GET         /feed/:newsTitle                controllers.Feed.generateArticle(newsTitle)
-
-
 # Update
 GET         /update                         controllers.Update.index()
 POST        /update                         controllers.Update.post()

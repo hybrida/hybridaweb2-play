@@ -15,6 +15,8 @@ import static play.data.Form.form;
 
 /**
  * Created by eliasbragstadhagen on 04.02.15.
+
+
  */
 public class ArticleOut extends Controller {
 
@@ -30,7 +32,7 @@ public class ArticleOut extends Controller {
         resultList.add(article.getTitle());
         resultList.add(article.getIngress());
         resultList.add(article.getText());
-        resultList.add(article.getImagepath());
+        resultList.add(article.getImagePath());
         resultList.add(User.find.byId(article.getAuthor()).getName());
         resultList.add(article.getDateMade().toString());
 

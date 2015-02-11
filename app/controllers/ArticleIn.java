@@ -1,9 +1,7 @@
 package controllers;
 
 import models.*;
-import org.apache.commons.io.FileUtils;
 import play.mvc.Controller;
-import play.mvc.Http;
 import play.mvc.Result;
 
 import play.data.Form;
@@ -15,24 +13,22 @@ import static play.data.Form.form;
 
 import models.Event;
 
-import java.io.File;
-import java.io.IOException;
 
-/**
- * Created by eliasbragstadhagen on 28.01.15.
- */
 public class ArticleIn extends Controller {
-
 
     final static Form<Event> eventForm = form(Event.class);
     final static Form<Article> articleForm = form(Article.class);
 
-    public static Result index(){
+    public static Result index() {
         return ok(layoutHtml.render("Hybrida: Opprett Artikkel", centerBlock.render(views.html.ArticleIn.index.render())));
     }
 
     public static Result save() {
         try {
+            User user = LoginState.getUser();
+            if (user == null || !user.canCreateNewArticle())
+                return Application.showUnauthorizedAccess();
+
             long id = saveArticle();
 
             if(!(new HttpRequestData().get("event") == null)) {
@@ -48,42 +44,18 @@ public class ArticleIn extends Controller {
     }
 
     public static long saveArticle() throws IllegalStateException {
-        Form<Article> articleInput = articleForm.bindFromRequest();
+        User user = LoginState.getUser();
 
+        Form<Article> articleInput = articleForm.bindFromRequest();
+        System.out.println(new HttpRequestData());
         if (!articleInput.hasErrors()) {
             Article articleModel = articleInput.get();
-
-            //Start Imagehandeler
-            Http.MultipartFormData body = request().body().asMultipartFormData();
-            Http.MultipartFormData.FilePart picture = body.getFile("picture");
-            if (picture != null) {
-                String contentType = picture.getContentType();
-                if (checkImageType(contentType)) {
-                    String fileName = picture.getFilename();
-                    System.out.println(contentType);
-                    File file = picture.getFile();
-                    try {
-                        FileUtils.moveFile(file, new File("public/Upload", fileName));
-                    } catch (IOException ioe) {
-                        System.out.println("Problem operating on filesystem");
-                    }
-                    articleModel.setImagePath(fileName);
-                } else {
-                    articleModel.setImagePath(null);
-                }
-            } else {
-                articleModel.setImagePath(null);
-            }
-            //End Imagehandeler
-
-            //SetAuthor
-            User user = LoginState.getUser();
-            if (user == null)
-                System.out.println("ERROR TO THE MAX");
+            articleModel.setImagePath(user.uploadPicture());
             articleModel.setAuthor(user.getID());
-            //EndSetAuthor
-
             articleModel.save();
+
+            // Husk å legge til artikkelen i renders! Da vises den nemlig på fremsiden ^_^
+            Renders.addArticle(articleModel);
 
             return articleModel.getId();
         }

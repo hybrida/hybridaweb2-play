@@ -1,8 +1,13 @@
 package models;
 
+import org.apache.commons.io.FileUtils;
 import play.db.ebean.Model;
+import play.mvc.Controller;
+import play.mvc.Http;
 
 import javax.persistence.*;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -36,7 +41,7 @@ public class User extends Model {
 
     // Privilege status
     @Column(name = "student", columnDefinition = "boolean default false")
-    public Boolean             student = false;    // No special privileges.
+    public Boolean             student = false;    // No special privileges except for file upload.
     @Column(name = "bedkom", columnDefinition = "boolean default false")
     public Boolean             bedkom = false;     // Control over bedpress.
     @Column(name = "admin", columnDefinition = "boolean default false")
@@ -161,5 +166,44 @@ public class User extends Model {
 
     public Long getID(){
         return id;
+    }
+
+    // TODO: Check image size to be within a set range.
+    public String uploadPicture() {
+        if (student == false && bedkom == false && admin == false && root == false)
+            throw new Error("You do not have the privilege as a non-student to upload files!");
+        String userFolderPrefix = "public/Upload/" + LoginState.getUser().getUsername();
+        Http.MultipartFormData body = Controller.request().body().asMultipartFormData();
+        Http.MultipartFormData.FilePart picture = body.getFile("picture");
+        if (picture != null) {
+            String contentType = picture.getContentType();
+            if (checkImageType(contentType)) {
+                String fileName = picture.getFilename();
+                //System.out.println(contentType);
+                File file = picture.getFile();
+                try {
+                    System.out.println(userFolderPrefix);
+                    File userFolder = new File(userFolderPrefix);
+                    if (!userFolder.exists())
+                        userFolder.mkdir();
+                    Long prefix = -1L;
+                    File destination = new File(userFolderPrefix + "/" + fileName);
+                    while (destination.exists()) {
+                        ++prefix;
+                        destination = new File(userFolderPrefix + "/" + String.valueOf(prefix) + "_" + fileName);
+                    }
+                    FileUtils.moveFile(file, new File(userFolderPrefix, (prefix == -1L ? "" : String.valueOf(prefix) + "_") + fileName));
+                } catch (IOException ioe) {
+                    System.out.println("Problem operating on filesystem");
+                }
+                return "assets/Upload/" + LoginState.getUser().getUsername() + "/" + fileName;
+            }
+        }
+        return null;
+    }
+
+    public static boolean checkImageType(String contentType){
+        String[] type = contentType.split("/");
+        return type[0].equals("image");
     }
 }
