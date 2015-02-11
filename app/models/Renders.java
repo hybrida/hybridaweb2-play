@@ -13,8 +13,11 @@ import javax.persistence.OneToOne;
 public class Renders extends Model {
 
     @OneToOne
-    @JoinColumn(name = "article", referencedColumnName = "id")
-    public Long render;
+    @JoinColumn(name = "article", referencedColumnName = "articleId")
+    Long articleId;
+    @OneToOne
+    @JoinColumn(name = "event", referencedColumnName = "eventId")
+    Long eventId;
 
     public static Finder<Long, Renders> find = new Finder<>(
             Long.class, Renders.class

@@ -1,9 +1,7 @@
 package controllers;
 
 import models.*;
-import org.apache.commons.io.FileUtils;
 import play.mvc.Controller;
-import play.mvc.Http;
 import play.mvc.Result;
 
 import play.data.Form;
@@ -15,20 +13,13 @@ import static play.data.Form.form;
 
 import models.Event;
 
-import java.io.File;
-import java.io.IOException;
 
-/**
- * Created by eliasbragstadhagen on 28.01.15.
- */
 public class ArticleIn extends Controller {
-
 
     final static Form<Event> eventForm = form(Event.class);
     final static Form<Article> articleForm = form(Article.class);
 
-    public static Result index(){
-        System.out.println("public/Upload/" + LoginState.getUser().getUsername());
+    public static Result index() {
         return ok(layoutHtml.render("Hybrida: Opprett Artikkel", centerBlock.render(views.html.ArticleIn.index.render())));
     }
 

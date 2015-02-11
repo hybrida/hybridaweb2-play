@@ -15,6 +15,8 @@ import static play.data.Form.form;
 
 /**
  * Created by eliasbragstadhagen on 04.02.15.
+
+
  */
 public class ArticleOut extends Controller {
 

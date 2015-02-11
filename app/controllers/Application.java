@@ -20,7 +20,7 @@ public class Application extends Controller {
      * \brief Index entry point of the website.
      */
     public static Result index() throws java.sql.SQLException {
-        java.util.List<models.Article> articles = models.RenderArticle.getVisibleArticles();
+        /*java.util.List<models.Article> articles = models.RenderArticle.getVisibleArticles();
         String concatenation = "";
         for (models.Article article : articles) {
             concatenation += article.getText();
@@ -28,6 +28,8 @@ public class Application extends Controller {
         if (true)
             return ok(views.html.Application.index.render(play.twirl.api.Html.apply(concatenation)));
         return ok(views.html.Application.index.render(play.twirl.api.Html.apply(getArticleData())));
+        */
+        return ok(views.html.Application.index.render(play.twirl.api.Html.apply("This is some stuff")));
     }
 
     public static Result showUnauthorizedAccess() {
@@ -43,7 +45,7 @@ public class Application extends Controller {
     }
 
     public static Result proto()  throws java.sql.SQLException {
-        java.util.List<models.Article> articles = models.RenderArticle.getVisibleArticles();
+        /*java.util.List<models.Article> articles = models.RenderArticle.getVisibleArticles();
         String concatenation = "";
         for (models.Article article : articles) {
             concatenation += article.getText();
@@ -51,5 +53,7 @@ public class Application extends Controller {
         if (true)
             return ok(views.html.protoFrontPage.render(play.twirl.api.Html.apply(concatenation)));
         return ok(views.html.protoFrontPage.render(play.twirl.api.Html.apply(getArticleData())));
+        */
+        return ok(views.html.Application.index.render(play.twirl.api.Html.apply("This is some stuff")));
     }
 }
