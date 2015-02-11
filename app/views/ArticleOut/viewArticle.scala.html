@@ -11,5 +11,5 @@
     <br>
     @Html(article.getText)
     <br>
-    Av: @article.getAuthor
+    Av: @User.find.byId(article.getAuthor).getName
 </div>
