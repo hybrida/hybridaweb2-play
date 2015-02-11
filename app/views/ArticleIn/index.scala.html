@@ -17,7 +17,7 @@ border: 1px solid gray;
 
 </style>
 <div class="article_writer">
-      <form name="Article" action="/ArticleIn" method="POST" enctype="multipart/form-data">
+      <form name="Article" action="@routes.ArticleIn.save()" method="POST" enctype="multipart/form-data">
           <textarea class="center_text_no_resize center_block" placeholder="Skriv tittelen her" type="text" name="title" rows="1" cols="75" ></textarea>
           <textarea class="center_text_no_resize center_block" placeholder="Skriv en kort oppsummering her" rows="3" cols="75" name="ingress" onfocus=""></textarea>
           <textarea id="editor1" class="center_block pad_1percent_top" value="Skriv ditt innlegg her" rows="12" cols="75" name="text"> Skriv din artikkel her!</textarea>

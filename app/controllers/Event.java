@@ -4,7 +4,7 @@ import models.*;
 import org.apache.commons.io.FileUtils;
 import play.mvc.Http;
 import play.mvc.Result;
-import trash.models.EventModel;
+import models.EventModel;
 import views.html.*;
 
 import java.io.File;

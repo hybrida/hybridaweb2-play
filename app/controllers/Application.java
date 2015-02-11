@@ -2,7 +2,6 @@ package controllers;
 
 import play.mvc.*;
 import views.html.*;
-import models.*;
 
 import static models.Article.getArticleData;
 
@@ -25,9 +24,8 @@ public class Application extends Controller {
         for (models.Article article : articles) {
             concatenation += article.getText();
         }
-        if (true)
-            return ok(views.html.Application.index.render(play.twirl.api.Html.apply(concatenation)));
-        return ok(views.html.Application.index.render(play.twirl.api.Html.apply(getArticleData())));
+        return ok(layoutHtml.render("Hybrida", views.html.Application.index.render(views.html.utils.toHtml.render(concatenation))));
+        // return ok(layoutHtml.render("Hybrida", views.html.Application.index.render(play.twirl.api.Html.apply(getArticleData())));
     }
 
     public static Result showUnauthorizedAccess() {

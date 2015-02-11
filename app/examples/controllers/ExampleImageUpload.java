@@ -5,10 +5,10 @@ import play.api.mvc.Call;
 import play.mvc.Http;
 import play.mvc.Result;
 import views.html.layoutHtml;
+import views.html.utils.toHtml;
 
 import java.io.*;
 
-import static trash.controllers.Lol.toHtml;
 import static play.mvc.Controller.flash;
 import static play.mvc.Controller.request;
 import static play.mvc.Results.ok;
@@ -38,7 +38,7 @@ public class ExampleImageUpload {
                 System.out.println("Problem operating on filesystem");
             }
 
-            return ok(layoutHtml.render("img",toHtml("Upload Successful" + "<img src=\"/assets/Upload/" + fileName + "\" alt=\"rect\"/>")));
+            return ok(layoutHtml.render("img", toHtml.render("Upload Successful" + "<img src=\"/assets/Upload/" + fileName + "\" alt=\"rect\"/>")));
         } else {
             flash("error", "Missing file");
             return ok("file missing");
