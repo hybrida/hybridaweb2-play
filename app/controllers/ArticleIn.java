@@ -33,6 +33,10 @@ public class ArticleIn extends Controller {
 
     public static Result save() {
         try {
+            User user = LoginState.getUser();
+            if (user == null || !user.canCreateNewArticle())
+                return Application.showUnauthorizedAccess();
+
             long id = saveArticle();
 
             if(!(new HttpRequestData().get("event") == null)) {
@@ -48,6 +52,8 @@ public class ArticleIn extends Controller {
     }
 
     public static long saveArticle() throws IllegalStateException {
+        User user = LoginState.getUser();
+
         Form<Article> articleInput = articleForm.bindFromRequest();
         System.out.println(new HttpRequestData());
         if (!articleInput.hasErrors()) {
@@ -76,10 +82,6 @@ public class ArticleIn extends Controller {
             }
             //End Imagehandeler
 
-            //SetAuthor
-            User user = LoginState.getUser();
-            if (user == null)
-                System.out.println("ERROR TO THE MAX");
             articleModel.setAuthor(user.getID());
             //EndSetAuthor
 
