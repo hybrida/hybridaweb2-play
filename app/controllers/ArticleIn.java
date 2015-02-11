@@ -51,7 +51,7 @@ public class ArticleIn extends Controller {
         if (!articleInput.hasErrors()) {
             Article articleModel = articleInput.get();
             articleModel.setImagePath(user.uploadPicture());
-            articleModel.setAuthor(user.getID());
+            articleModel.setAuthor(user.getId());
             articleModel.save();
 
             // Husk å legge til artikkelen i renders! Da vises den nemlig på fremsiden ^_^

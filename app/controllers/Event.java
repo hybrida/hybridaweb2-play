@@ -136,7 +136,7 @@ public class Event extends Controller{
         if ( user == null){
             System.out.println("ERROR TO THE MAX");
         }
-        Boolean isSignedUp = model.userExists(String.valueOf(user.getID()));
+        Boolean isSignedUp = model.userExists(String.valueOf(user.getId()));
         return isSignedUp;
     }
 
