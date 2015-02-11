@@ -1,0 +1,4 @@
+@(article : models.Article)
+@(/*This is for rendering a single article. It returns the bare html needed for the article to be correctly displayed. CSS should be added as well...*/)
+@(article.getAuthor())
+<img src="@(article.getImagePath())" alt="image">
