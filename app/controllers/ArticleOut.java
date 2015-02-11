@@ -30,7 +30,7 @@ public class ArticleOut extends Controller {
         resultList.add(article.getTitle());
         resultList.add(article.getIngress());
         resultList.add(article.getText());
-        resultList.add(article.getImagepath());
+        resultList.add(article.getImagePath());
         resultList.add(User.find.byId(article.getAuthor()).getName());
         resultList.add(article.getDateMade().toString());
 

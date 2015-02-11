@@ -33,12 +33,12 @@ public class Article extends Model {
     private Timestamp   dateMade;
     private String      imagePath;
 
-    public Article(String title, String text,String ingress, Long author_id, String imagepath) {
+    public Article(String title, String text, String ingress, Long author, String imagePath) {
         this.title = title;
         this.text = text;
         this.ingress = ingress;
-        this.author = author_id;
-        this.imagePath = imagepath;
+        this.author = author;
+        this.imagePath = imagePath;
     }
 
     public String getTitle() { return title; }
@@ -49,7 +49,7 @@ public class Article extends Model {
 
     public Date getDateMade() { return new Date(dateMade.getTime()); }
 
-    public String getImagepath() { return imagePath;}
+    public String getImagePath() { return imagePath;}
 
     public Long getId() { return id;}
 

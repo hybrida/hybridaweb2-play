@@ -16,6 +16,7 @@ public class RenderArticle extends Model {
     );
 
     @OneToOne
+    @JoinColumn(name = "article", referencedColumnName = "id")
     private Article article;
 
     public static List<Article> getVisibleArticles() {
