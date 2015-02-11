@@ -6,6 +6,7 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.layoutHtml;
+import views.html.layoutHtmlExt;
 
 /**
  * Created by Ivar on 21.10.2014.
@@ -19,10 +20,10 @@ public class Profile extends Controller {
         if(user == null) {
             return Application.show404("profil/" + username);
         }
-        return ok(layoutHtml.render(user.getName(), views.html.Profile.index.render(user)));
+        return ok(layoutHtmlExt.render(user.getName(), views.html.Profile.index.render(user), views.html.Profile.head.render()));
     }
 
-    public static Result editUserData() {
+    public static Result editUserData(String username) {
         models.HttpRequestData data = new models.HttpRequestData();
         if (LoginState.getUser().username == data.get("username")) {
             User user = LoginState.getUser();

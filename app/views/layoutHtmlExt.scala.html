@@ -1,7 +1,10 @@
-@(title: String, head_content: Html, content: Html)
+@(title: String, content: Html, headContent: Html = Html(""))
 
-@main_ext(title) {
-    @head_content
+@main(title) {
+    @layoutHead()
+    @if(!headContent.equals(Html(""))) {
+        @headContent
+    }
 } {
     @navmenu()
 	@layoutTop()

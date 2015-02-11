@@ -1,10 +1,8 @@
-package trash.controllers;
+package controllers;
 
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.layoutHtmlExt;
-import views.html.NyStudent.*;
-import views.html.main_ext;
 
 /**
  * Created by Torsten on

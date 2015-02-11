@@ -1,7 +1,8 @@
 @(title: String, content: List[String])
 
 @main(title) {
-
+    @layoutHead()
+} {
     @navmenu()
 	@layoutTop()
 	@for(c <- content) {

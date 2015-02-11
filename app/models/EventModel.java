@@ -1,6 +1,5 @@
-package trash.models;
+package models;
 
-import models.User;
 import play.db.ebean.Model;
 
 import javax.persistence.*;

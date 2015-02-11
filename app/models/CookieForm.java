@@ -1,4 +1,4 @@
-package trash.models;
+package models;
 
 import play.data.validation.Constraints;
 

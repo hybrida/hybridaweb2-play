@@ -1,9 +1,2 @@
 @(title: String, content: Html)
-
-@main(title) {
-
-    @navmenu()
-	@layoutTop()
-	@content
-	@layoutBottom()
-}
+@layoutHtmlExt(title, content, Html(""))

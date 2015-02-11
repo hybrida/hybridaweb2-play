@@ -1,9 +1,9 @@
 package controllers;
 
+import com.google.common.collect.Lists;
 import play.mvc.*;
 import views.html.*;
-import models.*;
-import views.html.Article.articleRender;
+import models.Renderable;
 
 import static models.Article.getArticleData;
 
@@ -23,12 +23,11 @@ public class Application extends Controller {
     public static Result index() throws java.sql.SQLException {
         java.util.List<Renderable> articles = models.Renders.getVisibleRenderables();
         String concatenation = "";
-        for (Renderable renderable : articles) {
+        for (Renderable renderable : Lists.reverse(articles)) {
             concatenation += renderable.render();
         }
-        if (true)
-            return ok(views.html.Application.index.render(play.twirl.api.Html.apply(concatenation)));
-        return ok(views.html.Application.index.render(play.twirl.api.Html.apply(getArticleData())));
+        return ok(layoutHtml.render("Hybrida", views.html.Application.index.render(views.html.utils.toHtml.render(concatenation))));
+        // return ok(layoutHtml.render("Hybrida", views.html.Application.index.render(play.twirl.api.Html.apply(getArticleData())));
     }
 
     public static Result showUnauthorizedAccess() {
