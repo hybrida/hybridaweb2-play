@@ -1,6 +1,5 @@
 package controllers;
 
-import antlr.NameSpace;
 import models.LoginState;
 import models.User;
 import play.data.Form;
@@ -8,10 +7,9 @@ import play.data.validation.ValidationError;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.twirl.api.Html;
-import views.html.layoutHtmlExt;
+import views.html.layoutWithHead;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +31,7 @@ public class Profile extends Controller {
         if(user == null) {
             return Application.show404(request().path());
         }
-        return ok(layoutHtmlExt.render(user.getName(), views.html.Profile.index.render(user, authorizedToEditUser(username), messages), views.html.Profile.head.render()));
+        return ok(layoutWithHead.render(user.getName(), views.html.Profile.index.render(user, authorizedToEditUser(username), messages), views.html.Profile.head.render()));
     }
 
     public static Result update(String username) {
@@ -70,6 +68,6 @@ public class Profile extends Controller {
         if (user == null) return Application.show404(request().path());
         messages = new ArrayList<>();
         userForm.fill(user);
-        return ok(layoutHtmlExt.render("Rediger " + user.getName(), views.html.Profile.edit.render(user, messages), views.html.Profile.head.render()));
+        return ok(layoutWithHead.render("Rediger " + user.getName(), views.html.Profile.edit.render(user, messages), views.html.Profile.head.render()));
     }
 }

@@ -1,7 +1,8 @@
 package models;
 
-import akka.actor.*;
-import play.libs.Akka;
+import akka.actor.ActorRef;
+import akka.actor.Props;
+import akka.actor.UntypedActor;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,12 +2,12 @@ package examples.controllers;
 
 import examples.models.ExampleEbeanEntity;
 import examples.models.ExampleEbeanForm;
+import examples.views.html.exampleEbean;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.twirl.api.Html;
-import examples.views.html.exampleEbean;
-import views.html.layoutHtml;
+import views.html.layout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ public class ExampleEbean extends Controller{
         ArrayList<String> content = new ArrayList<String>();
         content.add(getAll());
 
-        return ok(layoutHtml.render("Ebean Example", exampleEbean.render(Html.apply((getAll())))));
+        return ok(layout.render("Ebean Example", exampleEbean.render(Html.apply((getAll())))));
     }
 
     public static String getAll() {

@@ -1,9 +1,10 @@
 package controllers;
 
 import com.google.common.collect.Lists;
-import play.mvc.*;
-import views.html.*;
 import models.Renderable;
+import play.mvc.Controller;
+import play.mvc.Result;
+import views.html.layout;
 
 import static models.Article.getArticleData;
 
@@ -26,20 +27,20 @@ public class Application extends Controller {
         for (Renderable renderable : Lists.reverse(articles)) {
             concatenation += renderable.render();
         }
-        return ok(layoutHtml.render("Hybrida", views.html.Application.index.render(views.html.utils.toHtml.render(concatenation))));
-        // return ok(layoutHtml.render("Hybrida", views.html.Application.index.render(play.twirl.api.Html.apply(getArticleData())));
+        return ok(layout.render("Hybrida", views.html.Application.index.render(views.html.utils.toHtml.render(concatenation))));
+        // return ok(layout.render("Hybrida", views.html.Application.index.render(play.twirl.api.Html.apply(getArticleData())));
     }
 
     public static Result showUnauthorizedAccess() {
-        return unauthorized(layoutHtml.render("Unauthorized", views.html.Application.showUnauthorizedAccess.render()));
+        return unauthorized(layout.render("Unauthorized", views.html.Application.showUnauthorizedAccess.render()));
     }
 
     public static Result show404(String get_value) {
-    	return notFound(layoutHtml.render("404", views.html.Application.show404.render(get_value)));
+    	return notFound(layout.render("404", views.html.Application.show404.render(get_value)));
     }
 
     public static Result show400(String get_value) {
-        return badRequest(layoutHtml.render("400", views.html.Application.show400.render(get_value)));
+        return badRequest(layout.render("400", views.html.Application.show400.render(get_value)));
     }
 
     public static Result proto()  throws java.sql.SQLException {

@@ -1,12 +1,12 @@
 package controllers;
 
-import models.*;
+import models.Article;
 import models.Event;
-import play.mvc.Result;
+import models.User;
 import play.data.Form;
 import play.mvc.Controller;
-import views.html.ArticleOut.*;
-import views.html.layoutHtml;
+import play.mvc.Result;
+import views.html.layout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,12 +41,12 @@ public class ArticleOut extends Controller {
             resultList.add(event.getEventHappens().toString());
             resultList.add("" + event.getMaxParticipants());
         }
-        return ok(layoutHtml.render("hybrida", views.html.utils.centerBlock.render(views.html.ArticleOut.index.render(resultList))));
+        return ok(layout.render("hybrida", views.html.utils.centerBlock.render(views.html.ArticleOut.index.render(resultList))));
     }
 
 
     public static Result viewArticle(String id) {
-        return ok(layoutHtml.render("Artikkel", views.html.ArticleOut.viewArticle.render(Article.find.byId(Long.valueOf(id)))));
+        return ok(layout.render("Artikkel", views.html.ArticleOut.viewArticle.render(Article.find.byId(Long.valueOf(id)))));
     }
 
 

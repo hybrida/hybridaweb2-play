@@ -1,29 +1,28 @@
 package controllers;
 
-import models.*;
+import models.EventModel;
+import models.LoginState;
+import models.User;
 import org.apache.commons.io.FileUtils;
+import play.data.Form;
+import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
-import models.EventModel;
-import views.html.*;
+import views.html.layout;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import play.data.Form;
-
 import static play.data.Form.form;
-
-import play.mvc.Controller;
 
 
 public class Event extends Controller{
 
     public static Result index(){
 
-        return ok(layoutHtml.render("Hybrida", views.html.Event.index.render()));
+        return ok(layout.render("Hybrida", views.html.Event.index.render()));
     }
 
     final static Form<EventModel> form = form(EventModel.class);
@@ -93,7 +92,7 @@ public class Event extends Controller{
         contentList.add(userNames);
         Boolean signed = isSignedUp();
         contentList.add(signed.toString());
-        return ok(layoutHtml.render("Hybrida", views.html.Event.generateEvent.render(contentList)));
+        return ok(layout.render("Hybrida", views.html.Event.generateEvent.render(contentList)));
     }
     public static Result listEvents(){
         List<EventModel> entityList = EventModel.find.all();

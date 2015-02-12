@@ -2,11 +2,12 @@ package controllers;
 
 import models.User;
 import play.mvc.Controller;
-import java.io.File;
-import java.util.Date;
-import java.sql.Timestamp;
 import play.mvc.Result;
 import views.html.utils.escapeText;
+
+import java.io.File;
+import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * This class handles SSOLogins via Feide.

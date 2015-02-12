@@ -3,7 +3,7 @@ package controllers;
 import org.apache.commons.io.FileUtils;
 import play.mvc.Http;
 import play.mvc.Result;
-import views.html.layoutHtml;
+import views.html.layout;
 import views.html.utils.toHtml;
 
 import java.io.File;
@@ -23,7 +23,7 @@ public class Update {
 
     public static Result index(){
 
-        return ok(layoutHtml.render("Update!", views.html.Update.index.render()));
+        return ok(layout.render("Update!", views.html.Update.index.render()));
     }
 
 
@@ -40,7 +40,7 @@ public class Update {
                 System.out.println("Problem operating on filesystem");
             }
 
-            return ok(layoutHtml.render("img", toHtml.render("Upload Successful" + "<img src=\"/assets/update/" + fileName + "\" alt=\"rect\"/>")));
+            return ok(layout.render("img", toHtml.render("Upload Successful" + "<img src=\"/assets/update/" + fileName + "\" alt=\"rect\"/>")));
         }else if(picture != null){
             flash("error", "Invalid file");
             return ok("Invalid file, accepted format: pdf");

@@ -1,9 +1,12 @@
 package examples.controllers;
 
-import play.mvc.*;
-import views.html.*;
-import java.sql.*;
-import play.db.*;
+import play.db.DB;
+import play.mvc.Controller;
+import play.mvc.Result;
+import views.html.layout;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ExampleDatabase extends Controller {
 
@@ -22,7 +25,7 @@ public class ExampleDatabase extends Controller {
             result.absolute(i);
             x += result.getString(2) + "<br>";
         }
-        return ok(layoutHtml.render("Hybrida", play.twirl.api.Html.apply(x)));
+        return ok(layout.render("Hybrida", play.twirl.api.Html.apply(x)));
     }
 
 }

@@ -3,13 +3,13 @@ package models;
 import com.avaje.ebean.annotation.CreatedTimestamp;
 import play.db.ebean.Model;
 import play.twirl.api.Html;
+import views.html.Article.articleRender;
 
 import javax.persistence.*;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-import views.html.Article.articleRender;
 
 @Entity
 public class Article extends Model implements Renderable {

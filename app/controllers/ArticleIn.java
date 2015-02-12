@@ -1,17 +1,14 @@
 package controllers;
 
 import models.*;
+import models.Event;
+import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-
-import play.data.Form;
-
-import views.html.layoutHtml;
+import views.html.layout;
 import views.html.utils.centerBlock;
 
 import static play.data.Form.form;
-
-import models.Event;
 
 
 public class ArticleIn extends Controller {
@@ -20,7 +17,7 @@ public class ArticleIn extends Controller {
     final static Form<Article> articleForm = form(Article.class);
 
     public static Result index() {
-        return ok(layoutHtml.render("Hybrida: Opprett Artikkel", centerBlock.render(views.html.ArticleIn.index.render())));
+        return ok(layout.render("Hybrida: Opprett Artikkel", centerBlock.render(views.html.ArticleIn.index.render())));
     }
 
     public static Result save() {

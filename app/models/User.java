@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
-import play.db.ebean.Model.Finder;
 
 @Entity
 @Table(
