@@ -203,15 +203,15 @@ public class User extends Model {
     public String toString() {
         StringBuilder sb = new StringBuilder("USER[\n");
         if(id != null) sb.append("\tid: " + id.toString() + ", \n");
-        if(username != null) sb.append("\tusername: " + username.toString() + ", \n");
-        if(first_name != null) sb.append("\tfirst_name: " + first_name.toString() + ", \n");
-        if(surname != null)  sb.append("\tsurname: " + surname.toString() + ", \n");
-        if(middle_name != null) sb.append("\tmiddle_name: " + middle_name.toString() + ", \n");
         if(email != null) sb.append("\temail: " + email.toString() + ", \n");
-        if(website_url != null) sb.append("\twebsite_url: " + website_url.toString() + ", \n");
         if(phone != null) sb.append("\tphone: " + phone.toString() + ", \n");
         if(title != null) sb.append("\ttitle: " + title.toString() + ", \n");
+        if(username != null) sb.append("\tusername: " + username.toString() + ", \n");
+        if(surname != null)  sb.append("\tsurname: " + surname.toString() + ", \n");
+        if(first_name != null) sb.append("\tfirst_name: " + first_name.toString() + ", \n");
+        if(middle_name != null) sb.append("\tmiddle_name: " + middle_name.toString() + ", \n");
         if(profile_image_file_name != null) sb.append("\tprofile_image_file_name: " + profile_image_file_name.toString() + ", \n");
+        if(website_url != null) sb.append("\twebsite_url: " + website_url.toString() + ", \n");
         if(student != null) sb.append("\tstudent: " + student.toString() + ", \n");
         if(bedkom != null) sb.append("\tbedkom: " + bedkom.toString() + ", \n");
         if(admin != null) sb.append("\tadmin: " + admin.toString() + ", \n");
@@ -224,7 +224,7 @@ public class User extends Model {
         return sb.toString();
     }
 
-    public static Finder<Long, User> find = new Finder<>(
+    public static Model.Finder<Long, User> find = new Finder<>(
             Long.class, User.class
     );
 }

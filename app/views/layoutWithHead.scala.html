@@ -1,8 +1,7 @@
-@(title: String, content: Html, headContent: Html = Html(""))
+@(title: String)(content: Html)(headContent: Html = null)
 
 @main(title) {
-    @head()
-    @if(!headContent.equals(Html(""))) {
+    @if(headContent != null && !headContent.equals(Html(""))) {
         @headContent
     }
 } {

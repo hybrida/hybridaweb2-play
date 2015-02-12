@@ -1,6 +1,9 @@
 @(user: User, messages: java.util.List[Html])
 
-@profile(user, true, true, messages) {
+@if(!messages.isEmpty()) {
+    <div class="messages">@(for (message <- messages) message)</div>
+}
+<div class="pageItem">
     <div class="info-block">
         <ul>
             <li>
@@ -13,7 +16,7 @@
             </li>
             <li>
                 <div class="label">HJEMMESIDE</div>
-                <div class="info"><input type="text" name="homepage" value="@user.getWebsite()"></div>
+                <div class="info"><input type="text" name="website_url" value="@user.getWebsite()"></div>
             </li>
             <li>
                 <div class="label">TELEFON</div>
@@ -23,7 +26,6 @@
     </div>
     <div class="info-block">
         <ul>
-        @if("mf".contains(user.getGender())) {
             <li>
                 <div class="label">KJØNN</div>
                 <div class="info">
@@ -31,7 +33,10 @@
                     <input type="radio" name="sex" value="f" @(if (user.getGender() == 'f') "CHECKED")> <label for="sex">Kvinne</label>
                 </div>
             </li>
-        }
+            <li>
+                <div class="label">PROFILBILDE</div>
+                <div class="info"><input type="text" name="profile_image_file_name" value="@user.getProfileImageFileName()"></div>
+            </li>
         </ul>
     </div>
-}
+</div>

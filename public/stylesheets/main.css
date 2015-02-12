@@ -1,6 +1,7 @@
 /*shared containers*/
 html {
-	background: url("../images/kilt3.png") fixed;
+	background: url("/assets/images/kilt3.png") fixed;
+    background-color: #255f76;
 	font-family: sans-serif;
     overflow-y: scroll;
 }
@@ -9,6 +10,22 @@ body {
 	height: 100%;
 	padding: 0;
 	margin: 0;
+
+    color: #222;
+}
+
+a {
+    color: inherit;
+    text-decoration: inherit;
+    font-weight: bold;
+}
+
+a img {
+    border: none;
+}
+
+.clearfix, .clear, .clearer {
+    clear: both;
 }
 
 .wrap {
@@ -321,22 +338,11 @@ body {
   max-width: 50%;
 }
 
-
-
-
-.title {
-    margin: 70px 50px 0;
-    padding: 0 0 10px;
-    border-bottom: 2px solid #999;
-    font: normal 18px "Gill", serif;
-    text-transform: uppercase;
-    color: #777;
-}
-
 .button {
     background: #046;
     color: #fff;
     text-transform: uppercase;
+    font-weight: normal;
     letter-spacing: 1px;
 }
 

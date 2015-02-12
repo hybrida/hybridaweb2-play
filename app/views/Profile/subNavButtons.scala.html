@@ -1,0 +1,8 @@
+@(username: String, edit: Boolean)
+
+@if(edit) {
+    <input class="float-right pure-button button" type="submit" value="Lagre">
+    <a class="float-right pure-button button" href="@routes.Profile.index(username)">Avbryt</a>
+} else {
+    <a class="float-right pure-button button" href="@routes.Profile.edit(username)">Rediger</a>
+}
