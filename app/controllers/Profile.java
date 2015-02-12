@@ -1,12 +1,19 @@
 package controllers;
 
+import antlr.NameSpace;
 import models.LoginState;
 import models.User;
 import play.data.Form;
+import play.data.validation.ValidationError;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.layoutHtml;
+import play.twirl.api.Html;
 import views.html.layoutHtmlExt;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Ivar on 21.10.2014.
@@ -15,62 +22,54 @@ public class Profile extends Controller {
 
     final static Form<User> userForm = Form.form(User.class);
 
+    public static ArrayList<Html> messages = new ArrayList<>();
+    public static Html message(boolean error, String content) {
+        return views.html.Profile.message.render(error, content);
+    }
+
     public static Result index(String username) {
+
         User user = User.find.where().eq("username", username).findUnique();
         if(user == null) {
-            return Application.show404("profil/" + username);
+            return Application.show404(request().path());
         }
-        return ok(layoutHtmlExt.render(user.getName(), views.html.Profile.index.render(user), views.html.Profile.head.render()));
+        return ok(layoutHtmlExt.render(user.getName(), views.html.Profile.index.render(user, authorizedToEditUser(username), messages), views.html.Profile.head.render()));
     }
 
-    public static Result editUserData(String username) {
-        models.HttpRequestData data = new models.HttpRequestData();
-        if (LoginState.getUser().username == data.get("username")) {
-            User user = LoginState.getUser();
-            
-            user.first_name = data.get("first_name");
-            user.surname = data.get("surname");
-            user.middle_name = data.get("middle_name");
-            user.email = data.get("email");
-            user.website_url = data.get("website_url");
-            user.phone = data.get("phone");
-            user.title = data.get("title"); // Ph.D., Civ.Eng., Stud., Chief, Commander, General, Lord, Admiral, Vevsjef,...
-            user.profile_image_file_name = data.get("profile_image_file_name");
-            //  int         graduation_year = 0;
+    public static Result update(String username) {
+        if (!authorizedToEditUser(username)) return Application.showUnauthorizedAccess();
+        if (User.find.where().eq("username", username).findRowCount() == 0) return Application.show404(request().path());
+        Form<User> filledForm =  userForm.bindFromRequest();
 
-            // Privilege status
-            /*user.student = data.get("student") == "true" ? true : false;    // No special privileges.
-            user.bedkom = data.get("bedkom") == "true" ? true : false;     // Control over bedpress.
-            
-            user.admin = data.get("admin") == "true" ? true : false;      // For control over the entire page. Check your privilege
-            user.root = data.get("root") == "true" ? true : false;       // Powers too great for mere mortals.
-            user.sex = data.get("sex") == "true" ? true : false;         // For specific events.
-
-            user.enrolled = data.get("enrolled");    // For specific bedpresses requiring a year number.
-            user.date_of_birth = data.get("date_of_birth");
-            */
-            user.save();
+        messages = new ArrayList<>();
+        if(filledForm.hasErrors()) {
+            Map<String, List<ValidationError>> errors = filledForm.errors();
+            for(String key : errors.keySet()) {
+                messages.add(message(true, key + ": " + errors.get(key).toString()));
+            }
+        } else {
+            long userId = User.find.where().eq("username", username).findUnique().getId();
+            filledForm.get().update(userId);
+            messages.add(message(false, "Din brukerinformasjon er oppdatert!"));
+            messages.add(message(true, "Din brukerinformasjon er oppdatert!"));
+            messages.add(message(false, "Din brukerinformasjon er oppdatert!"));
+            messages.add(message(true, "Din brukerinformasjon er oppdatert!"));
+            messages.add(message(true, "Din brukerinformasjon er oppdatert!"));
         }
-        return ok();
+        return index(username);
     }
 
-    public static boolean authorized(String username) {
+    public static boolean authorizedToEditUser(String username) {
         User loggedInUser = LoginState.getUser();
         return username.equals(loggedInUser.getUsername()) || loggedInUser.admin || !loggedInUser.root;
     }
 
     public static Result edit(String username) {
-        if (!authorized(username)) return Application.showUnauthorizedAccess();
+        if (!authorizedToEditUser(username)) return Application.showUnauthorizedAccess();
         User user = User.find.where().eq("username", username).findUnique();
-        if (user == null) return Application.show404("profil/" + username + "/edit");
+        if (user == null) return Application.show404(request().path());
+        messages = new ArrayList<>();
         userForm.fill(user);
-        return ok(layoutHtml.render("Rediger " + user.getName(), views.html.Profile.edit.render(user)));
-    }
-
-    public static Result submit() {
-        User user = userForm.bindFromRequest().get();
-        if (!authorized(user.getUsername())) return Application.showUnauthorizedAccess();
-        user.update();
-        return redirect(routes.Profile.edit(user.getUsername()));
+        return ok(layoutHtmlExt.render("Rediger " + user.getName(), views.html.Profile.edit.render(user, messages), views.html.Profile.head.render()));
     }
 }

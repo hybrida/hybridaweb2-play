@@ -1,0 +1,44 @@
+@(user: User, authorized: Boolean, edit: Boolean, messages: java.util.List[Html])(profileContent: Html)
+<h5 class="title">
+@if(models.LoginState.getUser().getUsername == user.getUsername()) {
+    Din profil
+} else {
+    @user.getUsername()
+}
+</h5>
+
+@if(!messages.isEmpty()) {
+    <div class="messages">
+        @for(message <- messages) { @message }
+    </div>
+}
+
+@if(edit) {
+    <form method="POST" action="@routes.Profile.update(user.getUsername())">
+}
+@if(authorized) {
+    <div class="buttons">
+    @if(edit) {
+        <input class="float-right pure-button button" type="submit" value="Lagre">
+        <a class="float-right pure-button button" href="@routes.Profile.index(user.getUsername())">Avbryt</a>
+    } else {
+        <a class="float-right pure-button button" href="@routes.Profile.edit(user.getUsername())">Rediger</a>
+    }
+    </div>
+}
+<div class="profile">
+    @if(user.hasProfileImage()) {
+        <img class="pic" src="/assets/upload/@user.getUsername()/@user.getProfileImageFileName()">
+    }
+    <h1 class="name">@user.getName()</h1>
+    @if(user.hasMiddleName()) {
+        <h3 class="name-with-mName">@user.getName(true)</h3>
+    }
+
+    @profileContent
+
+</div>
+
+@if(edit) {
+    </form>
+}

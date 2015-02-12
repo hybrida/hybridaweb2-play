@@ -2,6 +2,7 @@
 html {
 	background: url("../images/kilt3.png") fixed;
 	font-family: sans-serif;
+    overflow-y: scroll;
 }
 
 body {
@@ -333,24 +334,80 @@ body {
 }
 
 .button {
-    display: inline-block;
-    text-transform: uppercase;
-    line-height: 25px;
-    padding: 5px 15px;
     background: #046;
     color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-}
-.button:hover {
-    text-decoration: underline;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.button.float-right {
-    margin-top: -18px;
-    margin-right: 100px;
-    float: right;
+.messages {
+    position: absolute;
+    top: 200px;
+    right: 50px;
+    z-index: 1010;
 }
+.message {
+    float: right;
+    clear: both;
+    margin-bottom: 2px;
+    padding: 5px;
+    padding-left: 10px;
+    line-height: 14px;
+    border: 1px solid #999;
+    border-radius: 2px;
+    background: #fff;
+    opacity: 0.3;
+
+    animation: message-fade 1s, message-hide 1s;
+    animation-delay: 0s, 2s;
+    animation-fill-mode: none, forwards;
+    -webkit-animation: message-fade 1s, message-hide 1s;
+    -webkit-animation-delay: 0s, 2s;
+    -webkit-animation-fill-mode: none, forwards;
+
+    font-size: 12px;
+    color: #046;
+}
+
+.message.error {
+    animation: message-fade 1s;
+    animation-fill-mode: forwards;
+    -webkit-animation: message-fade 1s;
+    -webkit-animation-fill-mode: forwards;
+    color: #820;
+}
+.message:hover {
+    opacity: 1;
+    animation: 0;
+    -webkit-animation: 0;
+}
+
+.message .close { display: inline-block; margin-left: 5px;}
+.message .close:hover { color: #000; cursor: pointer;}
+
+@keyframes message-fade {
+    from {opacity: 1;}
+    to {opacity: 0.3;}
+}
+@-webkit-keyframes message-fade {
+    from {opacity: 1;}
+    to {opacity: 0.3;}
+}
+
+@keyframes message-hide {
+    99% {opacity: 0; margin-top: -28px;}
+    to {opacity: 0; margin-top: -28px; visibility: hidden;}
+}
+@-webkit-keyframes message-hide {
+    99% {opacity: 0; margin-top: -28px;}
+    to {opacity: 0; margin-top: -28px; visibility: hidden;}
+}
+
+
+
+
+
+
 
 @media only screen and (max-width: 1440px) {
     .split_div {
