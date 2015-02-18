@@ -112,6 +112,8 @@ public class Article extends Model implements Renderable {
     }
 
     public Html renderFrontPageSample() {
+        if (imagePath == null)
+            imagePath = "/assets/images/logo_big.png";
         return articleRender.render(this);
     }
 
