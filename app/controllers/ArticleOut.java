@@ -53,7 +53,6 @@ public class ArticleOut extends Controller {
             return ok(layout.render("Artikkel", views.html.ArticleOut.viewArticle.render(Article.find.byId(Long.valueOf(id)))));
         else
             return Application.show404(request().uri().replaceFirst("/", ""));
-
     }
 
 
