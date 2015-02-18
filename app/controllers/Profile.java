@@ -34,7 +34,7 @@ public class Profile extends Controller {
             return Application.show404(request().path());
         }
         return ok(render(username, user, false));
-    }
+    } 
 
     public static Result update(String username) {
         if (!authorizedToEditUser(username)) return Application.showUnauthorizedAccess();
