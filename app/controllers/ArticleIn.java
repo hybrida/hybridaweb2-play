@@ -36,7 +36,6 @@ public class ArticleIn extends Controller {
         }
         catch (IllegalStateException e){
             return redirect(routes.Application.show400("error").absoluteURL(request()));
-
         }
     }
 
@@ -67,11 +66,4 @@ public class ArticleIn extends Controller {
 
     }
 
-    public static boolean checkImageType(String contentType){
-        String[] type = contentType.split("/");
-        if(type[0].equals("image")){
-            return true;
-        }
-        return false;
-    }
 }

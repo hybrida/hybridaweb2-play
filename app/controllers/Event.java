@@ -20,15 +20,14 @@ import static play.data.Form.form;
 
 public class Event extends Controller{
 
-    public static Result index(){
-
+    public static Result index() {
         return ok(layout.render("Hybrida", views.html.Event.index.render()));
     }
 
     final static Form<EventModel> form = form(EventModel.class);
     private static EventModel model = null;
 
-    public static Result save(){
+    public static Result save() {
         Form<EventModel> input = form.bindFromRequest();
         //Image handler:
         if(!input.hasErrors()){
