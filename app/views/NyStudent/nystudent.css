@@ -48,6 +48,9 @@ body{
 	font-family: 'Raleway', sans-serif;
 	position: absolute;
 }
+
+
+
 @media screen and (max-width: 991px) {
     body {
  		background-image: url("nys.png");
