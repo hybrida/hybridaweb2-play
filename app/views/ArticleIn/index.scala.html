@@ -1,5 +1,5 @@
 @()
-
+<div class="container-fluid">
 <script src="/assets/ckeditor/ckeditor.js"></script>
 <link href="sample.css" rel="stylesheet">
 <style>
@@ -16,50 +16,76 @@ border: 1px solid gray;
 }
 
 </style>
-<div class="article_writer">
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="article_writer">
       <form name="Article" action="@routes.ArticleIn.save()" method="POST" enctype="multipart/form-data">
           <textarea class="center_text_no_resize center_block" placeholder="Skriv tittelen her" type="text" name="title" rows="1" cols="75" ></textarea>
           <textarea class="center_text_no_resize center_block" placeholder="Skriv en kort oppsummering her" rows="3" cols="75" name="ingress" onfocus=""></textarea>
-          <textarea id="editor1" class="center_block pad_1percent_top" placeholder="Skriv ditt innlegg her" rows="12" cols="75" name="text"></textarea>
-          <input class="pad_1percent_top center_block" style="display: block; background-color: #c3c3c3; " type="file" name="picture">
+          <textarea id="editor1" class="center_block pad_1percent_top" placeholder="Skriv ditt innlegg her" rows="12" cols="75" name="text"> Artikkel her</textarea>
+          <input class="pad_1percent_top center_block form-control" style="display: block; background-color: #c3c3c3; " type="file" name="picture">
 
-        <input type="checkbox" name="event" value="Event" onclick=""> Arrangement <br>
+          <div class="checkbox col-md-offset-5">
+              <lable>
+                  <input id="arr" type="checkbox" name="event" value="Event" onclick="">
+                    Arrangement?
+              </lable>
+        </div>
 
         <p>
             Grensen står for klassetrinnet som har lov til å melde seg opp. Tallet står for avslutningsår.
         </p>
-        Første Øvre Grense:
-        <input type="number" name="firstUpperGraduationLimit" min="0" max="9999"><br>
-        Første Nedre Grense:
-        <input type="number" name="firstLowerGraduationLimit" min="0" max="9999"><br>
-        Andre Øvre Grense:
-        <input type="number" name="secondUpperGraduationLimit" min="0" max="9999"><br>
-        Andre Øvre Grense:
-        <input type="number" name="secondLowerGraduationLimit" min="0" max="9999"><br>
-        Location:
-        <input type="text" name="location" placeholder="Skriv location her"><br>
-        Timeframe:
-        <input type="number" name="timeFrame"><br>
-        Sex Allowed?
-        <select name="sexAllowed">
+        <div class="form-group">
+            <lable for="fU">Første Øvre Grense:</lable>
+            <input class="form-control" type="number" id="fU" name="firstUpperGraduationLimit" min="0" max="9999" placeholder="Antall her"></div>
+          <div class="form-group">
+              <lable for="fL">Første Nedre Grense:</lable>
+        <input type="number" class="form-control" id="fL" name="firstLowerGraduationLimit" min="0" max="9999" placeholder="Antall her"></div>
+          <div class="form-group">
+        <lable for="sU">Andre Øvre Grense:</lable>
+        <input type="number" class="form-control" id="sU" name="secondUpperGraduationLimit" min="0" max="9999" placeholder="Antall her"></div>
+         <div class="form-group">
+          <lable for="sL">Andre Øvre Grense:</lable>
+        <input type="number" id="sL" class="form-control" name="secondLowerGraduationLimit" min="0" max="9999" placeholder="Antall her"></div>
+
+          <div class="form-group">
+          <lable for="loc">Location:</lable>
+        <input type="text" id="loc" class="form-control" name="location" placeholder="Skriv location her"></div>
+        <div class="form-group">
+        <lable for="tF">Timeframe:</lable>
+        <input class="form-control" id="tF" type="number" name="timeFrame" placeholder="Varighet"></div>
+          <div class="form-group">
+        <lable for="sA">Sex Allowed?</lable>
+        <select class="form-control" id="sA" name="sexAllowed">
             <option value="A">Alle</option>
             <option value="M">Male</option>
             <option value="F">Female</option>
-        </select><br>
-        Maksimal oppmeldte:
-        <input type="number" name="maxParticipants"><br>
-        Maksimal venteliste:
-        <input type="number" name="maxParticipantsWaiting"><br>
-        Oppmeldings Deadline:
-        <input type="date" name="signUpDeadline"><br>
-        Når det skjer:
-        <input type="date" name="eventHappens"><br>
-        Andre oppmeldings deadline:
-        <input type="date" name="secondSignUp"><br>
-        <input class="pad_1percent_top center_inline_block" type="submit" value="Post">
+        </select></div>
+          <div class="form-group">
+        <lable for="mO">Maksimal oppmeldte:</lable>
+        <input class="form-control" id="mO" type="number" name="maxParticipants"></div>
+            <div class="form-group">
+        <lable for="mV">Maksimal venteliste:</lable>
+        <input class="form-control" id="mV" type="number" name="maxParticipantsWaiting"></div>
+            <div class="form-group">
+        <lable for="oD">Oppmeldings Deadline:</lable>
+        <input class="form-control" id="oD" type="datetime-local" name="signUpDeadline"></div>
+            <div class="form-group">
+        <lable for="nDS">Når det skjer:</lable>
+        <input class="form-control" id="nDS" type="datetime-local" name="eventHappens"></div>
+            <div class="form-group">
+        <lable for="aOD">Andre oppmeldings deadline:</lable>
+        <input class="form-control" id="aOD" type="datetime-local" name="secondSignUp"></div>
+            <div class="form-group">
+        <input class="pad_1percent_top center_inline_block form-control" type="submit" value="Post">
+          </div>
 
     </form>
     <script>
     CKEDITOR.inline( 'editor1' );
     </script>
+            </div>
+        </div>
+</div>
 </div>
