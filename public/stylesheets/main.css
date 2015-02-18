@@ -1,13 +1,31 @@
 /*shared containers*/
 html {
-	background: url("../images/kilt3.png") fixed;
+	background: url("/assets/images/kilt3.png") fixed;
+    background-color: #255f76;
 	font-family: sans-serif;
+    overflow-y: scroll;
 }
 
 body {
 	height: 100%;
 	padding: 0;
 	margin: 0;
+
+    color: #222;
+}
+
+a {
+    color: inherit;
+    text-decoration: inherit;
+    font-weight: bold;
+}
+
+a img {
+    border: none;
+}
+
+.clearfix, .clear, .clearer {
+    clear: both;
 }
 
 .wrap {
@@ -320,108 +338,82 @@ body {
   max-width: 50%;
 }
 
-
-
-
-.title {
-    margin: 70px 50px 0;
-    padding: 0 0 10px;
-    border-bottom: 2px solid #999;
-    font: normal 18px "Gill", serif;
-    text-transform: uppercase;
-    color: #777;
-}
-
 .button {
-    display: inline-block;
-    text-transform: uppercase;
-    line-height: 25px;
-    padding: 5px 15px;
     background: #046;
     color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-}
-.button:hover {
-    text-decoration: underline;
-}
-
-.button.float-right {
-    margin-top: -18px;
-    margin-right: 100px;
-    float: right;
-}
-
-/**
- * Profil
- */
-
-.profile {
-    width: 70%;
-    margin: 60px auto 100px;
-    text-align: center;
-}
-
-.profile .pic {
-    max-width: 100%;
-    border-radius: 5px;
-    box-shadow: rgba(0, 0, 0, 0.4) -10px 12px 25px;
-}
-
-.profile .name,
-.profile .name-with-mName {
-    margin: 0.8em 0 0.2em;
-
-    text-align: center;
     text-transform: uppercase;
-    font-family: "Gill", serif;
+    font-weight: normal;
+    letter-spacing: 1px;
 }
 
-.profile .name {
-    font-size: 60px;
-    color: #046;
-}
-
-.profile .name-with-mName {
-    margin: 0.2em 0 0.8em;
-    font-size: 30px;
-    color: #bbb;
-}
-
-.profile .info-block  ul {
-    margin: 0 auto;
-    padding: 10px 0;
-    width: 0;
-}
-
-.profile .info-block li {
-    position: relative;
-    height: 25px;
-    overflow: visible;
-    list-style: none;
-
-    text-align: left;
-}
-
-.profile .info-block .label,
-.profile .info-block .info {
+.messages {
     position: absolute;
-    top: 0; left: 0;
-    margin: 0;
-    padding: 40px 20px;
-    width: 300px;
-
-    line-height: 0;
+    top: 200px;
+    right: 50px;
+    z-index: 1010;
 }
+.message {
+    float: right;
+    clear: both;
+    margin-bottom: 2px;
+    padding: 5px;
+    padding-left: 10px;
+    line-height: 14px;
+    border: 1px solid #999;
+    border-radius: 2px;
+    background: #fff;
+    opacity: 0.3;
 
-.profile .info-block .label {
-    left: auto; right: 0;
+    animation: message-fade 1s, message-hide 1s;
+    animation-delay: 0s, 2s;
+    animation-fill-mode: none, forwards;
+    -webkit-animation: message-fade 1s, message-hide 1s;
+    -webkit-animation-delay: 0s, 2s;
+    -webkit-animation-fill-mode: none, forwards;
 
-    text-align: right;
-    border-right: 3px solid #bbb;
-    font-size: 16px;
+    font-size: 12px;
     color: #046;
 }
+
+.message.error {
+    animation: message-fade 1s;
+    animation-fill-mode: forwards;
+    -webkit-animation: message-fade 1s;
+    -webkit-animation-fill-mode: forwards;
+    color: #820;
+}
+.message:hover {
+    opacity: 1;
+    animation: 0;
+    -webkit-animation: 0;
+}
+
+.message .close { display: inline-block; margin-left: 5px;}
+.message .close:hover { color: #000; cursor: pointer;}
+
+@keyframes message-fade {
+    from {opacity: 1;}
+    to {opacity: 0.3;}
+}
+@-webkit-keyframes message-fade {
+    from {opacity: 1;}
+    to {opacity: 0.3;}
+}
+
+@keyframes message-hide {
+    99% {opacity: 0; margin-top: -28px;}
+    to {opacity: 0; margin-top: -28px; visibility: hidden;}
+}
+@-webkit-keyframes message-hide {
+    99% {opacity: 0; margin-top: -28px;}
+    to {opacity: 0; margin-top: -28px; visibility: hidden;}
+}
+
+
+
+
+
+
 
 @media only screen and (max-width: 1440px) {
     .split_div {

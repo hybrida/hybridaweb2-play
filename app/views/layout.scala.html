@@ -1,11 +1,2 @@
-@(title: String, content: List[String])
-
-@main(title) {
-
-    @navmenu()
-	@layoutTop()
-	@for(c <- content) {
-		@Html(c)
-	}
-	@layoutBottom()
-}
+@(title: String, content: Html)
+@layoutWithHead(title)(content)(null)

@@ -1,52 +1,42 @@
-@(user: User)
+@(user: User, messages: java.util.List[Html])
 
-<h5 class="title">Din profil</h5>
-    <form action="lagre">
-    @if(models.LoginState.getUser().getUsername == user.getUsername()) {
-        <input class="float-right button" type="submit" value="Lagre">
-    }
-
-    <div class="profile">
-        @if(user.hasProfileImage()) {
-            <img class="pic" src="/assets/images/profiles/@user.getUsername()/@user.getProfileImageFileName()">
-        }
-    <h1 class="name">@user.getName()</h1>
-        @if(user.hasMiddleName()) {
-            <h3 class="name-with-mName">@user.getName(true)</h3>
-        }
+@if(!messages.isEmpty()) {
+    <div class="messages">@(for (message <- messages) message)</div>
+}
+<div class="pageItem">
     <div class="info-block">
         <ul>
             <li>
-                <div class="label">BRUKERNAVN</div>
-                <input type="text" name="first_name" value="@(user.getUsername())">
-            </li>
-            <li>
                 <div class="label">NTNU-E-POST</div>
-                <input type="text" name="email" value="@(user.getUsername())@@stud.ntnu.no">
+                <div class="info">@(user.getUsername())@@stud.ntnu.no</div>
             </li>
             <li>
                 <div class="label">ALTERNATIV E-POST</div>
-                <input type="text" name="altemail" value="@user.getAltEmail()">
+                <div class="info"><input type="text" name="email" value="@user.getAltEmail()"></div>
             </li>
             <li>
                 <div class="label">HJEMMESIDE</div>
-                <input type="text" name="homepage" value="@user.getWebsite()">
+                <div class="info"><input type="text" name="website_url" value="@user.getWebsite()"></div>
             </li>
             <li>
                 <div class="label">TELEFON</div>
-                <input type="text" name="phone" value="@user.getPhone()">
+                <div class="info"><input type="text" name="phone" value="@user.getPhone()"></div>
             </li>
         </ul>
     </div>
     <div class="info-block">
         <ul>
-        @if("mf".contains(user.getGender())) {
             <li>
                 <div class="label">KJØNN</div>
-                <div class="info">@(if (user.getGender() == 'm') "Mann" else "Kvinne")</div>
+                <div class="info">
+                    <input type="radio" name="sex" value="m" @(if (user.getGender() == 'm') "CHECKED")> <label for="sex">Mann</label> /
+                    <input type="radio" name="sex" value="f" @(if (user.getGender() == 'f') "CHECKED")> <label for="sex">Kvinne</label>
+                </div>
             </li>
-        }
+            <li>
+                <div class="label">PROFILBILDE</div>
+                <div class="info"><input type="text" name="profile_image_file_name" value="@user.getProfileImageFileName()"></div>
+            </li>
         </ul>
     </div>
-    </div>
-    </form>
+</div>

@@ -4,15 +4,17 @@ import org.apache.commons.io.FileUtils;
 import play.api.mvc.Call;
 import play.mvc.Http;
 import play.mvc.Result;
-import views.html.layoutHtml;
+import views.html.layout;
+import views.html.utils.toHtml;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
-import static trash.controllers.Lol.toHtml;
 import static play.mvc.Controller.flash;
 import static play.mvc.Controller.request;
 import static play.mvc.Results.ok;
-import static views.html.layoutHtml.*;
+import static views.html.layout.render;
 
 /**
  * Created by eliasbragstadhagen on 29.09.14.
@@ -38,7 +40,7 @@ public class ExampleImageUpload {
                 System.out.println("Problem operating on filesystem");
             }
 
-            return ok(layoutHtml.render("img",toHtml("Upload Successful" + "<img src=\"/assets/Upload/" + fileName + "\" alt=\"rect\"/>")));
+            return ok(layout.render("img", toHtml.render("Upload Successful" + "<img src=\"/assets/Upload/" + fileName + "\" alt=\"rect\"/>")));
         } else {
             flash("error", "Missing file");
             return ok("file missing");

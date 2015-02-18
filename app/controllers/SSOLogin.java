@@ -2,12 +2,12 @@ package controllers;
 
 import models.User;
 import play.mvc.Controller;
-import java.io.File;
-import java.util.Date;
-import java.sql.Timestamp;
-import views.html.*;
 import play.mvc.Result;
 import views.html.utils.escapeText;
+
+import java.io.File;
+import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * This class handles SSOLogins via Feide.
@@ -71,13 +71,13 @@ public class SSOLogin extends Controller {
                     User user = User.find.where().eq("username", data.getLoginInfo().get("username")).findUnique();
                     if (user != null) { // Check if user exists
                         if (user.getLastLoginTime() != null ? user.getLastLoginTime().before(new Timestamp(new Date(Integer.valueOf(data.getLoginInfo().get("time")) * 1000L).getTime())) : true) { // Check if the current user is logging in AFTER the last valid login.
-                            System.out.println(data.getLoginInfo().get("username") + " has logged in.");
+                            // System.out.println(data.getLoginInfo().get("username") + " has logged in.");
                             user.setLastLoginTimeNow();
                             user.save();
                             session("user", play.api.libs.Crypto.encryptAES(data.getLoginInfo().get("username") + "," + String.valueOf(System.currentTimeMillis())));
                         }
                     } else {
-                        System.out.println("Username: " + data.getLoginInfo().get("username") + " does not exist in the database.");
+                        // System.out.println("Username: " + data.getLoginInfo().get("username") + " does not exist in the database.");
                         return redirect(routes.ContactForUser.index());
                     }
 

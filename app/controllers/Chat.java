@@ -1,13 +1,14 @@
 package controllers;
 
+import akka.actor.ActorRef;
+import akka.actor.Props;
 import models.ChatActor;
 import models.LoginState;
+import play.libs.F.Function;
 import play.mvc.Controller;
-import akka.actor.*;
 import play.mvc.Result;
-import play.libs.F.*;
 import play.mvc.WebSocket;
-import views.html.layoutHtml;
+import views.html.layout;
 
 /**
  * Created by Tormod on 09.09.2014.
@@ -16,7 +17,7 @@ public class Chat extends Controller {
     public static Result connectClient() {
         if (LoginState.isValidlyLoggedIn() == false)
             return redirect(routes.Application.showUnauthorizedAccess());
-        return ok(layoutHtml.render("Hybrida Chat", views.html.Chat.connectClient.render(LoginState.getUser().getName())));
+        return ok(layout.render("Hybrida Chat", views.html.Chat.connectClient.render(LoginState.getUser().getName())));
     }
 
     public static WebSocket<String> socket() {

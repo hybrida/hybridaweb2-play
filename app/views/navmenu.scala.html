@@ -1,5 +1,4 @@
 <!--
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
 $("document").ready(function($){
     var nav = $('#navmenu');
@@ -18,14 +17,14 @@ $("document").ready(function($){
         <li id="logo"><a class="navmenuimage" href="/"><img src="/assets/images/Griff, drop shadow.png" alt="SUPERLOGO"/></a></li>
         <!--<li id="logotext"><a class="navmenutext" href="/testhome">HYBRIDA</a></li>-->
         @if(models.LoginState.getUser().canCreateNewArticle()){
-            <li class="navelement"><a class="navmenutext" href="/feed">Announce</a></li>
+            <li class="navelement"><a class="navmenutext" href="@routes.ArticleIn.index()">Nytt Innlegg</a></li>
         }
         @if(models.LoginState.isValidlyLoggedIn()) {<li class="navelement"><a class="navmenutext" href="/Chat">Chat</a></li>}
-        <li class="navelement"><a class="navmenutext" href="/calendar">Kalender</a></li>
-        <li class="navelement"><a class="navmenutext" href="/hybrida">Om Hybrida</a></li>
+        <li class="navelement"><a class="navmenutext" href="@routes.Calendar.index()">Kalender</a></li>
+        <li class="navelement"><a class="navmenutext" href="@routes.OmHybrida.index()">Om Hybrida</a></li>
         @if(models.LoginState.isValidlyLoggedIn()) {
             <li style="float: right" class="navelement">
-                <a class="navmenutext" href=@("/profil/" + models.LoginState.getUser().getUsername())>@(models.LoginState.getUser().getName())</a>
+                <a class="navmenutext" href="@routes.Profile.index(models.LoginState.getUser().getUsername())">@(models.LoginState.getUser().getName())</a>
             </li>
         }
         <li style="float: right" class="navelement">
