@@ -25,9 +25,37 @@ border: 1px solid gray;
 
         <input type="checkbox" name="event" value="Event" onclick=""> Arransjement <br>
 
-
-
-
+        <p>
+            Grensen står for klassetrinnet som har lov til å melde seg opp. Tallet står for avslutningsår.
+        </p>
+        Første Øvre Grense:
+        <input type="number" name="firstUpperGraduationLimit" min="0" max="9999"><br>
+        Første Nedre Grense:
+        <input type="number" name="firstLowerGraduationLimit" min="0" max="9999"><br>
+        Andre Øvre Grense:
+        <input type="number" name="secondUpperGraduationLimit" min="0" max="9999"><br>
+        Andre Øvre Grense:
+        <input type="number" name="secondLowerGraduationLimit" min="0" max="9999"><br>
+        Location:
+        <input type="text" name="location" placeholder="Skriv location her"><br>
+        Timeframe:
+        <input type="number" name="timeFrame"><br>
+        Sex Allowed?
+        <select name="sexAllowed">
+            <option value="A">Alle</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+        </select><br>
+        Maksimal oppmeldte:
+        <input type="number" name="maxParticipants"><br>
+        Maksimal venteliste:
+        <input type="number" name="maxParticipantsWaiting"><br>
+        Oppmeldings Deadline:
+        <input type="date" name="signUpDeadline"><br>
+        Når det skjer:
+        <input type="date" name="eventHappens"><br>
+        Andre oppmeldings deadline:
+        <input type="date" name="secondSignUp"><br>
         <input class="pad_1percent_top center_inline_block" type="submit" value="Post">
 
     </form>

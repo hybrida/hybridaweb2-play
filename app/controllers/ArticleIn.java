@@ -63,7 +63,6 @@ public class ArticleIn extends Controller {
         Event eventModel = eventInput.get();
         eventModel.setArticleId(articleID);
         eventModel.save();
-
     }
 
 }

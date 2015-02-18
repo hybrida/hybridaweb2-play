@@ -18,7 +18,7 @@ import java.util.List;
 import static play.data.Form.form;
 
 
-public class Event extends Controller{
+public class Event extends Controller {
 
     public static Result index() {
         return ok(layout.render("Hybrida", views.html.Event.index.render()));
@@ -93,6 +93,7 @@ public class Event extends Controller{
         contentList.add(signed.toString());
         return ok(layout.render("Hybrida", views.html.Event.generateEvent.render(contentList)));
     }
+
     public static Result listEvents(){
         List<EventModel> entityList = EventModel.find.all();
         List<List<String>> listedEvents = new ArrayList<List<String>>();
