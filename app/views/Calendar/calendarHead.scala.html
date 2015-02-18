@@ -1,7 +1,8 @@
 <link href='/assets/fullcalendar/fullcalendar.css' rel='stylesheet' />
 <link href='/assets/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
 <script src='/assets/fullcalendar/lib/moment.min.js'></script>
-<script src='/assets/fullcalendar/lib/jquery.min.js'></script>
+<!--<script src='/assets/fullcalendar/lib/jquery.min.js'></script>-->
+<script src='/assets/javascripts/jquery-1.11.2.min.js'></script>
 <script src='/assets/fullcalendar/fullcalendar.min.js'></script>
 <script src='/assets/fullcalendar/gcal.js'></script>
 <script src="https://apis.google.com/js/client.js"></script>
@@ -34,7 +35,7 @@ function auth() {
         'client_id': '294720547002-fhgakvr7af17ebmpap7ktnil21geuaun.apps.googleusercontent.com',
         'scope': 'https://www.googleapis.com/auth/calendar'
     };
-        gapi.auth.authorize(config, function() {
+    gapi.auth.authorize(config, function() {
         console.log('login complete');
         console.log(gapi.auth.getToken());
     });
