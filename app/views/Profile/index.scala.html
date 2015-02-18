@@ -9,23 +9,27 @@
             <li>
                 <div class="label">NTNU-E-POST</div>
                 <div class="info">@(user.getUsername())@@stud.ntnu.no</div>
+                <div class="clearfix"></div>
             </li>
             @if(user.hasAltEmail()) {
                 <li>
                     <div class="label">ALTERNATIV E-POST</div>
                     <div class="info">@user.getAltEmail()</div>
+                    <div class="clearfix"></div>
                 </li>
             }
             @if(user.hasWebsite()) {
                 <li>
                     <div class="label">HJEMMESIDE</div>
                     <div class="info"><a href="@user.getWebsite()" alt="@user.getName()s hjemmeside">@user.getWebsite()</a></div>
+                    <div class="clearfix"></div>
                 </li>
             }
             @if(user.hasPhone()) {
                 <li>
                     <div class="label">TELEFON</div>
                     <div class="info">@user.getPhone()</div>
+                    <div class="clearfix"></div>
                 </li>
             }
         </ul>
@@ -37,6 +41,7 @@
                 <li>
                     <div class="label">KJØNN</div>
                     <div class="info">@(if(user.getGender() == 'm') "Mann" else "Kvinne")</div>
+                    <div class="clearfix"></div>
                 </li>
             }
             </ul>

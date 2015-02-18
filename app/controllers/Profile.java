@@ -77,7 +77,7 @@ public class Profile extends Controller {
     public static Html render(String username, User user, boolean edit) {
         return layoutPage.render(
                 user.getName(),
-                edit ? views.html.Profile.edit.render(user, messages) : views.html.Profile.index.render(user, messages),
+                views.html.Profile.edit.render(user, messages, edit),
                 views.html.Profile.head.render(),
                 user.hasMiddleName() ? user.getName(true) : null,
                 user.hasProfileImage() ? "upload/" + username + "/" + user.getProfileImageFileName() : null,
