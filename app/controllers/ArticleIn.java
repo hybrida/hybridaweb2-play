@@ -29,6 +29,7 @@ public class ArticleIn extends Controller {
             long id = saveArticle();
 
             if(!(new HttpRequestData().get("event") == null)) {
+                System.out.println("Event was checked!");
                 saveEvent(id);
                 System.out.println("TRUE");
             }
