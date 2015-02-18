@@ -3,7 +3,7 @@ package models;
 import com.avaje.ebean.annotation.CreatedTimestamp;
 import play.db.ebean.Model;
 import play.twirl.api.Html;
-import views.html.Article.articleRender;
+import views.html.Article.articleRenderFrontPageSample;
 
 import javax.persistence.*;
 import java.sql.SQLException;
@@ -114,7 +114,7 @@ public class Article extends Model implements Renderable {
     public Html renderFrontPageSample() {
         if (imagePath == null)
             imagePath = "/assets/images/logo_big.png";
-        return articleRender.render(this);
+        return articleRenderFrontPageSample.render(this);
     }
 
     public Html renderFull() {

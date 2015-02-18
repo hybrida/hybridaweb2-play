@@ -2,8 +2,8 @@ package models;
 
 import play.db.ebean.Model;
 import play.twirl.api.Html;
-import views.html.Article.articleRender;
-import views.html.utils.escapeText;
+import views.html.Article.articleRenderFrontPageSample;
+import views.html.Event.eventRenderFrontPageSample;
 
 import javax.persistence.*;
 import java.util.Calendar;
@@ -152,7 +152,9 @@ public class Event extends Model implements Renderable {
 
     public Html renderFrontPageSample() {
         Article article = Article.find.byId(this.articleId);
-        return articleRender.render(article);
+        if (article.getImagePath() == null)
+            article.setImagePath("/assets/images/logo_big.png");
+        return eventRenderFrontPageSample.render(article, this);
     }
 
     public Html renderFull() {
