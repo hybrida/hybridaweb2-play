@@ -1,0 +1,13 @@
+.helesiden{
+	background-image: url("../images/VAGO.jpg");
+	background-size: 100%;
+	background-repeat: repeat;
+	background-attachment: fixed;
+	width: 100%;
+	color: #000000;
+	position: absolute;
+	height: 100%;
+}
+.blank{
+	height:70px;
+	width: 1170px;

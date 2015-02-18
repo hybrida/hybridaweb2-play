@@ -30,6 +30,7 @@ GET         /info/:name               trash.controllers.About.personInfo(name)
 # Heftig blæstiside
 GET         /gitgud                   trash.controllers.GitGud.shrek()
 
+GET         /GriffensOrden            trash.controllers.griffensOrden.index()
 GET         /NyStudent                trash.controllers.NyStudent.index()
 GET         /oystein/:number          trash.controllers.Oystein.someCode(number)
 GET         /hybrida                  controllers.OmHybrida.index()
