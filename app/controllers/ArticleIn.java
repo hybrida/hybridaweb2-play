@@ -19,7 +19,7 @@ public class ArticleIn extends Controller {
     final static Form<Article> articleForm = form(Article.class);
 
     public static Result index() {
-        return ok(layout.render("Hybrida: Opprett Artikkel", centerBlock.render(views.html.ArticleIn.index.render())));
+        return ok(layout.render("Hybrida: Opprett Artikkel", views.html.ArticleIn.index.render()));
     }
 
     public static Result save() {
