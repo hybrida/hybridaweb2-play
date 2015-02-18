@@ -2,6 +2,7 @@ package models;
 
 import play.db.ebean.Model;
 import play.twirl.api.Html;
+import views.html.Article.articleRender;
 import views.html.utils.escapeText;
 
 import javax.persistence.*;
@@ -149,7 +150,12 @@ public class Event extends Model implements Renderable {
         this.secondSignUp = secondSignUp;
     }
 
-    public Html render() {
-        return escapeText.render("HTML RENDER NOT IMPLEMENTED FOR ARTICLE.JAVA (MODELS)");
+    public Html renderFrontPageSample() {
+        Article article = Article.find.byId(this.articleId);
+        return articleRender.render(article);
+    }
+
+    public Html renderFull() {
+        return Html.apply("NOT IMPLEMENTED");
     }
 }

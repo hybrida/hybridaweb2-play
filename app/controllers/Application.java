@@ -25,7 +25,7 @@ public class Application extends Controller {
         java.util.List<Renderable> articles = models.Renders.getVisibleRenderables();
         String concatenation = "";
         for (Renderable renderable : Lists.reverse(articles)) {
-            concatenation += renderable.render();
+            concatenation += renderable.renderFrontPageSample();
         }
         return ok(layout.render("Hybrida", views.html.Application.index.render(views.html.utils.toHtml.render(concatenation))));
         // return ok(layout.render("Hybrida", views.html.Application.index.render(play.twirl.api.Html.apply(getArticleData())));
@@ -47,7 +47,7 @@ public class Application extends Controller {
         java.util.List<Renderable> articles = models.Renders.getVisibleRenderables();
         String concatenation = "";
         for (Renderable renderable : articles) {
-            concatenation += renderable.render();
+            concatenation += renderable.renderFrontPageSample();
         }
         if (true)
             return ok(views.html.protoFrontPage.render(play.twirl.api.Html.apply(concatenation)));
