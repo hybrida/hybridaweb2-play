@@ -25,7 +25,7 @@ public class ArticleOut extends Controller {
 
     public static Result index(String id){
         if (Article.find.byId(Long.valueOf(id)) == null)
-            return redirect(routes.Application.show404("artikkeld/" + id));
+            return Application.show404("artikkel/" + id);
         Long lId = Long.parseLong(id);
         Article article = getArticle(lId);
         Event event = getEvent(article);
@@ -48,10 +48,12 @@ public class ArticleOut extends Controller {
 
 
     public static Result viewArticle(String id) {
+        Application x = new Application();
         if (Article.find.byId(Long.valueOf(id)) != null)
             return ok(layout.render("Artikkel", views.html.ArticleOut.viewArticle.render(Article.find.byId(Long.valueOf(id)))));
         else
-            return redirect(routes.Application.show404("artikkeld/" + id));
+            return Application.show404("artikkel/" + id);
+
     }
 
 
