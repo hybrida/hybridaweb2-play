@@ -1,0 +1,6 @@
+@(error: Boolean, content: String)
+
+<div class="message @(if(error) " error")">
+    @(content)
+    <i class="close fa fa-close" onclick="hideMessage(this.parentNode)"></i>
+</div>

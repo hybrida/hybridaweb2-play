@@ -2,10 +2,10 @@ package controllers;
 
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.layoutHtml;
+import views.html.layout;
 
 public class ContactForUser extends Controller {
     public static Result index() {
-        return ok(layoutHtml.render("Kontakt oss", views.html.Feed.generateArticle.render(views.html.ContactForUser.index.render())));
+        return ok(layout.render("Kontakt oss", views.html.ContactForUser.index.render()));
     }
 }

@@ -1,0 +1,12 @@
+@(title: String)(content: Html)(headContent: Html = null)
+
+@main(title) {
+    @if(headContent != null && !headContent.equals(Html(""))) {
+        @headContent
+    }
+} {
+    @navmenu()
+	@layoutTop()
+	@content
+	@layoutBottom()
+}

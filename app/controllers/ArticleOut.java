@@ -1,12 +1,12 @@
 package controllers;
 
-import models.*;
+import models.Article;
 import models.Event;
-import play.mvc.Result;
+import models.User;
 import play.data.Form;
 import play.mvc.Controller;
-import views.html.ArticleOut.*;
-import views.html.layoutHtml;
+import play.mvc.Result;
+import views.html.layout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,8 @@ import static play.data.Form.form;
 
 /**
  * Created by eliasbragstadhagen on 04.02.15.
+
+
  */
 public class ArticleOut extends Controller {
 
@@ -22,6 +24,8 @@ public class ArticleOut extends Controller {
     final static Form<Article> articleForm = form(Article.class);
 
     public static Result index(String id){
+        if (Article.find.byId(Long.valueOf(id)) == null)
+            return Application.show404(request().uri().replaceFirst("/", ""));
         Long lId = Long.parseLong(id);
         Article article = getArticle(lId);
         Event event = getEvent(article);
@@ -39,7 +43,17 @@ public class ArticleOut extends Controller {
             resultList.add(event.getEventHappens().toString());
             resultList.add("" + event.getMaxParticipants());
         }
-        return ok(layoutHtml.render("hybrida", views.html.utils.centerBlock.render(views.html.ArticleOut.index.render(resultList))));
+        return ok(layout.render("hybrida", views.html.utils.centerBlock.render(views.html.ArticleOut.index.render(resultList))));
+    }
+
+
+    public static Result viewArticle(String id) {
+        Application x = new Application();
+        if (Article.find.byId(Long.valueOf(id)) != null)
+            return ok(layout.render("Artikkel", views.html.ArticleOut.viewArticle.render(Article.find.byId(Long.valueOf(id)))));
+        else
+            return Application.show404(request().uri().replaceFirst("/", ""));
+
     }
 
 

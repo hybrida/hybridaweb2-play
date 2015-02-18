@@ -1,23 +1,11 @@
-@(user: User)
+@(user: User, messages: java.util.List[Html])
 
-<h5 class="title">Din profil</h5>
-@if(models.LoginState.getUser().getUsername == user.getUsername()) {
-    <a class="float-right button" href="@(user.getUsername())/rediger">Rediger</a>
+@if(!messages.isEmpty()) {
+    <div class="messages">@(for (message <- messages) message)</div>
 }
-<div class="profile">
-    @if(user.hasProfileImage()) {
-        <img class="pic" src="/assets/images/profiles/@user.getUsername()/@user.getProfileImageFileName()">
-    }
-    <h1 class="name">@user.getName()</h1>
-    @if(user.hasMiddleName()) {
-        <h3 class="name-with-mName">@user.getName(true)</h3>
-    }
+<div class="pageItem">
     <div class="info-block">
         <ul>
-            <li>
-                <div class="label">BRUKERNAVN</div>
-                <div class="info">@(user.getUsername())</div>
-            </li>
             <li>
                 <div class="label">NTNU-E-POST</div>
                 <div class="info">@(user.getUsername())@@stud.ntnu.no</div>
@@ -31,7 +19,7 @@
             @if(user.hasWebsite()) {
                 <li>
                     <div class="label">HJEMMESIDE</div>
-                    <div class="info">@user.getWebsite()</div>
+                    <div class="info"><a href="@user.getWebsite()" alt="@user.getName()s hjemmeside">@user.getWebsite()</a></div>
                 </li>
             }
             @if(user.hasPhone()) {
@@ -42,14 +30,16 @@
             }
         </ul>
     </div>
-    <div class="info-block">
-        <ul>
+    @if("mf".contains(user.getGender())) {
+        <div class="info-block">
+            <ul>
             @if("mf".contains(user.getGender())) {
                 <li>
                     <div class="label">KJØNN</div>
-                    <div class="info">@(if (user.getGender() == 'm') "Mann" else "Kvinne")</div>
+                    <div class="info">@(if(user.getGender() == 'm') "Mann" else "Kvinne")</div>
                 </li>
             }
-        </ul>
-    </div>
+            </ul>
+        </div>
+    }
 </div>
