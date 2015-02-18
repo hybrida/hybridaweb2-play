@@ -36,7 +36,7 @@ public class ArticleIn extends Controller {
             return redirect(routes.ArticleOut.index("" + id).absoluteURL(request()));
         }
         catch (IllegalStateException e){
-            return redirect(routes.Application.show400("error").absoluteURL(request()));
+            return Application.show400("ugyldig data oppgitt");
         }
     }
 
