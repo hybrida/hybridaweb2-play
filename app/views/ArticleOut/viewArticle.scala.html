@@ -12,4 +12,8 @@
     @Html(article.getText)
     <br>
     Av: @User.find.byId(article.getAuthor).getName
+
+    @if(models.LoginState.getUser().getId == article.getAuthor){
+        <a href="@controllers.routes.ArticleIn.editArticle(String.valueOf(article.getId))"> Rediger </a>
+    }
 </div>

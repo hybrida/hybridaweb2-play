@@ -172,4 +172,8 @@ public class ArticleIn extends Controller {
         return reid;
     }
 
+    public static Result editArticle(String id) {
+        return ok();
+    }
+
 }
