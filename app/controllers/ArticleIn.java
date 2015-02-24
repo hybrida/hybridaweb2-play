@@ -78,9 +78,8 @@ public class ArticleIn extends Controller {
         HttpRequestData httpData = new HttpRequestData();
         models.Event eventModel = new models.Event();
         java.text.SimpleDateFormat dateFormat;
-        java.util.Calendar cal;
-        dateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
-        cal = java.util.Calendar.getInstance();
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        dateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 
         java.util.Calendar current_calendar = java.util.Calendar.getInstance();
         current_calendar.setTimeInMillis(System.currentTimeMillis());
@@ -93,6 +92,7 @@ public class ArticleIn extends Controller {
             }
             eventModel.setSecondSignUp(cal);
         } catch (ParseException parseExc) {
+            System.out.println(cal);
             return new ResultAndEId(Application.show400("Feil dato format i den andre oppmeldingsfristen."));
         }
 
@@ -100,12 +100,12 @@ public class ArticleIn extends Controller {
         try {
             cal.setTime(dateFormat.parse(httpData.get("eventHappens")));
             if (cal.before(current_calendar)) {
-                reid.result = controllers.Application.show400("Når arrangementet skjer er før nå. Dette er ikke gyldig.");
+                reid.result = controllers.Application.show400("Arrangementet skjer før nå. Dette er ikke gyldig.");
                 return reid;
             }
             eventModel.setEventHappens(cal);
         } catch (ParseException parseExc) {
-            return new ResultAndEId(Application.show400("Feil dato format i den andre oppmeldingsfristen."));
+            return new ResultAndEId(Application.show400("Feil dato format når arrangementet faktisk skjer oppmeldingsfristen."));
         }
 
         cal = java.util.Calendar.getInstance();
@@ -121,13 +121,13 @@ public class ArticleIn extends Controller {
         }
 
         if (httpData.getInt("maxParticipantsWaiting") < 0) {
-            reid.result = controllers.Application.show400("Antall mulig påmeldte er ugyldig: '" + httpData.getInt("maxParticipants") + "'. Det skal være flere enn 0.");
+            reid.result = controllers.Application.show400("Antall mulige på ventelisten er ugyldig: '" + httpData.getInt("maxParticipants") + "'. Det skal være flere enn 0.");
             return reid;
         }
         eventModel.setMaxParticipantsWaiting(httpData.getInt("maxParticipantsWaiting"));
 
         if (httpData.getInt("maxParticipants") <= 0) {
-            reid.result = controllers.Application.show400("Antall mulig påmeldte er ugyldig '" + httpData.getInt("maxParticipants") + "'. Det skal være flere enn 0.");
+            reid.result = controllers.Application.show400("Antall mulig påmeldte er ugyldig: '" + httpData.getInt("maxParticipants") + "'. Det skal være flere enn 0.");
             return reid;
         }
         eventModel.setMaxParticipants(httpData.getInt("maxParticipants"));
