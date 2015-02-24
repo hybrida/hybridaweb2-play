@@ -1,20 +1,16 @@
 .helesiden{
-	background-image: url("../images/VAGOresize2.jpg");
+	background: url("../images/VAGOresize2.jpg") repeat;
 	background-size: 100%;
-	background-repeat: no-repeat;
 	width: 100%;
-    position: absolute;
 	height: 100%;
 }
 .line{
     text-align: center;
 }
-h1{
-    font-size:200px;
-    font-family: 'Playfair Display', serif;
-    text-align: center;
-    position: relative;
+.GO{
+    padding-left: 80px;
 }
+
 .blank {
     height: 180px;
     width: 1170px;
