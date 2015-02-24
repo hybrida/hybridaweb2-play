@@ -1,7 +1,7 @@
 @(article : models.Article, event : models.Event)
 @(/*This is for rendering a single event preview. It returns the bare html needed for the article to be correctly displayed. CSS should be added as well...*/)
 
-<a href="@(routes.ArticleOut.viewArticle(String.valueOf(article.getId())))">
+<a href="@(controllers.routes.Event.viewEvent(String.valueOf(event.getEventId())))">
     <div class="content2">
         <div style="border-bottom: 2px solid #9e9d98 \">
             <img src="@article.getImagePath" alt="No image available" width=50% height=50%/><br>
