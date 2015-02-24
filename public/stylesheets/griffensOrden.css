@@ -1,13 +1,50 @@
 .helesiden{
-	background-image: url("../images/VAGO.jpg");
+	background-image: url("../images/VAGOresize2.jpg");
 	background-size: 100%;
-	background-repeat: repeat;
-	background-attachment: fixed;
+	background-repeat: no-repeat;
 	width: 100%;
-	color: #000000;
-	position: absolute;
+    position: absolute;
 	height: 100%;
 }
-.blank{
-	height:70px;
-	width: 1170px;
+.line{
+    text-align: center;
+}
+h1{
+    font-size:200px;
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    position: relative;
+}
+.blank {
+    height: 180px;
+    width: 1170px;
+}
+.superblankandwhite{
+    background-color: white;
+    opacity: 0.7;
+    height:0px;
+}
+
+.whitebox{
+    background-color: #ffffff;
+    opacity: 0.7;
+}
+.paragraph{
+	font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    padding: 70px;
+    padding-top: 40px;
+}
+
+.topright{
+	border-top-right-radius: 10px;
+}
+.topleft{
+	border-top-left-radius: 10px;
+}
+.bottomright{
+	border-bottom-right-radius: 10px;
+}
+.bottomleft {
+    border-bottom-left-radius: 10px;
+}
