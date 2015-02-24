@@ -160,4 +160,34 @@ public class Event extends Model implements Renderable {
     public Html renderFull() {
         return Html.apply("NOT IMPLEMENTED");
     }
+
+    public static String changeMonthToNorwegian(int month){
+        switch (month){
+            case 0: return "Januar";
+            case 1: return "Februar";
+            case 2: return "Mars";
+            case 3: return "April";
+            case 4: return "Mai";
+            case 5: return "Juni";
+            case 6: return "Juli";
+            case 7: return "August";
+            case 8: return "September";
+            case 9: return "Oktober";
+            case 10: return "November";
+            case 11: return "Desember";
+            default: return "InvalidString";
+        }
+    }
+    public static String changeDayToNorwegian(int day){
+        switch (day){
+            case 2: return "Mandag";
+            case 3: return "Tirsdag";
+            case 4: return "Onsdag";
+            case 5: return "Torsdag";
+            case 6: return "Fredag";
+            case 7: return "Lørdag";
+            case 1: return "Søndag";
+            default: return "InvalidString";
+        }
+    }
 }
