@@ -39,25 +39,24 @@ border: 1px solid gray;
           <br>
         <div class="form-group">
             <lable for="fU">Første Øvre Grense:</lable>
-            <input class="form-control" type="number" id="fU" name="firstUpperGraduationLimit" min="0" max="9999" placeholder="Antall her"></div>
+            <input class="form-control" type="number" id="fU" name="firstUpperGraduationLimit" min="1" max="5" placeholder="Antall her"></div>
           <div class="form-group">
               <lable for="fL">Første Nedre Grense:</lable>
-        <input type="number" class="form-control" id="fL" name="firstLowerGraduationLimit" min="0" max="9999" placeholder="Antall her"></div>
+        <input type="number" class="form-control" id="fL" name="firstLowerGraduationLimit" min="1" max="5" placeholder="Antall her"></div>
           <div class="form-group">
         <lable for="sU">Andre Øvre Grense:</lable>
-        <input type="number" class="form-control" id="sU" name="secondUpperGraduationLimit" min="0" max="9999" placeholder="Antall her"></div>
+        <input type="number" class="form-control" id="sU" name="secondUpperGraduationLimit" min="1" max="5" placeholder="Antall her"></div>
          <div class="form-group">
           <lable for="sL">Andre Øvre Grense:</lable>
-        <input type="number" id="sL" class="form-control" name="secondLowerGraduationLimit" min="0" max="9999" placeholder="Antall her"></div>
-
+        <input type="number" id="sL" class="form-control" name="secondLowerGraduationLimit" min="1" max="5" placeholder="Antall her"></div>
           <div class="form-group">
-          <lable for="loc">Location:</lable>
+          <lable for="loc">Lokasjon:</lable>
         <input type="text" id="loc" class="form-control" name="location" placeholder="Skriv location her"></div>
         <div class="form-group">
-        <lable for="tF">Timeframe:</lable>
+        <lable for="tF">Tidsramme:</lable>
         <input class="form-control" id="tF" type="number" name="timeFrame" placeholder="Varighet"></div>
           <div class="form-group">
-        <lable for="sA">Sex Allowed?</lable>
+        <lable for="sA">Tillatt kjønn:</lable>
         <select class="form-control" id="sA" name="sexAllowed">
             <option value="A">Alle</option>
             <option value="M">Male</option>
@@ -70,14 +69,14 @@ border: 1px solid gray;
         <lable for="mV">Maksimal venteliste:</lable>
         <input class="form-control" id="mV" type="number" name="maxParticipantsWaiting"></div>
             <div class="form-group">
-        <lable for="oD">Oppmeldings Deadline:</lable>
-        <input class="form-control" id="oD" type="datetime-local" name="signUpDeadline"></div>
-            <div class="form-group">
+        <lable for="oD">Oppmeldingsfrist:</lable>
+                <input class="form-control" id="oD" type="datetime-local" name="signUpDeadline"></div>
+          <div class="form-group">
+            <lable for="aOD">Andre oppmeldingsfrist:</lable>
+            <input class="form-control" id="aOD" type="datetime-local" name="secondSignUp"></div>
+          <div class="form-group">
         <lable for="nDS">Når det skjer:</lable>
         <input class="form-control" id="nDS" type="datetime-local" name="eventHappens"></div>
-            <div class="form-group">
-        <lable for="aOD">Andre oppmeldings deadline:</lable>
-        <input class="form-control" id="aOD" type="datetime-local" name="secondSignUp"></div>
             <div class="form-group">
         <input class="pad_1percent_top center_inline_block form-control" type="submit" value="Post">
           </div>

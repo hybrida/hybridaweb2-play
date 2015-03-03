@@ -32,6 +32,8 @@ GET         /artikkel/ut/:id                 controllers.ArticleOut.index(id)
 GET         /artikkel/ny                     controllers.ArticleIn.index()
 POST        /artikkel/ny                     controllers.ArticleIn.save()
 GET         /artikkel/:id                    controllers.ArticleOut.viewArticle(id)
+GET         /artikkel/:id/edit               controllers.ArticleIn.editArticle(id)
+GET         /event/ut/:id                    controllers.Event.viewEvent(id)
 
 GET         /update                          controllers.Update.index()
 POST        /update                          controllers.Update.post()

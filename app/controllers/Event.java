@@ -139,4 +139,14 @@ public class Event extends Controller {
         return isSignedUp;
     }
 
+    public static Result viewEvent(String eventId) {
+        if (models.Event.find.byId(Long.valueOf(eventId)) != null) {
+            models.Event event = models.Event.find.byId(Long.valueOf(eventId));
+            models.Article article = models.Article.find.byId(Long.valueOf(event.getArticleId()));
+            return ok(layout.render("Arrangement", views.html.Event.viewEvent.render(article, event)));
+        }
+        else
+            return Application.show404(request().uri().replaceFirst("/", ""));
+    }
+
 }
