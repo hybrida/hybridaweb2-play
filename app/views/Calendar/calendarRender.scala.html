@@ -1,15 +1,10 @@
-@(title: String, titles: List[String], dates: List[String])
-@main(title) {
+@(titles: java.util.List[String], dates: java.util.List[String])
 
-    @navmenu()
-    @layoutTop()
-    <table>
-    @for(i <- 1 to 6) {
-        <tr>
-            <td>@Html(titles(i))</td>
-            <td>@Html(dates(i))</td>
-        </tr>
-    }
-    </table>
-    @layoutBottom()
+<table>
+@for(i <- 1 to 6) {
+    <tr>
+        <td>@Html(titles.get(i))</td>
+        <td>@Html(dates.get(i))</td>
+    </tr>
 }
+</table>

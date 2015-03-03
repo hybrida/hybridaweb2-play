@@ -1,35 +1,33 @@
 package controllers;
 
-import models.*;
+import models.EventModel;
+import models.LoginState;
+import models.User;
 import org.apache.commons.io.FileUtils;
+import play.data.Form;
+import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
-import trash.models.EventModel;
-import views.html.*;
+import views.html.layout;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import play.data.Form;
-
 import static play.data.Form.form;
 
-import play.mvc.Controller;
 
+public class Event extends Controller {
 
-public class Event extends Controller{
-
-    public static Result index(){
-
-        return ok(layoutHtml.render("Hybrida", views.html.Event.index.render()));
+    public static Result index() {
+        return ok(layout.render("Hybrida", views.html.Event.index.render()));
     }
 
     final static Form<EventModel> form = form(EventModel.class);
     private static EventModel model = null;
 
-    public static Result save(){
+    public static Result save() {
         Form<EventModel> input = form.bindFromRequest();
         //Image handler:
         if(!input.hasErrors()){
@@ -93,8 +91,9 @@ public class Event extends Controller{
         contentList.add(userNames);
         Boolean signed = isSignedUp();
         contentList.add(signed.toString());
-        return ok(layoutHtml.render("Hybrida", views.html.Event.generateEvent.render(contentList)));
+        return ok(layout.render("Hybrida", views.html.Event.generateEvent.render(contentList)));
     }
+
     public static Result listEvents(){
         List<EventModel> entityList = EventModel.find.all();
         List<List<String>> listedEvents = new ArrayList<List<String>>();
@@ -136,8 +135,18 @@ public class Event extends Controller{
         if ( user == null){
             System.out.println("ERROR TO THE MAX");
         }
-        Boolean isSignedUp = model.userExists(String.valueOf(user.getID()));
+        Boolean isSignedUp = model.userExists(String.valueOf(user.getId()));
         return isSignedUp;
+    }
+
+    public static Result viewEvent(String eventId) {
+        if (models.Event.find.byId(Long.valueOf(eventId)) != null) {
+            models.Event event = models.Event.find.byId(Long.valueOf(eventId));
+            models.Article article = models.Article.find.byId(Long.valueOf(event.getArticleId()));
+            return ok(layout.render("Arrangement", views.html.Event.viewEvent.render(article, event)));
+        }
+        else
+            return Application.show404(request().uri().replaceFirst("/", ""));
     }
 
 }

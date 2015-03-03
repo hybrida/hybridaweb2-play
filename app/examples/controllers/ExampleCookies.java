@@ -1,10 +1,11 @@
 package examples.controllers;
 
-import play.mvc.*;
-import trash.models.CookieForm;
-import views.html.*;
-import examples.views.html.*;
+import examples.views.html.exampleCookies;
+import models.CookieForm;
 import play.data.Form;
+import play.mvc.Controller;
+import play.mvc.Result;
+import views.html.layout;
 
 import static play.data.Form.form;
 
@@ -37,7 +38,7 @@ public class ExampleCookies extends Controller {
     }
 
 	public static Result index() {
-		return ok(layoutHtml.render("hybrida", exampleCookies.render(play.twirl.api.Html.apply("You have " + getCookieCount() + " cookies. You can create or clear cookies here." + getSortedCookies()))));
+		return ok(layout.render("hybrida", exampleCookies.render(play.twirl.api.Html.apply("You have " + getCookieCount() + " cookies. You can create or clear cookies here." + getSortedCookies()))));
 	}
 
 	public static void createCookie(String key) {
@@ -54,7 +55,7 @@ public class ExampleCookies extends Controller {
 
 	public static Result clearAllCookies() {
 		session().clear();
-		return ok(layoutHtml.render("hybrida", exampleCookies.render(play.twirl.api.Html.apply("You have " + getCookieCount() + " cookies. You can create or clear cookies here." + getSortedCookies()))));
+		return ok(layout.render("hybrida", exampleCookies.render(play.twirl.api.Html.apply("You have " + getCookieCount() + " cookies. You can create or clear cookies here." + getSortedCookies()))));
 	}
 
 	public static void storeCookie(String key, String value) {
@@ -84,7 +85,7 @@ public class ExampleCookies extends Controller {
 
         if (input.hasErrors()) {
             CookieForm form = new CookieForm();
-            return ok(layoutHtml.render("hybrida", exampleCookies.render(play.twirl.api.Html.apply("The input has some errors, please retry" + getSortedCookies()))));
+            return ok(layout.render("hybrida", exampleCookies.render(play.twirl.api.Html.apply("The input has some errors, please retry" + getSortedCookies()))));
         } else {
 
             CookieForm saved = input.get();
@@ -96,7 +97,7 @@ public class ExampleCookies extends Controller {
             }
 
             storeCookie(key, value);
-            return ok(layoutHtml.render("hybrida", exampleCookies.render(play.twirl.api.Html.apply("The cookie came in succesfully. You now have " + getCookieCount() + " cookies." + getSortedCookies()))));
+            return ok(layout.render("hybrida", exampleCookies.render(play.twirl.api.Html.apply("The cookie came in succesfully. You now have " + getCookieCount() + " cookies." + getSortedCookies()))));
         }
     }
 

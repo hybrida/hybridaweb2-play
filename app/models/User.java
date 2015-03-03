@@ -1,8 +1,13 @@
 package models;
 
+import org.apache.commons.io.FileUtils;
 import play.db.ebean.Model;
+import play.mvc.Controller;
+import play.mvc.Http;
 
 import javax.persistence.*;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -17,43 +22,40 @@ public class User extends Model {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long        id;
+    public Long        id;
 
     // Name, identification, contact
-    public String      username = "guest";  // Assigned by NTNU
+    public String      username;  // Assigned by NTNU
     @Column(name = "first_name", columnDefinition = "varchar(256) default 'Fornavn'")
-    public String      first_name = null;
+    public String      first_name;
     @Column(name = "surname", columnDefinition = "varchar(256) default 'Etternavn'")
-    public String      surname = null;
-    public String      middle_name = null;
-    public String      email = null;
-    public String      altemail = null;
-    public String      website_url = null;
-    public String      phone = null;
-    public String      title = null; // Ph.D., Civ.Eng., Stud., Chief, Commander, General, Lord, Admiral, Vevsjef,...
-    public String      profile_image_file_name = null;
+    public String      surname;
+    public String      middle_name;
+    public String      email;
+    public String      website_url;
+    public String      phone;
+    public String      title; // Ph.D., Civ.Eng., Stud., Chief, Commander, General, Lord, Admiral, Vevsjef,...
+    public String      profile_image_file_name;
     // public int         graduation_year = 0;
 
     // Privilege status
     @Column(name = "student", columnDefinition = "boolean default false")
-    public Boolean             student = false;    // No special privileges.
+    public Boolean             student;    // No special privileges except for file upload.
     @Column(name = "bedkom", columnDefinition = "boolean default false")
-    public Boolean             bedkom = false;     // Control over bedpress.
+    public Boolean             bedkom;     // Control over bedpress.
     @Column(name = "admin", columnDefinition = "boolean default false")
-    public Boolean             admin = false;      // For control over the entire page. Check your privilege
+    public Boolean             admin;      // For control over the entire page. Check your privilege
     @Column(name = "root", columnDefinition = "boolean default false")
-    public Boolean             root = false;       // Powers too great for mere mortals.
+    public Boolean             root;       // Powers too great for mere mortals.
     @Column(name = "sex", columnDefinition = "varchar(1) default '\0'")
-    public Character           sex = '\0';         // For specific events.
-    public Date                enrolled = null;    // For specific bedpresses requiring a year number.
-    public Date                date_of_birth = null;
+    public Character           sex;         // For specific events.
+    public Date                enrolled;    // For specific bedpresses requiring a year number.
+    public Date                date_of_birth;
 
     // Misc. account info
-    private Timestamp           last_login = null; // Used to avoid cookie-stealing schemes and MITM attacks. Combined with AES with time and RNG padded encryption.
+    private Timestamp          last_login; // Used to avoid cookie-stealing schemes and MITM attacks. Combined with AES with time and RNG padded encryption.
 
-    public User() {
-        student = false;
-    }
+    public User() {}
 
     public User(String username, String first_name, String surname) {
         this.username = username;
@@ -94,11 +96,11 @@ public class User extends Model {
     }
 
     public boolean hasMiddleName() {
-        return middle_name != null;
+        return middle_name != null && !middle_name.equals("");
     }
 
     public boolean hasAltEmail() {
-        return email != null;
+        return email != null && !email.equals("");
     }
 
     public String getAltEmail() {
@@ -106,7 +108,7 @@ public class User extends Model {
     }
 
     public boolean hasWebsite() {
-        return website_url != null;
+        return website_url != null && !website_url.equals("");
     }
 
     public String getWebsite() {
@@ -114,7 +116,7 @@ public class User extends Model {
     }
 
     public boolean hasPhone() {
-        return phone != null;
+        return phone != null && !phone.equals("");
     }
 
     public String getPhone() {
@@ -122,7 +124,7 @@ public class User extends Model {
     }
 
     public boolean hasProfileImage() {
-        return profile_image_file_name != null;
+        return profile_image_file_name != null && !profile_image_file_name.equals("");
     }
 
     public String getProfileImageFileName() {
@@ -155,11 +157,74 @@ public class User extends Model {
         return sex;
     }
 
-    public static Finder<Long, User> find = new Finder<>(
-            Long.class, User.class
-    );
-
-    public Long getID(){
+    public Long getId(){
         return id;
     }
+
+    // TODO: Check image size to be within a set range.
+    public String uploadPicture() {
+        if (student == false && bedkom == false && admin == false && root == false)
+            throw new Error("You do not have the privilege as a non-student to upload files!");
+        String userFolderPrefix = "public/upload/" + LoginState.getUser().getUsername();
+        Http.MultipartFormData body = Controller.request().body().asMultipartFormData();
+        Http.MultipartFormData.FilePart picture = body.getFile("picture");
+        if (picture != null) {
+            String contentType = picture.getContentType();
+            if (checkImageType(contentType)) {
+                String fileName = picture.getFilename();
+                //System.out.println(contentType);
+                File file = picture.getFile();
+                try {
+                    System.out.println(userFolderPrefix);
+                    File userFolder = new File(userFolderPrefix);
+                    if (!userFolder.exists())
+                        userFolder.mkdir();
+                    Long prefix = -1L;
+                    File destination = new File(userFolderPrefix + "/" + fileName);
+                    while (destination.exists()) {
+                        ++prefix;
+                        destination = new File(userFolderPrefix + "/" + String.valueOf(prefix) + "_" + fileName);
+                    }
+                    FileUtils.moveFile(file, new File(userFolderPrefix, (prefix == -1L ? "" : String.valueOf(prefix) + "_") + fileName));
+                } catch (IOException ioe) {
+                    System.out.println("Problem operating on filesystem");
+                }
+                return "/assets/upload/" + LoginState.getUser().getUsername() + "/" + fileName;
+            }
+        }
+        return null;
+    }
+
+    public static boolean checkImageType(String contentType){
+        String[] type = contentType.split("/");
+        return type[0].equals("image");
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder("USER[\n");
+        if(id != null) sb.append("\tid: " + id.toString() + ", \n");
+        if(email != null) sb.append("\temail: " + email.toString() + ", \n");
+        if(phone != null) sb.append("\tphone: " + phone.toString() + ", \n");
+        if(title != null) sb.append("\ttitle: " + title.toString() + ", \n");
+        if(username != null) sb.append("\tusername: " + username.toString() + ", \n");
+        if(surname != null)  sb.append("\tsurname: " + surname.toString() + ", \n");
+        if(first_name != null) sb.append("\tfirst_name: " + first_name.toString() + ", \n");
+        if(middle_name != null) sb.append("\tmiddle_name: " + middle_name.toString() + ", \n");
+        if(profile_image_file_name != null) sb.append("\tprofile_image_file_name: " + profile_image_file_name.toString() + ", \n");
+        if(website_url != null) sb.append("\twebsite_url: " + website_url.toString() + ", \n");
+        if(student != null) sb.append("\tstudent: " + student.toString() + ", \n");
+        if(bedkom != null) sb.append("\tbedkom: " + bedkom.toString() + ", \n");
+        if(admin != null) sb.append("\tadmin: " + admin.toString() + ", \n");
+        if(root != null) sb.append("\troot: " + root.toString() + ", \n");
+        if(sex != null) sb.append("\tsex: " + sex.toString() + ", \n");
+        if(enrolled != null) sb.append("\tenrollied: " + enrolled.toString() + ", \n");
+        if(date_of_birth != null) sb.append("\tdate_of_birth: " + date_of_birth.toString() + ", \n");
+        if(last_login != null) sb.append("\tlast_login: " + last_login.toString() + ", \n");
+        sb.append("]");
+        return sb.toString();
+    }
+
+    public static Model.Finder<Long, User> find = new Finder<>(
+            Long.class, User.class
+    );
 }

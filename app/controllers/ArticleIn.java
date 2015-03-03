@@ -1,107 +1,179 @@
 package controllers;
 
 import models.*;
-import org.apache.commons.io.FileUtils;
-import play.mvc.Controller;
-import play.mvc.Http;
-import play.mvc.Result;
-
+import models.Event;
 import play.data.Form;
-
-import views.html.layoutHtml;
+import play.mvc.Controller;
+import play.mvc.Result;
+import views.html.layout;
 import views.html.utils.centerBlock;
+
+import java.text.ParseException;
 
 import static play.data.Form.form;
 
-import models.Event;
 
-import java.io.File;
-import java.io.IOException;
-
-/**
- * Created by eliasbragstadhagen on 28.01.15.
- */
 public class ArticleIn extends Controller {
-
 
     final static Form<Event> eventForm = form(Event.class);
     final static Form<Article> articleForm = form(Article.class);
 
-    public static Result index(){
-        return ok(layoutHtml.render("Hybrida: Opprett Artikkel", centerBlock.render(views.html.ArticleIn.index.render())));
+    public static Result index() {
+        return ok(layout.render("Hybrida: Opprett Artikkel", views.html.ArticleIn.index.render()));
     }
 
     public static Result save() {
         try {
+            User user = LoginState.getUser();
+            if (user == null || !user.canCreateNewArticle())
+                return Application.showUnauthorizedAccess();
+
             long id = saveArticle();
 
             if(!(new HttpRequestData().get("event") == null)) {
-                saveEvent(id);
-                System.out.println("TRUE");
+                System.out.println(new HttpRequestData());
+                ResultAndEId res = saveEvent(id);
+                if (res.result != null)
+                    return res.result;
+                Renders.addEvent(res.event);
             }
+            else {
+                // Husk å legge til artikkelen i renders! Da vises den nemlig på fremsiden ^_^
+                Renders.addArticle(Article.find.byId(id));
+            }
+            return redirect(routes.ArticleOut.index("" + id).absoluteURL(request()));
         }
         catch (IllegalStateException e){
-            return redirect(routes.Application.show400("error").absoluteURL(request()));
+            return Application.show400("ugyldig data oppgitt");
         }
-        return index();
     }
 
     public static long saveArticle() throws IllegalStateException {
-        Form<Article> articleInput = articleForm.bindFromRequest();
+        User user = LoginState.getUser();
 
+        Form<Article> articleInput = articleForm.bindFromRequest();
+        System.out.println(new HttpRequestData());
         if (!articleInput.hasErrors()) {
             Article articleModel = articleInput.get();
-
-            //Start Imagehandeler
-            Http.MultipartFormData body = request().body().asMultipartFormData();
-            Http.MultipartFormData.FilePart picture = body.getFile("picture");
-            if (picture != null) {
-                String contentType = picture.getContentType();
-                if (checkImageType(contentType)) {
-                    String fileName = picture.getFilename();
-                    System.out.println(contentType);
-                    File file = picture.getFile();
-                    try {
-                        FileUtils.moveFile(file, new File("public/Upload", fileName));
-                    } catch (IOException ioe) {
-                        System.out.println("Problem operating on filesystem");
-                    }
-                    articleModel.setImagePath(fileName);
-                } else {
-                    articleModel.setImagePath(null);
-                }
-            } else {
-                articleModel.setImagePath(null);
-            }
-            //End Imagehandeler
-
-            //SetAuthor
-            User user = LoginState.getUser();
-            if (user == null)
-                System.out.println("ERROR TO THE MAX");
-            articleModel.setAuthor(user.getID());
-            //EndSetAuthor
-
+            articleModel.setImagePath(user.uploadPicture());
+            articleModel.setAuthor(user.getId());
             articleModel.save();
 
-            return articleModel.getAuthor();
+            return articleModel.getId();
         }
         throw new IllegalStateException();
     }
 
-    public static void saveEvent(long articleID){
-        Form<Event> eventInput = eventForm.bindFromRequest();
-        Event eventModel = eventInput.get();
+    public static class ResultAndEId {
+        ResultAndEId() {}
+        ResultAndEId(Result res) {
+            result = res;
+        }
+        Result result = null;
+        Event event = null;
+    }
+
+    public static ResultAndEId saveEvent(long articleID) {
+        ResultAndEId reid = new ResultAndEId();
+        HttpRequestData httpData = new HttpRequestData();
+        models.Event eventModel = new models.Event();
+        java.text.SimpleDateFormat dateFormat;
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        dateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+
+        java.util.Calendar current_calendar = java.util.Calendar.getInstance();
+        current_calendar.setTimeInMillis(System.currentTimeMillis());
+
+        try {
+            cal.setTime(dateFormat.parse(httpData.get("secondSignUp")));
+            if (cal.before(current_calendar)) {
+                reid.result = controllers.Application.show400("Andre oppmeldingsfristen er før nå. Dette er ikke gyldig.");
+                return reid;
+            }
+            eventModel.setSecondSignUp(cal);
+        } catch (ParseException parseExc) {
+            System.out.println(cal);
+            return new ResultAndEId(Application.show400("Feil dato format i den andre oppmeldingsfristen."));
+        }
+
+        cal = java.util.Calendar.getInstance();
+        try {
+            cal.setTime(dateFormat.parse(httpData.get("eventHappens")));
+            if (cal.before(current_calendar)) {
+                reid.result = controllers.Application.show400("Arrangementet skjer før nå. Dette er ikke gyldig.");
+                return reid;
+            }
+            eventModel.setEventHappens(cal);
+        } catch (ParseException parseExc) {
+            return new ResultAndEId(Application.show400("Feil dato format når arrangementet faktisk skjer oppmeldingsfristen."));
+        }
+
+        cal = java.util.Calendar.getInstance();
+        try {
+            cal.setTime(dateFormat.parse(httpData.get("signUpDeadline")));
+            if (cal.before(current_calendar)) {
+                reid.result = controllers.Application.show400("Oppmeldingsfristen er før nå. Dette er ikke gyldig.");
+                return reid;
+            }
+            eventModel.setSignUpDeadline(cal);
+        } catch (ParseException parseExc) {
+            return new ResultAndEId(Application.show400("Feil dato format i oppmeldingsfristen."));
+        }
+
+        if (httpData.getInt("maxParticipantsWaiting") < 0) {
+            reid.result = controllers.Application.show400("Antall mulige på ventelisten er ugyldig: '" + httpData.getInt("maxParticipants") + "'. Det skal være flere enn 0.");
+            return reid;
+        }
+        eventModel.setMaxParticipantsWaiting(httpData.getInt("maxParticipantsWaiting"));
+
+        if (httpData.getInt("maxParticipants") <= 0) {
+            reid.result = controllers.Application.show400("Antall mulig påmeldte er ugyldig: '" + httpData.getInt("maxParticipants") + "'. Det skal være flere enn 0.");
+            return reid;
+        }
+        eventModel.setMaxParticipants(httpData.getInt("maxParticipants"));
+
+        char sex = httpData.get("sexAllowed").charAt(0);
+        if (sex != 'M' && sex != 'F' && sex != 'A') {
+            reid.result = controllers.Application.show400("Kjønnet er feil: '" + sex + "'. Dette er ikke gyldig.");
+            return reid;
+        }
+        eventModel.setSexAllowed(httpData.get("sexAllowed").charAt(0));
+
+        if (httpData.getInt("secondLowerGraduationLimit") < 1 || httpData.getInt("secondLowerGraduationLimit") > 5) {
+            reid.result = controllers.Application.show400("Andre nedre klasse grense ugyldig '" + httpData.getInt("secondLowerGraduationLimit") + "' må være mellom 1 og 5 inkludert.");
+            return reid;
+        }
+        eventModel.setSecondLowerGraduationLimit(httpData.getInt("secondLowerGraduationLimit"));
+
+        if (httpData.getInt("secondUpperGraduationLimit") < 1 || httpData.getInt("secondUpperGraduationLimit") > 5) {
+            reid.result = controllers.Application.show400("Andre øvre klasse grense ugyldig '" + httpData.getInt("secondUpperGraduationLimit") + "' må være mellom 1 og 5 inkludert.");
+            return reid;
+        }
+        eventModel.setSecondUpperGraduationLimit(httpData.getInt("secondUpperGraduationLimit"));
+
+        if (httpData.getInt("firstLowerGraduationLimit") < 1 || httpData.getInt("firstLowerGraduationLimit") > 5) {
+            reid.result = controllers.Application.show400("Første nedre klasse grense ugyldig '" + httpData.getInt("firstLowerGraduationLimit") + "' må være mellom 1 og 5 inkludert.");
+            return reid;
+        }
+        eventModel.setFirstLowerGraduationLimit(httpData.getInt("firstLowerGraduationLimit"));
+
+        if (httpData.getInt("firstUpperGraduationLimit") < 1 || httpData.getInt("firstUpperGraduationLimit") > 5) {
+            reid.result = controllers.Application.show400("Første øvre klasse grense ugyldig '" + httpData.getInt("firstUpperGraduationLimit") + "' må være mellom 1 og 5 inkludert.");
+            return reid;
+        }
+        eventModel.setFirstUpperGraduationLimit(httpData.getInt("firstUpperGraduationLimit"));
+
+        eventModel.setLocation(httpData.get("location"));
         eventModel.setArticleId(articleID);
+
         eventModel.save();
 
+        reid.event = eventModel;
+        return reid;
     }
 
-    public static boolean checkImageType(String contentType){
-        String[] type = contentType.split("/");
-        if(type[0].equals("image")){
-            return true;
-        }
-        return false;
+    public static Result editArticle(String id) {
+        return ok();
     }
+
 }

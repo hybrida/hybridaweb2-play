@@ -1,17 +1,24 @@
 package controllers;
 
-import views.html.*;
-import play.mvc.*;
+import play.mvc.Controller;
+import play.mvc.Result;
+import views.html.layout;
+import views.html.layoutWithHead;
+
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
-import java.util.*;
-import java.io.*;
+import java.util.ArrayList;
 
 public class Calendar extends Controller {
+    public static Result index() {
+        return ok(layoutWithHead.render("Kalender", views.html.Calendar.calendarHead.render(), views.html.Calendar.calendarBody.render()));
+    }
+
     public static Result calendarRender() {
         ArrayList<String> titles = new ArrayList<>();
         ArrayList<String> summaries = new ArrayList<>();
@@ -68,6 +75,6 @@ public class Calendar extends Controller {
             //vise ex på feilsiden?
         }
 
-        return ok(views.html.Calendar.calendarRender.render("KalenderTest",titles,summaries));
+        return ok(layout.render("KalenderTest", views.html.Calendar.calendarRender.render(titles, summaries)));
     }
 }
