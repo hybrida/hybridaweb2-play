@@ -1,0 +1,21 @@
+@(article : models.Article, event : models.Event)
+@(/*This is for rendering a single event.*/)
+
+<div class="content2">
+    <div style="border-bottom: 2px solid #9e9d98 \">
+        <img src="@article.getImagePath" alt="No image available" width=50% height=50%/><br>
+    @article.getTitle
+    </div>
+    <br>
+    @article.getIngress
+    <br>
+    @Html(article.getText)
+    <br>
+    Av: @User.find.byId(article.getAuthor).getName
+
+    @event.getEventHappens
+
+    @if(models.LoginState.getUser().getId == article.getAuthor){
+        <a href="@controllers.routes.ArticleIn.editArticle(String.valueOf(article.getId))"> Rediger </a>
+    }
+</div>

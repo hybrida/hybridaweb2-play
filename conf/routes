@@ -75,6 +75,7 @@ POST        /profil/:username/rediger        controllers.Profile.update(username
 # TEST
 # # New design
 GET         /proto                           controllers.Application.proto()
+GET         /bs                              controllers.Application.bootstrapTest()
 # # Chat
 GET         /Chat                            controllers.Chat.connectClient()
 GET         /ChatServer                      controllers.Chat.socket()

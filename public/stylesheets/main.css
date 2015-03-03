@@ -1,7 +1,5 @@
 /*shared containers*/
 html {
-	background: url("/assets/images/sativa.png") fixed;
-    background-color: #255f76;
 	font-family: sans-serif;
     overflow-y: scroll;
 }
@@ -138,7 +136,7 @@ a img {
     width: 32px;
 }
 
-/*navmenu*/
+/*navigationMenu*/
 
 #logo{
     height: 5em;
@@ -156,7 +154,7 @@ a img {
     float: left;
 }
 
-#navghost {/*en tom div som fyller plassen navmenu ville hvis navmenu ikke var fixed*/
+#navghost {/*en tom div som fyller plassen navigationMenu ville hvis navigationMenu ikke var fixed*/
     position: relative;
     left: 0;
     right: 0;
