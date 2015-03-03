@@ -26,7 +26,7 @@ GET         /update/utgaver                  controllers.Update.utgaver()
 GET         /update/redaksjon                controllers.Update.redaksjon()
 
 # Article and events
-GET         /GriffensOrden            trash.controllers.griffensOrden.index()
+GET         /GriffensOrden                   trash.controllers.griffensOrden.index()
 
 GET         /artikkel/ut/:id                 controllers.ArticleOut.index(id)
 GET         /artikkel/ny                     controllers.ArticleIn.index()
@@ -73,6 +73,7 @@ POST        /profil/:username/rediger        controllers.Profile.update(username
 # TEST
 # # New design
 GET         /proto                           controllers.Application.proto()
+GET         /bs                              controllers.Application.bootstrapTest()
 # # Chat
 GET         /Chat                            controllers.Chat.connectClient()
 GET         /ChatServer                      controllers.Chat.socket()

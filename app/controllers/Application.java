@@ -55,4 +55,8 @@ public class Application extends Controller {
 
         //return ok(views.html.Application.index.render(play.twirl.api.Html.apply("This is some stuff")));
     }
+
+    public static Result bootstrapTest() {
+        return ok(views.html.BootTest.render());
+    }
 }
