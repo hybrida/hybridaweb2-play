@@ -16,6 +16,7 @@ body {
 .navbar {
     background-color: #ffffff;
     box-shadow: 0 0 8px #000000;
+    border: none;
     text-align: center;
     vertical-align: bottom;
 }
@@ -23,6 +24,14 @@ body {
 .form-control:focus {
     border-color: #000000;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.6);
+}
+
+.form-control {
+    border-radius: 0;
+}
+
+.btn {
+    border-radius: 0;
 }
 
 #carousel-frontpage > div > .item > img{
