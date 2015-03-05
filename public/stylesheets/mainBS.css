@@ -30,10 +30,6 @@ body {
     border-radius: 0;
 }
 
-.btn {
-    border-radius: 0;
-}
-
 #carousel-frontpage > div > .item > img{
     width:100%
 }
