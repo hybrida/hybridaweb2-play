@@ -47,8 +47,15 @@ public class UserEventJoined extends play.db.ebean.Model {
      * @todo Make sure the participant is within the specified sign up year.
      */
     public static boolean insert(Long userId, Long eventId) {
+        models.User user = models.User.find.byId(userId);
+        if (user == null)
+            return false;
         models.Event event = models.Event.find.byId(eventId);
+        if (event == null)
+            return false;
         if (getNumberOfSignedUp(eventId) < event.getMaxParticipants()) {
+            int currentYear = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
+            int difference = user.graduationYear - currentYear;
             (new UserEventJoined(userId, eventId)).save();
             return true;
         }
