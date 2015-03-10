@@ -21,7 +21,7 @@ public class ArticleOut extends Controller {
     final static Form<models.Event> eventForm = form(models.Event.class);
     final static Form<Article> articleForm = form(Article.class);
 
-    public static Result index(String id){
+    public static Result index(String id) {
         if (Article.find.byId(Long.valueOf(id)) == null)
             return Application.show404(request().uri().replaceFirst("/", ""));
         Long lId = Long.parseLong(id);

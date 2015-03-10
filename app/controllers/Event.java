@@ -103,7 +103,7 @@ public class Event extends Controller {
         return ok();
     }
 
-    public static List<String> generateEventNews(EventModel entity){
+    public static List<String> generateEventNews(EventModel entity) {
         List<String> newsEntity = new ArrayList<String>();
         newsEntity.add(entity.getTitle());
         newsEntity.add(entity.getIngress());
@@ -111,19 +111,19 @@ public class Event extends Controller {
         return newsEntity;
     }
 
-    public static Result updateUsers(){
+    public static Result updateUsers() {
         User user = LoginState.getUser();
         if (user.isDefault())
-            System.out.println("ERROR TO THE MAX");
+            return controllers.Application.show400("Du må logge inn på nytt.");
         model.addUser(user);
         model.update();
         return redirect(routes.Event.generateEvent(String.valueOf(model.getId())).absoluteURL(request()));
     }
 
-    public static Result removeUsers(){
+    public static Result removeUsers() {
         User user = LoginState.getUser();
         if (user.isDefault()) {
-            System.out.println("ERROR TO THE MAX");
+            return controllers.Application.show400("Du må logge inn på nytt.");
         }
         model.removeUser(user);
         model.update();
