@@ -167,7 +167,7 @@ public class User extends Model {
 
     // TODO: Check image size to be within a set range.
     public String uploadPicture() {
-        if (student == false && bedkom == false && admin == false && root == false)
+        if (isDefault())
             throw new Error("You do not have the privilege as a non-student to upload files!");
         String userFolderPrefix = "public/upload/" + LoginState.getUser().getUsername();
         Http.MultipartFormData body = Controller.request().body().asMultipartFormData();

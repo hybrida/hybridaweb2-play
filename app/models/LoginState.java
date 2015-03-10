@@ -28,7 +28,6 @@ public class LoginState extends Model {
             String data[] = play.api.libs.Crypto.decryptAES(user).split(",");
             if (isUserInDatabase(data[0])) {
                 if (isUserTimeValid(data[0], data[1])) {
-                    //User.find.where().eq("username", data[0]).findUnique();
                     return true;
                 }
             }
