@@ -38,13 +38,15 @@ public class UserEventJoined extends play.db.ebean.Model {
         return eventId;
     }
 
+    private static final int studyYears = 5;
+
     /**
      * Adds a user to an event.
      * @param userId
      * @param eventId
      * @return whether or not the user was successfully signed up.
      * @todo Done: Ensure that the event limit is not exceeded.
-     * @todo Make sure the participant is within the specified sign up year.
+     * @todo Done: Make sure the participant is within the specified sign up year.
      */
     public static boolean insert(Long userId, Long eventId) {
         models.User user = models.User.find.byId(userId);
@@ -55,9 +57,39 @@ public class UserEventJoined extends play.db.ebean.Model {
             return false;
         if (getNumberOfSignedUp(eventId) < event.getMaxParticipants()) {
             int currentYear = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
-            int difference = user.graduationYear - currentYear;
-            (new UserEventJoined(userId, eventId)).save();
-            return true;
+            int usersYear =  studyYears - (user.graduationYear - currentYear);
+            if (usersYear > studyYears) {
+                return false; // User already graduated.
+            } else if (java.util.Calendar.getInstance().before(event.getSignUpDeadline())) {
+                if (java.util.Calendar.getInstance().before(event.getSecondSignUp())) {
+                    if (
+                        studyYears >= event.getFirstLowerGraduationLimit()
+                        && studyYears <= event.getFirstUpperGraduationLimit()
+                    ) {
+                        (new UserEventJoined(userId, eventId)).save();
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else if (
+                    java.util.Calendar.getInstance().after(event.getSecondSignUp())
+                    && java.util.Calendar.getInstance().before(event.getSignUpDeadline())
+                ) {
+                    if (
+                        studyYears >= event.getSecondLowerGraduationLimit()
+                        && studyYears <= event.getSecondUpperGraduationLimit()
+                    ) {
+                        (new UserEventJoined(userId, eventId)).save();
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                return true;
+            }
         }
         else
             return false;
