@@ -11,6 +11,4 @@ public class OmStyret extends Controller {
     final static public Result index() {
     return ok(layout.render("", views.html.OmStyret.index.render()));
 }
-
-
 }
