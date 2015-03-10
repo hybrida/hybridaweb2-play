@@ -21,13 +21,13 @@ public class Application extends Controller {
     /**
      * \brief Index entry point of the website.
      */
-    public static Result index() throws java.sql.SQLException {
+    public static Result index() {
         java.util.List<Renderable> articles = models.Renders.getVisibleRenderables();
         String concatenation = "";
         int i = 0;
         for (Renderable renderable : Lists.reverse(articles)) {
-            i++;
-            if(i <= 2)
+            ++i;
+            if (i <= 2)
                 concatenation += "<div class='col-md-6'>";
             else
                 concatenation += "<div class='col-md-3'>";

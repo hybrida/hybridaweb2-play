@@ -1,8 +1,6 @@
 package controllers;
 
-import models.EventModel;
-import models.LoginState;
-import models.User;
+import models.*;
 import org.apache.commons.io.FileUtils;
 import play.data.Form;
 import play.mvc.Controller;
@@ -111,23 +109,34 @@ public class Event extends Controller {
         return newsEntity;
     }
 
-    public static Result updateUsers() {
-        User user = LoginState.getUser();
-        if (user.isDefault())
-            return controllers.Application.show400("Du må logge inn på nytt.");
-        model.addUser(user);
-        model.update();
-        return redirect(routes.Event.generateEvent(String.valueOf(model.getId())).absoluteURL(request()));
-    }
-
-    public static Result removeUsers() {
+    public static Result updateUser() {
         User user = LoginState.getUser();
         if (user.isDefault()) {
             return controllers.Application.show400("Du må logge inn på nytt.");
         }
-        model.removeUser(user);
-        model.update();
-        return redirect(routes.Event.generateEvent(String.valueOf(model.getId())).absoluteURL(request()));
+        Long event_id = new HttpRequestData().getLong("eventId");
+        if (event_id == null) {
+            return controllers.Application.show400("Forventet HTTP data nøkkel 'eventId' ikke funnet.");
+        }
+        models.Event event = models.Event.find.byId(event_id);
+
+        UserEventJoined.insert(user.getId(), event.getEventId());
+        return controllers.Application.index();
+    }
+
+    public static Result removeUser() {
+        User user = LoginState.getUser();
+        if (user.isDefault()) {
+            return controllers.Application.show400("Du må logge inn på nytt.");
+        }
+        Long event_id = new HttpRequestData().getLong("eventId");
+        if (event_id == null) {
+            return controllers.Application.show400("Forventet HTTP data nøkkel 'eventId' ikke funnet.");
+        }
+        models.Event event = models.Event.find.byId(event_id);
+
+        UserEventJoined.remove(user.getId(), event.getEventId());
+        return controllers.Application.index();
     }
 
     public static Boolean isSignedUp(){
