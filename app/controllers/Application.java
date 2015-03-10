@@ -37,6 +37,10 @@ public class Application extends Controller {
         return ok(layout.render("Hybrida", views.html.Application.index.render(views.html.utils.toHtml.render(concatenation))));
     }
 
+    /**
+     * Useful functions to use to return standard messages to the client.
+     * @return
+     */
     public static Result showUnauthorizedAccess() {
         return unauthorized(layout.render("Unauthorized", views.html.Application.showUnauthorizedAccess.render()));
     }
@@ -49,6 +53,11 @@ public class Application extends Controller {
         return badRequest(layout.render("400", views.html.Application.show400.render(get_value)));
     }
 
+    /**
+     * Experimental code
+     * @return
+     * @throws java.sql.SQLException
+     */
     public static Result proto()  throws java.sql.SQLException {
         java.util.List<Renderable> articles = models.Renders.getVisibleRenderables();
         String concatenation = "";
