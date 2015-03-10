@@ -1,8 +1,39 @@
 <div class="column1" style="right: 0;">
+        <!--Nav Bar -->
 
+    <nav class="bs-docs-sidebar">
+        <ul id="sidebar" class="nav nav-stacked">
+            <li>
+                <a href="#Hybrida">Hybrida</a>
+                <ul class="nav nav-stacked">
+                    <li><a href="#GroupASub1">Sub-Group 1</a></li>
+                    <li><a href="#GroupASub2">Sub-Group 2</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#Styret">Styret</a>
+                <ul class="nav nav-stacked">
+                    <li><a href="#GroupBSub1">Sub-Group 1</a></li>
+                    <li><a href="#GroupBSub2">Sub-Group 2</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#Update">Update</a>
+                <ul class="nav nav-stacked">
+                    <li><a href="#GroupCSub1">Sub-Group 1</a></li>
+                    <li><a href="#GroupCSub2">Sub-Group 2</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#Student">Informasjon til nye studenter</a>
 
-<nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix">
-    <ul class="nav bs-docs-sidenav">
+            </li>
+        </ul>
+    </nav>
+
+<!--
+<nav class="bs-docs-sidebar ">
+    <ul class="nav nav-stacked bs-docs-sidenav">
         <li class=""> <a href="#Hybrida">Linjeforeningen Hybrida</a> </li>
         <li class=""> <a href="#Styret">Styret i Hybrida</a> </li>
         <li class=""> <a href="#Update">Update</a> </li>
@@ -11,11 +42,13 @@
         <li class=""> <a href="#Kontaktinfo">KontaktInformasjon</a> </li>
     </ul>
 </nav>
+ -->
 
 
 </div> <!-- column1 -->
 
 <div class="column2">
+    <section id="Hybrida">
     <a href="#" name="Hybrida"></a>
     <div id="hybb">
 
@@ -26,25 +59,32 @@
         </div>
         <p id="hybrida">
             <b>Hybrida</b> er linjeforeningen for studieprogrammet <b>Ingeniørvitenskap og IKT</b> ved NTNU i Trondheim.
-            Foreningens formål er å fremme samhold og kameratskap innad på studieprogrammet ved bla.a. å
+            Foreningens formål er å fremme samhold og kameratskap innad på studieprogrammet ved blant annet å
             avholde arrangementer av både sosial og faglig karakter.
         </p>
 
     </div>
-    <div id="styret">
-        <a href="#" name="Styret"></a>
-        <a class="link" href="/styret">
-            <div class="bildetekst" >Styret i Hybrida</div>
+    </section>
+    <section id="Styret">
+        <div id="styret">
+            <a href="#" name="Styret"></a>
+            <a class="link" href="/styret">
+                <div class="bildetekst" >Styret i Hybrida</div>
 
-        </a>
+            </a>
 
-    </div>
-    <div id="update">
-        <a href="#" name="Update"></a>
-        <div style="font-size: 90px; text-align: center; padding-top: 40%">
-            <a class="link" href="/update">Update<sup>k</sup></a></div>
-    </div>
-
+        </div>
+    </section>
+    <section id="Update">
+        <div id="update">
+            <a href="#" name="Update"></a>
+            <a class="link" href="/update">
+            <div style="font-size: 90px; text-align: center; padding-top: 40%">
+               Update<sup>k</sup></div>
+            </a>
+        </div>
+    </section>
+    <section id="Student">
     <div id="student">
         <a href="#" name="Student"></a>
         <a class="link" href="/nystudent">
@@ -56,6 +96,7 @@
         </div>
         </a>
     </div>
+    </section>
     <div id="griff">
         <a href="#" name="griffensOrden"></a>
         <a class="link" href="/griffensorden">
@@ -74,22 +115,70 @@
 
 </div> <!-- column2 -->
 
-<style type="text/css">
+<script type="text/javascript">
+    $('body').scrollspy({
+    target: '.bs-docs-sidebar',
+    offset: 40
+    });
+    $("#sidebar").affix({
+    offset: {
+    top: 60
+    }
+    });
+</script>
 
+<style type="text/css">
+/* all links */
+.bs-docs-sidebar .nav>li>a {
+/*add trasnparent border */
+border-left: 2px solid transparent;
+}
+/* active & hover links */
+.bs-docs-sidebar .nav>.active>a,
+.bs-docs-sidebar .nav>li>a:hover,
+.bs-docs-sidebar .nav>li>a:focus {
+color: #563d7c;
+text-decoration: none;
+background-color: transparent;
+border-left: 2px solid #563d7c;
+}
+/* all active links */
+.bs-docs-sidebar .nav>.active>a,
+.bs-docs-sidebar .nav>.active:hover>a,
+.bs-docs-sidebar .nav>.active:focus>a {
+font-weight: 700;
+}
+/* nested active links */
+.bs-docs-sidebar .nav .nav>.active>a,
+.bs-docs-sidebar .nav .nav>.active:hover>a,
+.bs-docs-sidebar .nav .nav>.active:focus>a {
+font-weight: 500;
+}
+/* hide all (inactive) nested list */
+.bs-docs-sidebar .nav ul.nav {
+display: none;
+}
+/* show active nested list */
+.bs-docs-sidebar .nav>.active>ul.nav {
+display: block;
+}
+
+.bs-docs-sidebar .nav>.active>a {
+color: #563d7c;
+}
 .link {
 height: 100%;
 }
+
 .link:link {
-color:#212121;
 background-color:transparent;
 text-decoration:none;
 }
 .link:visited {
-color:#212121;
 background-color:transparent;
 }
 .bildetekst {
-color:#ffffff;
+color:#212121;
 padding-top: 8em;
 vertical-align: bottom;
 margin: 0 auto;
@@ -131,7 +220,7 @@ overflow: auto;
 margin: 0 auto;
 width: 100%;
 height: 100vh;
-background-image:url(../assets/images/styret.jpg);
+background-image:url(../assets/images/styret2.jpg);
 background-repeat:no-repeat;
 background-size:cover;
 background-position:center;
@@ -204,4 +293,64 @@ transition: all 0.3s ease-out;
 #transition img:hover {
 background-position: -100% 100%;
 }
+
+
+#sidebar.affix {
+top: 20px;
+}
+/* sidebar */
+.bs-docs-sidebar {
+padding-left: 20px;
+margin-top: 20px;
+margin-bottom: 20px;
+}
+
+/* all links */
+.bs-docs-sidebar .nav>li>a {
+color: #999;
+border-left: 2px solid transparent;
+padding: 4px 20px;
+font-size: 13px;
+font-weight: 400;
+}
+
+/* nested links */
+.bs-docs-sidebar .nav .nav>li>a {
+padding-top: 1px;
+padding-bottom: 1px;
+padding-left: 30px;
+font-size: 12px;
+}
+
+/* active & hover links */
+.bs-docs-sidebar .nav>.active>a,
+.bs-docs-sidebar .nav>li>a:hover,
+.bs-docs-sidebar .nav>li>a:focus {
+color: darkblue;
+text-decoration: none;
+background-color: transparent;
+border-left-color: darkblue;
+}
+/* all active links */
+.bs-docs-sidebar .nav>.active>a,
+.bs-docs-sidebar .nav>.active:hover>a,
+.bs-docs-sidebar .nav>.active:focus>a {
+font-weight: 700;
+}
+/* nested active links */
+.bs-docs-sidebar .nav .nav>.active>a,
+.bs-docs-sidebar .nav .nav>.active:hover>a,
+.bs-docs-sidebar .nav .nav>.active:focus>a {
+font-weight: 500;
+}
+
+/* hide inactive nested list */
+.bs-docs-sidebar .nav ul.nav {
+display: none;
+}
+/* show active nested list */
+.bs-docs-sidebar .nav>.active>ul.nav {
+display: block;
+}
+
 </style>
