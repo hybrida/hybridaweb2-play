@@ -42,7 +42,9 @@ public class UserEventJoined extends play.db.ebean.Model {
      * Adds a user to an event.
      * @param userId
      * @param eventId
+     * @return whether or not the user was successfully signed up.
      * @todo Done: Ensure that the event limit is not exceeded.
+     * @todo Make sure the participant is within the specified sign up year.
      */
     public static boolean insert(Long userId, Long eventId) {
         models.Event event = models.Event.find.byId(eventId);

@@ -36,7 +36,7 @@ public class User extends Model {
     public String      phone;
     public String      title; // Ph.D., Civ.Eng., Stud., Chief, Commander, General, Lord, Admiral, Vevsjef,...
     public String      profile_image_file_name;
-    // public int         graduation_year = 0;
+    public int         graduation_year = 0;
 
     // Privilege status
     @Column(name = "student", columnDefinition = "boolean default false")
@@ -49,8 +49,8 @@ public class User extends Model {
     public Boolean             root;       // Powers too great for mere mortals.
     @Column(name = "sex", columnDefinition = "varchar(1) default '\0'")
     public Character           sex;         // For specific events.
-    public Date                enrolled;    // For specific bedpresses requiring a year number.
-    public Date                date_of_birth;
+    public Timestamp                enrolled;    // For specific bedpresses requiring a year number.
+    public Timestamp                date_of_birth;
 
     // Misc. account info
     private Timestamp          last_login; // Used to avoid cookie-stealing schemes and MITM attacks. Combined with AES with time and RNG padded encryption.
@@ -63,7 +63,24 @@ public class User extends Model {
         this.surname = surname;
     }
 
-    public User(String username, String first_name, String surname, String middle_name, String email, String website_url, String phone, String title, int graduation_year, String profile_image_file_name, Boolean student, Boolean bedkom, Boolean admin, Boolean root, Character sex, Date enrolled, Date date_of_birth) {
+    public User(
+            String username,
+            String first_name,
+            String surname,
+			String middle_name,
+			String email,
+			String website_url,
+			String phone,
+			String title,
+			int graduation_year,
+			String profile_image_file_name,
+			Boolean student,
+			Boolean bedkom,
+			Boolean admin,
+			Boolean root,
+			Character sex,
+			Timestamp enrolled,
+            Timestamp date_of_birth) {
         this.username = username;
         this.first_name = first_name;
         this.surname = surname;
@@ -72,7 +89,7 @@ public class User extends Model {
         this.website_url = website_url;
         this.phone = phone;
         this.title = title;
-//        this.graduation_year = graduation_year;
+        this.graduation_year = graduation_year;
         this.profile_image_file_name = profile_image_file_name;
         this.student = student;
         this.bedkom = bedkom;
