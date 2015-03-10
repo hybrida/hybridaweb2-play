@@ -13,16 +13,32 @@ body {
     z-index: 99999;
 }
 
+a {
+    text-decoration: none;
+    color: #777;
+}
+
+a :hover {
+    text-decoration: none;
+    text-underline: none!important;
+    color: #000000;
+}
+
 .navbar {
     background-color: #ffffff;
     box-shadow: 0 0 8px #000000;
+    border: none;
     text-align: center;
     vertical-align: bottom;
 }
 
 .form-control:focus {
     border-color: #000000;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.6);
+    box-shadow: none;
+}
+
+.form-control {
+    border-radius: 0;
 }
 
 #carousel-frontpage > div > .item > img{
@@ -30,6 +46,6 @@ body {
 }
 
 #carousel-frontpage {
-    max-height: 900px;
+    max-height: 700px;
     overflow: hidden;
 }
