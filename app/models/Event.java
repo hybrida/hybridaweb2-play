@@ -36,8 +36,8 @@ public class Event extends Model implements Renderable {
     private int maxParticipantsWaiting;
 
     private Calendar signUpDeadline;
-    private Calendar eventHappens;
     private Calendar secondSignUp;
+    private Calendar eventHappens;
 
     public static Finder<Long, Event> find = new Finder<Long, Event> (
         Long.class, Event.class
