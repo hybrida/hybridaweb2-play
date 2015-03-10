@@ -21,7 +21,7 @@ import static views.html.layout.render;
  */
 public class ExampleImageUpload {
 
-    public static Result index(){
+    public static Result index() {
        return ok(render("Image", examples.views.html.exampleImageUpload.render()));
     }
 
@@ -34,7 +34,7 @@ public class ExampleImageUpload {
             String fileName = picture.getFilename();
             String contentType = picture.getContentType();
             File file = picture.getFile();
-            try{
+            try {
                 FileUtils.moveFile(file, new File("public/Upload", fileName));
             } catch (IOException ioe) {
                 System.out.println("Problem operating on filesystem");

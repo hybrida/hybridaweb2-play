@@ -28,13 +28,13 @@ public class Event extends Controller {
     public static Result save() {
         Form<EventModel> input = form.bindFromRequest();
         //Image handler:
-        if(!input.hasErrors()){
+        if(!input.hasErrors()) {
             EventModel model = input.get();
             Http.MultipartFormData body = request().body().asMultipartFormData();
             Http.MultipartFormData.FilePart picture = body.getFile("picture");
             if (picture != null) {
                 String contentType = picture.getContentType();
-                if(checkImageType(contentType)){
+                if(checkImageType(contentType)) {
                     String fileName = picture.getFilename();
                     System.out.println(contentType);
                     File file = picture.getFile();
@@ -44,7 +44,7 @@ public class Event extends Controller {
                         System.out.println("Problem operating on filesystem");
                     }
                     model.setImage_title(fileName);}
-                else{
+                else {
                     model.setImage_title(null);
                 }
             } else {
@@ -57,15 +57,15 @@ public class Event extends Controller {
         return index();
     }
 
-    public static boolean checkImageType(String contentType){
+    public static boolean checkImageType(String contentType) {
         String[] type = contentType.split("/");
-        if(type[0].equals("image")){
+        if(type[0].equals("image")) {
             return true;
         }
         return false;
     }
 
-    public static Result generateEvent(String eventId){
+    public static Result generateEvent(String eventId) {
         EventModel entity = EventModel.find.byId(eventId);
         model = entity;
         List<String> contentList = new ArrayList<>();
@@ -92,10 +92,10 @@ public class Event extends Controller {
         return ok(layout.render("Hybrida", views.html.Event.generateEvent.render(contentList)));
     }
 
-    public static Result listEvents(){
+    public static Result listEvents() {
         List<EventModel> entityList = EventModel.find.all();
         List<List<String>> listedEvents = new ArrayList<List<String>>();
-        for(EventModel entity : entityList){
+        for(EventModel entity : entityList) {
             listedEvents.add(generateEventNews(entity));
         }
         return ok();
@@ -139,9 +139,9 @@ public class Event extends Controller {
         return controllers.Application.index();
     }
 
-    public static Boolean isSignedUp(){
+    public static Boolean isSignedUp() {
         User user = LoginState.getUser();
-        if (user.isDefault()){
+        if (user.isDefault()) {
             System.out.println("ERROR TO THE MAX");
         }
         Boolean isSignedUp = model.userExists(String.valueOf(user.getId()));

@@ -43,7 +43,7 @@ public class ArticleIn extends Controller {
             }
             return redirect(routes.ArticleOut.index("" + id).absoluteURL(request()));
         }
-        catch (IllegalStateException e){
+        catch (IllegalStateException e) {
             return Application.show400("ugyldig data oppgitt");
         }
     }

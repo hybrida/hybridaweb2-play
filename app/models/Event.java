@@ -165,8 +165,8 @@ public class Event extends Model implements Renderable {
         return eventRenderFrontPageSample.render(article, this);
     }
 
-    public static String changeMonthToNorwegian(int month){
-        switch (month){
+    public static String changeMonthToNorwegian(int month) {
+        switch (month) {
             case 0: return "Januar";
             case 1: return "Februar";
             case 2: return "Mars";
@@ -182,8 +182,8 @@ public class Event extends Model implements Renderable {
             default: return "InvalidString";
         }
     }
-    public static String changeDayToNorwegian(int day){
-        switch (day){
+    public static String changeDayToNorwegian(int day) {
+        switch (day) {
             case 2: return "Mandag";
             case 3: return "Tirsdag";
             case 4: return "Onsdag";

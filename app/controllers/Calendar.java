@@ -37,23 +37,23 @@ public class Calendar extends Controller {
 
                 switch (event) {
                     case XMLStreamConstants.START_ELEMENT:
-                        if (parser.getLocalName() == "title"){
+                        if (parser.getLocalName() == "title") {
                             inTitle = true;
                         }
-                        else if (parser.getLocalName() == "summary"){
+                        else if (parser.getLocalName() == "summary") {
                             inSummary = true;
                         }
                         break;
                     case XMLStreamConstants.END_ELEMENT://kun for sikkerhetsskyld
-                        if (parser.getLocalName() == "title"){
+                        if (parser.getLocalName() == "title") {
                             inTitle = false;
                         }
-                        else if (parser.getLocalName() == "summary"){
+                        else if (parser.getLocalName() == "summary") {
                             inSummary = false;
                         }
                         break;
                     case XMLStreamConstants.CHARACTERS:
-                        if (inTitle){
+                        if (inTitle) {
                             titles.add(parser.getText());
                             inTitle = false;
                         }

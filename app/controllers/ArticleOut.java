@@ -36,7 +36,7 @@ public class ArticleOut extends Controller {
         resultList.add(User.find.byId(article.getAuthor()).getName());
         resultList.add(article.getDateMade().toString());
 
-        if(event != null){
+        if(event != null) {
             resultList.add(event.getLocation());
             resultList.add(event.getEventHappens().toString());
             resultList.add("" + event.getMaxParticipants());
@@ -53,12 +53,12 @@ public class ArticleOut extends Controller {
             return Application.show404(request().uri().replaceFirst("/", ""));
     }
 
-    public static Article getArticle(long articleId){
+    public static Article getArticle(long articleId) {
         Article article = Article.find.byId(articleId);
         return article;
     }
 
-    public static Event getEvent(Article article){
+    public static Event getEvent(Article article) {
         Event event = Event.find.where("articleId = " + article.getId().toString()).findUnique();
         return event;
     }

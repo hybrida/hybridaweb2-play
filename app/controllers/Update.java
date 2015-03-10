@@ -21,7 +21,7 @@ import static play.mvc.Results.ok;
 public class Update {
 
 
-    public static Result index(){
+    public static Result index() {
 
         return ok(layout.render("Update!", views.html.Update.index.render()));
     }
@@ -34,14 +34,14 @@ public class Update {
             String fileName = picture.getFilename();
             String contentType = picture.getContentType();
             File file = picture.getFile();
-            try{
+            try {
                 FileUtils.moveFile(file, new File("public/update", fileName));
             } catch (IOException ioe) {
                 System.out.println("Problem operating on filesystem");
             }
 
             return ok(layout.render("img", toHtml.render("Upload Successful" + "<img src=\"/assets/update/" + fileName + "\" alt=\"rect\"/>")));
-        }else if(picture != null){
+        }else if(picture != null) {
             flash("error", "Invalid file");
             return ok("Invalid file, accepted format: pdf");
         }
@@ -52,10 +52,10 @@ public class Update {
         }
     }
 
-    public static Result utgaver(){
+    public static Result utgaver() {
         return TODO;
     }
-    public static Result redaksjon(){
+    public static Result redaksjon() {
         return TODO;
     }
 }

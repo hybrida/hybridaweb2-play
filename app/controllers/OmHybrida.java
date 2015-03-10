@@ -8,6 +8,6 @@ import views.html.layout;
  * Created by Kia on 16.10.14.
  */
     public class OmHybrida extends Controller {
-        final static public Result index(){  return ok(layout.render("", views.html.OmHybrida.index.render()));
+        final static public Result index() {  return ok(layout.render("", views.html.OmHybrida.index.render()));
         }
 }

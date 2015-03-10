@@ -8,7 +8,7 @@ import javax.persistence.*;
  * Created by eliasbragstadhagen on 04.11.14.
  */
 @Entity
-public class EventModel extends Model{
+public class EventModel extends Model {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -21,7 +21,7 @@ public class EventModel extends Model{
     private String users;
     //TODO lage klasser for synlighet og tilgang, samt lagring av påmeldte
 
-    public EventModel(){
+    public EventModel() {
         //users = new ArrayList<User>();
         users = "";
     }
@@ -69,35 +69,35 @@ public class EventModel extends Model{
     public void setAntall(int antall) {
         this.antall = antall;
     }
-    public long getId(){
+    public long getId() {
         return id;
     }
 
-    public void addUser(User user){
+    public void addUser(User user) {
         if(!userExists(String.valueOf(user.getId()))) {
             users += user.getId() + ";";
         }
     }
 
-    public String getUsers(){
+    public String getUsers() {
         return users;
     }
-    public boolean userExists(String id){
+    public boolean userExists(String id) {
         String[] user = users.split(";");
-        for(String i : user){
-            if (id.equals(i)){
+        for(String i : user) {
+            if (id.equals(i)) {
                 return true;
             }
         }
         return false;
     }
 
-    public void removeUser(User user){
+    public void removeUser(User user) {
         String tempUsers = "";
-        if(userExists(String.valueOf(user.getId()))){
+        if(userExists(String.valueOf(user.getId()))) {
             String[] bruker = users.split(";");
-            for(String i : bruker){
-                if(!i.equals(user.getId())){
+            for(String i : bruker) {
+                if(!i.equals(user.getId())) {
                     tempUsers += i + ";";
                 }
             }

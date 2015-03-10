@@ -15,7 +15,7 @@ import java.util.Date;
 @Table(
         name="USER",
         uniqueConstraints=
-            @UniqueConstraint(columnNames={"username"})
+            @UniqueConstraint(columnNames= {"username"})
 )
 public class User extends Model {
 
@@ -161,7 +161,7 @@ public class User extends Model {
         return sex;
     }
 
-    public Long getId(){
+    public Long getId() {
         return id;
     }
 
@@ -199,7 +199,7 @@ public class User extends Model {
         return null;
     }
 
-    public static boolean checkImageType(String contentType){
+    public static boolean checkImageType(String contentType) {
         String[] type = contentType.split("/");
         return type[0].equals("image");
     }
