@@ -13,6 +13,17 @@ body {
     z-index: 99999;
 }
 
+a {
+    text-decoration: none;
+    color: #777;
+}
+
+a :hover {
+    text-decoration: none;
+    text-underline: none!important;
+    color: #000000;
+}
+
 .navbar {
     background-color: #ffffff;
     box-shadow: 0 0 8px #000000;

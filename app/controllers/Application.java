@@ -24,8 +24,15 @@ public class Application extends Controller {
     public static Result index() throws java.sql.SQLException {
         java.util.List<Renderable> articles = models.Renders.getVisibleRenderables();
         String concatenation = "";
+        int i = 0;
         for (Renderable renderable : Lists.reverse(articles)) {
+            i++;
+            if(i <= 2)
+                concatenation += "<div class='col-md-6'>";
+            else
+                concatenation += "<div class='col-md-3'>";
             concatenation += renderable.renderFrontPageSample();
+            concatenation += "</div>";
         }
         return ok(layout.render("Hybrida", views.html.Application.index.render(views.html.utils.toHtml.render(concatenation))));
     }

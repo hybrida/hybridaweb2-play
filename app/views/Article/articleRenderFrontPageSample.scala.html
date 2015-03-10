@@ -2,13 +2,20 @@
 @(/*This is for rendering a single article preview. It returns the bare html needed for the article to be correctly displayed. CSS should be added as well...*/)
 <!--<img src="@(article.getImagePath())" alt="image">-->
 
-<a href="@(routes.ArticleOut.viewArticle(String.valueOf(article.getId())))">
-    <div class="content2">
-        <div style="border-bottom: 2px solid #9e9d98 \">
-            <img src="@article.getImagePath" alt="No image available" width=50% height=50%/><br>
-            @article.getTitle
-        </div>
-        <br>
-        @article.getIngress
+<div style="position: relative;">
+    <div style="padding-top: 100%;"></div>
+    <div style="position: absolute; top: 0; bottom: 0; left:0;right:0; overflow: hidden">
+        <a href="@(routes.ArticleOut.viewArticle(String.valueOf(article.getId())))">
+            <div style="position: relative">
+                <div style="padding-top: 61.8%"></div>
+                <div style="position: absolute; top: 0; bottom: 0; overflow: hidden">
+                    <img src="@article.getImagePath" alt="No image available" width=100%/>
+                </div>
+            </div>
+            <h3>
+                @article.getTitle
+            </h3>
+        </a>
+        <p>@article.getIngress</p>
     </div>
-</a>
+</div>
