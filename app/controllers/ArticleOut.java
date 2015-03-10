@@ -15,8 +15,6 @@ import static play.data.Form.form;
 
 /**
  * Created by eliasbragstadhagen on 04.02.15.
-
-
  */
 public class ArticleOut extends Controller {
 
@@ -55,7 +53,6 @@ public class ArticleOut extends Controller {
             return Application.show404(request().uri().replaceFirst("/", ""));
     }
 
-
     public static Article getArticle(long articleId){
         Article article = Article.find.byId(articleId);
         return article;
@@ -66,5 +63,12 @@ public class ArticleOut extends Controller {
         return event;
     }
 
+    public static Result joinEvent(String eventId) {
+        return ok();
+    }
+
+    public static Result abandonEvent(String eventId) {
+        return ok();
+    }
 
 }

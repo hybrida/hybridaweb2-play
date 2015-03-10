@@ -83,6 +83,10 @@ public class User extends Model {
         this.date_of_birth = date_of_birth;
     }
 
+    public boolean isDefault() {
+        return (id == null);
+    }
+
     public void setLastLoginTimeNow() {
         last_login = new Timestamp(new java.util.Date(System.currentTimeMillis()).getTime());
     }

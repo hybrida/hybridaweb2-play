@@ -21,6 +21,7 @@ public class Event extends Model implements Renderable {
     @OneToOne // This is a foreign key. It points to an "Article".
     private long articleId;
 
+    @OneToMany
     private int timeFrame;
     private String location;
 
@@ -39,7 +40,7 @@ public class Event extends Model implements Renderable {
     private Calendar secondSignUp;
 
     public static Finder<Long, Event> find = new Finder<Long, Event> (
-            Long.class, Event.class
+        Long.class, Event.class
     );
 
     public long getEventId() {

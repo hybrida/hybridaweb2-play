@@ -113,7 +113,7 @@ public class Event extends Controller {
 
     public static Result updateUsers(){
         User user = LoginState.getUser();
-        if (user == null)
+        if (user.isDefault())
             System.out.println("ERROR TO THE MAX");
         model.addUser(user);
         model.update();
@@ -122,7 +122,7 @@ public class Event extends Controller {
 
     public static Result removeUsers(){
         User user = LoginState.getUser();
-        if ( user == null){
+        if (user.isDefault()) {
             System.out.println("ERROR TO THE MAX");
         }
         model.removeUser(user);
@@ -132,7 +132,7 @@ public class Event extends Controller {
 
     public static Boolean isSignedUp(){
         User user = LoginState.getUser();
-        if ( user == null){
+        if (user.isDefault()){
             System.out.println("ERROR TO THE MAX");
         }
         Boolean isSignedUp = model.userExists(String.valueOf(user.getId()));
