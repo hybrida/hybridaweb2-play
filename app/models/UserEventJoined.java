@@ -24,4 +24,13 @@ public class UserEventJoined extends play.db.ebean.Model {
     public static void remove(Long userId, Long eventId) {
         (new UserEventJoined(userId, eventId)).delete();
     }
+
+    public static boolean isSignedUp(Long userId, Long eventId) {
+        UserEventJoined joined = UserEventJoined.find.where().eq("userId", userId).eq("eventId", eventId).findUnique();
+        return joined != null;
+    }
+
+    public static play.db.ebean.Model.Finder<Long, UserEventJoined> find = new Finder<>(
+            Long.class, UserEventJoined.class
+    );
 }
