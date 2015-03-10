@@ -204,6 +204,10 @@ public class User extends Model {
         return type[0].equals("image");
     }
 
+    public void saveToSession() {
+        play.mvc.Controller.session("user", play.api.libs.Crypto.encryptAES(username + "," + String.valueOf(System.currentTimeMillis())));
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder("USER[\n");
         if(id != null) sb.append("\tid: " + id.toString() + ", \n");

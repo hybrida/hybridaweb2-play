@@ -75,7 +75,7 @@ public class SSOLogin extends Controller {
                             // System.out.println(data.getLoginInfo().get("username") + " has logged in.");
                             user.setLastLoginTimeNow();
                             user.save();
-                            session("user", play.api.libs.Crypto.encryptAES(data.getLoginInfo().get("username") + "," + String.valueOf(System.currentTimeMillis())));
+                            user.saveToSession();
                         }
                     } else {
                         // System.out.println("Username: " + data.getLoginInfo().get("username") + " does not exist in the database.");

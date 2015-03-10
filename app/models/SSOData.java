@@ -18,7 +18,7 @@ package models;
  * This class does not check for correct IP addresses.
  * This class does no bookkeeping of any kind.
  */
-public class SSOData extends play.db.ebean.Model {
+public class SSOData {
 
     private java.util.Map<String, String> login_info;
 
@@ -70,7 +70,7 @@ public class SSOData extends play.db.ebean.Model {
     }
 
     private static boolean verifySignature(String data, java.security.PublicKey key, byte[] signature) throws Exception {
-        java.security.Signature signer = java.security.Signature.getInstance("SHA1withRSA");
+        java.security.Signature signer = java.security.Signature.getInstance(models.Certificate.getEncryptionMethod());
         signer.initVerify(key);
         signer.update(data.getBytes());
         return (signer.verify(signature));

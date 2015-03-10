@@ -8,4 +8,5 @@ public class Certificate {
         return "innsida.crt";
     }
     public static String getSignMethod() { return "X.509"; }
+    public static String getEncryptionMethod() { return "SHA1withRSA"; }
 }
