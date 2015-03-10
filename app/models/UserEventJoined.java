@@ -90,9 +90,9 @@ public class UserEventJoined extends play.db.ebean.Model {
             } else {
                 return true;
             }
-        }
-        else
+        }  else {
             return false;
+        }
     }
 
     /**
