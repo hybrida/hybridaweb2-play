@@ -4,11 +4,11 @@
 
 <div style="position: relative;">
     <div style="padding-top: 100%;"></div>
-    <div style="position: absolute; top: 0; bottom: 0; left:0;right:0; overflow: hidden">
+    <div class="container-with-set-aspect-ratio">
         <a href="@(routes.ArticleOut.viewArticle(String.valueOf(article.getId())))">
             <div style="position: relative">
                 <div style="padding-top: 61.8%"></div>
-                <div style="position: absolute; top: 0; bottom: 0; overflow: hidden">
+                <div class="container-with-set-aspect-ratio">
                     <img src="@article.getImagePath" alt="No image available" width=100%/>
                 </div>
             </div>
