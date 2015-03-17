@@ -5,13 +5,13 @@
     <div class="row">
         <div class="col-md-9">
             <div style="border-bottom : 2 px solid #9e9d98 \">
-                <img src="@article.getImagePath" alt="No image available" width=100%/><br>
-                <h1>@article.getTitle</h1>
+                <img src="@article.getImagePath" alt="No image available" class="center-block img-circle"><br>
+                <h1><p class="text-center">@article.getTitle</p></h1>
             </div>
+            <hr>
+            <h3><p class="text-center">@article.getIngress</p></h3>
             <br>
-            <h3>@article.getIngress</h3>
-            <br>
-            @Html(article.getText)
+            <p class="text-center">@Html(article.getText)</p>
             <br>
             Av: @User.find.byId(article.getAuthor).getName
 
