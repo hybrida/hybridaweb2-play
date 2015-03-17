@@ -8,6 +8,6 @@ import views.html.layoutWithHead;
  * Created by Torsten on
  */
 public class Riddere extends Controller {
-    final static public Result index() {  return ok(layoutWithHead.render("Griffens Orden", views.html.griffensOrdenbody.render(),views.html.griffensOrdenhead.render()));
+    final static public Result index() {  return ok(layoutWithHead.render("Griffens Orden", views.html.Ridderebody.render(),views.html.griffensOrdenhead.render()));
     }
 }
