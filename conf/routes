@@ -84,8 +84,6 @@ GET         /examples/imageupload            examples.controllers.ExampleImageUp
 POST        /examples/imageupload            examples.controllers.ExampleImageUpload.upload()
 # # Cookies
 GET         /examples/cookies                examples.controllers.ExampleCookies.index()
-POST        /examples/cookies/update         examples.controllers.ExampleCookies.updateCookie()
-GET         /examples/cookies/update         examples.controllers.ExampleCookies.updateCookie()
 POST        /examples/cookies/clear          examples.controllers.ExampleCookies.clearAllCookies()
 GET         /examples/cookies/clear          examples.controllers.ExampleCookies.clearAllCookies()
 # # Database
