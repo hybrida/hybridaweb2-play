@@ -33,6 +33,7 @@ POST        /update                          controllers.Update.post()
 GET         /update/utgaver                  controllers.Update.utgaver()
 GET         /update/redaksjon                controllers.Update.redaksjon()
 
+GET         /bedrift                         controllers.Company.index()
 
 # Ebean example
 GET         /ebean                           examples.controllers.ExampleEbean.index()
