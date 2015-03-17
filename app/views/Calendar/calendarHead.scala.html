@@ -1,66 +1,68 @@
-<link href='/assets/fullcalendar/fullcalendar.css' rel='stylesheet' />
-<link href='/assets/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
-<script src='/assets/fullcalendar/lib/moment.min.js'></script>
-<!--<script src='/assets/fullcalendar/lib/jquery.min.js'></script>-->
-<script src='/assets/javascripts/jquery-1.11.2.min.js'></script>
-<script src='/assets/fullcalendar/fullcalendar.min.js'></script>
-<script src='/assets/fullcalendar/gcal.js'></script>
-<script src="https://apis.google.com/js/client.js"></script>
+<meta charset='utf-8' />
+<link href='assets/fullcalendar/fullcalendar.css' rel='stylesheet' />
+<link href='assets/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
+<script src='assets/fullcalendar/lib/moment.min.js'></script>
+<script src='assets/javascripts/jquery-1.11.2.min.js'></script>
+<script src='assets/fullcalendar/fullcalendar.min.js'></script>
 <script>
 
-$(document).ready(function() {
-    $('#calendar').fullCalendar( {
-        googleCalendarApiKey: 'AIzaSyB8tjQwEBdJJS06cTJFnjAw3NFLyYI-zwA',
+    $(document).ready(function() {
 
-        events: {
-            googleCalendarId: 'scbsul59r0oq67ejhp46ao2njo@@group.calendar.google.com'
-        },
-
-        eventClick: function(event) {
-            // opens events in a popup window
-            window.open(event.url, 'gcalevent', 'width=700,height=600');
-            return false;
-        },
-
-        loading: function(bool) {
-            $('#loading').toggle(bool);
-        }
+        $('#calendar').fullCalendar({
+            firstDay: 1,
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            @if(models.LoginState.getUser().canCreateNewArticle()){editable: true,}
+            eventLimit: true, // allow "more" link when too many events
+            events: {
+                url: 'calendar',
+                error: function() {
+                    $('#script-warning').show();
+                }
+            },
+            loading: function(bool) {
+                $('#loading').toggle(bool);
+            }
+        });
 
     });
-
-});
-
-function auth() {
-    var config = {
-        'client_id': '294720547002-fhgakvr7af17ebmpap7ktnil21geuaun.apps.googleusercontent.com',
-        'scope': 'https://www.googleapis.com/auth/calendar'
-    };
-    gapi.auth.authorize(config, function() {
-        console.log('login complete');
-        console.log(gapi.auth.getToken());
-    });
-}
 
 </script>
 <style>
 
-body {
-    margin: 40px 10px;
-    padding: 0;
-    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-    font-size: 14px;
-}
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+        font-size: 14px;
+    }
 
-#loading {
-    display: none;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
+    #script-warning {
+        display: none;
+        background: #eee;
+        border-bottom: 1px solid #ddd;
+        padding: 0 10px;
+        line-height: 40px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 12px;
+        color: red;
+    }
 
-#calendar {
-    max-width: 900px;
-    margin: 0 auto;
-}
+    #loading {
+        display: none;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    #calendar {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 0 10px;
+    }
 
 </style>

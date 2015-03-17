@@ -1,5 +1,8 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import models.*;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.layout;
@@ -12,11 +15,29 @@ import javax.xml.stream.XMLStreamReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Calendar extends Controller {
     public static Result index() {
         return ok(layoutWithHead.render("Kalender", views.html.Calendar.calendarHead.render(), views.html.Calendar.calendarBody.render()));
+    }
+
+    public static Result fetch(String start, String end, String zone) {
+        Date start_date;
+        Date end_date;
+
+        try {
+            start_date = new SimpleDateFormat("yyyy-MM-dd").parse(start);
+            end_date = new SimpleDateFormat("yyyy-MM-dd").parse(end);
+        } catch (ParseException e) {
+            return badRequest();
+        }
+
+        JsonNode json = Json.toJson(models.Event.find.where().between("eventHappens", new java.sql.Date(start_date.getTime()), new java.sql.Date(end_date.getTime()))); //timeFrame - duration
+        return ok(json);
     }
 
     public static Result calendarRender() {
