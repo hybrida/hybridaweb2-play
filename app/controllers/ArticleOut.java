@@ -15,15 +15,10 @@ import static play.data.Form.form;
 
 /**
  * Created by eliasbragstadhagen on 04.02.15.
-
-
  */
 public class ArticleOut extends Controller {
 
-    final static Form<models.Event> eventForm = form(models.Event.class);
-    final static Form<Article> articleForm = form(Article.class);
-
-    public static Result index(String id){
+    public static Result index(String id) {
         if (Article.find.byId(Long.valueOf(id)) == null)
             return Application.show404(request().uri().replaceFirst("/", ""));
         Long lId = Long.parseLong(id);
@@ -38,7 +33,7 @@ public class ArticleOut extends Controller {
         resultList.add(User.find.byId(article.getAuthor()).getName());
         resultList.add(article.getDateMade().toString());
 
-        if(event != null){
+        if(event != null) {
             resultList.add(event.getLocation());
             resultList.add(event.getEventHappens().toString());
             resultList.add("" + event.getMaxParticipants());
@@ -55,16 +50,22 @@ public class ArticleOut extends Controller {
             return Application.show404(request().uri().replaceFirst("/", ""));
     }
 
-
-    public static Article getArticle(long articleId){
+    public static Article getArticle(long articleId) {
         Article article = Article.find.byId(articleId);
         return article;
     }
 
-    public static Event getEvent(Article article){
+    public static Event getEvent(Article article) {
         Event event = Event.find.where("articleId = " + article.getId().toString()).findUnique();
         return event;
     }
 
+    public static Result joinEvent(String eventId) {
+        return ok();
+    }
+
+    public static Result abandonEvent(String eventId) {
+        return ok();
+    }
 
 }

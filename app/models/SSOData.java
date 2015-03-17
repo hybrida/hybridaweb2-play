@@ -18,7 +18,7 @@ package models;
  * This class does not check for correct IP addresses.
  * This class does no bookkeeping of any kind.
  */
-public class SSOData extends play.db.ebean.Model {
+public class SSOData {
 
     private java.util.Map<String, String> login_info;
 
@@ -44,7 +44,7 @@ public class SSOData extends play.db.ebean.Model {
 
         byte[] sign = java.util.Base64.getDecoder().decode(sign64);
 
-        // Create a hashmap of all the http data.
+        // Create a hashmap of all the http data, HttpRequestData can not be used, this is a custom format.
         String[] data_separated = data.split(",");
         login_info = new java.util.HashMap<String, String>();
         for (int i = 0; i < data_separated.length; ++i) {
@@ -61,17 +61,16 @@ public class SSOData extends play.db.ebean.Model {
             return false;
         }
 
-        // Generate our public key from innsida.crt. innsida.crt is ONLY available on the server. It MUST REMAIN PRIVATE. DO NOT COMMIT IT. EVER.
         java.io.FileInputStream filestream = new java.io.FileInputStream(new java.io.File(models.Certificate.getPath()));
-        java.security.cert.CertificateFactory cf = java.security.cert.CertificateFactory.getInstance("X.509");
-        java.security.cert.Certificate cert = cf.generateCertificate(filestream);
-        java.security.PublicKey pubkey = cert.getPublicKey();
+        java.security.cert.CertificateFactory certificateFactory = java.security.cert.CertificateFactory.getInstance(models.Certificate.getSignMethod());
+        java.security.cert.Certificate certificate = certificateFactory.generateCertificate(filestream);
+        java.security.PublicKey pubkey = certificate.getPublicKey();
 
         return verifySignature(data, pubkey, sign);
     }
 
     private static boolean verifySignature(String data, java.security.PublicKey key, byte[] signature) throws Exception {
-        java.security.Signature signer = java.security.Signature.getInstance("SHA1withRSA");
+        java.security.Signature signer = java.security.Signature.getInstance(models.Certificate.getEncryptionMethod());
         signer.initVerify(key);
         signer.update(data.getBytes());
         return (signer.verify(signature));

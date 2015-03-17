@@ -1,19 +1,30 @@
-@(article : models.Article)
-@(/*This is for rendering a single article.*/)
+@(article: models.Article)
+@( /*This is for rendering a single article.*/ )
 
-<div class="content2">
-    <div style="border-bottom: 2px solid #9e9d98 \">
-        <img src="@article.getImagePath" alt="No image available" width=50% height=50%/><br>
-        @article.getTitle
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <div style="border-bottom : 2 px solid #9e9d98 \">
+                <img src="@article.getImagePath" alt="No image available" width=100%/><br>
+                <h1>@article.getTitle</h1>
+            </div>
+            <br>
+            <h3>@article.getIngress</h3>
+            <br>
+            @Html(article.getText)
+            <br>
+            Av: @User.find.byId(article.getAuthor).getName
+
+            @if(models.LoginState.getUser().getId == article.getAuthor) {
+                <a href="@controllers.routes.ArticleIn.editArticle(String.valueOf(article.getId))"> Rediger </a>
+            }
+        </div>
+
+        <div class="col-md-3">
+            @(/* @if(UserEventJoined.isSignedUp(LoginState.getUser().getId(),  ))
+            <button class="btn btn-default"> Sign up</button>
+            TODO: lage button for på og avmelding, bruker kevin sine metoder;
+            */)
+        </div>
     </div>
-    <br>
-    @article.getIngress
-    <br>
-    @Html(article.getText)
-    <br>
-    Av: @User.find.byId(article.getAuthor).getName
-
-    @if(models.LoginState.getUser().getId == article.getAuthor){
-        <a href="@controllers.routes.ArticleIn.editArticle(String.valueOf(article.getId))"> Rediger </a>
-    }
 </div>

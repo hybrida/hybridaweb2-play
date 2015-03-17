@@ -9,13 +9,12 @@ import javax.persistence.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Entity
 @Table(
         name="USER",
         uniqueConstraints=
-            @UniqueConstraint(columnNames={"username"})
+            @UniqueConstraint(columnNames= {"username"})
 )
 public class User extends Model {
 
@@ -27,16 +26,20 @@ public class User extends Model {
     // Name, identification, contact
     public String      username;  // Assigned by NTNU
     @Column(name = "first_name", columnDefinition = "varchar(256) default 'Fornavn'")
-    public String      first_name;
+    public String      firstName;
     @Column(name = "surname", columnDefinition = "varchar(256) default 'Etternavn'")
     public String      surname;
-    public String      middle_name;
+    @Column(name = "middle_name")
+    public String      middleName;
     public String      email;
-    public String      website_url;
+    @Column(name = "website_url")
+    public String      websiteUrl;
     public String      phone;
     public String      title; // Ph.D., Civ.Eng., Stud., Chief, Commander, General, Lord, Admiral, Vevsjef,...
-    public String      profile_image_file_name;
-    // public int         graduation_year = 0;
+    @Column(name = "profile_image_file_name")
+    public String      profileImageFileName;
+    @Column(name = "graduation_year")
+    public Integer graduationYear = 0;
 
     // Privilege status
     @Column(name = "student", columnDefinition = "boolean default false")
@@ -49,42 +52,65 @@ public class User extends Model {
     public Boolean             root;       // Powers too great for mere mortals.
     @Column(name = "sex", columnDefinition = "varchar(1) default '\0'")
     public Character           sex;         // For specific events.
-    public Date                enrolled;    // For specific bedpresses requiring a year number.
-    public Date                date_of_birth;
+    public Timestamp           enrolled;    // For specific bedpresses requiring a year number.
+    @Column(name = "date_of_birth")
+    public Timestamp           dateOfBirth;
 
     // Misc. account info
-    private Timestamp          last_login; // Used to avoid cookie-stealing schemes and MITM attacks. Combined with AES with time and RNG padded encryption.
+    @Column(name = "last_login")
+    private Timestamp          lastLogin; // Used to avoid cookie-stealing schemes and MITM attacks. Combined with AES with time and RNG padded encryption.
 
     public User() {}
 
-    public User(String username, String first_name, String surname) {
+    public User(String username, String firstName, String surname) {
         this.username = username;
-        this.first_name = first_name;
+        this.firstName = firstName;
         this.surname = surname;
     }
 
-    public User(String username, String first_name, String surname, String middle_name, String email, String website_url, String phone, String title, int graduation_year, String profile_image_file_name, Boolean student, Boolean bedkom, Boolean admin, Boolean root, Character sex, Date enrolled, Date date_of_birth) {
+    public User(
+            String username,
+            String firstName,
+            String surname,
+			String middleName,
+			String email,
+			String websiteUrl,
+			String phone,
+			String title,
+			int graduationYear,
+			String profileImageFileName,
+			Boolean student,
+			Boolean bedkom,
+			Boolean admin,
+			Boolean root,
+			Character sex,
+			Timestamp enrolled,
+            Timestamp dateOfBirth) {
         this.username = username;
-        this.first_name = first_name;
+        this.firstName = firstName;
         this.surname = surname;
-        this.middle_name = middle_name;
+        this.middleName = middleName;
         this.email = email;
-        this.website_url = website_url;
+        this.websiteUrl = websiteUrl;
         this.phone = phone;
         this.title = title;
-//        this.graduation_year = graduation_year;
-        this.profile_image_file_name = profile_image_file_name;
+        this.graduationYear = graduationYear;
+        this.profileImageFileName = profileImageFileName;
         this.student = student;
         this.bedkom = bedkom;
         this.admin = admin;
         this.root = root;
         this.sex = sex;
         this.enrolled = enrolled;
-        this.date_of_birth = date_of_birth;
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public boolean isDefault() {
+        return (id == null);
     }
 
     public void setLastLoginTimeNow() {
-        last_login = new Timestamp(new java.util.Date(System.currentTimeMillis()).getTime());
+        lastLogin = new Timestamp(new java.util.Date(System.currentTimeMillis()).getTime());
     }
 
     private boolean thisOrFalse(Boolean object) {
@@ -96,7 +122,7 @@ public class User extends Model {
     }
 
     public boolean hasMiddleName() {
-        return middle_name != null && !middle_name.equals("");
+        return middleName != null && !middleName.equals("");
     }
 
     public boolean hasAltEmail() {
@@ -108,11 +134,11 @@ public class User extends Model {
     }
 
     public boolean hasWebsite() {
-        return website_url != null && !website_url.equals("");
+        return websiteUrl != null && !websiteUrl.equals("");
     }
 
     public String getWebsite() {
-        return website_url;
+        return websiteUrl;
     }
 
     public boolean hasPhone() {
@@ -124,11 +150,11 @@ public class User extends Model {
     }
 
     public boolean hasProfileImage() {
-        return profile_image_file_name != null && !profile_image_file_name.equals("");
+        return profileImageFileName != null && !profileImageFileName.equals("");
     }
 
     public String getProfileImageFileName() {
-        return profile_image_file_name;
+        return profileImageFileName;
     }
 
     public void setUsername(String username) {
@@ -140,13 +166,13 @@ public class User extends Model {
     }
 
     public Timestamp getLastLoginTime() {
-        return last_login;
+        return lastLogin;
     }
 
     public String getName(boolean showMiddleName) {
         String m = "";
-        if(showMiddleName) m = " " + middle_name;
-        return first_name + m + " " + surname;
+        if(showMiddleName) m = " " + middleName;
+        return firstName + m + " " + surname;
     }
 
     public String getName() {
@@ -157,13 +183,13 @@ public class User extends Model {
         return sex;
     }
 
-    public Long getId(){
+    public Long getId() {
         return id;
     }
 
     // TODO: Check image size to be within a set range.
     public String uploadPicture() {
-        if (student == false && bedkom == false && admin == false && root == false)
+        if (isDefault())
             throw new Error("You do not have the privilege as a non-student to upload files!");
         String userFolderPrefix = "public/upload/" + LoginState.getUser().getUsername();
         Http.MultipartFormData body = Controller.request().body().asMultipartFormData();
@@ -195,9 +221,13 @@ public class User extends Model {
         return null;
     }
 
-    public static boolean checkImageType(String contentType){
+    public static boolean checkImageType(String contentType) {
         String[] type = contentType.split("/");
         return type[0].equals("image");
+    }
+
+    public void saveToSession() {
+        play.mvc.Controller.session("user", play.api.libs.Crypto.encryptAES(username + "," + String.valueOf(System.currentTimeMillis())));
     }
 
     public String toString() {
@@ -208,18 +238,18 @@ public class User extends Model {
         if(title != null) sb.append("\ttitle: " + title.toString() + ", \n");
         if(username != null) sb.append("\tusername: " + username.toString() + ", \n");
         if(surname != null)  sb.append("\tsurname: " + surname.toString() + ", \n");
-        if(first_name != null) sb.append("\tfirst_name: " + first_name.toString() + ", \n");
-        if(middle_name != null) sb.append("\tmiddle_name: " + middle_name.toString() + ", \n");
-        if(profile_image_file_name != null) sb.append("\tprofile_image_file_name: " + profile_image_file_name.toString() + ", \n");
-        if(website_url != null) sb.append("\twebsite_url: " + website_url.toString() + ", \n");
+        if(firstName != null) sb.append("\tfirstName: " + firstName.toString() + ", \n");
+        if(middleName != null) sb.append("\tmiddleName: " + middleName.toString() + ", \n");
+        if(profileImageFileName != null) sb.append("\tprofileImageFileName: " + profileImageFileName.toString() + ", \n");
+        if(websiteUrl != null) sb.append("\twebsiteUrl: " + websiteUrl.toString() + ", \n");
         if(student != null) sb.append("\tstudent: " + student.toString() + ", \n");
         if(bedkom != null) sb.append("\tbedkom: " + bedkom.toString() + ", \n");
         if(admin != null) sb.append("\tadmin: " + admin.toString() + ", \n");
         if(root != null) sb.append("\troot: " + root.toString() + ", \n");
         if(sex != null) sb.append("\tsex: " + sex.toString() + ", \n");
         if(enrolled != null) sb.append("\tenrollied: " + enrolled.toString() + ", \n");
-        if(date_of_birth != null) sb.append("\tdate_of_birth: " + date_of_birth.toString() + ", \n");
-        if(last_login != null) sb.append("\tlast_login: " + last_login.toString() + ", \n");
+        if(dateOfBirth != null) sb.append("\tdateOfBirth: " + dateOfBirth.toString() + ", \n");
+        if(lastLogin != null) sb.append("\tlastLogin: " + lastLogin.toString() + ", \n");
         sb.append("]");
         return sb.toString();
     }

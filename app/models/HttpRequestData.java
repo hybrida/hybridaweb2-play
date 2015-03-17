@@ -17,11 +17,26 @@ public class HttpRequestData extends java.util.HashMap<String, String> {
             super.putAll(play.data.Form.form().bindFromRequest().data());
     }
 
-    public int getInt(String key) {
+    public Integer getInt(String key) {
         String input = this.get(key);
-        if (input.equals(""))
+        if (input == null) {
+            return null;
+        }
+        else if (input.equals("")) {
             return 0;
+        }
         return Integer.valueOf(input);
+    }
+
+    public Long getLong(String key) {
+        String input = this.get(key);
+        if (input == null) {
+            return null;
+        }
+        else if (input.equals("")) {
+            return 0L;
+        }
+        return Long.valueOf(input);
     }
 
     public String toString() {

@@ -48,9 +48,10 @@ public class SSOLogin extends Controller {
     public static String innsida_login_link = "https://innsida.ntnu.no/sso/?target=hybridawebtest&returnargs=";
 
     public static Result login(String returnarg) {
-        File file = new File(models.Certificate.getPath());
+        java.io.File file = new java.io.File(models.Certificate.getPath());
         if(file.exists() && !file.isDirectory()) {
-            return redirect(innsida_login_link + (returnarg.length() == 0 ? request().path() : returnarg));
+            // The following page will redirect us to verifylogin when it returns.
+            return redirect(innsida_login_link + (returnarg == null || returnarg.length() == 0 ? request().path() : returnarg));
         } else {
             session("user", play.api.libs.Crypto.encryptAES("hybrid," + String.valueOf(System.currentTimeMillis())));
             return redirect(returnarg.length() == 0 ? request().path() : returnarg);
@@ -74,7 +75,7 @@ public class SSOLogin extends Controller {
                             // System.out.println(data.getLoginInfo().get("username") + " has logged in.");
                             user.setLastLoginTimeNow();
                             user.save();
-                            session("user", play.api.libs.Crypto.encryptAES(data.getLoginInfo().get("username") + "," + String.valueOf(System.currentTimeMillis())));
+                            user.saveToSession();
                         }
                     } else {
                         // System.out.println("Username: " + data.getLoginInfo().get("username") + " does not exist in the database.");
