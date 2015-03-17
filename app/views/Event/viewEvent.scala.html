@@ -12,6 +12,8 @@
     @Html(article.getText)
     <br>
     Av: @User.find.byId(article.getAuthor).getName
+    <br>
+    Meldt på: @models.UserEventJoined.getNumberOfSignedUp(event.getEventId) / @event.getMaxParticipants
 
     @event.getEventHappens
 

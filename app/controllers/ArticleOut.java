@@ -56,7 +56,8 @@ public class ArticleOut extends Controller {
     }
 
     public static Event getEvent(Article article) {
-        Event event = Event.find.where("articleId = " + article.getId().toString()).findUnique();
+        controllers.BackupDatabase.index();
+        Event event = Event.find.where().eq("articleId", article.getId()).findUnique();
         return event;
     }
 

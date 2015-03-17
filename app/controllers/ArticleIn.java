@@ -45,11 +45,13 @@ public class ArticleIn extends Controller {
         catch (IllegalStateException e) {
             return Application.show400("ugyldig data oppgitt");
         }
+        catch (Exception e) {
+            return ok("Wow");
+        }
     }
 
     public static long saveArticle() throws IllegalStateException {
         User user = LoginState.getUser();
-
         Form<Article> articleInput = articleForm.bindFromRequest();
         System.out.println(new HttpRequestData());
         if (!articleInput.hasErrors()) {
