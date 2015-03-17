@@ -2,6 +2,11 @@ package models;
 
 /**
  * Created by Bourgond on 3/10/2015.
+ *
+ * This class is an entity in the relational database that relates a user id to an event id. When the entity exists, it
+ * means that a user is "signed up" to an "event". To get a list of user for an event we can query
+ * SELECT * FROM User, UserEventJoined WHERE UserEventJoined.eventID=? AND User.userId=UserEventJoined.userId;
+ * or something like that.
  */
 @javax.persistence.Entity
 public class UserEventJoined extends play.db.ebean.Model {

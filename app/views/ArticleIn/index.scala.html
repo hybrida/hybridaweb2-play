@@ -26,11 +26,11 @@ border: 1px solid gray;
           <textarea id="editor1" class="form-control" placeholder="Skriv ditt innlegg her" rows="12" cols="75" name="text"> Artikkel her</textarea>
           <input class="pad_1percent_top center_block form-control" style="display: block; background-color: #c3c3c3; " type="file" name="picture">
 
-          <div class="checkbox col-md-1 col-md-offset-5">
-              <lable>
-                  <input id="arr" type="checkbox" name="event" value="Event" onclick="">
+          <div class="col-md-12" data-toggle="buttons">
+              <label class="checkbox btn btn-primary form-control">
+                  <input class="checkbox-center" id="arr" type="checkbox" name="event" value="Event" onclick="">
                     Arrangement?
-              </lable>
+              </label>
         </div>
 
         <div class="col-md-12">
@@ -38,47 +38,47 @@ border: 1px solid gray;
             </div>
           <br>
         <div class="form-group">
-            <lable for="fU">Første Øvre Grense:</lable>
+            <label for="fU">Første Øvre Grense:</label>
             <input class="form-control" type="number" id="fU" name="firstUpperGraduationLimit" min="1" max="5" placeholder="Antall her"></div>
           <div class="form-group">
-              <lable for="fL">Første Nedre Grense:</lable>
+              <label for="fL">Første Nedre Grense:</label>
         <input type="number" class="form-control" id="fL" name="firstLowerGraduationLimit" min="1" max="5" placeholder="Antall her"></div>
           <div class="form-group">
-        <lable for="sU">Andre Øvre Grense:</lable>
+        <label for="sU">Andre Øvre Grense:</label>
         <input type="number" class="form-control" id="sU" name="secondUpperGraduationLimit" min="1" max="5" placeholder="Antall her"></div>
          <div class="form-group">
-          <lable for="sL">Andre Øvre Grense:</lable>
+          <label for="sL">Andre Øvre Grense:</label>
         <input type="number" id="sL" class="form-control" name="secondLowerGraduationLimit" min="1" max="5" placeholder="Antall her"></div>
           <div class="form-group">
-          <lable for="loc">Lokasjon:</lable>
+          <label for="loc">Lokasjon:</label>
         <input type="text" id="loc" class="form-control" name="location" placeholder="Skriv location her"></div>
         <div class="form-group">
-        <lable for="tF">Tidsramme:</lable>
+        <label for="tF">Tidsramme:</label>
         <input class="form-control" id="tF" type="number" name="timeFrame" placeholder="Varighet"></div>
           <div class="form-group">
-        <lable for="sA">Tillatt kjønn:</lable>
+        <label for="sA">Tillatt kjønn:</label>
         <select class="form-control" id="sA" name="sexAllowed">
             <option value="A">Alle</option>
             <option value="M">Male</option>
             <option value="F">Female</option>
         </select></div>
           <div class="form-group">
-        <lable for="mO">Maksimal oppmeldte:</lable>
+        <label for="mO">Maksimal oppmeldte:</label>
         <input class="form-control" id="mO" type="number" name="maxParticipants"></div>
             <div class="form-group">
-        <lable for="mV">Maksimal venteliste:</lable>
+        <label for="mV">Maksimal venteliste:</label>
         <input class="form-control" id="mV" type="number" name="maxParticipantsWaiting"></div>
             <div class="form-group">
-        <lable for="oD">Oppmeldingsfrist:</lable>
+        <label for="oD">Oppmeldingsfrist:</label>
                 <input class="form-control" id="oD" type="datetime-local" name="signUpDeadline"></div>
           <div class="form-group">
-            <lable for="aOD">Andre oppmeldingsfrist:</lable>
+            <label for="aOD">Andre oppmeldingsfrist:</label>
             <input class="form-control" id="aOD" type="datetime-local" name="secondSignUp"></div>
           <div class="form-group">
-        <lable for="nDS">Når det skjer:</lable>
+        <label for="nDS">Når det skjer:</label>
         <input class="form-control" id="nDS" type="datetime-local" name="eventHappens"></div>
             <div class="form-group">
-        <input class="pad_1percent_top center_inline_block form-control" type="submit" value="Post">
+        <input class="btn btn-primary form-control" type="submit" value="Post">
           </div>
 
     </form>
