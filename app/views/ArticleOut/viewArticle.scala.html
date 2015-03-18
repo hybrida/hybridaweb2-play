@@ -1,30 +1,31 @@
 @(article: models.Article)
 @( /*This is for rendering a single article.*/ )
+<div class="article-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 transparent-box">
+                <div style="border-bottom : 2 px solid #9e9d98 \">
+                    <img src="@article.getImagePath" alt="No image available" class="center-block img-responsive art-img"><br>
+                    <h1><p class="text-center">@article.getTitle</p></h1>
+                </div>
+                <hr>
+                <h3><p class="text-center">@article.getIngress</p></h3>
+                <br>
+                <p class="text-center">@Html(article.getText)</p>
+                <br>
+                Av: @User.find.byId(article.getAuthor).getName
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-9">
-            <div style="border-bottom : 2 px solid #9e9d98 \">
-                <img src="@article.getImagePath" alt="No image available" class="center-block img-circle"><br>
-                <h1><p class="text-center">@article.getTitle</p></h1>
+                @if(models.LoginState.getUser().getId == article.getAuthor) {
+                    <a href="@controllers.routes.ArticleIn.editArticle(String.valueOf(article.getId))"> Rediger </a>
+                }
             </div>
-            <hr>
-            <h3><p class="text-center">@article.getIngress</p></h3>
-            <br>
-            <p class="text-center">@Html(article.getText)</p>
-            <br>
-            Av: @User.find.byId(article.getAuthor).getName
 
-            @if(models.LoginState.getUser().getId == article.getAuthor) {
-                <a href="@controllers.routes.ArticleIn.editArticle(String.valueOf(article.getId))"> Rediger </a>
-            }
-        </div>
-
-        <div class="col-md-3">
-            @(/* @if(UserEventJoined.isSignedUp(LoginState.getUser().getId(),  ))
+            <div class="col-md-3 transparent-box">
+            @( /* @if(UserEventJoined.isSignedUp(LoginState.getUser().getId(),  ))
             <button class="btn btn-default"> Sign up</button>
             TODO: lage button for på og avmelding, bruker kevin sine metoder;
-            */)
+            */ )
+            </div>
         </div>
     </div>
 </div>
