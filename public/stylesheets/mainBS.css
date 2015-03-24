@@ -1,5 +1,5 @@
 body {
-    padding-top: 50px;
+
 }
 
 #logo {
@@ -58,4 +58,8 @@ a :hover {
     background-color: rgba(245,245,245,225);
     border-radius: 4px;
     padding: 50px;
+}
+
+.wrap {
+    margin-top: 50px;
 }
