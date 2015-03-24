@@ -1,5 +1,6 @@
 package controllers;
 
+import models.LoginState;
 import play.db.DB;
 import play.libs.F;
 import play.mvc.Result;
@@ -16,23 +17,17 @@ import java.util.List;
 /**
  * Created by Tormod on 04.11.2014.
  */
-public class BackupDB {
-    public static F.Promise<Result> index() {
-        F.Promise<Boolean> promiseOfBool = F.Promise.promise(
-                new F.Function0<Boolean>() {
-                    public Boolean apply() {
-                        return backup();
-                    }
-                }
-        );
-        return promiseOfBool.map(
-                new F.Function<Boolean, Result>() {
-                    public Result apply(Boolean i) {
-                        if (i) return Results.ok("Database backup successful!");
-                        return Results.internalServerError("Couldn't backup database!");
-                    }
-                }
-        );
+public class BackupDatabase {
+
+    public static Result index() {
+        models.User user = LoginState.getUser();
+        if (!(!user.isDefault() && (user.admin || user.root))) {
+            return Application.showUnauthorizedAccess();
+        }
+
+        if (backup())
+            return Results.ok("Database backup successful!");
+        return Results.internalServerError("Couldn't backup database!");
     }
 
     private static Boolean backup() {
@@ -47,9 +42,6 @@ public class BackupDB {
                 String everything = "";
                 List<String> lines = new ArrayList<>();
                 int count_of_qout = 0;
-                //char[] matchstring = "STRINGDECODE(".toCharArray();
-                //int matchlocation = 0;
-                //boolean findendtag = false;
                 while (reader.ready()) {
                     char character = (char) reader.read();
                     everything += character;
@@ -59,18 +51,7 @@ public class BackupDB {
                         everything = "";
                     } else if (character == ';') {
                         everything += ';'; //everything.substring(0,everything.length()-1) + ";";
-                    }/* else if (findendtag) {
-                        if (character == ')' && count_of_qout%2 == 0) {
-                            findendtag = false;
-                            everything = everything.substring(0,everything.length()-1);
-                        }
-                    } else if (character == matchstring[matchlocation]) {
-                        if (matchlocation >= matchstring.length-1) {
-                            findendtag = true;
-                            matchlocation = 0;
-                            everything = everything.substring(0,everything.length()-matchstring.length);
-                        } else matchlocation++;
-                    } else matchlocation = 0;*/
+                    }
                 }
                 str += everything;
                 for (String line : lines) {
@@ -92,4 +73,5 @@ public class BackupDB {
         }
         return true;
     }
+
 }

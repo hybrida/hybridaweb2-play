@@ -31,8 +31,7 @@ public class ArticleIn extends Controller {
             long id = saveArticle();
 
             if(!(new HttpRequestData().get("event") == null)) {
-                System.out.println(new HttpRequestData());
-                ResultAndEId res = saveEvent(id);
+                ResultAndEId res = saveEvent(id, null);
                 if (res.result != null)
                     return res.result;
                 Renders.addEvent(res.event);
@@ -46,11 +45,13 @@ public class ArticleIn extends Controller {
         catch (IllegalStateException e) {
             return Application.show400("ugyldig data oppgitt");
         }
+        catch (Exception e) {
+            return ok("Wow");
+        }
     }
 
     public static long saveArticle() throws IllegalStateException {
         User user = LoginState.getUser();
-
         Form<Article> articleInput = articleForm.bindFromRequest();
         System.out.println(new HttpRequestData());
         if (!articleInput.hasErrors()) {
@@ -64,6 +65,31 @@ public class ArticleIn extends Controller {
         throw new IllegalStateException();
     }
 
+    public static long saveSpecificArticle(String id) throws IllegalStateException {
+        User user = LoginState.getUser();
+
+        Form<Article> articleInput = articleForm.bindFromRequest();
+        if (!articleInput.hasErrors()) {
+            Article articleModel = articleInput.get();
+            articleModel.setImagePath(user.uploadPicture());
+            articleModel.setAuthor(user.getId());
+            articleModel.setId(Long.valueOf(id));
+            articleModel.update();
+
+            return articleModel.getId();
+        }
+        throw new IllegalStateException();
+    }
+
+    public static long saveSpecificEvent(String id) throws IllegalStateException {
+        User user = LoginState.getUser();
+
+        Event event = Event.find.byId(Long.valueOf(id));
+        saveSpecificArticle(String.valueOf(event.getArticleId()));
+        saveEvent(event.getArticleId(), Long.valueOf(id));
+        throw new IllegalStateException();
+    }
+
     public static class ResultAndEId {
         ResultAndEId() {}
         ResultAndEId(Result res) {
@@ -73,7 +99,7 @@ public class ArticleIn extends Controller {
         Event event = null;
     }
 
-    public static ResultAndEId saveEvent(long articleID) {
+    public static ResultAndEId saveEvent(long articleID, Long eventId /* Can be null: new id is generated.*/) {
         ResultAndEId reid = new ResultAndEId();
         HttpRequestData httpData = new HttpRequestData();
         models.Event eventModel = new models.Event();
@@ -166,13 +192,24 @@ public class ArticleIn extends Controller {
         eventModel.setLocation(httpData.get("location"));
         eventModel.setArticleId(articleID);
 
-        eventModel.save();
+        if (eventId == null)
+            eventModel.save();
+        else
+            eventModel.update();
 
         reid.event = eventModel;
         return reid;
     }
 
     public static Result editArticle(String id) {
+        Article article = Article.find.byId(Long.valueOf(id));
+        // return Article.drawEditArticle(article);
+        return ok();
+    }
+
+    public static Result editEvent(String id) {
+        Event event = Event.find.byId(Long.valueOf(id));
+        // return Event.drawEditEdit(event); // Requirement: fill out the fields with the old values, set the
         return ok();
     }
 

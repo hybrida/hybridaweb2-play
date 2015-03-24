@@ -58,6 +58,10 @@ public class Article extends Model implements Renderable {
         this.ingress = ingress;
     }
 
+    public void setId(Long id) {
+        this.articleId = id;
+    }
+
     public void setText(String text) {
         this.text = text;
     }

@@ -1,7 +1,7 @@
 package controllers;
 
 import com.google.common.collect.Lists;
-import models.Renderable;
+import models.*;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.layout;
