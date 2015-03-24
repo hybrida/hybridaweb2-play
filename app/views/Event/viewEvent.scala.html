@@ -14,8 +14,18 @@
     Av: @User.find.byId(article.getAuthor).getName
     <br>
     Meldt på: @models.UserEventJoined.getNumberOfSignedUp(event.getEventId) / @event.getMaxParticipants
+    <br>
+    Første oppmeldingsfrist: @event.getSignUpDeadline.getTime()
+    <br>
+    Andre oppmeldingsfrist: @event.getSecondSignUp.getTime()
+    <br>
+    Det skjer: @event.getEventHappens.getTime()
+    <br>
+    Første grense for år: @event.getFirstUpperGraduationLimit og @event.getFirstLowerGraduationLimit
+    <br>
+    Første grense for år: @event.getSecondUpperGraduationLimit og @event.getSecondLowerGraduationLimit
 
-    @event.getEventHappens
+    
 
     @if(models.LoginState.getUser().getId == article.getAuthor) {
         <a href="@controllers.routes.ArticleIn.editArticle(String.valueOf(article.getId))"> Rediger </a>
