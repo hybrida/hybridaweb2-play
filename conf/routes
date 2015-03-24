@@ -12,13 +12,6 @@ GET         /styret                          controllers.OmStyret.index()
 # Calendar
 GET         /kalender                        controllers.Calendar.index()
 
-# Events
-GET         /event                           controllers.Event.index()
-POST        /event                           controllers.Event.save()
-GET         /event/:eventId                  controllers.Event.generateEvent(eventId)
-POST        /event/oppdater                  controllers.Event.updateUsers()
-POST        /event/fjern                     controllers.Event.removeUsers()
-
 # Update
 GET         /update                          controllers.Update.index()
 POST        /update                          controllers.Update.post()
@@ -40,20 +33,20 @@ POST        /update                          controllers.Update.post()
 GET         /update/utgaver                  controllers.Update.utgaver()
 GET         /update/redaksjon                controllers.Update.redaksjon()
 
+GET         /bedrift                         controllers.Company.index()
 
 # Ebean example
 GET         /ebean                           examples.controllers.ExampleEbean.index()
 POST        /ebean                           examples.controllers.ExampleEbean.add()
 POST        /ebean/clear                     examples.controllers.ExampleEbean.clear()
 
-GET         /event                           controllers.Event.index()
-POST        /event                           controllers.Event.save()
-GET         /event/:eventId                  controllers.Event.generateEvent(eventId)
-POST        /event/updateUser                controllers.Event.updateUsers()
-POST        /event/removeUser                controllers.Event.removeUsers()
+# Bruker current login cookie, og en eventId i POST
+POST        /event/meldpaa                   controllers.Event.updateUser()
+# Bruker current login cookie, og en eventId i POST
+POST        /event/meldav                    controllers.Event.removeUser()
 
 # Backup memory database
-GET         /backup                          controllers.BackupDB.index()
+GET         /backup                          controllers.BackupDatabase.index()
 
 
 # Search
@@ -92,8 +85,6 @@ GET         /examples/imageupload            examples.controllers.ExampleImageUp
 POST        /examples/imageupload            examples.controllers.ExampleImageUpload.upload()
 # # Cookies
 GET         /examples/cookies                examples.controllers.ExampleCookies.index()
-POST        /examples/cookies/update         examples.controllers.ExampleCookies.updateCookie()
-GET         /examples/cookies/update         examples.controllers.ExampleCookies.updateCookie()
 POST        /examples/cookies/clear          examples.controllers.ExampleCookies.clearAllCookies()
 GET         /examples/cookies/clear          examples.controllers.ExampleCookies.clearAllCookies()
 # # Database

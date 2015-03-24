@@ -48,7 +48,7 @@
     font-family: 'Raleway', sans-serif;
     position: absolute;
 }
-@media screen and (max-width: 1199px) and (min-width: 993px){
+@media screen and (max-width: 1199px) and (min-width: 993px) {
     .bottomlefthidden{
         padding-bottom: 40px;
     }

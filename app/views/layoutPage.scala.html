@@ -5,7 +5,7 @@
     @if(formAction != null) {
         <form method="POST" action="@formAction">
     }
-    <h5 class="smallTitle">@pageTitle@if(subTitle != null && !subTitle.equals("")){ - @subTitle }</h5>
+    <h5 class="smallTitle">@pageTitle@if(subTitle != null && !subTitle.equals("")) { - @subTitle }</h5>
     <div class="buttons">
         @(if(subNavButtons != null) subNavButtons)
     </div>

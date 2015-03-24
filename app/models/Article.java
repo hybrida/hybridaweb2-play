@@ -58,6 +58,10 @@ public class Article extends Model implements Renderable {
         this.ingress = ingress;
     }
 
+    public void setId(Long id) {
+        this.articleId = id;
+    }
+
     public void setText(String text) {
         this.text = text;
     }
@@ -97,7 +101,7 @@ public class Article extends Model implements Renderable {
                         escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div></a><br>" +
                         escapeText.apply(result.getString(5)).toString().replace("\n", "<br />") + "</div>";
             }
-            else{
+            else {
                 finalPost += "<a href=" + url +"><div class=\"content2\">" +
                         "<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
                         "<img src=\"/assets/images/favicon.ico\" alt=\"rect\"/><br>" +

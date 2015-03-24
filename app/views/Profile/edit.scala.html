@@ -15,7 +15,7 @@
                 <li>
                 <div class="label">ALTERNATIV E-POST</div>
                 <div class="info">
-                    @if(edit){
+                    @if(edit) {
                         <input type="email" name="email" value="@user.getAltEmail()">
                     }else {
                         @user.getAltEmail()
@@ -28,7 +28,7 @@
             <li>
                 <div class="label">HJEMMESIDE</div>
                 <div class="info">
-                    @if(edit){
+                    @if(edit) {
                         <input type="text" name="website_url" value="@user.getWebsite()">
                     }else {
                         @user.getWebsite()
@@ -41,7 +41,7 @@
             <li>
                 <div class="label">TELEFON</div>
                 <div class="info">
-                    @if(edit){
+                    @if(edit) {
                         <input type="text" name="phone" value="@user.getPhone()">
                     }else {
                         @user.getPhone()
@@ -58,7 +58,7 @@
             <li>
                 <div class="label">KJØNN</div>
                 <div class="info">
-                    @if(edit){
+                    @if(edit) {
                         <input type="radio" name="sex" value="m" @(if (user.getGender() == 'm') "CHECKED")> <label for="sex">Mann</label> |
                         <input type="radio" name="sex" value="f" @(if (user.getGender() == 'f') "CHECKED")> <label for="sex">Kvinne</label>
                     }else {
@@ -68,7 +68,7 @@
                 <div class="clearfix"></div>
             </li>
             }
-            @if(edit){
+            @if(edit) {
                 <li>
                     <div class="label">PROFILBILDE</div>
                     <div class="info">

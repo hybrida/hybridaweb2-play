@@ -35,12 +35,10 @@ public class Event extends Model implements Renderable {
     private int maxParticipantsWaiting;
 
     private Calendar signUpDeadline;
-    private Calendar eventHappens;
     private Calendar secondSignUp;
+    private Calendar eventHappens;
 
-    public static Finder<Long, Event> find = new Finder<Long, Event> (
-            Long.class, Event.class
-    );
+
 
     public long getEventId() {
         return eventId;
@@ -164,8 +162,8 @@ public class Event extends Model implements Renderable {
         return eventRenderFrontPageSample.render(article, this);
     }
 
-    public static String changeMonthToNorwegian(int month){
-        switch (month){
+    public static String changeMonthToNorwegian(int month) {
+        switch (month) {
             case 0: return "Januar";
             case 1: return "Februar";
             case 2: return "Mars";
@@ -181,8 +179,8 @@ public class Event extends Model implements Renderable {
             default: return "InvalidString";
         }
     }
-    public static String changeDayToNorwegian(int day){
-        switch (day){
+    public static String changeDayToNorwegian(int day) {
+        switch (day) {
             case 2: return "Mandag";
             case 3: return "Tirsdag";
             case 4: return "Onsdag";
@@ -193,4 +191,8 @@ public class Event extends Model implements Renderable {
             default: return "InvalidString";
         }
     }
+
+    public static Finder<Long, models.Event> find = new Finder<Long, Event> (
+        Long.class, models.Event.class
+    );
 }

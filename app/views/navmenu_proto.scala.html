@@ -1,6 +1,6 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
-    $("document").ready(function($){
+    $("document").ready(function($) {
         var nav = $('#navigation_menu');
         var lastScrollTop = 0;
         $(window).scroll(function () {
@@ -20,7 +20,7 @@
         <li id="logo_image"><a href="/"><img src="/assets/images/griff_head.svg" alt="SUPERLOGO"/></a></li>
         <input type="checkbox" name="burger" id="burger" />
         <label for="burger" id="burger_label"><div id="burger_image"></div></label>
-        @if(models.LoginState.getUser().canCreateNewArticle()){
+        @if(models.LoginState.getUser().canCreateNewArticle()) {
             <li class="navigation_element"><a class="navigation_menu_link" href="/feed">Announce</a></li>
         }
         @if(models.LoginState.isValidlyLoggedIn()) {<li class="navigation_element"><a class="navigation_menu_link" href="/Chat">Chat</a></li>}

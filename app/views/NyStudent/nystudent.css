@@ -2,7 +2,7 @@
 	outline: 1px solid red !important ;
 }  */
 
-body{
+body {
 	background-image: url("../images/nys.png");
 	background-size: 100%;
 	background-repeat: no-repeat;
@@ -12,39 +12,39 @@ body{
 	color: #000000;
 	position: absolute;
 }
-.title{
+.title {
 	font-family: 'Playfair Display', serif;
 	position: relative;
 }
-.undershit{
+.undershit {
 }
-.topright{
+.topright {
 	border-top-right-radius: 10px;
 }
-.topleft{
+.topleft {
 	border-top-left-radius: 10px;
 }
-.bottomright{
+.bottomright {
 	border-bottom-right-radius: 10px;
 }
-.bottomleft{
+.bottomleft {
 	border-bottom-left-radius: 10px;
 }
-.undershiit{
+.undershiit {
 }
-.whitebox{
+.whitebox {
 	background-color: #ffffff;
 	opacity: 0.7;
 }
-.blank{
+.blank {
 	height:70px;
 	width: 1170px;
 }
-.blankcol{
+.blankcol {
 	height: 30px;
 }
 }
-.paragraph{
+.paragraph {
 	font-family: 'Raleway', sans-serif;
 	position: absolute;
 }
@@ -57,19 +57,19 @@ body{
 
         background-repeat: repeat;
     }
-    .blankcol{
+    .blankcol {
     	display: none;
     }
-    .undershiit{   
+    .undershiit {
      	margin-bottom: -1px;
     }
-    .undershit{
+    .undershit {
     	margin-bottom: -10px;
     }
-   	.bottomlefthidden{
+   	.bottomlefthidden {
    		border-bottom-left-radius: 10px;
    	}
-	.bottomleft{
+	.bottomleft {
 		border-bottom-left-radius: 0px;
 	}
 }

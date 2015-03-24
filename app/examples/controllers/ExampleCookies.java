@@ -1,8 +1,6 @@
 package examples.controllers;
 
 import examples.views.html.exampleCookies;
-import models.CookieForm;
-import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.layout;
@@ -79,26 +77,5 @@ public class ExampleCookies extends Controller {
 			return "0";
 		}
 	}
-
-    public static Result updateCookie() {
-        Form<CookieForm> input = form(CookieForm.class).bindFromRequest();
-
-        if (input.hasErrors()) {
-            CookieForm form = new CookieForm();
-            return ok(layout.render("hybrida", exampleCookies.render(play.twirl.api.Html.apply("The input has some errors, please retry" + getSortedCookies()))));
-        } else {
-
-            CookieForm saved = input.get();
-            String key = input.get().key;
-            String value = input.get().value;
-
-            if (!doesCookieExist(key)) {
-            	incrementCookieCount();
-            }
-
-            storeCookie(key, value);
-            return ok(layout.render("hybrida", exampleCookies.render(play.twirl.api.Html.apply("The cookie came in succesfully. You now have " + getCookieCount() + " cookies." + getSortedCookies()))));
-        }
-    }
 
 }
