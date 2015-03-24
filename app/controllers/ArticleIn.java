@@ -136,6 +136,18 @@ public class ArticleIn extends Controller {
 
         cal = java.util.Calendar.getInstance();
         try {
+            cal.setTime(dateFormat.parse(httpData.get("timeFrame")));
+            if (cal.before(current_calendar)) {
+                reid.result = controllers.Application.show400("Arrangementet skjer før nå. Dette er ikke gyldig2.");
+                return reid;
+            }
+            eventModel.setEventStops(cal);
+        } catch (ParseException parseExc) {
+            return new ResultAndEId(Application.show400("Feil dato format når arrangementet faktisk skjer oppmeldingsfristen."));
+        }
+
+        cal = java.util.Calendar.getInstance();
+        try {
             cal.setTime(dateFormat.parse(httpData.get("signUpDeadline")));
             if (cal.before(current_calendar)) {
                 reid.result = controllers.Application.show400("Oppmeldingsfristen er før nå. Dette er ikke gyldig.");
