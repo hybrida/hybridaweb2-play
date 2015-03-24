@@ -1,6 +1,6 @@
 @(calendar : java.util.Calendar, event : models.Event)
 
 <!--models.Event.changeDayToNorwegian(calendar.get(java.util.Calendar.DAY_OF_WEEK))-->
-@calendar.getTime.getDate/@calendar.getTime.getMonth
+@calendar.get(java.util.Calendar.YEAR)/@(if ((calendar.get(java.util.Calendar.MONTH) + 1) < 10) "0" + (calendar.get(java.util.Calendar.MONTH) + 1) else calendar.get(java.util.Calendar.MONTH) + 1)/@(if (calendar.get(java.util.Calendar.DAY_OF_MONTH) < 10) "0" + calendar.get(java.util.Calendar.DAY_OF_MONTH) else "" + calendar.get(java.util.Calendar.DAY_OF_MONTH))
 <!--models.Event.changeMonthToNorwegian(calendar.getTime.getMonth)-->
-@calendar.get(java.util.Calendar.HOUR_OF_DAY):@calendar.get(java.util.Calendar.MINUTE)
+@(if (calendar.get(java.util.Calendar.HOUR_OF_DAY) < 10) "0" + calendar.get(java.util.Calendar.HOUR_OF_DAY) else calendar.get(java.util.Calendar.HOUR_OF_DAY)):@(if (calendar.get(java.util.Calendar.MINUTE) < 10) "0" + calendar.get(java.util.Calendar.MINUTE) else calendar.get(java.util.Calendar.MINUTE)) 
