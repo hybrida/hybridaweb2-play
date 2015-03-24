@@ -55,7 +55,27 @@ a :hover {
 }
 
 .transparent-box {
-    background-color: rgba(245,245,245,225);
+    background-color: rgba(245,245,245,0.9);
     border-radius: 4px;
-    padding: 50px;
+    padding: 20px;
+    margin-top: 1%;
+}
+.art-img{
+    overflow: hidden;
+    max-width: 100%;
+    height:auto;
+}
+.article-bg{
+    background-image: url(/assets/images/kilt3.PNG);
+    background-repeat: repeat;
+    min-height: 100vh;
+    height: auto;
+}
+.row.container-height {
+    overflow: hidden;
+}
+
+.row.container-height > [class*="col-"]{
+    margin-bottom: -99999px;
+    padding-bottom: 99999px;
 }
