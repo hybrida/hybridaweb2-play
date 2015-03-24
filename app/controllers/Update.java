@@ -20,12 +20,9 @@ import static play.mvc.Results.ok;
  */
 public class Update {
 
-
     public static Result index() {
-
         return ok(layout.render("Update!", views.html.Update.index.render()));
     }
-
 
     public static Result post() throws FileNotFoundException {
         Http.MultipartFormData body = request().body().asMultipartFormData();

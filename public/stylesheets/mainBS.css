@@ -53,3 +53,9 @@ a :hover {
 #carousel-frontpage > div > .item > img{
     width:100%
 }
+
+.transparent-box {
+    background-color: rgba(245,245,245,225);
+    border-radius: 4px;
+    padding: 50px;
+}
