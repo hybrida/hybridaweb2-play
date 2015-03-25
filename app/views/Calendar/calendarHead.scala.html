@@ -18,7 +18,7 @@
             @if(models.LoginState.getUser().canCreateNewArticle()){editable: true,}
             eventLimit: true, // allow "more" link when too many events
             events: {
-                url: 'calendar',
+                url: 'kalender/get',
                 error: function() {
                     $('#script-warning').show();
                 }

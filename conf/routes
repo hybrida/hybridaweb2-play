@@ -11,7 +11,7 @@ GET         /styret                          controllers.OmStyret.index()
 
 # Calendar
 GET         /kalender                        controllers.Calendar.index()
-GET         /kalender/get                    controllers.Calendar.fetch(start: String, end: String, zone: String ?= null)
+GET         /kalender/get                    controllers.Calendar.fetch(start: String, end: String)
 
 # Update
 GET         /update                          controllers.Update.index()
