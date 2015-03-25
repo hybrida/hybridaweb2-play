@@ -20,7 +20,8 @@ GET         /update/utgaver                  controllers.Update.utgaver()
 GET         /update/redaksjon                controllers.Update.redaksjon()
 
 # Article and events
-GET         /GriffensOrden                   trash.controllers.griffensOrden.index()
+GET         /griffensorden                   trash.controllers.griffensOrden.index()
+GET         /griffensorden/riddere           controllers.Riddere.index()
 
 GET         /artikkel/ut/:id                 controllers.ArticleOut.index(id)
 GET         /artikkel/ny                     controllers.ArticleIn.index()
@@ -64,8 +65,6 @@ GET         /profil/:username                controllers.Profile.index(username)
 GET         /profil/:username/rediger        controllers.Profile.edit(username)
 POST        /profil/:username/rediger        controllers.Profile.update(username)
 
-
-
 # TEST
 # # New design
 GET         /proto                           controllers.Application.proto()
@@ -73,8 +72,6 @@ GET         /bs                              controllers.Application.bootstrapTe
 # # Chat
 GET         /Chat                            controllers.Chat.connectClient()
 GET         /ChatServer                      controllers.Chat.socket()
-
-
 
 # EXAMPLES
 # # Ebean

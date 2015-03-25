@@ -1,29 +1,24 @@
 @(article : models.Article, event : models.Event)
 @(/*This is for rendering a single event preview. It returns the bare html needed for the article to be correctly displayed. CSS should be added as well...*/)
 
-<a href="@(controllers.routes.Event.viewEvent(String.valueOf(event.getEventId())))">
-    <div class="content2">
-        <div style="border-bottom: 2px solid #9e9d98 \">
-            <img src="@article.getImagePath" alt="No image available" width=50% height=50%/><br>
-        @article.getTitle
+<div style="position: relative;">
+    <div style="padding-top: 100%;"></div>
+    <div class="container-with-set-aspect-ratio">
+        <a href="@(controllers.routes.Event.viewEvent(String.valueOf(event.getEventId())))">
+            <div style="position: relative">
+                <div style="padding-top: 61.8%"></div>
+                <div class="container-with-set-aspect-ratio">
+                    <img src="@article.getImagePath" alt="No image available" width=100%/>
+                </div>
+            </div>
+            <h3>
+            @article.getTitle
+            </h3>
+        </a>
+        <p>@article.getIngress</p>
+        <div style="position: absolute; bottom: 0; background: #ffffff; width: 100%">
+            <p style="float: left">Fra @timestamp.render(event.getEventHappens, event) til @timestamp.render(event.getEventStops, event)</p>
+            <p style="float: right">@(Integer.valueOf(event.getFirstLowerGraduationLimit)). - @(Integer.valueOf(event.getFirstUpperGraduationLimit)). klasse</p>
         </div>
-        <br>
-        @article.getIngress
-        <br>
-        Tidspunkt for eventet:
-        @timestamp.render(event.getEventHappens, event)
-
-        Eventet har frist:
-        @timestamp.render(event.getSignUpDeadline, event)
-
-
-        Andre frist:
-        @timestamp.render(event.getSecondSignUp, event)
-
-        Grenser: <br>
-        @Integer.valueOf(event.getFirstLowerGraduationLimit) - @Integer.valueOf(event.getFirstUpperGraduationLimit) klasse
-        <br>
-        @Integer.valueOf(event.getSecondLowerGraduationLimit) - @Integer.valueOf(event.getSecondUpperGraduationLimit) klasse
-
     </div>
-</a>
+</div>

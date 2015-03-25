@@ -21,7 +21,6 @@ public class Event extends Model implements Renderable {
     @OneToOne // This is a foreign key. It points to an "Article".
     private long articleId;
 
-    private int timeFrame;
     private String location;
 
     private int firstUpperGraduationLimit;
@@ -37,6 +36,7 @@ public class Event extends Model implements Renderable {
     private Calendar signUpDeadline;
     private Calendar secondSignUp;
     private Calendar eventHappens;
+    private Calendar eventStops;
 
 
 
@@ -52,12 +52,12 @@ public class Event extends Model implements Renderable {
         this.articleId = articleId;
     }
 
-    public int getTimeFrame() {
-        return timeFrame;
+    public Calendar getEventStops() {
+        return eventStops;
     }
 
-    public void setTimeFrame(int timeFrame) {
-        this.timeFrame = timeFrame;
+    public void setEventStops(Calendar eventStopsTime) {
+        this.eventStops = eventStopsTime;
     }
 
     public String getLocation() {

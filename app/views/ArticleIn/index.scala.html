@@ -1,91 +1,106 @@
 @()
-<div class="container-fluid">
-<script src="/assets/ckeditor/ckeditor.js"></script>
-<link href="sample.css" rel="stylesheet">
-<style>
+<div class="article-bg">
+    <div class="container-fluid">
+        <script src="/assets/ckeditor/ckeditor.js"></script>
+        <link href="sample.css" rel="stylesheet">
+        <style>
 
-/* Style the CKEditor element to look like a textfield */
-.cke_textarea_inline
-{
-padding: 10px;
-height: 200px;
-overflow: auto;
-background-color: #ffffff;
-border: 1px solid gray;
--webkit-appearance: textfield;
-}
+        /* Style the CKEditor element to look like a textfield */
+        .cke_textarea_inline {
+        padding : 10px ;
+        height : 200px ;
+        overflow : auto ;
+        background-color : #ffffff ;
+        border : 1px solid gray ;
+        -webkit-appearance : textfield ;
+        }
 
-</style>
+        </style>
 
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="article_writer">
-      <form name="Article" action="@routes.ArticleIn.save()" method="POST" enctype="multipart/form-data">
-          <textarea class="form-control" placeholder="Skriv tittelen her" type="text" name="title"></textarea>
-          <textarea class="form-control" placeholder="Skriv en kort oppsummering her" name="ingress" onfocus=""></textarea>
-          <textarea id="editor1" class="form-control" placeholder="Skriv ditt innlegg her" rows="12" cols="75" name="text"> Artikkel her</textarea>
-          <input class="pad_1percent_top center_block form-control" style="display: block; background-color: #c3c3c3; " type="file" name="picture">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-1 transparent-box">
+                <div class="article_writer">
+                    <h3><p class="text-center">Ny artikkel/event</p></h3>
+                    <form name="Article" action="@routes.ArticleIn.save()" method="POST" enctype="multipart/form-data">
+                        <textarea class="form-control" placeholder="Skriv tittelen her" type="text" name="title"></textarea>
+                        <textarea class="form-control" placeholder="Skriv en kort oppsummering her" name="ingress" onfocus=""></textarea>
+                        <textarea id="editor1" class="form-control" placeholder="Skriv ditt innlegg her" rows="12" cols="75" name="text">
+                            Artikkel her</textarea>
+                        <input class="pad_1percent_top center_block form-control" style="display : block ; background-color : #c3c3c3 ; " type="file" name="picture">
 
-          <div class="col-md-12" data-toggle="buttons">
-              <label class="checkbox btn btn-primary form-control">
-                  <input class="checkbox-center" id="arr" type="checkbox" name="event" value="Event" onclick="">
-                    Arrangement?
-              </label>
-        </div>
+                        <div class="form-group" data-toggle="buttons">
+                            <label class="checkbox btn btn-primary form-control" onclick="$ ( '.showhide' ).toggle ( ) ;">
+                                <input class="checkbox-center" id="arr" type="checkbox" name="event" value="Event">
+                                Arrangement?
+                            </label>
+                        </div>
+                        <div class="showhide" id="showhide" name="showhide" style="display : none">
+                            <br>
+                            <div class="form-group">
+                                <label for="nDS">Starttid:</label>
+                                <input class="form-control" id="nDS" type="datetime-local" name="eventHappens"></div>
+                            <div class="form-group">
+                                <label for="tF">Sluttid:</label>
+                                <input class="form-control" id="tF" type="datetime-local" name="timeFrame" placeholder="Varighet"></div>
+                            <div class="form-group">
+                                <label for="loc">Sted:</label>
+                                <input type="text" id="loc" class="form-control" name="location" placeholder="Skriv location her"></div>
+                            <div class="form-group">
+                                <label for="oD">Første påmeldingsfrist:</label>
+                                <input class="form-control" id="oD" type="datetime-local" name="signUpDeadline"></div>
+                            <div class="form-group">
+                                <label for="fU">Høyeste klassetrinn:</label>
+                                <input class="form-control" type="number" id="fU" name="firstUpperGraduationLimit" min="1" max="5" placeholder="Antall her"></div>
+                            <div class="form-group">
+                                <label for="fL">Laveste klassetrinn:</label>
+                                <input type="number" class="form-control" id="fL" name="firstLowerGraduationLimit" min="1" max="5" placeholder="Antall her"></div>
+                            <div class="form-group">
+                                <label for="aOD">Andre påmeldingsfrist:</label>
+                                <input class="form-control" id="aOD" type="datetime-local" name="secondSignUp"></div>
+                            <div class="form-group">
+                                <label for="sU">Høyeste klassetrinn, andre påmelding:</label>
+                                <input type="number" class="form-control" id="sU" name="secondUpperGraduationLimit" min="1" max="5" placeholder="Antall her"></div>
+                            <div class="form-group">
+                                <label for="sL">Laveste klassetrinn, andre påmelding:</label>
+                                <input type="number" id="sL" class="form-control" name="secondLowerGraduationLimit" min="1" max="5" placeholder="Antall her"></div>
+                            <div class="form-group">
+                                <label for="sA">Tillatt kjønn:</label>
+                                <select class="form-control" id="sA" name="sexAllowed">
+                                    <option value="A">Alle</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                </select></div>
+                            <div class="form-group">
+                                <label for="mO">Maksimalt antall deltagere:</label>
+                                <input class="form-control" id="mO" type="number" name="maxParticipants"></div>
+                            <div class="form-group">
+                                <label for="mV">Maksimalt antall deltagere på venteliste:</label>
+                                <input class="form-control" id="mV" type="number" name="maxParticipantsWaiting"></div>
+                            <div class="form-group">
+                                <input class="btn btn-primary form-control" type="submit" value="Post">
+                            </div>
+                        </div>
 
-        <div class="col-md-12">
-            <p class="text-center"> Grensen står for klassetrinnet som har lov til å melde seg opp. Tallet står for avslutningsår.</p>
+                    </form>
+                    <script>
+                    CKEDITOR.inline ( 'editor1' ) ;
+                    </script>
+                </div>
             </div>
-          <br>
-        <div class="form-group">
-            <label for="fU">Første Øvre Grense:</label>
-            <input class="form-control" type="number" id="fU" name="firstUpperGraduationLimit" min="1" max="5" placeholder="Antall her"></div>
-          <div class="form-group">
-              <label for="fL">Første Nedre Grense:</label>
-        <input type="number" class="form-control" id="fL" name="firstLowerGraduationLimit" min="1" max="5" placeholder="Antall her"></div>
-          <div class="form-group">
-        <label for="sU">Andre Øvre Grense:</label>
-        <input type="number" class="form-control" id="sU" name="secondUpperGraduationLimit" min="1" max="5" placeholder="Antall her"></div>
-         <div class="form-group">
-          <label for="sL">Andre Øvre Grense:</label>
-        <input type="number" id="sL" class="form-control" name="secondLowerGraduationLimit" min="1" max="5" placeholder="Antall her"></div>
-          <div class="form-group">
-          <label for="loc">Lokasjon:</label>
-        <input type="text" id="loc" class="form-control" name="location" placeholder="Skriv location her"></div>
-        <div class="form-group">
-        <label for="tF">Tidsramme:</label>
-        <input class="form-control" id="tF" type="number" name="timeFrame" placeholder="Varighet"></div>
-          <div class="form-group">
-        <label for="sA">Tillatt kjønn:</label>
-        <select class="form-control" id="sA" name="sexAllowed">
-            <option value="A">Alle</option>
-            <option value="M">Male</option>
-            <option value="F">Female</option>
-        </select></div>
-          <div class="form-group">
-        <label for="mO">Maksimal oppmeldte:</label>
-        <input class="form-control" id="mO" type="number" name="maxParticipants"></div>
-            <div class="form-group">
-        <label for="mV">Maksimal venteliste:</label>
-        <input class="form-control" id="mV" type="number" name="maxParticipantsWaiting"></div>
-            <div class="form-group">
-        <label for="oD">Oppmeldingsfrist:</label>
-                <input class="form-control" id="oD" type="datetime-local" name="signUpDeadline"></div>
-          <div class="form-group">
-            <label for="aOD">Andre oppmeldingsfrist:</label>
-            <input class="form-control" id="aOD" type="datetime-local" name="secondSignUp"></div>
-          <div class="form-group">
-        <label for="nDS">Når det skjer:</label>
-        <input class="form-control" id="nDS" type="datetime-local" name="eventHappens"></div>
-            <div class="form-group">
-        <input class="btn btn-primary form-control" type="submit" value="Post">
-          </div>
-
-    </form>
-    <script>
-    CKEDITOR.inline( 'editor1' );
-    </script>
+            <div class="col-md-3 col-md-offset-1">
+                <div class="transparent-box" data-spy="affix" style="margin-right:8.3%">
+                <h3><p>Her skal det stå en del innformasjon om denne formen:</p></h3>
+                <hr><p>
+                Det skal stå litt om hva de forskjellige feltene betyr, samt litt om hvordan vi liker å ha det her på hybridasiden!
+                <br>
+                Før du oppretter ett nytt event eller en artikkel, ser vi gjerne at du leser igjennom disse retningslinjene
+                slik at vi får en kul side, med kule bilder, og kul formatering, som ser sinnsykt kul ut hele tiden, alltid!
+                <br></p>
+                <strong><p>
+                    Grensen står for klassetrinnet som har lov til å melde seg opp. Tallet står for avslutningsår.</p></strong>
+                <br>
+                    </div>
             </div>
         </div>
-</div>
+    </div>
 </div>
