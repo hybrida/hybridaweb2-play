@@ -19,12 +19,20 @@
                     <a href="@controllers.routes.ArticleIn.editArticle(String.valueOf(article.getId))"> Rediger </a>
                 }
             </div>
-
-            <div class="col-md-3 transparent-box">
-            @( /* @if(UserEventJoined.isSignedUp(LoginState.getUser().getId(),  ))
-            <button class="btn btn-default"> Sign up</button>
-            TODO: lage button for på og avmelding, bruker kevin sine metoder;
-            */ )
+            <div class="col-md-3" style="margin-top: 1%">
+                <div class="transparent-box-addition">
+                    @for(i <- article.getCommentList()){
+                        @Html(i.getAuthor().getName() + ":")
+                        <br>
+                        @Html(i.getComment())
+                        <hr>
+                    }
+                    <form action="/comment/@article.getId" method="POST">
+                        <label for="comment">Comment:</label>
+                        <input type="text" class="form-control" id="comment" name="comment">
+                        <input type="submit" class="btn btn-primary center_inline_block">
+                    </form>
+                </div>
             </div>
         </div>
     </div>
