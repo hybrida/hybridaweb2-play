@@ -27,6 +27,9 @@ public class Article extends Model implements Renderable {
     @CreatedTimestamp
     private Timestamp   dateMade;
     private String      imagePath;
+    @OneToMany
+    @OrderBy("asc")
+    private List<Comment> commentList;
 
     public Article(String title, String text, String ingress, Long author, String imagePath) {
         this.title = title;
@@ -34,6 +37,10 @@ public class Article extends Model implements Renderable {
         this.ingress = ingress;
         this.author = author;
         this.imagePath = imagePath;
+    }
+
+    public List<Comment> getCommentList() {
+        return commentList;
     }
 
     public String getTitle() { return title; }
