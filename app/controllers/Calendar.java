@@ -17,6 +17,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+//TODO: Fix that the top of the calendar is put under navbar, Remove unnessesary files from fullcalendar and relocate the rest, Test birthday functionality
+
 public class Calendar extends Controller {
     private final static String ISO8601 = "yyyy-MM-dd";
     private final static String ISO8601_TIME = "yyyy-MM-dd'T'HH:mm:ssXXX";
@@ -49,7 +51,7 @@ public class Calendar extends Controller {
         // Get events
         List<models.Event> events =
                 models.Event.find.where().or(
-                        Expr.between("eventHappens", new Timestamp(start_time), new Timestamp(end_time)),
+                        Expr.between("eventHappens", new Timestamp(start_time), new Timestamp(end_time)), //TODO: this doesn't give the events that start before given start, and ends after given stop
                         Expr.between("eventStops", new Timestamp(start_time), new Timestamp(end_time))
                 ).findList();
 
