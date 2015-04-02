@@ -48,4 +48,8 @@ public class Comment extends Model {
     public Timestamp getCreatedDate() {
         return createdDate;
     }
+
+    public static Finder<Long, Comment> find = new Finder<Long, Comment>(
+            Long.class, Comment.class
+    );
 }

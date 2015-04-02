@@ -30,7 +30,8 @@ GET         /artikkel/:id                    controllers.ArticleOut.viewArticle(
 GET         /artikkel/:id/edit               controllers.ArticleIn.editArticle(id)
 GET         /event/ut/:id                    controllers.Event.viewEvent(id)
 
-POST        /comment/:articleID             controllers.ArticleOut.comment(articleID)
+POST        /comment/:articleID              controllers.ArticleOut.comment(articleID)
+POST        /comment/delete/:commentID       controllers.ArticleOut.deleteComment(commentID)
 
 GET         /update                          controllers.Update.index()
 POST        /update                          controllers.Update.post()

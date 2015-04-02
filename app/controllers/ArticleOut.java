@@ -74,4 +74,11 @@ public class ArticleOut extends Controller {
         return redirect(routes.ArticleOut.viewArticle(articleId).absoluteURL(request()));
     }
 
+    public static Result deleteComment(String commentId){
+        Comment thisComment = Comment.find.byId(Long.parseLong(commentId));
+        Article article = thisComment.getArticle();
+        thisComment.delete();
+        return redirect(routes.ArticleOut.viewArticle(article.getId().toString()).absoluteURL(request()));
+    }
+
 }

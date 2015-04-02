@@ -28,7 +28,7 @@ public class Article extends Model implements Renderable {
     private Timestamp   dateMade;
     private String      imagePath;
     @OneToMany
-    @OrderBy("asc")
+    @OrderBy("Comment.getCreationDate DESC")
     private List<Comment> commentList;
 
     public Article(String title, String text, String ingress, Long author, String imagePath) {
