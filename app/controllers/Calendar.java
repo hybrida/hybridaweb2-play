@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-//TODO: Fix that the top of the calendar is put under navbar, Remove unnessesary files from fullcalendar and relocate the rest, Test birthday functionality, Make dragging a event around actually change something if admin
+//TODO: Remove unnessesary files from fullcalendar and relocate the rest, Test birthday functionality, Make dragging a event around actually change something if admin
 
 public class Calendar extends Controller {
     private final static String ISO8601 = "yyyy-MM-dd";
