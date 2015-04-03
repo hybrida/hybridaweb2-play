@@ -1,10 +1,7 @@
 package controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import models.QuizSeason;
 import models.QuizTeam;
 import play.libs.Json;
-import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -26,12 +23,6 @@ public class QuizController extends Controller {
                 null,
                 null
         ));
-
-//        return ok(views.html.layoutWithHead.render(
-//                    "Quiz"
-//                    , views.html.Quiz.index.render()
-//                    , views.html.Quiz.head.render()
-//            ));
     }
 
     public static Result quizTeams() {
@@ -39,12 +30,12 @@ public class QuizController extends Controller {
         return ok(Json.toJson(teams));
     }
 
-    public static Result addQuizTeam() {
+    public static Result saveTeam() {
         JsonNode json = request().body().asJson();
 
         QuizTeam team = Json.fromJson(json, QuizTeam.class);
         team.save();
-        return ok("Team " + team.teamName + " saved.");
+        return ok("Team " + team.name + " saved.");
     }
 
 }

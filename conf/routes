@@ -71,7 +71,7 @@ POST        /profil/:username/rediger         controllers.Profile.update(usernam
 # Quizxx
 GET         /quiz                             controllers.QuizController.index()
 GET         /api/quizTeams                    controllers.QuizController.quizTeams()
-POST        /api/quizTeam                     controllers.QuizController.addQuizTeam()
+POST        /api/quizTeam                     controllers.QuizController.saveTeam()
 
 # TEST
 # # New design

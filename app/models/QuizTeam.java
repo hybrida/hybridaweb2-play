@@ -15,10 +15,9 @@ public class QuizTeam extends Model{
     @GeneratedValue
     public Long id;
 
-    public String teamName;
+    public String name;
 
     public String description;
-
 
     public static Finder<Long, QuizTeam> find
             = new Finder<Long, QuizTeam>(Long.class, QuizTeam.class);

@@ -41,9 +41,46 @@
     app.controller('QuizTeamController', function($http){
         var controllerContext = this;
         controllerContext.teams = [];
+        controllerContext.newTeams = [];
+
         $http.get('/api/quizTeams')
             .then(function (res) {
                 controllerContext.teams = res.data;
             });
-    })
+
+        controllerContext.saveTeam = function (team) {
+            $http.post('/api/quizTeam', team)
+                .then(function (res) {
+                    if(res && res.status == 200)
+                        moveElement(
+                            controllerContext.newTeams
+                            , controllerContext.teams
+                            , team
+                        );
+                });
+        };
+
+        controllerContext.createNewTeam = function () {
+            controllerContext.newTeams.push({});
+        };
+
+        controllerContext.deleteNewTeam = function(team) {
+            deleteElement(controllerContext.newTeams, team);
+        }
+    });
+
+    var moveElement = function(source, target, element) {
+        var index = source.indexOf(element);
+        if (index > -1) {
+            source.splice(index, 1);
+            target.push(element);
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    var deleteElement = function(list, element) {
+        return moveElement(list, [], element);
+    }
 })();

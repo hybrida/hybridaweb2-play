@@ -14,3 +14,7 @@
 .quiz-container > .nav {
     margin-bottom: 1em;
 }
+
+.quiz-team-table .quiz-team-table-action {
+    text-align: center;
+}
