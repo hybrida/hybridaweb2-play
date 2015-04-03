@@ -34,8 +34,9 @@ public class QuizController extends Controller {
         JsonNode json = request().body().asJson();
 
         QuizTeam team = Json.fromJson(json, QuizTeam.class);
-        team.save();
-        return ok("Team " + team.name + " saved.");
+        if (team.id == null)
+            team.save();
+        return ok(Json.toJson(team));
     }
 
 }

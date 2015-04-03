@@ -51,12 +51,12 @@
         controllerContext.saveTeam = function (team) {
             $http.post('/api/quizTeam', team)
                 .then(function (res) {
-                    if(res && res.status == 200)
-                        moveElement(
-                            controllerContext.newTeams
-                            , controllerContext.teams
-                            , team
-                        );
+                    if(res && res.status == 200) {
+                        var persistantTeam = res.data;
+                        deleteElement(controllerContext.newTeams, team);
+                        controllerContext.teams.push(persistantTeam);
+                    }
+                    //console.log(res);
                 });
         };
 
@@ -66,6 +66,11 @@
 
         controllerContext.deleteNewTeam = function(team) {
             deleteElement(controllerContext.newTeams, team);
+        };
+
+        controllerContext.debug = function () {
+            console.log(controllerContext.teams);
+            console.log(controllerContext.newTeams);
         }
     });
 
