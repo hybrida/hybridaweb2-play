@@ -1,8 +1,9 @@
 <div ng-app="quiz">
     <div ng-controller="ScoreboardController as score">
+        <h1>Total scores</h1>
         <ul>
-            <li ng-repeat="team in score.teamScores">
-                {{team.name}} has {{team.score}} points.
+            <li ng-repeat="(team, score) in score.teamScores">
+                {{team}} has {{score}} points.
             </li>
         </ul>
     </div>
