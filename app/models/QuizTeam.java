@@ -25,4 +25,8 @@ public class QuizTeam extends Model{
     public static List<QuizTeam> findAllTeams() {
         return QuizTeam.find.all();
     }
+
+    public static QuizTeam findById(Long id) {
+        return find.byId(id);
+    }
 }

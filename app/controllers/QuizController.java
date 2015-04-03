@@ -33,10 +33,18 @@ public class QuizController extends Controller {
     public static Result saveTeam() {
         JsonNode json = request().body().asJson();
 
-        QuizTeam team = Json.fromJson(json, QuizTeam.class);
-        if (team.id == null)
-            team.save();
-        return ok(Json.toJson(team));
+        QuizTeam edited = Json.fromJson(json, QuizTeam.class);
+        QuizTeam saved;
+        if (edited.id == null) {
+            edited.save();
+            saved = edited;
+        } else {
+            saved = QuizTeam.findById(edited.id);
+            saved.name = edited.name;
+            saved.description = edited.description;
+            saved.save();
+        }
+        return ok(Json.toJson(saved));
     }
 
 }

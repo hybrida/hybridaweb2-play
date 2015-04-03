@@ -60,6 +60,17 @@
                 });
         };
 
+        teams.modifyTeam = function (team) {
+            var index = teams.saved.indexOf(team);
+            if (index > -1) {
+                teams.saved.splice(index, 1);
+                teams.temporary.unshift(team);
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         teams.createNewTeam = function () {
             teams.temporary.push({});
         };

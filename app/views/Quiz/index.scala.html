@@ -1,6 +1,7 @@
 <div ng-app="quiz" class="quiz-container">
     <ul class="nav nav-tabs">
-        <li role="presentation"><a href>Poengtavle</a></li>
+        <li role="presentation"><a href>Sesong</a></li>
+        <li role="presentation"><a href>Quiz</a></li>
         <li role="presentation" class="active"><a href>Quizlag</a></li>
     </ul>
 
@@ -20,11 +21,11 @@
                 <th>Beskrivelse</th>
                 <th></th>
             </tr>
-            <tr ng-repeat="team in teams.saved">
+            <tr ng-repeat="team in teams.saved | orderBy : team.id ">
                 <td>{{team.name}}</td>
-                <td>{{team.description}}</td>
+                <td>{{team.description}} ({{team.id}})</td>
                 <td class="quiz-team-table-action">
-                    <button type="button" class="btn btn-default btn-sm">
+                    <button type="button" class="btn btn-default btn-sm" ng-click="teams.modifyTeam(team)">
                         <span class="glyphicon glyphicon-edit"></span>
                     </button>
                     <button type="button" class="btn btn-default btn-sm">
