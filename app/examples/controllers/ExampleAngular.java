@@ -8,7 +8,6 @@ import play.mvc.Result;
  */
 public class ExampleAngular extends Controller {
     public static Result index() {
-//        return ok("Hello, World!");
         return ok(examples.views.html.exampleAngular.render());
     }
 }
