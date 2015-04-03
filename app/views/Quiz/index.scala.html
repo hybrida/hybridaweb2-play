@@ -1,0 +1,12 @@
+<div ng-app="quiz">
+    <div ng-controller="ScoreboardController as score">
+        <ul>
+            <li ng-repeat="team in score.teamScores">
+                {{team.name}} has {{team.score}} points.
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script src="@routes.Assets.at("javascripts/quiz.js")"></script>

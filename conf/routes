@@ -68,6 +68,9 @@ GET         /profil/:username                 controllers.Profile.index(username
 GET         /profil/:username/rediger         controllers.Profile.edit(username)
 POST        /profil/:username/rediger         controllers.Profile.update(username)
 
+# Quiz
+GET         /quiz                             controllers.Quiz.index()
+
 # TEST
 # # New design
 GET         /proto                            controllers.Application.proto()
