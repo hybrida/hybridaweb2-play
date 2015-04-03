@@ -13,14 +13,14 @@
         </ul>
     </div>
 
-    <div ng-controller="QuizTeamController as teamOverview">
+    <div ng-controller="QuizTeamController as teams">
         <table class="quiz-team-table table table-hover">
             <tr>
                 <th>Lag</th>
                 <th>Beskrivelse</th>
                 <th></th>
             </tr>
-            <tr ng-repeat="team in teamOverview.teams">
+            <tr ng-repeat="team in teams.saved">
                 <td>{{team.name}}</td>
                 <td>{{team.description}}</td>
                 <td class="quiz-team-table-action">
@@ -32,24 +32,24 @@
                     </button>
                 </td>
             </tr>
-            <tr ng-repeat="newTeam in teamOverview.newTeams">
-                <td><input type="text" class="form-control" placeholder="Name" ng-model="newTeam.name">{{newTeam.name}}</td>
-                <td><input type="text" class="form-control" placeholder="Name" ng-model="newTeam.description">{{newTeam.description}}</td>
+            <tr ng-repeat="team in teams.temporary">
+                <td><input type="text" class="form-control" placeholder="Name" ng-model="team.name">{{team.name}}</td>
+                <td><input type="text" class="form-control" placeholder="Name" ng-model="team.description">{{team.description}}</td>
                 <td class="quiz-team-table-action">
-                    <button type="button" class="btn btn-default btn-sm" ng-click="teamOverview.saveTeam(newTeam)">
+                    <button type="button" class="btn btn-default btn-sm" ng-click="teams.saveTeam(team)">
                         <span class="glyphicon glyphicon-save"></span>
                     </button>
-                    <button type="button" class="btn btn-default btn-sm" ng-click="teamOverview.deleteNewTeam(newTeam)">
+                    <button type="button" class="btn btn-default btn-sm" ng-click="teams.deleteNewTeam(team)">
                         <span class="glyphicon glyphicon-remove"></span>
                     </button>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <button type="button" class="btn btn-default btn-sm" ng-click="teamOverview.createNewTeam()">
+                    <button type="button" class="btn btn-default btn-sm" ng-click="teams.createNewTeam()">
                         <span class="glyphicon glyphicon-plus"></span>
                     </button>
-                    <button type="button" class="btn btn-default btn-sm" ng-click="teamOverview.debug()">
+                    <button type="button" class="btn btn-default btn-sm" ng-click="teams.debug()">
                         Debug
                     </button>
                 </td>

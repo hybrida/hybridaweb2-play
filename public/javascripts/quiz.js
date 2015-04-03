@@ -39,38 +39,38 @@
     });
 
     app.controller('QuizTeamController', function($http){
-        var controllerContext = this;
-        controllerContext.teams = [];
-        controllerContext.newTeams = [];
+        var teams = this;
+        teams.saved = [];
+        teams.temporary = [];
 
         $http.get('/api/quizTeams')
             .then(function (res) {
-                controllerContext.teams = res.data;
+                teams.saved = res.data;
             });
 
-        controllerContext.saveTeam = function (team) {
+        teams.saveTeam = function (team) {
             $http.post('/api/quizTeam', team)
                 .then(function (res) {
                     if(res && res.status == 200) {
                         var persistantTeam = res.data;
-                        deleteElement(controllerContext.newTeams, team);
-                        controllerContext.teams.push(persistantTeam);
+                        deleteElement(teams.temporary, team);
+                        teams.saved.push(persistantTeam);
                     }
                     //console.log(res);
                 });
         };
 
-        controllerContext.createNewTeam = function () {
-            controllerContext.newTeams.push({});
+        teams.createNewTeam = function () {
+            teams.temporary.push({});
         };
 
-        controllerContext.deleteNewTeam = function(team) {
-            deleteElement(controllerContext.newTeams, team);
+        teams.deleteNewTeam = function(team) {
+            deleteElement(teams.temporary, team);
         };
 
-        controllerContext.debug = function () {
-            console.log(controllerContext.teams);
-            console.log(controllerContext.newTeams);
+        teams.debug = function () {
+            console.log(teams.saved);
+            console.log(teams.temporary);
         }
     });
 
