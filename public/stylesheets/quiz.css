@@ -1,0 +1,16 @@
+.pageItem {
+    display: block;
+    min-width: 300px;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding-left: 0;
+    padding-right: 0;
+
+}
+
+.pageInner { width: auto; margin: 0 50px;}
+.pageItem { width: 90%; float: none;}
+
+.quiz-container > .nav {
+    margin-bottom: 1em;
+}

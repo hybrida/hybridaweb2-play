@@ -32,9 +32,18 @@
                     that.teamScores[teamName] = oldScore + quizTeamScore.score;
                 });
             });
-            console.log(that.teamScores);
+            //console.log(that.teamScores);
         };
 
         updateTeamScores();
     });
+
+    app.controller('QuizTeamController', function($http){
+        var controllerContext = this;
+        controllerContext.teams = [];
+        $http.get('/api/quizTeams')
+            .then(function (res) {
+                controllerContext.teams = res.data;
+            });
+    })
 })();

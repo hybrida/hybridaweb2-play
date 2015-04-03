@@ -9,6 +9,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import views.html.layoutPage;
 
 import java.util.List;
 
@@ -16,11 +17,21 @@ import static play.mvc.Results.ok;
 
 public class QuizController extends Controller {
     public static Result index() {
-        return ok(views.html.layoutWithHead.render(
-                    "Quiz"
-                    , views.html.Quiz.index.render()
-                    , views.html.Quiz.head.render()
-            ));
+        return ok(layoutPage.render(
+                "Quiz",
+                views.html.Quiz.index.render(),
+                views.html.Quiz.head.render(),
+                null,
+                null,
+                null,
+                null
+        ));
+
+//        return ok(views.html.layoutWithHead.render(
+//                    "Quiz"
+//                    , views.html.Quiz.index.render()
+//                    , views.html.Quiz.head.render()
+//            ));
     }
 
     public static Result quizTeams() {

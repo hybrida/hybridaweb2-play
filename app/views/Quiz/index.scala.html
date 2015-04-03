@@ -1,11 +1,31 @@
-<div ng-app="quiz">
-    <div ng-controller="ScoreboardController as score">
-        <h1>Total scores</h1>
-        <ol>
-            <li ng-repeat="(team, score) in score.teamScores | orderBy:'-score'">
-                {{team}} has {{score}} points.
+<div ng-app="quiz" class="quiz-container">
+    <ul class="nav nav-tabs">
+        <li role="presentation"><a href>Poengtavle</a></li>
+        <li role="presentation" class="active"><a href>Quizlag</a></li>
+    </ul>
+
+    <div ng-controller="ScoreboardController as score" ng-hide="true">
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="(team, score) in score.teamScores | orderBy:'-score'">
+                <span class="badge">{{score}}</span>
+                {{team}}
             </li>
-        </ol>
+        </ul>
+    </div>
+
+    <div ng-controller="QuizTeamController as teamOverview">
+        <table class="table table-hover">
+            <tr>
+                <th>Lag</th>
+                <th>Beskrivelse</th>
+            </tr>
+            <tr>
+            <tr ng-repeat="team in teamOverview.teams">
+                <td>{{team.teamName}}</td>
+                <td>{{team.description}}</td>
+            </tr>
+        </table>
+        Teams raw data: {{teamOverview.teams[0].id}}
     </div>
 </div>
 
