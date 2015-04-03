@@ -1,15 +1,6 @@
 (function () {
     var app = angular.module('quiz', []);
 
-    //var teamTotalScoresAlt = [
-    //    {name: "SuperTeam", score: 13},
-    //    {name: "HorribleTeam", score: 3}
-    //];
-    //var teamTotalScores = {
-    //    SuperTeam: 13,
-    //    HorribleTeam: 3
-    // }
-
     var quizes = [
         {
             timeStamp: 1288323623006
@@ -27,7 +18,7 @@
                 {name: "HorribleTeam", score: 4}
             ]
         }
-    ]
+    ];
 
     app.controller('ScoreboardController', function () {
         this.teamScores = {};

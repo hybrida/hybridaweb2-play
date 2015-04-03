@@ -1,11 +1,11 @@
 <div ng-app="quiz">
     <div ng-controller="ScoreboardController as score">
         <h1>Total scores</h1>
-        <ul>
-            <li ng-repeat="(team, score) in score.teamScores">
+        <ol>
+            <li ng-repeat="(team, score) in score.teamScores | orderBy:'-score'">
                 {{team}} has {{score}} points.
             </li>
-        </ul>
+        </ol>
     </div>
 </div>
 
