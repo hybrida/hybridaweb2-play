@@ -36,6 +36,7 @@ public class QuizController extends Controller {
 
         QuizTeam edited = Json.fromJson(json, QuizTeam.class);
         QuizTeam saved;
+
         if (edited.id == null) {
             edited.save();
             saved = edited;
@@ -45,11 +46,13 @@ public class QuizController extends Controller {
             saved.description = edited.description;
             saved.save();
         }
+
         return ok(Json.toJson(saved));
     }
 
     public static Result deleteTeamById(Long id){
         QuizTeam team = QuizTeam.findById(id);
+
         if (team != null) {
             Ebean.delete(team);
             return ok("Deleted " + id);
