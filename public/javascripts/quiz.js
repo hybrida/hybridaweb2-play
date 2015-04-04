@@ -38,6 +38,10 @@
         updateTeamScores();
     });
 
+    app.controller('SeasonController', function ($http) {
+        var seasons = this;
+    })
+
     app.controller('QuizTeamController', function($http){
         var teams = this;
         teams.saved = [];
@@ -71,6 +75,16 @@
             }
         }
 
+        teams.deleteTeamById = function(team) {
+            $http.delete('/api/quizTeam/' + team.id)
+                .then(function (res) {
+                    //console.log(res);
+                    if (res.status == 200) {
+                        deleteElement(teams.saved, team);
+                    }
+                });
+        };
+
         teams.createNewTeam = function () {
             teams.temporary.push({});
         };
@@ -80,7 +94,9 @@
         };
 
         teams.debug = function () {
+            console.log("Saved teams:")
             console.log(teams.saved);
+            console.log("Temporary teams:")
             console.log(teams.temporary);
         }
     });

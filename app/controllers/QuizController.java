@@ -1,5 +1,6 @@
 package controllers;
 
+import com.avaje.ebean.Ebean;
 import models.QuizTeam;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -45,6 +46,16 @@ public class QuizController extends Controller {
             saved.save();
         }
         return ok(Json.toJson(saved));
+    }
+
+    public static Result deleteTeamById(Long id){
+        QuizTeam team = QuizTeam.findById(id);
+        if (team != null) {
+            Ebean.delete(team);
+            return ok("Deleted " + id);
+        } else {
+            return badRequest("Error: could not find any team with id " + id);
+        }
     }
 
 }

@@ -13,9 +13,7 @@ import java.util.List;
 public class QuizSeason extends Model {
     @Id
     @GeneratedValue
-    public Long id;
-
     public int season;
 
-    public List<Quiz> quizes;
+    public String description;
 }
