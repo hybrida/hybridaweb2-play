@@ -4,10 +4,49 @@
     var assetsBaseUrl = '/assets/html/quiz/';
 
     app.controller('tabController', function() {
-        this.currentTab = 'hybQuizSeason';
+        this.currentTab = 'hybQuizOverview';
 
         this.setCurrentTab = function (tabName) {
             this.currentTab = tabName;
+        };
+    });
+
+    app.directive('hybQuizOverview', function () {
+        return {
+            restrict: 'E',
+            templateUrl: assetsBaseUrl + 'quiz-overview.html',
+            controller: function () {
+                this.seasons = [
+                    {seasonNumber: 1, description: "It begins."},
+                    {seasonNumber: 2, description: "It CONTINUES!"}
+                ];
+
+                var latestSeason = function (seasons) {
+                    if (seasons.length == 0)
+                        return null;
+                    var latestSeason = seasons[0];
+                    angular.forEach(seasons, function (s, key) {
+                        if (s.seasonNumber > latestSeason.seasonNumber)
+                            latestSeason = s;
+                    });
+                    return latestSeason;
+                };
+
+                this.currentSeason = latestSeason(this.seasons);
+            },
+            controllerAs: 'overviewCtrl'
+
+        };
+    });
+
+    app.directive('hybQuizSeason', function () {
+        return {
+            restrict: 'E',
+            templateUrl: assetsBaseUrl + 'quiz-season.html',
+            controller: function () {
+
+            },
+            controllerAs: 'seasonCtrl'
         };
     });
 
@@ -17,41 +56,6 @@
             templateUrl: assetsBaseUrl + 'quiz.html'
         };
     });
-
-    app.directive('hybQuizSeason', function () {
-        return {
-            restrict: 'E',
-            templateUrl: assetsBaseUrl + 'quiz-season.html',
-            controller: function () {
-                this.seasons = [
-                    {season: 1, description: "It begins."},
-                    {season: 2, description: "It CONTINUES!"}
-                ];
-
-                var latestSeason = function (seasons) {
-                    if (seasons.length == 0)
-                        return null;
-                    var latestSeason = seasons[0];
-                    angular.forEach(seasons, function (s, key) {
-                        if (s.season > latestSeason.season)
-                            latestSeason = s;
-                        console.log(s);
-                    });
-                    return latestSeason;
-                };
-
-                this.currentSeason = latestSeason(this.seasons);
-
-                this.formatSeason = function (season) {
-                    return season.description;
-                };
-
-
-            },
-            controllerAs: 'seasonCtrl'
-        };
-    });
-
 
     app.directive('hybQuizTeams', function () {
         return {

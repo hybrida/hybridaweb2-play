@@ -18,3 +18,14 @@
 .quiz-team-table .quiz-team-table-action {
     text-align: center;
 }
+
+/* Bootstrap uses border radius on all buttons, looks like we're not. */
+button.btn{
+    border-radius: 0;
+}
+
+.season-edit .row {
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 1em;
+}

@@ -7,7 +7,7 @@ import java.util.List;
 
 
 /**
- * Quizes are organized into seasons. A winner is announced at the end of a season.
+ * Quizes are organized into seasons. A winner is announced at the end of a seasonNumber.
  */
 @Entity
 public class QuizSeason extends Model {
@@ -15,7 +15,7 @@ public class QuizSeason extends Model {
     public Long id;
 
     @Column(unique = true)
-    public Long season;
+    public Long seasonNumber;
 
     public String description;
 

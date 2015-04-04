@@ -85,7 +85,7 @@ public class QuizController extends Controller {
             toBeSaved = edited;
         } else {
             toBeSaved = QuizSeason.findById(edited.id);
-            toBeSaved.season = edited.season;
+            toBeSaved.seasonNumber = edited.seasonNumber;
             toBeSaved.description = edited.description;
         }
 
@@ -101,7 +101,7 @@ public class QuizController extends Controller {
             Ebean.delete(season);
             return ok("Deleted " + id);
         } else {
-            return badRequest("Error: could not find any quiz season with id=<" + id + ">.");
+            return badRequest("Error: could not find any quiz seasonNumber with id=<" + id + ">.");
         }
     }
 
