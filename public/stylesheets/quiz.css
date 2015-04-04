@@ -11,7 +11,7 @@
 .pageInner { width: auto; margin: 0 50px;}
 .pageItem { width: 90%; float: none;}
 
-.quiz-container > .nav {
+.quiz-container  .nav {
     margin-bottom: 1em;
 }
 

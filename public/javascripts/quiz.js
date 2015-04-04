@@ -1,6 +1,14 @@
 (function () {
     var app = angular.module('quiz', []);
 
+    app.controller('tabController', function() {
+        this.currentTab = 'quizTeams';
+
+        this.setCurrentTab = function (tabName) {
+            this.currentTab = tabName;
+        }
+    });
+
     app.directive('quizTeams', function () {
         return {
             restrict: 'E',

@@ -1,21 +1,19 @@
 <div ng-app="quiz" class="quiz-container">
-    <ul class="nav nav-tabs">
-        <li role="presentation"><a href>Sesong</a></li>
-        <li role="presentation"><a href>Quiz</a></li>
-        <li role="presentation" class="active"><a href>Quizlag</a></li>
-    </ul>
-
-    <div ng-controller="ScoreboardController as score" ng-hide="true">
-        <ul class="list-group">
-            <li class="list-group-item" ng-repeat="(team, score) in score.teamScores | orderBy:'-score'">
-                <span class="badge">{{score}}</span>
-                {{team}}
+    <div ng-controller="tabController as tabCtrl">
+        <ul class="nav nav-tabs quiz-tabs">
+            <li role="presentation" ng-class="{active: tabCtrl.currentTab === 'season' }">
+                <a href ng-click="tabCtrl.currentTab = 'season'">Sesong</a>
+            </li>
+            <li role="presentation" ng-class="{active: tabCtrl.currentTab === 'quiz' }">
+                <a href ng-click="tabCtrl.currentTab = 'quiz'">Quiz</a>
+            </li>
+            <li role="presentation" ng-class="{active: tabCtrl.currentTab === 'quizTeams' }">
+                <a href ng-click="tabCtrl.currentTab = 'quizTeams'">Quizlag</a>
             </li>
         </ul>
+
+        <quiz-teams ng-show="tabCtrl.currentTab === 'quizTeams'"></quiz-teams>
     </div>
-
-    <quiz-teams></quiz-teams>
-
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
