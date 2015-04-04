@@ -1,30 +1,47 @@
 (function () {
     var app = angular.module('quiz', []);
+    var apiBaseUrl = '/api/quiz/';
+    var assetsBaseUrl = '/assets/html/quiz/';
 
     app.controller('tabController', function() {
-        this.currentTab = 'quizTeams';
+        this.currentTab = 'hybQuizSeason';
 
         this.setCurrentTab = function (tabName) {
             this.currentTab = tabName;
-        }
+        };
     });
 
-    app.directive('quizTeams', function () {
+    app.directive('hybQuizViewer', function () {
         return {
             restrict: 'E',
-            templateUrl: '/assets/html/quiz/quiz-teams.html',
+            templateUrl: assetsBaseUrl + 'quiz.html'
+        };
+    });
+
+    app.directive('hybQuizSeason', function () {
+        return {
+            restrict: 'E',
+            templateUrl: assetsBaseUrl + 'quiz-season.html'
+        };
+    });
+
+
+    app.directive('hybQuizTeams', function () {
+        return {
+            restrict: 'E',
+            templateUrl: assetsBaseUrl + 'quiz-teams.html',
             controller: function($http){
                 var teams = this;
                 teams.saved = [];
                 teams.temporary = [];
 
-                $http.get('/api/quizTeams')
+                $http.get(apiBaseUrl + 'teams')
                     .then(function (res) {
                         teams.saved = res.data;
                     });
 
                 teams.saveTeam = function (team) {
-                    $http.post('/api/quizTeam', team)
+                    $http.put(apiBaseUrl + 'team', team)
                         .then(function (res) {
                             if(res && res.status == 200) {
                                 var persistantTeam = res.data;
@@ -44,10 +61,10 @@
                     } else {
                         return false;
                     }
-                }
+                };
 
                 teams.deleteTeamById = function(team) {
-                    $http.delete('/api/quizTeam/' + team.id)
+                    $http.delete(apiBaseUrl + 'team/' + team.id)
                         .then(function (res) {
                             //console.log(res);
                             if (res.status == 200) {

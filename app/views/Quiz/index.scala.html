@@ -1,18 +1,20 @@
 <div ng-app="quiz" class="quiz-container">
     <div ng-controller="tabController as tabCtrl">
         <ul class="nav nav-tabs quiz-tabs">
-            <li role="presentation" ng-class="{active: tabCtrl.currentTab === 'season' }">
-                <a href ng-click="tabCtrl.currentTab = 'season'">Sesong</a>
+            <li role="presentation" ng-class="{active: tabCtrl.currentTab === 'hybQuizSeason' }">
+                <a href ng-click="tabCtrl.currentTab = 'hybQuizSeason'">Sesong</a>
             </li>
-            <li role="presentation" ng-class="{active: tabCtrl.currentTab === 'quiz' }">
-                <a href ng-click="tabCtrl.currentTab = 'quiz'">Quiz</a>
+            <li role="presentation" ng-class="{active: tabCtrl.currentTab === 'hybQuizViewer' }">
+                <a href ng-click="tabCtrl.currentTab = 'hybQuizViewer'">Quiz</a>
             </li>
-            <li role="presentation" ng-class="{active: tabCtrl.currentTab === 'quizTeams' }">
-                <a href ng-click="tabCtrl.currentTab = 'quizTeams'">Quizlag</a>
+            <li role="presentation" ng-class="{active: tabCtrl.currentTab === 'hybQuizTeams' }">
+                <a href ng-click="tabCtrl.currentTab = 'hybQuizTeams'">Quizlag</a>
             </li>
         </ul>
 
-        <quiz-teams ng-show="tabCtrl.currentTab === 'quizTeams'"></quiz-teams>
+        <hyb-quiz-season ng-show="tabCtrl.currentTab === 'hybQuizSeason'"></hyb-quiz-season>
+        <hyb-quiz-viewer ng-show="tabCtrl.currentTab === 'hybQuizViewer'"></hyb-quiz-viewer>
+        <hyb-quiz-teams ng-show="tabCtrl.currentTab === 'hybQuizTeams'"></hyb-quiz-teams>
     </div>
 </div>
 

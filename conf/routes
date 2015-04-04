@@ -68,11 +68,14 @@ GET         /profil/:username                 controllers.Profile.index(username
 GET         /profil/:username/rediger         controllers.Profile.edit(username)
 POST        /profil/:username/rediger         controllers.Profile.update(username)
 
-# Quizxx
+# Quiz
 GET         /quiz                             controllers.QuizController.index()
-GET         /api/quizTeams                    controllers.QuizController.quizTeams()
-POST        /api/quizTeam                     controllers.QuizController.saveTeam()
-DELETE      /api/quizTeam/:id                 controllers.QuizController.deleteTeamById(id: Long)
+GET         /api/quiz/teams                   controllers.QuizController.quizTeams()
+PUT         /api/quiz/team                    controllers.QuizController.putTeam()
+DELETE      /api/quiz/team/:id                controllers.QuizController.deleteTeamById(id: Long)
+GET         /api/quiz/seasons                 controllers.QuizController.quizSeasons()
+PUT         /api/quiz/season                  controllers.QuizController.putSeason()
+DELETE      /api/quiz/season/:id              controllers.QuizController.deleteSeasonById(id: Long)
 
 # TEST
 # # New design

@@ -1,6 +1,7 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
+import models.QuizSeason;
 import models.QuizTeam;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -31,7 +32,7 @@ public class QuizController extends Controller {
         return ok(Json.toJson(teams));
     }
 
-    public static Result saveTeam() {
+    public static Result putTeam() {
         JsonNode json = request().body().asJson();
 
         QuizTeam edited = Json.fromJson(json, QuizTeam.class);
@@ -59,6 +60,19 @@ public class QuizController extends Controller {
         } else {
             return badRequest("Error: could not find any team with id " + id);
         }
+    }
+
+    public static Result quizSeasons() {
+        List<QuizSeason> seasons = QuizSeason.findAllSeasons();
+        return ok(Json.toJson(seasons));
+    }
+
+    public static Result putSeason() {
+        return ok("Dummy");
+    }
+
+    public static Result deleteSeasonById(Long id) {
+        return ok("Dummy");
     }
 
 }

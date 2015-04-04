@@ -17,13 +17,15 @@
         </td>
     </tr>
     <tr ng-repeat="team in teams.temporary">
-        <td><input type="text" class="form-control" placeholder="Name" ng-model="team.name" autofocus /></td>
-        <td><input type="text" class="form-control" placeholder="Name" ng-model="team.description" /></td>
+        <td><input required type="text" class="form-control" placeholder="Name" ng-model="team.name" autofocus /></td>
+        <td><input required type="text" class="form-control" placeholder="Name" ng-model="team.description" /></td>
         <td class="quiz-team-table-action">
-            <button type="button" class="btn btn-default btn-sm" ng-click="teams.saveTeam(team)">
+            <button type="button" class="btn btn-default btn-sm"
+                    ng-click="teams.saveTeam(team)" ng-disabled="!(team.name && team.description)">
                 <span class="glyphicon glyphicon-save"></span>
             </button>
-            <button type="button" class="btn btn-default btn-sm" ng-click="teams.deleteNewTeam(team)">
+            <button type="button" class="btn btn-default btn-sm"
+                    ng-click="teams.deleteNewTeam(team)">
                 <span class="glyphicon glyphicon-remove"></span>
             </button>
         </td>
