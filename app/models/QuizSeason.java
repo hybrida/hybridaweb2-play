@@ -12,6 +12,9 @@ import java.util.List;
 @Entity
 public class QuizSeason extends Model {
     @Id
+    public Long id;
+
+    @Column(unique = true)
     public Long season;
 
     public String description;
@@ -21,5 +24,9 @@ public class QuizSeason extends Model {
 
     public static List<QuizSeason> findAllSeasons(){
         return QuizSeason.find.all();
+    }
+
+    public static QuizSeason findById(Long id) {
+        return find.byId(id);
     }
 }

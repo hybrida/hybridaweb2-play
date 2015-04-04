@@ -36,19 +36,19 @@ public class QuizController extends Controller {
         JsonNode json = request().body().asJson();
 
         QuizTeam edited = Json.fromJson(json, QuizTeam.class);
-        QuizTeam saved;
+        QuizTeam toBeSaved;
 
         if (edited.id == null) {
-            edited.save();
-            saved = edited;
+            toBeSaved = edited;
         } else {
-            saved = QuizTeam.findById(edited.id);
-            saved.name = edited.name;
-            saved.description = edited.description;
-            saved.save();
+            toBeSaved = QuizTeam.findById(edited.id);
+            toBeSaved.name = edited.name;
+            toBeSaved.description = edited.description;
         }
 
-        return ok(Json.toJson(saved));
+        toBeSaved.save();
+
+        return ok(Json.toJson(toBeSaved));
     }
 
     public static Result deleteTeamById(Long id){
@@ -58,7 +58,7 @@ public class QuizController extends Controller {
             Ebean.delete(team);
             return ok("Deleted " + id);
         } else {
-            return badRequest("Error: could not find any team with id " + id);
+            return badRequest("Error: could not find any team with id=<" + id + ">.");
         }
     }
 
@@ -67,12 +67,42 @@ public class QuizController extends Controller {
         return ok(Json.toJson(seasons));
     }
 
+    /**
+     * If id is specifies, attempts to update existing entity. Does nothing
+     * if there is no matching entity.
+     *
+     * If id is not specified, creates new entity.
+     *
+     * @return the entity as it is saved to the database
+     */
     public static Result putSeason() {
-        return ok("Dummy");
+        JsonNode json = request().body().asJson();
+
+        QuizSeason edited = Json.fromJson(json, QuizSeason.class);
+        QuizSeason toBeSaved;
+
+        if (edited.id == null) {
+            toBeSaved = edited;
+        } else {
+            toBeSaved = QuizSeason.findById(edited.id);
+            toBeSaved.season = edited.season;
+            toBeSaved.description = edited.description;
+        }
+
+        toBeSaved.save();
+
+        return ok(Json.toJson(toBeSaved));
     }
 
     public static Result deleteSeasonById(Long id) {
-        return ok("Dummy");
+        QuizSeason season = QuizSeason.findById(id);
+
+        if (season != null) {
+            Ebean.delete(season);
+            return ok("Deleted " + id);
+        } else {
+            return badRequest("Error: could not find any quiz season with id=<" + id + ">.");
+        }
     }
 
 }

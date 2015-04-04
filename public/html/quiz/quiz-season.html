@@ -1,1 +1,5 @@
-Content of quiz-season.html!
+<select class="form-control" ng-model="seasonCtrl.currentSeason",
+        ng-options="s as 'Sesong ' + s.season + ': ' + s.description for s in seasonCtrl.seasons">
+</select>
+
+currentSeason: {{seasonCtrl.currentSeason}}

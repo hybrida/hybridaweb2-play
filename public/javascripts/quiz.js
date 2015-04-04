@@ -21,7 +21,34 @@
     app.directive('hybQuizSeason', function () {
         return {
             restrict: 'E',
-            templateUrl: assetsBaseUrl + 'quiz-season.html'
+            templateUrl: assetsBaseUrl + 'quiz-season.html',
+            controller: function () {
+                this.seasons = [
+                    {season: 1, description: "It begins."},
+                    {season: 2, description: "It CONTINUES!"}
+                ];
+
+                var latestSeason = function (seasons) {
+                    if (seasons.length == 0)
+                        return null;
+                    var latestSeason = seasons[0];
+                    angular.forEach(seasons, function (s, key) {
+                        if (s.season > latestSeason.season)
+                            latestSeason = s;
+                        console.log(s);
+                    });
+                    return latestSeason;
+                };
+
+                this.currentSeason = latestSeason(this.seasons);
+
+                this.formatSeason = function (season) {
+                    return season.description;
+                };
+
+
+            },
+            controllerAs: 'seasonCtrl'
         };
     });
 
@@ -36,18 +63,16 @@
                 teams.temporary = [];
 
                 $http.get(apiBaseUrl + 'teams')
-                    .then(function (res) {
-                        teams.saved = res.data;
+                    .success(function (data) {
+                        teams.saved = data;
                     });
 
-                teams.saveTeam = function (team) {
+                teams.putTeam = function (team) {
                     $http.put(apiBaseUrl + 'team', team)
-                        .then(function (res) {
-                            if(res && res.status == 200) {
-                                var persistantTeam = res.data;
-                                deleteElement(teams.temporary, team);
-                                teams.saved.push(persistantTeam);
-                            }
+                        .success(function (data) {
+                            var persistentTeam = data;
+                            deleteElement(teams.temporary, team);
+                            teams.saved.push(persistentTeam);
                             //console.log(res);
                         });
                 };

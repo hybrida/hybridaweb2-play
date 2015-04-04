@@ -15,6 +15,7 @@ public class QuizTeam extends Model{
     @GeneratedValue
     public Long id;
 
+    @Column(unique = true)
     public String name;
 
     public String description;
