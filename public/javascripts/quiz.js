@@ -3,6 +3,14 @@
     var apiBaseUrl = '/api/quiz/';
     var assetsBaseUrl = '/assets/html/quiz/';
 
+    app.factory('Data', function () {
+        return {
+            savedSeasons: [],
+            savedTeams: [],
+            message: "Hello"
+        };
+    });
+
     app.controller('tabController', function() {
         this.currentTab = 'hybQuizOverview';
 
@@ -15,24 +23,15 @@
         return {
             restrict: 'E',
             templateUrl: assetsBaseUrl + 'quiz-overview.html',
-            controller: function () {
-                this.seasons = [
-                    {seasonNumber: 1, description: "It begins."},
-                    {seasonNumber: 2, description: "It CONTINUES!"}
-                ];
+            controller: function (Data, $http) {
+                var that = this;
+                that.seasons = [];
 
-                var latestSeason = function (seasons) {
-                    if (seasons.length == 0)
-                        return null;
-                    var latestSeason = seasons[0];
-                    angular.forEach(seasons, function (s, key) {
-                        if (s.seasonNumber > latestSeason.seasonNumber)
-                            latestSeason = s;
+                $http.get(apiBaseUrl + 'seasons')
+                    .success(function (data) {
+                        that.seasons = data;
                     });
-                    return latestSeason;
-                };
 
-                this.currentSeason = latestSeason(this.seasons);
             },
             controllerAs: 'overviewCtrl'
 
@@ -43,8 +42,62 @@
         return {
             restrict: 'E',
             templateUrl: assetsBaseUrl + 'quiz-season.html',
-            controller: function () {
+            controller: function($http, Data){
+                var seasons = this;
+                //this.sharedData = Data;
+                seasons.saved = [];
+                seasons.temporary = [];
 
+                $http.get(apiBaseUrl + 'seasons')
+                    .success(function (data) {
+                        seasons.saved = data;
+                    });
+
+                seasons.putSeason = function (season) {
+                    $http.put(apiBaseUrl + 'season', season)
+                        .success(function (data) {
+                            var persistentTeam = data;
+                            deleteElement(seasons.temporary, season);
+                            seasons.saved.push(persistentTeam);
+                            //console.log(res);
+                        });
+                };
+
+                seasons.modifySeason = function (season) {
+                    var index = seasons.saved.indexOf(season);
+                    if (index > -1) {
+                        seasons.saved.splice(index, 1);
+                        seasons.temporary.unshift(season);
+                        return true;
+                    } else {
+                        return false;
+                    }
+                };
+
+                seasons.deleteSeasonById = function(season) {
+                    $http.delete(apiBaseUrl + 'season/' + season.id)
+                        .then(function (res) {
+                            //console.log(res);
+                            if (res.status == 200) {
+                                deleteElement(seasons.saved, season);
+                            }
+                        });
+                };
+
+                seasons.createNewSeason = function () {
+                    seasons.temporary.push({});
+                };
+
+                seasons.deleteNewSeason = function(season) {
+                    deleteElement(seasons.temporary, season);
+                };
+
+                seasons.debug = function () {
+                    console.log("Saved seasons:")
+                    console.log(seasons.saved);
+                    console.log("Temporary seasons:")
+                    console.log(seasons.temporary);
+                }
             },
             controllerAs: 'seasonCtrl'
         };
