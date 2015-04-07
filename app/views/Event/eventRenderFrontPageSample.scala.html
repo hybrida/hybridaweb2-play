@@ -17,8 +17,15 @@
         </a>
         <p>@article.getIngress</p>
         <div style="position: absolute; bottom: 0; background: #ffffff; width: 100%">
-            <p style="float: left">Fra @timestamp.render(event.getEventHappens, event) til @timestamp.render(event.getEventStops, event)</p>
-            <p style="float: right">@(Integer.valueOf(event.getFirstLowerGraduationLimit)). - @(Integer.valueOf(event.getFirstUpperGraduationLimit)). klasse</p>
+		    <div style="width: 50%; margin:0;float: left;">
+                <p>@timestamp.render(event.getEventHappens, event)</p>
+            </div>
+            <div style="width: 50%; margin:0; float: right;">
+                <div class="progress">
+					<div class="progress-bar" style="width: @((models.UserEventJoined.getNumberOfSignedUp(event.getEventId))*100/event.getMaxParticipants)%"></div>
+					<span>@(models.UserEventJoined.getNumberOfSignedUp(event.getEventId)) / @event.getMaxParticipants</span>
+				</div>
+			</div>
         </div>
     </div>
 </div>

@@ -28,8 +28,11 @@ GET           /artikkel/ut/:id                  controllers.ArticleOut.index(id)
 GET           /artikkel/ny                      controllers.ArticleIn.index()
 POST          /artikkel/ny                      controllers.ArticleIn.save()
 GET           /artikkel/:id                     controllers.ArticleOut.viewArticle(id)
-GET           /artikkel/:id/edit                controllers.ArticleIn.editArticle(id)
+GET           /artikkel/:id/endre               controllers.ArticleIn.editArticle(id)
+POST          /artikkel/:id/lagreEndring        controllers.ArticleIn.saveEdit(id)
 GET           /event/ut/:id                     controllers.Event.viewEvent(id)
+GET           /event/:id/endre                  controllers.Event.editEvent(id)
+POST          /event/:id/lagreEndring           controllers.Event.saveEdit(id)
 
 POST          /comment/:articleID               controllers.ArticleOut.comment(articleID)
 POST          /comment/delete/:commentID        controllers.ArticleOut.deleteComment(commentID)
@@ -114,4 +117,3 @@ GET           /unauthorized                     controllers.Application.showUnau
 # Show some page describing the URL if all else fails
 GET           /$anything<.*>                    controllers.Application.show404(anything: String)
 GET           /error400/:error                  controllers.Application.show400(error)
-

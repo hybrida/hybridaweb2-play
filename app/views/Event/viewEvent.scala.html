@@ -1,33 +1,34 @@
 @(article : models.Article, event : models.Event)
 @(/*This is for rendering a single event.*/)
+<div class="article-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 white-boxer">
 
-<div class="content2">
-    <div style="border-bottom: 2px solid #9e9d98 \">
-        <img src="@article.getImagePath" alt="No image available" width=50% height=50%/><br>
-    @article.getTitle
-    </div>
-    <br>
-    @article.getIngress
-    <br>
-    @Html(article.getText)
-    <br>
-    Av: @User.find.byId(article.getAuthor).getName
-    <br>
-    Meldt på: @models.UserEventJoined.getNumberOfSignedUp(event.getEventId) / @event.getMaxParticipants
-    <br>
-    Første oppmeldingsfrist: @event.getSignUpDeadline.getTime()
-    <br>
-    Andre oppmeldingsfrist: @event.getSecondSignUp.getTime()
-    <br>
-    Det skjer: @event.getEventHappens.getTime()
-    <br>
-    Første grense for år: @event.getFirstUpperGraduationLimit og @event.getFirstLowerGraduationLimit
-    <br>
-    Første grense for år: @event.getSecondUpperGraduationLimit og @event.getSecondLowerGraduationLimit
+                    <img src="@article.getImagePath" alt="No image available" width=50% height=50%/><br>
+                <h1><p class="text-center">@article.getTitle </p></h1>
+                <hr>
+                <h3><p class="text-center">@article.getIngress</p></h3>
+                <br>
+                <p class="text-center">@Html(article.getText)</p>
+                <br>
+                Av: @User.find.byId(article.getAuthor).getName
+                <br>
+                Meldt på: @models.UserEventJoined.getNumberOfSignedUp(event.getEventId) / @event.getMaxParticipants
+                <br>
+                Første oppmeldingsfrist: @event.getSignUpDeadline.getTime()
+                <br>
+                Andre oppmeldingsfrist: @event.getSecondSignUp.getTime()
+                <br>
+                Det skjer: @event.getEventHappens.getTime()
+                <br>
+                Første grense for år: @event.getFirstUpperGraduationLimit og @event.getFirstLowerGraduationLimit
+                <br>
+                Andre grense for år: @event.getSecondUpperGraduationLimit og @event.getSecondLowerGraduationLimit
 
-    
 
-    @if(models.LoginState.getUser().getId == article.getAuthor) {
-        <a href="@controllers.routes.ArticleIn.editArticle(String.valueOf(article.getId))"> Rediger </a>
-    }
-</div>
+
+                @if(models.LoginState.getUser().getId == article.getAuthor) {
+                    <a href="@controllers.routes.Event.editEvent(String.valueOf(event.getEventId))"> Rediger </a>
+                }
+            </div> </div> </div> </div>

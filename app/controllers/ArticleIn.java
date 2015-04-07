@@ -136,9 +136,9 @@ public class ArticleIn extends Controller {
 
         cal = java.util.Calendar.getInstance();
         try {
-            cal.setTime(dateFormat.parse(httpData.get("timeFrame")));
-            if (cal.before(current_calendar)) {
-                reid.result = controllers.Application.show400("Arrangementet skjer før nå. Dette er ikke gyldig2.");
+            cal.setTime(dateFormat.parse(httpData.get("timeFrame"))); // eventStops
+            if (cal.before(eventModel.getEventHappens())) {
+                reid.result = controllers.Application.show400("Arrangementet slutter før det skjer. Dette er ikke gyldig.");
                 return reid;
             }
             eventModel.setEventStops(cal);
@@ -206,23 +206,34 @@ public class ArticleIn extends Controller {
 
         if (eventId == null)
             eventModel.save();
-        else
+        else {
+            eventModel.setEventId(eventId);
             eventModel.update();
-
+        }
         reid.event = eventModel;
         return reid;
     }
 
     public static Result editArticle(String id) {
+        Result error = Application.checkEditPrivilege(LoginState.getUser());
+        if (error != null)
+            return error;
         Article article = Article.find.byId(Long.valueOf(id));
-        // return Article.drawEditArticle(article);
-        return ok();
+        return ok(layout.render("Hybrida: Opprett Artikkel", views.html.ArticleIn.editArticle.render(article)));
     }
 
-    public static Result editEvent(String id) {
-        Event event = Event.find.byId(Long.valueOf(id));
-        // return Event.drawEditEdit(event); // Requirement: fill out the fields with the old values, set the
-        return ok();
+    public static Result saveEdit(String id) {
+        Result error = Application.checkEditPrivilege(LoginState.getUser());
+        if (error != null)
+            return error;
+
+        Article article = Article.find.byId(Long.valueOf(id));
+        HttpRequestData httpdata = new HttpRequestData();
+        article.setTitle(httpdata.get("title"));
+        article.setIngress(httpdata.get("ingress"));
+        article.setText(httpdata.get("text"));
+        article.save();
+        return Application.index();
     }
 
 }

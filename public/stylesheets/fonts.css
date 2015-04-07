@@ -21,3 +21,16 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+    font-family: Raleway;
+    src: url(http://fonts.googleapis.com/css?family=Raleway);
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Playfair Display";
+    src: url(http://fonts.googleapis.com/css?family=PLayfair+Display);
+    font-weight: normal;
+    font-style: normal;
+}

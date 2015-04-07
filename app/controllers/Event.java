@@ -8,6 +8,8 @@ import views.html.layout;
 
 public class Event extends Controller {
 
+    final static play.data.Form<Article> articleForm = play.data.Form.form(Article.class);
+
     public static Result updateUser() {
         User user = LoginState.getUser();
         if (user.isDefault()) {
@@ -46,6 +48,36 @@ public class Event extends Controller {
         }
         else
             return Application.show404(request().uri().replaceFirst("/", ""));
+    }
+
+    public static Result editEvent(String id) {
+        Result error = Application.checkEditPrivilege(LoginState.getUser());
+        if (error != null)
+            return error;
+
+        models.Event event = models.Event.find.byId(Long.valueOf(id));
+        models.Article article = models.Article.find.byId(event.getArticleId());
+        return ok(layout.render("", views.html.Event.editEvent.render(event, article)));
+    }
+
+    public static Result saveEdit(String id) {
+        User user = LoginState.getUser();
+        Result error = Application.checkEditPrivilege(user);
+        if (error != null)
+            return error;
+        models.Event event = models.Event.find.byId(Long.valueOf(id));
+
+        play.data.Form<Article> articleInput = articleForm.bindFromRequest();
+
+        if (!articleInput.hasErrors()) {
+            Article articleModel = articleInput.get();
+            articleModel.setId(event.getArticleId());
+            articleModel.setImagePath(user.uploadPicture());
+            articleModel.setAuthor(user.getId());
+            articleModel.update();
+        }
+        ArticleIn.saveEvent(event.getArticleId(), event.getEventId());
+        return Application.index();
     }
 
 }
