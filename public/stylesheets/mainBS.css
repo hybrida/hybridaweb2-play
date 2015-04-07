@@ -59,6 +59,21 @@ a :hover {
     border-radius: 4px;
     padding: 20px;
     margin-top: 1%;
+    box-shadow: -5px 5px 25px rgba(0,0,0,0.4);
+}
+.transparent-box-addition {
+    background-color: rgba(245,245,245,0.9);
+    border-radius: 4px;
+    padding: 20px;
+    box-shadow: -5px 5px 25px rgba(0,0,0,0.4);
+    margin-left: 1%;
+}
+.white-boxer{
+    background-color: rgba(245,245,245,1);
+    border-radius: 4px;
+    padding: 20px;
+    margin-top: 1%;
+    box-shadow: -5px 5px 25px rgba(0,0,0,0.4);
 }
 .art-img{
     overflow: hidden;

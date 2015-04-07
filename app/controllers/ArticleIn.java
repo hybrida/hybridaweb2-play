@@ -215,7 +215,17 @@ public class ArticleIn extends Controller {
 
     public static Result editArticle(String id) {
         Article article = Article.find.byId(Long.valueOf(id));
-        return ok(layout.render("Hybrida: Opprett Artikkel", views.html.ArticleIn.editArticle.render(Integer.valueOf(id))));
+        return ok(layout.render("Hybrida: Opprett Artikkel", views.html.ArticleIn.editArticle.render(article)));
+    }
+
+    public static Result saveEdit(String id) {
+        Article article = Article.find.byId(Long.valueOf(id));
+        HttpRequestData httpdata = new HttpRequestData();
+        article.setTitle(httpdata.get("title"));
+        article.setIngress(httpdata.get("ingress"));
+        article.setText(httpdata.get("text"));
+        article.save();
+        return Application.index();
     }
 
     public static Result editEvent(String id) {
@@ -223,5 +233,4 @@ public class ArticleIn extends Controller {
         // return Event.drawEditEdit(event); // Requirement: fill out the fields with the old values, set the
         return ok();
     }
-
 }

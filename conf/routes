@@ -2,99 +2,115 @@
 # This file defines all application routes (Higher priority routes first)
 
 # Standard layout accessible pages
-GET         /                                controllers.Application.index()
+GET           /                                 controllers.Application.index()
 
 # Static info pages
-GET         /nystudent                       controllers.NyStudent.index()
-GET         /hybrida                         controllers.OmHybrida.index()
-GET         /styret                          controllers.OmStyret.index()
+GET           /nystudent                        controllers.NyStudent.index()
+GET           /hybrida                          controllers.OmHybrida.index()
+GET           /styret                           controllers.OmStyret.index()
 
 # Calendar
-GET         /kalender                        controllers.Calendar.index()
+GET           /kalender                         controllers.Calendar.index()
+GET           /kalender/get                     controllers.Calendar.fetch(start: String, end: String)
 
 # Update
-GET         /update                          controllers.Update.index()
-POST        /update                          controllers.Update.post()
-GET         /update/utgaver                  controllers.Update.utgaver()
-GET         /update/redaksjon                controllers.Update.redaksjon()
+GET           /update                           controllers.Update.index()
+POST          /update                           controllers.Update.post()
+GET           /update/utgaver                   controllers.Update.utgaver()
+GET           /update/redaksjon                 controllers.Update.redaksjon()
 
 # Article and events
-GET         /griffensorden                   trash.controllers.griffensOrden.index()
-GET         /griffensorden/riddere           controllers.Riddere.index()
+GET           /griffensorden                    trash.controllers.griffensOrden.index()
+GET           /griffensorden/riddere            controllers.Riddere.index()
 
-GET         /artikkel/ut/:id                 controllers.ArticleOut.index(id)
-GET         /artikkel/ny                     controllers.ArticleIn.index()
-POST        /artikkel/ny                     controllers.ArticleIn.save()
-GET         /artikkel/:id                    controllers.ArticleOut.viewArticle(id)
-GET         /artikkel/:id/edit               controllers.ArticleIn.editArticle(id)
-GET         /event/ut/:id                    controllers.Event.viewEvent(id)
+GET           /artikkel/ut/:id                  controllers.ArticleOut.index(id)
+GET           /artikkel/ny                      controllers.ArticleIn.index()
+POST          /artikkel/ny                      controllers.ArticleIn.save()
+GET           /artikkel/:id                     controllers.ArticleOut.viewArticle(id)
+GET           /artikkel/:id/endre               controllers.ArticleIn.editArticle(id)
+POST          /artikkel/:id/lagreEndring        controllers.ArticleIn.saveEdit(id)
+GET           /event/ut/:id                     controllers.Event.viewEvent(id)
 
-GET         /update                          controllers.Update.index()
-POST        /update                          controllers.Update.post()
-GET         /update/utgaver                  controllers.Update.utgaver()
-GET         /update/redaksjon                controllers.Update.redaksjon()
+POST          /comment/:articleID               controllers.ArticleOut.comment(articleID)
+POST          /comment/delete/:commentID        controllers.ArticleOut.deleteComment(commentID)
 
-GET         /bedrift                         controllers.Company.index()
+GET           /update                           controllers.Update.index()
+POST          /update                           controllers.Update.post()
+GET           /update/utgaver                   controllers.Update.utgaver()
+GET           /update/redaksjon                 controllers.Update.redaksjon()
+
+GET           /bedrift                          controllers.Company.index()
 
 # Ebean example
-GET         /ebean                           examples.controllers.ExampleEbean.index()
-POST        /ebean                           examples.controllers.ExampleEbean.add()
-POST        /ebean/clear                     examples.controllers.ExampleEbean.clear()
+GET           /ebean                            examples.controllers.ExampleEbean.index()
+POST          /ebean                            examples.controllers.ExampleEbean.add()
+POST          /ebean/clear                      examples.controllers.ExampleEbean.clear()
 
 # Bruker current login cookie, og en eventId i POST
-POST        /event/meldpaa                   controllers.Event.updateUser()
+POST          /event/meldpaa                    controllers.Event.updateUser()
 # Bruker current login cookie, og en eventId i POST
-POST        /event/meldav                    controllers.Event.removeUser()
+POST          /event/meldav                     controllers.Event.removeUser()
 
 # Backup memory database
-GET         /backup                          controllers.BackupDatabase.index()
+GET           /backup                           controllers.BackupDatabase.index()
 
 
 # Search
-GET         /search                          controllers.Search.index()
+GET           /search                           controllers.Search.index()
 
 # Login
-GET         /login                           controllers.SSOLogin.login(returnarg: String)
-GET         /logout                          controllers.SSOLogin.logout()
-GET         /verifylogin                     controllers.SSOLogin.verifylogin()
-GET         /contactforuser                  controllers.ContactForUser.index()
+GET           /login                            controllers.SSOLogin.login(returnarg: String)
+GET           /logout                           controllers.SSOLogin.logout()
+GET           /verifylogin                      controllers.SSOLogin.verifylogin()
+GET           /contactforuser                   controllers.ContactForUser.index()
 
 # Profile
-GET         /profil/:username                controllers.Profile.index(username)
-GET         /profil/:username/rediger        controllers.Profile.edit(username)
-POST        /profil/:username/rediger        controllers.Profile.update(username)
+GET           /profil/:username                 controllers.Profile.index(username)
+GET           /profil/:username/rediger         controllers.Profile.edit(username)
+POST          /profil/:username/rediger         controllers.Profile.update(username)
+
+# Quiz
+GET           /quiz                             controllers.QuizController.index()
+GET           /api/quiz/teams                   controllers.QuizController.quizTeams()
+PUT           /api/quiz/team                    controllers.QuizController.putTeam()
+DELETE        /api/quiz/team/:id                controllers.QuizController.deleteTeamById(id: Long)
+GET           /api/quiz/seasons                 controllers.QuizController.quizSeasons()
+PUT           /api/quiz/season                  controllers.QuizController.putSeason()
+DELETE        /api/quiz/season/:id              controllers.QuizController.deleteSeasonById(id: Long)
+
+
 
 # TEST
 # # New design
-GET         /proto                           controllers.Application.proto()
-GET         /bs                              controllers.Application.bootstrapTest()
+GET           /proto                            controllers.Application.proto()
+GET           /bs                               controllers.Application.bootstrapTest()
 # # Chat
-GET         /Chat                            controllers.Chat.connectClient()
-GET         /ChatServer                      controllers.Chat.socket()
+GET           /Chat                             controllers.Chat.connectClient()
+GET           /ChatServer                       controllers.Chat.socket()
 
 # EXAMPLES
 # # Ebean
-GET         /examples/ebean                  examples.controllers.ExampleEbean.index()
-POST        /examples/ebean                  examples.controllers.ExampleEbean.add()
-POST        /examples/ebean/clear            examples.controllers.ExampleEbean.clear()
+GET           /examples/ebean                   examples.controllers.ExampleEbean.index()
+POST          /examples/ebean                   examples.controllers.ExampleEbean.add()
+POST          /examples/ebean/clear             examples.controllers.ExampleEbean.clear()
 # # ImageUpload
-GET         /examples/imageupload            examples.controllers.ExampleImageUpload.index()
-POST        /examples/imageupload            examples.controllers.ExampleImageUpload.upload()
+GET           /examples/imageupload             examples.controllers.ExampleImageUpload.index()
+POST          /examples/imageupload             examples.controllers.ExampleImageUpload.upload()
 # # Cookies
-GET         /examples/cookies                examples.controllers.ExampleCookies.index()
-POST        /examples/cookies/clear          examples.controllers.ExampleCookies.clearAllCookies()
-GET         /examples/cookies/clear          examples.controllers.ExampleCookies.clearAllCookies()
+GET           /examples/cookies                 examples.controllers.ExampleCookies.index()
+POST          /examples/cookies/clear           examples.controllers.ExampleCookies.clearAllCookies()
+GET           /examples/cookies/clear           examples.controllers.ExampleCookies.clearAllCookies()
 # # Database
-GET         /examples/database               examples.controllers.ExampleDatabase.index()
-
+GET           /examples/database                examples.controllers.ExampleDatabase.index()
+# # AngularJS
+GET           /examples/angular                 examples.controllers.ExampleAngular.index()
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                    controllers.Assets.at(path="/public", file)
+GET           /assets/*file                     controllers.Assets.at(path="/public", file)
 
-GET         /unauthorized                    controllers.Application.showUnauthorizedAccess()
+GET           /unauthorized                     controllers.Application.showUnauthorizedAccess()
 
 # Show some page describing the URL if all else fails
-GET         /$anything<.*>                   controllers.Application.show404(anything: String)
-GET         /error400/:error                 controllers.Application.show400(error)
-
+GET           /$anything<.*>                    controllers.Application.show404(anything: String)
+GET           /error400/:error                  controllers.Application.show400(error)

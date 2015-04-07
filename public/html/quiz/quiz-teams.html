@@ -1,0 +1,47 @@
+<span class="label label-warning pull-right">TODO: admin only</span>
+
+<table class="quiz-team-table table table-hover">
+    <tr>
+        <th>Lag</th>
+        <th>Beskrivelse</th>
+        <th></th>
+    </tr>
+    <tr ng-repeat="team in teams.saved | orderBy : team.id ">
+        <td>{{team.name}}</td>
+        <td>{{team.description}}</td>
+        <td class="quiz-table-action">
+            <button type="button" class="btn btn-default btn-sm" ng-click="teams.modifyTeam(team)">
+                <span class="glyphicon glyphicon-edit"></span>
+            </button>
+            <button type="button" class="btn btn-default btn-sm" ng-click="teams.deleteTeamById(team)">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+        </td>
+    </tr>
+    <tr ng-repeat="team in teams.temporary">
+        <td><input required type="text" class="form-control" placeholder="Name" ng-model="team.name" autofocus /></td>
+        <td><input required type="text" class="form-control" placeholder="Name" ng-model="team.description" /></td>
+        <td class="quiz-table-action">
+            <button type="button" class="btn btn-default btn-sm"
+                    ng-click="teams.putTeam(team)" ng-disabled="!(team.name && team.description)">
+                <span class="glyphicon glyphicon-save"></span>
+            </button>
+            <button type="button" class="btn btn-default btn-sm"
+                    ng-click="teams.deleteNewTeam(team)">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button type="button" class="btn btn-default btn-sm" ng-click="teams.createNewTeam()">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+            <button type="button" class="btn btn-default btn-sm" ng-click="teams.debug()">
+                Debug
+            </button>
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>

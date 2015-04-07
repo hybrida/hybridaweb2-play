@@ -1,8 +1,6 @@
 package controllers;
 
-import models.Article;
-import models.Event;
-import models.User;
+import models.*;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -23,7 +21,7 @@ public class ArticleOut extends Controller {
             return Application.show404(request().uri().replaceFirst("/", ""));
         Long lId = Long.parseLong(id);
         Article article = getArticle(lId);
-        Event event = getEvent(article);
+        models.Event event = getEvent(article);
 
         List<String> resultList = new ArrayList<String>();
         resultList.add(article.getTitle());
@@ -55,9 +53,9 @@ public class ArticleOut extends Controller {
         return article;
     }
 
-    public static Event getEvent(Article article) {
+    public static models.Event getEvent(Article article) {
         controllers.BackupDatabase.index();
-        Event event = Event.find.where().eq("articleId", article.getId()).findUnique();
+        models.Event event = models.Event.find.where().eq("articleId", article.getId()).findUnique();
         return event;
     }
 
@@ -67,6 +65,20 @@ public class ArticleOut extends Controller {
 
     public static Result abandonEvent(String eventId) {
         return ok();
+    }
+
+    public static Result comment(String articleId){
+        String comment = new HttpRequestData().get("comment");
+        Comment newComment = new Comment(comment, Article.find.byId(Long.parseLong(articleId)));
+        newComment.save();
+        return redirect(routes.ArticleOut.viewArticle(articleId).absoluteURL(request()));
+    }
+
+    public static Result deleteComment(String commentId){
+        Comment thisComment = Comment.find.byId(Long.parseLong(commentId));
+        Article article = thisComment.getArticle();
+        thisComment.delete();
+        return redirect(routes.ArticleOut.viewArticle(article.getId().toString()).absoluteURL(request()));
     }
 
 }
