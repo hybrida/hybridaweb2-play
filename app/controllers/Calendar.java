@@ -31,6 +31,10 @@ public class Calendar extends Controller {
         return ok(layoutWithHead.render("Kalender", views.html.Calendar.calendarHead.render(), views.html.Calendar.calendarBody.render()));
     }
 
+    public static Result change(String id, String start, String end) {
+        return ok("false"); //TODO: Change entry with given id
+    }
+
     public static Result fetch(String start, String end) { // Also passing a timezone, but I can't read it since the variable name is a _, which play doesn't like to have in the routes
         long start_time = 0;
         long end_time = 0;
@@ -50,9 +54,15 @@ public class Calendar extends Controller {
 
         // Get events
         List<models.Event> events =
-                models.Event.find.where().or(
-                        Expr.between("eventHappens", new Timestamp(start_time), new Timestamp(end_time)), //TODO: this doesn't give the events that start before given start, and ends after given stop
-                        Expr.between("eventStops", new Timestamp(start_time), new Timestamp(end_time))
+                models.Event.find.where().and(
+                        Expr.not(Expr.and(
+                                Expr.lt("eventHappens", new Timestamp(start_time)),
+                                Expr.lt("eventStops", new Timestamp(start_time))
+                        )),
+                        Expr.not(Expr.and(
+                                Expr.gt("eventHappens", new Timestamp(end_time)),
+                                Expr.gt("eventStops", new Timestamp(end_time))
+                        ))
                 ).findList();
 
         // Create new json compatible with FullCalendar for every event
@@ -66,6 +76,11 @@ public class Calendar extends Controller {
                 if (event.getEventHappens() != null && event.getEventHappens().getTimeInMillis() != 0) {
                     String eventStartTime = new SimpleDateFormat(ISO8601_TIME).format(event.getEventHappens().getTimeInMillis());
                     reformatted.set("start", new TextNode(eventStartTime));
+                } else break; // We can't do anything if this is not set
+
+                // Set id
+                if (event.getEventId() != 0) {
+                    reformatted.set("id", new TextNode(""+event.getEventId()));
                 } else break; // We can't do anything if this is not set
 
                 // Set end time
@@ -85,9 +100,7 @@ public class Calendar extends Controller {
                 reformatted.set("title", new TextNode(title));
 
                 // Set url
-                if (event.getEventId() != 0) {
-                    reformatted.set("url", new TextNode("event/ut/" + event.getEventId())); //TODO: forandre event til arrangement?
-                }
+                reformatted.set("url", new TextNode("event/ut/" + event.getEventId())); //TODO: forandre event til arrangement?
 
                 // Set color
                 reformatted.set("color", new TextNode(EVENT_COLOR));

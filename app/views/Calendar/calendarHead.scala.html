@@ -15,10 +15,24 @@
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
-            @if(models.LoginState.getUser().canCreateNewArticle()){editable: true,}
+            editable: @(models.LoginState.getUser().canCreateNewArticle()),
+            eventDrop: function(event, revertFunc) {
+                if (event.id == null || event.id == "") {
+                    revertFunc();
+                } else if (!confirm("Er du sikker på denne endringen?")) {
+                    revertFunc();
+                } else {
+                    $.get("kalender/forandre?id="+event.id+"&start="+event.start+"&end="+event.end,function(data) {
+                        if (data != "true") {
+                            revertFunc(); //TODO: not working, returns: "Uncaught TypeError: object is not a function"
+                            error("Noe gikk galt, er du logget inn?");
+                        }
+                    });
+                }
+            },
             eventLimit: true, // allow "more" link when too many events
             events: {
-                url: 'kalender/get',
+                url: 'kalender/fa', //Kan ikke reverse route
                 error: function() {
                     $('#script-warning').show();
                 }
@@ -32,13 +46,6 @@
 
 </script>
 <style>
-
-    body {
-        margin: 0;
-        font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-        font-size: 14px;
-    }
-
     #script-warning {
         display: none;
         background: #eee;
