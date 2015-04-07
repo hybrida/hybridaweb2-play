@@ -1,8 +1,8 @@
 body {
     font-family: 'Raleway', sans-serif;
     padding-top: 50px;
-    background: #fff;
-    /*background: url("../images/kilt3.PNG") repeat;*/
+    /*background: #fff;*/
+    background: url("../images/kilt3.PNG") repeat;
 }
 
 #logo {
@@ -17,12 +17,14 @@ body {
 }
 
 h1 {
+    text-align: center;
+    font-size: 5em;
     font-family: 'Playfair Display', serif;
 }
 
 
 a {
-    font-family: 'Playfair Display', serif;
+    font-family: Raleway;
     text-decoration: none;
     color: #777;
 }
@@ -58,7 +60,7 @@ a :hover {
     left:0;
     right:0;
     overflow: hidden;
-}
+    }
 
 #carousel-frontpage > div > .item > img{
     width:100%
@@ -110,6 +112,7 @@ a :hover {
 }
 .row.container-height {
     overflow: hidden;
+    background-color: #fff;
 }
 
 .row.container-height > [class*="col-"]{
