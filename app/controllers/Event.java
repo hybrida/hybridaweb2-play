@@ -48,4 +48,13 @@ public class Event extends Controller {
             return Application.show404(request().uri().replaceFirst("/", ""));
     }
 
+    public static Result editEvent(String id) {
+        models.Event event = models.Event.find.byId(Long.valueOf(id));
+        return ok(layout.render("", views.html.Event.editEvent.render(event)));
+    }
+
+    public static Result saveEdit(String id) {
+        return ok();
+    }
+
 }

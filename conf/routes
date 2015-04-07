@@ -30,6 +30,8 @@ GET           /artikkel/:id                     controllers.ArticleOut.viewArtic
 GET           /artikkel/:id/endre               controllers.ArticleIn.editArticle(id)
 POST          /artikkel/:id/lagreEndring        controllers.ArticleIn.saveEdit(id)
 GET           /event/ut/:id                     controllers.Event.viewEvent(id)
+GET           /event/:id/endre                  controllers.Event.editEvent(id)
+POST          /event/:id/lagreEndring           controllers.Event.saveEdit(id)
 
 POST          /comment/:articleID               controllers.ArticleOut.comment(articleID)
 POST          /comment/delete/:commentID        controllers.ArticleOut.deleteComment(commentID)

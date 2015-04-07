@@ -228,9 +228,4 @@ public class ArticleIn extends Controller {
         return Application.index();
     }
 
-    public static Result editEvent(String id) {
-        Event event = Event.find.byId(Long.valueOf(id));
-        // return Event.drawEditEdit(event); // Requirement: fill out the fields with the old values, set the
-        return ok();
-    }
 }
