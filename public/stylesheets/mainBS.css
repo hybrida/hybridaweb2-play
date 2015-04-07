@@ -1,4 +1,5 @@
 body {
+    font-family: 'Raleway', sans-serif;
     padding-top: 50px;
     font-family: 'Raleway', sans-serif;
 }
@@ -53,6 +54,18 @@ a :hover {
 
 #carousel-frontpage > div > .item > img{
     width:100%
+}
+
+.progress {
+    position: relative;
+}
+
+.progress-bar {
+    position: absolute;
+}
+
+.progress span {
+    position: absolute; width:100%; text-align:center;
 }
 
 .transparent-box {
