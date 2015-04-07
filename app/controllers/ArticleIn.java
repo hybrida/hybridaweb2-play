@@ -136,9 +136,9 @@ public class ArticleIn extends Controller {
 
         cal = java.util.Calendar.getInstance();
         try {
-            cal.setTime(dateFormat.parse(httpData.get("timeFrame")));
-            if (cal.before(current_calendar)) {
-                reid.result = controllers.Application.show400("Arrangementet skjer før nå. Dette er ikke gyldig2.");
+            cal.setTime(dateFormat.parse(httpData.get("timeFrame"))); // eventStops
+            if (cal.before(eventModel.getEventHappens())) {
+                reid.result = controllers.Application.show400("Arrangementet slutter før det skjer. Dette er ikke gyldig.");
                 return reid;
             }
             eventModel.setEventStops(cal);
@@ -215,8 +215,7 @@ public class ArticleIn extends Controller {
 
     public static Result editArticle(String id) {
         Article article = Article.find.byId(Long.valueOf(id));
-        // return Article.drawEditArticle(article);
-        return ok();
+        return ok(layout.render("Hybrida: Opprett Artikkel", views.html.ArticleIn.editArticle.render(Integer.valueOf(id))));
     }
 
     public static Result editEvent(String id) {

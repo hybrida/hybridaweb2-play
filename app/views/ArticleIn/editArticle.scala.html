@@ -1,0 +1,56 @@
+@(id: Int)
+<div class="article-bg">
+    <div class="container-fluid">
+        <script src="/assets/ckeditor/ckeditor.js"></script>
+        <link href="sample.css" rel="stylesheet">
+        <style>
+
+        /* Style the CKEditor element to look like a textfield */
+        .cke_textarea_inline {
+        padding : 10px ;
+        height : 200px ;
+        overflow : auto ;
+        background-color : #ffffff ;
+        border : 1px solid gray ;
+        -webkit-appearance : textfield ;
+        }
+
+        </style>
+
+        <div class="row">
+            <div class="col-md-6 col-md-offset-1 transparent-box">
+                <div class="article_writer">
+                    <h3><p class="text-center">Endre artikkel</p></h3>
+                    <form name="Article" action="@routes.ArticleIn.save()" method="POST" enctype="multipart/form-data">
+                        <textarea class="form-control" placeholder="Skriv tittelen her" type="text" name="title"></textarea>
+                        <textarea class="form-control" placeholder="Skriv en kort oppsummering her" name="ingress" onfocus=""></textarea>
+                        <textarea id="editor1" class="form-control" placeholder="Skriv ditt innlegg her" rows="12" cols="75" name="text">
+                            Artikkel her</textarea>
+                        <input class="pad_1percent_top center_block form-control" style="display : block ; background-color : #c3c3c3 ; " type="file" name="picture">
+                        <div class="form-group">
+                            <input class="btn btn-primary form-control" type="submit" value="Post">
+                        </div>
+
+                    </form>
+                    <script>
+                    CKEDITOR.inline ( 'editor1' ) ;
+                    </script>
+                </div>
+            </div>
+            <div class="col-md-3 col-md-offset-1">
+                <div class="transparent-box" data-spy="affix">
+                <h3><p>Her skal det stå en del innformasjon om denne formen:</p></h3>
+                <hr><p>
+                Det skal stå litt om hva de forskjellige feltene betyr, samt litt om hvordan vi liker å ha det her på hybridasiden!
+                <br>
+                Før du oppretter ett nytt event eller en artikkel, ser vi gjerne at du leser igjennom disse retningslinjene
+                slik at vi får en kul side, med kule bilder, og kul formatering, som ser sinnsykt kul ut hele tiden, alltid!
+                <br></p>
+                <strong><p>
+                    Grensen står for klassetrinnet som har lov til å melde seg opp. Tallet står for avslutningsår.</p></strong>
+                <br>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
