@@ -51,6 +51,10 @@ public class Event extends Controller {
     }
 
     public static Result editEvent(String id) {
+        Result error = Application.checkEditPrivilege(LoginState.getUser());
+        if (error != null)
+            return error;
+
         models.Event event = models.Event.find.byId(Long.valueOf(id));
         models.Article article = models.Article.find.byId(event.getArticleId());
         return ok(layout.render("", views.html.Event.editEvent.render(event, article)));
@@ -58,10 +62,11 @@ public class Event extends Controller {
 
     public static Result saveEdit(String id) {
         User user = LoginState.getUser();
-        if (user.isDefault()) {
-            return controllers.Application.show400("Du må logge inn for å endre arransjement.");
-        }
+        Result error = Application.checkEditPrivilege(user);
+        if (error != null)
+            return error;
         models.Event event = models.Event.find.byId(Long.valueOf(id));
+
         play.data.Form<Article> articleInput = articleForm.bindFromRequest();
 
         if (!articleInput.hasErrors()) {
