@@ -1,4 +1,4 @@
-@(event: models.Event)
+@(event: models.Event, article: models.Article)
 <div class="article-bg">
     <div class="container-fluid">
         <script src="/assets/ckeditor/ckeditor.js"></script>
@@ -20,12 +20,11 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-1 transparent-box">
                 <div class="article_writer">
-                    <h3><p class="text-center">Ny artikkel/event</p></h3>
+                    <h3><p class="text-center">Endre event</p></h3>
                     <form name="Article" action="@routes.Event.saveEdit(String.valueOf(event.getEventId))" method="POST" enctype="multipart/form-data">
-                        <textarea class="form-control" placeholder="Skriv tittelen her" type="text" name="title"></textarea>
-                        <textarea class="form-control" placeholder="Skriv en kort oppsummering her" name="ingress" onfocus=""></textarea>
-                        <textarea id="editor1" class="form-control" placeholder="Skriv ditt innlegg her"name="text" contenteditable="true">
-                            Artikkel her</textarea>
+                        <textarea class="form-control" type="text" name="title">@article.getTitle</textarea>
+                        <textarea class="form-control" name="ingress" onfocus="">@article.getIngress</textarea>
+                        <textarea id="editor1" class="form-control" name="text" contenteditable="true">@article.getText</textarea>
                         <script>
                         CKEDITOR.disableAutoInline = true;
                         CKEDITOR.inline('editor1');

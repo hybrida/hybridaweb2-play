@@ -48,6 +48,10 @@ public class Event extends Model implements Renderable {
         return articleId;
     }
 
+    public void setEventId(long eventId) {
+        this.eventId = eventId;
+    }
+
     public void setArticleId(long articleId) {
         this.articleId = articleId;
     }

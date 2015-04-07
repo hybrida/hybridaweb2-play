@@ -206,9 +206,10 @@ public class ArticleIn extends Controller {
 
         if (eventId == null)
             eventModel.save();
-        else
+        else {
+            eventModel.setEventId(eventId);
             eventModel.update();
-
+        }
         reid.event = eventModel;
         return reid;
     }
