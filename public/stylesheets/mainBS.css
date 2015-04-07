@@ -1,7 +1,8 @@
 body {
     font-family: 'Raleway', sans-serif;
     padding-top: 50px;
-    font-family: 'Raleway', sans-serif;
+    background: #fff;
+    /*background: url("../images/kilt3.PNG") repeat;*/
 }
 
 #logo {
@@ -15,12 +16,19 @@ body {
     z-index: 99999;
 }
 
+h1 {
+    font-family: 'Playfair Display', serif;
+}
+
+
 a {
+    font-family: 'Playfair Display', serif;
     text-decoration: none;
     color: #777;
 }
 
 a :hover {
+
     text-decoration: none;
     text-underline: none!important;
     color: #000000;
