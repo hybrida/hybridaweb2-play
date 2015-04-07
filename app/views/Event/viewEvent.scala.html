@@ -28,6 +28,6 @@
 
 
     @if(models.LoginState.getUser().getId == article.getAuthor) {
-        <a href="@controllers.routes.Event.editEvent(String.valueOf(article.getId))"> Rediger </a>
+        <a href="@controllers.routes.Event.editEvent(String.valueOf(event.getEventId))"> Rediger </a>
     }
 </div>

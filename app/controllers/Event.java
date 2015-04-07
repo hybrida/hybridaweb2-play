@@ -54,6 +54,8 @@ public class Event extends Controller {
     }
 
     public static Result saveEdit(String id) {
+        models.Event event = models.Event.find.byId(Long.valueOf(id));
+        HttpRequestData httpdata = new HttpRequestData();
         return ok();
     }
 
