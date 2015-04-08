@@ -1,4 +1,6 @@
 body {
+    @import url(http://fonts.googleapis.com/css?family=Playfair+Display);
+    @import url(http://fonts.googleapis.com/css?family=Raleway);
     font-family: 'Raleway', sans-serif;
     padding-top: 50px;
     /*background: #fff;*/
