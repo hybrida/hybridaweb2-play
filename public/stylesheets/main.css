@@ -329,15 +329,15 @@ a img {
 
 
 #notFound{
-  padding-top: 5%;
-  position: relative;
-  text-align: center;
-  height: 100%;
+    vertical-align: middle;
+    padding-top: 5%;
+    position: relative;
+    text-align: center;
+    height: 100%;
 }
 
-#notFound img
-{
-  max-width: 50%;
+#notFound img {
+    max-width: 50%;
 }
 
 .button {
