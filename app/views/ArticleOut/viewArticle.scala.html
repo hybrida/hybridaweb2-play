@@ -16,19 +16,21 @@
                 Av: @User.find.byId(article.getAuthor).getName
 
                 @if(models.LoginState.getUser().getId == article.getAuthor) {
-                    <a href="@controllers.routes.ArticleIn.editArticle(String.valueOf(article.getId))"> Rediger </a>
+                    <a href="@controllers.routes.ArticleIn.editArticle(String.valueOf(article.getId))">
+                        <button class="btn btn-primary"> Rediger </button> </a>
                 }
             </div>
-            <div class="col-md-3" style="margin-top: 1%">
-                <div class="transparent-box-addition">
+            </div>
+        <div class="row">
+            <div class="col-md-9 transparent-box" style="margin-top: 1%">
                     @for(i <- article.getCommentList()){
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-1">
                                 <a href="/profil/@i.getAuthor.getUsername" class="thumbnail">
                                 <img src="@i.getAuthor.getProfileImageFileName" alt="profilepic for @i.getAuthor.getName" width="30px">
                                     </a>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-11">
                                 <div class="row">
                                     <div class="col-md-10">
                                 <strong>@Html(i.getAuthor().getName() + ":")</strong>
@@ -50,22 +52,25 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-md-12">
                                 @Html(i.getComment())
-                                </div>
+                                </div></div>
                                 <div class="row">
-                                   <small> @i.getCreatedDate().toString() </small>
-                                </div>
+                                    <div class="col-md-12">
+                                   <small> @i.getTimestamp() </small>
+                                </div></div>
                                 </div>
                             </div>
-                        <br>
-                        <hr>
                     }
                     <form action="/comment/@article.getId" method="POST">
                         <label for="comment">Comment:</label>
-                        <input type="text" class="form-control" id="comment" name="comment" autocomplete="off">
-                        <input type="submit" class="btn btn-primary center_inline_block">
+                        <div class="input-group">
+                        <input type="text" class="form-control" id="comment" name="comment" autocomplete="off" maxlength="250">
+                            <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary">Comment</button>
+                            </span>
+                            </div>
                     </form>
-                </div>
             </div>
         </div>
     </div>

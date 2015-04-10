@@ -1,34 +1,77 @@
 @(article : models.Article, event : models.Event)
 @(/*This is for rendering a single event.*/)
+
 <div class="article-bg">
     <div class="container">
         <div class="row">
-            <div class="col-md-9 white-boxer">
+            <div class="col-md-9" style="padding-top: 0.3%">
+                <div class="row white-boxer">
+                    @if( article.getImagePath != null){
+                    <img src="@article.getImagePath" alt="No image available" class="center-block img-responsive art-img"><br>}
+                    <h1>@article.getTitle</h1>
+                    <hr>
+                    <h3>@article.getIngress</h3>
+                    <br>
+                    @Html(article.getText)
+                </div>
+                <div class="row transparent-box">
+                    @event.getEventHappens().getTime
+                    @event.getEventStops.getTime
+                    @event.getEventId
+                    @event.getFirstLowerGraduationLimit
+                    @event.getFirstUpperGraduationLimit
+                    @event.getLocation
 
-                    <img src="@article.getImagePath" alt="No image available" width=50% height=50%/><br>
-                <h1><p class="text-center">@article.getTitle </p></h1>
-                <hr>
-                <h3><p class="text-center">@article.getIngress</p></h3>
-                <br>
-                <p class="text-center">@Html(article.getText)</p>
-                <br>
-                Av: @User.find.byId(article.getAuthor).getName
-                <br>
-                Meldt på: @models.UserEventJoined.getNumberOfSignedUp(event.getEventId) / @event.getMaxParticipants
-                <br>
-                Første oppmeldingsfrist: @event.getSignUpDeadline.getTime()
-                <br>
-                Andre oppmeldingsfrist: @event.getSecondSignUp.getTime()
-                <br>
-                Det skjer: @event.getEventHappens.getTime()
-                <br>
-                Første grense for år: @event.getFirstUpperGraduationLimit og @event.getFirstLowerGraduationLimit
-                <br>
-                Andre grense for år: @event.getSecondUpperGraduationLimit og @event.getSecondLowerGraduationLimit
-
-
-
-                @if(models.LoginState.getUser().getId == article.getAuthor) {
-                    <a href="@controllers.routes.Event.editEvent(String.valueOf(event.getEventId))"> Rediger </a>
-                }
-            </div> </div> </div> </div>
+                </div>
+            </div>
+            <div class="col-md-3" style="margin-top: 1%">
+                <div class="transparent-box-addition">
+                    @for(i <- article.getCommentList()){
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a href="/profil/@i.getAuthor.getUsername" class="thumbnail">
+                                    <img src="@i.getAuthor.getProfileImageFileName" alt="profilepic for @i.getAuthor.getName" width="30px">
+                                </a>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <strong>@Html(i.getAuthor().getName() + ":")</strong>
+                                    </div>
+                                    <div class="col-md-2">
+                                    @if(i.getAuthor() == models.LoginState.getUser() || i.getAuthor().admin){
+                                            <!-- Extra small button group -->
+                                        <div class="btn-group">
+                                            <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <form method="POST" action="/comment/delete/@i.getCommentID">
+                                                    <button type="submit" class="form-control"> Slett </button>
+                                                </form>
+                                            </ul>
+                                        </div>
+                                    }
+                                    </div>
+                                </div>
+                                <div class="row">
+                                @Html(i.getComment())
+                                </div>
+                                <div class="row">
+                                    <small> @i.getTimestamp() </small>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <hr>
+                    }
+                    <form action="/comment/@article.getId" method="POST">
+                        <label for="comment">Comment:</label>
+                        <input type="text" class="form-control" id="comment" name="comment" autocomplete="off">
+                        <input type="submit" class="btn btn-primary center_inline_block">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

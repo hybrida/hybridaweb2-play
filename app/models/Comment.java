@@ -52,4 +52,11 @@ public class Comment extends Model {
     public static Finder<Long, Comment> find = new Finder<Long, Comment>(
             Long.class, Comment.class
     );
+
+    public String getTimestamp(){
+        String time = createdDate.toString();
+        time = time.substring(0, time.length() - 4);
+        return time;
+
+    }
 }
