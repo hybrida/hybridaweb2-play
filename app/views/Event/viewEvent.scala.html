@@ -1,75 +1,120 @@
-@(article : models.Article, event : models.Event)
-@(/*This is for rendering a single event.*/)
+@(article: models.Article, event: models.Event)
+@( /*This is for rendering a single event.*/ )
 
 <div class="article-bg">
     <div class="container">
         <div class="row">
-            <div class="col-md-9" style="padding-top: 0.3%">
+            <div class="col-md-9" style="padding-top : 0.3 %">
                 <div class="row white-boxer">
-                    @if( article.getImagePath != null){
-                    <img src="@article.getImagePath" alt="No image available" class="center-block img-responsive art-img"><br>}
+                    @if(article.getImagePath != null) {
+                        <img src="@article.getImagePath" alt="No image available" class="center-block img-responsive art-img"> <br>
+                    }
                     <h1>@article.getTitle</h1>
                     <hr>
                     <h3>@article.getIngress</h3>
                     <br>
                     @Html(article.getText)
+                    <hr>
+                    <p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">Påmeldte</p>
+                    @for(i <- UserEventJoined.getAllSignedUpUsers(event.getEventId)){
+                        <div class="row">
+                            <div class="col-md-1">
+                                <a href="/profil/@i.getUsername" class="thumbnail">
+                                    <img src="/assets/images/@i.getProfileImageFileName" alt="profilepic for @i.getName" width="30px">
+                                </a>
+                            </div>
+                            <div class="col-md-11">
+                                <strong>@i.getName</strong>
+                            </div>
+                        </div>
+                    }
                 </div>
-                <div class="row transparent-box">
-                    @event.getEventHappens().getTime
-                    @event.getEventStops.getTime
-                    @event.getEventId
-                    @event.getFirstLowerGraduationLimit
-                    @event.getFirstUpperGraduationLimit
-                    @event.getLocation
+                <div class="row">
+                    <div class="col-md-12 transparent-box" style="margin-top : 1 %">
+                        @for(i <- article.getCommentList()) {
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <a href="/profil/@i.getAuthor.getUsername" class="thumbnail">
+                                        <img src="/assets/images/@i.getAuthor.getProfileImageFileName" alt="profilepic for @i.getAuthor.getName" width="30px">
+                                    </a>
+                                </div>
+                                <div class="col-md-11">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <strong>@Html(i.getAuthor().getName() + ":")</strong>
+                                        </div>
+                                        <div class="col-md-2">
+                                        @if(i.getAuthor() == models.LoginState.getUser() || i.getAuthor().admin) {
+                                                <!-- Extra small button group -->
+                                            <div class="btn-group">
+                                                <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <form method="POST" action="/comment/delete/@i.getCommentID">
+                                                        <input type="hidden" name="isEvent" value="@event.getEventId">
+                                                        <button type="submit" class="form-control"> Slett </button>
+                                                    </form>
+                                                </ul>
+                                            </div>
+                                        }
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                        @Html(i.getComment())
+                                        </div></div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <small> @i.getTimestamp() </small>
+                                        </div></div>
+                                </div>
+                            </div>
+                        }
+                        <form action="/comment/@article.getId" method="POST">
+                            <input type="hidden" name="isEvent" value="@event.getEventId">
+                            <label for="comment">Comment:</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="comment" name="comment" autocomplete="off" maxlength="250">
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary">Comment</button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
 
                 </div>
             </div>
-            <div class="col-md-3" style="margin-top: 1%">
-                <div class="transparent-box-addition">
-                    @for(i <- article.getCommentList()){
-                        <div class="row">
-                            <div class="col-md-4">
-                                <a href="/profil/@i.getAuthor.getUsername" class="thumbnail">
-                                    <img src="@i.getAuthor.getProfileImageFileName" alt="profilepic for @i.getAuthor.getName" width="30px">
-                                </a>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="row">
-                                    <div class="col-md-10">
-                                        <strong>@Html(i.getAuthor().getName() + ":")</strong>
-                                    </div>
-                                    <div class="col-md-2">
-                                    @if(i.getAuthor() == models.LoginState.getUser() || i.getAuthor().admin){
-                                            <!-- Extra small button group -->
-                                        <div class="btn-group">
-                                            <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                                                <span class="caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <form method="POST" action="/comment/delete/@i.getCommentID">
-                                                    <button type="submit" class="form-control"> Slett </button>
-                                                </form>
-                                            </ul>
-                                        </div>
-                                    }
-                                    </div>
-                                </div>
-                                <div class="row">
-                                @Html(i.getComment())
-                                </div>
-                                <div class="row">
-                                    <small> @i.getTimestamp() </small>
-                                </div>
-                            </div>
+            <div class="col-md-3">
+                <div class="transparent-box-addition" style="margin-top:3%">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @event.getEventHappens().getTime
+                            @event.getEventStops.getTime
+                            @event.getEventId
+                            @event.getFirstLowerGraduationLimit
+                            @event.getFirstUpperGraduationLimit
+                            @event.getLocation
                         </div>
-                        <br>
-                        <hr>
+                    </div>
+                    @if(models.LoginState.isValidlyLoggedIn){
+                   <div class="row">
+                       <div class="col-md-12">
+                           @if(!UserEventJoined.isSignedUp(models.LoginState.getUser().getId(), event.getEventId)){
+                               <form method="POST" action="/event/meldpaa">
+                                   <input type="hidden" name="eventId" value="@event.getEventId">
+                               <button type="submit" class="btn btn-primary"> Meld på</button>
+                               </form>
+                           }
+                           @if(UserEventJoined.isSignedUp(models.LoginState.getUser().getId(), event.getEventId)){
+                               <form method="POST" action="/event/meldav">
+                                   <input type="hidden" name="eventId" value="@event.getEventId">
+                                   <button type="submit" class="btn btn-primary"> Meld av</button>
+                               </form>
+                           }
+                       </div>
+                   </div>
                     }
-                    <form action="/comment/@article.getId" method="POST">
-                        <label for="comment">Comment:</label>
-                        <input type="text" class="form-control" id="comment" name="comment" autocomplete="off">
-                        <input type="submit" class="btn btn-primary center_inline_block">
-                    </form>
                 </div>
             </div>
         </div>

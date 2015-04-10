@@ -141,4 +141,12 @@ public class UserEventJoined extends play.db.ebean.Model {
     public static play.db.ebean.Model.Finder<Long, UserEventJoined> find = new Finder<>(
             Long.class, UserEventJoined.class
     );
+
+    public static java.util.List<User> getAllSignedUpUsers(long eventID){
+        java.util.List<User> usersList = new java.util.ArrayList<User>();
+        for(UserEventJoined i : getJoinedEventList(eventID)){
+            usersList.add(User.find.byId(i.getUserId()));
+        }
+        return usersList;
+    }
 }

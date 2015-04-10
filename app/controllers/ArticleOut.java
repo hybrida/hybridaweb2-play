@@ -71,6 +71,9 @@ public class ArticleOut extends Controller {
         String comment = new HttpRequestData().get("comment");
         Comment newComment = new Comment(comment, Article.find.byId(Long.parseLong(articleId)));
         newComment.save();
+        if(new HttpRequestData().get("isEvent") != null){
+            return redirect(routes.Event.viewEvent(new HttpRequestData().get("isEvent")).absoluteURL(request()));
+        }
         return redirect(routes.ArticleOut.viewArticle(articleId).absoluteURL(request()));
     }
 
@@ -78,6 +81,9 @@ public class ArticleOut extends Controller {
         Comment thisComment = Comment.find.byId(Long.parseLong(commentId));
         Article article = thisComment.getArticle();
         thisComment.delete();
+        if(new HttpRequestData().get("isEvent") != null){
+            return redirect(routes.Event.viewEvent(new HttpRequestData().get("isEvent")).absoluteURL(request()));
+        }
         return redirect(routes.ArticleOut.viewArticle(article.getId().toString()).absoluteURL(request()));
     }
 

@@ -22,7 +22,7 @@ public class Event extends Controller {
         models.Event event = models.Event.find.byId(event_id);
 
         UserEventJoined.insert(user.getId(), event.getEventId());
-        return controllers.Application.index();
+        return redirect(routes.Event.viewEvent(event_id.toString()).absoluteURL(request()));
     }
 
     public static Result removeUser() {
@@ -37,7 +37,7 @@ public class Event extends Controller {
         models.Event event = models.Event.find.byId(event_id);
 
         UserEventJoined.remove(user.getId(), event.getEventId());
-        return controllers.Application.index();
+        return redirect(routes.Event.viewEvent(event_id.toString()).absoluteURL(request()));
     }
 
     public static Result viewEvent(String eventId) {
