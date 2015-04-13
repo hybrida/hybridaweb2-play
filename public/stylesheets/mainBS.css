@@ -130,3 +130,11 @@ a :hover {
     color:lightslategray;
     border-bottom: solid 2px #d3d3d3;
 }
+.fp_white{
+    background-color: #ffffff;
+    padding: 1%;
+}
+.fp_beige{
+    background-color: lightslategray;
+    padding: .5%;
+}

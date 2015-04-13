@@ -1,7 +1,6 @@
 @(article : models.Article)
 @(/*This is for rendering a single article preview. It returns the bare html needed for the article to be correctly displayed. CSS should be added as well...*/)
     <!--<img src="@(article.getImagePath())" alt="image">-->
-<div class="white-boxer">
     <div style="position: relative;">
         <div style="padding-top: 100%;"></div>
         <div class="container-with-set-aspect-ratio">
@@ -19,5 +18,4 @@
             <p>@article.getIngress</p>
         </div>
     </div>
-</div>
 
