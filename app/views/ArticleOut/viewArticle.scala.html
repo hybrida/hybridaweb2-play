@@ -5,24 +5,26 @@
         <div class="row">
             <div class="col-md-9 white-boxer">
                 <div style="border-bottom : 2 px solid #9e9d98 \">
-                    <img src="@article.getImagePath" alt="No image available" class="center-block img-responsive art-img"><br>
+                @if(article.getImagePath != null) {
+                    <img src="@article.getImagePath" alt="No image available" class="center-block img-responsive art-img"><br>}
                     <h1><p class="text-center">@article.getTitle</p></h1>
                 </div>
                 <hr>
                 <h3><p class="text-center">@article.getIngress</p></h3>
-                <br>
+                <p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">Av: @User.find.byId(article.getAuthor).getName
+
+                    @if(models.LoginState.getUser().getId == article.getAuthor) {
+                        <a href="@controllers.routes.ArticleIn.editArticle(String.valueOf(article.getId))">
+                            <button class="btn-xs btn-primary"> Rediger </button> </a>
+                    } </p>
                 <p class="text-center">@Html(article.getText)</p>
                 <br>
-                Av: @User.find.byId(article.getAuthor).getName
-
-                @if(models.LoginState.getUser().getId == article.getAuthor) {
-                    <a href="@controllers.routes.ArticleIn.editArticle(String.valueOf(article.getId))">
-                        <button class="btn btn-primary"> Rediger </button> </a>
-                }
             </div>
             </div>
+        @if(models.LoginState.isValidlyLoggedIn){
         <div class="row">
             <div class="col-md-9 transparent-box" style="margin-top: 1%">
+                <p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">Kommentarer</p>
                     @for(i <- article.getCommentList()){
                         <div class="row">
                             <div class="col-md-1">
@@ -33,7 +35,7 @@
                             <div class="col-md-11">
                                 <div class="row">
                                     <div class="col-md-10">
-                                <strong>@Html(i.getAuthor().getName() + ":")</strong>
+                                <strong>@(i.getAuthor().getName() + ":")</strong>
                                         </div>
                                     <div class="col-md-2">
                                         @if(i.getAuthor() == models.LoginState.getUser() || i.getAuthor().admin){
@@ -53,7 +55,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                @Html(i.getComment())
+                                @(i.getComment())
                                 </div></div>
                                 <div class="row">
                                     <div class="col-md-12">
@@ -72,6 +74,6 @@
                             </div>
                     </form>
             </div>
-        </div>
+        </div>}
     </div>
 </div>
