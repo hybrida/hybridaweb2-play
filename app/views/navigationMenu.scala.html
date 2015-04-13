@@ -17,7 +17,8 @@
                 }
                 <li><a href="@routes.Company.index()">Bedrift</a></li>
 
-                @if(models.LoginState.isValidlyLoggedIn()) {<li><a href="/Chat">Chat</a></li>}
+                <!--@@if(models.LoginState.isValidlyLoggedIn()) {<li><a href="/Chat">Chat</a></li>}-->
+
                 <li><a href="@routes.Calendar.index()">Kalender</a></li>
                 <li><a href="@routes.OmHybrida.index()">Om Hybrida</a></li>
             </ul>
@@ -28,13 +29,17 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
                 @if(models.LoginState.isValidlyLoggedIn()) {
-                    <li>
-                        <a href="@routes.Profile.index(models.LoginState.getUser().getUsername())">@(models.LoginState.getUser().getName())</a>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">@(models.LoginState.getUser().getName())</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li> <a href="@routes.Profile.index(models.LoginState.getUser().getUsername())">Profil</a></li>
+                            <li><a href="@(routes.SSOLogin.logout())">Logg ut</a></li>
+                        </ul>
                     </li>
                 }
             <li>
                 @if(models.LoginState.isValidlyLoggedIn()) {
-                    <a href="@(routes.SSOLogin.logout())">Logg ut</a>
+
                 } else {
                     <a href="@(routes.SSOLogin.login(play.mvc.Http.Context.current().request().path()))">Logg inn</a>
                 }
