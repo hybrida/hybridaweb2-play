@@ -1,6 +1,7 @@
+@import url(http://fonts.googleapis.com/css?family=Playfair+Display);
+@import url(http://fonts.googleapis.com/css?family=Raleway);
+
 body {
-    @import url(http://fonts.googleapis.com/css?family=Playfair+Display);
-    @import url(http://fonts.googleapis.com/css?family=Raleway);
     font-family: 'Raleway', sans-serif;
     padding-top: 50px;
     /*background: #fff;*/
@@ -128,4 +129,12 @@ a :hover {
 .subtitle_styled{
     color:lightslategray;
     border-bottom: solid 2px #d3d3d3;
+}
+.fp_white{
+    background-color: #ffffff;
+    padding: 1%;
+}
+.fp_beige{
+    background-color: lightslategray;
+    padding: .5%;
 }
