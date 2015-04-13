@@ -126,3 +126,7 @@ a :hover {
 .fixscroll{
     position:fixed;
 }
+.subtitle_styled{
+    color:lightslategray;
+    border-bottom: solid 2px #d3d3d3;
+}
