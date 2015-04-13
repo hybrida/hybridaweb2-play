@@ -44,7 +44,7 @@
                             <div class="row">
                                 <div class="col-md-1">
                                     <a href="/profil/@i.getAuthor.getUsername" class="thumbnail">
-                                        <img src="/assets/images/@i.getAuthor.getProfileImageFileName" alt="profilepic for @i.getAuthor.getName" width="30px">
+                                        <img src="@if(i.getAuthor.getProfileImageFileName != null){ /assets/upload/@i.getAuthor.getUsername/@i.getAuthor.getProfileImageFileName} @if(i.getAuthor.getProfileImageFileName == null){/assets/images/logo_big.png}" alt="profilepic for @i.getAuthor.getName" width="30px">
                                     </a>
                                 </div>
                                 <div class="col-md-11">
@@ -98,12 +98,13 @@
                 <div class="transparent-box-addition" style="margin-top:3%">
                     <div class="row">
                         <div class="col-md-12">
-                            @event.getEventHappens().getTime
-                            @event.getEventStops.getTime
-                            @event.getEventId
-                            @event.getFirstLowerGraduationLimit
-                            @event.getFirstUpperGraduationLimit
-                            @event.getLocation
+                            Start: @event.getEventHappens().getTime <br>
+                            Slutt: @event.getEventStops.getTime <br>
+                                @(//TODO LAGE logikk for visning av oppmeldingsinformasjon
+                            //@event.getFirstLowerGraduationLimit
+                            //@event.getFirstUpperGraduationLimit
+                                        )
+                            Sted: @event.getLocation
                         </div>
                     </div>}
                     @if(models.LoginState.isValidlyLoggedIn){
