@@ -22,8 +22,8 @@ import java.util.List;
 public class Calendar extends Controller {
     private final static String ISO8601 = "yyyy-MM-dd";
     private final static String ISO8601_TIME = "yyyy-MM-dd'T'HH:mm:ssXXX";
-    private final static String EVENT_COLOR = "blue";
-    private final static String BIRTHDAY_COLOR = "red";
+    private final static String EVENT_COLOR = "#236293";
+    private final static String BIRTHDAY_COLOR = "#25626C";
     private final static String EVENT_DEFAULT_TITLE = "No title";
     private final static String BIRTHDAY_END_TITLE = "'s birthday";
 
