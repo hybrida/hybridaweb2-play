@@ -31,7 +31,15 @@ public class Calendar extends Controller {
         return ok(layoutWithHead.render("Kalender", views.html.Calendar.calendarHead.render(), views.html.Calendar.calendarBody.render()));
     }
 
-    public static Result change(String id, String start, String end) {
+    public static Result change() {
+        if (!LoginState.isValidlyLoggedIn() || !LoginState.getUser().canCreateNewArticle()) return forbidden();
+
+        Long id = new HttpRequestData().getLong("id");
+        String start = new HttpRequestData().get("start");
+        String end = new HttpRequestData().get("end");
+
+        if (id == null || id == 0 || start == null || start.isEmpty() || end == null || end.isEmpty()) return badRequest();
+
         return ok("false"); //TODO: Change entry with given id
     }
 
