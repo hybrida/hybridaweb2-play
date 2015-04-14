@@ -15,8 +15,8 @@
                 right: "month,agendaWeek,agendaDay"
             },
             editable: @(models.LoginState.getUser().canCreateNewArticle()),
-            eventDrop: function(event, revertFunc) {changeEvent(event, revertFunc);},
-            eventResize: function(event, revertFunc) {changeEvent(event, revertFunc);},
+            eventDrop: function(event, delta, revertFunc, jsEvent, ui, view) {changeEvent(event, revertFunc);},
+            eventResize: function(event, delta, revertFunc, jsEvent, ui, view) {changeEvent(event, revertFunc);},
             eventLimit: true, // allow "more" link when too many events
             events: {
                 url: "kalender/fa", //Kan ikke reverse route
