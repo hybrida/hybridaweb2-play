@@ -24,8 +24,8 @@ public class Calendar extends Controller {
     private final static String ISO8601_TIME = "yyyy-MM-dd'T'HH:mm:ssXXX";
     private final static String EVENT_COLOR = "#236293";
     private final static String BIRTHDAY_COLOR = "#25626C";
-    private final static String EVENT_DEFAULT_TITLE = "No title";
-    private final static String BIRTHDAY_END_TITLE = "'s birthday";
+    private final static String EVENT_DEFAULT_TITLE = "Ingen tittel";
+    private final static String BIRTHDAY_DEFAULT_TITLE = "Bursdag til [NAME]";
 
     public static Result index() {
         return ok(layoutWithHead.render("Kalender", views.html.Calendar.calendarHead.render(), views.html.Calendar.calendarBody.render()));
@@ -114,8 +114,7 @@ public class Calendar extends Controller {
             List<User> users = User.find.all();
             if (users != null) {
                 for (User user : users) {
-                    if (user == null || user.dateOfBirth == null || user.dateOfBirth.getTime() == 0 || user.getName() == null || user.getName().isEmpty()) break;
-
+                    if (user == null || user.dateOfBirth == null || user.dateOfBirth.getTime() == 0 || user.getName() == null || user.getName().isEmpty()) continue;
                     java.util.Calendar tempCalendar = new GregorianCalendar();
 
                     // Get requested start year
@@ -135,15 +134,15 @@ public class Calendar extends Controller {
                     for (int year = startYear; year <= endYear; ++year) {
                         ObjectNode reformatted = Json.newObject();
                         tempCalendar.set(java.util.Calendar.YEAR, year);
-                        tempCalendar.set(java.util.Calendar.DAY_OF_MONTH, birthdayMonth);
-                        tempCalendar.set(java.util.Calendar.MONTH, birthdayDay);
+                        tempCalendar.set(java.util.Calendar.DAY_OF_MONTH, birthdayDay);
+                        tempCalendar.set(java.util.Calendar.MONTH, birthdayMonth);
 
                         // Set start time
                         String birthdayTime = new SimpleDateFormat(ISO8601_TIME).format(tempCalendar.getTimeInMillis());
                         reformatted.set("start", new TextNode(birthdayTime));
 
                         // Set title
-                        reformatted.set("title", new TextNode(user.getName() + BIRTHDAY_END_TITLE));
+                        reformatted.set("title", new TextNode(BIRTHDAY_DEFAULT_TITLE.replaceAll("\\[NAME\\]", user.getName())));
 
                         // Set url
                         if (user.getUsername() != null && !user.getUsername().isEmpty()) {
@@ -159,6 +158,6 @@ public class Calendar extends Controller {
             }
         }
 
-        return ok(reformatted_list_json.toString());
+        return ok(Json.toJson(reformatted_list_json));
     }
 }

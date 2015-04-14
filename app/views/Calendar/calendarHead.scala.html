@@ -4,16 +4,17 @@
 <script src='assets/fullcalendar/lib/moment.min.js'></script>
 <script src='assets/javascripts/jquery-1.11.2.min.js'></script>
 <script src='assets/fullcalendar/fullcalendar.min.js'></script>
+<script src='assets/fullcalendar/lang/no.js'></script>
 <script>
 
     $(document).ready(function() {
 
         $('#calendar').fullCalendar({
-            firstDay: 1,
+            lang: "no",
             header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
+                left: "prev,next today",
+                center: "title",
+                right: "month,agendaWeek,agendaDay"
             },
             editable: @(models.LoginState.getUser().canCreateNewArticle()),
             eventDrop: function(event, revertFunc) {
@@ -32,13 +33,13 @@
             },
             eventLimit: true, // allow "more" link when too many events
             events: {
-                url: 'kalender/fa', //Kan ikke reverse route
+                url: "kalender/fa", //Kan ikke reverse route
                 error: function() {
-                    $('#script-warning').show();
+                    $("#script-warning").show();
                 }
             },
             loading: function(bool) {
-                $('#loading').toggle(bool);
+                $("#loading").toggle(bool);
             }
         });
 
