@@ -4,6 +4,7 @@ import com.avaje.ebean.Expr;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import models.*;
+import models.Event;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -21,7 +22,8 @@ import java.util.List;
 
 public class Calendar extends Controller {
     private final static String ISO8601 = "yyyy-MM-dd";
-    private final static String ISO8601_TIME = "yyyy-MM-dd'T'HH:mm:ssXXX";
+    private final static String ISO8601_TIME = "yyyy-MM-dd'T'HH:mm:ss";
+    private final static String ISO8601_TIME_ZONE = "yyyy-MM-dd'T'HH:mm:ssXXX";
     private final static String EVENT_COLOR = "#236293";
     private final static String BIRTHDAY_COLOR = "#25626C";
     private final static String EVENT_DEFAULT_TITLE = "Ingen tittel";
@@ -32,15 +34,41 @@ public class Calendar extends Controller {
     }
 
     public static Result change() {
+
+        // Check rights
         if (!LoginState.isValidlyLoggedIn() || !LoginState.getUser().canCreateNewArticle()) return forbidden();
 
-        Long id = new HttpRequestData().getLong("id");
-        String start = new HttpRequestData().get("start");
-        String end = new HttpRequestData().get("end");
+        // Check existence of data
+        HttpRequestData httpdata = new HttpRequestData();
+        long id = httpdata.getLong("id");
+        String start = httpdata.get("start");
+        String end = httpdata.get("end");
+        if (id == 0 || start == null || start.isEmpty() || end == null || end.isEmpty()) return badRequest();
 
-        if (id == null || id == 0 || start == null || start.isEmpty() || end == null || end.isEmpty()) return badRequest();
+        // Check validity of data
+        Event event = Event.find.byId(id);
+        if (event == null) return badRequest();
 
-        return ok("false"); //TODO: Change entry with given id
+        Date start_date;
+        Date end_date;
+        try {
+            start_date = new SimpleDateFormat(ISO8601_TIME).parse(start);
+            end_date = new SimpleDateFormat(ISO8601_TIME).parse(end);
+        } catch (ParseException e) {
+            return badRequest();
+        }
+        if (start_date == null || start_date.getTime() == 0 || end_date == null || end_date.getTime() == 0 || start_date.getTime() > end_date.getTime()) return badRequest();
+
+        // Update event
+        java.util.Calendar start_cal = new GregorianCalendar();
+        start_cal.setTime(start_date);
+        event.setEventHappens(start_cal);
+        java.util.Calendar end_cal = new GregorianCalendar();
+        end_cal.setTime(end_date);
+        event.setEventStops(end_cal);
+        event.save();
+
+        return ok("true");
     }
 
     public static Result fetch(String start, String end) { // Also passing a timezone, but I can't read it since the variable name is a _, which play doesn't like to have in the routes
@@ -82,7 +110,7 @@ public class Calendar extends Controller {
 
                 // Set start time
                 if (event.getEventHappens() != null && event.getEventHappens().getTimeInMillis() != 0) {
-                    String eventStartTime = new SimpleDateFormat(ISO8601_TIME).format(event.getEventHappens().getTimeInMillis());
+                    String eventStartTime = new SimpleDateFormat(ISO8601_TIME_ZONE).format(event.getEventHappens().getTimeInMillis());
                     reformatted.set("start", new TextNode(eventStartTime));
                 } else break; // We can't do anything if this is not set
 
@@ -93,7 +121,7 @@ public class Calendar extends Controller {
 
                 // Set end time
                 if (event.getEventStops() != null && event.getEventStops().getTimeInMillis() != 0) {
-                    String eventEndTime = new SimpleDateFormat(ISO8601_TIME).format(event.getEventStops().getTimeInMillis());
+                    String eventEndTime = new SimpleDateFormat(ISO8601_TIME_ZONE).format(event.getEventStops().getTimeInMillis());
                     reformatted.set("end", new TextNode(eventEndTime));
                 }
 
@@ -146,7 +174,7 @@ public class Calendar extends Controller {
                         tempCalendar.set(java.util.Calendar.MONTH, birthdayMonth);
 
                         // Set start time
-                        String birthdayTime = new SimpleDateFormat(ISO8601_TIME).format(tempCalendar.getTimeInMillis());
+                        String birthdayTime = new SimpleDateFormat(ISO8601_TIME_ZONE).format(tempCalendar.getTimeInMillis());
                         reformatted.set("start", new TextNode(birthdayTime));
 
                         // Set title
