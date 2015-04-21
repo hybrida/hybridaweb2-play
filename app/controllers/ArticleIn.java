@@ -103,6 +103,13 @@ public class ArticleIn extends Controller {
         ResultAndEId reid = new ResultAndEId();
         HttpRequestData httpData = new HttpRequestData();
         models.Event eventModel = new models.Event();
+        Form<models.Event> eventInput = eventForm.bindFromRequest();
+        if (!eventForm.hasErrors()) {
+            eventModel = eventInput.get();
+        } else {
+          reid.result = controllers.Application.show400("Input data ikke riktig.");
+          return reid;
+        }
         java.text.SimpleDateFormat dateFormat;
         java.util.Calendar cal = java.util.Calendar.getInstance();
         dateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
@@ -189,6 +196,7 @@ public class ArticleIn extends Controller {
         }
         eventModel.setSecondUpperGraduationLimit(httpData.getInt("secondUpperGraduationLimit"));
 
+        /* DEPRECATED
         if (httpData.getInt("firstLowerGraduationLimit") < 1 || httpData.getInt("firstLowerGraduationLimit") > 5) {
             reid.result = controllers.Application.show400("Første nedre klasse grense ugyldig '" + httpData.getInt("firstLowerGraduationLimit") + "' må være mellom 1 og 5 inkludert.");
             return reid;
@@ -200,6 +208,7 @@ public class ArticleIn extends Controller {
             return reid;
         }
         eventModel.setFirstUpperGraduationLimit(httpData.getInt("firstUpperGraduationLimit"));
+        */
 
         eventModel.setLocation(httpData.get("location"));
         eventModel.setArticleId(articleID);
