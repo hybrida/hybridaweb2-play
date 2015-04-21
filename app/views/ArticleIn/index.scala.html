@@ -52,28 +52,64 @@
                             <div class="form-group">
                                 <label for="oD">Første påmeldingsfrist:</label>
                                 <input class="form-control" id="oD" type="datetime-local" name="signUpDeadline"></div>
-                            <div class="form-group">
-                                <label for="fU">Høyeste klassetrinn:</label>
-                                <input class="form-control" type="number" id="fU" name="firstUpperGraduationLimit" min="1" max="5" placeholder="Antall her"></div>
-                            <div class="form-group">
-                                <label for="fL">Laveste klassetrinn:</label>
-                                <input type="number" class="form-control" id="fL" name="firstLowerGraduationLimit" min="1" max="5" placeholder="Antall her"></div>
+
+
+                            <label for="FSU">Klasser tillat ved første påmelding</label>
+                            <div id="FSU" class="form-group">
+
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="first_signup" name="firstYearAllowed">1
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="first_signup" name="secoundYearAllowed">2
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="first_signup" name="thirdYearAllowed">3
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="first_signup" name="fourthYearAllowed">4
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="first_signup" name="fifthYearAllowed">5
+                            </label></div>
+
                             <div class="form-group">
                                 <label for="aOD">Andre påmeldingsfrist:</label>
                                 <input class="form-control" id="aOD" type="datetime-local" name="secondSignUp"></div>
-                            <div class="form-group">
-                                <label for="sU">Høyeste klassetrinn, andre påmelding:</label>
-                                <input type="number" class="form-control" id="sU" name="secondUpperGraduationLimit" min="1" max="5" placeholder="Antall her"></div>
-                            <div class="form-group">
-                                <label for="sL">Laveste klassetrinn, andre påmelding:</label>
-                                <input type="number" id="sL" class="form-control" name="secondLowerGraduationLimit" min="1" max="5" placeholder="Antall her"></div>
+
+                            <label for="SSU">Klasser tillat ved andre påmelding</label>
+                            <div id="SSU" class="form-group">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="secound_signup" name="firstYearAllowedAfterSecondSignup">1
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="secound_signup" name="secoundYearAllowedAfterSecondSignup">2
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="secound_signup" name="thirdYearAllowedAfterSecondSignup">3
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="secound_signup" name="fourthYearAllowedAfterSecondSignup">4
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="secound_signup" name="fifthYearAllowedAfterSecondSignup">5
+                            </label>
+                            </div>
+
                             <div class="form-group">
                                 <label for="sA">Tillatt kjønn:</label>
-                                <select class="form-control" id="sA" name="sexAllowed">
-                                    <option value="A">Alle</option>
-                                    <option value="M">Male</option>
-                                    <option value="F">Female</option>
-                                </select></div>
+                                <div id="sA">
+                                <label class="radio-inline">
+                                    <input type="radio" name="sexAllowed" id="sA1" value="A"> Alle
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="sexAllowed" id="sA2" value="M"> Menn
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="sexAllowed" id="sA3" value="F"> Kvinner
+                                </label>
+                                </div>
+                                </div>
                             <div class="form-group">
                                 <label for="mO">Maksimalt antall deltagere:</label>
                                 <input class="form-control" id="mO" type="number" name="maxParticipants"></div>
