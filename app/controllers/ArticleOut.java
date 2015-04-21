@@ -42,10 +42,14 @@ public class ArticleOut extends Controller {
 
     public static Result viewArticle(String id) {
         Application x = new Application();
-        if (Article.find.byId(Long.valueOf(id)) != null)
-            return ok(layout.render("Artikkel", views.html.ArticleOut.viewArticle.render(Article.find.byId(Long.valueOf(id)))));
-        else
-            return Application.show404(request().uri().replaceFirst("/", ""));
+        try {
+            if (Article.find.byId(Long.valueOf(id)) != null)
+                return ok(layout.render("Artikkel", views.html.ArticleOut.viewArticle.render(Article.find.byId(Long.valueOf(id)))));
+            else
+                return Application.show404(request().uri().replaceFirst("/", ""));
+        } catch (java.lang.NumberFormatException exception) {
+            return Application.show400("Sent erroneous input to viewArticle: " + id);
+        }
     }
 
     public static Article getArticle(long articleId) {
