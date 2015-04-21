@@ -29,7 +29,6 @@ public class ArticleIn extends Controller {
                 return Application.showUnauthorizedAccess();
 
             long id = saveArticle();
-
             if(!(new HttpRequestData().get("event") == null)) {
                 ResultAndEId res = saveEvent(id, null);
                 if (res.result != null)
@@ -43,9 +42,10 @@ public class ArticleIn extends Controller {
             return redirect(routes.ArticleOut.index("" + id).absoluteURL(request()));
         }
         catch (IllegalStateException e) {
-            return Application.show400("ugyldig data oppgitt");
+            return Application.show400("ugyldig data oppgitt: " + e);
         }
         catch (Exception e) {
+            e.printStackTrace();
             return ok("Wow");
         }
     }
@@ -104,13 +104,6 @@ public class ArticleIn extends Controller {
         HttpRequestData httpData = new HttpRequestData();
         System.out.println(httpData);
         models.Event eventModel = new models.Event();
-        Form<models.Event> eventInput = eventForm.bindFromRequest();
-        if (!eventForm.hasErrors()) {
-            eventModel = eventInput.get();
-        } else {
-          reid.result = controllers.Application.show400("Input data ikke riktig.");
-          return reid;
-        }
         java.text.SimpleDateFormat dateFormat;
         java.util.Calendar cal = java.util.Calendar.getInstance();
         dateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
@@ -185,6 +178,7 @@ public class ArticleIn extends Controller {
         }
         eventModel.setSexAllowed(httpData.get("sexAllowed").charAt(0));
 
+        /*
         if (httpData.getInt("secondLowerGraduationLimit") < 1 || httpData.getInt("secondLowerGraduationLimit") > 5) {
             reid.result = controllers.Application.show400("Andre nedre klasse grense ugyldig '" + httpData.getInt("secondLowerGraduationLimit") + "' må være mellom 1 og 5 inkludert.");
             return reid;
@@ -196,6 +190,19 @@ public class ArticleIn extends Controller {
             return reid;
         }
         eventModel.setSecondUpperGraduationLimit(httpData.getInt("secondUpperGraduationLimit"));
+        */
+
+        eventModel.firstYearAllowed = httpData.get("firstYearAllowed") != null;
+        eventModel.secondYearAllowed = httpData.get("secondYearAllowed") != null;
+        eventModel.thirdYearAllowed = httpData.get("thirdYearAllowed") != null;
+        eventModel.fourthYearAllowed = httpData.get("fourthYearAllowed") != null;
+        eventModel.fifthYearAllowed = httpData.get("fifthYearAllowed") != null;
+
+        eventModel.firstYearAllowedAfterSecondSignup = httpData.get("firstYearAllowedAfterSecondSignup") != null;
+        eventModel.secondYearAllowedAfterSecondSignup = httpData.get("secondYearAllowedAfterSecondSignup") != null;
+        eventModel.thirdYearAllowedAfterSecondSignup = httpData.get("thirdYearAllowedAfterSecondSignup") != null;
+        eventModel.fourthYearAllowedAfterSecondSignup = httpData.get("fourthYearAllowedAfterSecondSignup") != null;
+        eventModel.fifthYearAllowedAfterSecondSignup = httpData.get("fifthYearAllowedAfterSecondSignup") != null;
 
         /* DEPRECATED
         if (httpData.getInt("firstLowerGraduationLimit") < 1 || httpData.getInt("firstLowerGraduationLimit") > 5) {
