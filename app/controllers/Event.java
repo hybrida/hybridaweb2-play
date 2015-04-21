@@ -71,12 +71,13 @@ public class Event extends Controller {
 
         if (!articleInput.hasErrors()) {
             Article articleModel = articleInput.get();
+
             articleModel.setId(event.getArticleId());
             articleModel.setImagePath(user.uploadPicture());
             articleModel.setAuthor(user.getId());
             articleModel.update();
+            ArticleIn.saveEvent(event.getArticleId(), event.getEventId());
         }
-        ArticleIn.saveEvent(event.getArticleId(), event.getEventId());
         return Application.index();
     }
 

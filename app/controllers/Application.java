@@ -28,9 +28,9 @@ public class Application extends Controller {
         for (Renderable renderable : Lists.reverse(articles)) {
             ++i;
             if (i <= 2)
-                concatenation += "<div class='col-md-6'>";
+                concatenation += "<div class='col-md-6' style='padding: 1%'>";
             else
-                concatenation += "<div class='col-md-3'>";
+                concatenation += "<div class='col-md-3'style='padding: 1%'>";
             concatenation += renderable.renderFrontPageSample();
             concatenation += "</div>";
         }
@@ -53,9 +53,12 @@ public class Application extends Controller {
         return badRequest(layout.render("400", views.html.Application.show400.render(get_value)));
     }
 
+    /**
+      \brief Check if the user has the ability to edit; if not: it returns a non-null Result.
+    */
     public static Result checkEditPrivilege(User user) {
         if (user.isDefault()) {
-            return controllers.Application.show400("Du må logge inn for å endre arransjement.");
+          return controllers.Application.show400("Du må logge inn for å endre arransjement.");
         } if (!user.canCreateNewArticle()) {
           return controllers.Application.show400("Du har ikke rettighetene til å endre på arransjementer.");
         }
