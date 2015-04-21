@@ -16,7 +16,7 @@
                     <p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">Av: @User.find.byId(article.getAuthor).getName
 
                         @if(models.LoginState.getUser().getId == article.getAuthor) {
-                            <a href="@controllers.routes.ArticleIn.editArticle(String.valueOf(article.getId))">
+                            <a href="@controllers.routes.Event.editEvent("" + event.getEventId)">
                                 <button class="btn-xs btn-primary"> Rediger </button> </a>
                         } </p>
                     @Html(article.getText)
