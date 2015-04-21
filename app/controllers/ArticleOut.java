@@ -67,6 +67,12 @@ public class ArticleOut extends Controller {
         return ok();
     }
 
+    /**
+     * Writes a comment to the database, with a relation to the given article, and the user currently signed in
+     * @param articleId
+     * @return
+     */
+
     public static Result comment(String articleId){
         String comment = new HttpRequestData().get("comment");
         Comment newComment = new Comment(comment, Article.find.byId(Long.parseLong(articleId)));
@@ -77,6 +83,12 @@ public class ArticleOut extends Controller {
         return redirect(routes.ArticleOut.viewArticle(articleId).absoluteURL(request()));
     }
 
+    /**
+     * Finds a comment by commentID, and deletes it from the database. Should be protected from misuse by using the POST method
+     * through routes.
+     * @param commentId
+     * @return
+     */
     public static Result deleteComment(String commentId){
         Comment thisComment = Comment.find.byId(Long.parseLong(commentId));
         Article article = thisComment.getArticle();

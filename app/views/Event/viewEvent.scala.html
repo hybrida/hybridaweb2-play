@@ -10,8 +10,9 @@
                         <img src="@article.getImagePath" alt="No image available" class="center-block img-responsive art-img"> <br>
                     }
                     <h1>@article.getTitle</h1>
-                    <hr>
-                    <h3>@article.getIngress</h3>
+                    <br>
+                    <h3><p class="text-center">@article.getIngress</p></h3>
+                    <br>
                     <p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">Av: @User.find.byId(article.getAuthor).getName
 
                         @if(models.LoginState.getUser().getId == article.getAuthor) {
@@ -22,18 +23,29 @@
                     <hr>
                     <p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">Påmeldte</p>
                     @if(models.LoginState.isValidlyLoggedIn){
-                    @for(i <- UserEventJoined.getAllSignedUpUsers(event.getEventId)){
-                        <div class="row">
-                            <div class="col-md-1">
-                                <a href="/profil/@i.getUsername" class="thumbnail">
-                                    <img src="/assets/images/@i.getProfileImageFileName" alt="profilepic for @i.getName" width="30px">
-                                </a>
+                        <div class="col-md-12">
+                        @for(i <- 1 to 5){
+                            <div class="row">
+                                <div class="col-md-1">@UserEventJoined.getSignedUpUsersByClass(i, event.getEventId).size()</div>
+                                <div class="col-md-11">
+                               <p onclick="$ ( '.showhide@i' ).toggle ( ) ;" style="cursor: pointer;"> Klasse @i.toString </p></div>
+                                <div style="display: none" class="showhide@i" id="showhide@i" name="showhide@i">
+                                @for(j <- UserEventJoined.getSignedUpUsersByClass(i, event.getEventId)){
+                                    <div class="row" style="margin-left: 1%">
+                                        <div class="col-md-1">
+                                            <a href="/profil/@j.getUsername" class="thumbnail">
+                                                <img src="@if(j.getProfileImageFileName != null){ /assets/upload/@j.getUsername/@j.getProfileImageFileName} @if(j.getProfileImageFileName == null){/assets/images/logo_big.png}" alt="profilepic for @j.getName" width="30px">
+                                            </a>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <strong>@j.getName</strong>
+                                        </div>
+                                    </div>
+                                }</div>
                             </div>
-                            <div class="col-md-11">
-                                <strong>@i.getName</strong>
+                        }
                             </div>
-                        </div>
-                    }}
+                    }
                     @if(!models.LoginState.isValidlyLoggedIn){<p>Logg inn for å se hvem som er påmeldt</p>}
                 </div>
                 @if(models.LoginState.isValidlyLoggedIn){
@@ -80,16 +92,17 @@
                                 </div>
                             </div>
                         }
+                        <div style="margin-top:1em">
                         <form action="/comment/@article.getId" method="POST">
                             <input type="hidden" name="isEvent" value="@event.getEventId">
-                            <label for="comment">Comment:</label>
+                            <label for="comment" class="sr-only">Kommenter:</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" id="comment" name="comment" autocomplete="off" maxlength="250">
                                 <span class="input-group-btn">
-                                    <button type="submit" class="btn btn-primary">Comment</button>
+                                    <button type="submit" class="btn btn-primary">Kommenter</button>
                                 </span>
                             </div>
-                        </form>
+                        </form></div>
                     </div>
 
                 </div>
@@ -97,29 +110,36 @@
             <div class="col-md-3">
                 <div class="transparent-box-addition" style="margin-top:3%">
                     <div class="row">
-                        <div class="col-md-12">
-                            Start: @event.getEventHappens().getTime <br>
-                            Slutt: @event.getEventStops.getTime <br>
+                        <div class="col-md-6" style="border-right: solid lightslategray">
+                            Start<br>
+                            Slutt<br>
+                            Sted<br>
                                 @(//TODO LAGE logikk for visning av oppmeldingsinformasjon
                             //@event.getFirstLowerGraduationLimit
                             //@event.getFirstUpperGraduationLimit
                                         )
-                            Sted: @event.getLocation
+
+                        </div>
+                        <div class="col-md-6">
+                           @event.getEventHappens.getTime
+                            @event.getEventStops.getTime
+                            @event.getLocation
                         </div>
                     </div>}
+                    <br>
                     @if(models.LoginState.isValidlyLoggedIn){
                    <div class="row">
                        <div class="col-md-12">
                            @if(!UserEventJoined.isSignedUp(models.LoginState.getUser().getId(), event.getEventId)){
                                <form method="POST" action="/event/meldpaa">
                                    <input type="hidden" name="eventId" value="@event.getEventId">
-                               <button type="submit" class="btn btn-primary"> Meld på</button>
+                               <button type="submit" class="btn btn-primary btn-sm btn-block"> Meld meg på</button>
                                </form>
                            }
                            @if(UserEventJoined.isSignedUp(models.LoginState.getUser().getId(), event.getEventId)){
                                <form method="POST" action="/event/meldav">
                                    <input type="hidden" name="eventId" value="@event.getEventId">
-                                   <button type="submit" class="btn btn-primary"> Meld av</button>
+                                   <button type="submit" class="btn btn-primary btn-sm btn-block"> Meld meg av</button>
                                </form>
                            }
                        </div>
