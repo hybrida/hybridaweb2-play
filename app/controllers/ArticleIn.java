@@ -102,6 +102,7 @@ public class ArticleIn extends Controller {
     public static ResultAndEId saveEvent(long articleID, Long eventId /* Can be null: new id is generated.*/) {
         ResultAndEId reid = new ResultAndEId();
         HttpRequestData httpData = new HttpRequestData();
+        System.out.println(httpData);
         models.Event eventModel = new models.Event();
         Form<models.Event> eventInput = eventForm.bindFromRequest();
         if (!eventForm.hasErrors()) {
