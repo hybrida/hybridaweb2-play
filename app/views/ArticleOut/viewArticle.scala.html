@@ -9,7 +9,7 @@
                     <img src="@article.getImagePath" alt="No image available" class="center-block img-responsive art-img"><br>}
                     <h1><p class="text-center">@article.getTitle</p></h1>
                 </div>
-                <hr>
+                <br>
                 <h3><p class="text-center">@article.getIngress</p></h3>
                 <p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">Av: @User.find.byId(article.getAuthor).getName
 
@@ -22,7 +22,7 @@
             </div>
             </div>
         @if(models.LoginState.isValidlyLoggedIn){
-        <div class="row">
+        <div class="row" style="margin-bottom: 1%">
             <div class="col-md-9 transparent-box" style="margin-top: 1%">
                 <p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">Kommentarer</p>
                     @for(i <- article.getCommentList()){
@@ -64,15 +64,16 @@
                                 </div>
                             </div>
                     }
+                <div style="margin-top:1em">
                     <form action="/comment/@article.getId" method="POST">
-                        <label for="comment">Comment:</label>
+                        <label for="comment" class="sr-only">Comment:</label>
                         <div class="input-group">
                         <input type="text" class="form-control" id="comment" name="comment" autocomplete="off" maxlength="250">
                             <span class="input-group-btn">
-                        <button type="submit" class="btn btn-primary">Comment</button>
+                        <button type="submit" class="btn btn-primary">Kommenter</button>
                             </span>
                             </div>
-                    </form>
+                    </form></div>
             </div>
         </div>}
     </div>

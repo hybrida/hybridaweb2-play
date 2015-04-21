@@ -28,9 +28,9 @@ public class Application extends Controller {
         for (Renderable renderable : Lists.reverse(articles)) {
             ++i;
             if (i <= 2)
-                concatenation += "<div class='col-md-6'>";
+                concatenation += "<div class='col-md-6' style='padding: 1%'>";
             else
-                concatenation += "<div class='col-md-3'>";
+                concatenation += "<div class='col-md-3'style='padding: 1%'>";
             concatenation += renderable.renderFrontPageSample();
             concatenation += "</div>";
         }

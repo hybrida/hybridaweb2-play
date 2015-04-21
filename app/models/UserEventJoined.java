@@ -1,5 +1,8 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Bourgond on 3/10/2015.
  *
@@ -142,11 +145,42 @@ public class UserEventJoined extends play.db.ebean.Model {
             Long.class, UserEventJoined.class
     );
 
+    /**
+     * Get a list of all user currently signed up for a given event
+     * @param eventID
+     * @return
+     */
+
     public static java.util.List<User> getAllSignedUpUsers(long eventID){
         java.util.List<User> usersList = new java.util.ArrayList<User>();
         for(UserEventJoined i : getJoinedEventList(eventID)){
             usersList.add(User.find.byId(i.getUserId()));
         }
         return usersList;
+    }
+
+    /**
+     * Get a list of all users signed up for a given event, from a given classyear.
+     * @param classnumber
+     * @param eventID
+     * @return
+     */
+    public static java.util.List<User> getSignedUpUsersByClass(int classnumber, long eventID){
+        if(classnumber == 0){
+            //TODO: Implementer en måte å hente alle påmeldte som ikke faller inn i kategorien hybrider fra 1-5 klasse.
+        }
+        if(classnumber < 0 || classnumber > 5){
+            System.out.println("Error, not a valid class");
+        }
+        List<User> allUsers = getAllSignedUpUsers(eventID);
+        List<User> classUsers = new ArrayList<User>();
+        for(User i : allUsers){
+            int currentYear = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
+            int usersYear =  studyYears - (i.graduationYear - currentYear);
+            if(usersYear == classnumber){
+                classUsers.add(i);
+            }
+        }
+        return classUsers;
     }
 }
