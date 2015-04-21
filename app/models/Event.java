@@ -28,6 +28,9 @@ public class Event extends Model implements Renderable {
     private int secondUpperGraduationLimit;
     private int secondLowerGraduationLimit;
 
+    public boolean firstYearAllowed, secondYearAllowed, thirdYearAllowed, fourthYearAllowed, fifthYearAllowed;
+    public boolean firstYearAllowedAfterSecondSignup, secondYearAllowedAfterSecondSignup, thirdYearAllowedAfterSecondSignup, fourthYearAllowedAfterSecondSignup, fifthYearAllowedAfterSecondSignup;
+
     private char sexAllowed;
 
     private int maxParticipants;
