@@ -138,3 +138,11 @@ a :hover {
     background-color: lightslategray;
     padding: .5%;
 }
+
+@media only screen and (max-width: 888px) {
+
+    #navbar-search {
+        width: 64px;
+    }
+
+}
