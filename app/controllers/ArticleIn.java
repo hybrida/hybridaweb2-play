@@ -26,7 +26,7 @@ public class ArticleIn extends Controller {
         try {
             User user = LoginState.getUser();
             if (user == null || !user.canCreateNewArticle())
-                return Application.showUnauthorizedAccess();
+                return application.Application.showUnauthorizedAccess();
 
             long id = saveArticle();
             if(!(new HttpRequestData().get("event") == null)) {
@@ -42,7 +42,7 @@ public class ArticleIn extends Controller {
             return redirect(routes.ArticleOut.index("" + id).absoluteURL(request()));
         }
         catch (IllegalStateException e) {
-            return Application.show400("ugyldig data oppgitt: " + e);
+            return application.Application.show400("ugyldig data oppgitt: " + e);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -114,66 +114,66 @@ public class ArticleIn extends Controller {
         try {
             cal.setTime(dateFormat.parse(httpData.get("secondSignUp")));
             if (cal.before(current_calendar)) {
-                reid.result = controllers.Application.show400("Andre oppmeldingsfristen er før nå. Dette er ikke gyldig.");
+                reid.result = application.Application.show400("Andre oppmeldingsfristen er før nå. Dette er ikke gyldig.");
                 return reid;
             }
             eventModel.setSecondSignUp(cal);
         } catch (ParseException parseExc) {
             System.out.println(cal);
-            return new ResultAndEId(Application.show400("Feil dato format i den andre oppmeldingsfristen."));
+            return new ResultAndEId(application.Application.show400("Feil dato format i den andre oppmeldingsfristen."));
         }
 
         cal = java.util.Calendar.getInstance();
         try {
             cal.setTime(dateFormat.parse(httpData.get("eventHappens")));
             if (cal.before(current_calendar)) {
-                reid.result = controllers.Application.show400("Arrangementet skjer før nå. Dette er ikke gyldig.");
+                reid.result = application.Application.show400("Arrangementet skjer før nå. Dette er ikke gyldig.");
                 return reid;
             }
             eventModel.setEventHappens(cal);
         } catch (ParseException parseExc) {
-            return new ResultAndEId(Application.show400("Feil dato format når arrangementet faktisk skjer oppmeldingsfristen."));
+            return new ResultAndEId(application.Application.show400("Feil dato format når arrangementet faktisk skjer oppmeldingsfristen."));
         }
 
         cal = java.util.Calendar.getInstance();
         try {
             cal.setTime(dateFormat.parse(httpData.get("timeFrame"))); // eventStops
             if (cal.before(eventModel.getEventHappens())) {
-                reid.result = controllers.Application.show400("Arrangementet slutter før det skjer. Dette er ikke gyldig.");
+                reid.result = application.Application.show400("Arrangementet slutter før det skjer. Dette er ikke gyldig.");
                 return reid;
             }
             eventModel.setEventStops(cal);
         } catch (ParseException parseExc) {
-            return new ResultAndEId(Application.show400("Feil dato format når arrangementet faktisk skjer oppmeldingsfristen."));
+            return new ResultAndEId(application.Application.show400("Feil dato format når arrangementet faktisk skjer oppmeldingsfristen."));
         }
 
         cal = java.util.Calendar.getInstance();
         try {
             cal.setTime(dateFormat.parse(httpData.get("signUpDeadline")));
             if (cal.before(current_calendar)) {
-                reid.result = controllers.Application.show400("Oppmeldingsfristen er før nå. Dette er ikke gyldig.");
+                reid.result = application.Application.show400("Oppmeldingsfristen er før nå. Dette er ikke gyldig.");
                 return reid;
             }
             eventModel.setSignUpDeadline(cal);
         } catch (ParseException parseExc) {
-            return new ResultAndEId(Application.show400("Feil dato format i oppmeldingsfristen."));
+            return new ResultAndEId(application.Application.show400("Feil dato format i oppmeldingsfristen."));
         }
 
         if (httpData.getInt("maxParticipantsWaiting") < 0) {
-            reid.result = controllers.Application.show400("Antall mulige på ventelisten er ugyldig: '" + httpData.getInt("maxParticipants") + "'. Det skal være flere enn 0.");
+            reid.result = application.Application.show400("Antall mulige på ventelisten er ugyldig: '" + httpData.getInt("maxParticipants") + "'. Det skal være flere enn 0.");
             return reid;
         }
         eventModel.setMaxParticipantsWaiting(httpData.getInt("maxParticipantsWaiting"));
 
         if (httpData.getInt("maxParticipants") <= 0) {
-            reid.result = controllers.Application.show400("Antall mulig påmeldte er ugyldig: '" + httpData.getInt("maxParticipants") + "'. Det skal være flere enn 0.");
+            reid.result = application.Application.show400("Antall mulig påmeldte er ugyldig: '" + httpData.getInt("maxParticipants") + "'. Det skal være flere enn 0.");
             return reid;
         }
         eventModel.setMaxParticipants(httpData.getInt("maxParticipants"));
 
         char sex = httpData.get("sexAllowed").charAt(0);
         if (sex != 'M' && sex != 'F' && sex != 'A') {
-            reid.result = controllers.Application.show400("Kjønnet er feil: '" + sex + "'. Dette er ikke gyldig.");
+            reid.result = application.Application.show400("Kjønnet er feil: '" + sex + "'. Dette er ikke gyldig.");
             return reid;
         }
         eventModel.setSexAllowed(httpData.get("sexAllowed").charAt(0));
@@ -232,7 +232,7 @@ public class ArticleIn extends Controller {
     }
 
     public static Result editArticle(String id) {
-        Result error = Application.checkEditPrivilege(LoginState.getUser());
+        Result error = application.Application.checkEditPrivilege(LoginState.getUser());
         if (error != null)
             return error;
         Article article = Article.find.byId(Long.valueOf(id));
@@ -240,7 +240,7 @@ public class ArticleIn extends Controller {
     }
 
     public static Result saveEdit(String id) {
-        Result error = Application.checkEditPrivilege(LoginState.getUser());
+        Result error = application.Application.checkEditPrivilege(LoginState.getUser());
         if (error != null)
             return error;
 
@@ -250,7 +250,7 @@ public class ArticleIn extends Controller {
         article.setIngress(httpdata.get("ingress"));
         article.setText(httpdata.get("text"));
         article.save();
-        return Application.index();
+        return application.Application.index();
     }
 
 }

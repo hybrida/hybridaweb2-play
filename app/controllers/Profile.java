@@ -31,15 +31,15 @@ public class Profile extends Controller {
 
         User user = User.find.where().eq("username", username).findUnique();
         if (user == null) {
-            return Application.show404(request().path());
+            return application.Application.show404(request().path());
         }
         return ok(render(username, user, false));
-    } 
+    }
 
     public static Result update(String username) {
-        if (!authorizedToEditUser(username)) return Application.showUnauthorizedAccess();
+        if (!authorizedToEditUser(username)) return application.Application.showUnauthorizedAccess();
         if (User.find.where().eq("username", username).findRowCount() == 0)
-            return Application.show404(request().path());
+            return application.Application.show404(request().path());
         Form<User> filledForm = userForm.bindFromRequest();
 
         messages = new ArrayList<>();
@@ -66,9 +66,9 @@ public class Profile extends Controller {
     }
 
     public static Result edit(String username) {
-        if (!authorizedToEditUser(username)) return Application.showUnauthorizedAccess();
+        if (!authorizedToEditUser(username)) return application.Application.showUnauthorizedAccess();
         User user = User.find.where().eq("username", username).findUnique();
-        if (user == null) return Application.show404(request().path());
+        if (user == null) return application.Application.show404(request().path());
         messages = new ArrayList<>();
         userForm.fill(user);
         return ok(render(username, user, true));
