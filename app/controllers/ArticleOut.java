@@ -18,7 +18,7 @@ public class ArticleOut extends Controller {
 
     public static Result index(String id) {
         if (Article.find.byId(Long.valueOf(id)) == null)
-            return Application.show404(request().uri().replaceFirst("/", ""));
+            return application.Application.show404(request().uri().replaceFirst("/", ""));
         Long lId = Long.parseLong(id);
         Article article = getArticle(lId);
         models.Event event = getEvent(article);
@@ -41,14 +41,14 @@ public class ArticleOut extends Controller {
 
 
     public static Result viewArticle(String id) {
-        Application x = new Application();
+        application.Application x = new application.Application();
         try {
             if (Article.find.byId(Long.valueOf(id)) != null)
                 return ok(layout.render("Artikkel", views.html.ArticleOut.viewArticle.render(Article.find.byId(Long.valueOf(id)))));
             else
-                return Application.show404(request().uri().replaceFirst("/", ""));
+                return application.Application.show404(request().uri().replaceFirst("/", ""));
         } catch (java.lang.NumberFormatException exception) {
-            return Application.show400("Sent erroneous input to viewArticle: " + id);
+            return application.Application.show400("Sent erroneous input to viewArticle: " + id);
         }
     }
 

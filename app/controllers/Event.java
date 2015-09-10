@@ -13,11 +13,11 @@ public class Event extends Controller {
     public static Result updateUser() {
         User user = LoginState.getUser();
         if (user.isDefault()) {
-            return controllers.Application.show400("Du må logge inn på nytt.");
+            return application.Application.show400("Du må logge inn på nytt.");
         }
         Long event_id = new HttpRequestData().getLong("eventId");
         if (event_id == null) {
-            return controllers.Application.show400("Forventet HTTP data nøkkel 'eventId' ikke funnet.");
+            return application.Application.show400("Forventet HTTP data nøkkel 'eventId' ikke funnet.");
         }
         models.Event event = models.Event.find.byId(event_id);
 
@@ -28,11 +28,11 @@ public class Event extends Controller {
     public static Result removeUser() {
         User user = LoginState.getUser();
         if (user.isDefault()) {
-            return controllers.Application.show400("Du må logge inn på nytt.");
+            return application.Application.show400("Du må logge inn på nytt.");
         }
         Long event_id = new HttpRequestData().getLong("eventId");
         if (event_id == null) {
-            return controllers.Application.show400("Forventet HTTP data nøkkel 'eventId' ikke funnet.");
+            return application.Application.show400("Forventet HTTP data nøkkel 'eventId' ikke funnet.");
         }
         models.Event event = models.Event.find.byId(event_id);
 
@@ -47,11 +47,11 @@ public class Event extends Controller {
             return ok(layout.render("Arrangement", views.html.Event.viewEvent.render(article, event)));
         }
         else
-            return Application.show404(request().uri().replaceFirst("/", ""));
+            return application.Application.show404(request().uri().replaceFirst("/", ""));
     }
 
     public static Result editEvent(String id) {
-        Result error = Application.checkEditPrivilege(LoginState.getUser());
+        Result error = application.Application.checkEditPrivilege(LoginState.getUser());
         if (error != null)
             return error;
 
@@ -62,7 +62,7 @@ public class Event extends Controller {
 
     public static Result saveEdit(String id) {
         User user = LoginState.getUser();
-        Result error = Application.checkEditPrivilege(user);
+        Result error = application.Application.checkEditPrivilege(user);
         if (error != null)
             return error;
         models.Event event = models.Event.find.byId(Long.valueOf(id));
@@ -78,7 +78,7 @@ public class Event extends Controller {
             articleModel.update();
             ArticleIn.saveEvent(event.getArticleId(), event.getEventId());
         }
-        return Application.index();
+        return application.Application.index();
     }
 
 }

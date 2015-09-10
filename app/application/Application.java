@@ -1,4 +1,4 @@
-package controllers;
+package application;
 
 import com.google.common.collect.Lists;
 import models.*;
@@ -58,9 +58,9 @@ public class Application extends Controller {
 	*/
 	public static Result checkEditPrivilege(User user) {
 		if (user.isDefault()) {
-			return controllers.Application.show400("Du må logge inn for å endre arransjement.");
+			return show400("Du må logge inn for å endre arransjement.");
 		} if (!user.canCreateNewArticle()) {
-			return controllers.Application.show400("Du har ikke rettighetene til å endre på arransjementer.");
+			return show400("Du har ikke rettighetene til å endre på arransjementer.");
 		}
 		return null;
 	}

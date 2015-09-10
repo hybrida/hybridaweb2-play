@@ -87,7 +87,7 @@ public class SSOLogin extends Controller {
                 }
                 else {
                     session().clear();
-                    return redirect(routes.Application.index().url());
+                    return application.Application.index();
                 }
             } catch (Exception exc_obj) {
                 return ok(escapeText.render(exc_obj.toString()));

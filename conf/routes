@@ -2,7 +2,7 @@
 # This file defines all application routes (Higher priority routes first)
 
 # Standard layout accessible pages
-GET           /                                 controllers.Application.index()
+GET           /                                 application.Application.index()
 
 # Static info pages
 GET           /nystudent                        controllers.NyStudent.index()
@@ -85,8 +85,8 @@ DELETE        /api/quiz/season/:id              controllers.QuizController.delet
 
 # TEST
 # # New design
-GET           /proto                            controllers.Application.proto()
-GET           /bs                               controllers.Application.bootstrapTest()
+GET           /proto                            application.Application.proto()
+GET           /bs                               application.Application.bootstrapTest()
 # # Chat
 GET           /Chat                             controllers.Chat.connectClient()
 GET           /ChatServer                       controllers.Chat.socket()
@@ -112,8 +112,8 @@ GET           /examples/angular                 examples.controllers.ExampleAngu
 # Map static resources from the /public folder to the /assets URL path
 GET           /assets/*file                     controllers.Assets.at(path="/public", file)
 
-GET           /unauthorized                     controllers.Application.showUnauthorizedAccess()
+GET           /unauthorized                     application.Application.showUnauthorizedAccess()
 
 # Show some page describing the URL if all else fails
-GET           /$anything<.*>                    controllers.Application.show404(anything: String)
-GET           /error400/:error                  controllers.Application.show400(error)
+GET           /$anything<.*>                    application.Application.show404(anything: String)
+GET           /error400/:error                  application.Application.show400(error)
