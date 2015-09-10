@@ -15,7 +15,7 @@
                 @if(models.LoginState.getUser().canCreateNewArticle()) {
                     <li><a href="@routes.ArticleIn.index()">Nytt Innlegg</a></li>
                 }
-                <li><a href="@routes.Company.index()">Bedrift</a></li>
+                <li><a href="/bedrift">Bedrift</a></li>
 
                 <!--@@if(models.LoginState.isValidlyLoggedIn()) {<li><a href="/Chat">Chat</a></li>}-->
 
@@ -33,7 +33,7 @@
                         <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">@(models.LoginState.getUser().getName())</a>
                         <ul class="dropdown-menu" role="menu">
                             <li> <a href="@routes.Profile.index(models.LoginState.getUser().getUsername())">Profil</a></li>
-                            <li><a href="@(routes.SSOLogin.logout())">Logg ut</a></li>
+                            <li><a href="/logout">Logg ut</a></li>
                         </ul>
                     </li>
                 }
@@ -41,7 +41,7 @@
                 @if(models.LoginState.isValidlyLoggedIn()) {
 
                 } else {
-                    <a href="@(routes.SSOLogin.login(play.mvc.Http.Context.current().request().path()))">Logg inn</a>
+                    <a href="/login?returnarg=@(play.mvc.Http.Context.current().request().path())">Logg inn</a>
                 }
             </li>
             </ul>

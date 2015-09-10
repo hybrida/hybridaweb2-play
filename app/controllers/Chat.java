@@ -16,7 +16,7 @@ import views.html.layout;
 public class Chat extends Controller {
     public static Result connectClient() {
         if (LoginState.isValidlyLoggedIn() == false)
-            return redirect(routes.Application.showUnauthorizedAccess());
+            return application.Application.showUnauthorizedAccess();
         return ok(layout.render("Hybrida Chat", views.html.Chat.connectClient.render(LoginState.getUser().getName())));
     }
 

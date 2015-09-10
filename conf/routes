@@ -2,7 +2,7 @@
 # This file defines all application routes (Higher priority routes first)
 
 # Standard layout accessible pages
-GET           /                                 controllers.Application.index()
+GET           /                                 application.Application.index()
 
 # Static info pages
 GET           /nystudent                        controllers.NyStudent.index()
@@ -24,25 +24,25 @@ GET           /update/redaksjon                 controllers.Update.redaksjon()
 GET           /griffensorden                    trash.controllers.griffensOrden.index()
 GET           /griffensorden/riddere            riddere.Riddere.index()
 
-GET           /artikkel/ut/:id                  controllers.ArticleOut.index(id)
+GET           /artikkel/ut/:id                  article.Article.index(id)
 GET           /artikkel/ny                      controllers.ArticleIn.index()
 POST          /artikkel/ny                      controllers.ArticleIn.save()
-GET           /artikkel/:id                     controllers.ArticleOut.viewArticle(id)
-GET           /artikkel/:id/endre               controllers.ArticleIn.editArticle(id)
+GET           /artikkel/:id                     article.Article.viewArticle(id)
+GET           /artikkel/:id/endre               article.Article.editArticle(id)
 POST          /artikkel/:id/lagreEndring        controllers.ArticleIn.saveEdit(id)
 GET           /event/ut/:id                     controllers.Event.viewEvent(id)
 GET           /event/:id/endre                  controllers.Event.editEvent(id)
 POST          /event/:id/lagreEndring           controllers.Event.saveEdit(id)
 
-POST          /comment/:articleID               controllers.ArticleOut.comment(articleID)
-POST          /comment/delete/:commentID        controllers.ArticleOut.deleteComment(commentID)
+POST          /comment/:articleID               article.Article.comment(articleID)
+POST          /comment/delete/:commentID        article.Article.deleteComment(commentID)
 
 GET           /update                           controllers.Update.index()
 POST          /update                           controllers.Update.post()
 GET           /update/utgaver                   controllers.Update.utgaver()
 GET           /update/redaksjon                 controllers.Update.redaksjon()
 
-GET           /bedrift                          controllers.Company.index()
+GET           /bedrift                          company.Company.index()
 
 # Ebean example
 GET           /ebean                            examples.controllers.ExampleEbean.index()
@@ -62,9 +62,9 @@ GET           /backup                           controllers.BackupDatabase.index
 GET           /search                           controllers.Search.index()
 
 # Login
-GET           /login                            controllers.SSOLogin.login(returnarg: String)
-GET           /logout                           controllers.SSOLogin.logout()
-GET           /verifylogin                      controllers.SSOLogin.verifylogin()
+GET           /login                            sso.SSOLogin.login(returnarg: String)
+GET           /logout                           sso.SSOLogin.logout()
+GET           /verifylogin                      sso.SSOLogin.verifylogin()
 GET           /contactforuser                   controllers.ContactForUser.index()
 
 # Profile
@@ -85,8 +85,8 @@ DELETE        /api/quiz/season/:id              controllers.QuizController.delet
 
 # TEST
 # # New design
-GET           /proto                            controllers.Application.proto()
-GET           /bs                               controllers.Application.bootstrapTest()
+GET           /proto                            application.Application.proto()
+GET           /bs                               application.Application.bootstrapTest()
 # # Chat
 GET           /Chat                             controllers.Chat.connectClient()
 GET           /ChatServer                       controllers.Chat.socket()
@@ -112,8 +112,8 @@ GET           /examples/angular                 examples.controllers.ExampleAngu
 # Map static resources from the /public folder to the /assets URL path
 GET           /assets/*file                     controllers.Assets.at(path="/public", file)
 
-GET           /unauthorized                     controllers.Application.showUnauthorizedAccess()
+GET           /unauthorized                     application.Application.showUnauthorizedAccess()
 
 # Show some page describing the URL if all else fails
-GET           /$anything<.*>                    controllers.Application.show404(anything: String)
-GET           /error400/:error                  controllers.Application.show400(error)
+GET           /$anything<.*>                    application.Application.show404(anything: String)
+GET           /error400/:error                  application.Application.show400(error)

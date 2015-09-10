@@ -39,6 +39,7 @@ a :hover {
     color: #000000;
 }
 
+
 .navbar {
     background-color: #ffffff;
     box-shadow: 0 0 8px #000000;
@@ -137,6 +138,14 @@ a :hover {
 .fp_beige{
     background-color: lightslategray;
     padding: .5%;
+}
+
+@media only screen and (max-width: 888px) {
+
+    #home {
+        padding: 0;
+        margin: 0 0px 0 0px;
+    }
 }
 
 @media only screen and (max-width: 888px) and (min-width: 768px){

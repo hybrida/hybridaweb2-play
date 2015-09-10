@@ -22,7 +22,7 @@ public class BackupDatabase {
     public static Result index() {
         models.User user = LoginState.getUser();
         if (!(!user.isDefault() && (user.admin || user.root))) {
-            return Application.showUnauthorizedAccess();
+            return application.Application.showUnauthorizedAccess();
         }
 
         if (backup())

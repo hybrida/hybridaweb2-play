@@ -33,9 +33,9 @@
         <li style="float: right" class="navigation_element">
             <!-- @(play.mvc.Http.Context.current().request().path()) -->
             @if(models.LoginState.isValidlyLoggedIn()) {
-                <a class="navigation_menu_link" href="@(routes.SSOLogin.logout())">Logg ut</a>
+                <a class="navigation_menu_link" href="/logout">Logg ut</a>
             } else {
-                <a class="navigation_menu_link" href="@(routes.SSOLogin.login(play.mvc.Http.Context.current().request().path()))">Logg inn</a>
+                <a class="navigation_menu_link" href="/login(play.mvc.Http.Context.current().request().path())">Logg inn</a>
             }
         </li>
         <li style="float: right;" class="navigation_element">
