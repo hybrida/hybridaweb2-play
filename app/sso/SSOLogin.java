@@ -1,4 +1,4 @@
-package controllers;
+package sso;
 
 import models.User;
 import play.mvc.Controller;
@@ -79,7 +79,7 @@ public class SSOLogin extends Controller {
 						}
 					} else {
 				// System.out.println("Username: " + data.getLoginInfo().get("username") + " does not exist in the database.");
-						return redirect(routes.ContactForUser.index());
+						return redirect("/contactforuser");
 					}
 
 					//return redirect(return_url);

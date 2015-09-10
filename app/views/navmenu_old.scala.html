@@ -30,9 +30,9 @@ $("document").ready(function($) {
         <li style="float: right" class="navelement">
             <!-- @(play.mvc.Http.Context.current().request().path()) -->
             @if(models.LoginState.isValidlyLoggedIn()) {
-                <a class="navmenutext" href="@(routes.SSOLogin.logout())">Logg ut</a>
+                <a class="navmenutext" href="/logout">Logg ut</a>
             } else {
-                <a class="navmenutext" href="@(routes.SSOLogin.login(play.mvc.Http.Context.current().request().path()))">Logg inn</a>
+                <a class="navmenutext" href="/login?redirect=@(play.mvc.Http.Context.current().request().path()))">Logg inn</a>
             }
         </li>
         <li style="float: right;" class="navelement">

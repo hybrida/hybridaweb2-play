@@ -62,9 +62,9 @@ GET           /backup                           controllers.BackupDatabase.index
 GET           /search                           controllers.Search.index()
 
 # Login
-GET           /login                            controllers.SSOLogin.login(returnarg: String)
-GET           /logout                           controllers.SSOLogin.logout()
-GET           /verifylogin                      controllers.SSOLogin.verifylogin()
+GET           /login                            sso.SSOLogin.login(returnarg: String)
+GET           /logout                           sso.SSOLogin.logout()
+GET           /verifylogin                      sso.SSOLogin.verifylogin()
 GET           /contactforuser                   controllers.ContactForUser.index()
 
 # Profile
