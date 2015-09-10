@@ -38,6 +38,13 @@ public class Article extends Controller {
         return ok(layout.render("hybrida", views.html.utils.centerBlock.render(views.html.ArticleOut.index.render(resultList))));
     }
 
+    public static Result editArticle(String id) {
+        Result error = application.Application.checkEditPrivilege(models.LoginState.getUser());
+        if (error != null)
+            return error;
+        models.Article article = models.Article.find.byId(Long.valueOf(id));
+        return ok(layout.render("Hybrida: Opprett Artikkel", views.html.ArticleIn.editArticle.render(article)));
+    }
 
     public static Result viewArticle(String id) {
         application.Application x = new application.Application();

@@ -231,14 +231,6 @@ public class ArticleIn extends Controller {
         return reid;
     }
 
-    public static Result editArticle(String id) {
-        Result error = application.Application.checkEditPrivilege(LoginState.getUser());
-        if (error != null)
-            return error;
-        Article article = Article.find.byId(Long.valueOf(id));
-        return ok(layout.render("Hybrida: Opprett Artikkel", views.html.ArticleIn.editArticle.render(article)));
-    }
-
     public static Result saveEdit(String id) {
         Result error = application.Application.checkEditPrivilege(LoginState.getUser());
         if (error != null)
