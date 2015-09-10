@@ -20,7 +20,7 @@ $("document").ready(function($) {
             <li class="navelement"><a class="navmenutext" href="@routes.ArticleIn.index()">Nytt Innlegg</a></li>
         }
         @if(models.LoginState.isValidlyLoggedIn()) {<li class="navelement"><a class="navmenutext" href="/Chat">Chat</a></li>}
-        <li class="navelement"><a class="navmenutext" href="@routes.Calendar.index()">Kalender</a></li>
+        <li class="navelement"><a class="navmenutext" href="@calendar.Calendar.index()">Kalender</a></li>
         <li class="navelement"><a class="navmenutext" href="@routes.OmHybrida.index()">Om Hybrida</a></li>
         @if(models.LoginState.isValidlyLoggedIn()) {
             <li style="float: right" class="navelement">

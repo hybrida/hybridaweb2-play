@@ -1,4 +1,4 @@
-package controllers;
+package calendar;
 
 import com.avaje.ebean.Expr;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -28,7 +28,7 @@ public class Calendar extends Controller {
     private final static String BIRTHDAY_DEFAULT_TITLE = "Bursdag til [NAME]";
 
     public static Result index() {
-        return ok(layoutWithHead.render("Kalender", views.html.Calendar.calendarHead.render(), views.html.Calendar.calendarBody.render()));
+        return ok(layoutWithHead.render("Kalender", calendar.views.html.calendarHead.render(), calendar.views.html.calendarBody.render()));
     }
 
     public static Result change() {
