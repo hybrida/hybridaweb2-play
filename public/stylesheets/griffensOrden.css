@@ -11,6 +11,15 @@
     padding-left: 80px;
 }
 
+.name{
+    font-weight: bold;
+    text-align: center;
+    cursor:pointer;
+}
+.reason{
+    font-size: 16px;
+}
+
 .blank {
     height: 180px;
     width: 1170px;
