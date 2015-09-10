@@ -15,7 +15,7 @@
                 @if(models.LoginState.getUser().canCreateNewArticle()) {
                     <li><a href="@routes.ArticleIn.index()">Nytt Innlegg</a></li>
                 }
-                <li><a href="@routes.Company.index()">Bedrift</a></li>
+                <li><a href="/bedrift">Bedrift</a></li>
 
                 <!--@@if(models.LoginState.isValidlyLoggedIn()) {<li><a href="/Chat">Chat</a></li>}-->
 
