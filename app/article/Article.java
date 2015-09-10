@@ -1,6 +1,5 @@
-package controllers;
+package article;
 
-import models.*;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -14,13 +13,13 @@ import static play.data.Form.form;
 /**
  * Created by eliasbragstadhagen on 04.02.15.
  */
-public class ArticleOut extends Controller {
+public class Article extends Controller {
 
     public static Result index(String id) {
-        if (Article.find.byId(Long.valueOf(id)) == null)
+        if (models.Article.find.byId(Long.valueOf(id)) == null)
             return application.Application.show404(request().uri().replaceFirst("/", ""));
         Long lId = Long.parseLong(id);
-        Article article = getArticle(lId);
+        models.Article article = getArticle(lId);
         models.Event event = getEvent(article);
 
         List<String> resultList = new ArrayList<String>();
@@ -28,7 +27,7 @@ public class ArticleOut extends Controller {
         resultList.add(article.getIngress());
         resultList.add(article.getText());
         resultList.add(article.getImagePath());
-        resultList.add(User.find.byId(article.getAuthor()).getName());
+        resultList.add(models.User.find.byId(article.getAuthor()).getName());
         resultList.add(article.getDateMade().toString());
 
         if(event != null) {
@@ -43,8 +42,8 @@ public class ArticleOut extends Controller {
     public static Result viewArticle(String id) {
         application.Application x = new application.Application();
         try {
-            if (Article.find.byId(Long.valueOf(id)) != null)
-                return ok(layout.render("Artikkel", views.html.ArticleOut.viewArticle.render(Article.find.byId(Long.valueOf(id)))));
+            if (models.Article.find.byId(Long.valueOf(id)) != null)
+                return ok(layout.render("Artikkel", views.html.ArticleOut.viewArticle.render(models.Article.find.byId(Long.valueOf(id)))));
             else
                 return application.Application.show404(request().uri().replaceFirst("/", ""));
         } catch (java.lang.NumberFormatException exception) {
@@ -52,12 +51,12 @@ public class ArticleOut extends Controller {
         }
     }
 
-    public static Article getArticle(long articleId) {
-        Article article = Article.find.byId(articleId);
+    public static models.Article getArticle(long articleId) {
+        models.Article article = models.Article.find.byId(articleId);
         return article;
     }
 
-    public static models.Event getEvent(Article article) {
+    public static models.Event getEvent(models.Article article) {
         controllers.BackupDatabase.index();
         models.Event event = models.Event.find.where().eq("articleId", article.getId()).findUnique();
         return event;
@@ -78,13 +77,13 @@ public class ArticleOut extends Controller {
      */
 
     public static Result comment(String articleId){
-        String comment = new HttpRequestData().get("comment");
-        Comment newComment = new Comment(comment, Article.find.byId(Long.parseLong(articleId)));
+        String comment = new models.HttpRequestData().get("comment");
+        models.Comment newComment = new models.Comment(comment, models.Article.find.byId(Long.parseLong(articleId)));
         newComment.save();
-        if(new HttpRequestData().get("isEvent") != null){
-            return redirect(routes.Event.viewEvent(new HttpRequestData().get("isEvent")).absoluteURL(request()));
+        if(new models.HttpRequestData().get("isEvent") != null){
+            return redirect("/event/ut/?id=" + (new models.HttpRequestData().get("isEvent")));
         }
-        return redirect(routes.ArticleOut.viewArticle(articleId).absoluteURL(request()));
+        return redirect("/artikkel/" + articleId.toString());
     }
 
     /**
@@ -94,13 +93,13 @@ public class ArticleOut extends Controller {
      * @return
      */
     public static Result deleteComment(String commentId){
-        Comment thisComment = Comment.find.byId(Long.parseLong(commentId));
-        Article article = thisComment.getArticle();
+        models.Comment thisComment = models.Comment.find.byId(Long.parseLong(commentId));
+        models.Article article = thisComment.getArticle();
         thisComment.delete();
-        if(new HttpRequestData().get("isEvent") != null){
-            return redirect(routes.Event.viewEvent(new HttpRequestData().get("isEvent")).absoluteURL(request()));
+        if(new models.HttpRequestData().get("isEvent") != null){
+            return redirect("/event/ut/" + new models.HttpRequestData().get("isEvent"));
         }
-        return redirect(routes.ArticleOut.viewArticle(article.getId().toString()).absoluteURL(request()));
+        return redirect("/artikkel/" + (article.getId().toString()));
     }
 
 }
