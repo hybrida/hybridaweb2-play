@@ -22,7 +22,7 @@ GET           /update/redaksjon                 controllers.Update.redaksjon()
 
 # Article and events
 GET           /griffensorden                    trash.controllers.griffensOrden.index()
-GET           /griffensorden/riddere            controllers.Riddere.index()
+GET           /griffensorden/riddere            riddere.Riddere.index()
 
 GET           /artikkel/ut/:id                  controllers.ArticleOut.index(id)
 GET           /artikkel/ny                      controllers.ArticleIn.index()
