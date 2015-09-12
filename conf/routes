@@ -6,7 +6,7 @@ GET           /                                 application.Application.index()
 
 # Static info pages
 GET           /nystudent                        controllers.NyStudent.index()
-GET           /hybrida                          controllers.OmHybrida.index()
+GET           /hybrida                          abouthybrida.AboutHybrida.index()
 GET           /styret                           controllers.OmStyret.index()
 
 # Calendar
