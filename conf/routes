@@ -65,7 +65,7 @@ GET           /search                           controllers.Search.index()
 GET           /login                            sso.SSOLogin.login(returnarg: String)
 GET           /logout                           sso.SSOLogin.logout()
 GET           /verifylogin                      sso.SSOLogin.verifylogin()
-GET           /contactforuser                   controllers.ContactForUser.index()
+GET           /kontaktforbruker                 contactforuser.ContactForUser.index()
 
 # Profile
 GET           /profil/:username                 controllers.Profile.index(username)
