@@ -63,7 +63,7 @@ public class BackupDatabase {
                 reader.close();
             }
             result.close();
-            BufferedWriter writer = new BufferedWriter(new FileWriter("conf\\evolutions\\default\\backup.sql")); //When it's going to be used, call it 2.sql or something
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./conf/evolutions/default/backup.sql")); //When it's going to be used, call it 2.sql or something
             writer.write(str);
             writer.flush();
             writer.close();
