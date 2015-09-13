@@ -16,23 +16,28 @@ import static play.data.Form.form;
 public class Article extends Controller {
 
 	public static Result editArticle(String id) {
-		Result error = application.Application.checkEditPrivilege(models.LoginState.getUser());
+		Result error = application.Application.checkEditPrivilege(
+			models.LoginState.getUser());
 		if (error != null)
 			return error;
 
 		models.Article article = models.Article.find.byId(Long.valueOf(id));
-		return ok(layout.render("Hybrida: Opprett Artikkel", views.html.ArticleIn.editArticle.render(article)));
+		return ok(layout.render("Hybrida: Opprett Artikkel",
+			views.html.ArticleIn.editArticle.render(article)));
 	}
 
 	public static Result viewArticle(String id) {
 		application.Application x = new application.Application();
 		try {
 			if (models.Article.find.byId(Long.valueOf(id)) != null)
-				return ok(layout.render("Artikkel", article.views.html.viewArticle.render(models.Article.find.byId(Long.valueOf(id)))));
+				return ok(layout.render("Artikkel",
+					article.views.html.viewArticle.render(
+						models.Article.find.byId(Long.valueOf(id)))));
 			else
 				return application.Application.show404(request().uri().replaceFirst("/", ""));
 		} catch (java.lang.NumberFormatException exception) {
-			return application.Application.show400("Sent erroneous input to viewArticle: " + id);
+			return application.Application.show400(
+				"Sent erroneous input to viewArticle: " + id);
 		}
 	}
 
@@ -42,8 +47,8 @@ public class Article extends Controller {
 	}
 
 	public static models.Event getEvent(models.Article article) {
-		//controllers.BackupDatabase.index();
-		models.Event event = models.Event.find.where().eq("articleId", article.getId()).findUnique();
+		models.Event event = models.Event.find.where().eq(
+			"articleId", article.getId()).findUnique();
 		return event;
 	}
 
@@ -63,7 +68,8 @@ public class Article extends Controller {
 
 	public static Result comment(String articleId){
 		String comment = new models.HttpRequestData().get("comment");
-		models.Comment newComment = new models.Comment(comment, models.Article.find.byId(Long.parseLong(articleId)));
+		models.Comment newComment = new models.Comment(
+			comment, models.Article.find.byId(Long.parseLong(articleId)));
 		newComment.save();
 		if(new models.HttpRequestData().get("isEvent") != null){
 			return redirect("/event/ut/?id=" + (new models.HttpRequestData().get("isEvent")));
@@ -78,7 +84,8 @@ public class Article extends Controller {
 	 * @return
 	 */
 	public static Result deleteComment(String commentId){
-		models.Comment thisComment = models.Comment.find.byId(Long.parseLong(commentId));
+		models.Comment thisComment = models.Comment.find.byId(
+			Long.parseLong(commentId));
 		models.Article article = thisComment.getArticle();
 		thisComment.delete();
 		if(new models.HttpRequestData().get("isEvent") != null){
