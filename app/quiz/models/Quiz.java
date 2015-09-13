@@ -1,4 +1,4 @@
-package models;
+package quiz.models;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

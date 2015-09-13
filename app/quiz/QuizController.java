@@ -1,8 +1,8 @@
 package quiz;
 
 import com.avaje.ebean.Ebean;
-import models.QuizSeason;
-import models.QuizTeam;
+import quiz.models.QuizSeason;
+import quiz.models.QuizTeam;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;

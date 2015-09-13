@@ -1,4 +1,4 @@
-package models;
+package quiz.models;
 
 import play.db.ebean.*;
 
