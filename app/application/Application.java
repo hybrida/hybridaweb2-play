@@ -24,10 +24,10 @@ public class Application extends Controller {
 	public static Result index() {
 		java.util.List<Renderable> articles = models.Renders.getVisibleRenderables();
 		String concatenation = "";
-		int i = 0;
+		int count = 0;
 		for (Renderable renderable : Lists.reverse(articles)) {
-			++i;
-			if (i <= 2)
+			++count;
+			if (count <= 2)
 				concatenation +=
 					application.views.html.bigthumbnail.render(
 						renderable.renderFrontPageSample()).toString();
@@ -47,15 +47,22 @@ public class Application extends Controller {
 	* @return
 	*/
 	public static Result showUnauthorizedAccess() {
-		return unauthorized(layout.render("Unauthorized", views.html.Application.showUnauthorizedAccess.render()));
+		return unauthorized(
+			layout.render(
+				"Unauthorized",
+				views.html.Application.showUnauthorizedAccess.render()));
 	}
 
 	public static Result show404(String get_value) {
-		return notFound(layout.render("404", views.html.Application.show404.render(get_value)));
+		return notFound(layout.render(
+			"404",
+			views.html.Application.show404.render(get_value)));
 	}
 
 	public static Result show400(String get_value) {
-		return badRequest(layout.render("400", views.html.Application.show400.render(get_value)));
+		return badRequest(layout.render(
+		"400",
+		views.html.Application.show400.render(get_value)));
 	}
 
 	/**
