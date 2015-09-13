@@ -5,8 +5,9 @@
 GET           /                                 application.Application.index()
 
 # Static info pages
-GET           /nystudent                        newstudent.NewStudent.index()
+GET           /griffensorden                    riddere.Riddere.index()
 GET           /hybrida                          abouthybrida.AboutHybrida.index()
+GET           /nystudent                        newstudent.NewStudent.index()
 GET           /styret                           hybridaleaders.HybridaLeaders.index()
 
 # Calendar
@@ -21,9 +22,7 @@ GET           /update/utgaver                   controllers.Update.utgaver()
 GET           /update/redaksjon                 controllers.Update.redaksjon()
 
 # Article and events
-GET           /griffensorden                    riddere.Riddere.index()
 
-GET           /artikkel/ut/:id                  article.Article.index(id)
 GET           /artikkel/ny                      controllers.ArticleIn.index()
 POST          /artikkel/ny                      controllers.ArticleIn.save()
 GET           /artikkel/:id                     article.Article.viewArticle(id)

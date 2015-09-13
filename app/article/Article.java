@@ -15,29 +15,6 @@ import static play.data.Form.form;
  */
 public class Article extends Controller {
 
-	public static Result index(String id) {
-		if (models.Article.find.byId(Long.valueOf(id)) == null)
-			return application.Application.show404(request().uri().replaceFirst("/", ""));
-		Long lId = Long.parseLong(id);
-		models.Article article = getArticle(lId);
-		models.Event event = getEvent(article);
-
-		List<String> resultList = new ArrayList<String>();
-		resultList.add(article.getTitle());
-		resultList.add(article.getIngress());
-		resultList.add(article.getText());
-		resultList.add(article.getImagePath());
-		resultList.add(models.User.find.byId(article.getAuthor()).getName());
-		resultList.add(article.getDateMade().toString());
-
-		if(event != null) {
-			resultList.add(event.getLocation());
-			resultList.add(event.getEventHappens().toString());
-			resultList.add("" + event.getMaxParticipants());
-		}
-		return ok(layout.render("hybrida", views.html.utils.centerBlock.render(views.html.ArticleOut.index.render(resultList))));
-	}
-
 	public static Result editArticle(String id) {
 		Result error = application.Application.checkEditPrivilege(models.LoginState.getUser());
 		if (error != null)
