@@ -39,7 +39,7 @@ public class ArticleIn extends Controller {
                 // Husk å legge til artikkelen i renders! Da vises den nemlig på fremsiden ^_^
                 Renders.addArticle(Article.find.byId(id));
             }
-            return redirect("/artikkel/" + ("" + id));
+            return redirect(article.routes.Article.viewArticle("" + id));
         }
         catch (IllegalStateException e) {
             return application.Application.show400("ugyldig data oppgitt: " + e);

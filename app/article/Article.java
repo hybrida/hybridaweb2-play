@@ -72,9 +72,9 @@ public class Article extends Controller {
 			comment, models.Article.find.byId(Long.parseLong(articleId)));
 		newComment.save();
 		if(new models.HttpRequestData().get("isEvent") != null){
-			return redirect("/event/ut/?id=" + (new models.HttpRequestData().get("isEvent")));
+			return redirect(controllers.routes.Event.viewEvent(new models.HttpRequestData().get("isEvent")));
 		}
-		return redirect("/artikkel/" + articleId.toString());
+		return redirect(article.routes.Article.viewArticle(articleId.toString()));
 	}
 
 	/**
@@ -86,11 +86,11 @@ public class Article extends Controller {
 	public static Result deleteComment(String commentId){
 		models.Comment thisComment = models.Comment.find.byId(
 			Long.parseLong(commentId));
-		models.Article article = thisComment.getArticle();
+		models.Article local_article = thisComment.getArticle();
 		thisComment.delete();
 		if(new models.HttpRequestData().get("isEvent") != null){
-			return redirect("/event/ut/" + new models.HttpRequestData().get("isEvent"));
+			return redirect(controllers.routes.Event.viewEvent(new models.HttpRequestData().get("isEvent")));
 		}
-		return redirect("/artikkel/" + (article.getId().toString()));
+		return redirect(article.routes.Article.viewArticle(local_article.getId().toString()));
 	}
 }

@@ -14,14 +14,14 @@ $("document").ready(function($) {
 </script>-->
 <div id="navmenu">
     <ul>
-        <li id="logo"><a class="navmenuimage" href="/"><img src="/assets/images/Griff, drop shadow.png" alt="SUPERLOGO"/></a></li>
+        <li id="logo"><a class="navmenuimage" href="@application.routes.Application.index()"><img src="/assets/images/Griff, drop shadow.png" alt="SUPERLOGO"/></a></li>
         <!--<li id="logotext"><a class="navmenutext" href="/testhome">HYBRIDA</a></li>-->
         @if(models.LoginState.getUser().canCreateNewArticle()) {
             <li class="navelement"><a class="navmenutext" href="@routes.ArticleIn.index()">Nytt Innlegg</a></li>
         }
         @if(models.LoginState.isValidlyLoggedIn()) {<li class="navelement"><a class="navmenutext" href="/Chat">Chat</a></li>}
-        <li class="navelement"><a class="navmenutext" href="/kalender">Kalender</a></li>
-        <li class="navelement"><a class="navmenutext" href="/hybrida">Om Hybrida</a></li>
+        <li class="navelement"><a class="navmenutext" href="@calendar.routes.Calendar.index()">Kalender</a></li>
+        <li class="navelement"><a class="navmenutext" href="@abouthybrida.routes.AboutHybrida.index()">Om Hybrida</a></li>
         @if(models.LoginState.isValidlyLoggedIn()) {
             <li style="float: right" class="navelement">
                 <a class="navmenutext" href="/profil/@(models.LoginState.getUser().getUsername())">@(models.LoginState.getUser().getName())</a>

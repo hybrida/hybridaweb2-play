@@ -22,7 +22,7 @@
 
                 @if(LoginState.isValidlyLoggedIn && LoginState.getUser.admin){
                     Admin: Upload ny Update(kun pdf)
-                    <form action="/update" method="POST" enctype = multipart/form-data>
+                    <form action="@controllers.routes.Update.index()" method="POST" enctype = multipart/form-data>
                         <input type="file" name="picture">
                         <input type="submit" value="upload">
                     </form>

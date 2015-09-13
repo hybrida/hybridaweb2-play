@@ -1,4 +1,4 @@
-@(article: models.Article, event: models.Event)
+@(inarticle: models.Article, event: models.Event)
 @( /*This is for rendering a single event.*/ )
 
 <div class="article-bg">
@@ -6,20 +6,20 @@
         <div class="row">
             <div class="col-md-9" style="padding-top : 0.3 %">
                 <div class="row white-boxer">
-                    @if(article.getImagePath != null) {
-                        <img src="@article.getImagePath" alt="No image available" class="center-block img-responsive art-img"> <br>
+                    @if(inarticle.getImagePath != null) {
+                        <img src="@inarticle.getImagePath" alt="No image available" class="center-block img-responsive art-img"> <br>
                     }
-                    <h1>@article.getTitle</h1>
+                    <h1>@inarticle.getTitle</h1>
                     <br>
-                    <h3><p class="text-center">@article.getIngress</p></h3>
+                    <h3><p class="text-center">@inarticle.getIngress</p></h3>
                     <br>
-                    <p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">Av: @User.find.byId(article.getAuthor).getName
+                    <p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">Av: @User.find.byId(inarticle.getAuthor).getName
 
-                        @if(models.LoginState.getUser().getId == article.getAuthor) {
+                        @if(models.LoginState.getUser().getId == inarticle.getAuthor) {
                             <a href="@controllers.routes.Event.editEvent("" + event.getEventId)">
                                 <button class="btn-xs btn-primary"> Rediger </button> </a>
                         } </p>
-                    @Html(article.getText)
+                    @Html(inarticle.getText)
                     <hr>
                     <p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">Påmeldte</p>
                     @if(models.LoginState.isValidlyLoggedIn){
@@ -52,7 +52,7 @@
                 <div class="row">
                     <div class="col-md-12 transparent-box" style="margin-top : 1 %">
                         <p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">Kommentarer</p>
-                        @for(i <- article.getCommentList()) {
+                        @for(i <- inarticle.getCommentList()) {
                             <div class="row">
                                 <div class="col-md-1">
                                     <a href="/profil/@i.getAuthor.getUsername" class="thumbnail">
@@ -72,7 +72,7 @@
                                                     <span class="caret"></span>
                                                 </button>
                                                 <ul class="dropdown-menu" role="menu">
-                                                    <form method="POST" action="/comment/delete/@i.getCommentID">
+                                                    <form method="POST" action="@article.routes.Article.deleteComment(i.getCommentID.toString)">
                                                         <input type="hidden" name="isEvent" value="@event.getEventId">
                                                         <button type="submit" class="form-control"> Slett </button>
                                                     </form>
@@ -93,7 +93,7 @@
                             </div>
                         }
                         <div style="margin-top:1em">
-                        <form action="/comment/@article.getId" method="POST">
+                        <form action="@article.routes.Article.comment(inarticle.getId.toString)" method="POST">
                             <input type="hidden" name="isEvent" value="@event.getEventId">
                             <label for="comment" class="sr-only">Kommenter:</label>
                             <div class="input-group">
@@ -131,13 +131,13 @@
                    <div class="row">
                        <div class="col-md-12">
                            @if(!UserEventJoined.isSignedUp(models.LoginState.getUser().getId(), event.getEventId)){
-                               <form method="POST" action="/event/meldpaa">
+                               <form method="POST" action="@controllers.routes.Event.updateUser()">
                                    <input type="hidden" name="eventId" value="@event.getEventId">
                                <button type="submit" class="btn btn-primary btn-sm btn-block"> Meld meg på</button>
                                </form>
                            }
                            @if(UserEventJoined.isSignedUp(models.LoginState.getUser().getId(), event.getEventId)){
-                               <form method="POST" action="/event/meldav">
+                               <form method="POST" action="@controllers.routes.Event.removeUser()">
                                    <input type="hidden" name="eventId" value="@event.getEventId">
                                    <button type="submit" class="btn btn-primary btn-sm btn-block"> Meld meg av</button>
                                </form>

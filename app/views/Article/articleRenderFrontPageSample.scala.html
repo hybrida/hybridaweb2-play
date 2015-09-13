@@ -1,21 +1,21 @@
-@(article : models.Article)
+@(inarticle : models.Article)
 @(/*This is for rendering a single article preview. It returns the bare html needed for the article to be correctly displayed. CSS should be added as well...*/)
-    <!--<img src="@(article.getImagePath())" alt="image">-->
+    <!--<img src="@(inarticle.getImagePath())" alt="image">-->
     <div style="position: relative;">
         <div style="padding-top: 100%;"></div>
         <div class="container-with-set-aspect-ratio">
-            <a href="/artikkel/@(String.valueOf(article.getId()))">
+            <a href="@article.routes.Article.viewArticle(String.valueOf(inarticle.getId()))">
                 <div style="position: relative">
                     <div style="padding-top: 61.8%"></div>
                     <div class="container-with-set-aspect-ratio">
-                        <img src="@article.getImagePath" alt="No image available" width=100%/>
+                        <img src="@inarticle.getImagePath" alt="No image available" width=100%/>
                     </div>
                 </div>
                 <h3>
-                @article.getTitle
+                @inarticle.getTitle
                 </h3>
             </a>
-            <p>@article.getIngress</p>
+            <p>@inarticle.getIngress</p>
         </div>
     </div>
 

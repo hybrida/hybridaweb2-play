@@ -10,12 +10,12 @@
             @Html(content.get(2))
 
             @if(content.get(6) == "false") {
-            <form name="UpdateEvent" action="/event/updateUser" method="POST">
+            <form name="UpdateEvent" action="@controllers.routes.Event.updateUser()" method="POST">
                 <input type="submit" name="SignUp" value="Meld På">
             </form>
             }
             @if(content.get(6) == "true") {
-            <form name="UpdateEventR" action="/event/removeUser" method="POST">
+            <form name="UpdateEventR" action="@controllers.routes.Event.removeUser()" method="POST">
                 <input type="submit" name="SignOf" value="Meld av">
             </form>
             }
