@@ -5,7 +5,7 @@
 GET           /                                 application.Application.index()
 
 # Static info pages
-GET           /nystudent                        controllers.NyStudent.index()
+GET           /nystudent                        newstudent.NewStudent.index()
 GET           /hybrida                          abouthybrida.AboutHybrida.index()
 GET           /styret                           hybridaleaders.HybridaLeaders.index()
 
