@@ -32,7 +32,7 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">@(models.LoginState.getUser().getName())</a>
                         <ul class="dropdown-menu" role="menu">
-                            <li> <a href="@routes.Profile.index(models.LoginState.getUser().getUsername())">Profil</a></li>
+                            <li> <a href="/profil/@(models.LoginState.getUser().getUsername())">Profil</a></li>
                             <li><a href="/logout">Logg ut</a></li>
                         </ul>
                     </li>
