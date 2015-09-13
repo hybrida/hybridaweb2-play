@@ -81,9 +81,6 @@ DELETE        /api/quiz/season/:id              controllers.QuizController.delet
 
 
 # TEST
-# # New design
-GET           /proto                            application.Application.proto()
-GET           /bs                               application.Application.bootstrapTest()
 # # Chat
 GET           /chat                             chat.Chat.connectClient()
 GET           /chatserver                       chat.Chat.socket()

@@ -77,24 +77,4 @@ public class Application extends Controller {
 		return null;
 	}
 
-	/**
-	* Experimental code
-	* @return
-	* @throws java.sql.SQLException
-	*/
-	public static Result proto()  throws java.sql.SQLException {
-		java.util.List<Renderable> articles = models.Renders.getVisibleRenderables();
-		String concatenation = "";
-		for (Renderable renderable : articles) {
-			concatenation += renderable.renderFrontPageSample();
-		}
-		if (true)
-			return ok(views.html.protoFrontPage.render(play.twirl.api.Html.apply(concatenation)));
-		return ok(views.html.protoFrontPage.render(play.twirl.api.Html.apply(getArticleData())));
-		//return ok(views.html.Application.index.render(play.twirl.api.Html.apply("This is some stuff")));
-	}
-
-	public static Result bootstrapTest() {
-		return ok(views.html.BootTest.render());
-	}
 }
