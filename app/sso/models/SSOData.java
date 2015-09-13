@@ -36,7 +36,10 @@ public class SSOData {
 	}
 
 	public boolean login(models.HttpRequestData request_data_header) throws Exception {
-		return login(request_data_header.get("data"), request_data_header.get("sign"), request_data_header.get("clientip"));
+		return login(
+			request_data_header.get("data"),
+			request_data_header.get("sign"),
+			request_data_header.get("clientip"));
 	}
 
 	public boolean login(String data, String sign64, String clientip) throws Exception {
@@ -61,16 +64,21 @@ public class SSOData {
 			return false;
 		}
 
-		java.io.FileInputStream filestream = new java.io.FileInputStream(new java.io.File(models.Certificate.getPath()));
-		java.security.cert.CertificateFactory certificateFactory = java.security.cert.CertificateFactory.getInstance(models.Certificate.getSignMethod());
-		java.security.cert.Certificate certificate = certificateFactory.generateCertificate(filestream);
-		java.security.PublicKey pubkey = certificate.getPublicKey();
+		java.io.FileInputStream filestream =
+			new java.io.FileInputStream(new java.io.File(models.Certificate.getPath()));
+		java.security.cert.CertificateFactory certificateFactory =
+			java.security.cert.CertificateFactory.getInstance(models.Certificate.getSignMethod());
+		java.security.cert.Certificate certificate =
+			certificateFactory.generateCertificate(filestream);
+		java.security.PublicKey pubkey =
+			certificate.getPublicKey();
 
 		return verifySignature(data, pubkey, sign);
 	}
 
 	private static boolean verifySignature(String data, java.security.PublicKey key, byte[] signature) throws Exception {
-		java.security.Signature signer = java.security.Signature.getInstance(models.Certificate.getEncryptionMethod());
+		java.security.Signature signer =
+			java.security.Signature.getInstance(models.Certificate.getEncryptionMethod());
 		signer.initVerify(key);
 		signer.update(data.getBytes());
 		return (signer.verify(signature));
