@@ -64,7 +64,7 @@ public class Article extends Controller {
 	}
 
 	public static models.Event getEvent(models.Article article) {
-		controllers.BackupDatabase.index();
+		//controllers.BackupDatabase.index();
 		models.Event event = models.Event.find.where().eq("articleId", article.getId()).findUnique();
 		return event;
 	}

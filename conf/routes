@@ -55,7 +55,7 @@ POST          /event/meldpaa                    controllers.Event.updateUser()
 POST          /event/meldav                     controllers.Event.removeUser()
 
 # Backup memory database
-GET           /backup                           controllers.BackupDatabase.index()
+GET           /backup                           backup.BackupDatabase.index()
 
 
 # Search
