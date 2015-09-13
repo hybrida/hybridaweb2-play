@@ -89,10 +89,15 @@ GET           /bs                               application.Application.bootstra
 # # Chat
 GET           /Chat                             controllers.Chat.connectClient()
 GET           /ChatServer                       controllers.Chat.socket()
+GET           /helloworld                            helloworld.HelloWorld.index()
+GET           /andreas                          andreas.Andreas.index()
 GET           /helloworld                       helloworld.HelloWorld.index()
+GET           /elg                              elg.Elg.index()
+GET           /hellome                          hellome.Hellome.index()
 
 # EXAMPLES
 # # Ebean
+GET			  /jonasasa							jonasasa.Jonasasa.index()
 GET           /examples/ebean                   examples.controllers.ExampleEbean.index()
 POST          /examples/ebean                   examples.controllers.ExampleEbean.add()
 POST          /examples/ebean/clear             examples.controllers.ExampleEbean.clear()
