@@ -21,7 +21,6 @@ GET           /update/utgaver                   controllers.Update.utgaver()
 GET           /update/redaksjon                 controllers.Update.redaksjon()
 
 # Article and events
-GET           /griffensorden                    trash.controllers.griffensOrden.index()
 GET           /griffensorden/riddere            riddere.Riddere.index()
 
 GET           /artikkel/ut/:id                  article.Article.index(id)
