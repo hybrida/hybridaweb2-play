@@ -5,9 +5,9 @@
 GET           /                                 application.Application.index()
 
 # Static info pages
-GET           /nystudent                        controllers.NyStudent.index()
-GET           /hybrida                          controllers.OmHybrida.index()
-GET           /styret                           controllers.OmStyret.index()
+GET           /nystudent                        newstudent.NewStudent.index()
+GET           /hybrida                          abouthybrida.AboutHybrida.index()
+GET           /styret                           hybridaleaders.HybridaLeaders.index()
 
 # Calendar
 GET           /kalender                         calendar.Calendar.index()
@@ -65,12 +65,12 @@ GET           /search                           controllers.Search.index()
 GET           /login                            sso.SSOLogin.login(returnarg: String)
 GET           /logout                           sso.SSOLogin.logout()
 GET           /verifylogin                      sso.SSOLogin.verifylogin()
-GET           /contactforuser                   controllers.ContactForUser.index()
+GET           /kontaktforbruker                 contactforuser.ContactForUser.index()
 
 # Profile
-GET           /profil/:username                 controllers.Profile.index(username)
-GET           /profil/:username/rediger         controllers.Profile.edit(username)
-POST          /profil/:username/rediger         controllers.Profile.update(username)
+GET           /profil/:username                 profile.Profile.index(username)
+GET           /profil/:username/rediger         profile.Profile.edit(username)
+POST          /profil/:username/rediger         profile.Profile.update(username)
 
 # Quiz
 GET           /quiz                             controllers.QuizController.index()

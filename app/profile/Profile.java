@@ -1,4 +1,4 @@
-package controllers;
+package profile;
 
 import models.LoginState;
 import models.User;
@@ -24,7 +24,7 @@ public class Profile extends Controller {
     public static ArrayList<Html> messages = new ArrayList<>();
 
     public static Html message(boolean error, String content) {
-        return views.html.Profile.message.render(error, content);
+        return profile.views.html.message.render(error, content);
     }
 
     public static Result index(String username) {
@@ -77,12 +77,12 @@ public class Profile extends Controller {
     public static Html render(String username, User user, boolean edit) {
         return layoutPage.render(
                 user.getName(),
-                views.html.Profile.edit.render(user, messages, edit),
-                views.html.Profile.head.render(),
+                profile.views.html.edit.render(user, messages, edit),
+                profile.views.html.head.render(),
                 user.hasMiddleName() ? user.getName(true) : null,
                 user.hasProfileImage() ? "upload/" + username + "/" + user.getProfileImageFileName() : null,
-                views.html.Profile.subNavButtons.render(username, edit),
-                edit ? routes.Profile.update(username).url() : null
+                profile.views.html.subNavButtons.render(username, edit),
+                edit ? "/profile/" + username + "/rediger" : null
         );
     }
 }

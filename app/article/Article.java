@@ -108,5 +108,4 @@ public class Article extends Controller {
 		}
 		return redirect("/artikkel/" + (article.getId().toString()));
 	}
-
 }
