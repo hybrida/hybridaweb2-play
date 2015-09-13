@@ -28,11 +28,18 @@ public class Application extends Controller {
 		for (Renderable renderable : Lists.reverse(articles)) {
 			++i;
 			if (i <= 2)
-				concatenation += application.views.html.bigthumbnail.render(renderable.renderFrontPageSample()).toString();
+				concatenation +=
+					application.views.html.bigthumbnail.render(
+						renderable.renderFrontPageSample()).toString();
 			else
-				concatenation += application.views.html.smallthumbnail.render(renderable.renderFrontPageSample()).toString();
+				concatenation +=
+					application.views.html.smallthumbnail.render(
+						renderable.renderFrontPageSample()).toString();
 		}
-		return ok(layout.render("Hybrida", views.html.Application.index.render(views.html.utils.toHtml.render(concatenation))));
+		return ok(layout.render(
+			"Hybrida",
+			views.html.Application.index.render(
+				views.html.utils.toHtml.render(concatenation))));
 	}
 
 	/**
