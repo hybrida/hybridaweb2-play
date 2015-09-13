@@ -1,4 +1,4 @@
-package models;
+package chat.models;
 
 import akka.actor.ActorRef;
 import akka.actor.Props;

@@ -2,7 +2,7 @@ package chat;
 
 import akka.actor.ActorRef;
 import akka.actor.Props;
-import models.ChatActor;
+import chat.models.ChatActor;
 import models.LoginState;
 import play.libs.F.Function;
 import play.mvc.Controller;
