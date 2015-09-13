@@ -19,6 +19,7 @@ public class Article extends Controller {
 		Result error = application.Application.checkEditPrivilege(models.LoginState.getUser());
 		if (error != null)
 			return error;
+
 		models.Article article = models.Article.find.byId(Long.valueOf(id));
 		return ok(layout.render("Hybrida: Opprett Artikkel", views.html.ArticleIn.editArticle.render(article)));
 	}
@@ -27,7 +28,7 @@ public class Article extends Controller {
 		application.Application x = new application.Application();
 		try {
 			if (models.Article.find.byId(Long.valueOf(id)) != null)
-				return ok(layout.render("Artikkel", views.html.ArticleOut.viewArticle.render(models.Article.find.byId(Long.valueOf(id)))));
+				return ok(layout.render("Artikkel", article.views.html.viewArticle.render(models.Article.find.byId(Long.valueOf(id)))));
 			else
 				return application.Application.show404(request().uri().replaceFirst("/", ""));
 		} catch (java.lang.NumberFormatException exception) {
