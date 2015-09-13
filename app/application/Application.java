@@ -38,7 +38,7 @@ public class Application extends Controller {
 		}
 		return ok(layout.render(
 			"Hybrida",
-			views.html.Application.index.render(
+			application.views.html.index.render(
 				views.html.utils.toHtml.render(concatenation))));
 	}
 
@@ -50,19 +50,19 @@ public class Application extends Controller {
 		return unauthorized(
 			layout.render(
 				"Unauthorized",
-				views.html.Application.showUnauthorizedAccess.render()));
+				application.views.html.showUnauthorizedAccess.render()));
 	}
 
 	public static Result show404(String get_value) {
 		return notFound(layout.render(
 			"404",
-			views.html.Application.show404.render(get_value)));
+			application.views.html.show404.render(get_value)));
 	}
 
 	public static Result show400(String get_value) {
 		return badRequest(layout.render(
 		"400",
-		views.html.Application.show400.render(get_value)));
+		application.views.html.show400.render(get_value)));
 	}
 
 	/**
