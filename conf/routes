@@ -85,9 +85,10 @@ DELETE        /api/quiz/season/:id              controllers.QuizController.delet
 GET           /proto                            application.Application.proto()
 GET           /bs                               application.Application.bootstrapTest()
 # # Chat
-GET           /Chat                             controllers.Chat.connectClient()
-GET           /ChatServer                       controllers.Chat.socket()
-GET           /helloworld                            helloworld.HelloWorld.index()
+GET           /chat                             chat.Chat.connectClient()
+GET           /chatserver                       chat.Chat.socket()
+
+GET           /helloworld                       helloworld.HelloWorld.index()
 GET           /andreas                          andreas.Andreas.index()
 GET           /helloworld                       helloworld.HelloWorld.index()
 GET           /elg                              elg.Elg.index()
@@ -95,7 +96,7 @@ GET           /hellome                          hellome.Hellome.index()
 
 # EXAMPLES
 # # Ebean
-GET			  /jonasasa							jonasasa.Jonasasa.index()
+GET           /jonasasa                         jonasasa.Jonasasa.index()
 GET           /examples/ebean                   examples.controllers.ExampleEbean.index()
 POST          /examples/ebean                   examples.controllers.ExampleEbean.add()
 POST          /examples/ebean/clear             examples.controllers.ExampleEbean.clear()
