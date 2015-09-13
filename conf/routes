@@ -16,10 +16,10 @@ GET           /kalender/fa                      calendar.Calendar.fetch(start: S
 POST          /kalender/endre                   calendar.Calendar.change()
 
 # Update
-GET           /update                           controllers.Update.index()
-POST          /update                           controllers.Update.post()
-GET           /update/utgaver                   controllers.Update.utgaver()
-GET           /update/redaksjon                 controllers.Update.redaksjon()
+GET           /update                           update.Update.index()
+POST          /update                           update.Update.post()
+GET           /update/utgaver                   update.Update.utgaver()
+GET           /update/redaksjon                 update.Update.redaksjon()
 
 # Article and events
 GET           /artikkel/ny                      controllers.ArticleIn.index()
@@ -33,11 +33,6 @@ POST          /event/:id/lagreEndring           controllers.Event.saveEdit(id)
 
 POST          /comment/:articleID               article.Article.comment(articleID)
 POST          /comment/delete/:commentID        article.Article.deleteComment(commentID)
-
-GET           /update                           controllers.Update.index()
-POST          /update                           controllers.Update.post()
-GET           /update/utgaver                   controllers.Update.utgaver()
-GET           /update/redaksjon                 controllers.Update.redaksjon()
 
 GET           /bedrift                          company.Company.index()
 

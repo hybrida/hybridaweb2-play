@@ -1,4 +1,4 @@
-package controllers;
+package update;
 
 import org.apache.commons.io.FileUtils;
 import play.mvc.Http;
@@ -21,7 +21,7 @@ import static play.mvc.Results.ok;
 public class Update {
 
     public static Result index() {
-        return ok(layout.render("Update!", views.html.Update.index.render()));
+        return ok(layout.render("Update!", update.views.html.index.render()));
     }
 
     public static Result post() throws FileNotFoundException {
