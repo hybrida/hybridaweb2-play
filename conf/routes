@@ -22,7 +22,6 @@ GET           /update/utgaver                   controllers.Update.utgaver()
 GET           /update/redaksjon                 controllers.Update.redaksjon()
 
 # Article and events
-
 GET           /artikkel/ny                      controllers.ArticleIn.index()
 POST          /artikkel/ny                      controllers.ArticleIn.save()
 GET           /artikkel/:id                     article.Article.viewArticle(id)

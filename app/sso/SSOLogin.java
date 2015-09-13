@@ -65,7 +65,7 @@ public class SSOLogin extends Controller {
 
 	public static Result verifylogin() {
 		try {
-			models.SSOData data = new models.SSOData();
+			sso.models.SSOData data = new sso.models.SSOData();
 			try {
 				String return_url = new models.HttpRequestData().get("returnargs");
 				if (data.login()) {
