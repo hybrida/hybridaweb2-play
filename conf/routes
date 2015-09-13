@@ -89,6 +89,7 @@ GET           /bs                               application.Application.bootstra
 # # Chat
 GET           /Chat                             controllers.Chat.connectClient()
 GET           /ChatServer                       controllers.Chat.socket()
+GET           /helloworld                       helloworld.HelloWorld.index()
 
 # EXAMPLES
 # # Ebean
