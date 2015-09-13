@@ -24,20 +24,20 @@ $("document").ready(function($) {
         <li class="navelement"><a class="navmenutext" href="@abouthybrida.routes.AboutHybrida.index()">Om Hybrida</a></li>
         @if(models.LoginState.isValidlyLoggedIn()) {
             <li style="float: right" class="navelement">
-                <a class="navmenutext" href="/profil/@(models.LoginState.getUser().getUsername())">@(models.LoginState.getUser().getName())</a>
+                <a class="navmenutext" href="@profile.routes.Profile.index(models.LoginState.getUser().getUsername())">@(models.LoginState.getUser().getName())</a>
             </li>
         }
         <li style="float: right" class="navelement">
             <!-- @(play.mvc.Http.Context.current().request().path()) -->
             @if(models.LoginState.isValidlyLoggedIn()) {
-                <a class="navmenutext" href="/logout">Logg ut</a>
+                <a class="navmenutext" href="@sso.routes.SSOLogin.logout()">Logg ut</a>
             } else {
-                <a class="navmenutext" href="/login?redirect=@(play.mvc.Http.Context.current().request().path()))">Logg inn</a>
+                <a class="navmenutext" href="@sso.routes.SSOLogin.login(play.mvc.Http.Context.current().request().path()))">Logg inn</a>
             }
         </li>
         <li style="float: right;" class="navelement">
             <div class="search">
-                <form action="/search" method="GET">
+                <form action="@controllers.routes.Search.index()" method="GET">
                     <input type="text" name="term" id="searchField" placeholder="Søk"/>
                 </form>
             </div>

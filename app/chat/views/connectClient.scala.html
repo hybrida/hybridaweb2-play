@@ -1,6 +1,6 @@
 @(name: String)
 <script language="javascript" type="text/javascript">
-	var wsUri = "/chatserver";
+	var wsUri = "@chat.routes.Chat.socket().webSocketURL()";
 	var output;
 	var input;
 	var websocket;

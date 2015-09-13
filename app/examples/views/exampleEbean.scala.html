@@ -2,11 +2,11 @@
 @(content: Html)
 
 <h1>Ebean Example Page</h1>
-<form name="input" action="/ebean" method="POST">
+<form name="input" action="@examples.controllers.routes.ExampleEbean.add()" method="POST">
     <input type="text" name="name">
     <input type="submit" name="create" value="Create entity">
 </form>
-<form name="input" action="/ebean/clear" method="POST">
+<form name="input" action="@examples.controllers.routes.ExampleEbean.clear()" method="POST">
     <input type="submit" name="clear" value="Delete all">
 </form>
 @content

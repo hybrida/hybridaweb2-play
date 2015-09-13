@@ -82,7 +82,7 @@ public class Profile extends Controller {
                 user.hasMiddleName() ? user.getName(true) : null,
                 user.hasProfileImage() ? "upload/" + username + "/" + user.getProfileImageFileName() : null,
                 profile.views.html.subNavButtons.render(username, edit),
-                edit ? "/profile/" + username + "/rediger" : null
+                edit ? profile.routes.Profile.index(username).url()  : null
         );
     }
 }

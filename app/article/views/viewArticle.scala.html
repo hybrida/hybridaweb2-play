@@ -28,7 +28,7 @@
                     @for(i <- inarticle.getCommentList()){
                         <div class="row">
                             <div class="col-md-1">
-                                <a href="/profil/@i.getAuthor.getUsername" class="thumbnail">
+                                <a href="@profile.routes.Profile.index(i.getAuthor.getUsername)" class="thumbnail">
                                 <img src="@if(i.getAuthor.getProfileImageFileName != null){ /assets/upload/@i.getAuthor.getUsername/@i.getAuthor.getProfileImageFileName} @if(i.getAuthor.getProfileImageFileName == null){/assets/images/logo_big.png}" alt="profilepic for @i.getAuthor.getName">
                                     </a>
                             </div>

@@ -2,7 +2,7 @@
 
 @if(edit) {
     <input class="float-right btn btn-primary" type="submit" value="Lagre">
-    <a class="float-right btn btn-primary" href="/profile/@(username)">Avbryt</a>
+    <a class="float-right btn btn-primary" href="@profile.routes.Profile.index(username)">Avbryt</a>
 } else {
-    <a class="float-right btn btn-primary" href="/profil/@(username)/rediger">Rediger</a>
+    <a class="float-right btn btn-primary" href="@profile.routes.Profile.edit(username)">Rediger</a>
 }

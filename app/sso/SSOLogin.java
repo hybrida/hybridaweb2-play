@@ -79,7 +79,7 @@ public class SSOLogin extends Controller {
 						}
 					} else {
 				// System.out.println("Username: " + data.getLoginInfo().get("username") + " does not exist in the database.");
-						return redirect("/kontaktforbruker");
+						return redirect(contactforuser.routes.ContactForUser.index().url());
 					}
 
 					//return redirect(return_url);

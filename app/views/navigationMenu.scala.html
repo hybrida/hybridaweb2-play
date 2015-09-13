@@ -15,14 +15,14 @@
                 @if(models.LoginState.getUser().canCreateNewArticle()) {
                     <li><a href="@routes.ArticleIn.index()">Nytt Innlegg</a></li>
                 }
-                <li><a href="/bedrift">Bedrift</a></li>
+                <li><a href="@company.routes.Company.index()">Bedrift</a></li>
 
                 <!--@@if(models.LoginState.isValidlyLoggedIn()) {<li><a href="/Chat">Chat</a></li>}-->
 
                 <li><a href="@calendar.routes.Calendar.index()">Kalender</a></li>
                 <li><a href="@abouthybrida.routes.AboutHybrida.index()">Om Hybrida</a></li>
             </ul>
-            <form class="navbar-form navbar-right" role="search" action="/search" method="GET">
+            <form class="navbar-form navbar-right" role="search" action="@controllers.routes.Search.index()" method="GET">
                 <div class="form-group">
                     <input id="navbar-search" type="text" class="form-control" name="term" placeholder="Søk"/>
                 </div>
@@ -32,8 +32,8 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">@(models.LoginState.getUser().getName())</a>
                         <ul class="dropdown-menu" role="menu">
-                            <li> <a href="/profil/@(models.LoginState.getUser().getUsername())">Profil</a></li>
-                            <li><a href="/logout">Logg ut</a></li>
+                            <li> <a href="@profile.routes.Profile.index(models.LoginState.getUser().getUsername())">Profil</a></li>
+                            <li><a href="@sso.routes.SSOLogin.logout()">Logg ut</a></li>
                         </ul>
                     </li>
                 }
@@ -41,7 +41,7 @@
                 @if(models.LoginState.isValidlyLoggedIn()) {
 
                 } else {
-                    <a href="/login?returnarg=@(play.mvc.Http.Context.current().request().path())">Logg inn</a>
+                    <a href="@sso.routes.SSOLogin.login(play.mvc.Http.Context.current().request().path())">Logg inn</a>
                 }
             </li>
             </ul>
