@@ -46,7 +46,7 @@ public class ArticleIn extends Controller {
         }
         catch (Exception e) {
             e.printStackTrace();
-            return ok("Wow");
+            return ok(e.toString());
         }
     }
 

@@ -93,6 +93,7 @@ GET           /helloworld                       helloworld.HelloWorld.index()
 
 # EXAMPLES
 # # Ebean
+GET			  /jonasasa							jonasasa.Jonasasa.index()
 GET           /examples/ebean                   examples.controllers.ExampleEbean.index()
 POST          /examples/ebean                   examples.controllers.ExampleEbean.add()
 POST          /examples/ebean/clear             examples.controllers.ExampleEbean.clear()
