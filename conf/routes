@@ -70,13 +70,13 @@ GET           /profil/:username/rediger         profile.Profile.edit(username)
 POST          /profil/:username/rediger         profile.Profile.update(username)
 
 # Quiz
-GET           /quiz                             controllers.QuizController.index()
-GET           /api/quiz/teams                   controllers.QuizController.quizTeams()
-PUT           /api/quiz/team                    controllers.QuizController.putTeam()
-DELETE        /api/quiz/team/:id                controllers.QuizController.deleteTeamById(id: Long)
-GET           /api/quiz/seasons                 controllers.QuizController.quizSeasons()
-PUT           /api/quiz/season                  controllers.QuizController.putSeason()
-DELETE        /api/quiz/season/:id              controllers.QuizController.deleteSeasonById(id: Long)
+GET           /quiz                             quiz.QuizController.index()
+GET           /api/quiz/teams                   quiz.QuizController.quizTeams()
+PUT           /api/quiz/team                    quiz.QuizController.putTeam()
+DELETE        /api/quiz/team/:id                quiz.QuizController.deleteTeamById(id: Long)
+GET           /api/quiz/seasons                 quiz.QuizController.quizSeasons()
+PUT           /api/quiz/season                  quiz.QuizController.putSeason()
+DELETE        /api/quiz/season/:id              quiz.QuizController.deleteSeasonById(id: Long)
 
 
 
