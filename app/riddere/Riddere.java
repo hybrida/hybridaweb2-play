@@ -13,7 +13,7 @@ public class Riddere extends Controller {
 			layoutWithHead.render(
 				"Griffens Orden",
 				riddere.views.html.Ridderebody.render(),
-				views.html.griffensOrdenhead.render()
+				riddere.views.html.griffensOrdenhead.render()
 			)
 		);
 	}
