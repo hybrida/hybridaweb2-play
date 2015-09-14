@@ -42,7 +42,7 @@
 	function onMessage(evt) {
 		var message = evt.data;
 
-		if (message.charAt(0)=='%') {
+		if(message.charAt(0)=='%') {
 			systemMessage(message.substring(1));
 			return;
 		}

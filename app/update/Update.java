@@ -38,7 +38,7 @@ public class Update {
             }
 
             return ok(layout.render("img", toHtml.render("Upload Successful" + "<img src=\"/assets/update/" + fileName + "\" alt=\"rect\"/>")));
-        }else if(picture != null) {
+        }else if (picture != null) {
             flash("error", "Invalid file");
             return ok("Invalid file, accepted format: pdf");
         }

@@ -59,8 +59,8 @@
                 <div class="label">KJØNN</div>
                 <div class="info">
                     @if(edit) {
-                        <input type="radio" name="sex" value="m" @(if (user.getGender() == 'm') "CHECKED")> <label for="sex">Mann</label> |
-                        <input type="radio" name="sex" value="f" @(if (user.getGender() == 'f') "CHECKED")> <label for="sex">Kvinne</label>
+                        <input type="radio" name="sex" value="m" @(if(user.getGender() == 'm') "CHECKED")> <label for="sex">Mann</label> |
+                        <input type="radio" name="sex" value="f" @(if(user.getGender() == 'f') "CHECKED")> <label for="sex">Kvinne</label>
                     }else {
                         @(if(user.getGender() == 'm') "Mann" else "Kvinne")
                     }

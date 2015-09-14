@@ -32,9 +32,9 @@
     });
 
     function changeEvent(event, revertFunc) {
-        if (event.id == null || event.id == "") {
+        if(event.id == null || event.id == "") {
             revertFunc();
-        } else if (!confirm("Er du sikker på denne endringen?")) {
+        } else if(!confirm("Er du sikker på denne endringen?")) {
             revertFunc();
         } else {
             $.ajax({
@@ -47,7 +47,7 @@
                     end: event.end.format()
                 }),
                 success: function(data) {
-                    if (!data) {
+                    if(!data) {
                         revertFunc();
                         return;
                     }

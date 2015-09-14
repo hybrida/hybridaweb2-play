@@ -166,10 +166,10 @@ public class UserEventJoined extends play.db.ebean.Model {
 	 * @return
 	 */
 	public static java.util.List<User> getSignedUpUsersByClass(int classnumber, long eventID){
-		if(classnumber == 0){
+		if (classnumber == 0){
 			//TODO: Implementer en måte å hente alle påmeldte som ikke faller inn i kategorien hybrider fra 1-5 klasse.
 		}
-		if(classnumber < 0 || classnumber > 5){
+		if (classnumber < 0 || classnumber > 5){
 			System.out.println("Error, not a valid class");
 		}
 		List<User> allUsers = getAllSignedUpUsers(eventID);
@@ -177,7 +177,7 @@ public class UserEventJoined extends play.db.ebean.Model {
 		for(User i : allUsers){
 			int currentYear = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
 			int usersYear =  studyYears - (i.graduationYear - currentYear);
-			if(usersYear == classnumber){
+			if (usersYear == classnumber){
 				classUsers.add(i);
 			}
 		}

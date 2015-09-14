@@ -49,7 +49,7 @@ public class SSOLogin extends Controller {
 
 	public static Result login(String returnarg) {
 		java.io.File file = new java.io.File(models.Certificate.getPath());
-		if(file.exists() && !file.isDirectory()) {
+		if (file.exists() && !file.isDirectory()) {
 			// The following page will redirect us to verifylogin when it returns.
 			return redirect(innsida_login_link + (returnarg == null || returnarg.length() == 0 ? request().path() : returnarg));
 		} else {

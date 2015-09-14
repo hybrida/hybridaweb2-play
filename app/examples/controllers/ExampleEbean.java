@@ -23,7 +23,7 @@ public class ExampleEbean extends Controller {
 
     public static Result add() {
         Form<ExampleEbeanForm> input = form.bindFromRequest();
-        if(!input.hasErrors()) createEntity(input.get().name);
+        if (!input.hasErrors()) createEntity(input.get().name);
 
         return index();
     }

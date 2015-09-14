@@ -171,7 +171,7 @@ public class User extends Model {
 
 	public String getName(boolean showMiddleName) {
 		String m = "";
-		if(showMiddleName) m = " " + middleName;
+		if (showMiddleName) m = " " + middleName;
 		return firstName + m + " " + surname;
 	}
 
@@ -232,24 +232,24 @@ public class User extends Model {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder("USER[\n");
-		if(id != null) sb.append("\tid: " + id.toString() + ", \n");
-		if(email != null) sb.append("\temail: " + email.toString() + ", \n");
-		if(phone != null) sb.append("\tphone: " + phone.toString() + ", \n");
-		if(title != null) sb.append("\ttitle: " + title.toString() + ", \n");
-		if(username != null) sb.append("\tusername: " + username.toString() + ", \n");
-		if(surname != null)  sb.append("\tsurname: " + surname.toString() + ", \n");
-		if(firstName != null) sb.append("\tfirstName: " + firstName.toString() + ", \n");
-		if(middleName != null) sb.append("\tmiddleName: " + middleName.toString() + ", \n");
-		if(profileImageFileName != null) sb.append("\tprofileImageFileName: " + profileImageFileName.toString() + ", \n");
-		if(websiteUrl != null) sb.append("\twebsiteUrl: " + websiteUrl.toString() + ", \n");
-		if(student != null) sb.append("\tstudent: " + student.toString() + ", \n");
-		if(bedkom != null) sb.append("\tbedkom: " + bedkom.toString() + ", \n");
-		if(admin != null) sb.append("\tadmin: " + admin.toString() + ", \n");
-		if(root != null) sb.append("\troot: " + root.toString() + ", \n");
-		if(sex != null) sb.append("\tsex: " + sex.toString() + ", \n");
-		if(enrolled != null) sb.append("\tenrollied: " + enrolled.toString() + ", \n");
-		if(dateOfBirth != null) sb.append("\tdateOfBirth: " + dateOfBirth.toString() + ", \n");
-		if(lastLogin != null) sb.append("\tlastLogin: " + lastLogin.toString() + ", \n");
+		if (id != null) sb.append("\tid: " + id.toString() + ", \n");
+		if (email != null) sb.append("\temail: " + email.toString() + ", \n");
+		if (phone != null) sb.append("\tphone: " + phone.toString() + ", \n");
+		if (title != null) sb.append("\ttitle: " + title.toString() + ", \n");
+		if (username != null) sb.append("\tusername: " + username.toString() + ", \n");
+		if (surname != null)  sb.append("\tsurname: " + surname.toString() + ", \n");
+		if (firstName != null) sb.append("\tfirstName: " + firstName.toString() + ", \n");
+		if (middleName != null) sb.append("\tmiddleName: " + middleName.toString() + ", \n");
+		if (profileImageFileName != null) sb.append("\tprofileImageFileName: " + profileImageFileName.toString() + ", \n");
+		if (websiteUrl != null) sb.append("\twebsiteUrl: " + websiteUrl.toString() + ", \n");
+		if (student != null) sb.append("\tstudent: " + student.toString() + ", \n");
+		if (bedkom != null) sb.append("\tbedkom: " + bedkom.toString() + ", \n");
+		if (admin != null) sb.append("\tadmin: " + admin.toString() + ", \n");
+		if (root != null) sb.append("\troot: " + root.toString() + ", \n");
+		if (sex != null) sb.append("\tsex: " + sex.toString() + ", \n");
+		if (enrolled != null) sb.append("\tenrollied: " + enrolled.toString() + ", \n");
+		if (dateOfBirth != null) sb.append("\tdateOfBirth: " + dateOfBirth.toString() + ", \n");
+		if (lastLogin != null) sb.append("\tlastLogin: " + lastLogin.toString() + ", \n");
 		sb.append("]");
 		return sb.toString();
 	}

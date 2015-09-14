@@ -29,7 +29,7 @@ public class ArticleIn extends Controller {
 				return application.Application.showUnauthorizedAccess();
 
 			long id = saveArticle();
-			if(!(new HttpRequestData().get("event") == null)) {
+			if (!(new HttpRequestData().get("event") == null)) {
 				ResultAndEId res = saveEvent(id, null);
 				if (res.result != null)
 					return res.result;
