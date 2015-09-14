@@ -8,7 +8,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import views.html.layoutPage;
+import views.html.layoutWithHead;
 
 import java.util.List;
 
@@ -16,14 +16,10 @@ import static play.mvc.Results.ok;
 
 public class QuizController extends Controller {
 	public static Result index() {
-		return ok(layoutPage.render(
+		return ok(layoutWithHead.render(
 			"Quiz",
 			quiz.views.html.index.render(),
-			quiz.views.html.head.render(),
-			null,
-			null,
-			null,
-			null));
+			quiz.views.html.head.render()));
 	}
 
 	public static Result quizTeams() {
