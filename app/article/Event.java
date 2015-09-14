@@ -43,8 +43,8 @@ public class Event extends Controller {
 	public static Result viewEvent(String eventId) {
 		if (models.Event.find.byId(Long.valueOf(eventId)) != null) {
 			models.Event event = models.Event.find.byId(Long.valueOf(eventId));
-			models.Article article = models.Article.find.byId(Long.valueOf(event.getArticleId()));
-			return ok(layout.render("Arrangement", views.html.Event.viewEvent.render(article, event)));
+			models.Article inarticle = models.Article.find.byId(Long.valueOf(event.getArticleId()));
+			return ok(layout.render("Arrangement", article.views.html.viewEvent.render(inarticle, event)));
 		}
 		else
 			return application.Application.show404(request().uri().replaceFirst("/", ""));
