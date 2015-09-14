@@ -56,8 +56,8 @@ public class Event extends Controller {
 			return error;
 
 		models.Event event = models.Event.find.byId(Long.valueOf(id));
-		models.Article article = models.Article.find.byId(event.getArticleId());
-		return ok(layout.render("", views.html.Event.editEvent.render(event, article)));
+		models.Article inarticle = models.Article.find.byId(event.getArticleId());
+		return ok(layout.render("", article.views.html.editEvent.render(event, inarticle)));
 	}
 
 	public static Result saveEdit(String id) {
