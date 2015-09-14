@@ -12,45 +12,45 @@ package models;
  */
 public class HttpRequestData extends java.util.HashMap<String, String> {
 
-    public HttpRequestData () {
-        if (play.data.Form.form().bindFromRequest().data() != null)
-            super.putAll(play.data.Form.form().bindFromRequest().data());
-    }
+	public HttpRequestData () {
+		if (play.data.Form.form().bindFromRequest().data() != null)
+			super.putAll(play.data.Form.form().bindFromRequest().data());
+	}
 
-    public Integer getInt(String key) {
-        String input = this.get(key);
-        if (input == null) {
-            return null;
-        }
-        else if (input.equals("")) {
-            return 0;
-        }
-        return Integer.valueOf(input);
-    }
+	public Integer getInt(String key) {
+		String input = this.get(key);
+		if (input == null) {
+			return null;
+		}
+		else if (input.equals("")) {
+			return 0;
+		}
+		return Integer.valueOf(input);
+	}
 
-    public Long getLong(String key) {
-        String input = this.get(key);
-        if (input == null) {
-            return null;
-        }
-        else if (input.equals("")) {
-            return 0L;
-        }
-        return Long.valueOf(input);
-    }
+	public Long getLong(String key) {
+		String input = this.get(key);
+		if (input == null) {
+			return null;
+		}
+		else if (input.equals("")) {
+			return 0L;
+		}
+		return Long.valueOf(input);
+	}
 
-    public String toString() {
-        String total = "";
-        if (!super.isEmpty()) {
-            java.util.Set<String> keyset = super.keySet();
-            for (String element : keyset) {
-                total += element;
-                total += '=';
-                total += super.get(element);
-                total += '\n';
-            }
-        }
-        return total;
-    }
+	public String toString() {
+		String total = "";
+		if (!super.isEmpty()) {
+			java.util.Set<String> keyset = super.keySet();
+			for (String element : keyset) {
+				total += element;
+				total += '=';
+				total += super.get(element);
+				total += '\n';
+			}
+		}
+		return total;
+	}
 
 }
