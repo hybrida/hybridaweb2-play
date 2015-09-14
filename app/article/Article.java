@@ -21,9 +21,9 @@ public class Article extends Controller {
 		if (error != null)
 			return error;
 
-		models.Article article = models.Article.find.byId(Long.valueOf(id));
+		models.Article inarticle = models.Article.find.byId(Long.valueOf(id));
 		return ok(layout.render("Hybrida: Opprett Artikkel",
-			views.html.ArticleIn.editArticle.render(article)));
+			article.views.html.editArticle.render(inarticle)));
 	}
 
 	public static Result viewArticle(String id) {
