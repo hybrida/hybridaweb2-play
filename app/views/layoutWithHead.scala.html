@@ -1,11 +1,6 @@
 @(title: String)(content: Html)(headContent: Html = null)
-@layoutinternals.main(title) {
-	@if(headContent != null && !headContent.equals(Html(""))) {
-		@headContent
-	}
-} {
-	@layoutinternals.navigationMenu()
-	@layoutinternals.layoutTop()
+@layoutinternals.layoutWithHead(title) {
 	@content
-	@layoutinternals.layoutBottom()
+} {
+	@headContent
 }
