@@ -72,7 +72,7 @@ public class Article extends Controller {
 			comment, models.Article.find.byId(Long.parseLong(articleId)));
 		newComment.save();
 		if(new models.HttpRequestData().get("isEvent") != null){
-			return redirect(controllers.routes.Event.viewEvent(new models.HttpRequestData().get("isEvent")));
+			return redirect(article.routes.Event.viewEvent(new models.HttpRequestData().get("isEvent")));
 		}
 		return redirect(article.routes.Article.viewArticle(articleId.toString()));
 	}
@@ -89,7 +89,7 @@ public class Article extends Controller {
 		models.Article local_article = thisComment.getArticle();
 		thisComment.delete();
 		if(new models.HttpRequestData().get("isEvent") != null){
-			return redirect(controllers.routes.Event.viewEvent(new models.HttpRequestData().get("isEvent")));
+			return redirect(article.routes.Event.viewEvent(new models.HttpRequestData().get("isEvent")));
 		}
 		return redirect(article.routes.Article.viewArticle(local_article.getId().toString()));
 	}

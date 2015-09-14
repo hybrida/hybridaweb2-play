@@ -22,14 +22,14 @@ GET           /update/utgaver                   update.Update.utgaver()
 GET           /update/redaksjon                 update.Update.redaksjon()
 
 # Article and events
-GET           /artikkel/ny                      controllers.ArticleIn.index()
-POST          /artikkel/ny                      controllers.ArticleIn.save()
+GET           /artikkel/ny                      article.ArticleIn.index()
+POST          /artikkel/ny                      article.ArticleIn.save()
 GET           /artikkel/:id                     article.Article.viewArticle(id)
 GET           /artikkel/:id/endre               article.Article.editArticle(id)
-POST          /artikkel/:id/lagreEndring        controllers.ArticleIn.saveEdit(id)
-GET           /event/:id                        controllers.Event.viewEvent(id)
-GET           /event/:id/endre                  controllers.Event.editEvent(id)
-POST          /event/:id/lagreEndring           controllers.Event.saveEdit(id)
+POST          /artikkel/:id/lagreEndring        article.ArticleIn.saveEdit(id)
+GET           /event/:id                        article.Event.viewEvent(id)
+GET           /event/:id/endre                  article.Event.editEvent(id)
+POST          /event/:id/lagreEndring           article.Event.saveEdit(id)
 
 POST          /comment/:articleID               article.Article.comment(articleID)
 POST          /comment/delete/:commentID        article.Article.deleteComment(commentID)
@@ -42,9 +42,9 @@ POST          /ebean                            examples.controllers.ExampleEbea
 POST          /ebean/clear                      examples.controllers.ExampleEbean.clear()
 
 # Bruker current login cookie, og en eventId i POST
-POST          /event/meldpaa                    controllers.Event.updateUser()
+POST          /event/meldpaa                    article.Event.updateUser()
 # Bruker current login cookie, og en eventId i POST
-POST          /event/meldav                     controllers.Event.removeUser()
+POST          /event/meldav                     article.Event.removeUser()
 
 # Backup memory database
 GET           /backup                           backup.BackupDatabase.index()

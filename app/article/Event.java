@@ -1,4 +1,4 @@
-package controllers;
+package article;
 
 import models.*;
 import play.mvc.Controller;
@@ -8,7 +8,7 @@ import views.html.layout;
 
 public class Event extends Controller {
 
-	final static play.data.Form<Article> articleForm = play.data.Form.form(Article.class);
+	final static play.data.Form<models.Article> articleForm = play.data.Form.form(models.Article.class);
 
 	public static Result updateUser() {
 		User user = LoginState.getUser();
@@ -67,10 +67,10 @@ public class Event extends Controller {
 			return error;
 		models.Event event = models.Event.find.byId(Long.valueOf(id));
 
-		play.data.Form<Article> articleInput = articleForm.bindFromRequest();
+		play.data.Form<models.Article> articleInput = articleForm.bindFromRequest();
 
 		if (!articleInput.hasErrors()) {
-			Article articleModel = articleInput.get();
+			models.Article articleModel = articleInput.get();
 
 			articleModel.setId(event.getArticleId());
 			articleModel.setImagePath(user.uploadPicture());

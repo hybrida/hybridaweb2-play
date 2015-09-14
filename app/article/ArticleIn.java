@@ -1,4 +1,4 @@
-package controllers;
+package article;
 
 import models.*;
 import models.Event;
@@ -15,8 +15,8 @@ import static play.data.Form.form;
 
 public class ArticleIn extends Controller {
 
-	final static Form<Event> eventForm = form(Event.class);
-	final static Form<Article> articleForm = form(Article.class);
+	final static Form<models.Event> eventForm = form(models.Event.class);
+	final static Form<models.Article> articleForm = form(models.Article.class);
 
 	public static Result index() {
 		return ok(layout.render("Hybrida: Opprett Artikkel", article.views.html.index.render()));
@@ -37,7 +37,7 @@ public class ArticleIn extends Controller {
 			}
 			else {
 				// Husk å legge til artikkelen i renders! Da vises den nemlig på fremsiden ^_^
-				Renders.addArticle(Article.find.byId(id));
+				Renders.addArticle(models.Article.find.byId(id));
 			}
 			return redirect(article.routes.Article.viewArticle("" + id));
 		}
@@ -52,10 +52,10 @@ public class ArticleIn extends Controller {
 
 	public static long saveArticle() throws IllegalStateException {
 		User user = LoginState.getUser();
-		Form<Article> articleInput = articleForm.bindFromRequest();
+		Form<models.Article> articleInput = articleForm.bindFromRequest();
 		System.out.println(new HttpRequestData());
 		if (!articleInput.hasErrors()) {
-			Article articleModel = articleInput.get();
+			models.Article articleModel = articleInput.get();
 			articleModel.setImagePath(user.uploadPicture());
 			articleModel.setAuthor(user.getId());
 			articleModel.save();
@@ -68,9 +68,9 @@ public class ArticleIn extends Controller {
 	public static long saveSpecificArticle(String id) throws IllegalStateException {
 		User user = LoginState.getUser();
 
-		Form<Article> articleInput = articleForm.bindFromRequest();
+		Form<models.Article> articleInput = articleForm.bindFromRequest();
 		if (!articleInput.hasErrors()) {
-			Article articleModel = articleInput.get();
+			models.Article articleModel = articleInput.get();
 			articleModel.setImagePath(user.uploadPicture());
 			articleModel.setAuthor(user.getId());
 			articleModel.setId(Long.valueOf(id));
@@ -236,7 +236,7 @@ public static Result saveEdit(String id) {
 		if (error != null)
 			return error;
 
-		Article article = Article.find.byId(Long.valueOf(id));
+		models.Article article = models.Article.find.byId(Long.valueOf(id));
 		HttpRequestData httpdata = new HttpRequestData();
 		article.setTitle(httpdata.get("title"));
 		article.setIngress(httpdata.get("ingress"));
