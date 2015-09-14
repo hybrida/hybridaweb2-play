@@ -1,180 +1,206 @@
 <!-- need fix:
-        slutt på minimering ved halv skjerm
-        tekst-størrelse i forhold til skjermoppløsning
-        -->
-<div style="background-image:url('../assets/images/office_background.png'); height:18em; "></div>
-    <style type="text/css">
+	slutt på minimering ved halv skjerm
+	tekst-størrelse i forhold til skjermoppløsning
+-->
+<div style="background-image:url('../assets/images/office_background.png'); height:18em; ">
+</div>
+<style type="text/css">
+	.styretprofil {                  /*profilbildet av hvert styremedlem */
+		width:100%;
+		margin-top: -400px;
+		overflow: visible;
+	}
+	.styretprofil:hover {
+		width:108%;
+		transition:0.1s ease-in-out;
+	}
+	.omStyretBoks {
+		border-width:2px;
+		position:absolute;
+		left:35%;
+		right:35%;
+		background-color:floralwhite;
+		opacity: 0.4;
+		width:30%;
+		height:14em;
+		top:6em;
+		box-shadow:0 5px 50px 10px #aaa;
+	}
+	.omstyret {
+		color:#212121;
+		left:39%;
+		right:38%;
+		padding-left:1.2em;
+		padding-right:1.2em;
+		padding-top:0.8em;
+		font-size: 16px;
+		text-align:center;
+	}
+/*  #link:link {                     ståpels link
+		color:#212121;
+		background-color:transparent;
+		text-decoration:none;
+	}
+	#link:visited {
+		color:#212121;
+		background-color:transparent;
+	}
+	#link:hover {
+		color:#212121;
+		font-weight: bold;
+	}
+ */
 
-        .styretprofil {                  /*profilbildet av hvert styremedlem */
-            width:100%;
-            margin-top: -400px;
-            overflow: visible;
-        }
-        .styretprofil:hover {
-            width:108%;
-            transition:0.1s ease-in-out;
+	.bildetekst {
+		display:none;
+	}
 
-        }
-        .omStyretBoks {
-            border-width:2px;
-            position:absolute;
-            left:35%;
-            right:35%;
-            background-color:floralwhite;
-            opacity: 0.4;
-            width:30%;
-            height:14em;
-            top:6em;
-            box-shadow:0 5px 50px 10px #aaa;
-        }
-        .omstyret {
-            color:#212121;
-            left:39%;
-            right:38%;
-            padding-left:1.2em;
-            padding-right:1.2em;
-            padding-top:0.8em;
-            font-size: 16px;
-            text-align:center;
-        }
-      /*  #link:link {                     ståpels link
-            color:#212121;
-            background-color:transparent;
-            text-decoration:none;
-        }
-        #link:visited {
-            color:#212121;
-            background-color:transparent;
-        }
-        #link:hover {
-            color:#212121;
-            font-weight: bold;
-        }
-       */
+	.styretprofil:hover + .bildetekst {        /* hover for hver tekst om styremedlem */
+		color:#212121;
+		display: block;
+		font-size:16px;
+		text-align:center;
+		position:absolute;
+		left:37%;
+		right:37%;
+		top:8.5em;
+	}
 
-        .bildetekst {
+	#bildetabell {
+		width:80%;
+		margin: 0 10%;
+	}
+	#bildetabell tr td {
+		background-color: #ffffff;
+		overflow: visible;
+		vertical-align: bottom;
+	}
+	#jentekomtab {
+		width:12%;
+	}
+	#bksjeftab {
+		width:14%;
+	}
+	#nestledertab {
+		width:15.5%;
+	}
+	#ledertab {
+		width:15.4%;
+	}
+	#skattmestertab {
+		width:14.6%;
+	}
+	#festivalustab {
+		width:13.3%;
+	}
+	#vevsjeftab {
+		width:16.1%;
+	}
+	#tabell {
+		background-color: white;
+		padding-top: 33%;
+	}
+	#innertabell .omStyretBoks:hover .omstyret {
+		display: block;
+	}
+	#innertabell:hover .omstyret {
+		display: none;
 
-            display:none;
-        }
+	}
+</style>
 
-        .styretprofil:hover + .bildetekst {        /* hover for hver tekst om styremedlem */
-            color:#212121;
-            display: block;
-            font-size:16px;
-            text-align:center;
-            position:absolute;
-            left:37%;
-            right:37%;
-            top:8.5em;
-        }
-
-        #bildetabell {
-
-            width:80%;
-            margin: 0 10%;
-        }
-        #bildetabell tr td {
-            background-color: #ffffff;
-            overflow: visible;
-            vertical-align: bottom;
-        }
-        #jentekomtab {
-            width:12%;
-        }
-        #bksjeftab {
-            width:14%;
-        }
-        #nestledertab {
-            width:15.5%;
-        }
-        #ledertab {
-            width:15.4%;
-        }
-        #skattmestertab {
-            width:14.6%;
-        }
-        #festivalustab {
-            width:13.3%;
-        }
-        #vevsjeftab {
-            width:16.1%;
-        }
-        #tabell {
-            background-color: white;
-            padding-top: 33%;
-        }
-        #innertabell .omStyretBoks:hover .omstyret {
-            display: block;
-
-        }
-        #innertabell:hover .omstyret {
-            display: none;
-
-        }
-    </style>
-
-    <!-- StyretBoksen + tekst om styret -->
+<!-- StyretBoksen + tekst om styret -->
 
 
 
-        <!-- profilbilde + tilhørende tekst til hvert styremedlem -->
+	<!-- profilbilde + tilhørende tekst til hvert styremedlem -->
 
 
-            <div id="tabell">
+<div id="tabell">
 
-             <div id="innertabell">
-                 <div class="omStyretBoks">
-                 <h2 style="left:37%; right:37%; text-align:center; color:#212121;">Styret i Hybrida</h2>
-                 <p class="omstyret"><br>Dette er de syv styremedlemmene som per dags dato har hovedansvaret for å holde liv i linjeforeningen (og dens medlemmer).
-                 <!-- <a id="link" href="http://www.ståpels.no" target="_blank">Ståpels</a> --> </p>
-                 </div>
-             <table id="bildetabell">
-                 <tr>
-                     <td id="jentekomtab"><img class="styretprofil" src="/assets/images/jentekomsjef-1.jpg"/>
-                         <div class="bildetekst"><b>Helene Dypbukt</b><br><i>Jentekomitésjef</i><br>
-                         Sjef for jentekomiteen, eller chicas united som det kalles i spania. Sørger for at damene oppfører seg i henhold.<br><br>
-                         </div>
-                     </td>
+	<div id="innertabell">
+		<div class="omStyretBoks">
+			<h2 style="left:37%; right:37%; text-align:center; color:#212121;">Styret i Hybrida</h2>
+			<p class="omstyret">
+				<br>Dette er de syv styremedlemmene som per dags dato har hovedansvaret for å holde liv i linjeforeningen (og dens medlemmer).
+			 <!-- <a id="link" href="http://www.ståpels.no" target="_blank">Ståpels</a> -->
+			</p>
+		</div>
+		<table id="bildetabell">
+			<tr>
+				<td id="jentekomtab">
+					<img class="styretprofil" src="/assets/images/jentekomsjef-1.jpg">
+					<div class="bildetekst">
+						<b>Helene Dypbukt</b>
+						<br>
+						<i>Jentekomitésjef</i>
+						<br>
+						Sjef for jentekomiteen, eller chicas united som det kalles i spania. Sørger for at damene oppfører seg i henhold.<br><br>
+					</div>
+				</td>
 
-                     <td id="bksjeftab"><img class="styretprofil" src="/assets/images/bksjef-1.jpg" />
-                         <div class="bildetekst"><b>Andrea Marie Festøy</b><br><i>Bedriftskomitésjef</i><br>
-                         Fikser og ordner med profileringen av linja og linjeforeningen utad til bedrifter og næringslivet. Sørger for at vi får de saftigste jobbene på markedet.
-                        </div>
-                     </td>
+				<td id="bksjeftab"><img class="styretprofil" src="/assets/images/bksjef-1.jpg" />
+					<div class="bildetekst">
+						<b>Andrea Marie Festøy</b>
+						<br>
+						<i>Bedriftskomitésjef</i>
+						<br>
+						Fikser og ordner med profileringen av linja og linjeforeningen utad til bedrifter og næringslivet. Sørger for at vi får de saftigste jobbene på markedet.
+					</div>
+				</td>
 
-                     <td id="nestledertab"><img class="styretprofil" src="/assets/images/nestleder-1.jpg"  />
-                         <div class="bildetekst"><b>Stephanie Buadu</b><br><i>Nestleder</i><br>
+				<td id="nestledertab"><img class="styretprofil" src="/assets/images/nestleder-1.jpg"  />
+					<div class="bildetekst">
+						<b>Stephanie Buadu</b>
+						<br>
+						<i>Nestleder</i>
+						<br>
+						"Samarbeider" med lederen om det organisatoriske og administrative ansvaret i styret.
+						<br><br>
+					</div>
+				</td>
 
-                         "Samarbeider" med lederen om det organisatoriske og administrative ansvaret i styret.<br><br>
-                        </div>
-                     </td>
+				<td id="ledertab"><img class="styretprofil" src="/assets/images/leder-1.jpg" />
+					<div class="bildetekst">
+						<b>Simen Lillehagen</b>
+						<br>
+						<i>Leder</i>
+						<br>
+						Har det overordnede ansvaret i Hybrida, og er rett og slett helt sjef. Glad for å ha mange jenter i styret.
+						<br><br>
+					</div>
+				</td>
 
-                     <td id="ledertab"><img class="styretprofil" src="/assets/images/leder-1.jpg" />
-                         <div class="bildetekst"><b>Simen Lillehagen</b><br><i>Leder</i><br>
-                             Har det overordnede ansvaret i Hybrida, og er rett og slett helt sjef. Glad for å ha mange jenter i styret.<br><br>
-                         </div>
-                     </td>
+				<td id="festivalustab"><img class="styretprofil" src="/assets/images/skattemester-1.jpg"/>
+					<div class="bildetekst">
+						<b>Astrid Nerhus Dale</b>
+						<br>
+						<i>Festivalus</i>
+						<br>
+						Ansvaret for det som blir arrangert av fester, turer og en hel rekke andre arrangementer. Er også daglig leder på Hybridas eksklusive bar på Moholt.
+						<br><br>
+					</div>
+				</td>
 
-                     <td id="festivalustab"><img class="styretprofil" src="/assets/images/skattemester-1.jpg"/>
-                         <div class="bildetekst"><b>Astrid Nerhus Dale</b><br><i>Festivalus</i><br>
-                             Ansvaret for det som blir arrangert av fester, turer og en hel rekke andre arrangementer. Er også daglig leder på Hybridas eksklusive bar på Moholt.
-                            .<br><br>
-                         </div>
-                     </td>
+				<td id="skattmestertab"><img class="styretprofil" src="/assets/images/skattmester.jpg" />
+					<div class="bildetekst">
+						<b>Sigrid Bratsberg</b>
+						<br>
+						<i>Skattmester</i>
+						<br>
+						Ansvaret for pengestrømmen inn og, selvfølgelig mest, ut. Driver i følge pålitelige kilder ikke med underslag (men man vet jo aldri)
+					</div>
+				</td>
 
-                     <td id="skattmestertab"><img class="styretprofil" src="/assets/images/skattmester.jpg" />
-                         <div class="bildetekst"><b>Sigrid Bratsberg</b><br><i>Skattmester</i><br>
-                             Ansvaret for pengestrømmen inn og, selvfølgelig mest, ut. Driver i følge pålitelige kilder ikke med underslag (men man vet jo aldri)
-                         </div>
-                     </td>
+				<td id="vevsjeftab"><img class="styretprofil" src="/assets/images/vevsjef.jpg"/>
+					<div class="bildetekst">
+						<b>Ivar Haga Kråbøl</b>
+						<br><i>Vevsjef</i><br>
+							Ansvar for utvikling og drift av nettsidene, samt informasjonsflyten i linjeforeningen og HybridLAN.
+					</div>
+				</td>
 
-                     <td id="vevsjeftab"><img class="styretprofil" src="/assets/images/vevsjef.jpg"/>
-                         <div class="bildetekst"><b>Ivar Haga Kråbøl</b><br><i>Vevsjef</i><br>
-                             Ansvar for utvikling og drift av nettsidene, samt informasjonsflyten i linjeforeningen og HybridLAN.
-                         </div>
-                     </td>
-
-                 </tr>
-             </table>
-             </div>
-         </div>
+			</tr>
+		</table>
+	</div>
+</div>
