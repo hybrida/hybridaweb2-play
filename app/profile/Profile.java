@@ -7,7 +7,7 @@ import play.data.validation.ValidationError;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.twirl.api.Html;
-import views.html.layoutPage;
+import profile.views.html.layoutPage;
 import views.html.layoutWithHead;
 
 import java.util.ArrayList;
