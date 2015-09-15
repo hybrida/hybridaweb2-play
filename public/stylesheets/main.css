@@ -103,6 +103,16 @@ a :hover {
     margin-top: 1%;
     box-shadow: -5px 5px 25px rgba(0,0,0,0.4);
 }
+
+.sleek-box{
+    background-color: rgba(255,255,255,0.3);
+    padding: 1em;
+    margin: 1px;
+    -webkit-box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.3);
+    -moz-box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.3);
+    box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.3);
+}
+
 .art-img{
     overflow: hidden;
     max-width: 100%;
