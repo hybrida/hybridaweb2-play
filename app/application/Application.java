@@ -26,7 +26,6 @@ public class Application extends Controller {
 		String concatenation = "";
 		int count = 0;
 		for (Renders renderable : Lists.reverse(articles)) {
-			++count;
 			play.twirl.api.Html curcatenation = play.twirl.api.Html.apply("");
 			if (renderable.articleId != null) {
 				models.Article inarticle = models.Article.find.byId(renderable.articleId);
@@ -36,7 +35,7 @@ public class Application extends Controller {
 				curcatenation = application.views.html.articleRenderFrontPageSample.render(inarticle);
 			}
 
-			if (count < 2) {
+			if (++count < 2) {
 				concatenation += application.views.html.bigthumbnail.render(curcatenation);
 			} else {
 				concatenation += application.views.html.smallthumbnail.render(curcatenation);
