@@ -1,10 +1,10 @@
-@(inarticle : models.Article, event : models.Event)
+@(inarticle : models.Article, inevent : models.Event)
 @(/*This is for rendering a single event preview. It returns the bare html needed for the article to be correctly displayed. CSS should be added as well...*/)
 <div style="position: relative;">
 	<div style="padding-top: 100%;">
 	</div>
 	<div class="container-with-set-aspect-ratio">
-		<a href="@(article.routes.Event.viewEvent(String.valueOf(event.getEventId())))">
+		<a href="@(article.routes.Event.viewEvent(String.valueOf(inevent.getEventId())))">
 			<div style="position: relative">
 				<div style="padding-top: 61.8%">
 				</div>
@@ -19,13 +19,13 @@
 		<p>@inarticle.getIngress</p>
 		<div style="position: absolute; bottom: 0; background: rgba(245,245,245,1); width: 100%">
 			<div style="width: 50%; margin:0;float: left;">
-				<p>@timestamp.render(event.getEventHappens, event)</p>
+				<p>@event.timestamp.render(inevent.getEventHappens, inevent)</p>
 			</div>
 			<div style="width: 50%; margin:0; float: right;">
 				<div class="progress">
-					<div class="progress-bar" style="width: @((models.UserEventJoined.getNumberOfSignedUp(event.getEventId))*100/event.getMaxParticipants)%">
+					<div class="progress-bar" style="width: @((models.UserEventJoined.getNumberOfSignedUp(inevent.getEventId))*100/inevent.getMaxParticipants)%">
 					</div>
-				<span>@(models.UserEventJoined.getNumberOfSignedUp(event.getEventId)) / @event.getMaxParticipants</span>
+				<span>@(models.UserEventJoined.getNumberOfSignedUp(inevent.getEventId)) / @inevent.getMaxParticipants</span>
 				</div>
 			</div>
 		</div>

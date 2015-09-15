@@ -22,19 +22,25 @@ public class Application extends Controller {
 	* \brief Index entry point of the website.
 	*/
 	public static Result index() {
-		java.util.List<Renderable> articles = models.Renders.getVisibleRenderables();
+		java.util.List<Renders> articles = models.Renders.getVisibleRenderables();
 		String concatenation = "";
 		int count = 0;
-		for (Renderable renderable : Lists.reverse(articles)) {
+		for (Renders renderable : Lists.reverse(articles)) {
 			++count;
-			if (count <= 2)
-				concatenation +=
-					application.views.html.bigthumbnail.render(
-						renderable.renderFrontPageSample()).toString();
-			else
-				concatenation +=
-					application.views.html.smallthumbnail.render(
-						renderable.renderFrontPageSample()).toString();
+			play.twirl.api.Html curcatenation = play.twirl.api.Html.apply("");
+			if (renderable.articleId != null) {
+				models.Article inarticle = models.Article.find.byId(renderable.articleId);
+				curcatenation = application.views.html.articleRenderFrontPageSample.render(inarticle);
+			} else if (renderable.eventId != null) {
+				models.Article inarticle = models.Article.find.byId(renderable.articleId);
+				curcatenation = application.views.html.articleRenderFrontPageSample.render(inarticle);
+			}
+
+			if (count < 2) {
+				concatenation += application.views.html.bigthumbnail.render(curcatenation);
+			} else {
+				concatenation += application.views.html.smallthumbnail.render(curcatenation);
+			}
 		}
 		return ok(layout.render(
 			"Hybrida",
