@@ -29,6 +29,8 @@ public class Application extends Controller {
 			play.twirl.api.Html curcatenation = play.twirl.api.Html.apply("");
 			if (renderable.articleId != null) {
 				models.Article inarticle = models.Article.find.byId(renderable.articleId);
+				if (inarticle.getImagePath() == null)
+					inarticle.setImagePath("/assets/images/logo_big.png");
 				curcatenation = application.views.html.articleRenderFrontPageSample.render(inarticle);
 			} else if (renderable.eventId != null) {
 				models.Article inarticle = models.Article.find.byId(renderable.articleId);
