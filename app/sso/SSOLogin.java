@@ -51,7 +51,10 @@ public class SSOLogin extends Controller {
 		java.io.File file = new java.io.File(models.Certificate.getPath());
 		if (file.exists() && !file.isDirectory()) {
 			// The following page will redirect us to verifylogin when it returns.
-			return redirect(innsida_login_link + (returnarg == null || returnarg.length() == 0 ? request().path() : returnarg));
+			return redirect(
+				innsida_login_link + (
+					returnarg == null || returnarg.length() == 0
+					? request().path() : returnarg));
 		} else {
 			session("user", play.api.libs.Crypto.encryptAES("hybrid," + String.valueOf(System.currentTimeMillis())));
 			return redirect(returnarg.length() == 0 ? request().path() : returnarg);

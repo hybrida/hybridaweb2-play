@@ -163,13 +163,6 @@ public class Event extends Model implements Renderable {
 		return eventRenderFrontPageSample.render(article, this);
 	}
 
-	public Html renderFull() {
-		Article article = Article.find.byId(this.articleId);
-		if (article.getImagePath() == null)
-			article.setImagePath("/assets/images/logo_big.png");
-		return eventRenderFrontPageSample.render(article, this);
-	}
-
 	public static String changeMonthToNorwegian(int month) {
 		switch (month) {
 			case 0: return "Januar";

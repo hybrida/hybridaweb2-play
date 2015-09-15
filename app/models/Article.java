@@ -126,10 +126,6 @@ public class Article extends Model implements Renderable {
 		return articleRenderFrontPageSample.render(this);
 	}
 
-	public Html renderFull() {
-		return Html.apply("NOT IMPLEMENTED");
-	}
-
 	public static Finder<Long, Article> find = new Finder<>(
 		Long.class, Article.class
 	);
