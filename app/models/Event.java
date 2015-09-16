@@ -10,7 +10,7 @@ import java.util.Calendar;
  * Created by eliasbragstadhagen on 28.01.15.
  */
 @Entity
-public class Event extends Model implements Renderable {
+public class Event extends Model {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)

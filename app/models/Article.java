@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Article extends Model implements Renderable {
+public class Article extends Model {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
