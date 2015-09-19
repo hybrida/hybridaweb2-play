@@ -34,4 +34,15 @@ public class Admin extends Controller {
 		session().remove("user");
 		return redirect(application.routes.Application.index());
 	}
+
+	public static Result allUsers() {
+		java.util.List<models.User> users = models.User.find.all();
+		String all_forms = "";
+		for (models.User user : users) {
+			play.twirl.api.Html gen = admin.views.html.UserForm.render(user.getUsername());
+			all_forms += gen.toString();
+		}
+		play.twirl.api.Html html = play.twirl.api.Html.apply(all_forms);
+		return ok(layout.render("User Administration", html));
+	}
 }
