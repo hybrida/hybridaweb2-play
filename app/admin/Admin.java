@@ -31,7 +31,7 @@ public class Admin extends Controller {
 	}
 
 	public static Result logout() {
-		session("user", "");
+		session().remove("user");
 		return redirect(application.routes.Application.index());
 	}
 }
