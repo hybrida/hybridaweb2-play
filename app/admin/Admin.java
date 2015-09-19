@@ -17,11 +17,21 @@ public class Admin extends Controller {
 			String password = data.get("adminpass");
 			String hash = "1000:273fad43db7f567593c84d7eab74256fb569d9328e21f938:02a4f3199ffc2c12389ca9bfb55a07f4692f180cc13083e0";
 			boolean correct = PasswordHash.validatePassword(password, hash);
-			return ok(correct ? "YES!" : "NO!");
+			if (correct) {
+				session("user", play.api.libs.Crypto.encryptAES("hybrid," + String.valueOf(System.currentTimeMillis())));
+				return redirect(application.routes.Application.index());
+			} else {
+				return ok("password incorrect");
+			}
 		} catch (java.security.NoSuchAlgorithmException exc) {
 			return ok(exc.toString());
 		} catch (java.security.spec.InvalidKeySpecException exc) {
 			return ok(exc.toString());
 		}
+	}
+
+	public static Result logout() {
+		session("user", "");
+		return redirect(application.routes.Application.index());
 	}
 }
