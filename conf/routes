@@ -5,6 +5,8 @@
 GET           /                                 application.Application.index()
 
 # Static info pages
+GET           /admin                            admin.Admin.index()
+POST          /admin                            admin.Admin.login()
 GET           /griffensorden                    riddere.Riddere.index()
 GET           /hybrida                          abouthybrida.AboutHybrida.index()
 GET           /nystudent                        newstudent.NewStudent.index()
