@@ -4,7 +4,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.layout;
 import models.HttpRequestData;
-import models.PasswordHash;
+import admin.models.PasswordHash;
 
 public class Admin extends Controller {
 	public static Result index() {
