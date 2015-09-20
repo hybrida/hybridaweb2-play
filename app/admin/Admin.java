@@ -42,7 +42,20 @@ public class Admin extends Controller {
 			play.twirl.api.Html gen = admin.views.html.UserForm.render(user.getUsername());
 			all_forms += gen.toString();
 		}
+		all_forms += admin.views.html.NewForm.render().toString();
 		play.twirl.api.Html html = play.twirl.api.Html.apply(all_forms);
 		return ok(layout.render("User Administration", html));
+	}
+
+	public static Result newUser() {
+		models.HttpRequestData data = new models.HttpRequestData();
+		models.User user = new models.User();
+		user.username = data.get("username");
+		user.save();
+		return redirect(admin.routes.Admin.allUsers());
+	}
+
+	public static Result updateUser() {
+		return ok("Not implemented 1239543890127937");
 	}
 }
