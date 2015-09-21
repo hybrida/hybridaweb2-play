@@ -36,15 +36,20 @@ public class Admin extends Controller {
 	}
 
 	public static Result allUsers() {
-		java.util.List<models.User> users = models.User.find.all();
-		String all_forms = "";
-		for (models.User user : users) {
-			play.twirl.api.Html gen = admin.views.html.UserForm.render(user.getUsername());
-			all_forms += gen.toString();
+		models.User loginuser = models.LoginState.getUser();
+		if (!loginuser.isRoot()) {
+			return redirect(application.routes.Application.showUnauthorizedAccess().url());
+		} else {
+			java.util.List<models.User> users = models.User.find.all();
+			String all_forms = "";
+			for (models.User user : users) {
+				play.twirl.api.Html gen = admin.views.html.UserForm.render(user.getUsername());
+				all_forms += gen.toString();
+			}
+			all_forms += admin.views.html.NewForm.render().toString();
+			play.twirl.api.Html html = play.twirl.api.Html.apply(all_forms);
+			return ok(layout.render("User Administration", html));
 		}
-		all_forms += admin.views.html.NewForm.render().toString();
-		play.twirl.api.Html html = play.twirl.api.Html.apply(all_forms);
-		return ok(layout.render("User Administration", html));
 	}
 
 	public static Result newUser() {

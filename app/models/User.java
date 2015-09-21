@@ -121,6 +121,10 @@ public class User extends Model {
 		return thisOrFalse(bedkom) || thisOrFalse(admin) || thisOrFalse(root);
 	}
 
+	public boolean isRoot() {
+		return thisOrFalse(root);
+	}
+
 	public boolean hasMiddleName() {
 		return middleName != null && !middleName.equals("");
 	}
