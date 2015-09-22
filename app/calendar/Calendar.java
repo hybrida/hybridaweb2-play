@@ -8,6 +8,7 @@ import models.Event;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.twirl.api.Html;
 import views.html.layoutWithHead;
 
 import java.sql.Timestamp;
@@ -27,10 +28,15 @@ public class Calendar extends Controller {
 	private final static String EVENT_DEFAULT_TITLE = "Ingen tittel";
 	private final static String BIRTHDAY_DEFAULT_TITLE = "Bursdag til [NAME]";
 
-	public static Result index() {
-		return ok(layoutWithHead.render(
+	public static Result display(Boolean gcal) {
+        Html calendarType = calendar.views.html.calendarHead.render();
+        if (gcal)
+            if (LoginState.isValidlyLoggedIn() && LoginState.getUser().canCreateNewArticle())
+                calendarType = calendar.views.html.calendarHeadGoogle.render();
+
+        return ok(layoutWithHead.render(
 			"Kalender",
-			calendar.views.html.calendarHead.render(),
+			calendarType,
 			calendar.views.html.calendarBody.render()));
 	}
 
