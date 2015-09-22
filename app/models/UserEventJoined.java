@@ -65,7 +65,7 @@ public class UserEventJoined extends play.db.ebean.Model {
 			return false;
 		if (getNumberOfSignedUp(eventId) < event.getMaxParticipants()) {
 			int currentYear = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
-			int usersYear =  studyYears - (user.graduationYear - currentYear);
+			int usersYear = 1 + studyYears - (user.graduationYear - currentYear);
 			if (usersYear > studyYears) {
 				return false; // User already graduated.
 			} else if (java.util.Calendar.getInstance().before(event.getSignUpDeadline())) {

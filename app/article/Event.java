@@ -21,6 +21,10 @@ public class Event extends Controller {
 		}
 		models.Event event = models.Event.find.byId(event_id);
 
+		java.util.Calendar cal = java.util.Calendar.getInstance();
+		if (cal.after(event.getSignUpDeadline())) {
+			return redirect(routes.Event.viewEvent(event_id.toString()).absoluteURL(request()));
+		}
 		UserEventJoined joined_user = new UserEventJoined(user.getId(), event.getEventId());
 		joined_user.save();
 		return redirect(routes.Event.viewEvent(event_id.toString()).absoluteURL(request()));
