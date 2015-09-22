@@ -21,7 +21,8 @@ public class Event extends Controller {
 		}
 		models.Event event = models.Event.find.byId(event_id);
 
-		UserEventJoined.insert(user.getId(), event.getEventId());
+		UserEventJoined joined_user = new UserEventJoined(user.getId(), event.getEventId());
+		joined_user.save();
 		return redirect(routes.Event.viewEvent(event_id.toString()).absoluteURL(request()));
 	}
 
@@ -42,9 +43,11 @@ public class Event extends Controller {
 
 	public static Result viewEvent(String eventId) {
 		if (models.Event.find.byId(Long.valueOf(eventId)) != null) {
-			models.Event event = models.Event.find.byId(Long.valueOf(eventId));
-			models.Article inarticle = models.Article.find.byId(Long.valueOf(event.getArticleId()));
-			return ok(layout.render("Arrangement", article.views.html.viewEvent.render(inarticle, event)));
+			models.Event inevent = models.Event.find.byId(Long.valueOf(eventId));
+			models.Article inarticle = models.Article.find.byId(Long.valueOf(inevent.getArticleId()));
+			java.util.List<User> signedups = models.UserEventJoined.getSignedUpUsersByClass(1, inevent.getEventId());
+			System.out.println(signedups);
+			return ok(layout.render("Arrangement", article.views.html.viewEvent.render(inarticle, inevent)));
 		}
 		else
 			return application.Application.show404(request().uri().replaceFirst("/", ""));

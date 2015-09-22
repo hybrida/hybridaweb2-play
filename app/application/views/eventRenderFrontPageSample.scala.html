@@ -25,7 +25,9 @@
 				<div class="progress">
 					<div class="progress-bar" style="width: @((models.UserEventJoined.getNumberOfSignedUp(inevent.getEventId))*100/inevent.getMaxParticipants)%">
 					</div>
-				<span>@(models.UserEventJoined.getNumberOfSignedUp(inevent.getEventId)) / @inevent.getMaxParticipants</span>
+					<span>
+						@(models.UserEventJoined.getNumberOfSignedUp(inevent.getEventId)) / @inevent.getMaxParticipants
+					</span>
 				</div>
 			</div>
 		</div>
