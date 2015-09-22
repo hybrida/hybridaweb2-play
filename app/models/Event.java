@@ -2,8 +2,6 @@ package models;
 
 import play.db.ebean.Model;
 import play.twirl.api.Html;
-import views.html.Article.articleRenderFrontPageSample;
-import views.html.Event.eventRenderFrontPageSample;
 
 import javax.persistence.*;
 import java.util.Calendar;
@@ -12,7 +10,7 @@ import java.util.Calendar;
  * Created by eliasbragstadhagen on 28.01.15.
  */
 @Entity
-public class Event extends Model implements Renderable {
+public class Event extends Model {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -154,13 +152,6 @@ public class Event extends Model implements Renderable {
 
 	public void setSecondSignUp(Calendar secondSignUp) {
 		this.secondSignUp = secondSignUp;
-	}
-
-	public Html renderFrontPageSample() {
-		Article article = Article.find.byId(this.articleId);
-		if (article.getImagePath() == null)
-			article.setImagePath("/assets/images/logo_big.png");
-		return eventRenderFrontPageSample.render(article, this);
 	}
 
 	public static String changeMonthToNorwegian(int month) {

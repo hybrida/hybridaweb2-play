@@ -4,7 +4,7 @@
 body {
     font-family: 'Raleway', sans-serif;
     padding-top: 50px;
-    /*background: #fff;*/
+    background: lightgrey;
     /*background: url("../images/kilt3.PNG") repeat;*/
 }
 
@@ -103,6 +103,23 @@ a :hover {
     margin-top: 1%;
     box-shadow: -5px 5px 25px rgba(0,0,0,0.4);
 }
+
+.sleek-box{
+    background-color: rgba(255,255,255,0.9);
+    padding: 1px;
+    margin: 1px;
+    -webkit-box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.3);
+    -moz-box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.3);
+    box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.3);
+}
+.sleek-box-bg{
+    background-color: rgba(255,255,255,1);
+    padding: 1em;
+    -webkit-box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.3);
+    -moz-box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.3);
+    box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.3);
+}
+
 .art-img{
     overflow: hidden;
     max-width: 100%;
@@ -128,8 +145,11 @@ a :hover {
     position:fixed;
 }
 .subtitle_styled{
+    font-size: 25px;
     color:lightslategray;
-    border-bottom: solid 2px #d3d3d3;
+    /*border-bottom: solid 2px #d3d3d3;*/
+    padding :1%;
+
 }
 .fp_white{
     background-color: #ffffff;

@@ -3,7 +3,6 @@ package models;
 import com.avaje.ebean.annotation.CreatedTimestamp;
 import play.db.ebean.Model;
 import play.twirl.api.Html;
-import views.html.Article.articleRenderFrontPageSample;
 
 import javax.persistence.*;
 import java.sql.SQLException;
@@ -12,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Article extends Model implements Renderable {
+public class Article extends Model {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -118,12 +117,6 @@ public class Article extends Model implements Renderable {
 
 		return finalPost;
 		*/
-	}
-
-	public Html renderFrontPageSample() {
-		if (imagePath == null)
-			imagePath = "/assets/images/logo_big.png";
-		return articleRenderFrontPageSample.render(this);
 	}
 
 	public static Finder<Long, Article> find = new Finder<>(

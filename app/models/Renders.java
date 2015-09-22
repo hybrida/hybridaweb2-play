@@ -16,10 +16,10 @@ public class Renders extends Model {
 
 	@OneToOne
 	@JoinColumn(name = "article", referencedColumnName = "articleId")
-	Long articleId = null;
+	public Long articleId = null;
 	@OneToOne
 	@JoinColumn(name = "event", referencedColumnName = "eventId")
-	Long eventId = null;
+	public Long eventId = null;
 
 	public static void addArticle(Article article) {
 		Renders renders = new Renders();
@@ -33,16 +33,9 @@ public class Renders extends Model {
 		renders.save();
 	}
 
-	public static List<Renderable> getVisibleRenderables() {
+	public static List<Renders> getVisibleRenderables() {
 		List<Renders> renders = Renders.find.all();
-		List<Renderable> renderables = new ArrayList<>();
-		for (Renders render : renders) {
-			if (render.articleId != null)
-				renderables.add(Article.find.byId(render.articleId));
-			else if (render.eventId != null)
-				renderables.add(Event.find.byId(render.eventId));
-		}
-		return renderables;
+		return renders;
 	}
 
 	public static Finder<Long, Renders> find = new Finder<>(
