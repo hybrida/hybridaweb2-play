@@ -31,11 +31,13 @@ public class BackupDatabase {
 
     private static Boolean backup() {
         javax.sql.DataSource ds = DB.getDataSource();
-        String str = "# --- !Ups" + System.lineSeparator();
+        String ups = "# --- !Ups" + System.lineSeparator();
+        String downs = "# --- !Downs" + System.lineSeparator();
         try {
             java.sql.Connection connection = ds.getConnection("hybrid", "");
             java.sql.Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery("SCRIPT SIMPLE NOSETTINGS"); // TO 'conf\\evolutions\\default\\2.sql'");
+            ArrayList<String> table_names = new ArrayList<>();
             while (result.next()) {
                 Reader reader = new InputStreamReader(result.getAsciiStream(1));
                 String everything = "";
@@ -52,18 +54,22 @@ public class BackupDatabase {
                         everything += ';'; //everything.substring(0,everything.length()-1) + ";";
                     }
                 }
-                str += everything;
                 for (String line : lines) {
                     String upper_line = line.toUpperCase();
                     if (upper_line.startsWith("INSERT") && !upper_line.startsWith("INSERT INTO SYSTEM_LOB_STREAM") && !upper_line.startsWith("INSERT INTO PUBLIC.PLAY_EVOLUTIONS")) {
-                        str += line;
+                        ups += line;
+                        String table_name = upper_line.substring(12, upper_line.indexOf("(", 12));
+                        if (!table_names.contains(table_name)) {
+                            table_names.add(table_name);
+                            downs += "TRUNCATE TABLE " + table_name + ";" + System.lineSeparator(); //18 is the location after INSERT INTO PUBLIC.
+                        }
                     }
                 }
                 reader.close();
             }
             result.close();
             BufferedWriter writer = new BufferedWriter(new FileWriter("./conf/evolutions/default/backup.sql")); //When it's going to be used, call it 2.sql or something
-            writer.write(str);
+            writer.write(ups + System.lineSeparator() + downs);
             writer.flush();
             writer.close();
         } catch (Exception e) {

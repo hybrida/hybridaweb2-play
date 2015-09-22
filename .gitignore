@@ -1,3 +1,6 @@
+# Ignore backup
+conf/evolutions/default/backup.sql
+
 # Ignore Eclipse
 .classpath
 .project

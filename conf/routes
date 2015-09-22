@@ -52,7 +52,7 @@ POST          /event/meldpaa                    article.Event.updateUser()
 POST          /event/meldav                     article.Event.removeUser()
 
 # Backup memory database
-GET           /backup                           backup.BackupDatabase.index()
+GET           /api/backup                       backup.BackupDatabase.index()
 
 
 # Search
