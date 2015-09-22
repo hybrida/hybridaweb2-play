@@ -35,7 +35,7 @@ public class Application extends Controller {
 			} else if (renderable.eventId != null) {
 				models.Event inevent = models.Event.find.byId(renderable.eventId);
 				models.Article inarticle = models.Article.find.byId(inevent.getArticleId());
-				curcatenation = application.views.html.articleRenderFrontPageSample.render(inarticle);
+				curcatenation = application.views.html.eventRenderFrontPageSample.render(inarticle, inevent);
 			}
 
 			if (++count < 2) {
