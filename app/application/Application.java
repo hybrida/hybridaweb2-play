@@ -33,7 +33,8 @@ public class Application extends Controller {
 					inarticle.setImagePath("/assets/images/logo_big.png");
 				curcatenation = application.views.html.articleRenderFrontPageSample.render(inarticle);
 			} else if (renderable.eventId != null) {
-				models.Article inarticle = models.Article.find.byId(renderable.articleId);
+				models.Event inevent = models.Event.find.byId(renderable.eventId);
+				models.Article inarticle = models.Article.find.byId(inevent.getArticleId());
 				curcatenation = application.views.html.articleRenderFrontPageSample.render(inarticle);
 			}
 
