@@ -12,6 +12,8 @@ GET           /admin/users                      admin.Admin.allUsers()
 POST          /admin/newuser                    admin.Admin.newUser()
 GET           /griffensorden/riddere            riddere.Riddere.index()
 GET           /griffensorden                    orderofthegriff.griffensOrden.index()
+
+GET           /griffensorden                    riddere.Riddere.index()
 GET           /hybrida                          abouthybrida.AboutHybrida.index()
 GET           /nystudent                        newstudent.NewStudent.index()
 GET           /styret                           hybridaleaders.HybridaLeaders.index()

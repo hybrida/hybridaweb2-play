@@ -1,7 +1,17 @@
 @(username: String)
 
-<form method="post">
-	<input type="text" value="@username">
-	<input type="checkbox">
-	<input type="submit">
-</form>
+<div style="display: table-cell;">
+	<form method="post">
+		<div style="display: table;">
+			<div style="display: table-cell;">
+				<input type="text" value="@username">
+			</div>
+			<div style="display: table-cell;">
+				<input type="checkbox">
+			</div>
+			<div style="display: table-cell;">
+				<input type="submit">
+			</div>
+		</div>
+	</form>
+</div>
