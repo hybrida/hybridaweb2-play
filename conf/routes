@@ -88,6 +88,7 @@ DELETE        /api/quiz/season/:id              quiz.QuizController.deleteSeason
 GET           /chat                             chat.Chat.connectClient()
 GET           /chatserver                       chat.Chat.socket()
 
+GET           /arrkom                           arrkom.ArrKom.index()
 GET           /helloworld                       helloworld.HelloWorld.index()
 GET           /andreas                          andreas.Andreas.index()
 GET           /helloworld                       helloworld.HelloWorld.index()
