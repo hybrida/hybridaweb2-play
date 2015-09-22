@@ -139,6 +139,17 @@
 						</div>
 					}
 					<br>
+				<div class="row">
+					<div class="col-md-12">
+					<div class="progress">
+						<div class="progress-bar"style="width: @((models.UserEventJoined.getNumberOfSignedUp(event.getEventId))*100/event.getMaxParticipants)%">
+						</div>
+						<span>
+							@(models.UserEventJoined.getNumberOfSignedUp(event.getEventId)) / @event.getMaxParticipants
+						</span>
+					</div>
+					</div>
+				</div>
 					@if(models.LoginState.isValidlyLoggedIn){
 				 <div class="row">
 					 <div class="col-md-12">
