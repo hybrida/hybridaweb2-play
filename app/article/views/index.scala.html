@@ -42,36 +42,36 @@
 							<br>
 							<div class="form-group">
 								<label for="nDS">Starttid:</label>
-								<input class="form-control" id="nDS" type="datetime-local" name="eventHappens">
+								<input class="form-control" id="nDS" type="datetime-local" name="eventHappens" required>
 							</div>
 							<div class="form-group">
 								<label for="tF">Sluttid:</label>
-								<input class="form-control" id="tF" type="datetime-local" name="timeFrame" placeholder="Varighet">
+								<input class="form-control" id="tF" type="datetime-local" name="timeFrame" placeholder="Varighet" required>
 							</div>
 							<div class="form-group">
 								<label for="loc">Sted:</label>
-								<input type="text" id="loc" class="form-control" name="location" placeholder="Skriv location her">
+								<input type="text" id="loc" class="form-control" name="location" placeholder="Skriv sted her" required>
 							</div>
 							<div class="form-group">
 								<label for="oD">Påmeldingsfrist:</label>
-								<input class="form-control" id="oD" type="datetime-local" name="signUpDeadline">
+								<input class="form-control" id="oD" type="datetime-local" name="signUpDeadline" required>
 							</div>
 							<label for="FSU">Klasser tillat ved første påmelding</label>
 							<div id="FSU" class="form-group">
 								<label class="checkbox-inline">
-									<input type="checkbox" id="first_signup" name="firstYearAllowed">1
+									<input type="checkbox" id="first_signup" name="firstYearAllowed" checked>1
 								</label>
 								<label class="checkbox-inline">
-									<input type="checkbox" id="first_signup" name="secoundYearAllowed">2
+									<input type="checkbox" id="first_signup" name="secoundYearAllowed" checked>2
 								</label>
 								<label class="checkbox-inline">
-									<input type="checkbox" id="first_signup" name="thirdYearAllowed">3
+									<input type="checkbox" id="first_signup" name="thirdYearAllowed" checked>3
 								</label>
 								<label class="checkbox-inline">
-									<input type="checkbox" id="first_signup" name="fourthYearAllowed">4
+									<input type="checkbox" id="first_signup" name="fourthYearAllowed" checked>4
 								</label>
 								<label class="checkbox-inline">
-									<input type="checkbox" id="first_signup" name="fifthYearAllowed">5
+									<input type="checkbox" id="first_signup" name="fifthYearAllowed" checked>5
 								</label>
 							</div>
 
@@ -83,19 +83,19 @@
 							<label for="SSU">Klasser tillat ved andre påmelding</label>
 							<div id="SSU" class="form-group">
 								<label class="checkbox-inline">
-									<input type="checkbox" id="secound_signup" name="firstYearAllowedAfterSecondSignup">1
+									<input type="checkbox" id="secound_signup" name="firstYearAllowedAfterSecondSignup" checked>1
 								</label>
 								<label class="checkbox-inline">
-									<input type="checkbox" id="secound_signup" name="secoundYearAllowedAfterSecondSignup">2
+									<input type="checkbox" id="secound_signup" name="secoundYearAllowedAfterSecondSignup" checked>2
 								</label>
 								<label class="checkbox-inline">
-									<input type="checkbox" id="secound_signup" name="thirdYearAllowedAfterSecondSignup">3
+									<input type="checkbox" id="secound_signup" name="thirdYearAllowedAfterSecondSignup" checked>3
 								</label>
 								<label class="checkbox-inline">
-									<input type="checkbox" id="secound_signup" name="fourthYearAllowedAfterSecondSignup">4
+									<input type="checkbox" id="secound_signup" name="fourthYearAllowedAfterSecondSignup" checked>4
 								</label>
 								<label class="checkbox-inline">
-									<input type="checkbox" id="secound_signup" name="fifthYearAllowedAfterSecondSignup">5
+									<input type="checkbox" id="secound_signup" name="fifthYearAllowedAfterSecondSignup" checked>5
 								</label>
 							</div>
 
@@ -103,7 +103,7 @@
 								<label for="sA">Tillatt kjønn:</label>
 								<div id="sA">
 									<label class="radio-inline">
-										<input type="radio" name="sexAllowed" id="sA1" value="A"> Alle
+										<input type="radio" name="sexAllowed" id="sA1" value="A" checked> Alle
 									</label>
 									<label class="radio-inline">
 										<input type="radio" name="sexAllowed" id="sA2" value="M"> Menn
@@ -115,11 +115,11 @@
 							</div>
 							<div class="form-group">
 								<label for="mO">Maksimalt antall deltagere:</label>
-								<input class="form-control" id="mO" type="number" name="maxParticipants">
+								<input class="form-control" id="mO" type="number" name="maxParticipants" value="60" required>
 							</div>
 							<div class="form-group">
 								<label for="mV">Maksimalt antall deltagere på venteliste:</label>
-								<input class="form-control" id="mV" type="number" name="maxParticipantsWaiting">
+								<input class="form-control" id="mV" type="number" name="maxParticipantsWaiting" value="30" required>
 							</div>
 						</div>
 						<div class="form-group">
