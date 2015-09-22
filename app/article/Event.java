@@ -45,8 +45,7 @@ public class Event extends Controller {
 		if (models.Event.find.byId(Long.valueOf(eventId)) != null) {
 			models.Event inevent = models.Event.find.byId(Long.valueOf(eventId));
 			models.Article inarticle = models.Article.find.byId(Long.valueOf(inevent.getArticleId()));
-			java.util.List<User> signedups = models.UserEventJoined.getSignedUpUsersByClass(1, inevent.getEventId());
-			System.out.println(signedups);
+			java.util.List<User> signedups = models.UserEventJoined.getAllSignedUpUsers(inevent.getEventId());
 			return ok(layout.render("Arrangement", article.views.html.viewEvent.render(inarticle, inevent)));
 		}
 		else
