@@ -33,28 +33,28 @@
 						<input class="pad_1percent_top center_block form-control" style="display : block ; background-color : #c3c3c3 ; " type="file" name="picture">
 
 						<div class="form-group" data-toggle="buttons">
-							<label class="checkbox btn btn-primary form-control" onclick="$ ( '.showhide' ).toggle ( ) ;">
+							<label class="checkbox btn btn-primary form-control" onclick="$ ('.showhide').toggle ();">
 								<input class="checkbox-center" id="arr" type="checkbox" name="event" value="Event">
 								Arrangement?
 							</label>
 						</div>
-						<div class="showhide" id="showhide" name="showhide" style="display : none">
+						<div class="showhide" id="showhide" name="showhide" style="display: none;">
 							<br>
 							<div class="form-group">
 								<label for="nDS">Starttid:</label>
-								<input class="form-control" id="nDS" type="datetime-local" name="eventHappens" required>
+								<input class="form-control" id="nDS" type="datetime-local" name="eventHappens">
 							</div>
 							<div class="form-group">
 								<label for="tF">Sluttid:</label>
-								<input class="form-control" id="tF" type="datetime-local" name="timeFrame" placeholder="Varighet" required>
+								<input class="form-control" id="tF" type="datetime-local" name="timeFrame" placeholder="Varighet">
 							</div>
 							<div class="form-group">
 								<label for="loc">Sted:</label>
-								<input type="text" id="loc" class="form-control" name="location" placeholder="Skriv sted her" required>
+								<input type="text" id="loc" class="form-control" name="location" placeholder="Skriv sted her">
 							</div>
 							<div class="form-group">
 								<label for="oD">Påmeldingsfrist:</label>
-								<input class="form-control" id="oD" type="datetime-local" name="signUpDeadline" required>
+								<input class="form-control" id="oD" type="datetime-local" name="signUpDeadline">
 							</div>
 							<label for="FSU">Klasser tillat ved første påmelding</label>
 							<div id="FSU" class="form-group">
@@ -115,11 +115,11 @@
 							</div>
 							<div class="form-group">
 								<label for="mO">Maksimalt antall deltagere:</label>
-								<input class="form-control" id="mO" type="number" name="maxParticipants" value="60" required>
+								<input class="form-control" id="mO" type="number" name="maxParticipants" value="60">
 							</div>
 							<div class="form-group">
 								<label for="mV">Maksimalt antall deltagere på venteliste:</label>
-								<input class="form-control" id="mV" type="number" name="maxParticipantsWaiting" value="30" required>
+								<input class="form-control" id="mV" type="number" name="maxParticipantsWaiting" value="30">
 							</div>
 						</div>
 						<div class="form-group">
