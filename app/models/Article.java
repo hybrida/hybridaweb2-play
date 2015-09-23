@@ -35,6 +35,7 @@ public class Article extends Model {
 		this.text = text;
 		this.ingress = ingress;
 		this.author = author;
+		this.imagePath = "/assets/images/logo_big.png";
 	}
 
 	public List<Comment> getCommentList() {
@@ -50,6 +51,8 @@ public class Article extends Model {
 	public Date getDateMade() { return new Date(dateMade.getTime()); }
 
 	public String getImagePath() { return imagePath; }
+
+	public void setDefaultImage() { imagePath = "/assets/images/logo_big.png"; }
 
 	public Long getId() { return articleId;}
 

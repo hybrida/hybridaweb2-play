@@ -58,6 +58,8 @@ public class ArticleIn extends Controller {
 			models.Article articleModel = articleInput.get();
 			if (image_link != null)
 				articleModel.setImagePath(image_link);
+			else
+				articleModel.setDefaultImage();
 			articleModel.setAuthor(user);
 			articleModel.save();
 
@@ -75,6 +77,8 @@ public class ArticleIn extends Controller {
 			models.Article articleModel = articleInput.get();
 			if (image_link != null)
 				articleModel.setImagePath(image_link);
+			else
+				articleModel.setDefaultImage();
 			articleModel.setAuthor(user);
 			articleModel.setId(Long.valueOf(id));
 			articleModel.update();
