@@ -25,8 +25,7 @@ public class Article extends Model {
 	private User        author;
 	@CreatedTimestamp
 	private Timestamp   dateMade;
-	@Column(columnDefinition="varchar(255) default '/assets/images/logo_big.png'")
-	private String      imagePath;
+	private String      imagePath = "/assets/images/logo_big.png";
 	@OneToMany
 	@OrderBy("Comment.getCreationDate DESC")
 	private List<Comment> commentList;
@@ -36,7 +35,6 @@ public class Article extends Model {
 		this.text = text;
 		this.ingress = ingress;
 		this.author = author;
-		this.imagePath = imagePath;
 	}
 
 	public List<Comment> getCommentList() {

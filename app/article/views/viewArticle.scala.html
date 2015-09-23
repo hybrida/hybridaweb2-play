@@ -1,80 +1,83 @@
 @(inarticle: models.Article)
 @( /*This is for rendering a single article.*/ )
 <div class="article-bg">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-9 white-boxer">
-                <div style="border-bottom : 2 px solid #9e9d98 \">
-                @if(inarticle.getImagePath != null) {
-                    <img src="@inarticle.getImagePath" alt="No image available" class="center-block img-responsive art-img"><br>}
-                    <h1><p class="text-center">@inarticle.getTitle</p></h1>
-                </div>
-                <br>
-                <h3><p class="text-center">@inarticle.getIngress</p></h3>
-                <p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">Av: @inarticle.getAuthor.getName
-
-                    @if(models.LoginState.getUser.getId == inarticle.getAuthor.getId) {
-                        <a href="@article.routes.Article.editArticle(String.valueOf(inarticle.getId))">
-                            <button class="btn-xs btn-primary"> Rediger </button> </a>
-                    } </p>
-                <p class="text-center">@Html(inarticle.getText)</p>
-                <br>
-            </div>
-            </div>
-        @if(models.LoginState.isValidlyLoggedIn){
-        <div class="row" style="margin-bottom: 1%">
-            <div class="col-md-9 transparent-box" style="margin-top: 1%">
-                <p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">Kommentarer</p>
-                    @for(i <- inarticle.getCommentList()){
-                        <div class="row">
-                            <div class="col-md-1">
-                                <a href="@profile.routes.Profile.index(i.getAuthor.getUsername)" class="thumbnail">
-                                <img src="@if(i.getAuthor.getProfileImageFileName != null){ /assets/upload/@i.getAuthor.getUsername/@i.getAuthor.getProfileImageFileName} @if(i.getAuthor.getProfileImageFileName == null){/assets/images/logo_big.png}" alt="profilepic for @i.getAuthor.getName">
-                                    </a>
-                            </div>
-                            <div class="col-md-11">
-                                <div class="row">
-                                    <div class="col-md-10">
-                                <strong>@(i.getAuthor().getName() + ":")</strong>
-                                        </div>
-                                    <div class="col-md-2">
-                                        @if(i.getAuthor() == models.LoginState.getUser() || i.getAuthor().admin){
-                                                <!-- Extra small button group -->
-                                            <div class="btn-group">
-                                                <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                                                    <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <form method="POST" action="@article.routes.Article.deleteComment(i.getCommentID.toString)">
-                                                        <button type="submit" class="form-control"> Slett </button>
-                                                    </form>
-                                                </ul>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                @(i.getComment())
-                                </div></div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                   <small> @i.getTimestamp() </small>
-                                </div></div>
-                                </div>
-                            </div>
-                    }
-                <div style="margin-top:1em">
-                    <form action="@article.routes.Article.comment(inarticle.getId.toString())" method="POST">
-                        <label for="comment" class="sr-only">Comment:</label>
-                        <div class="input-group">
-                        <input type="text" class="form-control" id="comment" name="comment" autocomplete="off" maxlength="250">
-                            <span class="input-group-btn">
-                        <button type="submit" class="btn btn-primary">Kommenter</button>
-                            </span>
-                            </div>
-                    </form></div>
-            </div>
-        </div>}
-    </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9 white-boxer">
+				<div style="border-bottom : 2 px solid #9e9d98 \">
+					@if(inarticle.getImagePath != null) {
+						<img src="@inarticle.getImagePath" alt="No image available" class="center-block img-responsive art-img"><br>}
+						<h1><p class="text-center">@inarticle.getTitle</p></h1>
+				</div>
+				<br>
+				<h3><p class="text-center">@inarticle.getIngress</p></h3>
+				<p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">Av: @inarticle.getAuthor.getName
+						@if(models.LoginState.getUser.getId == inarticle.getAuthor.getId) {
+							<a href="@article.routes.Article.editArticle(String.valueOf(inarticle.getId))">
+								<button class="btn-xs btn-primary"> Rediger </button> </a>
+						}
+					</p>
+					<p class="text-center">@Html(inarticle.getText)</p>
+				<br>
+			</div>
+		</div>
+		@if(models.LoginState.isValidlyLoggedIn){
+			<div class="row" style="margin-bottom: 1%">
+				<div class="col-md-9 transparent-box" style="margin-top: 1%">
+					<p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">Kommentarer</p>
+						@for(i <- inarticle.getCommentList()){
+							<div class="row">
+								<div class="col-md-1">
+									<a href="@profile.routes.Profile.index(i.getAuthor.getUsername)" class="thumbnail">
+									<img src="@if(i.getAuthor.getProfileImageFileName != null){ /assets/upload/@i.getAuthor.getUsername/@i.getAuthor.getProfileImageFileName} @if(i.getAuthor.getProfileImageFileName == null){/assets/images/logo_big.png}" alt="profilepic for @i.getAuthor.getName">
+									</a>
+								</div>
+								<div class="col-md-11">
+									<div class="row">
+										<div class="col-md-10">
+											<strong>@(i.getAuthor().getName() + ":")</strong>
+										</div>
+										<div class="col-md-2">
+											@if(i.getAuthor() == models.LoginState.getUser() || i.getAuthor().admin){
+												<div class="btn-group">
+													<button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+														<span class="caret"></span>
+													</button>
+													<ul class="dropdown-menu" role="menu">
+														<form method="POST" action="@article.routes.Article.deleteComment(i.getCommentID.toString)">
+															<button type="submit" class="form-control"> Slett </button>
+														</form>
+													</ul>
+											</div>
+										}
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											@(i.getComment())
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<small> @i.getTimestamp() </small>
+										</div>
+									</div>
+								</div>
+							</div>
+						}
+						<div style="margin-top:1em">
+							<form action="@article.routes.Article.comment(inarticle.getId.toString())" method="POST">
+								<label for="comment" class="sr-only">Comment:</label>
+								<div class="input-group">
+									<input type="text" class="form-control" id="comment" name="comment" autocomplete="off" maxlength="250">
+									<span class="input-group-btn">
+										<button type="submit" class="btn btn-primary">Kommenter</button>
+									</span>
+								</div>
+							</form>
+						</div>
+				</div>
+			</div>
+		}
+	</div>
 </div>
