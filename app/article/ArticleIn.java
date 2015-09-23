@@ -248,6 +248,9 @@ public static Result saveEdit(String id) {
 		article.setTitle(httpdata.get("title"));
 		article.setIngress(httpdata.get("ingress"));
 		article.setText(httpdata.get("text"));
+		String new_image = LoginState.getUser().uploadPicture();
+		if (new_image != null)
+			article.setImagePath(new_image);
 		article.save();
 		return application.Application.index();
 	}
