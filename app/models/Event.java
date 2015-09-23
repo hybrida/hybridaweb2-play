@@ -3,8 +3,9 @@ package models;
 import play.db.ebean.Model;
 import play.twirl.api.Html;
 
-import javax.persistence.*;
 import java.util.Calendar;
+import java.util.List;
+import javax.persistence.*;
 
 /**
  * Created by eliasbragstadhagen on 28.01.15.
@@ -18,7 +19,10 @@ public class Event extends Model {
 	private long eventId;
 
 	@OneToOne // This is a foreign key. It points to an "Article".
-	private long articleId;
+	private Article articleRef;
+
+	@ManyToMany
+	private List<User> joinedUsers;
 
 	private String location;
 
@@ -40,22 +44,29 @@ public class Event extends Model {
 	private Calendar eventHappens;
 	private Calendar eventStops;
 
+	public boolean checkAndAddJoiner(User user) {
+		joinedUsers.add(user);
+		return true;
+	}
 
+	public List<User> getJoinedUsers() {
+		return joinedUsers;
+	}
 
 	public long getEventId() {
 		return eventId;
-	}
-
-	public long getArticleId() {
-		return articleId;
 	}
 
 	public void setEventId(long eventId) {
 		this.eventId = eventId;
 	}
 
-	public void setArticleId(long articleId) {
-		this.articleId = articleId;
+	public void setArticle(Article articleRef) {
+		this.articleRef = articleRef;
+	}
+
+	public Article getArticle() {
+		return this.articleRef;
 	}
 
 	public Calendar getEventStops() {
