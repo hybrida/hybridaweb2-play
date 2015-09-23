@@ -1,16 +1,16 @@
 package article;
 
-import models.*;
-import models.Event;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.layout;
-import views.html.utils.centerBlock;
+import static play.data.Form.form;
 
 import java.text.ParseException;
 
-import static play.data.Form.form;
+import article.views.html.*;
+import views.html.layout;
+import views.html.utils.centerBlock;
+import models.*;
 
 
 public class ArticleIn extends Controller {
@@ -19,7 +19,7 @@ public class ArticleIn extends Controller {
 	final static Form<models.Article> articleForm = form(models.Article.class);
 
 	public static Result index() {
-		return ok(layout.render("Hybrida: Opprett Artikkel", article.views.html.index.render()));
+		return ok(layout.render("Hybrida: Opprett Artikkel", index.render()));
 	}
 
 	public static Result save() {
@@ -27,19 +27,18 @@ public class ArticleIn extends Controller {
 			User user = LoginState.getUser();
 			if (user == null || !user.canCreateNewArticle())
 				return application.Application.showUnauthorizedAccess();
-
-			long id = saveArticle();
+			models.Article art = saveArticle();
 			if (!(new HttpRequestData().get("event") == null)) {
-				ResultAndEId res = saveEvent(id, null);
+				ResultAndEId res = saveEvent(art, null);
 				if (res.result != null)
 					return res.result;
 				Renders.addEvent(res.event);
 			}
 			else {
 				// Husk å legge til artikkelen i renders! Da vises den nemlig på fremsiden ^_^
-				Renders.addArticle(models.Article.find.byId(id));
+				Renders.addArticle(art);
 			}
-			return redirect(article.routes.Article.viewArticle("" + id));
+			return redirect(article.routes.Article.viewArticle("" + art.getId()));
 		}
 		catch (IllegalStateException e) {
 			return application.Application.show400("ugyldig data oppgitt: " + e);
@@ -50,17 +49,19 @@ public class ArticleIn extends Controller {
 		}
 	}
 
-	public static long saveArticle() throws IllegalStateException {
+	public static models.Article saveArticle() throws IllegalStateException {
 		User user = LoginState.getUser();
 		Form<models.Article> articleInput = articleForm.bindFromRequest();
 		System.out.println(new HttpRequestData());
+		String image_link = user.uploadPicture();
 		if (!articleInput.hasErrors()) {
 			models.Article articleModel = articleInput.get();
-			articleModel.setImagePath(user.uploadPicture());
-			articleModel.setAuthor(user.getId());
+			if (image_link != null)
+				articleModel.setImagePath(image_link);
+			articleModel.setAuthor(user);
 			articleModel.save();
 
-			return articleModel.getId();
+			return articleModel;
 		}
 		throw new IllegalStateException();
 	}
@@ -69,10 +70,12 @@ public class ArticleIn extends Controller {
 		User user = LoginState.getUser();
 
 		Form<models.Article> articleInput = articleForm.bindFromRequest();
+		String image_link = user.uploadPicture();
 		if (!articleInput.hasErrors()) {
 			models.Article articleModel = articleInput.get();
-			articleModel.setImagePath(user.uploadPicture());
-			articleModel.setAuthor(user.getId());
+			if (image_link != null)
+				articleModel.setImagePath(image_link);
+			articleModel.setAuthor(user);
 			articleModel.setId(Long.valueOf(id));
 			articleModel.update();
 
@@ -84,9 +87,9 @@ public class ArticleIn extends Controller {
 	public static long saveSpecificEvent(String id) throws IllegalStateException {
 		User user = LoginState.getUser();
 
-		Event event = Event.find.byId(Long.valueOf(id));
-		saveSpecificArticle(String.valueOf(event.getArticleId()));
-		saveEvent(event.getArticleId(), Long.valueOf(id));
+		models.Event event = models.Event.find.byId(Long.valueOf(id));
+		saveSpecificArticle("" + event.getArticle().getId());
+		saveEvent(event.getArticle(), Long.valueOf(id));
 		throw new IllegalStateException();
 	}
 
@@ -96,10 +99,10 @@ public class ArticleIn extends Controller {
 			result = res;
 		}
 		Result result = null;
-		Event event = null;
+		models.Event event = null;
 	}
 
-	public static ResultAndEId saveEvent(long articleID, Long eventId /* Can be null: new id is generated.*/) {
+	public static ResultAndEId saveEvent(models.Article articleRef, Long eventId /* Can be null: new id is generated.*/) {
 		ResultAndEId reid = new ResultAndEId();
 		HttpRequestData httpData = new HttpRequestData();
 		System.out.println(httpData);
@@ -219,7 +222,7 @@ public class ArticleIn extends Controller {
 		*/
 
 		eventModel.setLocation(httpData.get("location"));
-		eventModel.setArticleId(articleID);
+		eventModel.setArticle(articleRef);
 
 		if (eventId == null)
 			eventModel.save();

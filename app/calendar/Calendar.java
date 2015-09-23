@@ -134,7 +134,7 @@ public class Calendar extends Controller {
 				}
 
 				// Set title
-				Article article = Article.find.byId(event.getArticleId());
+				Article article = event.getArticle();
 				String title;
 				if (article == null || article.getTitle() == null || article.getTitle().isEmpty()) {
 					title = EVENT_DEFAULT_TITLE;

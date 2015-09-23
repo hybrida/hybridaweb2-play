@@ -22,15 +22,16 @@ public class Article extends Model {
 	@Column(columnDefinition = "text")
 	private String      text;
 	@OneToOne
-	private Long        author;
+	private User        author;
 	@CreatedTimestamp
 	private Timestamp   dateMade;
+	@Column(columnDefinition="varchar(255) default '/assets/images/logo_big.png'")
 	private String      imagePath;
 	@OneToMany
 	@OrderBy("Comment.getCreationDate DESC")
 	private List<Comment> commentList;
 
-	public Article(String title, String text, String ingress, Long author, String imagePath) {
+	public Article(String title, String text, String ingress, User author, String imagePath) {
 		this.title = title;
 		this.text = text;
 		this.ingress = ingress;
@@ -50,11 +51,11 @@ public class Article extends Model {
 
 	public Date getDateMade() { return new Date(dateMade.getTime()); }
 
-	public String getImagePath() { return imagePath;}
+	public String getImagePath() { return imagePath; }
 
 	public Long getId() { return articleId;}
 
-	public Long getAuthor() {    return author; }
+	public User getAuthor() { return author; }
 
 	public void setTitle(String title) {
 		this.title = title;
@@ -76,7 +77,7 @@ public class Article extends Model {
 		this.imagePath = imagePath;
 	}
 
-	public void setAuthor(Long author) {
+	public void setAuthor(User author) {
 		this.author = author;
 	}
 

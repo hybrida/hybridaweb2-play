@@ -23,10 +23,10 @@
 			</div>
 			<div style="width: 50%; margin:0; float: right;">
 				<div class="progress">
-					<div class="progress-bar" style="width: @((models.UserEventJoined.getNumberOfSignedUp(inevent.getEventId))*100/inevent.getMaxParticipants)%">
+					<div class="progress-bar" style="width: @(((inevent.getJoinedUsers.size))*100/inevent.getMaxParticipants)%">
 					</div>
 					<span>
-						@(models.UserEventJoined.getNumberOfSignedUp(inevent.getEventId)) / @inevent.getMaxParticipants
+						@(inevent.getJoinedUsers.size) / @inevent.getMaxParticipants
 					</span>
 				</div>
 			</div>
