@@ -153,13 +153,12 @@
 					@if(models.LoginState.isValidlyLoggedIn){
 				 <div class="row">
 					 <div class="col-md-12">
-						 @if(true){
+						 @if(!event.getJoinedUsers.contains(models.LoginState.getUser)){
 							<form method="post" action="@article.routes.Event.updateUser()">
 								<input type="hidden" name="eventId" value="@event.getEventId">
 							 <button type="submit" class="btn btn-primary btn-sm btn-block"> Meld meg på</button>
 							</form>
-						 }
-						 @if(false){
+						 }else{
 							 <form method="post" action="@article.routes.Event.removeUser()">
 								<input type="hidden" name="eventId" value="@event.getEventId">
 								<button type="submit" class="btn btn-primary btn-sm btn-block"> Meld meg av</button>

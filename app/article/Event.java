@@ -21,6 +21,7 @@ public class Event extends Controller {
 
 		models.Event evt = models.Event.find.byId(event_id);
 		evt.checkAndAddJoiner(user);
+		evt.save();
 
 		return redirect(routes.Event.viewEvent(event_id.toString()).absoluteURL(request()));
 	}
@@ -36,6 +37,8 @@ public class Event extends Controller {
 		}
 
 		models.Event event = models.Event.find.byId(event_id);
+		event.getJoinedUsers().remove(event.getJoinedUsers().indexOf(user));
+		event.save();
 
 		return redirect(routes.Event.viewEvent(event_id.toString()).absoluteURL(request()));
 	}
