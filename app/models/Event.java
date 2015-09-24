@@ -45,8 +45,18 @@ public class Event extends Model {
 	private Calendar eventStops;
 
 	public boolean checkAndAddJoiner(User user) {
-		joinedUsers.add(user);
-		return true;
+		boolean allowed = false;
+		switch (user.calculateClass()) {
+			case 1: allowed = firstYearAllowed; break;
+			case 2: allowed = secondYearAllowed; break;
+			case 3: allowed = thirdYearAllowed; break;
+			case 4: allowed = fourthYearAllowed; break;
+			case 5: allowed = fifthYearAllowed; break;
+			default: break;
+		}
+		if (allowed)
+			joinedUsers.add(user);
+		return allowed;
 	}
 
 	public List<User> getJoinedUsers() {
