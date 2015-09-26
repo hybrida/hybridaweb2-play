@@ -194,7 +194,11 @@ public class User extends Model {
 
 	public int calculateClass() {
 		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-		return 5 - (graduationYear - currentYear);
+		int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+		int classYear = 5 - (graduationYear - currentYear);
+		if (currentMonth == 8) // July, MONTH is [0, 11]
+			classYear += 1;
+		return classYear;
 	}
 
 	// TODO: Check image size to be within a set range.
