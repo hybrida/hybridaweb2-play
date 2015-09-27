@@ -196,7 +196,7 @@ public class User extends Model {
 		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 		int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
 		int classYear = 5 - (graduationYear - currentYear);
-		if (currentMonth == 8) // July, MONTH is [0, 11]
+		if (currentMonth >= 8) // July, MONTH is [0, 11]
 			classYear += 1;
 		return classYear;
 	}
