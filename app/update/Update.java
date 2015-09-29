@@ -22,7 +22,7 @@ import static play.mvc.Results.ok;
 public class Update {
 
     public static Result index() {
-        return ok(layout.render("Update!", update.views.html.index.render("update.png")));
+        return ok(layout.render("Update!", update.views.html.index.render(/*"update.png"*/)));
     }
 
     public static Result post() throws FileNotFoundException {
@@ -42,7 +42,7 @@ public class Update {
                 System.out.println("Problem operating on filesystem");
             }
 
-            return ok(layout.render("img", update.views.html.index.render(thumbName)));
+            return ok(layout.render("img", update.views.html.index.render(/*thumbName*/)));
         }else if (picture != null) {
             flash("error", "Invalid file");
             return ok("Invalid file, accepted format: pdf");
