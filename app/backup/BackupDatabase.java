@@ -31,8 +31,8 @@ public class BackupDatabase {
 
     private static Boolean backup() {
         javax.sql.DataSource ds = DB.getDataSource();
-        String ups = "# --- !Ups" + System.lineSeparator();
-        String downs = "# --- !Downs" + System.lineSeparator();
+        String ups = "";
+        String downs = "";
         try {
             java.sql.Connection connection = ds.getConnection("hybrid", "");
             java.sql.Statement statement = connection.createStatement();
@@ -57,7 +57,8 @@ public class BackupDatabase {
                 for (String line : lines) {
                     String upper_line = line.toUpperCase();
                     if (upper_line.startsWith("INSERT") && !upper_line.startsWith("INSERT INTO SYSTEM_LOB_STREAM") && !upper_line.startsWith("INSERT INTO PUBLIC.PLAY_EVOLUTIONS")) {
-                        ups += line;
+                        if (upper_line.startsWith("INSERT INTO PUBLIC.USER")) ups = line + ups;
+                        else ups += line;
                         String table_name = upper_line.substring(12, upper_line.indexOf("(", 12));
                         if (!table_names.contains(table_name)) {
                             table_names.add(table_name);
@@ -69,6 +70,8 @@ public class BackupDatabase {
             }
             result.close();
             BufferedWriter writer = new BufferedWriter(new FileWriter("./conf/evolutions/default/backup.sql")); //When it's going to be used, call it 2.sql or something
+            ups = "# --- !Ups" + System.lineSeparator() + ups;
+            downs = "# --- !Downs" + System.lineSeparator() + "SET FOREIGN_KEY_CHECKS = 0;" + System.lineSeparator() + downs + "SET FOREIGN_KEY_CHECKS = 1;";
             writer.write(ups + System.lineSeparator() + downs);
             writer.flush();
             writer.close();

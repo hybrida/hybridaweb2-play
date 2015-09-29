@@ -32,7 +32,7 @@
 						@for(i <- 1 to 5) {
 							<div class="row">
 								<div class="col-md-1">
-									@event.getJoinedUsers.size
+									@event.getJoinedSpecificClass(i).size
 								</div>
 								<div class="col-md-11">
 									<p onclick="$ ( '.showhide@i' ).toggle ( ) ;" style="cursor: pointer;"> Klasse @i.toString </p>
