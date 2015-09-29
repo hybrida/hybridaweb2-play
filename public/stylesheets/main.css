@@ -82,6 +82,13 @@ a :hover {
     position: absolute; width:100%; text-align:center;
 }
 
+.fixed-bottom-right {
+    position: fixed;
+    z-index: 9999;
+    bottom: 16px;
+    right: 16px;
+}
+
 .transparent-box {
     background-color: rgba(245,245,245,0.9);
     border-radius: 4px;
