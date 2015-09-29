@@ -10,6 +10,7 @@ POST          /admin/login                      admin.Admin.login()
 POST          /admin/logout                     admin.Admin.logout()
 GET           /admin/users                      admin.Admin.allUsers()
 POST          /admin/newuser                    admin.Admin.newUser()
+GET           /griffensorden/nominasjon         nomination.Nomination.index()
 GET           /griffensorden/riddere            riddere.Riddere.index()
 GET           /griffensorden                    orderofthegriff.griffensOrden.index()
 
@@ -19,7 +20,7 @@ GET           /nystudent                        newstudent.NewStudent.index()
 GET           /styret                           hybridaleaders.HybridaLeaders.index()
 
 # Calendar
-GET           /kalender                         calendar.Calendar.index()
+GET           /kalender                         calendar.Calendar.display(gcal: Boolean ?= false)
 GET           /api/kalender/hent                calendar.Calendar.fetch(start: String, end: String)
 POST          /api/kalender/endre               calendar.Calendar.change()
 
@@ -56,7 +57,6 @@ POST          /event/meldav                     article.Event.removeUser()
 
 # Backup memory database
 GET           /api/backup                       backup.BackupDatabase.index()
-
 
 # Search
 GET           /search                           controllers.Search.index()

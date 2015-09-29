@@ -65,7 +65,7 @@ public class UserEventJoined extends play.db.ebean.Model {
 			return false;
 		if (getNumberOfSignedUp(eventId) < event.getMaxParticipants()) {
 			int currentYear = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
-			int usersYear =  studyYears - (user.graduationYear - currentYear);
+			int usersYear = 1 + studyYears - (user.graduationYear - currentYear);
 			if (usersYear > studyYears) {
 				return false; // User already graduated.
 			} else if (java.util.Calendar.getInstance().before(event.getSignUpDeadline())) {
@@ -165,18 +165,18 @@ public class UserEventJoined extends play.db.ebean.Model {
 	 * @param eventID
 	 * @return
 	 */
-	public static java.util.List<User> getSignedUpUsersByClass(int classnumber, long eventID){
-		if (classnumber == 0){
+	public static java.util.List<User> getSignedUpUsersByClass(int classnumber, long eventID) {
+		if (classnumber == 0) {
 			//TODO: Implementer en måte å hente alle påmeldte som ikke faller inn i kategorien hybrider fra 1-5 klasse.
 		}
-		if (classnumber < 0 || classnumber > 5){
+		if (classnumber < 0 || classnumber > 5) {
 			System.out.println("Error, not a valid class");
 		}
 		List<User> allUsers = getAllSignedUpUsers(eventID);
 		List<User> classUsers = new ArrayList<User>();
+		int currentYear = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
 		for(User i : allUsers){
-			int currentYear = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
-			int usersYear =  studyYears - (i.graduationYear - currentYear);
+			int usersYear = 1 + studyYears - (i.graduationYear - currentYear);
 			if (usersYear == classnumber){
 				classUsers.add(i);
 			}

@@ -1,0 +1,37 @@
+<link href='assets/stylesheets/fullcalendar.css' rel='stylesheet' />
+<link href='assets/stylesheets/fullcalendar.print.css' rel='stylesheet' media='print' />
+<script src='assets/javascripts/moment.min.js'></script>
+<script src='assets/javascripts/jquery-1.11.2.min.js'></script>
+<script src='assets/javascripts/fullcalendar.js'></script>
+<script src='assets/javascripts/fullcalendar.nb.js'></script>
+<script src='assets/javascripts/fullcalendar.gcal.js'></script>
+<script>
+    $(document).ready(function() {
+        $('#calendar').fullCalendar({
+            lang: "nb",
+            customButtons: {
+                hcal: {
+                    text: 'Hybridas kalender',
+                    click: function() {
+                        window.location.href = '?gcal=false';
+                    }
+                }
+            },
+            header: {
+                left: "prev,next today",
+                center: "title",
+                right: "hcal month,agendaWeek,agendaDay"
+            },
+            googleCalendarApiKey: 'AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE', // Erstatt med nøkkel til hybirda kalenderen
+            events: 'usa__en@@holiday.calendar.google.com', // Erstatt med brukernavn til hybrida kalenderen
+            eventClick: function(event) {
+                // opens events in a popup window
+                window.open(event.url, 'gcalevent', 'width=700,height=600');
+                return false;
+            },
+            loading: function(bool) {
+                $('#loading').toggle(bool);
+            }
+        });
+    });
+</script>

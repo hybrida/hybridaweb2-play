@@ -15,8 +15,8 @@
 					<h3><p class="text-center">@inarticle.getIngress</p></h3>
 					<br>
 					<p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">
-						Av: @User.find.byId(inarticle.getAuthor).getName
-						@if(models.LoginState.getUser().getId == inarticle.getAuthor) {
+						Av: @inarticle.getAuthor.getName
+						@if(models.LoginState.getUser().getId == inarticle.getAuthor.getId) {
 							<a href="@article.routes.Event.editEvent("" + event.getEventId)">
 								<button class="btn-xs btn-primary"> Rediger </button>
 							</a>
@@ -32,13 +32,13 @@
 						@for(i <- 1 to 5) {
 							<div class="row">
 								<div class="col-md-1">
-									@UserEventJoined.getSignedUpUsersByClass(i, event.getEventId).size()
+									@event.getJoinedUsers.size
 								</div>
 								<div class="col-md-11">
 									<p onclick="$ ( '.showhide@i' ).toggle ( ) ;" style="cursor: pointer;"> Klasse @i.toString </p>
 								</div>
 								<div style="display: none" class="showhide@i" id="showhide@i" name="showhide@i">
-									@for(j <- UserEventJoined.getSignedUpUsersByClass(i, event.getEventId)){
+									@for(j <- event.getJoinedUsers){
 										<div class="row" style="margin-left: 1%">
 											<div class="col-md-1">
 												<a href="@profile.routes.Profile.index(j.getUsername)" class="thumbnail">
@@ -139,17 +139,27 @@
 						</div>
 					}
 					<br>
+				<div class="row">
+					<div class="col-md-12">
+					<div class="progress">
+						<div class="progress-bar"style="width: @((event.getJoinedUsers.size)*100/event.getMaxParticipants)%">
+						</div>
+						<span>
+							@(event.getJoinedUsers.size) / @event.getMaxParticipants
+						</span>
+					</div>
+					</div>
+				</div>
 					@if(models.LoginState.isValidlyLoggedIn){
 				 <div class="row">
 					 <div class="col-md-12">
-						 @if(!UserEventJoined.isSignedUp(models.LoginState.getUser().getId(), event.getEventId)){
-							<form method="POST" action="@article.routes.Event.updateUser()">
+						 @if(!event.getJoinedUsers.contains(models.LoginState.getUser)){
+							<form method="post" action="@article.routes.Event.updateUser()">
 								<input type="hidden" name="eventId" value="@event.getEventId">
 							 <button type="submit" class="btn btn-primary btn-sm btn-block"> Meld meg på</button>
 							</form>
-						 }
-						 @if(UserEventJoined.isSignedUp(models.LoginState.getUser().getId(), event.getEventId)){
-							 <form method="POST" action="@article.routes.Event.removeUser()">
+						 }else{
+							 <form method="post" action="@article.routes.Event.removeUser()">
 								<input type="hidden" name="eventId" value="@event.getEventId">
 								<button type="submit" class="btn btn-primary btn-sm btn-block"> Meld meg av</button>
 							 </form>

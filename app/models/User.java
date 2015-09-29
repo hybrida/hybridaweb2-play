@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Calendar;
 
 @Entity
 @Table(
@@ -189,6 +190,15 @@ public class User extends Model {
 
 	public Long getId() {
 		return id;
+	}
+
+	public int calculateClass() {
+		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+		int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+		int classYear = 5 - (graduationYear - currentYear);
+		if (currentMonth >= 8) // July, MONTH is [0, 11]
+			classYear += 1;
+		return classYear;
 	}
 
 	// TODO: Check image size to be within a set range.
