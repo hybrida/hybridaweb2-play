@@ -43,6 +43,7 @@ public class Application extends Controller {
 				concatenation += application.views.html.smallthumbnail.render(curcatenation);
 			}
 		}
+		System.out.println(models.User.hasAccess(LoginState.getUser(),false, models.User.Access.VEVKOM ));
 		return ok(layout.render(
 			"Hybrida",
 			application.views.html.index.render(
