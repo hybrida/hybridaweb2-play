@@ -80,7 +80,7 @@ public class Event extends Controller {
 				articleModel.setImagePath(image_path);
 			articleModel.setAuthor(user);
 			articleModel.update();
-			ArticleIn.saveEvent(event.getArticle(), event.getEventId());
+			ArticleIn.saveEvent(event.getArticle(), event.getId());
 		}
 		return application.Application.index();
 	}

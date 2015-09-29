@@ -123,8 +123,8 @@ public class Calendar extends Controller {
 				} else break; // We can't do anything if this is not set
 
 				// Set id
-				if (event.getEventId() != 0) {
-					reformatted.set("id", new TextNode(""+event.getEventId()));
+				if (event.getId() != 0) {
+					reformatted.set("id", new TextNode(""+event.getId()));
 				} else break; // We can't do anything if this is not set
 
 				// Set end time
@@ -143,7 +143,7 @@ public class Calendar extends Controller {
 				}
 				reformatted.set("title", new TextNode(title));
 				// Set url
-				reformatted.set("url", new TextNode("event/ut/" + event.getEventId())); //TODO: forandre event til arrangement?
+				reformatted.set("url", new TextNode("event/ut/" + event.getId())); //TODO: forandre event til arrangement?
 				// Set color
 				reformatted.set("color", new TextNode(EVENT_COLOR));
 				reformatted_list_json.add(reformatted);
