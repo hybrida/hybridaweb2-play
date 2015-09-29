@@ -3,8 +3,9 @@ package models;
 import play.db.ebean.Model;
 import play.twirl.api.Html;
 
-import javax.persistence.*;
 import java.util.Calendar;
+import java.util.List;
+import javax.persistence.*;
 
 /**
  * Created by eliasbragstadhagen on 28.01.15.
@@ -18,7 +19,10 @@ public class Event extends Model {
 	private long eventId;
 
 	@OneToOne // This is a foreign key. It points to an "Article".
-	private long articleId;
+	private Article articleRef;
+
+	@ManyToMany
+	private List<User> joinedUsers;
 
 	private String location;
 
@@ -40,22 +44,39 @@ public class Event extends Model {
 	private Calendar eventHappens;
 	private Calendar eventStops;
 
-
-
-	public long getEventId() {
-		return eventId;
+	public boolean checkAndAddJoiner(User user) {
+		boolean allowed = false;
+		switch (user.calculateClass()) {
+			case 1: allowed = firstYearAllowed; break;
+			case 2: allowed = secondYearAllowed; break;
+			case 3: allowed = thirdYearAllowed; break;
+			case 4: allowed = fourthYearAllowed; break;
+			case 5: allowed = fifthYearAllowed; break;
+			default: break;
+		}
+		if (allowed)
+			joinedUsers.add(user);
+		return allowed;
 	}
 
-	public long getArticleId() {
-		return articleId;
+	public List<User> getJoinedUsers() {
+		return joinedUsers;
+	}
+
+	public long getId() {
+		return eventId;
 	}
 
 	public void setEventId(long eventId) {
 		this.eventId = eventId;
 	}
 
-	public void setArticleId(long articleId) {
-		this.articleId = articleId;
+	public void setArticle(Article articleRef) {
+		this.articleRef = articleRef;
+	}
+
+	public Article getArticle() {
+		return this.articleRef;
 	}
 
 	public Calendar getEventStops() {

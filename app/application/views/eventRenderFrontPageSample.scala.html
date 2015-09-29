@@ -4,7 +4,7 @@
 	<div style="padding-top: 100%;">
 	</div>
 	<div class="container-with-set-aspect-ratio">
-		<a href="@(article.routes.Event.viewEvent(String.valueOf(inevent.getEventId())))">
+		<a href="@(article.routes.Event.viewEvent(String.valueOf(inevent.getId())))">
 			<div style="position: relative">
 				<div style="padding-top: 61.8%">
 				</div>
@@ -23,10 +23,10 @@
 			</div>
 			<div style="width: 50%; margin:0; float: right;">
 				<div class="progress">
-					<div class="progress-bar" style="width: @((models.UserEventJoined.getNumberOfSignedUp(inevent.getEventId))*100/inevent.getMaxParticipants)%">
+					<div class="progress-bar" style="width: @(((inevent.getJoinedUsers.size))*100/inevent.getMaxParticipants)%">
 					</div>
 					<span>
-						@(models.UserEventJoined.getNumberOfSignedUp(inevent.getEventId)) / @inevent.getMaxParticipants
+						@(inevent.getJoinedUsers.size) / @inevent.getMaxParticipants
 					</span>
 				</div>
 			</div>

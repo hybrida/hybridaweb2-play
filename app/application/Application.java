@@ -4,9 +4,10 @@ import com.google.common.collect.Lists;
 import models.*;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.layout;
+import play.twirl.api.Html;
 
-import static models.Article.getArticleData;
+import application.views.html.*;
+import views.html.layout;
 
 public class Application extends Controller {
 
@@ -26,16 +27,14 @@ public class Application extends Controller {
 		String concatenation = "";
 		int count = 0;
 		for (Renders renderable : Lists.reverse(articles)) {
-			play.twirl.api.Html curcatenation = play.twirl.api.Html.apply("");
-			if (renderable.articleId != null) {
-				models.Article inarticle = models.Article.find.byId(renderable.articleId);
-				if (inarticle.getImagePath() == null)
-					inarticle.setImagePath("/assets/images/logo_big.png");
-				curcatenation = application.views.html.articleRenderFrontPageSample.render(inarticle);
-			} else if (renderable.eventId != null) {
-				models.Event inevent = models.Event.find.byId(renderable.eventId);
-				models.Article inarticle = models.Article.find.byId(inevent.getArticleId());
-				curcatenation = application.views.html.eventRenderFrontPageSample.render(inarticle, inevent);
+			Html curcatenation = Html.apply("");
+			models.Article art = renderable.articleReference;
+			models.Event evt = renderable.eventReference;
+			if (renderable.articleReference != null) {
+				curcatenation = articleRenderFrontPageSample.render(art);
+			} else if (renderable.eventReference != null) {
+				art = evt.getArticle();
+				curcatenation = eventRenderFrontPageSample.render(art, evt);
 			}
 
 			if (++count < 2) {

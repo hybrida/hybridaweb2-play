@@ -1,20 +1,31 @@
-<meta charset='utf-8' />
 <link href='assets/stylesheets/fullcalendar.css' rel='stylesheet' />
 <link href='assets/stylesheets/fullcalendar.print.css' rel='stylesheet' media='print' />
 <script src='assets/javascripts/moment.min.js'></script>
 <script src='assets/javascripts/jquery-1.11.2.min.js'></script>
-<script src='assets/javascripts/fullcalendar.min.js'></script>
-<script src='assets/javascripts/fullcalendar.no.js'></script>
+<script src='assets/javascripts/fullcalendar.js'></script>
+<script src='assets/javascripts/fullcalendar.nb.js'></script>
 <script>
     $(document).ready(function() {
         $('#calendar').fullCalendar({
-            lang: "no",
-            header: {
-                left: "prev,next today",
-                center: "title",
-                right: "month,agendaWeek,agendaDay"
-            },
-            editable: @(models.LoginState.getUser().canCreateNewArticle()),
+            lang: "nb",
+            @defining(models.LoginState.getUser().canCreateNewArticle()) { admin =>
+                @if(admin) {
+                    customButtons: {
+                        gcal: {
+                            text: 'Google calendar',
+                            click: function() {
+                                window.location.href = '?gcal=true';
+                            }
+                        }
+                    },
+                    editable: true,
+                }
+                header: {
+                    left: "prev,next today",
+                    center: "title",
+                    right: @if(admin){"gcal "}else{""} + "month,agendaWeek,agendaDay"
+                },
+            }
             eventDrop: function(event, delta, revertFunc, jsEvent, ui, view) {changeEvent(event, revertFunc);},
             eventResize: function(event, delta, revertFunc, jsEvent, ui, view) {changeEvent(event, revertFunc);},
             eventLimit: true, // allow "more" link when too many events

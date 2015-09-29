@@ -2,11 +2,11 @@ package models;
 
 import play.db.ebean.Model;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Sindre on 28.01.2015.
@@ -15,21 +15,19 @@ import java.util.List;
 public class Renders extends Model {
 
 	@OneToOne
-	@JoinColumn(name = "article", referencedColumnName = "articleId")
-	public Long articleId = null;
+	public Article articleReference = null;
 	@OneToOne
-	@JoinColumn(name = "event", referencedColumnName = "eventId")
-	public Long eventId = null;
+	public Event eventReference = null;
 
 	public static void addArticle(Article article) {
 		Renders renders = new Renders();
-		renders.articleId = article.getId();
+		renders.articleReference = article;
 		renders.save();
 	}
 
 	public static void addEvent(Event event) {
 		Renders renders = new Renders();
-		renders.eventId = event.getEventId();
+		renders.eventReference= event;
 		renders.save();
 	}
 

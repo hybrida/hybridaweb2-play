@@ -83,3 +83,10 @@
         display: none;
     }
 }
+
+#begrunnelsein{
+    start:atthetop;
+    height:200px;
+    font-size:14pt;
+
+}

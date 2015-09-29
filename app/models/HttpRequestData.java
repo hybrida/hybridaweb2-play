@@ -1,5 +1,6 @@
 package models;
 
+import play.data.Form;
 
 /**
  * \brief Class used to retrieve all HTTP request data.
@@ -13,29 +14,25 @@ package models;
 public class HttpRequestData extends java.util.HashMap<String, String> {
 
 	public HttpRequestData () {
-		if (play.data.Form.form().bindFromRequest().data() != null)
-			super.putAll(play.data.Form.form().bindFromRequest().data());
+		if (Form.form().bindFromRequest().data() != null)
+			super.putAll(Form.form().bindFromRequest().data());
 	}
 
 	public Integer getInt(String key) {
 		String input = this.get(key);
-		if (input == null) {
+		if (input == null)
 			return null;
-		}
-		else if (input.equals("")) {
+		else if (input.equals(""))
 			return 0;
-		}
 		return Integer.valueOf(input);
 	}
 
 	public Long getLong(String key) {
 		String input = this.get(key);
-		if (input == null) {
+		if (input == null)
 			return null;
-		}
-		else if (input.equals("")) {
+		else if (input.equals(""))
 			return 0L;
-		}
 		return Long.valueOf(input);
 	}
 
