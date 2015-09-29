@@ -20,9 +20,9 @@ GET           /nystudent                        newstudent.NewStudent.index()
 GET           /styret                           hybridaleaders.HybridaLeaders.index()
 
 # BedkomDatabase
-GET           /bedkomdatabase                   bedkomdatabase.Bedkomdatabase.index()
-POST          /bedkomdatabase/bedrift           bedkomdatabase.Bedkomdatabase.saveBedrift()
-POST          /bedkomdatabase/kontakt           bedkomdatabase.Bedkomdatabase.saveKontaktPerson()
+GET           /bedkomdatabase                   bedkomdatabase.BedkomDatabase.index()
+POST          /bedkomdatabase/bedrift           bedkomdatabase.BedkomDatabase.saveBedrift()
+POST          /bedkomdatabase/kontakt           bedkomdatabase.BedkomDatabase.saveKontaktPerson()
 
 
 # Calendar
