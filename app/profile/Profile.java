@@ -7,8 +7,6 @@ import play.data.validation.ValidationError;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.twirl.api.Html;
-import profile.views.html.layoutPage;
-import views.html.layoutWithHead;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +30,7 @@ public class Profile extends Controller {
 		if (user == null) {
 			return application.Application.show404(request().path());
 		}
-		return ok(render(username, user, false));
+		return ok(render(user, false));
 	}
 
 	public static Result update(String username) {
@@ -70,18 +68,16 @@ public class Profile extends Controller {
 		if (user == null) return application.Application.show404(request().path());
 		messages = new ArrayList<>();
 		userForm.fill(user);
-		return ok(render(username, user, true));
+		return ok(render(user, true));
 	}
 
-	public static Html render(String username, User user, boolean edit) {
-		return layoutPage.render(
-			user.getName(),
-			profile.views.html.edit.render(user, messages, edit),
-			profile.views.html.head.render(),
+	public static Html render(User user, boolean edit) {
+		return profile.views.html.index.render(
+			user,
+			edit,
+			messages,
 			user.hasMiddleName() ? user.getName(true) : null,
-			user.hasProfileImage() ? "upload/" + username + "/" + user.getProfileImageFileName() : null,
-			profile.views.html.subNavButtons.render(username, edit),
-			edit ? profile.routes.Profile.index(username).url()  : null
+			user.hasProfileImage() ? "upload/" + user.getUsername() + "/" + user.getProfileImageFileName() : null
 		);
 	}
 }

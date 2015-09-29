@@ -1,50 +1,117 @@
-@(user: User, messages: java.util.List[Html])
+@(user: User, edit: Boolean = false, messages: java.util.List[Html], subTitle: String = null, imageFile: String = null)
 
-@if(!messages.isEmpty()) {
-    <div class="messages">@(for (message <- messages) message)</div>
-}
-<div class="pageItem">
-    <div class="info-block">
-        <ul>
-            <li>
-                <div class="label">NTNU-E-POST</div>
-                <div class="info">@(user.getUsername())@@stud.ntnu.no</div>
-                <div class="clearfix"></div>
-            </li>
-            @if(user.hasAltEmail()) {
-                <li>
-                    <div class="label">ALTERNATIV E-POST</div>
-                    <div class="info">@user.getAltEmail()</div>
-                    <div class="clearfix"></div>
-                </li>
+@layoutWithHead("Hybrida - "+user.getName()) {
+	<div class="page">
+		@if(edit) {
+			<form method="POST" action="@profile.routes.Profile.index(user.getUsername())">
+		}
+            <h5 class="smallTitle">@user.getName()@if(subTitle != null && !subTitle.equals("")) { - @subTitle }</h5>
+            <div class="buttons">
+                @if(edit) {
+                    <input class="float-right btn btn-primary" type="submit" value="Lagre">
+                    <a class="float-right btn btn-primary" href="@profile.routes.Profile.index(user.getUsername())">Avbryt</a>
+                } else {
+                    <a class="float-right btn btn-primary" href="@profile.routes.Profile.edit(user.getUsername())">Rediger</a>
+                }
+            </div>
+            <div class="pageInner">
+            @if(imageFile != null && !imageFile.equals("")) {
+                <div class="pageItem picFrame"><img class="pic" src="@routes.Assets.at(imageFile)"></div>
             }
-            @if(user.hasWebsite()) {
-                <li>
-                    <div class="label">HJEMMESIDE</div>
-                    <div class="info"><a href="@user.getWebsite()" alt="@user.getName()s hjemmeside">@user.getWebsite()</a></div>
-                    <div class="clearfix"></div>
-                </li>
+            <h1 class="pageItem bigTitle">@user.getName()</h1>
+            @if(subTitle != null && !subTitle.equals("")) {
+                <h3 class="pageItem bigSubTitle">@subTitle</h3>
             }
-            @if(user.hasPhone()) {
-                <li>
-                    <div class="label">TELEFON</div>
-                    <div class="info">@user.getPhone()</div>
-                    <div class="clearfix"></div>
-                </li>
+
+
+            @if(!messages.isEmpty()) {
+                <div class="messages">@(for (message <- messages) message)</div>
             }
-        </ul>
-    </div>
-    @if("mf".contains(user.getGender())) {
-        <div class="info-block">
-            <ul>
-            @if("mf".contains(user.getGender())) {
-                <li>
-                    <div class="label">KJØNN</div>
-                    <div class="info">@(if(user.getGender() == 'm') "Mann" else "Kvinne")</div>
-                    <div class="clearfix"></div>
-                </li>
-            }
-            </ul>
+            <div class="pageItem">
+                <div class="info-block">
+                    <ul>
+                        <li>
+                            <div class="label">NTNU-E-POST</div>
+                            <div class="info">@(user.getUsername())@@stud.ntnu.no</div>
+                            <div class="clearfix"></div>
+                        </li>
+                        @if(edit || user.hasAltEmail()) {
+                            <li>
+                                <div class="label">ALTERNATIV E-POST</div>
+                                <div class="info">
+                                @if(edit) {
+                                    <input type="email" name="email" value="@user.getAltEmail()">
+                                    }else {
+                                    @user.getAltEmail()
+                                }
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                        }
+                        @if(edit || user.hasWebsite()) {
+                            <li>
+                                <div class="label">HJEMMESIDE</div>
+                                <div class="info">
+                                @if(edit) {
+                                    <input type="text" name="website_url" value="@user.getWebsite()">
+                                    }else {
+                                    @user.getWebsite()
+                                }
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                        }
+                        @if(edit || user.hasPhone()) {
+                            <li>
+                                <div class="label">TELEFON</div>
+                                <div class="info">
+                                @if(edit) {
+                                    <input type="text" name="phone" value="@user.getPhone()">
+                                    }else {
+                                    @user.getPhone()
+                                }
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="info-block">
+                    <ul>
+                        @if(edit || "mf".contains(user.getGender())) {
+                            <li>
+                                <div class="label">KJØNN</div>
+                                <div class="info">
+                                @if(edit) {
+                                    <input type="radio" name="sex" value="m" @(if(user.getGender() == 'm') "CHECKED")> <label for="sex">Mann</label> |
+                                    <input type="radio" name="sex" value="f" @(if(user.getGender() == 'f') "CHECKED")> <label for="sex">Kvinne</label>
+                                }else {
+                                    @(if(user.getGender() == 'm') "Mann" else "Kvinne")
+                                }
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                        }
+                        @if(edit) {
+                            <li>
+                                <div class="label">PROFILBILDE</div>
+                                <div class="info">
+                                    <input type="text" name="profile_image_file_name" value="@user.getProfileImageFileName()">
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <div class="clearfix">
+            </div>
         </div>
-    }
-</div>
+	@if(edit) {
+		</form>
+	}
+	</div>
+} {
+	<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/profile.css")" />
+}
