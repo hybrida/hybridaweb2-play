@@ -1,5 +1,6 @@
 <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
 <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/griffensOrden.css")">
+<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/arrkom-test.css")">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href='http://fonts.googleapis.com/css?family=Raleway+Dots' rel='stylesheet' type='text/css'>
 <meta charset="UTF-8">
@@ -20,25 +21,25 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </script>
 <script href="/js/dev/underscore-min.js"></script>
 <script href="/js/require.js"></script>
-
-<div class="container">
-    <div class="row blank"></div>
-    <div class="row">
-        <div class="col-md-6 col-md-offset-5 whitebox topright topleft GO">
-            <img src="/assets/images/GO.png" align="middle">
+<div class="bakgrunn">
+    <div class="container">
+        <div class="row blank"></div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-5 whitebox topright topleft GO">
+                <img src="/assets/images/GO.png" align="middle">
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 col-md-offset-5 whitebox line">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-5 whitebox line">
                 ________________________________________________________
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-6 col-md-offset-5 whitebox paragraph bottomleft bottomright hiddentopleft hiddentopright">
-            <div id="widget-knightPresentation">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-5 whitebox paragraph bottomleft bottomright hiddentopleft hiddentopright">
+                <div id="widget-knightPresentation">
 
-                <script>
+                    <script>
 
                     $(document).ready(function(){
 
@@ -54,14 +55,19 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
                     });
                     </script>
 
-                <div id="hide" id="show" class="knight g-clearfix">
-                    <div class="name">Hovedtittel</div>
-                    <div class="reason"><b>Undertittel:</b> her kan man si noe kort</div>
-                    <div class="reason"><b>Hovedtekst:</b> Main body text</div>
-                </div>
+                    <div id="hide" id="show" class="knight g-clearfix">
+                        <div class="name">Hovedtittel</div>
+                        <div class="reason"><b>Undertittel:</b> her kan man si noe kort</div>
+                        <div class="reason"><b>Hovedtekst:</b> Main body text</div>
+                    </div>
+                    <div id="hide" id="show" class="knight g-clearfic">
+                        <div class="name">Grupper</div>
+                        <div class="reason"><b>Grupper i Arrkom</b> I arrkom har vi mange forskjellige grupper</div>
+                        <div class="reason">Her er noen av dem</div>
+                    </div>
 
 
-                <script type="text/javascript">
+                    <script type="text/javascript">
 
                     var knights = $("#widget-knightPresentation").find(".knight");
                     knights.find(".name").click(function(e) {
@@ -71,10 +77,11 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 
                     </script>
 
+                </div>
+                <div>
             </div>
-            <div>
             </div>
         </div>
-    </div>
 
+    </div>
 </div>
