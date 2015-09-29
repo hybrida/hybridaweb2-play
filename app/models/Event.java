@@ -3,6 +3,7 @@ package models;
 import play.db.ebean.Model;
 import play.twirl.api.Html;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.*;
@@ -63,7 +64,16 @@ public class Event extends Model {
 		return joinedUsers;
 	}
 
-	public long getEventId() {
+	public List<User> getJoinedSpecificClass(int classnum) {
+		List<User> joined = joinedUsers;
+		List<User> joinedClassNum = new ArrayList<>();
+		for (User user : joined)
+			if (user.calculateClass() == classnum)
+				joinedClassNum.add(user);
+		return joinedClassNum;
+	}
+
+	public long getId() {
 		return eventId;
 	}
 

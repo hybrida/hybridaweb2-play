@@ -23,7 +23,7 @@
 					<h3><p class="text-center">
 						Endre event
 					</p></h3>
-					<form name="Article" action="@article.routes.Event.saveEdit(String.valueOf(event.getEventId))" method="POST" enctype="multipart/form-data">
+					<form name="Article" action="@article.routes.Event.saveEdit(String.valueOf(event.getId))" method="POST" enctype="multipart/form-data">
 						<textarea class="form-control" type="text" name="title">@inarticle.getTitle</textarea>
 						<textarea class="form-control" name="ingress" onfocus="">@inarticle.getIngress</textarea>
 						<textarea id="editor1" class="form-control" name="text" contenteditable="true">@inarticle.getText</textarea>

@@ -17,7 +17,7 @@
 					<p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">
 						Av: @inarticle.getAuthor.getName
 						@if(models.LoginState.getUser().getId == inarticle.getAuthor.getId) {
-							<a href="@article.routes.Event.editEvent("" + event.getEventId)">
+							<a href="@article.routes.Event.editEvent("" + event.getId)">
 								<button class="btn-xs btn-primary"> Rediger </button>
 							</a>
 						}
@@ -32,7 +32,7 @@
 						@for(i <- 1 to 5) {
 							<div class="row">
 								<div class="col-md-1">
-									@event.getJoinedUsers.size
+									@event.getJoinedSpecificClass(i).size
 								</div>
 								<div class="col-md-11">
 									<p onclick="$ ( '.showhide@i' ).toggle ( ) ;" style="cursor: pointer;"> Klasse @i.toString </p>
@@ -82,7 +82,7 @@
 															</button>
 														<ul class="dropdown-menu" role="menu">
 															<form method="POST" action="@article.routes.Article.deleteComment(i.getCommentID.toString)">
-																<input type="hidden" name="isEvent" value="@event.getEventId">
+																<input type="hidden" name="isEvent" value="@event.getId">
 																<button type="submit" class="form-control"> Slett </button>
 															</form>
 														</ul>
@@ -105,7 +105,7 @@
 							}
 							<div style="margin-top:1em">
 							<form action="@article.routes.Article.comment(inarticle.getId.toString)" method="POST">
-									<input type="hidden" name="isEvent" value="@event.getEventId">
+									<input type="hidden" name="isEvent" value="@event.getId">
 									<label for="comment" class="sr-only">Kommenter:</label>
 									<div class="input-group">
 											<input type="text" class="form-control" id="comment" name="comment" autocomplete="off" maxlength="250">
@@ -155,12 +155,12 @@
 					 <div class="col-md-12">
 						 @if(!event.getJoinedUsers.contains(models.LoginState.getUser)){
 							<form method="post" action="@article.routes.Event.updateUser()">
-								<input type="hidden" name="eventId" value="@event.getEventId">
+								<input type="hidden" name="eventId" value="@event.getId">
 							 <button type="submit" class="btn btn-primary btn-sm btn-block"> Meld meg på</button>
 							</form>
 						 }else{
 							 <form method="post" action="@article.routes.Event.removeUser()">
-								<input type="hidden" name="eventId" value="@event.getEventId">
+								<input type="hidden" name="eventId" value="@event.getId">
 								<button type="submit" class="btn btn-primary btn-sm btn-block"> Meld meg av</button>
 							 </form>
 						}

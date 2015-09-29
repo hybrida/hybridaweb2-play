@@ -33,12 +33,13 @@ public class ArticleIn extends Controller {
 				if (res.result != null)
 					return res.result;
 				Renders.addEvent(res.event);
+				return redirect(article.routes.Event.viewEvent("" + res.event.getId()));
 			}
 			else {
 				// Husk å legge til artikkelen i renders! Da vises den nemlig på fremsiden ^_^
 				Renders.addArticle(art);
+				return redirect(article.routes.Article.viewArticle("" + art.getId()));
 			}
-			return redirect(article.routes.Article.viewArticle("" + art.getId()));
 		}
 		catch (IllegalStateException e) {
 			return application.Application.show400("ugyldig data oppgitt: " + e);
