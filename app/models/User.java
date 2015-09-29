@@ -339,6 +339,9 @@ public class User extends Model {
 					return false;
 				}
 			}
+			if (tempHasAccess == false){
+				return false;
+			}
 			return true;
 		}
 	}

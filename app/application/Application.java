@@ -43,7 +43,8 @@ public class Application extends Controller {
 				concatenation += application.views.html.smallthumbnail.render(curcatenation);
 			}
 		}
-		System.out.println(models.User.hasAccess(LoginState.getUser(),false, models.User.Access.VEVKOM ));
+		//Example for user access check:
+		System.out.println(models.User.hasAccess(LoginState.getUser(),true, models.User.Access.BEDKOM, models.User.Access.ADMIN));
 		return ok(layout.render(
 			"Hybrida",
 			application.views.html.index.render(
