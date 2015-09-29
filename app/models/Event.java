@@ -63,7 +63,7 @@ public class Event extends Model {
 		return joinedUsers;
 	}
 
-	public long getEventId() {
+	public long getId() {
 		return eventId;
 	}
 
