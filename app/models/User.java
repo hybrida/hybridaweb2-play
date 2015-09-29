@@ -8,7 +8,9 @@ import play.mvc.Http;
 import javax.persistence.*;
 import java.io.File;
 import java.io.IOException;
+import java.lang.Enum;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 @Entity
@@ -47,6 +49,10 @@ public class User extends Model {
 	public Boolean             student;    // No special privileges except for file upload.
 	@Column(name = "bedkom", columnDefinition = "boolean default false")
 	public Boolean             bedkom;     // Control over bedpress.
+	@Column(name = "arrkom", columnDefinition = "boolean default false")
+	public Boolean             arrkom;     // Control over arrkom.
+	@Column(name = "vevkom", columnDefinition = "boolean default false")
+	public Boolean             vevkom;     // Control over vevkom.
 	@Column(name = "admin", columnDefinition = "boolean default false")
 	public Boolean             admin;      // For control over the entire page. Check your privilege
 	@Column(name = "root", columnDefinition = "boolean default false")
@@ -82,6 +88,8 @@ public class User extends Model {
 		String profileImageFileName,
 		Boolean student,
 		Boolean bedkom,
+		Boolean arrkom,
+		Boolean vevkom,
 		Boolean admin,
 		Boolean root,
 		Character sex,
@@ -266,6 +274,76 @@ public class User extends Model {
 		if (lastLogin != null) sb.append("\tlastLogin: " + lastLogin.toString() + ", \n");
 		sb.append("]");
 		return sb.toString();
+	}
+
+	public enum Access{
+		BEDKOM,
+		ARRKOM,
+		VEVKOM,
+		ADMIN,
+		ROOT;
+	}
+
+	public static boolean hasAccess(User user, boolean inAll, Access... accessList){
+		//Parameters explained: user: the user you want to check;
+		//inAll: set true if you want to check if user has ALL entered accesses, false if you want to check if user has
+		// ANY of the entered accesses.
+		//Accesses are entered on the form models.User.Access.<access> (for example: models.User.Access.BEDKOM)
+
+		if(user.isDefault()){
+			return false;
+		}
+		if(inAll == false){
+			boolean access = false;
+			for (Access i : accessList){
+				if (i == Access.BEDKOM){
+					access = user.bedkom;
+				}
+				if (i == Access.ARRKOM){
+					access = user.arrkom;
+				}
+				if (i == Access.VEVKOM){
+					access = user.vevkom;
+				}
+				if (i == Access.ADMIN){
+					access = user.admin;
+				}
+				if (i == Access.ROOT){
+					access = user.root;
+				}
+				if (access == true){
+					return true;
+				}
+			}
+			return false;
+		}
+		else {
+			boolean tempHasAccess = false;
+			for (Access i : accessList) {
+				if (i == Access.BEDKOM) {
+					tempHasAccess = user.bedkom;
+				}
+				if (i == Access.ARRKOM) {
+					tempHasAccess = user.arrkom;
+				}
+				if (i == Access.VEVKOM) {
+					tempHasAccess = user.vevkom;
+				}
+				if (i == Access.ADMIN) {
+					tempHasAccess = user.admin;
+				}
+				if (i == Access.ROOT) {
+					tempHasAccess = user.root;
+				}
+				if (tempHasAccess == false) {
+					return false;
+				}
+			}
+			if (tempHasAccess == false){
+				return false;
+			}
+			return true;
+		}
 	}
 
 	public static Model.Finder<Long, User> find = new Finder<>(

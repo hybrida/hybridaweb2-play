@@ -47,14 +47,34 @@ public class Event extends Model {
 
 	public boolean checkAndAddJoiner(User user) {
 		boolean allowed = false;
-		switch (user.calculateClass()) {
-			case 1: allowed = firstYearAllowed; break;
-			case 2: allowed = secondYearAllowed; break;
-			case 3: allowed = thirdYearAllowed; break;
-			case 4: allowed = fourthYearAllowed; break;
-			case 5: allowed = fifthYearAllowed; break;
-			default: break;
-		}
+		// Check if the timeframe is correct
+		Calendar calendar = Calendar.getInstance();
+		if (calendar.after(eventHappens))
+			return false;
+		Calendar firstTime = getSignUpDeadline();
+		Calendar secondTime = getSecondSignUp();
+		if (calendar.before(firstTime)) {
+			// Check if the class matches
+			switch (user.calculateClass()) {
+				case 1: allowed = firstYearAllowed; break;
+				case 2: allowed = secondYearAllowed; break;
+				case 3: allowed = thirdYearAllowed; break;
+				case 4: allowed = fourthYearAllowed; break;
+				case 5: allowed = fifthYearAllowed; break;
+				default: break;
+			}
+		} else if (calendar.after(secondTime)) {
+				// Check if the class matches
+			switch (user.calculateClass()) {
+				case 1: allowed = firstYearAllowedAfterSecondSignup; break;
+				case 2: allowed = secondYearAllowedAfterSecondSignup; break;
+				case 3: allowed = thirdYearAllowedAfterSecondSignup; break;
+				case 4: allowed = fourthYearAllowedAfterSecondSignup; break;
+				case 5: allowed = fifthYearAllowedAfterSecondSignup; break;
+				default: break;
+			}
+		} else
+			allowed = false;
 		if (allowed)
 			joinedUsers.add(user);
 		return allowed;
@@ -202,6 +222,7 @@ public class Event extends Model {
 			default: return "InvalidString";
 		}
 	}
+
 	public static String changeDayToNorwegian(int day) {
 		switch (day) {
 			case 2: return "Mandag";
