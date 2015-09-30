@@ -36,27 +36,27 @@
                             <div class="info">@(user.getUsername()) @@stud.ntnu.no</div>
                             <div class="clearfix"></div>
                         </li>
-                        @if(edit || user.hasAltEmail()) {
+                        @if(edit || user.hasEmail()) {
                             <li>
                                 <div class="label">ALTERNATIV E-POST</div>
                                 <div class="info">
                                 @if(edit) {
-                                    <input type="email" name="email" value="@user.getAltEmail()">
+                                    <input type="email" name="email" value="@user.getEmail()">
                                     } else {
-                                    @user.getAltEmail()
+                                    @user.getEmail()
                                 }
                                 </div>
                                 <div class="clearfix"></div>
                             </li>
                         }
-                        @if(edit || user.hasWebsite()) {
+                        @if(edit || user.hasWebsiteUrl()) {
                             <li>
                                 <div class="label">HJEMMESIDE</div>
                                 <div class="info">
                                 @if(edit) {
-                                    <input type="text" name="websiteUrl" value="@user.getWebsite()">
+                                    <input type="text" name="websiteUrl" value="@user.getWebsiteUrl()">
                                     } else {
-                                    @user.getWebsite()
+                                    @user.getWebsiteUrl()
                                 }
                                 </div>
                                 <div class="clearfix"></div>
@@ -122,12 +122,11 @@
                                             })
                                             .on("drop", function(jqe) {
                                                 var e = jqe.originalEvent;
-                                                console.log(e);
                                                 e.stopPropagation();
                                                 e.preventDefault();
                                                 uploadImage(e.dataTransfer);
                                             });
-                                        $("#profileImageFile").change(function(){uploadImage($('#profile_image_file')[0]s);})
+                                        $("#profileImageFile").change(function(){uploadImage(this);})
                                     </script>
                                 </div>
                                 <div class="clearfix"></div>

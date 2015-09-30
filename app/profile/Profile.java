@@ -36,10 +36,9 @@ public class Profile extends Controller {
         if (user == null) return notFound();
 
         Form<User> filledForm = userForm.fill(user).bindFromRequest("email", "website_url", "phone", "gender", "profile_image_file_name");
-        System.out.println("\n\n\n\n\n\n\n\n" + Objects.toString(filledForm.apply("website_url").valueOr("Nothing")) + "\n\n\n\n\n\n\n\n");
-        filledForm.get().update(username);
+        user.updateFromForm(filledForm);
 
-		return redirect(routes.Profile.edit(username));
+		return redirect(routes.Profile.index(username));
 	}
 
 	public static boolean authorizedToEditUser(String username) {

@@ -1,6 +1,7 @@
 package models;
 
 import org.apache.commons.io.FileUtils;
+import play.data.Form;
 import play.db.ebean.Model;
 import play.mvc.Controller;
 import play.mvc.Http;
@@ -57,9 +58,9 @@ public class User extends Model {
 	public Boolean             admin;      // For control over the entire page. Check your privilege
 	@Column(name = "root", columnDefinition = "boolean default false")
 	public Boolean             root;       // Powers too great for mere mortals.
-	@Column(name = "gender", columnDefinition = "varchar(1) default '\0'")
+	@Column(name = "gender", columnDefinition = "char(1) default '\0'")
 	public Character           gender;         // For specific events.
-	public Timestamp           enrolled;    // For specific bedpresses requiring a year number.
+	public Timestamp           enrolled;    // For specific bedpreses requiring a year number.
 	@Column(name = "date_of_birth")
 	public Timestamp           dateOfBirth;
 
@@ -138,23 +139,31 @@ public class User extends Model {
 		return middleName != null && !middleName.equals("");
 	}
 
-	public boolean hasAltEmail() {
+	public boolean hasEmail() {
 		return email != null && !email.equals("");
 	}
 
-	public String getAltEmail() {
+	public String getEmail() {
 		return email;
 	}
 
-	public boolean hasWebsite() {
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+	public boolean hasWebsiteUrl() {
 		return websiteUrl != null && !websiteUrl.equals("");
 	}
 
-	public String getWebsite() {
+	public String getWebsiteUrl() {
 		return websiteUrl;
 	}
 
-	public boolean hasPhone() {
+    public void setWebsiteUrl(String websiteUrl) {
+        this.websiteUrl = websiteUrl;
+    }
+
+    public boolean hasPhone() {
 		return phone != null && !phone.equals("");
 	}
 
@@ -162,7 +171,11 @@ public class User extends Model {
 		return phone;
 	}
 
-	public boolean hasProfileImage() {
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public boolean hasProfileImage() {
 		return profileImageFileName != null && !profileImageFileName.equals("");
 	}
 
@@ -170,7 +183,11 @@ public class User extends Model {
 		return profileImageFileName;
 	}
 
-	public void setUsername(String username) {
+    public void setProfileImageFileName(String profileImageFileName) {
+        this.profileImageFileName = profileImageFileName;
+    }
+
+    public void setUsername(String username) {
 		this.username = username;
 	}
 
@@ -196,7 +213,7 @@ public class User extends Model {
 		return gender;
 	}
 
-	public Long getId() {
+    public Long getId() {
 		return id;
 	}
 
@@ -217,6 +234,18 @@ public class User extends Model {
 	public void saveToSession() {
 		play.mvc.Controller.session("user", play.api.libs.Crypto.encryptAES(username + "," + String.valueOf(System.currentTimeMillis())));
 	}
+
+    public void updateFromForm(Form<User> form) {
+        if(isSet(form.apply("email").value())) setEmail(form.apply("email").value());
+        if(isSet(form.apply("websiteUrl").value())) setWebsiteUrl(form.apply("websiteUrl").value());
+        if(isSet(form.apply("phone").value())) setPhone(form.apply("phone").value());
+        if(isSet(form.apply("profileImageFileName").value())) setProfileImageFileName(form.apply("profileImageFileName").value());
+        save();
+    }
+
+    public static boolean isSet(String field) {
+        return field != null && field.length() > 0;
+    }
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder("USER[\n");
