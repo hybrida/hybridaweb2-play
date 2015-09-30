@@ -19,6 +19,9 @@ GET           /hybrida                          abouthybrida.AboutHybrida.index(
 GET           /nystudent                        newstudent.NewStudent.index()
 GET           /styret                           hybridaleaders.HybridaLeaders.index()
 
+# Upload
+POST          /api/upload                       controllers.Upload.upload()
+
 # BedkomDatabase
 GET           /bedkomdatabase                   bedkomdatabase.BedkomDatabase.index()
 POST          /bedkomdatabase/bedrift           bedkomdatabase.BedkomDatabase.saveBedrift()
