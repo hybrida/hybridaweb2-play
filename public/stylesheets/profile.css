@@ -1,39 +1,78 @@
 .pageInner {
-    width: 80%;
-    margin: 0 auto;
+    width: auto;
 }
 
 .pageItem {
     display: block;
-    width: 40%;
+    width: 90%;
     min-width: 300px;
     margin-left: 5%;
     margin-right: 5%;
     padding-left: 0;
     padding-right: 0;
-    float: right;
+    float: none;
 
 }
 
 .picFrame {
+    position: relative;
     box-shadow: rgba(0, 0, 0, 0.4) -5px 6px 25px;
     border-radius: 5px;
+    max-height: 400px;
+}
+
+.edit .picFrame {
+    cursor:pointer;
+    height: 500px;
+}
+
+.edit .picFrame span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    visibility:hidden;
+    z-index: 2;
+
+    font-size: large;
+    font-weight: bold;
+    color: white;
+}
+
+.edit .picFrame:hover .pic {
+    opacity: 0.5;
+}
+
+.edit .picFrame:hover span {
+    visibility: visible;
 }
 
 .pic {
     position: relative;
-    top: 0;
+    top: 200px;
+    transform: translateY(-50%);
 
     margin: 0 auto;
     padding: 0;
 
-    min-width: 200px;
+    min-width: 80%;
     width: auto;
     max-width: 500px;
 
     min-height: 200px;
     height: auto;
-    max-height: 500px;
+    max-height: none;
+}
+
+.edit .pic {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 0;
+    max-width: 100%;
+    min-height: 0;
+    max-height: 100%;
 }
 
 .info-block {
@@ -148,14 +187,14 @@
 }
 
 
-@media (max-width : 1200px) {
-    .pageInner { width: auto; margin: 0 50px;}
-    .pageItem { width: 90%; float: none;}
-    .picFrame { max-height: 400px;}
+@media (min-width : 1200px) {
+    .pageInner { width: 80%; margin: 0 auto;}
+    .pageItem { width: 40%; float: right;}
+    .picFrame { max-height: unset;}
     .pic {
-        min-width: 80%;
-        max-height: none;
-        top: 200px;
-        transform: translateY(-50%);
+        min-width: 200px;
+        max-height: 500px;
+        top: 0;
+        transform: none;
     }
 }

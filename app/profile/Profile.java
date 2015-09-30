@@ -3,14 +3,13 @@ package profile;
 import models.LoginState;
 import models.User;
 import play.data.Form;
-import play.data.validation.ValidationError;
+import play.db.ebean.Model;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.twirl.api.Html;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by Ivar on 21.10.2014.
@@ -21,40 +20,26 @@ public class Profile extends Controller {
 
 	public static ArrayList<Html> messages = new ArrayList<>();
 
-	public static Html message(boolean error, String content) {
-		return profile.views.html.message.render(error, content);
-	}
+//	public static Html message(boolean error, String content) {
+//		return profile.views.html.message.render(error, content);
+//	}
 
 	public static Result index(String username) {
-		User user = User.find.where().eq("username", username).findUnique();
-		if (user == null) {
-			return application.Application.show404(request().path());
-		}
+		User user = User.findByUsername(username);
+		if (user == null) return notFound();
 		return ok(render(user, false));
 	}
 
 	public static Result update(String username) {
-		if (!authorizedToEditUser(username)) return application.Application.showUnauthorizedAccess();
-		if (User.find.where().eq("username", username).findRowCount() == 0)
-			return application.Application.show404(request().path());
-		Form<User> filledForm = userForm.bindFromRequest();
+		if (!authorizedToEditUser(username)) return unauthorized();
+        User user = User.findByUsername(username);
+        if (user == null) return notFound();
 
-		messages = new ArrayList<>();
-		if (filledForm.hasErrors()) {
-			Map<String, List<ValidationError>> errors = filledForm.errors();
-			for (String key : errors.keySet()) {
-				messages.add(message(true, key + ": " + errors.get(key).toString()));
-			}
-		} else {
-			long userId = User.find.where().eq("username", username).findUnique().getId();
-			filledForm.get().update(userId);
-			messages.add(message(false, "Din brukerinformasjon er oppdatert!"));
-			messages.add(message(true, "Din brukerinformasjon er oppdatert!"));
-			messages.add(message(false, "Din brukerinformasjon er oppdatert!"));
-			messages.add(message(true, "Din brukerinformasjon er oppdatert!"));
-			messages.add(message(true, "Din brukerinformasjon er oppdatert!"));
-		}
-		return index(username);
+        Form<User> filledForm = userForm.fill(user).bindFromRequest("email", "website_url", "phone", "gender", "profile_image_file_name");
+        System.out.println("\n\n\n\n\n\n\n\n" + Objects.toString(filledForm.apply("website_url").valueOr("Nothing")) + "\n\n\n\n\n\n\n\n");
+        filledForm.get().update(username);
+
+		return redirect(routes.Profile.edit(username));
 	}
 
 	public static boolean authorizedToEditUser(String username) {
@@ -63,9 +48,9 @@ public class Profile extends Controller {
 	}
 
 	public static Result edit(String username) {
-		if (!authorizedToEditUser(username)) return application.Application.showUnauthorizedAccess();
-		User user = User.find.where().eq("username", username).findUnique();
-		if (user == null) return application.Application.show404(request().path());
+		if (!authorizedToEditUser(username)) return unauthorized();
+		User user = User.findByUsername(username);
+		if (user == null) return notFound(request().uri());
 		messages = new ArrayList<>();
 		userForm.fill(user);
 		return ok(render(user, true));

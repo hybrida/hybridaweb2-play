@@ -30,14 +30,15 @@ public class Upload extends Controller {
         extensionMap.put(".docx", FileType.DOCUMENT);
         extensionMap.put(".gdoc", FileType.DOCUMENT);
 
-        MultipartFormData formData = request().body().asMultipartFormData();
 
         if(uploadFolder == null) {
             uploadFolder = user.getUsername();
-        } else if (!uploadFolder.equals(user.getUsername())) {
+        } else if (!uploadFolder.equals(user.getUsername()) && !user.admin) {
             //TODO: make sure user can upload to that folder, otherwise return unathorized()
+            return unauthorized();
         }
 
+        MultipartFormData formData = request().body().asMultipartFormData();
         MultipartFormData.FilePart filePart = formData.getFile("file");
         if(filePart != null) {
             File tempFile = filePart.getFile();

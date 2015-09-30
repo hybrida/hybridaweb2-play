@@ -9,11 +9,11 @@ hideMessage = function(obj) {
     obj.style.animationFillMode = obj.style.WebkitAnimationFillMode = "forwards";
 }
 
-uploadFile = function(fileUpload, success) {
+uploadFile = function(file, success, uploadFolder) {
     var formData = new FormData();
-    formData.append("file", fileUpload.files[0]);
+    formData.append("file", file);
     $.ajax({
-        url: "/api/upload",
+        url: "/api/upload" + (uploadFolder != null ? "/" + uploadFolder : ""),
         type: "POST",
         data: formData,
         cache: false,

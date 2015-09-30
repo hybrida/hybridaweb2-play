@@ -57,8 +57,8 @@ public class User extends Model {
 	public Boolean             admin;      // For control over the entire page. Check your privilege
 	@Column(name = "root", columnDefinition = "boolean default false")
 	public Boolean             root;       // Powers too great for mere mortals.
-	@Column(name = "sex", columnDefinition = "varchar(1) default '\0'")
-	public Character           sex;         // For specific events.
+	@Column(name = "gender", columnDefinition = "varchar(1) default '\0'")
+	public Character           gender;         // For specific events.
 	public Timestamp           enrolled;    // For specific bedpresses requiring a year number.
 	@Column(name = "date_of_birth")
 	public Timestamp           dateOfBirth;
@@ -92,7 +92,7 @@ public class User extends Model {
 		Boolean vevkom,
 		Boolean admin,
 		Boolean root,
-		Character sex,
+		Character gender,
 		Timestamp enrolled,
 		Timestamp dateOfBirth) {
 			this.username = username;
@@ -109,7 +109,7 @@ public class User extends Model {
 			this.bedkom = bedkom;
 			this.admin = admin;
 			this.root = root;
-			this.sex = sex;
+			this.gender = gender;
 			this.enrolled = enrolled;
 			this.dateOfBirth = dateOfBirth;
 	}
@@ -193,7 +193,7 @@ public class User extends Model {
 	}
 
 	public char getGender() {
-		return sex;
+		return gender;
 	}
 
 	public Long getId() {
@@ -207,40 +207,6 @@ public class User extends Model {
 		if (currentMonth >= 8) // July, MONTH is [0, 11]
 			classYear += 1;
 		return classYear;
-	}
-
-	// TODO: Check image size to be within a set range.
-	public String uploadPicture() {
-		if (isDefault())
-			throw new Error("You do not have the privilege as a non-student to upload files!");
-		String userFolderPrefix = "public/upload/" + LoginState.getUser().getUsername();
-		Http.MultipartFormData body = Controller.request().body().asMultipartFormData();
-		Http.MultipartFormData.FilePart picture = body.getFile("picture");
-		if (picture != null) {
-			String contentType = picture.getContentType();
-			if (checkImageType(contentType)) {
-				String fileName = picture.getFilename();
-				//System.out.println(contentType);
-				File file = picture.getFile();
-				try {
-					System.out.println(userFolderPrefix);
-					File userFolder = new File(userFolderPrefix);
-					if (!userFolder.exists())
-						userFolder.mkdir();
-					Long prefix = -1L;
-					File destination = new File(userFolderPrefix + "/" + fileName);
-					while (destination.exists()) {
-						++prefix;
-						destination = new File(userFolderPrefix + "/" + String.valueOf(prefix) + "_" + fileName);
-					}
-					FileUtils.moveFile(file, new File(userFolderPrefix, (prefix == -1L ? "" : String.valueOf(prefix) + "_") + fileName));
-				} catch (IOException ioe) {
-					System.out.println("Problem operating on filesystem");
-				}
-				return "/assets/upload/" + LoginState.getUser().getUsername() + "/" + fileName;
-			}
-		}
-		return null;
 	}
 
 	public static boolean checkImageType(String contentType) {
@@ -268,7 +234,7 @@ public class User extends Model {
 		if (bedkom != null) sb.append("\tbedkom: " + bedkom.toString() + ", \n");
 		if (admin != null) sb.append("\tadmin: " + admin.toString() + ", \n");
 		if (root != null) sb.append("\troot: " + root.toString() + ", \n");
-		if (sex != null) sb.append("\tsex: " + sex.toString() + ", \n");
+		if (gender != null) sb.append("\tgender: " + gender.toString() + ", \n");
 		if (enrolled != null) sb.append("\tenrollied: " + enrolled.toString() + ", \n");
 		if (dateOfBirth != null) sb.append("\tdateOfBirth: " + dateOfBirth.toString() + ", \n");
 		if (lastLogin != null) sb.append("\tlastLogin: " + lastLogin.toString() + ", \n");
@@ -346,7 +312,11 @@ public class User extends Model {
 		}
 	}
 
-	public static Model.Finder<Long, User> find = new Finder<>(
-		Long.class, User.class
-	);
+    public static Finder<Long, User> find = new Finder<>(
+            Long.class, User.class
+    );
+
+    public static User findByUsername(String username){
+        return find.where().eq("username", username).findUnique();
+    }
 }

@@ -10,7 +10,9 @@ import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -69,7 +71,8 @@ public class BackupDatabase {
                 reader.close();
             }
             result.close();
-            BufferedWriter writer = new BufferedWriter(new FileWriter("./conf/evolutions/default/backup.sql")); //When it's going to be used, call it 2.sql or something
+            String now = new SimpleDateFormat("yyyymmddhhmmss").format(new Date());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./conf/evolutions/default/backup/" + now + ".sql")); //When it's going to be used, call it 2.sql or something
             ups = "# --- !Ups" + System.lineSeparator() + ups;
             downs = "# --- !Downs" + System.lineSeparator() + "SET FOREIGN_KEY_CHECKS = 0;" + System.lineSeparator() + downs + "SET FOREIGN_KEY_CHECKS = 1;";
             writer.write(ups + System.lineSeparator() + downs);

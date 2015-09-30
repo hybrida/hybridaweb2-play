@@ -1,38 +1,39 @@
 @(user: User, edit: Boolean = false, messages: java.util.List[Html], subTitle: String = null, imageFile: String = null)
 
-@layoutWithHead("Hybrida - "+user.getName()) {
-	<div class="page">
-		@if(edit) {
-			<form method="POST" action="@profile.routes.Profile.index(user.getUsername())">
-		}
-            <h5 class="smallTitle">@user.getName()@if(subTitle != null && !subTitle.equals("")) { - @subTitle }</h5>
-            <div class="buttons">
-                @if(edit) {
-                    <input class="float-right btn btn-primary" type="submit" value="Lagre">
-                    <a class="float-right btn btn-primary" href="@profile.routes.Profile.index(user.getUsername())">Avbryt</a>
-                } else {
-                    <a class="float-right btn btn-primary" href="@profile.routes.Profile.edit(user.getUsername())">Rediger</a>
-                }
-            </div>
-            <div class="pageInner">
-            @if(imageFile != null && !imageFile.equals("")) {
-                <div class="pageItem picFrame"><img class="pic" src="@routes.Assets.at(imageFile)"></div>
+@layoutWithHead("Hybrida - " + user.getName()) {
+    <div class="page">
+        @if(edit) {
+            <form method="POST" action="@profile.routes.Profile.update(user.getUsername())" onsubmit="$('#profile_image_file').prop('disabled', true)">
             }
+        <h5 class="smallTitle">@user.getName()@if(subTitle != null && !subTitle.equals("")) { - @subTitle}</h5>
+        <div class="buttons">
+        @if(edit) {
+            <input class="float-right btn btn-primary" type="submit" value="Lagre">
+            <a class="float-right btn btn-primary" href="@profile.routes.Profile.index(user.getUsername())">Avbryt</a>
+        } else {
+            <a class="float-right btn btn-primary" href="@profile.routes.Profile.edit(user.getUsername())">Rediger</a>
+        }
+        </div>
+        <div class="pageInner @if(edit){edit}else{nedit}">
+            @if(imageFile != null && !imageFile.equals("")) {
+                <div class="pageItem picFrame">@if(edit){<span>Last opp nytt bilde</span>}<img class="pic" src="@routes.Assets.at(imageFile)"></div>
+            }else{ @if(edit){
+                <div class="pageItem picFrame"><span>Last opp bilde</span><img class="pic" src="@routes.Assets.at("images/placeholder-profile.jpg")"></div>
+            }}
             <h1 class="pageItem bigTitle">@user.getName()</h1>
             @if(subTitle != null && !subTitle.equals("")) {
                 <h3 class="pageItem bigSubTitle">@subTitle</h3>
             }
 
-
             @if(!messages.isEmpty()) {
-                <div class="messages">@(for (message <- messages) message)</div>
+                <div class="messages">@(for(message <- messages) message)</div>
             }
             <div class="pageItem">
                 <div class="info-block">
                     <ul>
                         <li>
                             <div class="label">NTNU-E-POST</div>
-                            <div class="info">@(user.getUsername())@@stud.ntnu.no</div>
+                            <div class="info">@(user.getUsername()) @@stud.ntnu.no</div>
                             <div class="clearfix"></div>
                         </li>
                         @if(edit || user.hasAltEmail()) {
@@ -41,7 +42,7 @@
                                 <div class="info">
                                 @if(edit) {
                                     <input type="email" name="email" value="@user.getAltEmail()">
-                                    }else {
+                                    } else {
                                     @user.getAltEmail()
                                 }
                                 </div>
@@ -53,8 +54,8 @@
                                 <div class="label">HJEMMESIDE</div>
                                 <div class="info">
                                 @if(edit) {
-                                    <input type="text" name="website_url" value="@user.getWebsite()">
-                                    }else {
+                                    <input type="text" name="websiteUrl" value="@user.getWebsite()">
+                                    } else {
                                     @user.getWebsite()
                                 }
                                 </div>
@@ -67,7 +68,7 @@
                                 <div class="info">
                                 @if(edit) {
                                     <input type="text" name="phone" value="@user.getPhone()">
-                                    }else {
+                                    } else {
                                     @user.getPhone()
                                 }
                                 </div>
@@ -83,9 +84,9 @@
                                 <div class="label">KJØNN</div>
                                 <div class="info">
                                 @if(edit) {
-                                    <input type="radio" name="sex" value="m" @(if(user.getGender() == 'm') "CHECKED")> <label for="sex">Mann</label> |
-                                    <input type="radio" name="sex" value="f" @(if(user.getGender() == 'f') "CHECKED")> <label for="sex">Kvinne</label>
-                                }else {
+                                    <input type="radio" name="gender" value="m" @(if(user.getGender() == 'm') "CHECKED")> <label for="gender">Mann</label> |
+                                    <input type="radio" name="gender" value="f" @(if(user.getGender() == 'f') "CHECKED")> <label for="gender">Kvinne</label>
+                                } else {
                                     @(if(user.getGender() == 'm') "Mann" else "Kvinne")
                                 }
                                 </div>
@@ -93,10 +94,41 @@
                             </li>
                         }
                         @if(edit) {
-                            <li>
+                            <li class="hidden">
                                 <div class="label">PROFILBILDE</div>
-                                <div class="info">
-                                    <input type="text" name="profile_image_file_name" value="@user.getProfileImageFileName()">
+                                <div class="info upload-input">
+                                    <input type="file" name="profileImageFile" id="profileImageFile">
+                                    <span class="glyphicon glyphicon-folder-open indicator" style="float:right"></span>
+                                    <input type="hidden" name="profileImageFileName" id="profileImageFileName" value="@user.getProfileImageFileName()">
+                                    <input type="button" onclick="uploadImage($('#profile_image_file')[0])" value="Last opp">
+                                    <script type="text/javascript">
+                                        function uploadImage(filesParent){
+                                            $(".indicator").attr("class", "glyphicon glyphicon-option-horizontal indicator");
+                                            uploadFile(filesParent.files[0], function(url) {
+                                                var filename = url.substring(url.lastIndexOf("/")+1);
+                                                $("#profileImageFileName").val(filename);
+                                                $(".pic").attr("src", url);
+                                                $(".picFrame").removeClass("hidden");
+                                                $(".indicator").attr("class", "glyphicon glyphicon-ok-sign indicator");
+                                            }, "@user.getUsername");
+                                        }
+
+                                        $(".edit .picFrame").click(function(){$("#profileImageFile").click()})
+                                            .on("dragover", function(jqe) {
+                                                var e = jqe.originalEvent;
+                                                e.stopPropagation();
+                                                e.preventDefault();
+                                                e.dataTransfer.dropEffect = 'copy';
+                                            })
+                                            .on("drop", function(jqe) {
+                                                var e = jqe.originalEvent;
+                                                console.log(e);
+                                                e.stopPropagation();
+                                                e.preventDefault();
+                                                uploadImage(e.dataTransfer);
+                                            });
+                                        $("#profileImageFile").change(function(){uploadImage($('#profile_image_file')[0]s);})
+                                    </script>
                                 </div>
                                 <div class="clearfix"></div>
                             </li>
@@ -108,10 +140,10 @@
             <div class="clearfix">
             </div>
         </div>
-	@if(edit) {
-		</form>
-	}
-	</div>
+        @if(edit) {
+        </form>
+        }
+    </div>
 } {
-	<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/profile.css")" />
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/profile.css")" />
 }
