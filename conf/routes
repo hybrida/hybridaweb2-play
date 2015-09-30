@@ -21,6 +21,7 @@ GET           /styret                           hybridaleaders.HybridaLeaders.in
 
 # Upload
 POST          /api/upload                       controllers.Upload.upload()
+# POST          /api/upload/:uploadFolder         controllers.Upload.uploadTo(uploadFolder) # This should remain commented out until the method is secure
 
 # BedkomDatabase
 GET           /bedkomdatabase                   bedkomdatabase.BedkomDatabase.index()

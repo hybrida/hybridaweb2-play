@@ -16,7 +16,7 @@ public class Upload extends Controller {
 
     private enum FileType {IMAGE, PDF, DOCUMENT, OTHER}
 
-    public static Result upload() {
+    public static Result uploadTo(String uploadFolder) {
         User user = LoginState.getUser();
         if (user.isDefault()) return unauthorized();
 
@@ -31,21 +31,31 @@ public class Upload extends Controller {
         extensionMap.put(".gdoc", FileType.DOCUMENT);
 
         MultipartFormData formData = request().body().asMultipartFormData();
-//        return ok(formData.toString());
+
+        if(uploadFolder == null) {
+            uploadFolder = user.getUsername();
+        } else if (!uploadFolder.equals(user.getUsername())) {
+            //TODO: make sure user can upload to that folder, otherwise return unathorized()
+        }
 
         MultipartFormData.FilePart filePart = formData.getFile("file");
         if(filePart != null) {
             File tempFile = filePart.getFile();
             String filename = filePart.getFilename();
             String extension = filename.substring(filename.lastIndexOf('.'));
-            String noExtension = filename.substring(0, filename.lastIndexOf('.'));
-            String folder = "public/upload/" + user.getUsername() + "/";
-            File newFile = new File(folder + filename);
-            for(int i = 1; newFile.exists(); i++) newFile = new File(folder + noExtension + "(" + i + ")" + extension);
+            String filenameNoExtension = filename.substring(0, filename.lastIndexOf('.'));
+            String folder = "upload/" + uploadFolder + "/";
+            File newFile = new File("public/" + folder + filename);
+            for(int i = 1; newFile.exists(); i++) newFile = new File("public/" + folder + filenameNoExtension + "(" + i + ")" + extension);
+            newFile.getParentFile().mkdirs();
             if(!tempFile.renameTo(newFile.getAbsoluteFile())) return internalServerError();
-            return ok("assets/" + user.getUsername() + "/" + newFile.getName());
+            return ok(controllers.routes.Assets.at(folder + newFile.getName()).url());
         } else {
             return badRequest("No file");
         }
+    }
+
+    public static Result upload() {
+        return uploadTo(null);
     }
 }
