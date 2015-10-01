@@ -1,85 +1,78 @@
 package models;
 
-import org.apache.commons.io.FileUtils;
 import play.data.Form;
 import play.db.ebean.Model;
-import play.mvc.Controller;
-import play.mvc.Http;
 
 import javax.persistence.*;
-import java.io.File;
-import java.io.IOException;
-import java.lang.Enum;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 @Entity
 @Table(
 	name="USER",
 	uniqueConstraints=
-		@UniqueConstraint(columnNames= {"username"})
+		@UniqueConstraint(columnNames= {"USERNAME"})
 )
 public class User extends Model {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
+	@Column(name = "ID", nullable = false)
 	public Long        id;
 
 	// Name, identification, contact
 	public String      username;  // Assigned by NTNU
-	@Column(name = "first_name", columnDefinition = "varchar(256) default 'Fornavn'")
+	@Column(name = "FIRST_NAME", columnDefinition = "varchar(256) default 'Fornavn'")
 	public String      firstName;
-	@Column(name = "surname", columnDefinition = "varchar(256) default 'Etternavn'")
-	public String      surname;
-	@Column(name = "middle_name")
+	@Column(name = "LAST_NAME", columnDefinition = "varchar(256) default 'Etternavn'")
+	public String      lastName;
+	@Column(name = "MIDDLE_NAME")
 	public String      middleName;
 	public String      email;
-	@Column(name = "website_url")
+	@Column(name = "WEBSITE_URL")
 	public String      websiteUrl;
 	public String      phone;
 	public String      title; // Ph.D., Civ.Eng., Stud., Chief, Commander, General, Lord, Admiral, Vevsjef,...
-	@Column(name = "profile_image_file_name")
+	@Column(name = "PROFILE_IMAGE_FILE_NAME")
 	public String      profileImageFileName;
-	@Column(name = "graduation_year")
+	@Column(name = "GRADUATION_YEAR")
 	public Integer graduationYear = 0;
 
 	// Privilege status
-	@Column(name = "student", columnDefinition = "boolean default false")
+	@Column(name = "STUDENT", columnDefinition = "boolean default false")
 	public Boolean             student;    // No special privileges except for file upload.
-	@Column(name = "bedkom", columnDefinition = "boolean default false")
+	@Column(name = "BEDKOM", columnDefinition = "boolean default false")
 	public Boolean             bedkom;     // Control over bedpress.
-	@Column(name = "arrkom", columnDefinition = "boolean default false")
+	@Column(name = "ARRKOM", columnDefinition = "boolean default false")
 	public Boolean             arrkom;     // Control over arrkom.
-	@Column(name = "vevkom", columnDefinition = "boolean default false")
+	@Column(name = "VEVKOM", columnDefinition = "boolean default false")
 	public Boolean             vevkom;     // Control over vevkom.
-	@Column(name = "admin", columnDefinition = "boolean default false")
+	@Column(name = "ADMIN", columnDefinition = "boolean default false")
 	public Boolean             admin;      // For control over the entire page. Check your privilege
-	@Column(name = "root", columnDefinition = "boolean default false")
+	@Column(name = "ROOT", columnDefinition = "boolean default false")
 	public Boolean             root;       // Powers too great for mere mortals.
-	@Column(name = "gender", columnDefinition = "char(1) default '\0'")
+	@Column(name = "GENDER", columnDefinition = "char(1) default '\0'")
 	public Character           gender;         // For specific events.
 	public Timestamp           enrolled;    // For specific bedpreses requiring a year number.
-	@Column(name = "date_of_birth")
+	@Column(name = "DATE_OF_BIRTH")
 	public Timestamp           dateOfBirth;
 
 	// Misc. account info
-	@Column(name = "last_login")
+	@Column(name = "LAST_LOGIN")
 	private Timestamp          lastLogin; // Used to avoid cookie-stealing schemes and MITM attacks. Combined with AES with time and RNG padded encryption.
 
 	public User() {}
 
-	public User(String username, String firstName, String surname) {
+	public User(String username, String firstName, String lastName) {
 		this.username = username;
 		this.firstName = firstName;
-		this.surname = surname;
+		this.lastName = lastName;
 	}
 
 	public User(
 		String username,
 		String firstName,
-		String surname,
+		String lastName,
 		String middleName,
 		String email,
 		String websiteUrl,
@@ -98,7 +91,7 @@ public class User extends Model {
 		Timestamp dateOfBirth) {
 			this.username = username;
 			this.firstName = firstName;
-			this.surname = surname;
+			this.lastName = lastName;
 			this.middleName = middleName;
 			this.email = email;
 			this.websiteUrl = websiteUrl;
@@ -202,7 +195,7 @@ public class User extends Model {
 	public String getName(boolean showMiddleName) {
 		String m = "";
 		if (showMiddleName) m = " " + middleName;
-		return firstName + m + " " + surname;
+		return firstName + m + " " + lastName;
 	}
 
 	public String getName() {
@@ -236,10 +229,10 @@ public class User extends Model {
 	}
 
     public void updateFromForm(Form<User> form) {
-        if(isSet(form.apply("email").value())) setEmail(form.apply("email").value());
-        if(isSet(form.apply("websiteUrl").value())) setWebsiteUrl(form.apply("websiteUrl").value());
-        if(isSet(form.apply("phone").value())) setPhone(form.apply("phone").value());
-        if(isSet(form.apply("profileImageFileName").value())) setProfileImageFileName(form.apply("profileImageFileName").value());
+        setEmail(form.apply("email").valueOr(getEmail()));
+        setWebsiteUrl(form.apply("websiteUrl").valueOr(getWebsiteUrl()));
+        setPhone(form.apply("phone").valueOr(getPhone()));
+        setProfileImageFileName(form.apply("profileImageFileName").valueOr(getProfileImageFileName()));
         save();
     }
 
@@ -254,7 +247,7 @@ public class User extends Model {
 		if (phone != null) sb.append("\tphone: " + phone.toString() + ", \n");
 		if (title != null) sb.append("\ttitle: " + title.toString() + ", \n");
 		if (username != null) sb.append("\tusername: " + username.toString() + ", \n");
-		if (surname != null)  sb.append("\tsurname: " + surname.toString() + ", \n");
+		if (lastName != null)  sb.append("\tlastName: " + lastName.toString() + ", \n");
 		if (firstName != null) sb.append("\tfirstName: " + firstName.toString() + ", \n");
 		if (middleName != null) sb.append("\tmiddleName: " + middleName.toString() + ", \n");
 		if (profileImageFileName != null) sb.append("\tprofileImageFileName: " + profileImageFileName.toString() + ", \n");
