@@ -1,5 +1,8 @@
 package controllers;
 
+import exceptions.NoFileInRequest;
+import exceptions.ServerError;
+import exceptions.Unauthorized;
 import models.LoginState;
 import models.User;
 import play.mvc.Controller;
@@ -16,9 +19,9 @@ public class Upload extends Controller {
 
     private enum FileType {IMAGE, PDF, DOCUMENT, OTHER}
 
-    public static Result uploadTo(String uploadFolder) {
+    public static String uploadTo(String uploadFolder) throws Unauthorized, ServerError, NoFileInRequest {
         User user = LoginState.getUser();
-        if (user.isDefault()) return unauthorized();
+        if (user.isDefault()) throw new Unauthorized();
 
         HashMap<String, FileType> extensionMap = new HashMap<>();
         extensionMap.put(".jpg", FileType.IMAGE);
@@ -34,8 +37,8 @@ public class Upload extends Controller {
         if(uploadFolder == null) {
             uploadFolder = user.getUsername();
         } else if (!uploadFolder.equals(user.getUsername()) && !user.admin) {
-            //TODO: make sure user can upload to that folder, otherwise return unathorized()
-            return unauthorized();
+            //TODO: make sure user is authorized to ajaxUpload to that folder, otherwise block access
+            throw new Unauthorized();
         }
 
         MultipartFormData formData = request().body().asMultipartFormData();
@@ -49,14 +52,30 @@ public class Upload extends Controller {
             File newFile = new File("public/" + folder + filename);
             for(int i = 1; newFile.exists(); i++) newFile = new File("public/" + folder + filenameNoExtension + "(" + i + ")" + extension);
             newFile.getParentFile().mkdirs();
-            if(!tempFile.renameTo(newFile.getAbsoluteFile())) return internalServerError();
-            return ok(controllers.routes.Assets.at(folder + newFile.getName()).url());
+            if(!tempFile.renameTo(newFile.getAbsoluteFile())) throw new ServerError();
+            return controllers.routes.Assets.at(folder + newFile.getName()).url();
         } else {
-            return badRequest("No file");
+            throw new NoFileInRequest();
         }
     }
 
-    public static Result upload() {
+    public static String upload() throws Unauthorized, NoFileInRequest, ServerError {
         return uploadTo(null);
+    }
+
+    public static Result ajaxUploadTo(String uploadFolder) {
+        try {
+            return ok(uploadTo(uploadFolder));
+        } catch (Unauthorized unauthorized) {
+            return unauthorized();
+        } catch (NoFileInRequest noFileInRequest) {
+            return badRequest();
+        } catch (ServerError serverError) {
+            return internalServerError();
+        }
+    }
+
+    public static Result ajaxUpload() {
+        return ajaxUploadTo(null);
     }
 }
