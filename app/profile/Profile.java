@@ -60,8 +60,8 @@ public class Profile extends Controller {
 			user,
 			edit,
 			messages,
-			user.hasMiddleName() ? user.getName(true) : null,
-			user.hasProfileImage() ? "upload/" + user.getUsername() + "/" + user.getProfileImageFileName() : null
+			user.hasTitle() ? user.getTitle() : user.hasMiddleName() ? user.getFullName() : null,
+			user.hasProfileImage() ? "uploads/" + user.getUsername() + "/" + user.getProfileImageFileName() : null
 		);
 	}
 }

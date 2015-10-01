@@ -22,21 +22,24 @@ public class User extends Model {
 
 	// Name, identification, contact
 	public String      username;  // Assigned by NTNU
-	@Column(name = "FIRST_NAME", columnDefinition = "varchar(256) default 'Fornavn'")
+	@Column(name = "FIRST_NAME", columnDefinition = "varchar(256) default 'Fornavn'", nullable = false)
 	public String      firstName;
-	@Column(name = "LAST_NAME", columnDefinition = "varchar(256) default 'Etternavn'")
+	@Column(name = "LAST_NAME", columnDefinition = "varchar(256) default 'Etternavn'", nullable = false)
 	public String      lastName;
 	@Column(name = "MIDDLE_NAME")
 	public String      middleName;
+    @Column(name = "EMAIL")
 	public String      email;
 	@Column(name = "WEBSITE_URL")
 	public String      websiteUrl;
+    @Column(name = "PHONE")
 	public String      phone;
+    @Column(name = "TITLE")
 	public String      title; // Ph.D., Civ.Eng., Stud., Chief, Commander, General, Lord, Admiral, Vevsjef,...
+	@Column(name = "GRADUATION_YEAR")
+	public Integer     graduationYear = 0;
 	@Column(name = "PROFILE_IMAGE_FILE_NAME")
 	public String      profileImageFileName;
-	@Column(name = "GRADUATION_YEAR")
-	public Integer graduationYear = 0;
 
 	// Privilege status
 	@Column(name = "STUDENT", columnDefinition = "boolean default false")
@@ -52,14 +55,17 @@ public class User extends Model {
 	@Column(name = "ROOT", columnDefinition = "boolean default false")
 	public Boolean             root;       // Powers too great for mere mortals.
 	@Column(name = "GENDER", columnDefinition = "char(1) default '\0'")
-	public Character           gender;         // For specific events.
-	public Timestamp           enrolled;    // For specific bedpreses requiring a year number.
+	public Character           gender;     // For specific events.
+    @Column(name = "ENROLLED")
+	public Timestamp           enrolled;   // For specific bedpreses requiring a year number.
 	@Column(name = "DATE_OF_BIRTH")
 	public Timestamp           dateOfBirth;
 
 	// Misc. account info
 	@Column(name = "LAST_LOGIN")
 	private Timestamp          lastLogin; // Used to avoid cookie-stealing schemes and MITM attacks. Combined with AES with time and RNG padded encryption.
+    @Column(name = "PROFILE_IMAGE_POS")
+    public Double              profileImagePos;
 
 	public User() {}
 
@@ -69,46 +75,31 @@ public class User extends Model {
 		this.lastName = lastName;
 	}
 
-	public User(
-		String username,
-		String firstName,
-		String lastName,
-		String middleName,
-		String email,
-		String websiteUrl,
-		String phone,
-		String title,
-		int graduationYear,
-		String profileImageFileName,
-		Boolean student,
-		Boolean bedkom,
-		Boolean arrkom,
-		Boolean vevkom,
-		Boolean admin,
-		Boolean root,
-		Character gender,
-		Timestamp enrolled,
-		Timestamp dateOfBirth) {
-			this.username = username;
-			this.firstName = firstName;
-			this.lastName = lastName;
-			this.middleName = middleName;
-			this.email = email;
-			this.websiteUrl = websiteUrl;
-			this.phone = phone;
-			this.title = title;
-			this.graduationYear = graduationYear;
-			this.profileImageFileName = profileImageFileName;
-			this.student = student;
-			this.bedkom = bedkom;
-			this.admin = admin;
-			this.root = root;
-			this.gender = gender;
-			this.enrolled = enrolled;
-			this.dateOfBirth = dateOfBirth;
-	}
+    public User(String username, String firstName, String lastName, String middleName, String email, String websiteUrl, String phone, String title, Integer graduationYear, String profileImageFileName, Boolean student, Boolean bedkom, Boolean arrkom, Boolean vevkom, Boolean admin, Boolean root, Character gender, Timestamp enrolled, Timestamp dateOfBirth, Timestamp lastLogin, Double profileImagePos) {
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.email = email;
+        this.websiteUrl = websiteUrl;
+        this.phone = phone;
+        this.title = title;
+        this.graduationYear = graduationYear;
+        this.profileImageFileName = profileImageFileName;
+        this.student = student;
+        this.bedkom = bedkom;
+        this.arrkom = arrkom;
+        this.vevkom = vevkom;
+        this.admin = admin;
+        this.root = root;
+        this.gender = gender;
+        this.enrolled = enrolled;
+        this.dateOfBirth = dateOfBirth;
+        this.lastLogin = lastLogin;
+        this.profileImagePos = profileImagePos;
+    }
 
-	public boolean isDefault() {
+    public boolean isDefault() {
 		return (id == null);
 	}
 
@@ -124,15 +115,58 @@ public class User extends Model {
 		return thisOrFalse(bedkom) || thisOrFalse(admin) || thisOrFalse(root);
 	}
 
-	public boolean isRoot() {
-		return thisOrFalse(root);
-	}
 
-	public boolean hasMiddleName() {
+    // Getters and Setter (and some hassers)
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public boolean hasMiddleName() {
 		return middleName != null && !middleName.equals("");
 	}
 
-	public boolean hasEmail() {
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getName() {
+        return firstName + " " + lastName;
+    }
+
+    public String getFullName() {
+        return firstName + " " + (hasMiddleName() ? middleName + " " : "") + lastName;
+    }
+
+    public boolean hasEmail() {
 		return email != null && !email.equals("");
 	}
 
@@ -168,6 +202,30 @@ public class User extends Model {
         this.phone = phone;
     }
 
+    public boolean hasTitle() {
+        return title != null && title.length() > 0;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public boolean hasGraduationYear() {
+        return graduationYear != null && graduationYear > 2000 && graduationYear < 2200;
+    }
+
+    public Integer getGraduationYear() {
+        return graduationYear;
+    }
+
+    public void setGraduationYear(Integer graduationYear) {
+        this.graduationYear = graduationYear;
+    }
+
     public boolean hasProfileImage() {
 		return profileImageFileName != null && !profileImageFileName.equals("");
 	}
@@ -180,37 +238,31 @@ public class User extends Model {
         this.profileImageFileName = profileImageFileName;
     }
 
-    public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getUsername() {
-		return this.username;
-	}
-
-	public Timestamp getLastLoginTime() {
+    public Timestamp getLastLoginTime() {
 		return lastLogin;
-	}
-
-	public String getName(boolean showMiddleName) {
-		String m = "";
-		if (showMiddleName) m = " " + middleName;
-		return firstName + m + " " + lastName;
-	}
-
-	public String getName() {
-		return getName(false);
 	}
 
 	public char getGender() {
 		return gender;
 	}
 
-    public Long getId() {
-		return id;
+	public boolean isRoot() {
+		return thisOrFalse(root);
 	}
 
-	public int calculateClass() {
+    public boolean hasProfileImagePos() {
+        return profileImagePos != null;
+    }
+
+    public Double getProfileImagePos() {
+        return profileImagePos;
+    }
+
+    public void setProfileImagePos(Double profileImagePos) {
+        this.profileImagePos = profileImagePos;
+    }
+
+    public int calculateClass() {
 		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 		int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
 		int classYear = 5 - (graduationYear - currentYear);
@@ -219,20 +271,19 @@ public class User extends Model {
 		return classYear;
 	}
 
-	public static boolean checkImageType(String contentType) {
-		String[] type = contentType.split("/");
-		return type[0].equals("image");
-	}
-
 	public void saveToSession() {
 		play.mvc.Controller.session("user", play.api.libs.Crypto.encryptAES(username + "," + String.valueOf(System.currentTimeMillis())));
 	}
 
     public void updateFromForm(Form<User> form) {
+        setFirstName(form.apply("firstName").valueOr(getFirstName()));
+        setLastName(form.apply("lastName").valueOr(getLastName()));
+        setMiddleName(form.apply("middleName").valueOr(getMiddleName()));
         setEmail(form.apply("email").valueOr(getEmail()));
         setWebsiteUrl(form.apply("websiteUrl").valueOr(getWebsiteUrl()));
         setPhone(form.apply("phone").valueOr(getPhone()));
         setProfileImageFileName(form.apply("profileImageFileName").valueOr(getProfileImageFileName()));
+        setTitle(form.apply("title").valueOr(getTitle()));
         save();
     }
 

@@ -45,7 +45,7 @@ public class Upload extends Controller {
             String filename = filePart.getFilename();
             String extension = filename.substring(filename.lastIndexOf('.'));
             String filenameNoExtension = filename.substring(0, filename.lastIndexOf('.'));
-            String folder = "upload/" + uploadFolder + "/";
+            String folder = "uploads/" + uploadFolder + "/";
             File newFile = new File("public/" + folder + filename);
             for(int i = 1; newFile.exists(); i++) newFile = new File("public/" + folder + filenameNoExtension + "(" + i + ")" + extension);
             newFile.getParentFile().mkdirs();

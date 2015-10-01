@@ -1,6 +1,8 @@
 # Ignore backup and local test data
 conf/evolutions/default/backup.sql
+conf/evolutions/default/backup/
 conf/evolutions/default/3.sql
+public/uploads/
 
 # Ignore Eclipse
 .classpath
