@@ -5,7 +5,7 @@ import play.mvc.Result;
 
 import application.views.html.*;
 
-public class BedkomDatabase extends Controller {
+public class Bedkomdatabase extends Controller {
 
     public static Result index(){
 
@@ -13,6 +13,7 @@ public class BedkomDatabase extends Controller {
     }
 
     public static Result saveBedrift(){
+
         return ok();
     }
 
