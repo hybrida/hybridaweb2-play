@@ -5,7 +5,9 @@ import play.db.ebean.Model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Objects;
 
 @Entity
 @Table(
@@ -14,6 +16,35 @@ import java.util.Calendar;
 		@UniqueConstraint(columnNames= {"USERNAME"})
 )
 public class User extends Model {
+
+    public enum Specialization {
+        NONE(""),
+        GEOMATIKK("Geomatikk"),
+        KONSTRUKSJON("Konstruksjonsteknikk"),
+        MARIN("Marin teknikk"),
+        MASKIN("Produktutvikling og matrialer"),
+        PETROLIUM("Petroliumsfag"),
+        PRODUKSJONSLEDELSE("Produksjonsledelse");
+        private final String displayName;
+        Specialization(String displayName) {
+            this.displayName = displayName;
+        }
+        @Override
+        public String toString(){
+            return displayName;
+        }
+
+        public static Specialization fromDisplayName(String displayName) {
+            for (Specialization value : values()) {
+                if(value.toString().equalsIgnoreCase(displayName)) return value;
+            }
+            return null;
+        }
+
+        public static String[] displayNames() {
+            return Arrays.stream(values()).map(Objects::toString).toArray(String[]::new);
+        }
+    }
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -38,12 +69,15 @@ public class User extends Model {
 	public String      title; // Ph.D., Civ.Eng., Stud., Chief, Commander, General, Lord, Admiral, Vevsjef,...
 	@Column(name = "GRADUATION_YEAR")
 	public Integer     graduationYear = 0;
-	@Column(name = "PROFILE_IMAGE_FILE_NAME")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "SPECIALIZATION")
+	public Specialization specialization = Specialization.NONE;
+    @Column(name = "PROFILE_IMAGE_FILE_NAME")
 	public String      profileImageFileName;
 
 	// Privilege status
 	@Column(name = "STUDENT", columnDefinition = "boolean default false")
-	public Boolean             student;    // No special privileges except for file upload.
+	public Boolean             student;    // No special privileges except for file ajaxUpload.
 	@Column(name = "BEDKOM", columnDefinition = "boolean default false")
 	public Boolean             bedkom;     // Control over bedpress.
 	@Column(name = "ARRKOM", columnDefinition = "boolean default false")
@@ -74,30 +108,6 @@ public class User extends Model {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
-
-    public User(String username, String firstName, String lastName, String middleName, String email, String websiteUrl, String phone, String title, Integer graduationYear, String profileImageFileName, Boolean student, Boolean bedkom, Boolean arrkom, Boolean vevkom, Boolean admin, Boolean root, Character gender, Timestamp enrolled, Timestamp dateOfBirth, Timestamp lastLogin, Double profileImagePos) {
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.middleName = middleName;
-        this.email = email;
-        this.websiteUrl = websiteUrl;
-        this.phone = phone;
-        this.title = title;
-        this.graduationYear = graduationYear;
-        this.profileImageFileName = profileImageFileName;
-        this.student = student;
-        this.bedkom = bedkom;
-        this.arrkom = arrkom;
-        this.vevkom = vevkom;
-        this.admin = admin;
-        this.root = root;
-        this.gender = gender;
-        this.enrolled = enrolled;
-        this.dateOfBirth = dateOfBirth;
-        this.lastLogin = lastLogin;
-        this.profileImagePos = profileImagePos;
-    }
 
     public boolean isDefault() {
 		return (id == null);
@@ -215,7 +225,7 @@ public class User extends Model {
     }
 
     public boolean hasGraduationYear() {
-        return graduationYear != null && graduationYear > 2000 && graduationYear < 2200;
+        return graduationYear != null;
     }
 
     public Integer getGraduationYear() {
@@ -224,6 +234,23 @@ public class User extends Model {
 
     public void setGraduationYear(Integer graduationYear) {
         this.graduationYear = graduationYear;
+    }
+
+    public boolean hasSpecialization() {
+        return specialization != null && specialization != Specialization.NONE;
+    }
+
+    public Specialization getSpecialization() {
+        if(specialization == null) specialization = Specialization.NONE;
+        return specialization;
+    }
+
+    public void setSpecialization(Specialization specialization) {
+        this.specialization = specialization;
+    }
+
+    public void setSpecialization(String displayName) {
+        this.specialization = Specialization.fromDisplayName(displayName);
     }
 
     public boolean hasProfileImage() {
@@ -284,6 +311,7 @@ public class User extends Model {
         setPhone(form.apply("phone").valueOr(getPhone()));
         setProfileImageFileName(form.apply("profileImageFileName").valueOr(getProfileImageFileName()));
         setTitle(form.apply("title").valueOr(getTitle()));
+        setSpecialization(form.apply("specialization").valueOr(getSpecialization().toString()));
         save();
     }
 

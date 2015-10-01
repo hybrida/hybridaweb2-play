@@ -42,7 +42,7 @@
 										<div class="row" style="margin-left: 1%">
 											<div class="col-md-1">
 												<a href="@profile.routes.Profile.index(j.getUsername)" class="thumbnail">
-													<img src="@if(j.getProfileImageFileName != null){ /assets/upload/@j.getUsername/@j.getProfileImageFileName} @if(j.getProfileImageFileName == null){/assets/images/logo_big.png}" alt="profilepic for @j.getName" width="30px">
+													<img src="@if(j.getProfileImageFileName != null){ /assets/ajaxUpload/@j.getUsername/@j.getProfileImageFileName} @if(j.getProfileImageFileName == null){/assets/images/logo_big.png}" alt="profilepic for @j.getName" width="30px">
 												</a>
 											</div>
 											<div class="col-md-11">
@@ -65,7 +65,7 @@
 						<div class="row">
 							<div class="col-md-1">
 								<a href="@profile.routes.Profile.index(i.getAuthor.getUsername)" class="thumbnail">
-										<img src="@if(i.getAuthor.getProfileImageFileName != null){ /assets/upload/@i.getAuthor.getUsername/@i.getAuthor.getProfileImageFileName} @if(i.getAuthor.getProfileImageFileName == null){/assets/images/logo_big.png}" alt="profilepic for @i.getAuthor.getName" width="30px">
+										<img src="@if(i.getAuthor.getProfileImageFileName != null){ /assets/ajaxUpload/@i.getAuthor.getUsername/@i.getAuthor.getProfileImageFileName} @if(i.getAuthor.getProfileImageFileName == null){/assets/images/logo_big.png}" alt="profilepic for @i.getAuthor.getName" width="30px">
 								</a>
 							</div>
 								<div class="col-md-11">

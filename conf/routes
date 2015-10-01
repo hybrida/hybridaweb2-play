@@ -20,8 +20,8 @@ GET           /nystudent                        newstudent.NewStudent.index()
 GET           /styret                           hybridaleaders.HybridaLeaders.index()
 
 # Upload
-POST          /api/upload                       controllers.Upload.upload()
-POST          /api/upload/:uploadFolder         controllers.Upload.uploadTo(uploadFolder)
+POST          /api/upload                       controllers.Upload.ajaxUpload()
+POST          /api/upload/:uploadFolder         controllers.Upload.ajaxUploadTo(uploadFolder)
 
 # BedkomDatabase
 GET           /bedkomdatabase                   bedkomdatabase.Bedkomdatabase.index()

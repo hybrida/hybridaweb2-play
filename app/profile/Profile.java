@@ -59,6 +59,7 @@ public class Profile extends Controller {
 		return profile.views.html.index.render(
 			user,
 			edit,
+            authorizedToEditUser(user.getUsername()),
 			messages,
 			user.hasTitle() ? user.getTitle() : user.hasMiddleName() ? user.getFullName() : null,
 			user.hasProfileImage() ? "uploads/" + user.getUsername() + "/" + user.getProfileImageFileName() : null
