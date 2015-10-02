@@ -1,13 +1,13 @@
 package models;
 
 import play.data.Form;
+import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Objects;
+import java.util.*;
+import java.util.regex.Pattern;
 
 @Entity
 @Table(
@@ -15,36 +15,7 @@ import java.util.Objects;
 	uniqueConstraints=
 		@UniqueConstraint(columnNames= {"USERNAME"})
 )
-public class User extends Model {
-
-    public enum Specialization {
-        NONE(""),
-        GEOMATIKK("Geomatikk"),
-        KONSTRUKSJON("Konstruksjonsteknikk"),
-        MARIN("Marin teknikk"),
-        MASKIN("Produktutvikling og matrialer"),
-        PETROLIUM("Petroliumsfag"),
-        PRODUKSJONSLEDELSE("Produksjonsledelse");
-        private final String displayName;
-        Specialization(String displayName) {
-            this.displayName = displayName;
-        }
-        @Override
-        public String toString(){
-            return displayName;
-        }
-
-        public static Specialization fromDisplayName(String displayName) {
-            for (Specialization value : values()) {
-                if(value.toString().equalsIgnoreCase(displayName)) return value;
-            }
-            return null;
-        }
-
-        public static String[] displayNames() {
-            return Arrays.stream(values()).map(Objects::toString).toArray(String[]::new);
-        }
-    }
+public class User extends Model implements ImmutableUser {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -55,10 +26,11 @@ public class User extends Model {
 	public String      username;  // Assigned by NTNU
 	@Column(name = "FIRST_NAME", columnDefinition = "varchar(256) default 'Fornavn'", nullable = false)
 	public String      firstName;
-	@Column(name = "LAST_NAME", columnDefinition = "varchar(256) default 'Etternavn'", nullable = false)
+    @Column(name = "LAST_NAME", columnDefinition = "varchar(256) default 'Etternavn'", nullable = false)
 	public String      lastName;
 	@Column(name = "MIDDLE_NAME")
 	public String      middleName;
+    @Required
     @Column(name = "EMAIL")
 	public String      email;
 	@Column(name = "WEBSITE_URL")
@@ -302,6 +274,49 @@ public class User extends Model {
 		play.mvc.Controller.session("user", play.api.libs.Crypto.encryptAES(username + "," + String.valueOf(System.currentTimeMillis())));
 	}
 
+    private static class ValPat {
+        private String name;
+        private Pattern pattern;
+        private String message;
+
+        public ValPat(String name, String matches, String message) {
+            this.name = name;
+            this.pattern = Pattern.compile(matches);
+            this.message = message;
+        }
+
+        public String getName() {return name;}
+        public boolean matches(String value) {return pattern.matcher(value).matches();}
+        public String getMessage() {return message;}
+
+        @Override
+        public String toString() {
+            return "ValPat{" +
+                    "name='" + name + '\'' +
+                    ", pattern=" + pattern +
+                    ", message='" + message + '\'' +
+                    '}';
+        }
+    }
+
+    public static Map<String, String> validateForm(Form<User> form) {
+        HashMap<String, String> messages = new HashMap<>();
+        for(ValPat vp : new ValPat[]{
+                new ValPat("firstName", "[A-ZÆØÅa-zæøå \\.]", "Fornavn må være på mellom 1 og 20 tegn, " +
+                        "og kan kun inneholde bokstaver, mellomrom og punktum."),
+                new ValPat("email", "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,5}",
+                        "Vennligst oppgi en gyldig e-postadresse.")
+        }) {
+            Form.Field field = form.apply(vp.getName());
+            System.out.println(field.value());
+            System.out.println(vp.getName());
+            if(field.value() != null && !vp.matches(field.value())) {
+                messages.put(vp.getName(), vp.getMessage());
+            }
+        }
+        return messages;
+    }
+
     public void updateFromForm(Form<User> form) {
         setFirstName(form.apply("firstName").valueOr(getFirstName()));
         setLastName(form.apply("lastName").valueOr(getLastName()));
@@ -311,6 +326,7 @@ public class User extends Model {
         setPhone(form.apply("phone").valueOr(getPhone()));
         setProfileImageFileName(form.apply("profileImageFileName").valueOr(getProfileImageFileName()));
         setTitle(form.apply("title").valueOr(getTitle()));
+        setGraduationYear(Integer.parseInt(form.apply("graduationYear").valueOr(getGraduationYear().toString())));
         setSpecialization(form.apply("specialization").valueOr(getSpecialization().toString()));
         save();
     }
