@@ -2,6 +2,8 @@ package bedkomdatabase.models;
 
 import com.avaje.ebean.annotation.CreatedTimestamp;
 import com.avaje.ebean.annotation.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import play.db.ebean.Model;
 import play.twirl.api.Html;
 
@@ -32,6 +34,7 @@ public class Note extends Model {
     private User madeBy;
 
     @ManyToOne(cascade=CascadeType.ALL)
+    @JsonBackReference
     private Bedrift bedrift;
 
     public Note(String note, Bedrift bedrift){

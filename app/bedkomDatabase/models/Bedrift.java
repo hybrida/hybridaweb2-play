@@ -3,6 +3,7 @@ package bedkomdatabase.models;
 import com.avaje.ebean.annotation.CreatedTimestamp;
 import com.avaje.ebean.annotation.*;
 import com.avaje.ebean.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import play.db.ebean.Model;
 import play.twirl.api.Html;
 
@@ -31,6 +32,7 @@ public class Bedrift extends Model {
 
     private String bedriftName;
 
+    @ManyToOne
     private User responsible; //defines the user responsible for contacting this company.
 
     @Constraints.Max(10)
@@ -38,9 +40,11 @@ public class Bedrift extends Model {
     private int priority;
 
     @OneToMany
+    @JsonManagedReference
     private List<Contact> contacts;
 
     @OneToMany
+    @JsonManagedReference
     private List<Note> notes;
 
 

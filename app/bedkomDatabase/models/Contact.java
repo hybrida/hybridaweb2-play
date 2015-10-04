@@ -1,6 +1,8 @@
 package bedkomdatabase.models;
 
 import com.avaje.ebean.annotation.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import play.db.ebean.Model;
 import play.twirl.api.Html;
 
@@ -34,6 +36,7 @@ public class Contact extends Model {
     private User madeBy;
 
     @ManyToOne(cascade=CascadeType.ALL)
+    @JsonBackReference
     private Bedrift bedrift;
 
     public Contact(String telephone, String contact, String other, String email, Bedrift bedrift) {
