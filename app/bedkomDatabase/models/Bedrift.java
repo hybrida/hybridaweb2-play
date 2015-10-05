@@ -54,6 +54,10 @@ public class Bedrift extends Model {
         this.responsible = responsible;
     }
 
+    public long getBedriftId() {
+        return bedriftId;
+    }
+
     public Timestamp getDateMade() {
         return dateMade;
     }

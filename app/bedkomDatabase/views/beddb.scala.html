@@ -63,7 +63,8 @@
                     </div>
                 @for(i <- content){
                     <div class="row">
-                        <div class="sleek-box-bg">
+                            <!-- Button trigger modal -->
+                        <div class="sleek-box-bg" data-toggle="modal" data-target="#@i.getBedriftId">
                             <div class="col-md-6">
                             <p>@i.getBedriftName</p>
                             </div>
@@ -72,6 +73,81 @@
                             </div>
                             <div class="col-md-2">
                             <p>@i.getPriority</p>
+                            </div>
+                        </div>
+
+
+                            <!-- Modal -->
+                        <div class="modal fade" id="@i.getBedriftId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">@i.getBedriftName</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="center-block">
+                                            <p class="text-center">Kontakpersoner:</p></div>
+                                        @for(p <- i.getContacts) {
+                                            <div class="row">
+                                                <div class="col-md-10 col-md-offset-1">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">@p.getContact</div>
+                                                        <div class="panel-body">
+                                                            Telefon: @p.getTelephone <br>
+                                                            Email: @p.getEmail <br>
+                                                            Annet: @p.getOther <br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                        <div class="row">
+                                            <div class="col-md-10 col-md-offset-1">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="heading@i.getBedriftId">
+                                                    <h4 class="panel-title">
+                                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse@i.getBedriftId" aria-expanded="true" aria-controls="collapse@i.getBedriftId">
+                                                        Opprett ny kontaktperson:
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapse@i.getBedriftId" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading@i.getBedriftId">
+                                                    <div class="panel-body">
+                                                        <form action="@bedkomdatabase.routes.Bedkomdatabase.saveKontaktPerson(i.getBedriftId.toString)" method="POST" enctype="multipart/form-data">
+                                                            <div class="form-group">
+                                                                <label for="kontaktName">Navn på kontakt</label>
+                                                                <input type="text" class="form-control" name="contact" id="kontaktName" placeholder="Navn på kontakten">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="telephone">Telefonnummer</label>
+                                                                <input type="text" class="form-control" name="telephone" id="telephone" placeholder="Telefonnummer">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="email">email</label>
+                                                                <input type="email" class="form-control" name="email" id="email" placeholder="Email(at)bedrift.no">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="other">Annen info</label>
+                                                                <input type="text" class="form-control" name="other" id="other" placeholder="Annen info">
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary form-control">Legg til kontaktperson</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div></div>
+                                        </div>
+                                            <div class="row">
+
+                                            </div>
+
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -17,7 +17,7 @@ public class Bedkomdatabase extends Controller {
         if(!User.hasAccess(LoginState.getUser(), false, User.Access.BEDKOM, User.Access.VEVKOM)){
             return ok(layout.render("No access", application.views.html.showUnauthorizedAccess.render()));
         }
-        List<Bedrift> bedriftList = Bedrift.find.orderBy("priority, priority desc").findList();
+        List<Bedrift> bedriftList = Bedrift.find.orderBy("priority desc").findList();
 
         for(Bedrift i : bedriftList){
             System.out.println(i.getResponsible().getFullName());
@@ -40,8 +40,12 @@ public class Bedkomdatabase extends Controller {
         return redirect(bedkomdatabase.routes.Bedkomdatabase.index());
     }
 
-    public static Result saveKontaktPerson(){
-        return ok();
+    public static Result saveKontaktPerson(String id){
+        HttpRequestData data = new HttpRequestData();
+        Bedrift bedrift = Bedrift.find.byId(Long.parseLong(id));
+        Contact contact = new Contact(data.get("telephone"), data.get("contact"), data.get("email"), data.get("other"), bedrift);
+        contact.save();
+        return redirect(bedkomdatabase.routes.Bedkomdatabase.index());
     }
 
 

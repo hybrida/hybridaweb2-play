@@ -26,7 +26,7 @@ POST          /api/upload/:uploadFolder         controllers.Upload.ajaxUploadTo(
 # BedkomDatabase
 GET           /bedkomdatabase                   bedkomdatabase.Bedkomdatabase.index()
 POST          /bedkomdatabase/bedrift           bedkomdatabase.Bedkomdatabase.saveBedrift()
-POST          /bedkomdatabase/kontakt           bedkomdatabase.Bedkomdatabase.saveKontaktPerson()
+POST          /bedkomdatabase/kontakt/:id       bedkomdatabase.Bedkomdatabase.saveKontaktPerson(id)
 
 
 # Calendar
