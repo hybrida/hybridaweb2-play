@@ -79,4 +79,8 @@ public class Contact extends Model {
     public void setOther(String other) {
         this.other = other;
     }
+
+    public static Finder<Long, Contact> find = new Finder<>(
+            Long.class, Contact.class
+    );
 }
