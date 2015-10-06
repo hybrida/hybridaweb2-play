@@ -7,9 +7,9 @@ import views.html.layout;
 /**
  * Created by Tormod on 06.10.2015.
  */
-public class Gallery {
+public class Gallery extends Controller {
     public static Result display() {
-        return play.mvc.Controller.ok(layout.render("Galleri", gallery.views.html.gallery.render()));
+        return ok(layout.render("Galleri", gallery.views.html.gallery.render()));
     }
 
     public static void upload() {
