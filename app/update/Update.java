@@ -1,6 +1,7 @@
 package update;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.config.RuntimeBeanNameReference;
 import play.mvc.Http;
 import play.mvc.Result;
 import views.html.layout;
@@ -21,23 +22,27 @@ import static play.mvc.Results.ok;
 public class Update {
 
     public static Result index() {
-        return ok(layout.render("Update!", update.views.html.index.render()));
+        return ok(layout.render("Update!", update.views.html.index.render(/*"update.png"*/)));
     }
 
     public static Result post() throws FileNotFoundException {
         Http.MultipartFormData body = request().body().asMultipartFormData();
         Http.MultipartFormData.FilePart picture = body.getFile("picture");
         if (picture != null && picture.getContentType().contains("pdf")) {
-            String fileName = picture.getFilename();
+            String fileName = picture.getFilename().replaceAll("\\W","");
+            String thumbName = fileName.substring(0,fileName.length()-4)+".jpg";
+            String gsArgs = "-sDEVICE=jpeg ";
             String contentType = picture.getContentType();
             File file = picture.getFile();
             try {
                 FileUtils.moveFile(file, new File("public/update", fileName));
+                Runtime.getRuntime().exec("gs " + gsArgs + "-o public/update/" + thumbName + " public/update/" + fileName);
+
             } catch (IOException ioe) {
                 System.out.println("Problem operating on filesystem");
             }
 
-            return ok(layout.render("img", toHtml.render("Upload Successful" + "<img src=\"/assets/update/" + fileName + "\" alt=\"rect\"/>")));
+            return ok(layout.render("img", update.views.html.index.render(/*thumbName*/)));
         }else if (picture != null) {
             flash("error", "Invalid file");
             return ok("Invalid file, accepted format: pdf");

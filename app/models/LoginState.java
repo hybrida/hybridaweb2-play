@@ -11,11 +11,11 @@ import play.db.ebean.Model;
 public class LoginState extends Model {
 
 	private static boolean isUserInDatabase(String username) {
-		return User.find.where().eq("username", username).findUnique() != null;
+		return User.findByUsername(username) != null;
 	}
 
 	private static boolean isUserTimeValid(String username, String usertime) {
-		User user = User.find.where().eq("username", username).findUnique();
+		User user = User.findByUsername(username);
 		Long usertime_int = Long.valueOf(usertime) + 1000L;
 		if (user.getLastLoginTime() == null)
 			return true;

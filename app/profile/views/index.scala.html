@@ -1,50 +1,76 @@
-@(user: User, messages: java.util.List[Html])
+@(username: String, name: String, imageFilePath: String, user: ImmutableUser, canEdit: Boolean, subTitle: String)
 
-@if(!messages.isEmpty()) {
-    <div class="messages">@(for (message <- messages) message)</div>
+@infoItem(label:String, value:String) = {
+    <li>
+        <div class="label">@label</div>
+        <div class="info">@value</div>
+        <div class="clearfix"></div>
+    </li>
 }
-<div class="pageItem">
-    <div class="info-block">
-        <ul>
-            <li>
-                <div class="label">NTNU-E-POST</div>
-                <div class="info">@(user.getUsername())@@stud.ntnu.no</div>
-                <div class="clearfix"></div>
-            </li>
-            @if(user.hasAltEmail()) {
-                <li>
-                    <div class="label">ALTERNATIV E-POST</div>
-                    <div class="info">@user.getAltEmail()</div>
-                    <div class="clearfix"></div>
-                </li>
+
+@layoutWithHead("Hybrida - " + name) {
+    <div class="page">
+        @if(canEdit) {
+            <div class="buttons">
+                <a class="float-right btn btn-primary" href="@profile.routes.Profile.edit(username)">Rediger</a>
+            </div>
+        }
+        <h5 class="smallTitle">@name</h5>
+        <div class="pageInner nedit">
+            @if(imageFilePath != null && !imageFilePath.equals("")) {
+                <div class="pageItem">
+                    <div class="picFrame poof">
+                        <img class="pic" src="@(if(imageFilePath != null && !imageFilePath.equals("")) {
+                            routes.Assets.at(imageFilePath)
+                        } else {
+                            routes.Assets.at("images/placeholder-profile.jpg")
+                        })" @if(user.hasProfileImagePos){style="transform: translateY(@(user.getProfileImagePos)%)"}>
+                    </div>
+                </div>
             }
-            @if(user.hasWebsite()) {
-                <li>
-                    <div class="label">HJEMMESIDE</div>
-                    <div class="info"><a href="@user.getWebsite()" alt="@user.getName()s hjemmeside">@user.getWebsite()</a></div>
-                    <div class="clearfix"></div>
-                </li>
+            <h1 class="pageItem bigTitle">@name</h1>
+            @if(subTitle != null && !subTitle.equals("")) {
+                <h3 class="pageItem bigSubTitle">@subTitle</h3>
             }
-            @if(user.hasPhone()) {
-                <li>
-                    <div class="label">TELEFON</div>
-                    <div class="info">@user.getPhone()</div>
-                    <div class="clearfix"></div>
-                </li>
-            }
-        </ul>
-    </div>
-    @if("mf".contains(user.getGender())) {
-        <div class="info-block">
-            <ul>
-            @if("mf".contains(user.getGender())) {
-                <li>
-                    <div class="label">KJØNN</div>
-                    <div class="info">@(if(user.getGender() == 'm') "Mann" else "Kvinne")</div>
-                    <div class="clearfix"></div>
-                </li>
-            }
-            </ul>
+
+            <div class="pageItem info-block-container">
+                <div class="info-block">
+                    <ul>
+                        @infoItem("NTNU-E-POST", username+"@stud.ntnu.no")
+                        @if(user.hasEmail){ @infoItem("ALTERNATIV E-POST", user.getEmail)}
+                        @if(user.hasWebsiteUrl){ @infoItem("HJEMMESIDE", user.getWebsiteUrl)}
+                        @if(user.hasPhone){ @infoItem("TELEFON", user.getPhone)}
+                    </ul>
+                </div>
+                <div class="info-block">
+                    <ul>
+                        @if(user.hasTitle){ @infoItem("TITTEL", user.getTitle)}
+                        @if(user.hasGraduationYear){ @infoItem("AVGANGSÅR", user.getGraduationYear.toString)}
+                        @if(user.hasSpecialization){ @infoItem("SPESIALISERING", user.getSpecialization.toString)}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="clearfix">
+            </div>
         </div>
-    }
-</div>
+    </div>
+} {
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/profile.css")" />
+    <script type="text/javascript">
+        function calculatePicTop(){
+            var pic = $(".nedit .pic");
+            pic.css("width", "auto");
+            pic.css("height", "auto");
+            if (pic.height() < parseFloat($(".picFrame").css("max-height"))) {
+                pic.css("top", pic.height()/2 + "px");
+            } else pic.css("top", "50%");
+            pic.css("width", "");
+            pic.css("height", "");
+        }
+
+        $(document).ready(function(){
+            calculatePicTop();
+        });
+    </script>
+}

@@ -19,6 +19,16 @@ GET           /hybrida                          abouthybrida.AboutHybrida.index(
 GET           /nystudent                        newstudent.NewStudent.index()
 GET           /styret                           hybridaleaders.HybridaLeaders.index()
 
+# Upload
+POST          /api/upload                       controllers.Upload.ajaxUpload()
+POST          /api/upload/:uploadFolder         controllers.Upload.ajaxUploadTo(uploadFolder)
+
+# BedkomDatabase
+GET           /bedkomdatabase                   bedkomdatabase.Bedkomdatabase.index()
+POST          /bedkomdatabase/bedrift           bedkomdatabase.Bedkomdatabase.saveBedrift()
+POST          /bedkomdatabase/kontakt/:id       bedkomdatabase.Bedkomdatabase.saveKontaktPerson(id)
+
+
 # Calendar
 GET           /kalender                         calendar.Calendar.display(gcal: Boolean ?= false)
 GET           /api/kalender/hent                calendar.Calendar.fetch(start: String, end: String)
@@ -70,7 +80,7 @@ GET           /kontaktforbruker                 contactforuser.ContactForUser.in
 # Profile
 GET           /profil/:username                 profile.Profile.index(username)
 GET           /profil/:username/rediger         profile.Profile.edit(username)
-POST          /profil/:username                 profile.Profile.update(username)
+POST          /profil/:username/rediger         profile.Profile.update(username)
 
 # Quiz
 GET           /quiz                             quiz.QuizController.index()

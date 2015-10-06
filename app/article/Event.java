@@ -1,5 +1,9 @@
 package article;
 
+import controllers.Upload;
+import exceptions.NoFileInRequest;
+import exceptions.ServerError;
+import exceptions.Unauthorized;
 import models.*;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -73,8 +77,17 @@ public class Event extends Controller {
 
 		play.data.Form<models.Article> articleInput = articleForm.bindFromRequest();
 
-		String image_path = user.uploadPicture();
-		if (!articleInput.hasErrors()) {
+		String image_path = null;
+        try{
+            image_path = Upload.upload();
+        } catch (Unauthorized unauthorized) {
+            unauthorized.printStackTrace();
+        } catch (NoFileInRequest noFileInRequest) {
+            noFileInRequest.printStackTrace();
+        } catch (ServerError serverError) {
+            serverError.printStackTrace();
+        }
+        if (!articleInput.hasErrors()) {
 			models.Article articleModel = articleInput.get();
 			if (image_path != null)
 				articleModel.setImagePath(image_path);
