@@ -53,8 +53,8 @@ POST          /event/:id/lagreEndring           article.Event.saveEdit(id)
 POST          /comment/:articleID               article.Article.comment(articleID)
 POST          /comment/delete/:commentID        article.Article.deleteComment(commentID)
 
-GET           /bedrift                           company.Company.index()
-GET           /bedrifttest                      bedriftTest.BedriftTest.index()
+GET           /bedriftalt                        company.Company.index()
+GET           /bedrift                           bedrift.Bedrift.index()
 
 # Ebean example
 GET           /ebean                            examples.controllers.ExampleEbean.index()
