@@ -13,29 +13,25 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6 col-md-offset-5 whitebox paragraph bottomleft bottomright hiddentopleft hiddentopright">
-                <p>
-                    Navn på hybrid
-                </p>
-                <p>
-                   <input type="text" class="" name="navn">
-                </p>
-                <p>
-                    Begrunnelse for nominasjon
-                </p>
-                <p>
-                    <input type="text" id="begrunnelsein" name="begrunnelse" height="1000px">
-                </p>
-                <p>
-                    <input type="submit" value="Submit" height="1000px">
-                </p>
-                <if submit equals true
-                    <send to vago <![CDATA[
+            <form name="Article" action="@article.routes.ArticleIn.save()" method="POST" enctype="multipart/form-data">
 
-                    ]]>>
+                <div class="col-md-6 col-md-offset-5 whitebox paragraph bottomleft bottomright hiddentopleft hiddentopright">
+                    <p>
+                        Navn på hybrid
+                    </p>
+                    <p>
+                        <textarea class="form-control" placeholder="Navn" type="text" name="name"></textarea>
+                    </p>
+                    <p>
+                        Begrunnelse for nominasjon
+                    </p>
+                    <p>
+                        <textarea class="form-control" placeholder="Begrunnelse" type="text" id="nominasjonin" name="reason"></textarea>
+                    </p>
+                    <p>
+                        <input type="submit" value="Submit">
+                    </p>
 
-                </if>
-                </div>
             </div>
         </div>
 
