@@ -53,7 +53,8 @@ POST          /event/:id/lagreEndring           article.Event.saveEdit(id)
 POST          /comment/:articleID               article.Article.comment(articleID)
 POST          /comment/delete/:commentID        article.Article.deleteComment(commentID)
 
-GET           /bedrift                          company.Company.index()
+GET           /bedrift                           company.Company.index()
+GET           /bedrifttest                      bedriftTest.BedriftTest.index()
 
 # Ebean example
 GET           /ebean                            examples.controllers.ExampleEbean.index()
@@ -98,6 +99,7 @@ DELETE        /api/quiz/season/:id              quiz.QuizController.deleteSeason
 GET           /chat                             chat.Chat.connectClient()
 GET           /chatserver                       chat.Chat.socket()
 
+GET           /arrkom                           arrkom.ArrKom.index()
 GET           /helloworld                       helloworld.HelloWorld.index()
 GET           /andreas                          andreas.Andreas.index()
 GET           /helloworld                       helloworld.HelloWorld.index()
