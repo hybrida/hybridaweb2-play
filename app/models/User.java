@@ -3,11 +3,13 @@ package models;
 import play.data.Form;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
+import util.Validator;
 
 import javax.persistence.*;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.*;
-import java.util.regex.Pattern;
 
 @Entity
 @Table(
@@ -24,13 +26,14 @@ public class User extends Model implements ImmutableUser {
 
 	// Name, identification, contact
 	public String      username;  // Assigned by NTNU
+    @Required
 	@Column(name = "FIRST_NAME", columnDefinition = "varchar(256) default 'Fornavn'", nullable = false)
 	public String      firstName;
+    @Required
     @Column(name = "LAST_NAME", columnDefinition = "varchar(256) default 'Etternavn'", nullable = false)
 	public String      lastName;
 	@Column(name = "MIDDLE_NAME")
 	public String      middleName;
-    @Required
     @Column(name = "EMAIL")
 	public String      email;
 	@Column(name = "WEBSITE_URL")
@@ -274,47 +277,9 @@ public class User extends Model implements ImmutableUser {
 		play.mvc.Controller.session("user", play.api.libs.Crypto.encryptAES(username + "," + String.valueOf(System.currentTimeMillis())));
 	}
 
-    private static class ValPat {
-        private String name;
-        private Pattern pattern;
-        private String message;
-
-        public ValPat(String name, String matches, String message) {
-            this.name = name;
-            this.pattern = Pattern.compile(matches);
-            this.message = message;
-        }
-
-        public String getName() {return name;}
-        public boolean matches(String value) {return pattern.matcher(value).matches();}
-        public String getMessage() {return message;}
-
-        @Override
-        public String toString() {
-            return "ValPat{" +
-                    "name='" + name + '\'' +
-                    ", pattern=" + pattern +
-                    ", message='" + message + '\'' +
-                    '}';
-        }
-    }
-
-    public static Map<String, String> validateForm(Form<User> form) {
-        HashMap<String, String> messages = new HashMap<>();
-        for(ValPat vp : new ValPat[]{
-                new ValPat("firstName", "[A-ZÆØÅa-zæøå \\.]", "Fornavn må være på mellom 1 og 20 tegn, " +
-                        "og kan kun inneholde bokstaver, mellomrom og punktum."),
-                new ValPat("email", "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,5}",
-                        "Vennligst oppgi en gyldig e-postadresse.")
-        }) {
-            Form.Field field = form.apply(vp.getName());
-            System.out.println(field.value());
-            System.out.println(vp.getName());
-            if(field.value() != null && !vp.matches(field.value())) {
-                messages.put(vp.getName(), vp.getMessage());
-            }
-        }
-        return messages;
+    public static Map<String, String> validateForm(Form<User> form) throws IOException {
+        Validator validator = Validator.fromJSON(new File("public/json/userValidation.json"));
+        return validator.validate(form);
     }
 
     public void updateFromForm(Form<User> form) {
