@@ -332,6 +332,10 @@ public class User extends Model implements ImmutableUser {
 		ROOT;
 	}
 
+    public boolean hasAccess(boolean inAll, Access... accessList) {
+        return hasAccess(this, inAll, accessList);
+    }
+
 	public static boolean hasAccess(User user, boolean inAll, Access... accessList){
 		//Parameters explained: user: the user you want to check;
 		//inAll: set true if you want to check if user has ALL entered accesses, false if you want to check if user has
