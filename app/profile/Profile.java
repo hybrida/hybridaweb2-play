@@ -75,7 +75,7 @@ public class Profile extends Controller {
     }
 
     public static Result edit(String username) {
-        if (!authorizedToEditUser(username)) return Application.showUnauthorizedAccess();
+        if (!authorizedToEditUser(username)) return redirect(routes.Profile.index(username));
         User user = User.findByUsername(username);
         if (user == null) return notFound(request().uri());
         return ok(profile.views.html.edit.render(
