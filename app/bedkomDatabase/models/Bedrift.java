@@ -39,11 +39,11 @@ public class Bedrift extends Model {
     @Constraints.Min(0)
     private int priority;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Contact> contacts;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Note> notes;
 

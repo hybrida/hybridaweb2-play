@@ -40,13 +40,55 @@ public class Bedkomdatabase extends Controller {
         return redirect(bedkomdatabase.routes.Bedkomdatabase.index());
     }
 
+    public static Result updateBedrift(String bedriftId){
+        HttpRequestData data = new HttpRequestData();
+        System.out.println(data);
+
+        Bedrift bedrift = Bedrift.find.byId(Long.parseLong(bedriftId));
+
+        bedrift.setBedriftName(data.get("bedriftsName"));
+        bedrift.setPriority(data.getInt("priority"));
+        if(data.get("userId") == null){
+            System.out.println("keeping current user");
+        }
+        else {
+            bedrift.setResponsible(User.find.byId(Long.parseLong(data.get("userId"))));
+        }
+
+        bedrift.update();
+
+        return redirect(bedkomdatabase.routes.Bedkomdatabase.index());
+    }
+
+    public static Result deleteBedrift(String bedriftId){
+        Bedrift bedrift = Bedrift.find.byId(Long.parseLong(bedriftId));
+        bedrift.delete();
+        return redirect(bedkomdatabase.routes.Bedkomdatabase.index());
+    }
+
     public static Result saveKontaktPerson(String id){
         HttpRequestData data = new HttpRequestData();
         Bedrift bedrift = Bedrift.find.byId(Long.parseLong(id));
-        Contact contact = new Contact(data.get("telephone"), data.get("contact"), data.get("email"), data.get("other"), bedrift);
+        Contact contact = new Contact(data.get("telephone"), data.get("contact"), data.get("other"), data.get("email"), bedrift);
         contact.save();
         return redirect(bedkomdatabase.routes.Bedkomdatabase.index());
     }
 
+    public static Result updateKontaktPerson(String id){
+        Contact contact = Contact.find.byId(Long.parseLong(id));
+        HttpRequestData data = new HttpRequestData();
+        contact.setContact(data.get("contact"));
+        contact.setEmail(data.get("email"));
+        contact.setTelephone(data.get("telephone"));
+        contact.setOther("other");
+        contact.update();
+        return redirect(bedkomdatabase.routes.Bedkomdatabase.index());
+    }
+
+    public static Result deleteKontaktPerson(String id){
+        Contact contact = Contact.find.byId(Long.parseLong(id));
+        contact.delete();
+        return redirect(bedkomdatabase.routes.Bedkomdatabase.index());
+    }
 
 }
