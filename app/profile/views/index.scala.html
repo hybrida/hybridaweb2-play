@@ -36,8 +36,10 @@
                     <ul>
                         @infoItem("NTNU-E-POST", username+"@stud.ntnu.no")
                         @if(user.hasEmail){ @infoItem("ALTERNATIV E-POST", user.getEmail)}
-                        @if(user.hasWebsiteUrl){ @infoItem("HJEMMESIDE", "<a href='" + user.getWebsiteUrl + "' alt='"
-                                + user.getFirstName + "s hjemmeside'>" + user.getWebsiteUrl + "</a>", true)}
+                        @if(user.hasWebsiteUrl){ @infoItem("HJEMMESIDE", "<a href='" +
+                                (if(user.getWebsiteUrl.substring(0, 4) != "http") "http://" else "")
+                                + user.getWebsiteUrl + "' alt='" + user.getFirstName + "s hjemmeside'>"
+                                + user.getWebsiteUrl + "</a>", true)}
                         @if(user.hasPhone){ @infoItem("TELEFON", user.getPhone)}
                     </ul>
                 </div>
