@@ -1,11 +1,17 @@
-@(username: String, name: String, imageFilePath: String, form: Form[User], messages: Map[String, Html])
+@(username: String, name: String, imageFilePath: String, form: Form[User], messages: Map[String, String])
 
 @infoItemTop(label:String, name: String) = {
-    <li class="@name">
-        <div class="label @if(messages.contains(name)){error}">
+    <li class="@name @if(messages.contains(name)){error}">
+        <div class="label">
             @label
         </div>
-        @if(messages.contains(name)) {@messages.get(name)}
+        @if(messages.contains(name)) {
+            <div class="message">
+                <span class="bubble"></span>
+                <span class="show-when-active">@(messages(name))</span>
+                <span class="hide-when-active">!</span>
+            </div>
+        }
         <div class="info">
 }
 @infoItemBottom() = {
@@ -14,10 +20,18 @@
     </li>
 }
 
+@infoItem(label: String, value: String) = {
+    @infoItemTop(label, name)
+        <div class="input-container">
+            @value
+        </div>
+    @infoItemBottom()
+}
+
 @inputItem(label:String, value:String, name: String = "", inputType:String = "text") = {
     @infoItemTop(label, name)
     <div class="input-container">
-        <input class="@if(messages.contains(name)){error}" type="@inputType" name="@name" value="@value">
+        <input type="@inputType" name="@name" value="@value">
     </div>
     @infoItemBottom()
 }
@@ -25,7 +39,7 @@
 @dropDownItem(label:String, value:String, name: String = "", options: Array[String]) = {
     @infoItemTop(label, name)
     <div class="select-container">
-        <select class="@if(messages.contains(name)){error}" name="@name">
+        <select name="@name">
             @for(option <- options) {
                 <option value="@option"@if(value == option){ selected="selected"}>@option</option>
             }
@@ -46,6 +60,13 @@
             <div class="pageInner edit">
                 <div class="pageItem">
                     <h3 class="bigSubTitle">PROFILBILDE</h3>
+                    @if(messages.contains("profileImageFileName")) {
+                        <div class="message">
+                            <span class="bubble"></span>
+                            <span class="show-when-active">@(messages("profileImageFileName"))</span>
+                            <span class="hide-when-active">!</span>
+                        </div>
+                    }
                     <input type="file" name="profileImageFile" class="profile-image-file-input hidden">
                     <input type="hidden" name="profileImageFileName" class="profile-image-file-name"
                             value="@form("profileImageFileName").value">
@@ -53,12 +74,14 @@
                         <img class="loader" src="@routes.Assets.at("images/ajax-loader.gif")">
                         <img class="pic" src="@(if(imageFilePath != null && !imageFilePath.equals("")) {
                             routes.Assets.at(imageFilePath)
+                        }else{
+                            routes.Assets.at("images/placeholder-profile.jpg")
                         })">
 
                         <div class="pic-inner">
                             <div class="link-container">
                                 <div class="link ajaxUpload">
-                                    <span class="glyphicon glyphicon-ajaxUpload"></span> Last opp bilde
+                                    <span class="glyphicon glyphicon-upload"></span> Last opp bilde
                                 </div>
                                 <div class="link remove@if(imageFilePath == null || imageFilePath.equals("")){ hidden}">
                                     <span class="glyphicon glyphicon-remove-circle"></span> Fjern bildet
@@ -74,7 +97,7 @@
                     <h3 class="bigSubTitle">BRUKERINFO</h3>
                     <div class="info-block">
                         <ul>
-                            @inputItem("NTNU-BRUKERNAVN", username)
+                            @infoItem("NTNU-BRUKERNAVN", username)
                         </ul>
                     </div>
                     <div class="info-block">
@@ -135,6 +158,8 @@
 
         $(document).ready(function(){
             calculatePicTop();
+
+
             $(".edit .picFrame .ajaxUpload").click(function(){$(".profile-image-file-input").click()});
             $(".edit .picFrame .remove").click(function(){
                 $(".pic").attr("src", "@routes.Assets.at("images/placeholder-profile.jpg")");
@@ -164,17 +189,19 @@
                     uploadImage(e.dataTransfer);
                 });
             $(".profile-image-file-input").change(function(){uploadImage(this);});
-            $(".error").focus(function(){
+
+
+            $(".error :input").focus(function(){
                 var thiz = $(this);
-                thiz.removeClass("error");
-                $("." + thiz.attr("name")+ " .label").removeClass("error");
-                $("." + $(this).attr("name")+ " .message").removeClass("hidden");
+                $("." + thiz.attr("name")+ ".error").removeClass("error");
+                $("." + thiz.attr("name")+ " .message").addClass("active-message");
             });
-            $(".error").blur(function(){
-                $("." + $(this).attr("name")+ " .message").addClass("hidden");
+            $(".error :input").blur(function(){
+                $("." + $(this).attr("name")+ " .message").removeClass("active-message");
             });
-            $(".message.error").click(function(){
-                $(this).addClass("hidden");
+            $(".message").click(function(){
+                $(this).toggleClass("active-message");
+                $
             });
         });
     </script>

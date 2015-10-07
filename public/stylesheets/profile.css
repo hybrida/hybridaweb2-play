@@ -18,9 +18,12 @@
 .picFrame {
     position: relative;
     margin-top: 25px;
+    margin-left: auto;
+    margin-right: auto;
     width: auto;
     height: auto;
-    max-height: 400px;
+    max-width: 60%;
+    max-height: 500px;
 
     box-shadow: rgba(0, 0, 0, 0.4) -5px 6px 25px;
     border-radius: 5px;
@@ -155,7 +158,7 @@
     transform: translate(10%, 0);
 
     text-align: left;
-    line-height: 1.5em;
+    line-height: 24px;
 }
 
 .info-block .label {
@@ -167,7 +170,12 @@
     color: #046;
 }
 
-.info-block .error{
+.edit .info-block .label {
+    line-height: 29px;
+}
+
+.info-block .error .label,
+.info-block .error .info{
     border-color: #933;
     color: #933;
 }
@@ -177,7 +185,7 @@
     z-index: 1;
     top: -4px;
     right: 48%;
-    width: 50%;
+    max-width: 50%;
     background: #fff;
     padding: 6px 10px;
     border: 1px solid #a9a9a9;
@@ -190,7 +198,7 @@
 .info-block .message .bubble {
     position: absolute;
     z-index: 2;
-    right: -10px;
+    right: -9px;
     top: 5px;
     width: 10px;
     height: 21px;
@@ -198,23 +206,31 @@
     background: url('/assets/images/bubble-left.png');
 }
 
+.info-block .show-when-active,
+.info-block .active-message .hide-when-active {display: none;}
+.info-block .hide-when-active,
+.info-block .active-message .show-when-active {display: inline;}
+
+.info-block .message-shown {display: none;}
+.info-block .message-hidden {display: inline;}
+
+.input-container,
+.select-container {
+    position: relative;
+    height: 29px;
+}
+
 .info-block input,
 .info-block select {
+    position: relative;
+    top: 50%;
     width: 80%;
-}
-
-.info-block input {
-    padding-left: 4px;
-    padding-right: 4px;
+    height: 28px;
+    transform: translateY(-50%);
     border: 1px solid #a9a9a9;
     border-radius: 2px;
+    padding-left: 3px;
 }
-
-.info-block select {
-    padding-top: 3px;
-    padding-bottom: 2px;
-}
-
 
 .page {
     width: 80%;
@@ -271,8 +287,8 @@
 @media (min-width : 1300px) {
     .pageInner { width: 80%; margin: 0 auto;}
     .pageItem { width: 40%; float: right;}
-    .picFrame { max-height: unset;}
-    .edit .picFrame { height: 500px;}
+    .picFrame { max-height: unset; max-width: unset;}
+    .edit .picFrame { height: 500px}
     .pic {
         min-width: 200px;
         max-height: 500px;
