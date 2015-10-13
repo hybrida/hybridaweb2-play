@@ -83,28 +83,21 @@
 }
 
 .pic {
-    position: relative;
     display: block;
-    transform: translateY(-50%);
 
-    top: 50%;
-    margin: 0 auto;
+    margin: 0;
     padding: 0;
 
-    min-width: 80%;
+    min-width: 0;
     width: auto;
     max-width: 500px;
 
     min-height: 200px;
     height: auto;
-    max-height: none;
+    max-height: 600px;
 }
 
 .edit .pic {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     min-width: 0;
     max-width: 100%;
     min-height: 0;
@@ -292,10 +285,6 @@
     .pic {
         min-width: 200px;
         max-height: 500px;
-        top: 0;
-    }
-    .nedit .pic {
-        transform: translateX(0) !important;
     }
     .nedit .info-block-container { margin-top: 0;}
     .info-block input,
