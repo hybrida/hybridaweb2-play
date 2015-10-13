@@ -1,5 +1,9 @@
 package models;
 
+import controllers.Upload;
+import exceptions.NoFileInRequest;
+import exceptions.ServerError;
+import exceptions.Unauthorized;
 import play.data.Form;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
@@ -160,7 +164,8 @@ public class User extends Model implements ImmutableUser {
 	}
 
     public void setEmail(String email) {
-        this.email = email;
+        int i = email.indexOf('@');
+        this.email = email.substring(0, i) + email.substring(i).toLowerCase();
     }
 
 	public boolean hasWebsiteUrl() {
@@ -172,6 +177,13 @@ public class User extends Model implements ImmutableUser {
 	}
 
     public void setWebsiteUrl(String websiteUrl) {
+        if(!websiteUrl.substring(0, 4).equalsIgnoreCase("http")) {
+            websiteUrl = "http://" + websiteUrl + (websiteUrl.indexOf('/') == -1 ? "/" : "");
+        }
+        if(websiteUrl.indexOf('?') != -1) {
+            int i = websiteUrl.indexOf('?');
+            websiteUrl = websiteUrl.substring(0, i).toLowerCase() + websiteUrl.substring(i);
+        }
         this.websiteUrl = websiteUrl;
     }
 
@@ -184,7 +196,9 @@ public class User extends Model implements ImmutableUser {
 	}
 
     public void setPhone(String phone) {
-        this.phone = phone;
+        phone = phone.replaceAll(" ", "");
+        phone = phone.substring(phone.length() - 8);
+        this.phone = "+47 " + phone.substring(0, 3) + " " + phone.substring(3, 5) + " " + phone.substring(5);
     }
 
     public boolean hasTitle() {
@@ -262,6 +276,19 @@ public class User extends Model implements ImmutableUser {
 
     public void setProfileImagePos(Double profileImagePos) {
         this.profileImagePos = profileImagePos;
+    }
+
+    public String uploadPicture() {
+        try {
+            return Upload.upload();
+        } catch (Unauthorized unauthorized) {
+            unauthorized.printStackTrace();
+        } catch (NoFileInRequest noFileInRequest) {
+            noFileInRequest.printStackTrace();
+        } catch (ServerError serverError) {
+            serverError.printStackTrace();
+        }
+        return null;
     }
 
     public int calculateClass() {
