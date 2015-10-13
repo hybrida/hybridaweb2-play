@@ -56,7 +56,7 @@ public class Event extends Model {
 		event.location = form.location;
 		event.maxParticipants = Integer.parseInt(form.maxParticipants);
 		event.maxParticipantsWaiting = Integer.parseInt(form.maxParticipantsWaiting);
-		event.sexAllowed = form.sexAllowed.charAt(0);
+		event.genderAllowed = form.genderAllowed.charAt(0);
 		return event;
 	}
 
@@ -86,7 +86,7 @@ public class Event extends Model {
 			location,
 			maxParticipants,
 			maxParticipantsWaiting,
-			sexAllowed;
+			genderAllowed;
 
 		private boolean before(String bc, String ad) {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
