@@ -1,112 +1,90 @@
 package models;
 
-import org.apache.commons.io.FileUtils;
+import play.data.Form;
+import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
-import play.mvc.Controller;
-import play.mvc.Http;
+import util.Validator;
 
 import javax.persistence.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.Calendar;
+import java.util.*;
 
 @Entity
 @Table(
 	name="USER",
 	uniqueConstraints=
-		@UniqueConstraint(columnNames= {"username"})
+		@UniqueConstraint(columnNames= {"USERNAME"})
 )
-public class User extends Model {
+public class User extends Model implements ImmutableUser {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
+	@Column(name = "ID", nullable = false)
 	public Long        id;
 
 	// Name, identification, contact
 	public String      username;  // Assigned by NTNU
-	@Column(name = "first_name", columnDefinition = "varchar(256) default 'Fornavn'")
+    @Required
+	@Column(name = "FIRST_NAME", columnDefinition = "varchar(256) default 'Fornavn'", nullable = false)
 	public String      firstName;
-	@Column(name = "surname", columnDefinition = "varchar(256) default 'Etternavn'")
-	public String      surname;
-	@Column(name = "middle_name")
+    @Required
+    @Column(name = "LAST_NAME", columnDefinition = "varchar(256) default 'Etternavn'", nullable = false)
+	public String      lastName;
+	@Column(name = "MIDDLE_NAME")
 	public String      middleName;
+    @Column(name = "EMAIL")
 	public String      email;
-	@Column(name = "website_url")
+	@Column(name = "WEBSITE_URL")
 	public String      websiteUrl;
+    @Column(name = "PHONE")
 	public String      phone;
+    @Column(name = "TITLE")
 	public String      title; // Ph.D., Civ.Eng., Stud., Chief, Commander, General, Lord, Admiral, Vevsjef,...
-	@Column(name = "profile_image_file_name")
+	@Column(name = "GRADUATION_YEAR")
+	public Integer     graduationYear = 0;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "SPECIALIZATION")
+	public Specialization specialization = Specialization.NONE;
+    @Column(name = "PROFILE_IMAGE_FILE_NAME")
 	public String      profileImageFileName;
-	@Column(name = "graduation_year")
-	public Integer graduationYear = 0;
 
 	// Privilege status
-	@Column(name = "student", columnDefinition = "boolean default false")
-	public Boolean             student;    // No special privileges except for file upload.
-	@Column(name = "bedkom", columnDefinition = "boolean default false")
+	@Column(name = "STUDENT", columnDefinition = "boolean default false")
+	public Boolean             student;    // No special privileges except for file ajaxUpload.
+	@Column(name = "BEDKOM", columnDefinition = "boolean default false")
 	public Boolean             bedkom;     // Control over bedpress.
-	@Column(name = "admin", columnDefinition = "boolean default false")
+	@Column(name = "ARRKOM", columnDefinition = "boolean default false")
+	public Boolean             arrkom;     // Control over arrkom.
+	@Column(name = "VEVKOM", columnDefinition = "boolean default false")
+	public Boolean             vevkom;     // Control over vevkom.
+	@Column(name = "ADMIN", columnDefinition = "boolean default false")
 	public Boolean             admin;      // For control over the entire page. Check your privilege
-	@Column(name = "root", columnDefinition = "boolean default false")
+	@Column(name = "ROOT", columnDefinition = "boolean default false")
 	public Boolean             root;       // Powers too great for mere mortals.
-	@Column(name = "sex", columnDefinition = "varchar(1) default '\0'")
-	public Character           sex;         // For specific events.
-	public Timestamp           enrolled;    // For specific bedpresses requiring a year number.
-	@Column(name = "date_of_birth")
+	@Column(name = "GENDER", columnDefinition = "char(1) default '\0'")
+	public Character           gender;     // For specific events.
+    @Column(name = "ENROLLED")
+	public Timestamp           enrolled;   // For specific bedpreses requiring a year number.
+	@Column(name = "DATE_OF_BIRTH")
 	public Timestamp           dateOfBirth;
 
 	// Misc. account info
-	@Column(name = "last_login")
+	@Column(name = "LAST_LOGIN")
 	private Timestamp          lastLogin; // Used to avoid cookie-stealing schemes and MITM attacks. Combined with AES with time and RNG padded encryption.
+    @Column(name = "PROFILE_IMAGE_POS")
+    public Double              profileImagePos;
 
 	public User() {}
 
-	public User(String username, String firstName, String surname) {
+	public User(String username, String firstName, String lastName) {
 		this.username = username;
 		this.firstName = firstName;
-		this.surname = surname;
+		this.lastName = lastName;
 	}
 
-	public User(
-		String username,
-		String firstName,
-		String surname,
-		String middleName,
-		String email,
-		String websiteUrl,
-		String phone,
-		String title,
-		int graduationYear,
-		String profileImageFileName,
-		Boolean student,
-		Boolean bedkom,
-		Boolean admin,
-		Boolean root,
-		Character sex,
-		Timestamp enrolled,
-		Timestamp dateOfBirth) {
-			this.username = username;
-			this.firstName = firstName;
-			this.surname = surname;
-			this.middleName = middleName;
-			this.email = email;
-			this.websiteUrl = websiteUrl;
-			this.phone = phone;
-			this.title = title;
-			this.graduationYear = graduationYear;
-			this.profileImageFileName = profileImageFileName;
-			this.student = student;
-			this.bedkom = bedkom;
-			this.admin = admin;
-			this.root = root;
-			this.sex = sex;
-			this.enrolled = enrolled;
-			this.dateOfBirth = dateOfBirth;
-	}
-
-	public boolean isDefault() {
+    public boolean isDefault() {
 		return (id == null);
 	}
 
@@ -122,31 +100,82 @@ public class User extends Model {
 		return thisOrFalse(bedkom) || thisOrFalse(admin) || thisOrFalse(root);
 	}
 
-	public boolean isRoot() {
-		return thisOrFalse(root);
-	}
 
-	public boolean hasMiddleName() {
+    // Getters and Setter (and some hassers)
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public boolean hasMiddleName() {
 		return middleName != null && !middleName.equals("");
 	}
 
-	public boolean hasAltEmail() {
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getName() {
+        return firstName + " " + lastName;
+    }
+
+    public String getFullName() {
+        return firstName + " " + (hasMiddleName() ? middleName + " " : "") + lastName;
+    }
+
+    public boolean hasEmail() {
 		return email != null && !email.equals("");
 	}
 
-	public String getAltEmail() {
+	public String getEmail() {
 		return email;
 	}
 
-	public boolean hasWebsite() {
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+	public boolean hasWebsiteUrl() {
 		return websiteUrl != null && !websiteUrl.equals("");
 	}
 
-	public String getWebsite() {
+	public String getWebsiteUrl() {
 		return websiteUrl;
 	}
 
-	public boolean hasPhone() {
+    public void setWebsiteUrl(String websiteUrl) {
+        this.websiteUrl = websiteUrl;
+    }
+
+    public boolean hasPhone() {
 		return phone != null && !phone.equals("");
 	}
 
@@ -154,7 +183,52 @@ public class User extends Model {
 		return phone;
 	}
 
-	public boolean hasProfileImage() {
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public boolean hasTitle() {
+        return title != null && title.length() > 0;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public boolean hasGraduationYear() {
+        return graduationYear != null;
+    }
+
+    public Integer getGraduationYear() {
+        return graduationYear;
+    }
+
+    public void setGraduationYear(Integer graduationYear) {
+        this.graduationYear = graduationYear;
+    }
+
+    public boolean hasSpecialization() {
+        return specialization != null && specialization != Specialization.NONE;
+    }
+
+    public Specialization getSpecialization() {
+        if(specialization == null) specialization = Specialization.NONE;
+        return specialization;
+    }
+
+    public void setSpecialization(Specialization specialization) {
+        this.specialization = specialization;
+    }
+
+    public void setSpecialization(String displayName) {
+        this.specialization = Specialization.fromDisplayName(displayName);
+    }
+
+    public boolean hasProfileImage() {
 		return profileImageFileName != null && !profileImageFileName.equals("");
 	}
 
@@ -162,37 +236,35 @@ public class User extends Model {
 		return profileImageFileName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setProfileImageFileName(String profileImageFileName) {
+        this.profileImageFileName = profileImageFileName;
+    }
 
-	public String getUsername() {
-		return this.username;
-	}
-
-	public Timestamp getLastLoginTime() {
+    public Timestamp getLastLoginTime() {
 		return lastLogin;
 	}
 
-	public String getName(boolean showMiddleName) {
-		String m = "";
-		if (showMiddleName) m = " " + middleName;
-		return firstName + m + " " + surname;
-	}
-
-	public String getName() {
-		return getName(false);
-	}
-
 	public char getGender() {
-		return sex;
+		return gender;
 	}
 
-	public Long getId() {
-		return id;
+	public boolean isRoot() {
+		return thisOrFalse(root);
 	}
 
-	public int calculateClass() {
+    public boolean hasProfileImagePos() {
+        return profileImagePos != null;
+    }
+
+    public Double getProfileImagePos() {
+        return profileImagePos;
+    }
+
+    public void setProfileImagePos(Double profileImagePos) {
+        this.profileImagePos = profileImagePos;
+    }
+
+    public int calculateClass() {
 		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 		int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
 		int classYear = 5 - (graduationYear - currentYear);
@@ -201,48 +273,32 @@ public class User extends Model {
 		return classYear;
 	}
 
-	// TODO: Check image size to be within a set range.
-	public String uploadPicture() {
-		if (isDefault())
-			throw new Error("You do not have the privilege as a non-student to upload files!");
-		String userFolderPrefix = "public/upload/" + LoginState.getUser().getUsername();
-		Http.MultipartFormData body = Controller.request().body().asMultipartFormData();
-		Http.MultipartFormData.FilePart picture = body.getFile("picture");
-		if (picture != null) {
-			String contentType = picture.getContentType();
-			if (checkImageType(contentType)) {
-				String fileName = picture.getFilename();
-				//System.out.println(contentType);
-				File file = picture.getFile();
-				try {
-					System.out.println(userFolderPrefix);
-					File userFolder = new File(userFolderPrefix);
-					if (!userFolder.exists())
-						userFolder.mkdir();
-					Long prefix = -1L;
-					File destination = new File(userFolderPrefix + "/" + fileName);
-					while (destination.exists()) {
-						++prefix;
-						destination = new File(userFolderPrefix + "/" + String.valueOf(prefix) + "_" + fileName);
-					}
-					FileUtils.moveFile(file, new File(userFolderPrefix, (prefix == -1L ? "" : String.valueOf(prefix) + "_") + fileName));
-				} catch (IOException ioe) {
-					System.out.println("Problem operating on filesystem");
-				}
-				return "/assets/upload/" + LoginState.getUser().getUsername() + "/" + fileName;
-			}
-		}
-		return null;
-	}
-
-	public static boolean checkImageType(String contentType) {
-		String[] type = contentType.split("/");
-		return type[0].equals("image");
-	}
-
 	public void saveToSession() {
 		play.mvc.Controller.session("user", play.api.libs.Crypto.encryptAES(username + "," + String.valueOf(System.currentTimeMillis())));
 	}
+
+    public static Map<String, String> validateForm(Form<User> form) throws IOException {
+        Validator validator = Validator.fromJSON(new File("public/json/userValidation.json"));
+        return validator.validate(form);
+    }
+
+    public void updateFromForm(Form<User> form) {
+        setFirstName(form.apply("firstName").valueOr(getFirstName()));
+        setLastName(form.apply("lastName").valueOr(getLastName()));
+        setMiddleName(form.apply("middleName").valueOr(getMiddleName()));
+        setEmail(form.apply("email").valueOr(getEmail()));
+        setWebsiteUrl(form.apply("websiteUrl").valueOr(getWebsiteUrl()));
+        setPhone(form.apply("phone").valueOr(getPhone()));
+        setProfileImageFileName(form.apply("profileImageFileName").valueOr(getProfileImageFileName()));
+        setTitle(form.apply("title").valueOr(getTitle()));
+        setGraduationYear(Integer.parseInt(form.apply("graduationYear").valueOr(getGraduationYear().toString())));
+        setSpecialization(form.apply("specialization").valueOr(getSpecialization().toString()));
+        save();
+    }
+
+    public static boolean isSet(String field) {
+        return field != null && field.length() > 0;
+    }
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder("USER[\n");
@@ -251,7 +307,7 @@ public class User extends Model {
 		if (phone != null) sb.append("\tphone: " + phone.toString() + ", \n");
 		if (title != null) sb.append("\ttitle: " + title.toString() + ", \n");
 		if (username != null) sb.append("\tusername: " + username.toString() + ", \n");
-		if (surname != null)  sb.append("\tsurname: " + surname.toString() + ", \n");
+		if (lastName != null)  sb.append("\tlastName: " + lastName.toString() + ", \n");
 		if (firstName != null) sb.append("\tfirstName: " + firstName.toString() + ", \n");
 		if (middleName != null) sb.append("\tmiddleName: " + middleName.toString() + ", \n");
 		if (profileImageFileName != null) sb.append("\tprofileImageFileName: " + profileImageFileName.toString() + ", \n");
@@ -260,7 +316,7 @@ public class User extends Model {
 		if (bedkom != null) sb.append("\tbedkom: " + bedkom.toString() + ", \n");
 		if (admin != null) sb.append("\tadmin: " + admin.toString() + ", \n");
 		if (root != null) sb.append("\troot: " + root.toString() + ", \n");
-		if (sex != null) sb.append("\tsex: " + sex.toString() + ", \n");
+		if (gender != null) sb.append("\tgender: " + gender.toString() + ", \n");
 		if (enrolled != null) sb.append("\tenrollied: " + enrolled.toString() + ", \n");
 		if (dateOfBirth != null) sb.append("\tdateOfBirth: " + dateOfBirth.toString() + ", \n");
 		if (lastLogin != null) sb.append("\tlastLogin: " + lastLogin.toString() + ", \n");
@@ -268,7 +324,85 @@ public class User extends Model {
 		return sb.toString();
 	}
 
-	public static Model.Finder<Long, User> find = new Finder<>(
-		Long.class, User.class
-	);
+	public enum Access{
+		BEDKOM,
+		ARRKOM,
+		VEVKOM,
+		ADMIN,
+		ROOT;
+	}
+
+    public boolean hasAccess(boolean inAll, Access... accessList) {
+        return hasAccess(this, inAll, accessList);
+    }
+
+	public static boolean hasAccess(User user, boolean inAll, Access... accessList){
+		//Parameters explained: user: the user you want to check;
+		//inAll: set true if you want to check if user has ALL entered accesses, false if you want to check if user has
+		// ANY of the entered accesses.
+		//Accesses are entered on the form models.User.Access.<access> (for example: models.User.Access.BEDKOM)
+
+		if(user.isDefault()){
+			return false;
+		}
+		if(inAll == false){
+			boolean access = false;
+			for (Access i : accessList){
+				if (i == Access.BEDKOM){
+					access = user.bedkom;
+				}
+				if (i == Access.ARRKOM){
+					access = user.arrkom;
+				}
+				if (i == Access.VEVKOM){
+					access = user.vevkom;
+				}
+				if (i == Access.ADMIN){
+					access = user.admin;
+				}
+				if (i == Access.ROOT){
+					access = user.root;
+				}
+				if (access == true){
+					return true;
+				}
+			}
+			return false;
+		}
+		else {
+			boolean tempHasAccess = false;
+			for (Access i : accessList) {
+				if (i == Access.BEDKOM) {
+					tempHasAccess = user.bedkom;
+				}
+				if (i == Access.ARRKOM) {
+					tempHasAccess = user.arrkom;
+				}
+				if (i == Access.VEVKOM) {
+					tempHasAccess = user.vevkom;
+				}
+				if (i == Access.ADMIN) {
+					tempHasAccess = user.admin;
+				}
+				if (i == Access.ROOT) {
+					tempHasAccess = user.root;
+				}
+				if (tempHasAccess == false) {
+					return false;
+				}
+			}
+			if (tempHasAccess == false){
+				return false;
+			}
+			return true;
+		}
+	}
+
+    public static Model.Finder<Long, User> find = new Finder<>(
+            Long.class, User.class
+    );
+
+    public static User findByUsername(String username){
+        return find.where().eq("username", username).findUnique();
+    }
 }

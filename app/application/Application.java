@@ -1,13 +1,12 @@
 package application;
 
 import com.google.common.collect.Lists;
-import models.*;
+import models.LoginState;
+import models.Renders;
+import models.User;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.twirl.api.Html;
-
-import application.views.html.*;
-import views.html.layout;
 
 public class Application extends Controller {
 
@@ -31,10 +30,10 @@ public class Application extends Controller {
 			models.Article art = renderable.articleReference;
 			models.Event evt = renderable.eventReference;
 			if (renderable.articleReference != null) {
-				curcatenation = articleRenderFrontPageSample.render(art);
+				curcatenation = application.views.html.articleRenderFrontPageSample.render(art);
 			} else if (renderable.eventReference != null) {
 				art = evt.getArticle();
-				curcatenation = eventRenderFrontPageSample.render(art, evt);
+				curcatenation = application.views.html.eventRenderFrontPageSample.render(art, evt);
 			}
 
 			if (++count < 2) {
@@ -43,11 +42,12 @@ public class Application extends Controller {
 				concatenation += application.views.html.smallthumbnail.render(curcatenation);
 			}
 		}
-		return ok(layout.render(
+		//Example for user access check:
+		System.out.println(User.hasAccess(LoginState.getUser(), true, User.Access.BEDKOM, User.Access.ADMIN));
+		return ok(views.html.layout.render(
 			"Hybrida",
-			application.views.html.index.render(
-				views.html.utils.toHtml.render(concatenation))));
-	}
+			application.views.html.index.render(views.html.utils.toHtml.render(concatenation))));
+    }
 
 	/**
 	* Useful functions to use to return standard messages to the client.
@@ -55,19 +55,19 @@ public class Application extends Controller {
 	*/
 	public static Result showUnauthorizedAccess() {
 		return unauthorized(
-			layout.render(
+			views.html.layout.render(
 				"Unauthorized",
 				application.views.html.showUnauthorizedAccess.render()));
 	}
 
 	public static Result show404(String get_value) {
-		return notFound(layout.render(
+		return notFound(views.html.layout.render(
 			"404",
 			application.views.html.show404.render(get_value)));
 	}
 
 	public static Result show400(String get_value) {
-		return badRequest(layout.render(
+		return badRequest(views.html.layout.render(
 		"400",
 		application.views.html.show400.render(get_value)));
 	}

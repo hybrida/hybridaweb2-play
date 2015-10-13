@@ -15,7 +15,7 @@
 				@if(models.LoginState.getUser().canCreateNewArticle()) {
 					<li><a href="@article.routes.ArticleIn.index()">Nytt Innlegg</a></li>
 				}
-				<li><a href="@company.routes.Company.index()">Bedrift</a></li>
+				<li><a href="@bedrift.routes.Bedrift.index()">Bedrift</a></li>
 				<!--@@if(models.LoginState.isValidlyLoggedIn()) {<li><a href="/Chat">Chat</a></li>}-->
 				<li><a href="@calendar.routes.Calendar.display()">Kalender</a></li>
 				<li><a href="@abouthybrida.routes.AboutHybrida.index()">Om Hybrida</a></li>
@@ -46,3 +46,6 @@
 		</div>
 	</div>
 </nav>
+<button type="button" class="btn btn-default btn-lg fixed-bottom-right">
+	<span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span> Feedback
+</button>

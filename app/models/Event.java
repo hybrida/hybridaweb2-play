@@ -197,7 +197,7 @@ public class Event extends Model {
 		fourthYearAllowedAfterSecondSignup,
 		fifthYearAllowedAfterSecondSignup;
 
-	private char sexAllowed;
+	private char genderAllowed;
 
 	private int maxParticipants;
 	private int maxParticipantsWaiting;
@@ -320,12 +320,12 @@ public class Event extends Model {
 		this.secondLowerGraduationLimit = secondLowerGraduationLimit;
 	}
 
-	public char getSexAllowed() {
-		return sexAllowed;
+	public char getGenderAllowed() {
+		return genderAllowed;
 	}
 
-	public void setSexAllowed(char sexAllowed) {
-		this.sexAllowed = sexAllowed;
+	public void setGenderAllowed(char genderAllowed) {
+		this.genderAllowed = genderAllowed;
 	}
 
 	public int getMaxParticipants() {

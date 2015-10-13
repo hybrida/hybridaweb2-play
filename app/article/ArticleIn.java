@@ -62,13 +62,14 @@ public class ArticleIn extends Controller {
 		User user = LoginState.getUser();
 		Form<models.Article> articleInput = articleForm.bindFromRequest();
 		System.out.println(new HttpRequestData());
-		String image_link = user.uploadPicture();
+//		String image_link = user.uploadPicture();
 		if (!articleInput.hasErrors()) {
 			models.Article articleModel = articleInput.get();
-			if (image_link != null)
-				articleModel.setImagePath(image_link);
-			else
-				articleModel.setDefaultImage();
+//			if (image_link != null)
+//				articleModel.setImagePath(image_link);
+//			else
+//				articleModel.setDefaultImage();
+            articleModel.setDefaultImage(); //TODO: Should use Upload Controller (sry Kev)
 			articleModel.setAuthor(user);
 			articleModel.save();
 
@@ -81,13 +82,14 @@ public class ArticleIn extends Controller {
 		User user = LoginState.getUser();
 
 		Form<models.Article> articleInput = articleForm.bindFromRequest();
-		String image_link = user.uploadPicture();
+//		String image_link = user.uploadPicture();
 		if (!articleInput.hasErrors()) {
 			models.Article articleModel = articleInput.get();
-			if (image_link != null)
-				articleModel.setImagePath(image_link);
-			else
-				articleModel.setDefaultImage();
+//			if (image_link != null)
+//				articleModel.setImagePath(image_link);
+//			else
+//				articleModel.setDefaultImage();
+            articleModel.setDefaultImage(); //TODO: Should use Upload Controller (sry Kev)
 			articleModel.setAuthor(user);
 			articleModel.setId(Long.valueOf(id));
 			articleModel.update();
@@ -200,12 +202,12 @@ public class ArticleIn extends Controller {
 		}
 		eventModel.setMaxParticipants(httpData.getInt("maxParticipants"));
 
-		char sex = httpData.get("sexAllowed").charAt(0);
-		if (sex != 'M' && sex != 'F' && sex != 'A') {
-			reid.result = application.Application.show400("Kjønnet er feil: '" + sex + "'. Dette er ikke gyldig.");
+		char gender = httpData.get("genderAllowed").charAt(0);
+		if (gender != 'M' && gender != 'F' && gender != 'A') {
+			reid.result = application.Application.show400("Kjønnet er feil: '" + gender + "'. Dette er ikke gyldig.");
 			return reid;
 		}
-		eventModel.setSexAllowed(httpData.get("sexAllowed").charAt(0));
+		eventModel.setGenderAllowed(httpData.get("genderAllowed").charAt(0));
 
 		/*
 		if (httpData.getInt("secondLowerGraduationLimit") < 1 || httpData.getInt("secondLowerGraduationLimit") > 5) {
@@ -270,7 +272,7 @@ public static Result saveEdit(String id) {
 		article.setTitle(httpdata.get("title"));
 		article.setIngress(httpdata.get("ingress"));
 		article.setText(httpdata.get("text"));
-		String new_image = LoginState.getUser().uploadPicture();
+		String new_image = null;
 		if (new_image != null)
 			article.setImagePath(new_image);
 		article.save();

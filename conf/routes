@@ -19,6 +19,23 @@ GET           /hybrida                          abouthybrida.AboutHybrida.index(
 GET           /nystudent                        newstudent.NewStudent.index()
 GET           /styret                           hybridaleaders.HybridaLeaders.index()
 
+# Upload
+POST          /api/upload                       controllers.Upload.ajaxUpload()
+POST          /api/upload/:uploadFolder         controllers.Upload.ajaxUploadTo(uploadFolder)
+
+# BedkomDatabase
+GET           /bedkomdatabase                   bedkomdatabase.Bedkomdatabase.index()
+
+POST          /bedkomdatabase/bedrift           bedkomdatabase.Bedkomdatabase.saveBedrift()
+POST          /bedkomdatabase/bedrift/ud/:id    bedkomdatabase.Bedkomdatabase.updateBedrift(id)
+POST          /bedkomdatabase/bedrift/slett/:id bedkomdatabase.Bedkomdatabase.deleteBedrift(id)
+
+POST          /bedkomdatabase/kontakt/:id       bedkomdatabase.Bedkomdatabase.saveKontaktPerson(id)
+POST          /bedkomdatabase/kontakt/slett/:id bedkomdatabase.Bedkomdatabase.deleteKontaktPerson(id)
+POST          /bedkomdatabase/kontakt/ud/:id    bedkomdatabase.Bedkomdatabase.updateKontaktPerson(id)
+
+
+
 # Calendar
 GET           /kalender                         calendar.Calendar.display(gcal: Boolean ?= false)
 GET           /api/kalender/hent                calendar.Calendar.fetch(start: String, end: String)
@@ -43,7 +60,8 @@ POST          /event/:id/lagreEndring           article.Event.saveEdit(id)
 POST          /comment/:articleID               article.Article.comment(articleID)
 POST          /comment/delete/:commentID        article.Article.deleteComment(commentID)
 
-GET           /bedrift                          company.Company.index()
+GET           /bedriftalt                        company.Company.index()
+GET           /bedrift                           bedrift.Bedrift.index()
 
 # Ebean example
 GET           /ebean                            examples.controllers.ExampleEbean.index()
@@ -70,7 +88,7 @@ GET           /kontaktforbruker                 contactforuser.ContactForUser.in
 # Profile
 GET           /profil/:username                 profile.Profile.index(username)
 GET           /profil/:username/rediger         profile.Profile.edit(username)
-POST          /profil/:username                 profile.Profile.update(username)
+POST          /profil/:username/rediger         profile.Profile.update(username)
 
 # Quiz
 GET           /quiz                             quiz.QuizController.index()
@@ -88,6 +106,7 @@ DELETE        /api/quiz/season/:id              quiz.QuizController.deleteSeason
 GET           /chat                             chat.Chat.connectClient()
 GET           /chatserver                       chat.Chat.socket()
 
+GET           /arrkom                           arrkom.ArrKom.index()
 GET           /helloworld                       helloworld.HelloWorld.index()
 GET           /andreas                          andreas.Andreas.index()
 GET           /helloworld                       helloworld.HelloWorld.index()

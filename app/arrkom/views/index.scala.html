@@ -1,0 +1,94 @@
+<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/staticinfo.css")">
+<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/main.css")">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href='http://fonts.googleapis.com/css?family=Raleway+Dots' rel='stylesheet' type='text/css'>
+<meta charset="UTF-8">
+<script type="text/javascript" href="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+<script type="text/javascript" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+<script href="/js/jquery.slides.min.js"></script>
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-27346572-1']);
+_gaq.push(['_setDomainName', 'hybrida.no']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<script href="/js/dev/underscore-min.js"></script>
+<script href="/js/require.js"></script>
+<div class="helesiden">
+    <div class="container">
+        <div class="row blank"></div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 whitebox topright topleft">
+                <img class="center-block" src="/assets/images/GO.png">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 whitebox line">
+                ________________________________________________________
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 whitebox paragraph bottomleft bottomright hiddentopleft hiddentopright">
+                <div id="widget-knightPresentation">
+
+                    <script>
+
+                    $(document).ready(function(){
+
+                    $("name").css( 'cursor', 'pointer' );
+
+                        $(".reason").hide();
+                        $(".knight").click(function(){
+                            $("reason").hide();
+                        });
+                        $(".knight").click(function(){
+                            $("reason").show();
+                        });
+                    });
+                    </script>
+
+                    <div id="hide" id="show" class="knight g-clearfix">
+                        <div class="name">Hovedtittel</div>
+                        <div class="reason"><b>Undertittel:</b> her kan man si noe kort</div>
+                        <div class="reason"><b>Hovedtekst:</b> Main body text</div>
+                    </div>
+                    <div id="hide" id="show" class="knight g-clearfic">
+                        <div class="name">Grupper</div>
+                        <div class="reason"><b>Grupper i Arrkom</b> I arrkom har vi mange forskjellige grupper</div>
+                        <div class="reason">Do you see any Teletubbies in here? Do you see a slender plastic tag clipped to my shirt with my name printed on it? Do you see a little Asian child with a blank expression on his face sitting outside on a mechanical helicopter that shakes when you put quarters in it? No? Well, that's what you see at a toy store. And you must think you're in a toy store, because you're here shopping for an infant named Jeb.
+
+                            Your bones don't break, mine do. That's clear. Your cells react to bacteria and viruses differently than mine. You don't get sick, I do. That's also clear. But for some reason, you and I react the exact same way to water. We swallow it too fast, we choke. We get some in our lungs, we drown. However unreal it may seem, we are connected, you and I. We're on the same curve, just on opposite ends.
+
+                            Your bones don't break, mine do. That's clear. Your cells react to bacteria and viruses differently than mine. You don't get sick, I do. That's also clear. But for some reason, you and I react the exact same way to water. We swallow it too fast, we choke. We get some in our lungs, we drown. However unreal it may seem, we are connected, you and I. We're on the same curve, just on opposite ends.</div>
+                    </div>
+                    <div id="hide" id="show" class="knight g-clearfic">
+                        <div class="name">Bilder</div>
+                        <div class="reason"><img class="center-block" src="/assets/images/arrkom_eksempel_bilde.jpeg"></div>
+
+                    </div>
+
+                    <script type="text/javascript">
+                    var knights = $("#widget-knightPresentation").find(".knight");
+                    knights.find(".name").click(function(e) {
+                    var parent = $(this).parent();
+                    var reason = parent.find(".reason").toggle();
+                    });
+
+                    </script>
+                </div>
+                <div>
+            </div>
+            </div>
+        </div>
+        <div class="row blank"></div>
+        <div class="row blank"></div>
+    </div>
+</div>

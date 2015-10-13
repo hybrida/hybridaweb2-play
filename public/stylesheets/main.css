@@ -82,6 +82,13 @@ a :hover {
     position: absolute; width:100%; text-align:center;
 }
 
+.fixed-bottom-right {
+    position: fixed;
+    z-index: 9999;
+    bottom: 16px;
+    right: 16px;
+}
+
 .transparent-box {
     background-color: rgba(245,245,245,0.9);
     border-radius: 4px;
@@ -118,6 +125,7 @@ a :hover {
     -webkit-box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.3);
     -moz-box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.3);
     box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.3);
+    overflow: auto;
 }
 
 .art-img{
@@ -166,6 +174,7 @@ a :hover {
         padding: 0;
         margin: 0 0px 0 0px;
     }
+
 }
 
 @media only screen and (max-width: 888px) and (min-width: 768px){
