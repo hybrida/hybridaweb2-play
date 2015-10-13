@@ -398,7 +398,7 @@ public class User extends Model implements ImmutableUser {
 		}
 	}
 
-    public static Finder<Long, User> find = new Finder<>(
+    public static Model.Finder<Long, User> find = new Finder<>(
             Long.class, User.class
     );
 
