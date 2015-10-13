@@ -38,6 +38,26 @@ public class Article extends Model {
 		this.imagePath = "/assets/images/logo_big.png";
 	}
 
+	public String validate() {
+		if (title == null || title.equals(""))
+			return "notitle";
+		if (ingress == null || ingress.equals(""))
+			return "noingress";
+		if (text == null || text.equals(""))
+			return "notext";
+		return null;
+	}
+
+	public String toString() {
+		return
+			"Title: " + title +
+			"\nIngress: " + ingress +
+			"\nText: " + text +
+			(author == null ?
+				"\nAuthor: null" :
+				"\nAuthor: " + author.toString());
+	}
+
 	public List<Comment> getCommentList() {
 		return commentList;
 	}
