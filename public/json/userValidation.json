@@ -18,7 +18,7 @@
       "message": "Avgangsår må være et tall mellom 2000 og 2099."},
     {"name": "specialization", "pattern": "[a-zæøå .,-]{5,50}",
       "message": "Noe er dårlig programmert. Eller så prøvde du å være lur. Du var ikke lur, sorry."},
-    {"name": "profileImageFileName", "pattern": "[\\w .-]+\\.(jpe?g|gif|png)",
+    {"name": "profileImageFileName", "pattern": "[^\\\\/:\\*\\?\"<>\\|]+\\.(jpe?g|gif|png)",
       "message": "Noe er dårlig programmert. Eller så prøvde du å være lur. Du var ikke lur, sorry."}
   ]
 }
