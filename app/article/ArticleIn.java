@@ -6,6 +6,7 @@ import play.mvc.Result;
 import static play.data.Form.form;
 
 import java.text.ParseException;
+import java.util.Calendar;
 
 import article.views.html.*;
 import views.html.layout;
@@ -15,39 +16,46 @@ import models.*;
 
 public class ArticleIn extends Controller {
 
-	final static Form<models.Event> eventForm = form(models.Event.class);
 	final static Form<models.Article> articleForm = form(models.Article.class);
+	final static Form<models.Event> eventForm = form(models.Event.class);
 
 	public static Result index() {
 		return ok(layout.render("Hybrida: Opprett Artikkel", index.render()));
 	}
 
+	public static boolean thisIsAnEvent() {
+		return (new HttpRequestData()).get("event") != null;
+	}
+
 	public static Result save() {
-		try {
-			User user = LoginState.getUser();
-			if (user == null || !user.canCreateNewArticle())
-				return application.Application.showUnauthorizedAccess();
-			models.Article art = saveArticle();
-			if (!(new HttpRequestData().get("event") == null)) {
-				ResultAndEId res = saveEvent(art, null);
-				if (res.result != null)
-					return res.result;
-				Renders.addEvent(res.event);
-				return redirect(article.routes.Event.viewEvent("" + res.event.getId()));
-			}
-			else {
-				// Husk å legge til artikkelen i renders! Da vises den nemlig på fremsiden ^_^
-				Renders.addArticle(art);
-				return redirect(article.routes.Article.viewArticle("" + art.getId()));
-			}
+		System.out.println(new HttpRequestData());
+		User user = LoginState.getUser();
+		if (!user.canCreateNewArticle())
+			return application.Application.showUnauthorizedAccess();
+
+		String image_link = user.uploadPicture();
+
+		models.Article article = articleForm.bindFromRequest().get();
+		if (article.validate() != null)
+			return application.Application.showUnauthorizedAccess();
+
+		article.setAuthor(user);
+		if (image_link != null) article.setImagePath(image_link);
+		else article.setDefaultImage();
+		if (thisIsAnEvent()) {
+			models.Event event = models.Event.getFromRequest();
+			article.save();
+			event.setArticle(article);
+			event.save();
+			models.Renders.addEvent(event);
+		} else {
+			article.save();
+			models.Renders.addArticle(article);
 		}
-		catch (IllegalStateException e) {
-			return application.Application.show400("ugyldig data oppgitt: " + e);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			return ok(e.toString());
-		}
+
+		// To see all the inputs:
+		System.out.println(new HttpRequestData());
+		return ok();
 	}
 
 	public static models.Article saveArticle() throws IllegalStateException {
@@ -121,6 +129,17 @@ public class ArticleIn extends Controller {
 		java.util.Calendar current_calendar = java.util.Calendar.getInstance();
 		current_calendar.setTimeInMillis(System.currentTimeMillis());
 
+		cal = java.util.Calendar.getInstance();
+		try {
+			cal.setTime(dateFormat.parse(httpData.get("eventHappens")));
+			if (cal.before(current_calendar)) {
+				reid.result = application.Application.show400("Arrangementet skjer før nå. Dette er ikke gyldig.");
+				return reid;
+			}
+			eventModel.setEventHappens(cal);
+		} catch (ParseException parseExc) {
+			return new ResultAndEId(application.Application.show400("Feil dato format når arrangementet faktisk skjer oppmeldingsfristen."));
+		}
 		try {
 			cal.setTime(dateFormat.parse(httpData.get("secondSignUp")));
 			if (cal.before(current_calendar)) {
@@ -133,16 +152,18 @@ public class ArticleIn extends Controller {
 			return new ResultAndEId(application.Application.show400("Feil dato format i den andre oppmeldingsfristen."));
 		}
 
+
+
 		cal = java.util.Calendar.getInstance();
 		try {
-			cal.setTime(dateFormat.parse(httpData.get("eventHappens")));
+			cal.setTime(dateFormat.parse(httpData.get("signupDeadline")));
 			if (cal.before(current_calendar)) {
 				reid.result = application.Application.show400("Arrangementet skjer før nå. Dette er ikke gyldig.");
 				return reid;
 			}
 			eventModel.setEventHappens(cal);
 		} catch (ParseException parseExc) {
-			return new ResultAndEId(application.Application.show400("Feil dato format når arrangementet faktisk skjer oppmeldingsfristen."));
+			return new ResultAndEId(application.Application.show400("Stenging av påmeldingen er ugyldig"));
 		}
 
 		cal = java.util.Calendar.getInstance();
