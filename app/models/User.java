@@ -164,8 +164,11 @@ public class User extends Model implements ImmutableUser {
 	}
 
     public void setEmail(String email) {
-        int i = email.indexOf('@');
-        this.email = email.substring(0, i) + email.substring(i).toLowerCase();
+        if (email.isEmpty()) this.email = "";
+        else {
+            int i = email.indexOf('@');
+            this.email = email.substring(0, i) + email.substring(i).toLowerCase();
+        }
     }
 
 	public boolean hasWebsiteUrl() {
@@ -177,14 +180,17 @@ public class User extends Model implements ImmutableUser {
 	}
 
     public void setWebsiteUrl(String websiteUrl) {
-        if(!websiteUrl.substring(0, 4).equalsIgnoreCase("http")) {
-            websiteUrl = "http://" + websiteUrl + (websiteUrl.indexOf('/') == -1 ? "/" : "");
+        if(websiteUrl.isEmpty()) this.websiteUrl = "";
+        else {
+            if(!websiteUrl.substring(0, 4).equalsIgnoreCase("http")) {
+                websiteUrl = "http://" + websiteUrl + (websiteUrl.indexOf('/') == -1 ? "/" : "");
+            }
+            if(websiteUrl.indexOf('?') != -1) {
+                int i = websiteUrl.indexOf('?');
+                websiteUrl = websiteUrl.substring(0, i).toLowerCase() + websiteUrl.substring(i);
+            }
+            this.websiteUrl = websiteUrl;
         }
-        if(websiteUrl.indexOf('?') != -1) {
-            int i = websiteUrl.indexOf('?');
-            websiteUrl = websiteUrl.substring(0, i).toLowerCase() + websiteUrl.substring(i);
-        }
-        this.websiteUrl = websiteUrl;
     }
 
     public boolean hasPhone() {
@@ -196,9 +202,12 @@ public class User extends Model implements ImmutableUser {
 	}
 
     public void setPhone(String phone) {
-        phone = phone.replaceAll(" ", "");
-        phone = phone.substring(phone.length() - 8);
-        this.phone = "+47 " + phone.substring(0, 3) + " " + phone.substring(3, 5) + " " + phone.substring(5);
+        if (phone.isEmpty()) this.phone = "";
+        else {
+            phone = phone.replaceAll(" ", "");
+            phone = phone.substring(phone.length() - 8);
+            this.phone = "+47 " + phone.substring(0, 3) + " " + phone.substring(3, 5) + " " + phone.substring(5);
+        }
     }
 
     public boolean hasTitle() {
@@ -321,10 +330,6 @@ public class User extends Model implements ImmutableUser {
         setGraduationYear(Integer.parseInt(form.apply("graduationYear").valueOr(getGraduationYear().toString())));
         setSpecialization(form.apply("specialization").valueOr(getSpecialization().toString()));
         save();
-    }
-
-    public static boolean isSet(String field) {
-        return field != null && field.length() > 0;
     }
 
 	public String toString() {
