@@ -8,6 +8,7 @@ import play.db.ebean.Model;
 import play.twirl.api.Html;
 
 import javax.persistence.*;
+import javax.persistence.OrderBy;
 import java.lang.Override;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -15,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import models.*;
 import play.data.validation.Constraints;
+import java.util.Collections;
 
 @Entity
 public class Bedrift extends Model {
@@ -32,6 +34,8 @@ public class Bedrift extends Model {
 
     private String bedriftName;
 
+    private boolean active;
+
     @ManyToOne
     private User responsible; //defines the user responsible for contacting this company.
 
@@ -41,10 +45,12 @@ public class Bedrift extends Model {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JsonManagedReference
+    @OrderBy("Contact.getContact DESC")
     private List<Contact> contacts;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JsonManagedReference
+    @OrderBy("Note.getDateMade DESC")
     private List<Note> notes;
 
 
@@ -52,6 +58,7 @@ public class Bedrift extends Model {
         this.bedriftName = bedriftName;
         this.priority = priority;
         this.responsible = responsible;
+        this.active = true;
     }
 
     public long getBedriftId() {
@@ -104,6 +111,14 @@ public class Bedrift extends Model {
 
     public void setNotes(List<Note> notes) {
         this.notes = notes;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public static Finder<Long, Bedrift> find = new Finder<>(

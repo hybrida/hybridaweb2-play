@@ -48,6 +48,7 @@ public class Bedkomdatabase extends Controller {
 
         bedrift.setBedriftName(data.get("bedriftsName"));
         bedrift.setPriority(data.getInt("priority"));
+        bedrift.setActive(data.get("active").equals("true"));
         if(data.get("userId") == null){
             System.out.println("keeping current user");
         }
@@ -80,7 +81,7 @@ public class Bedkomdatabase extends Controller {
         contact.setContact(data.get("contact"));
         contact.setEmail(data.get("email"));
         contact.setTelephone(data.get("telephone"));
-        contact.setOther("other");
+        contact.setOther(data.get("other"));
         contact.update();
         return redirect(bedkomdatabase.routes.Bedkomdatabase.index());
     }
@@ -90,5 +91,26 @@ public class Bedkomdatabase extends Controller {
         contact.delete();
         return redirect(bedkomdatabase.routes.Bedkomdatabase.index());
     }
+
+    public static Result saveNote(String id){
+        HttpRequestData data = new HttpRequestData();
+        Note notat = new Note(data.get("note"), Bedrift.find.byId(Long.parseLong(id)));
+        notat.save();
+        return redirect(bedkomdatabase.routes.Bedkomdatabase.index());
+    }
+    public static Result updateNote(String id){
+        HttpRequestData data = new HttpRequestData();
+        Note note = Note.find.byId(Long.parseLong(id));
+        note.setNote(data.get("note"));
+        note.update();
+        return redirect(bedkomdatabase.routes.Bedkomdatabase.index());
+    }
+    public static Result deleteNote(String id){
+        HttpRequestData data = new HttpRequestData();
+        Note note = Note.find.byId(Long.parseLong(id));
+        note.delete();
+        return redirect(bedkomdatabase.routes.Bedkomdatabase.index());
+    }
+
 
 }

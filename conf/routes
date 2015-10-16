@@ -34,6 +34,10 @@ POST          /bedkomdatabase/kontakt/:id       bedkomdatabase.Bedkomdatabase.sa
 POST          /bedkomdatabase/kontakt/slett/:id bedkomdatabase.Bedkomdatabase.deleteKontaktPerson(id)
 POST          /bedkomdatabase/kontakt/ud/:id    bedkomdatabase.Bedkomdatabase.updateKontaktPerson(id)
 
+POST          /bedkomdatabase/notat/:id         bedkomdatabase.Bedkomdatabase.saveNote(id)
+POST          /bedkomdatabase/notat/ud/:id      bedkomdatabase.Bedkomdatabase.updateNote(id)
+POST          /bedkomdatabase/notat/slett/:id   bedkomdatabase.Bedkomdatabase.deleteNote(id)
+
 
 
 # Calendar

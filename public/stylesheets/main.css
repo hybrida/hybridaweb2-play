@@ -168,6 +168,10 @@ a :hover {
     padding: .5%;
 }
 
+.div_pointer{
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 888px) {
 
     #home {
@@ -182,5 +186,6 @@ a :hover {
     #navbar-search {
         width: 64px;
     }
+
 
 }

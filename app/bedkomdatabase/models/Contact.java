@@ -35,7 +35,7 @@ public class Contact extends Model {
 
     private User madeBy;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne()
     @JsonBackReference
     private Bedrift bedrift;
 
@@ -83,4 +83,8 @@ public class Contact extends Model {
     public static Finder<Long, Contact> find = new Finder<>(
             Long.class, Contact.class
     );
+
+    public long getContactId() {
+        return contactId;
+    }
 }

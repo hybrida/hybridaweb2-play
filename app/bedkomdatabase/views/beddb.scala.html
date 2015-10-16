@@ -1,5 +1,7 @@
 @import bedkomdatabase.models.Bedrift
 @(content: java.util.List[bedkomdatabase.models.Bedrift])
+@import java.util.Collections
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2" style="margin-top: 1%">
@@ -18,26 +20,29 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="sleek-box-bg well">
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <p>Bedrift:</p>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <p>Ansvarlig for kontakt:</p>
                             </div>
                             <div class="col-md-2">
                                 <p>Prioritet:</p>
                             </div>
+                            <div class="col-md-2">
+                                <p>Status:</p>
+                                </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="sleek-box-bg">
                             <div class="col-md-12">
-                                    <!-- Button trigger modal -->
+                                    <!-- Button trigger modal, triggers bedrift creator -->
                                 <button type="button" class="btn btn-primary btn-md center-block" data-toggle="modal" data-target="#myModal">
                                     Legg til bedrift i databasen
                                 </button>
 
-                                    <!-- Modal -->
+                                    <!-- Modal, Bedrift creator modal -->
                                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -71,25 +76,40 @@
                     </div>
                     @for(i <- content){
                         <div class="row">
-                                <!-- Button trigger modal -->
-                            <div class="sleek-box-bg" data-toggle="modal" data-target="#@i.getBedriftId">
-                                <div class="col-md-6">
+                                <!-- Button trigger modal, triggers bedrift info popup -->
+                            <div class="sleek-box-bg div_pointer" data-toggle="modal" data-target="#@i.getBedriftId">
+                                <div class="col-md-5">
                                     <p>@i.getBedriftName</p>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <p>@i.getResponsible().getFullName()</p>
                                 </div>
                                 <div class="col-md-2">
                                     <p>@i.getPriority</p>
                                 </div>
+                                <div class="col-md-2">
+                                    @if(i.isActive){
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                                <span class="sr-only">100% Complete (success)</span>
+                                            </div>
+                                        </div>}
+                                    @if(!i.isActive){
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                                <span class="sr-only">0% Complete (success)</span>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
                             </div>
 
 
-                                <!-- Modal -->
+                                <!-- Modal for presenting Bedrift Data -->
                             <div class="modal fade" id="@i.getBedriftId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
-                                        <div class="modal-header" data-toggle="collapse" data-parent="#accordion" href="#collapseEdit@i.getBedriftId" aria-expanded="true" aria-controls="collapseEdit@i.getBedriftId" id="headingEdit@i.getBedriftId">
+                                        <div class="modal-header div_pointer" data-toggle="collapse" data-parent="#accordion" href="#collapseEdit@i.getBedriftId" aria-expanded="true" aria-controls="collapseEdit@i.getBedriftId" id="headingEdit@i.getBedriftId">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                             <h4 class="modal-title" id="myModalLabel">@i.getBedriftName</h4>
                                         </div>
@@ -101,11 +121,26 @@
 
                                                         <div class="form-group">
                                                             <label for="bedriftsName">Bedriftsnavn</label>
-                                                            <input type="text" class="form-control" name="bedriftsName" id="bedriftsName" placeholder="Navn på Bedriften">
+                                                            <input type="text" class="form-control" name="bedriftsName" id="bedriftsName" placeholder="Navn på Bedriften" value="@i.getBedriftName">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="priority">Prioritet</label>
-                                                            <input type="number" class="form-control" name="priority" id="priority" placeholder="Prioritet" max="10" min="1">
+                                                            <input type="number" class="form-control" name="priority" id="priority" placeholder="Prioritet" max="10" min="1" value="@i.getPriority">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <div class="radio">
+                                                                <label>
+                                                                    <input type="radio" name="active" id="active1" value="true" @if(i.isActive){checked}>
+                                                                    Aktiv
+                                                                </label>
+                                                            </div>
+                                                            <div class="radio">
+                                                                <label>
+                                                                    <input type="radio" name="active" id="active2" value="false" @if(!i.isActive){checked}>
+                                                                    Inaktiv
+                                                                </label>
+                                                            </div>
                                                         </div>
 
                                                         <div class="form-group">
@@ -138,6 +173,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                            <!--- Kontaktpersoner -->
                                         <div class="modal-body">
                                             <div class="center-block">
                                                 <p class="text-center">Kontakpersoner:</p></div>
@@ -145,7 +181,43 @@
                                                 <div class="row">
                                                     <div class="col-md-10 col-md-offset-1">
                                                         <div class="panel panel-default">
-                                                            <div class="panel-heading">@p.getContact</div>
+                                                            <div class="panel-heading div_pointer" data-toggle="collapse" data-parent="#accordion" href="#collapseCEdit@p.getContactId" aria-expanded="true" aria-controls="collapseEdit@p.getContactId" id="headingEdit@p.getContactId">
+                                                            @p.getContact
+                                                            </div>
+                                                            <div id="collapseCEdit@p.getContactId" class="panel-body panel-collapse collapse" role="tabpanel" aria-labelledby="headingCEdit@p.getContactId">
+                                                                    <!--- FORM FOR EDITING CONTACT GOES HERE!!! -->
+                                                                <form action="@bedkomdatabase.routes.Bedkomdatabase.updateKontaktPerson(p.getContactId.toString)" method="POST" enctype="multipart/form-data">
+                                                                    <div class="form-group">
+                                                                        <label for="kontaktName">Navn på kontakt</label>
+                                                                        <input type="text" class="form-control" name="contact" id="kontaktName" placeholder="Navn på kontakten" value="@p.getContact">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="telephone">Telefonnummer</label>
+                                                                        <input type="text" class="form-control" name="telephone" id="telephone" placeholder="Telefonnummer" value="@p.getTelephone">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="email">email</label>
+                                                                        <input type="email" class="form-control" name="email" id="email" placeholder="Email(at)bedrift.no" value="@p.getEmail">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="other">Annen info</label>
+                                                                        <input type="text" class="form-control" name="other" id="other" placeholder="Annen info" value="@p.getOther">
+                                                                    </div>
+                                                                    <button type="submit" class="btn btn-primary form-control">Oppdater kontaktperson</button>
+                                                                </form>
+                                                                    <div class="btn btn-danger form-control" data-toggle="collapse" data-parent="#accordion" href="#collapseKDanger@p.getContactId" aria-expanded="true" aria-controls="collapseKDanger@p.getContactId" id="headingKDanger@p.getContactId">
+                                                    Slett
+                                                                    </div>
+
+                                                                    <div id="collapseKDanger@p.getContactId" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingKDanger@p.getContactId">
+                                                                        <form action="@bedkomdatabase.routes.Bedkomdatabase.deleteKontaktPerson(p.getContactId.toString)" method="POST">
+                                                                            <button type="submit" class="btn btn-danger form-control">
+                                                            Er du sikker?
+                                                                            </button>
+                                                                        </form>
+
+                                                                    </div>
+                                                            </div>
                                                             <div class="panel-body">
                                                             Telefon: @p.getTelephone <br>
                                                                 Email: @p.getEmail <br>
@@ -191,21 +263,60 @@
                                                     </div></div>
                                             </div>
                                             <div class="row">
-
+                                                <div class="center-block">
+                                                    <p class="text-center">Notater:</p>
+                                                </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-md-10 col-md-offset-1">
+                                                    @for(k <- i.getNotes){
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading">
+                                                                <h4 class="panel-title">
+                                                                @k.getDateMade()
+                                                                </h4>
+                                                            </div>
+                                                            <div class="panel-body">
+                                                            @k.getNote
+                                                            </div>
+                                                        </div>
 
-                                        </div>
+                                                    }
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading" role="tab" id="headingNotes@i.getBedriftId">
+                                                            <h4 class="panel-title">
+                                                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseNotes@i.getBedriftId" aria-expanded="true" aria-controls="collapseNotes@i.getBedriftId">
+                                                        Opprett nytt notat:
+                                                                </a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseNotes@i.getBedriftId" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingNotes@i.getBedriftId">
+                                                            <div class="panel-body">
+                                                                <form action="@bedkomdatabase.routes.Bedkomdatabase.saveNote(i.getBedriftId.toString)" method="POST" enctype="multipart/form-data">
+                                                                    <div class="form-group">
+                                                                        <label for="note">Notat</label>
+                                                                        <input type="text" class="form-control" name="note" id="note" placeholder="Ditt notat her">
+                                                                    </div>
+                                                                    <input type="submit" class="btn btn-primary form-control">
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    }
+                                }
+                </div>
+                </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+
