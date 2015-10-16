@@ -31,6 +31,7 @@ public class Contact extends Model {
     private String contact;
     private String telephone;
     private String email;
+    @Column(columnDefinition = "text")
     private String other;
 
     private User madeBy;

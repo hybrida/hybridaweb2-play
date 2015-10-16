@@ -30,6 +30,7 @@ public class Note extends Model {
     @UpdatedTimestamp
     private Timestamp whenUpdated;
 
+    @Column(columnDefinition = "text")
     private String note;
 
     private User madeBy;

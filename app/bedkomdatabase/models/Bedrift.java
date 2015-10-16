@@ -106,7 +106,13 @@ public class Bedrift extends Model {
     }
 
     public List<Note> getNotes() {
-        return notes;
+
+        List<Note> reverseNotes;
+
+        reverseNotes = notes;
+        Collections.reverse(reverseNotes);
+
+        return reverseNotes;
     }
 
     public void setNotes(List<Note> notes) {
