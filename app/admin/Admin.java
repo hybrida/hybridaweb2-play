@@ -55,8 +55,9 @@ public class Admin extends Controller {
 				Html gen = admin.views.html.UserForm.render(user.getUsername());
 				all_forms += gen.toString();
 			}
+			Html table = admin.views.html.table.render(Html.apply(all_forms));
 			all_forms += admin.views.html.NewForm.render().toString();
-			Html html = play.twirl.api.Html.apply(all_forms);
+			Html html = Html.apply(all_forms);
 			html = admin.views.html.table.render(html);
 			return ok(layout.render("User Administration", html));
 		}
