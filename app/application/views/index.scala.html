@@ -1,5 +1,6 @@
 @(content: Html)
 
+@if(!LoginState.isValidlyLoggedIn){
 <div data-ride="carousel" class="carousel slide" id="carousel-frontpage">
 	<ol class="carousel-indicators">
 		<li class="active" data-slide-to="0" data-target="#carousel-frontpage"></li>
@@ -27,6 +28,7 @@
 		<span class="sr-only">Next</span>
 	</a>
 </div>
+}
 <div class="fp_white" style="margin-top: -.2%">
 </div>
 <!--<div class="fp_beige"></div> -->
