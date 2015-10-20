@@ -36,6 +36,8 @@ public class Bedrift extends Model {
 
     private boolean active;
 
+    private String webpage;
+
     @ManyToOne
     private User responsible; //defines the user responsible for contacting this company.
 
@@ -54,11 +56,12 @@ public class Bedrift extends Model {
     private List<Note> notes;
 
 
-    public Bedrift(String bedriftName, int priority, User responsible){
+    public Bedrift(String bedriftName, String webpage, int priority, User responsible){
         this.bedriftName = bedriftName;
         this.priority = priority;
         this.responsible = responsible;
         this.active = true;
+        this.webpage = webpage;
     }
 
     public long getBedriftId() {

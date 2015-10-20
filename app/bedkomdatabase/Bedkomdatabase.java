@@ -33,7 +33,7 @@ public class Bedkomdatabase extends Controller {
         HttpRequestData data = new HttpRequestData();
         System.out.println(data);
 
-        Bedrift bedrift = new Bedrift(data.get("bedriftsName"), data.getInt("priority"), models.LoginState.getUser());
+        Bedrift bedrift = new Bedrift(data.get("bedriftsName"), data.get("webpage"),data.getInt("priority"), models.LoginState.getUser());
 
         bedrift.save();
 
