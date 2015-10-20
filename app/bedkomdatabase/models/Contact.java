@@ -54,38 +54,38 @@ public class Contact extends Model {
 	}
 
 	public void setContact(String contact) {
-			this.contact = contact;
+		this.contact = contact;
 	}
 
 	public String getTelephone() {
-			return telephone;
+		return telephone;
 	}
 
 	public void setTelephone(String telephone) {
-			this.telephone = telephone;
+		this.telephone = telephone;
 	}
 
 	public String getEmail() {
-			return email;
+		return email;
 	}
 
 	public void setEmail(String email) {
-			this.email = email;
+		this.email = email;
 	}
 
 	public String getOther() {
-			return other;
+		return other;
 	}
 
 	public void setOther(String other) {
-			this.other = other;
+		this.other = other;
 	}
 
 	public static Finder<Long, Contact> find = new Finder<>(
-					Long.class, Contact.class
+		Long.class, Contact.class
 	);
 
 	public long getContactId() {
-			return contactId;
+		return contactId;
 	}
 }
