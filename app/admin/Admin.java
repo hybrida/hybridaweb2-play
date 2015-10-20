@@ -3,7 +3,9 @@ package admin;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.layout;
+import play.twirl.api.Html;
 import models.HttpRequestData;
+import java.util.*;
 import admin.models.PasswordHash;
 
 public class Admin extends Controller {
@@ -19,7 +21,7 @@ public class Admin extends Controller {
 			boolean correct = PasswordHash.validatePassword(password, hash);
 			if (correct) {
 				session("user", play.api.libs.Crypto.encryptAES("hybrid," + String.valueOf(System.currentTimeMillis())));
-				return redirect(application.routes.Application.index());
+				return redirect(admin.routes.Admin.allUsers());
 			} else {
 				return ok("password incorrect");
 			}
@@ -41,13 +43,20 @@ public class Admin extends Controller {
 			return redirect(application.routes.Application.showUnauthorizedAccess().url());
 		} else {
 			java.util.List<models.User> users = models.User.find.all();
+			Collections.sort(users, new Comparator<models.User>() {
+				@Override
+				public int compare(final models.User lhs, models.User rhs)
+				{
+					return lhs.getUsername().compareTo(rhs.getUsername());
+				}
+			});
 			String all_forms = "";
 			for (models.User user : users) {
-				play.twirl.api.Html gen = admin.views.html.UserForm.render(user.getUsername());
+				Html gen = admin.views.html.UserForm.render(user.getUsername());
 				all_forms += gen.toString();
 			}
 			all_forms += admin.views.html.NewForm.render().toString();
-			play.twirl.api.Html html = play.twirl.api.Html.apply(all_forms);
+			Html html = play.twirl.api.Html.apply(all_forms);
 			html = admin.views.html.table.render(html);
 			return ok(layout.render("User Administration", html));
 		}
