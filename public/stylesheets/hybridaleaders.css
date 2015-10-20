@@ -1,8 +1,7 @@
 .styretprofil {
     width:100%;
-    margin-top: -400px;
+    margin-top: -800px;
     overflow: visible;
-    -webkit-appearance: none;
     border: 0;
 }
 .styreprofil select {
@@ -82,7 +81,7 @@ input[type="image"] {
 }
 #tabell {
     background-color: white;
-    padding-top: 33%;
+    padding-top: 29%;
 }
 #innertabell .omStyretBoks:hover .omstyret {
     display: block;
@@ -113,7 +112,7 @@ input[type="image"] {
         left:15%;
         right:15%;
         width:70%;
-        height:14em;
+        height:16em;
         top:4em;
     }
     .styretprofil:hover + .bildetekst {
