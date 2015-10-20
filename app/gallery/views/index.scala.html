@@ -1,0 +1,17 @@
+@(images: List[String])
+<script src='assets/javascripts/jquery-1.11.2.min.js'></script>
+<script src='assets/javascripts/masonry.js'></script>
+<script>
+    // Code goes here!
+</script>
+
+<form name="GalleryImage" action="@gallery.routes.Gallery.uploadGalleryImage()" method="POST" enctype="multipart/form-data">
+    <input type="file" name="file"></input>
+    <input type="text" name="title"></input>
+    <input type="text" name="description"></input>
+    <input type="submit" value="Post"></input>
+</form>
+
+@for(image <- images) {
+    <img src="@image"></img>
+}

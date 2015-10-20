@@ -30,6 +30,7 @@ POST          /bedkomdatabase/kontakt/:id        bedkomdatabase.Bedkomdatabase.s
 
 # Gallery
 GET           /galleri                           gallery.Gallery.display()
+POST          /api/submitImage                   gallery.Gallery.uploadGalleryImage()
 
 # Calendar
 GET           /kalender                          calendar.Calendar.display(gcal: Boolean ?= false)
