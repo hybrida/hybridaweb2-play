@@ -1,11 +1,12 @@
 .helesiden{
-    background: url("../images/kiltmonster.jpg") repeat;/* Les moenster*/
-    background-size: 100%;
+    background: url("../images/office_background.png");
+    /*background-size: 100%;*/
     width: 100%;
     height: 100%;
     padding-bottom: 42px;
     padding-left: 10px;
     padding-right: 10px;
+    background-attachment: fixed;
 }
 .line{
     text-align: center;
@@ -25,11 +26,6 @@
 
 .blank {
     height: 42px;
-}
-.superblankandwhite{
-    background-color: white;
-    opacity: 0.8;
-    height:0px;
 }
 
 .whitebox{

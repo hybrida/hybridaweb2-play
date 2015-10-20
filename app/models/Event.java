@@ -1,11 +1,16 @@
 package models;
 
 import play.db.ebean.Model;
+import play.data.format.Formats;
 import play.twirl.api.Html;
+import play.data.Form;
+import static play.data.Form.form;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import javax.persistence.*;
 
 /**
@@ -13,6 +18,153 @@ import javax.persistence.*;
  */
 @Entity
 public class Event extends Model {
+
+	public static Event getFromRequest() {
+		Form<EventForm> eventForm = form(EventForm.class);
+		EventForm form = eventForm.bindFromRequest().get();
+		String error = form.validate();
+		if (error != null) throw new Error(error);
+		Event event = new Event();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		try {
+			event.signUpStart = Calendar.getInstance();
+			event.secondSignUp = Calendar.getInstance();
+			event.signUpDeadline = Calendar.getInstance();
+			event.eventHappens = Calendar.getInstance();
+			event.eventStops = Calendar.getInstance();
+
+			event.signUpStart.setTime(format.parse(form.signUpStart));
+			event.secondSignUp.setTime(format.parse(form.secondSignUp));
+			event.signUpDeadline.setTime(format.parse(form.signUpDeadline));
+			event.eventHappens.setTime(format.parse(form.eventHappens));
+			event.eventStops.setTime(format.parse(form.timeFrame));
+		} catch (ParseException excObj) {
+			System.out.println(excObj);
+		}
+		event.firstYearAllowed = form.firstYearAllowed;
+		event.secondYearAllowed = form.secondYearAllowed;
+		event.thirdYearAllowed = form.thirdYearAllowed;
+		event.fourthYearAllowed = form.fourthYearAllowed;
+		event.fifthYearAllowed = form.fifthYearAllowed;
+
+		event.firstYearAllowedAfterSecondSignup = form.firstYearAllowedAfterSecondSignup;
+		event.secondYearAllowedAfterSecondSignup = form.secondYearAllowedAfterSecondSignup;
+		event.thirdYearAllowedAfterSecondSignup = form.thirdYearAllowedAfterSecondSignup;
+		event.fourthYearAllowedAfterSecondSignup = form.fourthYearAllowedAfterSecondSignup;
+		event.fifthYearAllowedAfterSecondSignup = form.fifthYearAllowedAfterSecondSignup;
+
+		event.location = form.location;
+		event.maxParticipants = Integer.parseInt(form.maxParticipants);
+		event.maxParticipantsWaiting = Integer.parseInt(form.maxParticipantsWaiting);
+		event.genderAllowed = form.genderAllowed.charAt(0);
+		return event;
+	}
+
+	public static class EventForm {
+
+		public String
+			signUpStart,
+			secondSignUp,
+			signUpDeadline,
+			eventHappens,
+			timeFrame;
+
+		public boolean
+			firstYearAllowed,
+			secondYearAllowed,
+			thirdYearAllowed,
+			fourthYearAllowed,
+			fifthYearAllowed,
+
+			firstYearAllowedAfterSecondSignup,
+			secondYearAllowedAfterSecondSignup,
+			thirdYearAllowedAfterSecondSignup,
+			fourthYearAllowedAfterSecondSignup,
+			fifthYearAllowedAfterSecondSignup;
+
+		public String
+			location,
+			maxParticipants,
+			maxParticipantsWaiting,
+			genderAllowed;
+
+		private boolean before(String bc, String ad) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+			Calendar cal1 = Calendar.getInstance();
+			Calendar cal2 = Calendar.getInstance();
+			try {
+				cal1.setTime(dateFormat.parse(bc));
+				cal2.setTime(dateFormat.parse(ad));
+				return cal1.before(cal2);
+			} catch (ParseException parseExc) {
+				return false;
+			}
+		}
+
+		private boolean beforeOrEq(String bc, String ad) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+			Calendar cal1 = Calendar.getInstance();
+			Calendar cal2 = Calendar.getInstance();
+			try {
+				cal1.setTime(dateFormat.parse(bc));
+				cal2.setTime(dateFormat.parse(ad));
+				return cal1.before(cal2) || cal1.equals(cal2);
+			} catch (ParseException parseExc) {
+				System.out.println(parseExc);
+				return false;
+			}
+		}
+
+		private boolean before(Calendar bc, String ad) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+			Calendar cal2 = Calendar.getInstance();
+			try {
+				cal2.setTime(dateFormat.parse(ad));
+				return bc.before(cal2);
+			} catch (ParseException parseExc) {
+				System.out.println(parseExc);
+				return false;
+			}
+		}
+
+		// Validate the newly generated event.
+		// This is a pure function.
+		public String validate() {
+			Calendar now = Calendar.getInstance();
+			// Check whether the input is a valid event.
+			boolean isValid = true;
+			isValid &= !signUpStart.equals("");
+			isValid &= !signUpDeadline.equals("");
+			isValid &= !eventHappens.equals("");
+			if (isValid == false) return "nodates";
+
+			// Put second sign up = sign up start if it is empty
+			if (secondSignUp.equals("")) secondSignUp = signUpStart;
+
+			// Check whether the times are valid.
+			isValid &= before(now, signUpStart);
+			isValid &= beforeOrEq(signUpStart, secondSignUp);
+			isValid &= before(secondSignUp, signUpDeadline);
+			isValid &= before(signUpDeadline, eventHappens);
+			isValid &= before(eventHappens, timeFrame);
+			if (isValid == false) return "wrongdates";
+
+			// Check whether at least one class is allowed
+			int sum = firstYearAllowed ? 1 : 0;
+			sum += secondYearAllowed ? 1 : 0;
+			sum += thirdYearAllowed ? 1 : 0;
+			sum += fourthYearAllowed ? 1 : 0;
+			sum += fifthYearAllowed ? 1 : 0;
+			if (sum == 0) isValid = false;
+
+			// If the second sign up is null, we need not check if any class is allowed.
+			if (secondSignUp == null)
+			{
+				return "SHEIT";
+			}
+			return null;
+		}
+	}
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -32,16 +184,27 @@ public class Event extends Model {
 	private int secondUpperGraduationLimit;
 	private int secondLowerGraduationLimit;
 
-	public boolean firstYearAllowed, secondYearAllowed, thirdYearAllowed, fourthYearAllowed, fifthYearAllowed;
-	public boolean firstYearAllowedAfterSecondSignup, secondYearAllowedAfterSecondSignup, thirdYearAllowedAfterSecondSignup, fourthYearAllowedAfterSecondSignup, fifthYearAllowedAfterSecondSignup;
+	public boolean
+		firstYearAllowed,
+		secondYearAllowed,
+		thirdYearAllowed,
+		fourthYearAllowed,
+		fifthYearAllowed;
+	public boolean
+		firstYearAllowedAfterSecondSignup,
+		secondYearAllowedAfterSecondSignup,
+		thirdYearAllowedAfterSecondSignup,
+		fourthYearAllowedAfterSecondSignup,
+		fifthYearAllowedAfterSecondSignup;
 
 	private char genderAllowed;
 
 	private int maxParticipants;
 	private int maxParticipantsWaiting;
 
-	private Calendar signUpDeadline;
+	private Calendar signUpStart;
 	private Calendar secondSignUp;
+	private Calendar signUpDeadline;
 	private Calendar eventHappens;
 	private Calendar eventStops;
 

@@ -1,0 +1,131 @@
+.styretprofil {
+    width:100%;
+    margin-top: -400px;
+    overflow: visible;
+    -webkit-appearance: none;
+    border: 0;
+}
+.styreprofil select {
+    outline: none;
+}
+input[type="image"] {
+    outline: none;
+}
+
+.omStyretBoks {
+    border-width:2px;
+    position:absolute;
+    left:32%;
+    right:32%;
+    background-color:floralwhite;
+    opacity: 0.6;
+    width:36%;
+    height:14em;
+    top:5em;
+    box-shadow:0 5px 50px 10px #aaa;
+}
+.omstyret {
+    color:#212121;
+    left:35%;
+    right:34%;
+    padding-left:1.2em;
+    padding-right:1.2em;
+    padding-top:0em;
+    font-size: 16px;
+    text-align:center;
+}
+
+.bildetekst {
+    display:none;
+}
+
+.styretprofil:hover + .bildetekst {        /* hover for hver tekst om styremedlem */
+    color:#212121;
+    display: block;
+    font-size:16px;
+    text-align:center;
+    position:absolute;
+    left:34%;
+    right:33%;
+    top:7.5em;
+}
+
+#bildetabell {
+    width:80%;
+    margin: 0 10%;
+}
+#bildetabell tr td {
+    background-color: #ffffff;
+    overflow: visible;
+    vertical-align: bottom;
+}
+#jentekomtab {
+    width:14.3%;
+}
+#bksjeftab {
+    width:14.3%;
+}
+#nestledertab {
+    width:14.3%;
+}
+#ledertab {
+    width:14.3%;
+}
+#skattmestertab {
+    width:14.2%;
+}
+#festivalustab {
+    width:14.3%;
+}
+#vevsjeftab {
+    width:14.3%;
+}
+#tabell {
+    background-color: white;
+    padding-top: 33%;
+}
+#innertabell .omStyretBoks:hover .omstyret {
+    display: block;
+}
+#innertabell:hover .omstyret {
+    display: none;
+
+}
+.emails {
+    border-radius: 45px;
+    position: relative;
+    margin-left: 70%;
+    margin-top: 8em;
+
+}
+#tekst-header {
+    left:37%;
+    right:37%;
+    text-align:center;
+    color:#212121;
+    font-size: 26px;
+
+}
+@media only screen and (max-width: 888px) {
+    .omStyretBoks{
+        border-width:1px;
+        position:absolute;
+        left:15%;
+        right:15%;
+        width:70%;
+        height:14em;
+        top:4em;
+    }
+    .styretprofil:hover + .bildetekst {
+        left:15%;
+        right:15%;
+        margin-top: -1em;
+    }
+    .emails {
+        display:none;
+
+    }
+    #tekst-header {
+        font-size: 20px;
+    }
+}

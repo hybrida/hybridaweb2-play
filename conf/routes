@@ -26,8 +26,19 @@ POST          /api/upload/:uploadFolder         controllers.Upload.ajaxUploadTo(
 
 # BedkomDatabase
 GET           /bedkomdatabase                   bedkomdatabase.Bedkomdatabase.index()
+
 POST          /bedkomdatabase/bedrift           bedkomdatabase.Bedkomdatabase.saveBedrift()
+POST          /bedkomdatabase/bedrift/ud/:id    bedkomdatabase.Bedkomdatabase.updateBedrift(id)
+POST          /bedkomdatabase/bedrift/slett/:id bedkomdatabase.Bedkomdatabase.deleteBedrift(id)
+
 POST          /bedkomdatabase/kontakt/:id       bedkomdatabase.Bedkomdatabase.saveKontaktPerson(id)
+POST          /bedkomdatabase/kontakt/slett/:id bedkomdatabase.Bedkomdatabase.deleteKontaktPerson(id)
+POST          /bedkomdatabase/kontakt/ud/:id    bedkomdatabase.Bedkomdatabase.updateKontaktPerson(id)
+
+POST          /bedkomdatabase/notat/:id         bedkomdatabase.Bedkomdatabase.saveNote(id)
+POST          /bedkomdatabase/notat/ud/:id      bedkomdatabase.Bedkomdatabase.updateNote(id)
+POST          /bedkomdatabase/notat/slett/:id   bedkomdatabase.Bedkomdatabase.deleteNote(id)
+
 
 
 # Calendar
@@ -54,8 +65,8 @@ POST          /event/:id/lagreEndring           article.Event.saveEdit(id)
 POST          /comment/:articleID               article.Article.comment(articleID)
 POST          /comment/delete/:commentID        article.Article.deleteComment(commentID)
 
-GET           /bedrift                           company.Company.index()
-GET           /bedrifttest                      bedriftTest.BedriftTest.index()
+GET           /bedriftalt                        company.Company.index()
+GET           /bedrift                           bedrift.Bedrift.index()
 
 # Ebean example
 GET           /ebean                            examples.controllers.ExampleEbean.index()
@@ -101,15 +112,10 @@ GET           /chat                             chat.Chat.connectClient()
 GET           /chatserver                       chat.Chat.socket()
 
 GET           /arrkom                           arrkom.ArrKom.index()
-GET           /helloworld                       helloworld.HelloWorld.index()
 GET           /andreas                          andreas.Andreas.index()
-GET           /helloworld                       helloworld.HelloWorld.index()
-GET           /elg                              elg.Elg.index()
-GET           /hellome                          hellome.Hellome.index()
 
 # EXAMPLES
 # # Ebean
-GET           /jonasasa                         jonasasa.Jonasasa.index()
 GET           /examples/ebean                   examples.controllers.ExampleEbean.index()
 POST          /examples/ebean                   examples.controllers.ExampleEbean.add()
 POST          /examples/ebean/clear             examples.controllers.ExampleEbean.clear()

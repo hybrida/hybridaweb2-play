@@ -1,13 +1,19 @@
 package models;
 
+import controllers.Upload;
+import exceptions.NoFileInRequest;
+import exceptions.ServerError;
+import exceptions.Unauthorized;
 import play.data.Form;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
+import util.Validator;
 
 import javax.persistence.*;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.*;
-import java.util.regex.Pattern;
 
 @Entity
 @Table(
@@ -24,13 +30,14 @@ public class User extends Model implements ImmutableUser {
 
 	// Name, identification, contact
 	public String      username;  // Assigned by NTNU
+    @Required
 	@Column(name = "FIRST_NAME", columnDefinition = "varchar(256) default 'Fornavn'", nullable = false)
 	public String      firstName;
+    @Required
     @Column(name = "LAST_NAME", columnDefinition = "varchar(256) default 'Etternavn'", nullable = false)
 	public String      lastName;
 	@Column(name = "MIDDLE_NAME")
 	public String      middleName;
-    @Required
     @Column(name = "EMAIL")
 	public String      email;
 	@Column(name = "WEBSITE_URL")
@@ -157,7 +164,11 @@ public class User extends Model implements ImmutableUser {
 	}
 
     public void setEmail(String email) {
-        this.email = email;
+        if (email.isEmpty()) this.email = "";
+        else {
+            int i = email.indexOf('@');
+            this.email = email.substring(0, i) + email.substring(i).toLowerCase();
+        }
     }
 
 	public boolean hasWebsiteUrl() {
@@ -169,7 +180,17 @@ public class User extends Model implements ImmutableUser {
 	}
 
     public void setWebsiteUrl(String websiteUrl) {
-        this.websiteUrl = websiteUrl;
+        if (websiteUrl.isEmpty()) this.websiteUrl = "";
+        else {
+            if (!websiteUrl.substring(0, 4).equalsIgnoreCase("http")) {
+                websiteUrl = "http://" + websiteUrl + (websiteUrl.indexOf('/') == -1 ? "/" : "");
+            }
+            if (websiteUrl.indexOf('?') != -1) {
+                int i = websiteUrl.indexOf('?');
+                websiteUrl = websiteUrl.substring(0, i).toLowerCase() + websiteUrl.substring(i);
+            }
+            this.websiteUrl = websiteUrl;
+        }
     }
 
     public boolean hasPhone() {
@@ -181,7 +202,12 @@ public class User extends Model implements ImmutableUser {
 	}
 
     public void setPhone(String phone) {
-        this.phone = phone;
+        if (phone.isEmpty()) this.phone = "";
+        else {
+            phone = phone.replaceAll(" ", "");
+            phone = phone.substring(phone.length() - 8);
+            this.phone = "+47 " + phone.substring(0, 3) + " " + phone.substring(3, 5) + " " + phone.substring(5);
+        }
     }
 
     public boolean hasTitle() {
@@ -213,7 +239,7 @@ public class User extends Model implements ImmutableUser {
     }
 
     public Specialization getSpecialization() {
-        if(specialization == null) specialization = Specialization.NONE;
+        if (specialization == null) specialization = Specialization.NONE;
         return specialization;
     }
 
@@ -261,6 +287,19 @@ public class User extends Model implements ImmutableUser {
         this.profileImagePos = profileImagePos;
     }
 
+    public String uploadPicture() {
+        try {
+            return Upload.upload();
+        } catch (Unauthorized unauthorized) {
+            unauthorized.printStackTrace();
+        } catch (NoFileInRequest noFileInRequest) {
+            noFileInRequest.printStackTrace();
+        } catch (ServerError serverError) {
+            serverError.printStackTrace();
+        }
+        return null;
+    }
+
     public int calculateClass() {
 		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 		int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
@@ -274,66 +313,24 @@ public class User extends Model implements ImmutableUser {
 		play.mvc.Controller.session("user", play.api.libs.Crypto.encryptAES(username + "," + String.valueOf(System.currentTimeMillis())));
 	}
 
-    private static class ValPat {
-        private String name;
-        private Pattern pattern;
-        private String message;
+	public static Map<String, String> validateForm(Form<User> form) throws IOException {
+		Validator validator = Validator.fromJSON(new File("public/json/userValidation.json"));
+		return validator.validate(form);
+	}
 
-        public ValPat(String name, String matches, String message) {
-            this.name = name;
-            this.pattern = Pattern.compile(matches);
-            this.message = message;
-        }
-
-        public String getName() {return name;}
-        public boolean matches(String value) {return pattern.matcher(value).matches();}
-        public String getMessage() {return message;}
-
-        @Override
-        public String toString() {
-            return "ValPat{" +
-                    "name='" + name + '\'' +
-                    ", pattern=" + pattern +
-                    ", message='" + message + '\'' +
-                    '}';
-        }
-    }
-
-    public static Map<String, String> validateForm(Form<User> form) {
-        HashMap<String, String> messages = new HashMap<>();
-        for(ValPat vp : new ValPat[]{
-                new ValPat("firstName", "[A-ZÆØÅa-zæøå \\.]", "Fornavn må være på mellom 1 og 20 tegn, " +
-                        "og kan kun inneholde bokstaver, mellomrom og punktum."),
-                new ValPat("email", "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,5}",
-                        "Vennligst oppgi en gyldig e-postadresse.")
-        }) {
-            Form.Field field = form.apply(vp.getName());
-            System.out.println(field.value());
-            System.out.println(vp.getName());
-            if(field.value() != null && !vp.matches(field.value())) {
-                messages.put(vp.getName(), vp.getMessage());
-            }
-        }
-        return messages;
-    }
-
-    public void updateFromForm(Form<User> form) {
-        setFirstName(form.apply("firstName").valueOr(getFirstName()));
-        setLastName(form.apply("lastName").valueOr(getLastName()));
-        setMiddleName(form.apply("middleName").valueOr(getMiddleName()));
-        setEmail(form.apply("email").valueOr(getEmail()));
-        setWebsiteUrl(form.apply("websiteUrl").valueOr(getWebsiteUrl()));
-        setPhone(form.apply("phone").valueOr(getPhone()));
-        setProfileImageFileName(form.apply("profileImageFileName").valueOr(getProfileImageFileName()));
-        setTitle(form.apply("title").valueOr(getTitle()));
-        setGraduationYear(Integer.parseInt(form.apply("graduationYear").valueOr(getGraduationYear().toString())));
-        setSpecialization(form.apply("specialization").valueOr(getSpecialization().toString()));
-        save();
-    }
-
-    public static boolean isSet(String field) {
-        return field != null && field.length() > 0;
-    }
+	public void updateFromForm(Form<User> form) {
+		setFirstName(form.apply("firstName").valueOr(getFirstName()));
+		setLastName(form.apply("lastName").valueOr(getLastName()));
+		setMiddleName(form.apply("middleName").valueOr(getMiddleName()));
+		setEmail(form.apply("email").valueOr(getEmail()));
+		setWebsiteUrl(form.apply("websiteUrl").valueOr(getWebsiteUrl()));
+		setPhone(form.apply("phone").valueOr(getPhone()));
+		setProfileImageFileName(form.apply("profileImageFileName").valueOr(getProfileImageFileName()));
+		setTitle(form.apply("title").valueOr(getTitle()));
+		setGraduationYear(Integer.parseInt(form.apply("graduationYear").valueOr(getGraduationYear().toString())));
+		setSpecialization(form.apply("specialization").valueOr(getSpecialization().toString()));
+		save();
+	}
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder("USER[\n");
@@ -359,7 +356,7 @@ public class User extends Model implements ImmutableUser {
 		return sb.toString();
 	}
 
-	public enum Access{
+	public enum Access {
 		BEDKOM,
 		ARRKOM,
 		VEVKOM,
@@ -367,34 +364,38 @@ public class User extends Model implements ImmutableUser {
 		ROOT;
 	}
 
-	public static boolean hasAccess(User user, boolean inAll, Access... accessList){
+	public static boolean hasAccess(boolean inAll, Access... accessList) {
+		return hasAccess(LoginState.getUser(), inAll, accessList);
+	}
+
+	public static boolean hasAccess(User user, boolean inAll, Access... accessList) {
 		//Parameters explained: user: the user you want to check;
 		//inAll: set true if you want to check if user has ALL entered accesses, false if you want to check if user has
 		// ANY of the entered accesses.
 		//Accesses are entered on the form models.User.Access.<access> (for example: models.User.Access.BEDKOM)
 
-		if(user.isDefault()){
+		if (user.isDefault()) {
 			return false;
 		}
-		if(inAll == false){
+		if (inAll == false) {
 			boolean access = false;
-			for (Access i : accessList){
-				if (i == Access.BEDKOM){
+			for (Access i : accessList) {
+				if (i == Access.BEDKOM) {
 					access = user.bedkom;
 				}
-				if (i == Access.ARRKOM){
+				if (i == Access.ARRKOM) {
 					access = user.arrkom;
 				}
-				if (i == Access.VEVKOM){
+				if (i == Access.VEVKOM) {
 					access = user.vevkom;
 				}
-				if (i == Access.ADMIN){
+				if (i == Access.ADMIN) {
 					access = user.admin;
 				}
-				if (i == Access.ROOT){
+				if (i == Access.ROOT) {
 					access = user.root;
 				}
-				if (access == true){
+				if (access == true) {
 					return true;
 				}
 			}
@@ -422,18 +423,18 @@ public class User extends Model implements ImmutableUser {
 					return false;
 				}
 			}
-			if (tempHasAccess == false){
+			if (tempHasAccess == false) {
 				return false;
 			}
 			return true;
 		}
 	}
 
-    public static Finder<Long, User> find = new Finder<>(
-            Long.class, User.class
-    );
+	public static Model.Finder<Long, User> find = new Finder<>(
+		Long.class, User.class
+	);
 
-    public static User findByUsername(String username){
-        return find.where().eq("username", username).findUnique();
-    }
+	public static User findByUsername(String username) {
+		return find.where().eq("username", username).findUnique();
+	}
 }

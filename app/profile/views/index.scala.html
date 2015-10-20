@@ -1,9 +1,9 @@
 @(username: String, name: String, imageFilePath: String, user: ImmutableUser, canEdit: Boolean, subTitle: String)
 
-@infoItem(label:String, value:String) = {
+@infoItem(label:String, value:String, valueIsHtml:Boolean = false) = {
     <li>
         <div class="label">@label</div>
-        <div class="info">@value</div>
+        <div class="info">@if(valueIsHtml){ @Html(value) }else{ @value }</div>
         <div class="clearfix"></div>
     </li>
 }
@@ -17,17 +17,15 @@
         }
         <h5 class="smallTitle">@name</h5>
         <div class="pageInner nedit">
-            @if(imageFilePath != null && !imageFilePath.equals("")) {
-                <div class="pageItem">
-                    <div class="picFrame poof">
-                        <img class="pic" src="@(if(imageFilePath != null && !imageFilePath.equals("")) {
-                            routes.Assets.at(imageFilePath)
-                        } else {
-                            routes.Assets.at("images/placeholder-profile.jpg")
-                        })" @if(user.hasProfileImagePos){style="transform: translateY(@(user.getProfileImagePos)%)"}>
-                    </div>
+            <div class="pageItem">
+                <div class="picFrame poof">
+                    <img class="pic super-center" src="@(if(imageFilePath != null && !imageFilePath.equals("")) {
+                        routes.Assets.at(imageFilePath)
+                    } else {
+                        routes.Assets.at("images/placeholder-profile.jpg")
+                    })" @if(user.hasProfileImagePos){style="transform: translateY(@(user.getProfileImagePos)%)"}>
                 </div>
-            }
+            </div>
             <h1 class="pageItem bigTitle">@name</h1>
             @if(subTitle != null && !subTitle.equals("")) {
                 <h3 class="pageItem bigSubTitle">@subTitle</h3>
@@ -38,7 +36,10 @@
                     <ul>
                         @infoItem("NTNU-E-POST", username+"@stud.ntnu.no")
                         @if(user.hasEmail){ @infoItem("ALTERNATIV E-POST", user.getEmail)}
-                        @if(user.hasWebsiteUrl){ @infoItem("HJEMMESIDE", user.getWebsiteUrl)}
+                        @if(user.hasWebsiteUrl){ @infoItem("HJEMMESIDE", "<a href='" +
+                                (if(user.getWebsiteUrl.substring(0, 4) != "http") "http://" else "")
+                                + user.getWebsiteUrl + "' alt='" + user.getFirstName + "s hjemmeside'>"
+                                + user.getWebsiteUrl + "</a>", true)}
                         @if(user.hasPhone){ @infoItem("TELEFON", user.getPhone)}
                     </ul>
                 </div>
@@ -58,19 +59,27 @@
 } {
     <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/profile.css")" />
     <script type="text/javascript">
-        function calculatePicTop(){
-            var pic = $(".nedit .pic");
-            pic.css("width", "auto");
-            pic.css("height", "auto");
-            if (pic.height() < parseFloat($(".picFrame").css("max-height"))) {
-                pic.css("top", pic.height()/2 + "px");
-            } else pic.css("top", "50%");
-            pic.css("width", "");
-            pic.css("height", "");
-        }
-
-        $(document).ready(function(){
-            calculatePicTop();
-        });
+//        function calculatePicTop(){
+//            var pic = $(".nedit .pic");
+//            var picFrame = $(".picFrame");
+//            pic.css("width", "auto");
+//            pic.css("height", "auto");
+//            if (pic.height() < parseFloat(picFrame.css("max-height"))) {
+//                pic.css("top", pic.height()/2 + "px");
+//            } else if($(window).width() < 1300) {
+//                pic.css("top", picFrame.height()/2);
+//            } else {
+//                pic.css("top", "50%");
+//            }
+//            pic.css("width", "");
+//            pic.css("height", "");
+//        }
+//
+//        $(document).ready(function(){
+//            calculatePicTop();
+//            $(window).resize(function(){
+//                calculatePicTop();
+//            })
+//        });
     </script>
 }
