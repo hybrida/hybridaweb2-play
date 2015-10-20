@@ -1,4 +1,4 @@
-@()
+@(thumbnails: Array[String])
 <link rel="stylesheet" media="screen" href= "/assets/stylesheets/main.css")">
 
 <div class="container">
@@ -8,7 +8,9 @@
             <p><h1>Update<sup>k</sup></h1>
             </div>
             <br>
-                <img src = /assets/update/update.png alt = "rect"/>
+                @for(thumbnail <- thumbnails) {
+                    <img src="@routes.Assets.at("/update/"+thumbnail)" alt = "rect"/>
+                }
                 <p> <b>Update<sup>k</sup></b> (’/øpdeit ikå:té’/, red.anm.) er linjeforeningsavisen til Hybrida - en avis av og for Hybrider.<br>
                     <a href="@update.routes.Update.redaksjon()">Redaksjonen</a> har som mål å gi ut tre aviser på høstsemesteret og fire,
                     med en sommeravis i posten til de nye studentene, på
