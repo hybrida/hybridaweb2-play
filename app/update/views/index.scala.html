@@ -6,29 +6,36 @@
         <div> @*style="border-bottom: 2px solid  #9e9d98 *@
             @*<div class="subtitle_styled">*@
             <p><h1>Update<sup>k</sup></h1>
-            </div>
-            <br>
-                @for(thumbnail <- thumbnails) {
-                    <img src="@routes.Assets.at("/update/"+thumbnail)" alt = "rect"/>
-                }
-                <p> <b>Update<sup>k</sup></b> (’/øpdeit ikå:té’/, red.anm.) er linjeforeningsavisen til Hybrida - en avis av og for Hybrider.<br>
-                    <a href="@update.routes.Update.redaksjon()">Redaksjonen</a> har som mål å gi ut tre aviser på høstsemesteret og fire,
-                    med en sommeravis i posten til de nye studentene, på
-                    vårsemesteret. Avisen printes og distribueres (i all hovedsak
-                    på lesesalen), og er tilgjengelig på nett for hybrider."</p>
+        </div>
+        <br>
 
-                    <p>Dersom du er alumni og ønsker å abonnemere på avisen,
-                        kan du sende en mail til redaktøren.</p>
+        <div class="row">
+            @for(thumbnail <- thumbnails) {
+                <div class="col-xs-6 col-md-3">
+                    <a href="@routes.Assets.at("update/" + thumbnail + ".pdf")" class="thumbnail">
+                        <img src="@routes.Assets.at("update/"+thumbnail+".png")" alt = "thumbnail"/>
+                    </a>
+                </div>
+            }
+        </div>
+        <p> <b>Update<sup>k</sup></b> (’/øpdeit ikå:té’/, red.anm.) er linjeforeningsavisen til Hybrida - en avis av og for Hybrider.<br>
+            <a href="@update.routes.Update.redaksjon()">Redaksjonen</a> har som mål å gi ut tre aviser på høstsemesteret og fire,
+            med en sommeravis i posten til de nye studentene, på
+            vårsemesteret. Avisen printes og distribueres (i all hovedsak
+            på lesesalen), og er tilgjengelig på nett for hybrider."</p>
 
-                <p> Enda tidligere utgaver av Update<sup>k</sup> ligger <a href=@update.routes.Update.utgaver()>her</a></p>
+        <p>Dersom du er alumni og ønsker å abonnemere på avisen,
+            kan du sende en mail til redaktøren.</p>
 
-                @if(LoginState.isValidlyLoggedIn && LoginState.getUser.admin){
-                    Admin: Upload ny Update(kun pdf)
-                    <form action="@update.routes.Update.index()" method="POST" enctype = multipart/form-data>
-                        <input type="file" name="picture">
-                        <input type="submit" value="ajaxUpload">
-                    </form>
-                }
-                <div style="clear:both"></div>
+        <p> Enda tidligere utgaver av Update<sup>k</sup> ligger <a href=@update.routes.Update.utgaver()>her</a></p>
+
+        @if(LoginState.isValidlyLoggedIn && LoginState.getUser.admin){
+            Admin: Upload ny Update(kun pdf)
+            <form action="@update.routes.Update.index()" method="POST" enctype = multipart/form-data>
+                <input type="file" name="picture">
+                <input type="submit" value="ajaxUpload">
+            </form>
+        }
+        <div style="clear:both"></div>
     </div>
 </div>
