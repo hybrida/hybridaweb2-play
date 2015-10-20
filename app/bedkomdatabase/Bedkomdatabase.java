@@ -22,7 +22,7 @@ public class Bedkomdatabase extends Controller {
 			System.out.println(i.getResponsible().getFullName());
 		}
 
-		return ok(layout.render("Bedriftsdatabase", beddb.render( bedriftList)));
+		return ok(layout.render("Bedriftsdatabase", beddb.render(bedriftList)));
 	}
 
 	public static Result saveBedrift() {
