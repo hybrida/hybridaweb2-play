@@ -364,9 +364,9 @@ public class User extends Model implements ImmutableUser {
 		ROOT;
 	}
 
-    public boolean hasAccess(boolean inAll, Access... accessList) {
-        return hasAccess(this, inAll, accessList);
-    }
+	public static boolean hasAccess(boolean inAll, Access... accessList) {
+		return hasAccess(LoginState.getUser(), inAll, accessList);
+	}
 
 	public static boolean hasAccess(User user, boolean inAll, Access... accessList){
 		//Parameters explained: user: the user you want to check;
