@@ -18,11 +18,11 @@ public class Bedkomdatabase extends Controller {
 			return ok(layout.render("No access", application.views.html.showUnauthorizedAccess.render()));
 		}
 		List<Bedrift> bedriftList = Bedrift.find.orderBy("priority desc").findList();
-		for(Bedrift i : bedriftList) {
+		for (Bedrift i : bedriftList) {
 			System.out.println(i.getResponsible().getFullName());
 		}
 
-		return ok(layout.render("Bedriftsdatabase", beddb.render( bedriftList)));
+		return ok(layout.render("Bedriftsdatabase", beddb.render(bedriftList)));
 	}
 
 	public static Result saveBedrift() {
@@ -30,7 +30,7 @@ public class Bedkomdatabase extends Controller {
 		HttpRequestData data = new HttpRequestData();
 		System.out.println(data);
 
-		Bedrift bedrift = new Bedrift(data.get("bedriftsName"), data.get("webpage"),data.getInt("priority"), models.LoginState.getUser());
+		Bedrift bedrift = new Bedrift(data.get("bedriftsName"), data.get("webpage"), data.getInt("priority"), models.LoginState.getUser());
 
 		bedrift.save();
 

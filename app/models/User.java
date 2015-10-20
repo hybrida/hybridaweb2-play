@@ -180,12 +180,12 @@ public class User extends Model implements ImmutableUser {
 	}
 
     public void setWebsiteUrl(String websiteUrl) {
-        if(websiteUrl.isEmpty()) this.websiteUrl = "";
+        if (websiteUrl.isEmpty()) this.websiteUrl = "";
         else {
-            if(!websiteUrl.substring(0, 4).equalsIgnoreCase("http")) {
+            if (!websiteUrl.substring(0, 4).equalsIgnoreCase("http")) {
                 websiteUrl = "http://" + websiteUrl + (websiteUrl.indexOf('/') == -1 ? "/" : "");
             }
-            if(websiteUrl.indexOf('?') != -1) {
+            if (websiteUrl.indexOf('?') != -1) {
                 int i = websiteUrl.indexOf('?');
                 websiteUrl = websiteUrl.substring(0, i).toLowerCase() + websiteUrl.substring(i);
             }
@@ -239,7 +239,7 @@ public class User extends Model implements ImmutableUser {
     }
 
     public Specialization getSpecialization() {
-        if(specialization == null) specialization = Specialization.NONE;
+        if (specialization == null) specialization = Specialization.NONE;
         return specialization;
     }
 
@@ -313,24 +313,24 @@ public class User extends Model implements ImmutableUser {
 		play.mvc.Controller.session("user", play.api.libs.Crypto.encryptAES(username + "," + String.valueOf(System.currentTimeMillis())));
 	}
 
-    public static Map<String, String> validateForm(Form<User> form) throws IOException {
-        Validator validator = Validator.fromJSON(new File("public/json/userValidation.json"));
-        return validator.validate(form);
-    }
+	public static Map<String, String> validateForm(Form<User> form) throws IOException {
+		Validator validator = Validator.fromJSON(new File("public/json/userValidation.json"));
+		return validator.validate(form);
+	}
 
-    public void updateFromForm(Form<User> form) {
-        setFirstName(form.apply("firstName").valueOr(getFirstName()));
-        setLastName(form.apply("lastName").valueOr(getLastName()));
-        setMiddleName(form.apply("middleName").valueOr(getMiddleName()));
-        setEmail(form.apply("email").valueOr(getEmail()));
-        setWebsiteUrl(form.apply("websiteUrl").valueOr(getWebsiteUrl()));
-        setPhone(form.apply("phone").valueOr(getPhone()));
-        setProfileImageFileName(form.apply("profileImageFileName").valueOr(getProfileImageFileName()));
-        setTitle(form.apply("title").valueOr(getTitle()));
-        setGraduationYear(Integer.parseInt(form.apply("graduationYear").valueOr(getGraduationYear().toString())));
-        setSpecialization(form.apply("specialization").valueOr(getSpecialization().toString()));
-        save();
-    }
+	public void updateFromForm(Form<User> form) {
+		setFirstName(form.apply("firstName").valueOr(getFirstName()));
+		setLastName(form.apply("lastName").valueOr(getLastName()));
+		setMiddleName(form.apply("middleName").valueOr(getMiddleName()));
+		setEmail(form.apply("email").valueOr(getEmail()));
+		setWebsiteUrl(form.apply("websiteUrl").valueOr(getWebsiteUrl()));
+		setPhone(form.apply("phone").valueOr(getPhone()));
+		setProfileImageFileName(form.apply("profileImageFileName").valueOr(getProfileImageFileName()));
+		setTitle(form.apply("title").valueOr(getTitle()));
+		setGraduationYear(Integer.parseInt(form.apply("graduationYear").valueOr(getGraduationYear().toString())));
+		setSpecialization(form.apply("specialization").valueOr(getSpecialization().toString()));
+		save();
+	}
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder("USER[\n");
@@ -356,7 +356,7 @@ public class User extends Model implements ImmutableUser {
 		return sb.toString();
 	}
 
-	public enum Access{
+	public enum Access {
 		BEDKOM,
 		ARRKOM,
 		VEVKOM,
@@ -368,34 +368,34 @@ public class User extends Model implements ImmutableUser {
 		return hasAccess(LoginState.getUser(), inAll, accessList);
 	}
 
-	public static boolean hasAccess(User user, boolean inAll, Access... accessList){
+	public static boolean hasAccess(User user, boolean inAll, Access... accessList) {
 		//Parameters explained: user: the user you want to check;
 		//inAll: set true if you want to check if user has ALL entered accesses, false if you want to check if user has
 		// ANY of the entered accesses.
 		//Accesses are entered on the form models.User.Access.<access> (for example: models.User.Access.BEDKOM)
 
-		if(user.isDefault()){
+		if (user.isDefault()) {
 			return false;
 		}
-		if(inAll == false){
+		if (inAll == false) {
 			boolean access = false;
-			for (Access i : accessList){
-				if (i == Access.BEDKOM){
+			for (Access i : accessList) {
+				if (i == Access.BEDKOM) {
 					access = user.bedkom;
 				}
-				if (i == Access.ARRKOM){
+				if (i == Access.ARRKOM) {
 					access = user.arrkom;
 				}
-				if (i == Access.VEVKOM){
+				if (i == Access.VEVKOM) {
 					access = user.vevkom;
 				}
-				if (i == Access.ADMIN){
+				if (i == Access.ADMIN) {
 					access = user.admin;
 				}
-				if (i == Access.ROOT){
+				if (i == Access.ROOT) {
 					access = user.root;
 				}
-				if (access == true){
+				if (access == true) {
 					return true;
 				}
 			}
@@ -423,18 +423,18 @@ public class User extends Model implements ImmutableUser {
 					return false;
 				}
 			}
-			if (tempHasAccess == false){
+			if (tempHasAccess == false) {
 				return false;
 			}
 			return true;
 		}
 	}
 
-    public static Model.Finder<Long, User> find = new Finder<>(
-            Long.class, User.class
-    );
+	public static Model.Finder<Long, User> find = new Finder<>(
+		Long.class, User.class
+	);
 
-    public static User findByUsername(String username){
-        return find.where().eq("username", username).findUnique();
-    }
+	public static User findByUsername(String username) {
+		return find.where().eq("username", username).findUnique();
+	}
 }
