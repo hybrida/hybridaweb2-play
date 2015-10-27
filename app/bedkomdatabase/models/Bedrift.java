@@ -141,9 +141,6 @@ public class Bedrift extends Model {
         this.webpage = webpage;
     }
 
-    public static Finder<Long, Bedrift> find = new Finder<>(
-            Long.class, Bedrift.class
-    );
 
 
 }
