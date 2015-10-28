@@ -16,6 +16,8 @@
     }
     <h5 class="smallTitle">@name</h5>
     <div class="pageInner nedit">
+        <h1 class="bigTitle">@name</h1>
+        <div class="clearfix"></div>
         <div class="pageItem">
             <div class="picFrame poof">
                 <img class="pic super-center" src="@(if(imageFilePath != null && !imageFilePath.equals("")) {
@@ -25,7 +27,6 @@
                 })" @if(user.hasProfileImagePos){style="transform: translateY(@(user.getProfileImagePos)%)"}>
             </div>
         </div>
-        <h1 class="pageItem bigTitle">@name</h1>
         @if(subTitle != null && !subTitle.equals("")) {
             <h3 class="pageItem bigSubTitle">@subTitle</h3>
         }
