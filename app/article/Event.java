@@ -20,7 +20,7 @@ public class Event extends Controller {
 		User user = LoginState.getUser();
 		if (user.isDefault())
 			return show400("Du må logge inn på nytt.");
-		if (user.isRoot())
+		if (user.isFirstUser())
 			return show400("Du kan ikke melde deg på som root bruker.");
 		Long event_id = new HttpRequestData().getLong("eventId");
 		if (event_id == null)
