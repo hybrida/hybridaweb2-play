@@ -253,7 +253,7 @@ public class Event extends Model {
 				case 5: allowed = fifthYearAllowed; break;
 				default: break;
 			}
-		} else if (calendar.after(secondTime)) {
+		} else if (calendar.before(secondTime)) {
 				// Check if the class matches
 			switch (user.calculateClass()) {
 				case 1: allowed = firstYearAllowedAfterSecondSignup; break;
