@@ -93,9 +93,7 @@ public class Event extends Controller {
 			models.Article articleModel = articleInput.get();
 			if (image_path != null)
 				articleModel.setImagePath(image_path);
-			articleModel.setAuthor(user);
-			articleModel.update();
-			ArticleIn.saveEvent(event.getArticle(), event.getId());
+			articleModel.save();
 		}
 		return application.Application.index();
 	}

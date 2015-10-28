@@ -21,7 +21,6 @@ public class Event extends Model {
 
 	public static Event getFromRequest() {
 		Form<EventForm> eventForm = form(EventForm.class);
-		System.out.println(new HttpRequestData());
 		EventForm form = eventForm.bindFromRequest().get();
 		String error = form.doValidation();
 		if (error != null) throw new Error(error);
@@ -41,19 +40,19 @@ public class Event extends Model {
 			event.eventHappens.setTime(format.parse(form.eventHappens));
 			event.eventStops.setTime(format.parse(form.timeFrame));
 		} catch (ParseException excObj) {
-			System.out.println("HEEEEEEEEEEEE" + excObj);
+			System.out.println(excObj);
 		}
-		event.firstYearAllowed = form.firstYearAllowed;
-		event.secondYearAllowed = form.secondYearAllowed;
-		event.thirdYearAllowed = form.thirdYearAllowed;
-		event.fourthYearAllowed = form.fourthYearAllowed;
-		event.fifthYearAllowed = form.fifthYearAllowed;
+		event.firstYearAllowed = form.firstYearAllowed != null;
+		event.secondYearAllowed = form.secondYearAllowed != null;
+		event.thirdYearAllowed = form.thirdYearAllowed != null;
+		event.fourthYearAllowed = form.fourthYearAllowed != null;
+		event.fifthYearAllowed = form.fifthYearAllowed != null;
 
-		event.firstYearAllowedAfterSecondSignup = form.firstYearAllowedAfterSecondSignup;
-		event.secondYearAllowedAfterSecondSignup = form.secondYearAllowedAfterSecondSignup;
-		event.thirdYearAllowedAfterSecondSignup = form.thirdYearAllowedAfterSecondSignup;
-		event.fourthYearAllowedAfterSecondSignup = form.fourthYearAllowedAfterSecondSignup;
-		event.fifthYearAllowedAfterSecondSignup = form.fifthYearAllowedAfterSecondSignup;
+		event.firstYearAllowedAfterSecondSignup = form.firstYearAllowedAfterSecondSignup != null;
+		event.secondYearAllowedAfterSecondSignup = form.secondYearAllowedAfterSecondSignup != null;
+		event.thirdYearAllowedAfterSecondSignup = form.thirdYearAllowedAfterSecondSignup != null;
+		event.fourthYearAllowedAfterSecondSignup = form.fourthYearAllowedAfterSecondSignup != null;
+		event.fifthYearAllowedAfterSecondSignup = form.fifthYearAllowedAfterSecondSignup != null;
 
 		event.location = form.location;
 		event.maxParticipants = Integer.parseInt(form.maxParticipants);
@@ -159,11 +158,11 @@ public class Event extends Model {
 			if (isValid == false) return "The does not start before the end";
 
 			// Check whether at least one class is allowed
-			int sum = firstYearAllowed ? 1 : 0;
-			sum += secondYearAllowed ? 1 : 0;
-			sum += thirdYearAllowed ? 1 : 0;
-			sum += fourthYearAllowed ? 1 : 0;
-			sum += fifthYearAllowed ? 1 : 0;
+			int sum = firstYearAllowed != null ? 1 : 0;
+			sum += secondYearAllowed != null ? 1 : 0;
+			sum += thirdYearAllowed != null ? 1 : 0;
+			sum += fourthYearAllowed != null ? 1 : 0;
+			sum += fifthYearAllowed != null ? 1 : 0;
 			if (sum == 0) isValid = false;
 
 			// If the second sign up is null, we need not check if any class is allowed.
