@@ -318,6 +318,10 @@ public class Event extends Model {
 		return eventId;
 	}
 
+	public void setId(long id) {
+		eventId = id;
+	}
+
 	public void setEventId(long eventId) {
 		this.eventId = eventId;
 	}
