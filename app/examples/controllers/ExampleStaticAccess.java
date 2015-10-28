@@ -12,8 +12,11 @@ import views.html.layoutWithHead;
 public class ExampleStaticAccess extends Controller {
 
     static public Result index() {
-        if(!LoginState.isValidlyLoggedIn()) return redirect(sso.routes.SSOLogin.login(play.mvc.Http.Context.current().request().path()));
+        if(!LoginState.isValidlyLoggedIn()) return redirect(sso.routes.SSOLogin.login(request().path()));
         if(!User.hasAccess(false, User.Access.ADMIN)) return application.Application.showUnauthorizedAccess();
-        return ok(layoutWithHead.render("Example Access", examples.views.html.exampleStaticAccess.render(), orderofthegriff.views.html.griffensOrdenhead.render()));
+        return ok(layoutWithHead.render(
+                "Example Access",
+                examples.views.html.exampleStaticAccess.render(),
+                orderofthegriff.views.html.griffensOrdenhead.render()));
     }
 }
