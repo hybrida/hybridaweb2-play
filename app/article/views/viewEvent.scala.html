@@ -65,7 +65,7 @@
 						<div class="row">
 							<div class="col-md-1">
 								<a href="@profile.routes.Profile.index(i.getAuthor.getUsername)" class="thumbnail">
-									<img src="@if(i.getAuthor.getProfileImageFileName != null){/assets/uploads/@i.getAuthor.getUsername/@i.getAuthor.getProfileImageFileName}else{if(i.getAuthor.getProfileImageFileName == null){/assets/images/logo_big.png}}" alt="profilepic for @i.getAuthor.getName" width="30px">
+									<img src="@i.getAuthor.getProfilePictureWithFallBackOnDefault" alt="profilepic for @i.getAuthor.getName" width="30px">
 								</a>
 							</div>
 								<div class="col-md-11">
