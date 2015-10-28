@@ -59,7 +59,7 @@ public class Event extends Model {
 		event.maxParticipants = Integer.parseInt(form.maxParticipants);
 		event.maxParticipantsWaiting = Integer.parseInt(form.maxParticipantsWaiting);
 		event.genderAllowed = form.genderAllowed.charAt(0);
-		event.binding = form.binding;
+		event.binding = form.binding != null;
 		return event;
 	}
 
@@ -226,37 +226,16 @@ public class Event extends Model {
 		return binding && Calendar.getInstance().after(signUpDeadline);
 	}
 
-	public Calendar getSignUpStart() {
-		return signUpStart;
-	}
-
-	public String areAllGendersAllowed() {
-		return getGenderAllowed() == 'A' ? "checked" : "";
-	}
-
-	public String areOnlyMalesAllowed() {
-		return getGenderAllowed() == 'M' ? "checked" : "";
-	}
-
-	public String areOnlyFemalesAllowed() {
-		return getGenderAllowed() == 'F' ? "checked" : "";
-	}
-
-	public boolean checkAndRemoveJoiner(User user) {
-		Calendar calendar = Calendar.getInstance(),
-			closing = getSignUpDeadline();
-		if (binding)
-		{
-			if (calendar.after(closing))
-				return false;
-		}
-		else
-			getJoinedUsers().remove(getJoinedUsers().indexOf(user));
-		return true;
-	}
-
-	public boolean checkAndAddJoiner(User user) {
+	public boolean canJoin(User user) {
+		if (user.isDefault())
+			return false;
 		boolean allowed = false;
+		// Check gender requirements
+		char gender = getGenderAllowed();
+		if (gender == 'A')
+			;
+		else if (gender != user.getGender())
+			return false;
 		// Check if the timeframe is correct
 		Calendar calendar = Calendar.getInstance();
 		if (calendar.after(eventHappens))
@@ -288,6 +267,36 @@ public class Event extends Model {
 			}
 		} else
 			allowed = false;
+		return allowed;
+	}
+
+	public Calendar getSignUpStart() {
+		return signUpStart;
+	}
+
+	public String areAllGendersAllowed() {
+		return getGenderAllowed() == 'A' ? "checked" : "";
+	}
+
+	public String areOnlyMalesAllowed() {
+		return getGenderAllowed() == 'M' ? "checked" : "";
+	}
+
+	public String areOnlyFemalesAllowed() {
+		return getGenderAllowed() == 'F' ? "checked" : "";
+	}
+
+	public boolean checkAndRemoveJoiner(User user) {
+		if (canRemove()) {
+			getJoinedUsers().remove(getJoinedUsers().indexOf(user));
+			return true;
+		}
+		else
+			return false;
+	}
+
+	public boolean checkAndAddJoiner(User user) {
+		boolean allowed = canJoin(user);
 		if (allowed)
 			joinedUsers.add(user);
 		return allowed;

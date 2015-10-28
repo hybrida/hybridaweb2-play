@@ -128,6 +128,7 @@
 							Start<br>
 							Slutt<br>
 							Sted<br>
+							@(if (event.binding) "Bindende Påmelding" else "")<br>
 									@(//TODO LAGE logikk for visning av oppmeldingsinformasjon
 							//@event.getFirstLowerGraduationLimit
 							//@event.getFirstUpperGraduationLimit
@@ -141,7 +142,6 @@
 						@event.getEventHappens.getTime
 						@event.getEventStops.getTime
 						@event.getLocation
-						@(if (event.binding) "Bindende Påmelding" else "")
 					</div>
 				</div>
 			}
@@ -163,7 +163,7 @@
 						 @if(!event.getJoinedUsers.contains(models.LoginState.getUser)){
 							<form method="post" action="@article.routes.Event.updateUser()">
 								<input type="hidden" name="eventId" value="@event.getId">
-							 <button type="submit" class="btn btn-primary btn-sm btn-block"> Meld meg på</button>
+							 <button type="submit" class="@if(!event.canJoin(models.LoginState.getUser)){disabled} btn btn-primary btn-sm btn-block"> Meld meg på</button>
 							</form>
 						 }else{
 							 <form method="post" action="@article.routes.Event.removeUser()">
