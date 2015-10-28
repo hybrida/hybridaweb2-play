@@ -133,6 +133,11 @@
                                                         </div>
 
                                                         <div class="form-group">
+                                                            <label for="webpage">Nettside</label>
+                                                            <input type="text" class="form-control" name="webpage" id="webpage placeholder="Bedriftens nettside" value="@i.getWebpage">
+                                                        </div>
+
+                                                        <div class="form-group">
                                                             <div class="radio">
                                                                 <label>
                                                                     <input type="radio" name="active" id="active1" value="true" @if(i.isActive){checked}>
@@ -176,6 +181,12 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!--- Bedriftsinfo -->
+                                            <p class="text-center">Nettside: <a href="@i.getWebpage" target="_blank">@i.getWebpage</a></p>
+                                            <p class="text-center">Bedrift opprettet: @i.getDateMade</p>
+                                            <p class="text-center">Sist oppdatert: @i.getWhenUpdated</p>
                                         </div>
                                             <!--- Kontaktpersoner -->
                                         <div class="modal-body">

@@ -1,5 +1,5 @@
-@(event: models.Event, inarticle: models.Article)
-<div class="article-bg">
+@(event: Event, edarticle: Article)
+<div>
 	<div class="container-fluid">
 		<script src="/assets/ckeditor/ckeditor.js"></script>
 		<link href="sample.css" rel="stylesheet">
@@ -14,104 +14,142 @@
 		border : 1px solid gray ;
 		-webkit-appearance : textfield ;
 		}
-
 		</style>
-
 		<div class="row">
 			<div class="col-md-6 col-md-offset-1 transparent-box">
-				<div class="article_writer">
+				<div>
 					<h3><p class="text-center">
-						Endre event
+						Endre Arrangement
 					</p></h3>
-					<form name="Article" action="@article.routes.Event.saveEdit(String.valueOf(event.getId))" method="POST" enctype="multipart/form-data">
-						<textarea class="form-control" type="text" name="title">@inarticle.getTitle</textarea>
-						<textarea class="form-control" name="ingress" onfocus="">@inarticle.getIngress</textarea>
-						<textarea id="editor1" class="form-control" name="text" contenteditable="true">@inarticle.getText</textarea>
+					<form name="Article" action="@article.routes.ArticleIn.save()" method="POST" enctype="multipart/form-data">
+						<textarea class="form-control" placeholder="Skriv tittelen her" type="text" name="title"></textarea>
+						<textarea class="form-control" placeholder="Skriv en kort oppsummering her" name="ingress" onfocus=""></textarea>
+						<textarea id="editor1" class="form-control" placeholder="Skriv ditt innlegg her"name="text" contenteditable="true">
+							Artikkel her</textarea>
 						<script>
-						CKEDITOR.disableAutoInline = true;
-						CKEDITOR.inline('editor1');
+							CKEDITOR.disableAutoInline = true;
+							CKEDITOR.inline('editor1');
 						</script>
 						<input class="pad_1percent_top center_block form-control" style="display : block ; background-color : #c3c3c3 ; " type="file" name="picture">
 
-						<div class="showhide" id="showhide" name="showhide">
-							<br>
-							<div class="form-group">
-								<label for="nDS">Starttid:</label>
-								<input class="form-control" id="nDS" type="datetime-local" name="eventHappens">
-							</div>
-							<div class="form-group">
-								<label for="tF">Sluttid:</label>
-								<input class="form-control" id="tF" type="datetime-local" name="timeFrame" placeholder="Varighet">
-							</div>
-							<div class="form-group">
-								<label for="loc">Sted:</label>
-								<input type="text" id="loc" class="form-control" name="location" placeholder="Skriv location her">
-							</div>
-							<div class="form-group">
-								<label for="oD">Første påmeldingsfrist:</label>
-								<input class="form-control" id="oD" type="datetime-local" name="signUpDeadline"></div>
-							<div class="form-group">
-								<label for="fU">Høyeste klassetrinn:</label>
-								<input class="form-control" type="number" id="fU" name="firstUpperGraduationLimit" min="1" max="5" placeholder="Antall her">
-							</div>
-							<div class="form-group">
-								<label for="fL">Laveste klassetrinn:</label>
-								<input type="number" class="form-control" id="fL" name="firstLowerGraduationLimit" min="1" max="5" placeholder="Antall her">
-							</div>
-							<div class="form-group">
-								<label for="aOD">Andre påmeldingsfrist:</label>
-								<input class="form-control" id="aOD" type="datetime-local" name="secondSignUp">
-							</div>
-							<div class="form-group">
-								<label for="sU">Høyeste klassetrinn, andre påmelding:</label>
-								<input type="number" class="form-control" id="sU" name="secondUpperGraduationLimit" min="1" max="5" placeholder="Antall her">
-							</div>
-							<div class="form-group">
-								<label for="sL">Laveste klassetrinn, andre påmelding:</label>
-								<input type="number" id="sL" class="form-control" name="secondLowerGraduationLimit" min="1" max="5" placeholder="Antall her">
-							</div>
-							<div class="form-group">
-								<label for="sA">Tillatt kjønn:</label>
-								<select class="form-control" id="sA" name="genderAllowed">
-									<option value="A">Alle</option>
-									<option value="M">Male</option>
-									<option value="F">Female</option>
-								</select>
-							</div>
-							<div class="form-group">
-								<label for="mO">Maksimalt antall deltagere:</label>
-								<input class="form-control" id="mO" type="number" name="maxParticipants">
-							</div>
-							<div class="form-group">
-								<label for="mV">Maksimalt antall deltagere på venteliste:</label>
-								<input class="form-control" id="mV" type="number" name="maxParticipantsWaiting">
+						<br>
+						<div class="form-group">
+							<label for="oD">Påmelding Åpnes:</label>
+							<input class="form-control" id="oD" type="datetime-local" name="signUpStart" value="@(event.calendarToString(event.getSignUpStart))">
+						</div>
+						<div class="form-group">
+							<label for="aOD">Påmelding åpnes for andre:</label>
+							<input class="form-control" id="aOD" type="datetime-local" name="secondSignUp" value="@(event.calendarToString(event.getSecondSignUp))">
+						</div>
+						<div class="form-group">
+							<label for="oD">Påmelding Stenges:</label>
+							<input class="form-control" id="oD" type="datetime-local" name="signUpDeadline" value="@(event.calendarToString(event.getSignUpDeadline))">
+						</div>
+						<div class="form-group">
+							<label for="nDS">Starttid:</label>
+							<input class="form-control" id="nDS" type="datetime-local" name="eventHappens" value="@(event.calendarToString(event.getEventHappens))">
+						</div>
+						<div class="form-group">
+							<label for="tF">Sluttid:</label>
+							<input class="form-control" id="tF" type="datetime-local" name="timeFrame" placeholder="Varighet" value="@(event.calendarToString(event.getEventStops))">
+						</div>
+						<div class="form-group">
+							<label for="loc">Sted:</label>
+							<input type="text" id="loc" class="form-control" name="location" placeholder="Skriv sted her">
+						</div>
+						<label for="FSU">Klasser tillat ved første påmelding</label>
+						<div id="FSU" class="form-group">
+							<label class="checkbox-inline">
+								<input type="checkbox" id="first_signup" name="firstYearAllowed" checked>1
+							</label>
+							<label class="checkbox-inline">
+								<input type="checkbox" id="first_signup" name="secondYearAllowed" checked>2
+							</label>
+							<label class="checkbox-inline">
+								<input type="checkbox" id="first_signup" name="thirdYearAllowed" checked>3
+							</label>
+							<label class="checkbox-inline">
+								<input type="checkbox" id="first_signup" name="fourthYearAllowed" checked>4
+							</label>
+							<label class="checkbox-inline">
+								<input type="checkbox" id="first_signup" name="fifthYearAllowed" checked>5
+							</label>
+						</div>
+
+
+						<label for="SSU">Klasser tillat ved andre påmelding</label>
+						<div id="SSU" class="form-group">
+							<label class="checkbox-inline">
+								<input type="checkbox" id="secound_signup" name="firstYearAllowedAfterSecondSignup" checked>1
+							</label>
+							<label class="checkbox-inline">
+								<input type="checkbox" id="secound_signup" name="secondYearAllowedAfterSecondSignup" checked>2
+							</label>
+							<label class="checkbox-inline">
+								<input type="checkbox" id="secound_signup" name="thirdYearAllowedAfterSecondSignup" checked>3
+							</label>
+							<label class="checkbox-inline">
+								<input type="checkbox" id="secound_signup" name="fourthYearAllowedAfterSecondSignup" checked>4
+							</label>
+							<label class="checkbox-inline">
+								<input type="checkbox" id="secound_signup" name="fifthYearAllowedAfterSecondSignup" checked>5
+							</label>
+						</div>
+
+						<div class="form-group">
+							<label for="sA">Tillatt kjønn:</label>
+							<div id="sA">
+								<label class="radio-inline">
+									<input type="radio" name="genderAllowed" id="sA1" value="A" checked> Alle
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="genderAllowed" id="sA2" value="M"> Menn
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="genderAllowed" id="sA3" value="F"> Kvinner
+								</label>
 							</div>
 						</div>
 						<div class="form-group">
+							<label for="mO">Maksimalt antall deltagere:</label>
+							<input class="form-control" id="mO" type="number" name="maxParticipants" value="60">
+						</div>
+						<div class="form-group">
+							<label for="mV">Maksimalt antall deltagere på venteliste:</label>
+							<input class="form-control" id="mV" type="number" name="maxParticipantsWaiting" value="30">
+						</div>
+						<div class="form-group">
+							<label for="mW">Er påmelding bindende? (Det er ikke mulig å melde seg av etter påmeldingen stenges)
+								<label class="checkbox-inline">
+									<input type="checkbox" id="mW" name="binding">Bindende
+								</label>
+							</label>
+						</div>
+
+						<div class="form-group">
 							<input class="btn btn-primary form-control" type="submit" value="Post">
 						</div>
-				</form>
-			</div>
-		</div>
-		<div class="col-md-3 col-md-offset-1">
-				<div class="transparent-box" data-spy="affix" style="margin-right:8.3%">
-					<h5><p>
-						Her skal det stå en del innformasjon om denne formen:
-					</p></h5>
-					<hr>
-					<p>
-						Det skal stå litt om hva de forskjellige feltene betyr, samt litt om hvordan vi liker å ha det her på hybridasiden!
-						<br>
-						Før du oppretter ett nytt event eller en artikkel, ser vi gjerne at du leser igjennom disse retningslinjene
-						slik at vi får en kul side, med kule bilder, og kul formatering, som ser sinnsykt kul ut hele tiden, alltid!
-						<br>
-					</p>
-					<strong><p>
-						Grensen står for klassetrinnet som har lov til å melde seg opp. Tallet står for avslutningsår.
-					</p></strong>
-					<br>
+
+					</form>
 				</div>
 			</div>
-		</div>
+
+		<div class="col-md-3 col-md-offset-1">
+			<div class="transparent-box" data-spy="affix" style="margin-right:8.3%">
+				<h5><p>Her skal det stå en del innformasjon om denne formen:</p></h5>
+				<hr>
+				<p>
+					Det skal stå litt om hva de forskjellige feltene betyr, samt litt om hvordan vi liker å ha det her på hybridasiden!
+					<br>
+					Før du oppretter ett nytt event eller en artikkel, ser vi gjerne at du leser igjennom disse retningslinjene
+					slik at vi får en kul side, med kule bilder, og kul formatering, som ser sinnsykt kul ut hele tiden, alltid!
+					<br>
+				</p>
+				<strong><p>
+					Grensen står for klassetrinnet som har lov til å melde seg opp. Tallet står for avslutningsår.
+				</p></strong>
+				<br>
+			</div>
+		</div></div>
 	</div>
 </div>

@@ -8,6 +8,7 @@ import static play.data.Form.form;
 import java.text.ParseException;
 import java.util.Calendar;
 
+import article.Article;
 import article.views.html.*;
 import views.html.layout;
 import views.html.utils.centerBlock;
@@ -35,7 +36,12 @@ public class ArticleIn extends Controller {
 
 		String image_link = user.uploadPicture();
 
-		models.Article article = articleForm.bindFromRequest().get();
+		models.Article article;
+		try {
+			article = articleForm.bindFromRequest().get();
+		} catch (IllegalStateException exc) {
+			return application.Application.show400("Fikk tom input. Frykt ikke; bare trykk tilbake for å redde det du prøvde å poste.");
+		}
 		if (article.validate() != null)
 			return application.Application.showUnauthorizedAccess();
 
@@ -48,14 +54,12 @@ public class ArticleIn extends Controller {
 			event.setArticle(article);
 			event.save();
 			models.Renders.addEvent(event);
+			return redirect(routes.Event.viewEvent("" + event.getId()));
 		} else {
 			article.save();
 			models.Renders.addArticle(article);
+			return redirect(routes.Article.viewArticle("" + article.getId()));
 		}
-
-		// To see all the inputs:
-		System.out.println(new HttpRequestData());
-		return ok();
 	}
 
 	public static models.Article saveArticle() throws IllegalStateException {
@@ -69,7 +73,7 @@ public class ArticleIn extends Controller {
 //				articleModel.setImagePath(image_link);
 //			else
 //				articleModel.setDefaultImage();
-            articleModel.setDefaultImage(); //TODO: Should use Upload Controller (sry Kev)
+			articleModel.setDefaultImage(); //TODO: Should use Upload Controller (sry Kev)
 			articleModel.setAuthor(user);
 			articleModel.save();
 

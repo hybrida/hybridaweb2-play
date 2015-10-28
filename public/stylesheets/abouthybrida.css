@@ -1,0 +1,228 @@
+/* all links */
+.bs-docs-sidebar .nav>li>a {
+    /*add trasnparent border */
+    border-left: 2px solid transparent;
+}
+/* active & hover links */
+.bs-docs-sidebar .nav>.active>a,
+.bs-docs-sidebar .nav>li>a:hover,
+.bs-docs-sidebar .nav>li>a:focus {
+    color: #563d7c;
+    text-decoration: none;
+    background-color: transparent;
+    border-left: 2px solid #563d7c;
+}
+/* all active links */
+.bs-docs-sidebar .nav>.active>a,
+.bs-docs-sidebar .nav>.active:hover>a,
+.bs-docs-sidebar .nav>.active:focus>a {
+    font-weight: 700;
+}
+/* nested active links */
+.bs-docs-sidebar .nav .nav>.active>a,
+.bs-docs-sidebar .nav .nav>.active:hover>a,
+.bs-docs-sidebar .nav .nav>.active:focus>a {
+    font-weight: 500;
+}
+/* hide all (inactive) nested list */
+.bs-docs-sidebar .nav ul.nav {
+    display: none;
+}
+/* show active nested list */
+.bs-docs-sidebar .nav>.active>ul.nav {
+    display: block;
+}
+
+.bs-docs-sidebar .nav>.active>a {
+    color: #563d7c;
+}
+.link {
+    height: 100%;
+}
+
+.link:link {
+    background-color:transparent;
+    text-decoration:none;
+}
+.link:visited {
+    background-color:transparent;
+}
+.bildetekst {
+    color:#212121;
+    padding-top: 6em;
+    vertical-align: bottom;
+    margin: 0 auto;
+    height: 100%;
+    font-size:60px;
+    text-align:center;
+    opacity: 1;
+
+
+}.bildetekst:link {
+     text-decoration: none;
+ }
+
+.bildetekst:visited {
+    color:#212121;
+    background-color:transparent;
+    text-decoration: none;
+
+}
+.column1  {
+    z-index:2;
+    border-style: solid;
+    border: 10px;
+    border-color: #000000;
+    width: 15%;
+    height:100%;
+    position: fixed;
+    background-color: rgba(155,155,155,0.8);
+    border-radius: 15px;
+}
+.column2 {
+    z-index:1;
+    overflow: auto;
+    width: 100%;
+    float: left;
+    height:100%;
+    right: 80%;
+    background-color: #ffffff;
+}
+
+#styret {
+    overflow: auto;
+    margin: 0 auto;
+    width: 100%;
+    height: 100vh;
+    background-image: url(../images/styret2.jpg);
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position:center;
+}
+#update {
+    width:100%;
+    height:100vh;
+}
+
+#kontakinfo {
+    width: 100%;
+    height: 100vh;
+}
+
+#hybb {
+    width:100%;
+    height:100vh;
+    background-color: transparent;
+}
+
+#hybrida {
+    color:#212121;
+    padding: 5em 2.5em 1em 2.5em;
+    text-align: center;
+    font-size: 22px;
+    line-height: 1.5;
+}
+
+#griff {
+    height:100vh;
+    width:100%;
+    background-image:url(../images/griffens_orden.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+#student {
+    height:100vh;
+    width:100%;
+    background-image:url(../images/ny_student.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+#grifflogo {
+    padding-top: 5em;
+    height: 240px;
+    width: 100%;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+#transition img {
+    height:240px;
+    width:240px;
+    background-size: 200% 100%;
+    background-color: blue;
+    background-image: -webkit-linear-gradient(left, dodgerblue, blue, darkblue, darkblue, mediumblue, dodgerblue);
+    background-image:    -moz-linear-gradient(left, dodgerblue, blue, darkblue, darkblue, mediumblue, dodgerblue);
+    background-image:     -ms-linear-gradient(left, dodgerblue, blue, darkblue, darkblue, mediumblue, dodgerblue);
+    background-image:      -o-linear-gradient(left, dodgerblue, blue, darkblue, darkblue, mediumblue, dodgerblue);
+    background-image:         linear-gradient(left, dodgerblue, blue, darkblue, darkblue, mediumblue, dodgerblue);
+    -moz-transition: all 0.3s ease-out;  /* FF4+ */
+    -o-transition: all 0.3s ease-out;  /* Opera 10.5+ */
+    -webkit-transition: all 0.3s ease-out;  /* Saf3.2+, Chrome */
+    -ms-transition: all 0.3s ease-out;  /* IE10? */
+    transition: all 0.3s ease-out;
+}
+
+#transition img:hover {
+    background-position: -100% 100%;
+}
+
+
+#sidebar.affix {
+    top: 20px;
+}
+/* sidebar */
+.bs-docs-sidebar {
+    padding-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* all links */
+.bs-docs-sidebar .nav>li>a {
+    color: #999;
+    border-left: 2px solid transparent;
+    padding: 4px 20px;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+/* nested links */
+.bs-docs-sidebar .nav .nav>li>a {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 30px;
+    font-size: 12px;
+}
+
+/* active & hover links */
+.bs-docs-sidebar .nav>.active>a,
+.bs-docs-sidebar .nav>li>a:hover,
+.bs-docs-sidebar .nav>li>a:focus {
+    color: darkblue;
+    text-decoration: none;
+    background-color: transparent;
+    border-left-color: darkblue;
+}
+/* all active links */
+.bs-docs-sidebar .nav>.active>a,
+.bs-docs-sidebar .nav>.active:hover>a,
+.bs-docs-sidebar .nav>.active:focus>a {
+    font-weight: 700;
+}
+/* nested active links */
+.bs-docs-sidebar .nav .nav>.active>a,
+.bs-docs-sidebar .nav .nav>.active:hover>a,
+.bs-docs-sidebar .nav .nav>.active:focus>a {
+    font-weight: 500;
+}
+
+/* hide inactive nested list */
+.bs-docs-sidebar .nav ul.nav {
+    display: none;
+}
+/* show active nested list */
+.bs-docs-sidebar .nav>.active>ul.nav {
+    display: block;
+}

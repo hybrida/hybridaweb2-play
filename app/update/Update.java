@@ -57,7 +57,7 @@ public class Update {
         String[] filenames = new String[folder.length];
         int i;
         for(i = 0; i < folder.length; i++) {
-            filenames[i] = folder[i].getName();
+            filenames[i] = folder[i].getName().substring(0,folder[i].getName().length()-4);
         }
         return filenames;
     }
