@@ -78,16 +78,16 @@ public class Event extends Controller {
 		play.data.Form<models.Article> articleInput = articleForm.bindFromRequest();
 
 		String image_path = null;
-        try{
-            image_path = Upload.upload();
-        } catch (Unauthorized unauthorized) {
-            unauthorized.printStackTrace();
-        } catch (NoFileInRequest noFileInRequest) {
-            noFileInRequest.printStackTrace();
-        } catch (ServerError serverError) {
-            serverError.printStackTrace();
-        }
-        if (!articleInput.hasErrors()) {
+		try{
+				image_path = Upload.upload();
+		} catch (Unauthorized unauthorized) {
+				unauthorized.printStackTrace();
+		} catch (NoFileInRequest noFileInRequest) {
+				noFileInRequest.printStackTrace();
+		} catch (ServerError serverError) {
+				serverError.printStackTrace();
+		}
+		if (!articleInput.hasErrors()) {
 			models.Article articleModel = articleInput.get();
 			if (image_path != null)
 				articleModel.setImagePath(image_path);
