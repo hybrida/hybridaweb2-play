@@ -55,24 +55,24 @@
 						</div>
 						<div class="form-group">
 							<label for="loc">Sted:</label>
-							<input type="text" id="loc" class="form-control" name="location" placeholder="Skriv sted her">
+							<input type="text" id="loc" class="form-control" name="location" placeholder="Skriv sted her" value="@event.getLocation">
 						</div>
 						<label for="FSU">Klasser tillat ved første påmelding</label>
 						<div id="FSU" class="form-group">
 							<label class="checkbox-inline">
-								<input type="checkbox" id="first_signup" name="firstYearAllowed" checked>1
+								<input type="checkbox" id="first_signup" name="firstYearAllowed" @event.bool2checked(event.firstYearAllowed)>1
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="first_signup" name="secondYearAllowed" checked>2
+								<input type="checkbox" id="first_signup" name="secondYearAllowed" @event.bool2checked(event.secondYearAllowed)>2
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="first_signup" name="thirdYearAllowed" checked>3
+								<input type="checkbox" id="first_signup" name="thirdYearAllowed" @event.bool2checked(event.thirdYearAllowed)>3
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="first_signup" name="fourthYearAllowed" checked>4
+								<input type="checkbox" id="first_signup" name="fourthYearAllowed" @event.bool2checked(event.fourthYearAllowed)>4
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="first_signup" name="fifthYearAllowed" checked>5
+								<input type="checkbox" id="first_signup" name="fifthYearAllowed" @event.bool2checked(event.fifthYearAllowed)>5
 							</label>
 						</div>
 
@@ -80,19 +80,19 @@
 						<label for="SSU">Klasser tillat ved andre påmelding</label>
 						<div id="SSU" class="form-group">
 							<label class="checkbox-inline">
-								<input type="checkbox" id="secound_signup" name="firstYearAllowedAfterSecondSignup" checked>1
+								<input type="checkbox" id="secound_signup" name="firstYearAllowedAfterSecondSignup" @event.bool2checked(event.firstYearAllowedAfterSecondSignup)>1
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="secound_signup" name="secondYearAllowedAfterSecondSignup" checked>2
+								<input type="checkbox" id="secound_signup" name="secondYearAllowedAfterSecondSignup" @event.bool2checked(event.secondYearAllowedAfterSecondSignup)>2
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="secound_signup" name="thirdYearAllowedAfterSecondSignup" checked>3
+								<input type="checkbox" id="secound_signup" name="thirdYearAllowedAfterSecondSignup" @event.bool2checked(event.thirdYearAllowedAfterSecondSignup)>3
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="secound_signup" name="fourthYearAllowedAfterSecondSignup" checked>4
+								<input type="checkbox" id="secound_signup" name="fourthYearAllowedAfterSecondSignup" @event.bool2checked(event.fourthYearAllowedAfterSecondSignup)>4
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="secound_signup" name="fifthYearAllowedAfterSecondSignup" checked>5
+								<input type="checkbox" id="secound_signup" name="fifthYearAllowedAfterSecondSignup" @event.bool2checked(event.fifthYearAllowedAfterSecondSignup)>5
 							</label>
 						</div>
 
@@ -100,23 +100,23 @@
 							<label for="sA">Tillatt kjønn:</label>
 							<div id="sA">
 								<label class="radio-inline">
-									<input type="radio" name="genderAllowed" id="sA1" value="A" checked> Alle
+									<input type="radio" name="genderAllowed" id="sA1" value="A" @event.areAllGendersAllowed> Alle
 								</label>
 								<label class="radio-inline">
-									<input type="radio" name="genderAllowed" id="sA2" value="M"> Menn
+									<input type="radio" name="genderAllowed" id="sA2" value="M" @event.areOnlyMalesAllowed> Menn
 								</label>
 								<label class="radio-inline">
-									<input type="radio" name="genderAllowed" id="sA3" value="F"> Kvinner
+									<input type="radio" name="genderAllowed" id="sA3" value="F" @event.areOnlyFemalesAllowed> Kvinner
 								</label>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="mO">Maksimalt antall deltagere:</label>
-							<input class="form-control" id="mO" type="number" name="maxParticipants" value="60">
+							<input class="form-control" id="mO" type="number" name="maxParticipants" value="@event.getMaxParticipants">
 						</div>
 						<div class="form-group">
 							<label for="mV">Maksimalt antall deltagere på venteliste:</label>
-							<input class="form-control" id="mV" type="number" name="maxParticipantsWaiting" value="30">
+							<input class="form-control" id="mV" type="number" name="maxParticipantsWaiting" value="@event.getMaxParticipantsWaiting">
 						</div>
 						<div class="form-group">
 							<label for="mW">Er påmelding bindende? (Det er ikke mulig å melde seg av etter påmeldingen stenges)

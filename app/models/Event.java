@@ -185,6 +185,10 @@ public class Event extends Model {
 	private int secondUpperGraduationLimit;
 	private int secondLowerGraduationLimit;
 
+	public String bool2checked(boolean bool) {
+		return bool ? "checked" : "";
+	}
+
 	public boolean
 		firstYearAllowed,
 		secondYearAllowed,
@@ -211,6 +215,18 @@ public class Event extends Model {
 
 	public Calendar getSignUpStart() {
 		return signUpStart;
+	}
+
+	public String areAllGendersAllowed() {
+		return getGenderAllowed() == 'A' ? "checked" : "";
+	}
+
+	public String areOnlyMalesAllowed() {
+		return getGenderAllowed() == 'M' ? "checked" : "";
+	}
+
+	public String areOnlyFemalesAllowed() {
+		return getGenderAllowed() == 'F' ? "checked" : "";
 	}
 
 	public boolean checkAndAddJoiner(User user) {
