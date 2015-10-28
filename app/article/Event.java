@@ -81,7 +81,7 @@ public class Event extends Controller {
 
 		String image_path = null;
 		try{
-			image_path = Upload.upload();
+			image_path = Upload.upload("picture");
 		} catch (Unauthorized unauthorized) {
 			unauthorized.printStackTrace();
 		} catch (NoFileInRequest noFileInRequest) {

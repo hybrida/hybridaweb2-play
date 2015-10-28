@@ -291,9 +291,9 @@ public class User extends Model implements ImmutableUser {
         this.profileImagePos = profileImagePos;
     }
 
-    public String uploadPicture() {
+    public String uploadPicture(String inputName) {
         try {
-            return Upload.upload();
+            return Upload.upload(inputName);
         } catch (Unauthorized unauthorized) {
             unauthorized.printStackTrace();
         } catch (NoFileInRequest noFileInRequest) {

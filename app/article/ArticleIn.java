@@ -52,7 +52,7 @@ public class ArticleIn extends Controller {
 		if (!user.canCreateNewArticle())
 			return application.Application.showUnauthorizedAccess();
 
-		String image_link = user.uploadPicture();
+		String image_link = user.uploadPicture("picture");
 
 		models.Article article;
 		try {
