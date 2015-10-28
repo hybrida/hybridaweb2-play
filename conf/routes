@@ -12,7 +12,7 @@ GET           /admin/users                      admin.Admin.allUsers()
 POST          /admin/newuser                    admin.Admin.newUser()
 GET           /griffensorden/nominasjon         nomination.Nomination.index()
 GET           /griffensorden/riddere            riddere.Riddere.index()
-GET           /griffensorden                    orderofthegriff.griffensOrden.index()
+GET           /griffensorden                    orderofthegriff._GriffensOrden.index()
 GET           /jentekom                         jentekom.JenteKom.index()
 
 GET           /griffensorden                    riddere.Riddere.index()
@@ -130,6 +130,8 @@ GET           /examples/cookies/clear           examples.controllers.ExampleCook
 GET           /examples/database                examples.controllers.ExampleDatabase.index()
 # # AngularJS
 GET           /examples/angular                 examples.controllers.ExampleAngular.index()
+# # Limited Access
+GET           /examples/access                  examples.controllers.ExampleStaticAccess.index()
 
 
 # Map static resources from the /public folder to the /assets URL path
