@@ -12,7 +12,7 @@ GET           /admin/users                             admin.Admin.allUsers()
 POST          /admin/newuser                           admin.Admin.newUser()
 GET           /griffensorden/nominasjon                nomination.Nomination.index()
 GET           /griffensorden/riddere                   riddere.Riddere.index()
-GET           /griffensorden                           orderofthegriff.griffensOrden.index()
+GET           /griffensorden                           orderofthegriff.GriffensOrden.index()
 GET           /jentekom                                jentekom.JenteKom.index()
 GET           /statutter                               statutter.Statutter.index()
 
