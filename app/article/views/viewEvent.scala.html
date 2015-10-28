@@ -141,6 +141,7 @@
 						@event.getEventHappens.getTime
 						@event.getEventStops.getTime
 						@event.getLocation
+						@(if (event.binding) "Bindende Påmelding" else "")
 					</div>
 				</div>
 			}
@@ -167,7 +168,7 @@
 						 }else{
 							 <form method="post" action="@article.routes.Event.removeUser()">
 								<input type="hidden" name="eventId" value="@event.getId">
-								<button type="submit" class="btn btn-primary btn-sm btn-block"> Meld meg av</button>
+								<button type="submit" class="@if(event.canRemove()){disabled} btn btn-primary btn-sm btn-block"> Meld meg av</button>
 							 </form>
 						}
 					</div>
