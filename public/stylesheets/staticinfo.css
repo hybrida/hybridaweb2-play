@@ -1,12 +1,12 @@
 .helesiden{
     background: url("../images/office_background.png");
-    /*background-size: 100%;*/
     width: 100%;
     height: 100%;
     padding-bottom: 42px;
     padding-left: 10px;
     padding-right: 10px;
     background-attachment: fixed;
+    min-height: 100vh;
 }
 .line{
     text-align: center;
