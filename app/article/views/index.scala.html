@@ -1,4 +1,4 @@
-@()
+@(signUpStart: Calendar, secondSignUp: Calendar, signUpDeadline: Calendar, eventHappens: Calendar, eventEnds: Calendar)
 <div>
 	<div class="container-fluid">
 		<script src="/assets/ckeditor/ckeditor.js"></script>
@@ -42,23 +42,23 @@
 							<br>
 							<div class="form-group">
 								<label for="oD">Påmelding Åpnes:</label>
-								<input class="form-control" id="oD" type="datetime-local" name="signUpStart">
+								<input class="form-control" id="oD" type="datetime-local" name="signUpStart" value=@util.DateUtil.calendarToString(signUpStart)>
 							</div>
 							<div class="form-group">
 								<label for="aOD">Påmelding åpnes for andre:</label>
-								<input class="form-control" id="aOD" type="datetime-local" name="secondSignUp">
+								<input class="form-control" id="aOD" type="datetime-local" name="secondSignUp" value=@util.DateUtil.calendarToString(secondSignUp)>
 							</div>
 							<div class="form-group">
 								<label for="oD">Påmelding Stenges:</label>
-								<input class="form-control" id="oD" type="datetime-local" name="signUpDeadline">
+								<input class="form-control" id="oD" type="datetime-local" name="signUpDeadline" value=@util.DateUtil.calendarToString(signUpDeadline)>
 							</div>
 							<div class="form-group">
 								<label for="nDS">Starttid:</label>
-								<input class="form-control" id="nDS" type="datetime-local" name="eventHappens">
+								<input class="form-control" id="nDS" type="datetime-local" name="eventHappens" value=@util.DateUtil.calendarToString(eventHappens)>
 							</div>
 							<div class="form-group">
 								<label for="tF">Sluttid:</label>
-								<input class="form-control" id="tF" type="datetime-local" name="timeFrame" placeholder="Varighet">
+								<input class="form-control" id="tF" type="datetime-local" name="timeFrame" placeholder="Varighet" value=@util.DateUtil.calendarToString(eventEnds)>
 							</div>
 							<div class="form-group">
 								<label for="loc">Sted:</label>
