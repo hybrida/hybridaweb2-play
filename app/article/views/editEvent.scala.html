@@ -120,7 +120,7 @@
 						<div class="form-group">
 							<label for="mW">Er påmelding bindende? (Det er ikke mulig å melde seg av etter påmeldingen stenges)
 								<label class="checkbox-inline">
-									<input type="checkbox" id="mW" name="binding">Bindende
+									<input type="checkbox" id="mW" name="binding" @event.bool2checked(event.binding)>Bindende
 								</label>
 							</label>
 						</div>
