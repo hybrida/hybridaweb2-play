@@ -12,7 +12,6 @@
     padding-left: 0;
     padding-right: 0;
     float: none;
-
 }
 
 .picFrame {
@@ -225,57 +224,6 @@
     padding-left: 3px;
 }
 
-.page {
-    width: 80%;
-    min-width: 678px;
-    max-width: 1600px;
-    margin: 30px 50%;
-    padding: 25px 0 80px;
-    transform: translate(-50%, 0);
-
-    background: #fff;
-    box-shadow: -5px 5px 25px rgba(0,0,0,0.4);
-}
-.buttons {
-    position: absolute;
-    display: block;
-    right: 50px;
-}
-
-.buttons .btn {
-    margin-left: 1px;
-}
-
-.smallTitle {
-    margin: 14px 50px 10px;
-    padding: 0 0 10px;
-    border-bottom: 2px solid #999;
-    font: normal 18px "Playfair Display", serif;
-    text-transform: uppercase;
-    color: #777;
-}
-
-.bigTitle,
-.bigSubTitle {
-    margin-top: 40px;
-    margin-bottom: 10px;
-
-    text-align: center;
-    text-transform: uppercase;
-    font-family: "Playfair Display";
-}
-
-.bigTitle {
-    font-size: 60px;
-    color: #046;
-}
-
-.bigSubTitle {
-    margin-top: 0.2em;
-    margin-bottom: 0.8em;
-    font-size: 30px;
-    color: #bbb;
-}
 
 @media (min-width : 1300px) {
     .pageInner { width: 80%; margin: 0 auto;}

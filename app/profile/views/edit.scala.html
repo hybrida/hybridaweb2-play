@@ -48,84 +48,82 @@
     @infoItemBottom()
 }
 
-@layoutWithHead("Hybrida - " + name) {
+@layoutBoxPage("Hybrida - " + name) {
     <form method="POST" action="@profile.routes.Profile.update(username)"
             onsubmit="$('#profile_image_file').prop('disabled', true)">
-        <div class="page">
-            <div class="buttons">
-                <input class="float-right btn btn-primary" type="submit" value="Lagre">
-                <a class="float-right btn btn-primary" href="@profile.routes.Profile.index(username)">Avbryt</a>
+        <div class="buttons">
+            <input class="float-right btn btn-primary" type="submit" value="Lagre">
+            <a class="float-right btn btn-primary" href="@profile.routes.Profile.index(username)">Avbryt</a>
+        </div>
+        <h5 class="smallTitle">@name</h5>
+        <div class="pageInner edit">
+            <div class="pageItem">
+                <h3 class="bigSubTitle">PROFILBILDE</h3>
+                @if(messages.contains("profileImageFileName")) {
+                    <div class="message">
+                        <span class="bubble"></span>
+                        <span class="show-when-active">@(messages("profileImageFileName"))</span>
+                        <span class="hide-when-active">!</span>
+                    </div>
+                }
+                <input type="file" name="profileImageFile" class="profile-image-file-input hidden">
+                <input type="hidden" name="profileImageFileName" class="profile-image-file-name"
+                        value="@form("profileImageFileName").value">
+                <div class="picFrame poof">
+                    <img class="loader" src="@routes.Assets.at("images/ajax-loader.gif")">
+                    <img class="pic super-center" src="@(if(imageFilePath != null && !imageFilePath.equals("")) {
+                        routes.Assets.at(imageFilePath)
+                    }else{
+                        routes.Assets.at("images/placeholder-profile.jpg")
+                    })">
+
+                    <div class="pic-inner">
+                        <div class="link-container">
+                            <div class="link ajaxUpload">
+                                <span class="glyphicon glyphicon-upload"></span> Last opp bilde
+                            </div>
+                            <div class="link remove@if(imageFilePath == null || imageFilePath.equals("")){ hidden}">
+                                <span class="glyphicon glyphicon-remove-circle"></span> Fjern bildet
+                            </div>
+                        </div>
+                        <div class="drop hidden">
+                            <span class="glyphicon glyphicon-ajaxUpload"></span> Slipp for å laste opp
+                        </div>
+                    </div>
+                </div>
             </div>
-            <h5 class="smallTitle">@name</h5>
-            <div class="pageInner edit">
-                <div class="pageItem">
-                    <h3 class="bigSubTitle">PROFILBILDE</h3>
-                    @if(messages.contains("profileImageFileName")) {
-                        <div class="message">
-                            <span class="bubble"></span>
-                            <span class="show-when-active">@(messages("profileImageFileName"))</span>
-                            <span class="hide-when-active">!</span>
-                        </div>
-                    }
-                    <input type="file" name="profileImageFile" class="profile-image-file-input hidden">
-                    <input type="hidden" name="profileImageFileName" class="profile-image-file-name"
-                            value="@form("profileImageFileName").value">
-                    <div class="picFrame poof">
-                        <img class="loader" src="@routes.Assets.at("images/ajax-loader.gif")">
-                        <img class="pic super-center" src="@(if(imageFilePath != null && !imageFilePath.equals("")) {
-                            routes.Assets.at(imageFilePath)
-                        }else{
-                            routes.Assets.at("images/placeholder-profile.jpg")
-                        })">
+            <div class="pageItem info-block-container">
+                <h3 class="bigSubTitle">BRUKERINFO</h3>
+                <div class="info-block">
+                    <ul>
+                        @infoItem("NTNU-BRUKERNAVN", username)
+                    </ul>
+                </div>
+                <div class="info-block">
+                    <ul>
+                        @inputItem("FORNAVN", form("firstName").value, "firstName")
+                        @inputItem("MELLOMNAVN", form("middleName").value, "middleName")
+                        @inputItem("ETTERNAVN", form("lastName").value, "lastName")
+                    </ul>
+                </div>
+                <div class="info-block">
+                    <ul>
+                        @inputItem("ALTERNATIV E-POST", form("email").value, "email", "email")
+                        @inputItem("HJEMMESIDE", form("websiteUrl").value, "websiteUrl")
+                        @inputItem("TELEFON", form("phone").value, "phone")
+                    </ul>
+                </div>
+                <div class="info-block">
+                    <ul>
+                        @inputItem("TITTEL", form("title").value, "title")
+                        @inputItem("AVGANGSÅR", form("graduationYear").value, "graduationYear", "number")
+                        @dropDownItem("SPESIALISERING", form("specialization").value, "specialization",
+                            Specialization.displayNames())
+                    </ul>
+                </div>
+            </div>
 
-                        <div class="pic-inner">
-                            <div class="link-container">
-                                <div class="link ajaxUpload">
-                                    <span class="glyphicon glyphicon-upload"></span> Last opp bilde
-                                </div>
-                                <div class="link remove@if(imageFilePath == null || imageFilePath.equals("")){ hidden}">
-                                    <span class="glyphicon glyphicon-remove-circle"></span> Fjern bildet
-                                </div>
-                            </div>
-                            <div class="drop hidden">
-                                <span class="glyphicon glyphicon-ajaxUpload"></span> Slipp for å laste opp
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="pageItem info-block-container">
-                    <h3 class="bigSubTitle">BRUKERINFO</h3>
-                    <div class="info-block">
-                        <ul>
-                            @infoItem("NTNU-BRUKERNAVN", username)
-                        </ul>
-                    </div>
-                    <div class="info-block">
-                        <ul>
-                            @inputItem("FORNAVN", form("firstName").value, "firstName")
-                            @inputItem("MELLOMNAVN", form("middleName").value, "middleName")
-                            @inputItem("ETTERNAVN", form("lastName").value, "lastName")
-                        </ul>
-                    </div>
-                    <div class="info-block">
-                        <ul>
-                            @inputItem("ALTERNATIV E-POST", form("email").value, "email", "email")
-                            @inputItem("HJEMMESIDE", form("websiteUrl").value, "websiteUrl")
-                            @inputItem("TELEFON", form("phone").value, "phone")
-                        </ul>
-                    </div>
-                    <div class="info-block">
-                        <ul>
-                            @inputItem("TITTEL", form("title").value, "title")
-                            @inputItem("AVGANGSÅR", form("graduationYear").value, "graduationYear", "number")
-                            @dropDownItem("SPESIALISERING", form("specialization").value, "specialization",
-                                Specialization.displayNames())
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="clearfix">
-                </div>
+            <div class="clearfix">
             </div>
         </div>
     </form>

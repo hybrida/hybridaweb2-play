@@ -9,6 +9,7 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.twirl.api.Html;
+import views.html.layoutBoxPage;
 import views.html.layoutWithHead;
 
 import java.sql.Timestamp;
@@ -34,10 +35,10 @@ public class Calendar extends Controller {
             if (LoginState.isValidlyLoggedIn() && LoginState.getUser().canCreateNewArticle())
                 calendarType = calendar.views.html.calendarHeadGoogle.render();
 
-        return ok(layoutWithHead.render(
-			"Kalender",
-			calendarType,
-			calendar.views.html.calendarBody.render()));
+        return ok(layoutBoxPage.render(
+                "Kalender",
+                calendar.views.html.calendarBody.render(),
+                calendarType));
 	}
 
 	public static Result change() {

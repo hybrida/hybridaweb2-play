@@ -1,26 +1,26 @@
-.page {
+.box-page {
     width: 80%;
     min-width: 678px;
     max-width: 1600px;
     margin: 30px 50%;
-    padding: 40px 0 80px;
+    padding: 40px 50px 80px;
     transform: translate(-50%, 0);
     
     background: #fff;
     box-shadow: -5px 5px 25px rgba(0,0,0,0.4);
 }
-.buttons {
+.box-page .buttons {
     position: absolute;
     display: block;
     top: 32px;
     right: 50px;
 }
 
-.buttons .button {
+.box-page .buttons .button {
     margin-left: 1px;
 }
 
-.picFrame {
+.box-page .picFrame {
     background: #ccc;
     margin-top: 45px;
     height: auto;
@@ -28,7 +28,7 @@
     overflow: hidden;
 }
 
-.pic {
+.box-page .pic {
     display: block;
     margin: 0 auto 0;
     min-height: 200px;
@@ -36,8 +36,8 @@
     max-width: 100%;
 }
 
-.smallTitle {
-    margin: 0 50px 10px;
+.box-page .smallTitle {
+    margin: 0 0 10px;
     padding: 0 0 10px;
     border-bottom: 2px solid #999;
     font: normal 18px "Playfair Display", serif;
@@ -45,8 +45,8 @@
     color: #777;
 }
 
-.bigTitle,
-.bigSubTitle {
+.box-page .bigTitle,
+.box-page .bigSubTitle {
     margin: 40px 0 10px;
 
     text-align: center;
@@ -54,12 +54,12 @@
     font-family: "Playfair Display";
 }
 
-.bigTitle {
+.box-page .bigTitle {
     font-size: 60px;
     color: #046;
 }
 
-.bigSubTitle {
+.box-page .bigSubTitle {
     margin: 0.2em 0 0.8em;
     font-size: 30px;
     color: #bbb;
