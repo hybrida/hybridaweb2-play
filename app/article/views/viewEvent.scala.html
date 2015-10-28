@@ -65,31 +65,31 @@
 						<div class="row">
 							<div class="col-md-1">
 								<a href="@profile.routes.Profile.index(i.getAuthor.getUsername)" class="thumbnail">
-										<img src="@if(i.getAuthor.getProfileImageFileName != null){ /assets/ajaxUpload/@i.getAuthor.getUsername/@i.getAuthor.getProfileImageFileName} @if(i.getAuthor.getProfileImageFileName == null){/assets/images/logo_big.png}" alt="profilepic for @i.getAuthor.getName" width="30px">
+									<img src="@if(i.getAuthor.getProfileImageFileName != null){ /assets/ajaxUpload/@i.getAuthor.getUsername/@i.getAuthor.getProfileImageFileName} @if(i.getAuthor.getProfileImageFileName == null){/assets/images/logo_big.png}" alt="profilepic for @i.getAuthor.getName" width="30px">
 								</a>
 							</div>
 								<div class="col-md-11">
 									<div class="row">
-											<div class="col-md-10">
-													<strong>@(i.getAuthor().getName() + ":")</strong>
-											</div>
-											<div class="col-md-2">
-												@if(i.getAuthor() == models.LoginState.getUser() || i.getAuthor().admin) {
-													<!-- Extra small button group -->
-													<div class="btn-group">
-															<button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-																<span class="caret"></span>
-															</button>
-														<ul class="dropdown-menu" role="menu">
-															<form method="POST" action="@article.routes.Article.deleteComment(i.getCommentID.toString)">
-																<input type="hidden" name="isEvent" value="@event.getId">
-																<button type="submit" class="form-control"> Slett </button>
-															</form>
-														</ul>
-													</div>
-												}
-											</div>
+										<div class="col-md-10">
+											<strong>@(i.getAuthor().getName() + ":")</strong>
 										</div>
+										<div class="col-md-2">
+											@if(i.getAuthor() == models.LoginState.getUser() || i.getAuthor().admin) {
+												<!-- Extra small button group -->
+												<div class="btn-group">
+														<button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+															<span class="caret"></span>
+														</button>
+													<ul class="dropdown-menu" role="menu">
+														<form method="POST" action="@article.routes.Article.deleteComment(i.getCommentID.toString)">
+															<input type="hidden" name="isEvent" value="@event.getId">
+															<button type="submit" class="form-control"> Slett </button>
+														</form>
+													</ul>
+												</div>
+											}
+										</div>
+									</div>
 										<div class="row">
 											<div class="col-md-12">
 												@(i.getComment())
@@ -104,41 +104,47 @@
 								</div>
 							}
 							<div style="margin-top:1em">
-							<form action="@article.routes.Article.comment(inarticle.getId.toString)" method="POST">
+								<form action="@article.routes.Article.comment(inarticle.getId.toString)" method="POST">
 									<input type="hidden" name="isEvent" value="@event.getId">
 									<label for="comment" class="sr-only">Kommenter:</label>
 									<div class="input-group">
-											<input type="text" class="form-control" id="comment" name="comment" autocomplete="off" maxlength="250">
-											<span class="input-group-btn">
-													<button type="submit" class="btn btn-primary">Kommenter</button>
-											</span>
+										<input type="text" class="form-control" id="comment" name="comment" autocomplete="off" maxlength="250">
+										<span class="input-group-btn">
+											<button type="submit" class="btn btn-primary">Kommenter</button>
+										</span>
 									</div>
-							</form>
+								</form>
+							</div>
 						</div>
 					</div>
-		</div>
-	</div>
-	<div class="col-md-3">
+				</div>
+			<div class="col-md-3">
 			<div class="transparent-box-addition" style="margin-top:3%">
-					<div class="row">
-							<div class="col-md-6" style="border-right: solid lightslategray">
-									Start<br>
-									Slutt<br>
-									Sted<br>
-											@(//TODO LAGE logikk for visning av oppmeldingsinformasjon
-									//@event.getFirstLowerGraduationLimit
-									//@event.getFirstUpperGraduationLimit
-															)
+				<div class="row">
+					<div class="col-md-6" style="border-right: solid lightslategray">
+							Åpnes<br>
+							Frist<br>
+							2. Frist<br>
+							Start<br>
+							Slutt<br>
+							Sted<br>
+									@(//TODO LAGE logikk for visning av oppmeldingsinformasjon
+							//@event.getFirstLowerGraduationLimit
+							//@event.getFirstUpperGraduationLimit
+													)
 
-							</div>
-							<div class="col-md-6">
-								@event.getEventHappens.getTime
-								@event.getEventStops.getTime
-								@event.getLocation
-							</div>
-						</div>
-					}
-					<br>
+					</div>
+					<div class="col-md-6">
+						@event.getSignUpStart.getTime
+						@event.getSecondSignUp.getTime
+						@event.getSignUpDeadline.getTime
+						@event.getEventHappens.getTime
+						@event.getEventStops.getTime
+						@event.getLocation
+					</div>
+				</div>
+			}
+				<br>
 				<div class="row">
 					<div class="col-md-12">
 					<div class="progress">

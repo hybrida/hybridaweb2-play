@@ -35,23 +35,23 @@
 						<br>
 						<div class="form-group">
 							<label for="oD">Påmelding Åpnes:</label>
-							<input class="form-control" id="oD" type="datetime-local" name="signUpStart" value="@(event.calendarToString(event.getSignUpStart))">
+							<input class="form-control" id="oD" type="datetime-local" name="signUpStart" value="@(util.DateUtil.calendarToString(event.getSignUpStart))">
 						</div>
 						<div class="form-group">
 							<label for="aOD">Påmelding åpnes for andre:</label>
-							<input class="form-control" id="aOD" type="datetime-local" name="secondSignUp" value="@(event.calendarToString(event.getSecondSignUp))">
+							<input class="form-control" id="aOD" type="datetime-local" name="secondSignUp" value="@(util.DateUtil.calendarToString(event.getSecondSignUp))">
 						</div>
 						<div class="form-group">
 							<label for="oD">Påmelding Stenges:</label>
-							<input class="form-control" id="oD" type="datetime-local" name="signUpDeadline" value="@(event.calendarToString(event.getSignUpDeadline))">
+							<input class="form-control" id="oD" type="datetime-local" name="signUpDeadline" value="@(util.DateUtil.calendarToString(event.getSignUpDeadline))">
 						</div>
 						<div class="form-group">
 							<label for="nDS">Starttid:</label>
-							<input class="form-control" id="nDS" type="datetime-local" name="eventHappens" value="@(event.calendarToString(event.getEventHappens))">
+							<input class="form-control" id="nDS" type="datetime-local" name="eventHappens" value="@(util.DateUtil.calendarToString(event.getEventHappens))">
 						</div>
 						<div class="form-group">
 							<label for="tF">Sluttid:</label>
-							<input class="form-control" id="tF" type="datetime-local" name="timeFrame" placeholder="Varighet" value="@(event.calendarToString(event.getEventStops))">
+							<input class="form-control" id="tF" type="datetime-local" name="timeFrame" placeholder="Varighet" value="@(util.DateUtil.calendarToString(event.getEventStops))">
 						</div>
 						<div class="form-group">
 							<label for="loc">Sted:</label>

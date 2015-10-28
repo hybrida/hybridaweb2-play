@@ -1,5 +1,6 @@
 package statutter;
 
+import models.LoginState;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.layout;
@@ -10,6 +11,14 @@ import views.html.layout;
 public class Statutter extends Controller {
 
     public static Result index() {
-        return ok(layout.render("Statutter", statutter.views.html.statutter.render()));
+        if(!LoginState.isValidlyLoggedIn()) {return redirect(sso.routes.SSOLogin.login(play.mvc.Http.Context.current().request().path()));}
+        else {
+            return ok(
+                    views.html.layout.render(
+                            "Satutter",
+                            statutter.views.html.statutter.render()
+                    )
+            );
+        }
     }
 }

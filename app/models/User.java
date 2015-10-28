@@ -275,6 +275,10 @@ public class User extends Model implements ImmutableUser {
 		return thisOrFalse(root);
 	}
 
+	public boolean isFirstUser() {
+		return getId() == 1;
+	}
+
     public boolean hasProfileImagePos() {
         return profileImagePos != null;
     }
