@@ -54,14 +54,12 @@ public class ArticleIn extends Controller {
 			event.setArticle(article);
 			event.save();
 			models.Renders.addEvent(event);
+			return redirect(routes.Event.viewEvent("" + event.getId()));
 		} else {
 			article.save();
 			models.Renders.addArticle(article);
+			return redirect(routes.Article.viewArticle("" + article.getId()));
 		}
-
-		// To see all the inputs:
-		System.out.println(new HttpRequestData());
-		return redirect(routes.Article.viewArticle("" + article.getId()));
 	}
 
 	public static models.Article saveArticle() throws IllegalStateException {
