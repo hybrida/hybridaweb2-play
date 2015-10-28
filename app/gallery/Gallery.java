@@ -19,12 +19,7 @@ import java.util.List;
  */
 public class Gallery extends Controller {
     public static Result display() {
-        List<GalleryImage> images = GalleryImage.find.all();
-        List<String> urls = new ArrayList<>();
-        for (GalleryImage image : images) {
-            urls.add(image.getImageURL());
-        }
-        return ok(layout.render("Galleri", gallery.views.html.index.render(urls)));
+        return ok(layout.render("Galleri", gallery.views.html.index.render(GalleryImage.find.all())));
     }
 
     public static Result uploadGalleryImage() {

@@ -1,9 +1,21 @@
-@(images: List[String])
+@(images: List[GalleryImage])
 <script src='assets/javascripts/jquery-1.11.2.min.js'></script>
 <script src='assets/javascripts/masonry.js'></script>
-<script>
-    // Code goes here!
-</script>
+
+<style>
+    .image {
+        width: 200px;
+        height: 200px;
+        background-color: #00F;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 2px solid;
+        float: left;
+        overflow: hidden;
+    }
+</style>
 
 <form name="GalleryImage" action="@gallery.routes.Gallery.uploadGalleryImage()" method="POST" enctype="multipart/form-data">
     <input type="file" name="file"></input>
@@ -12,6 +24,23 @@
     <input type="submit" value="Post"></input>
 </form>
 
-@for(image <- images) {
-    <img src="@image"></img>
-}
+<div id="gallery">
+    <!--for(image <- images) {
+        <div class="grid-item">
+            <img src="image.getImageURL()" alt="image.getTitle()" longdesc="image.getDescription()"></img>
+        </div>
+    }-->
+    @for(a <- 1 until 20) {
+        <div class="image" style="width: @(100+scala.util.Random.nextInt(3)*100)px; height: @(100+scala.util.Random.nextInt(3)*100)px;">
+            @a
+        </div>
+    }
+</div>
+
+<script>
+    var $grid = $('#gallery').masonry({
+        // options
+        itemSelector: '.image',
+        columnWidth: 100
+    });
+</script>
