@@ -7,10 +7,11 @@ import play.twirl.api.Html;
 import models.HttpRequestData;
 import java.util.*;
 import admin.models.PasswordHash;
+import views.html.layoutBoxPage;
 
 public class Admin extends Controller {
 	public static Result index() {
-		return ok(layout.render("Admin", admin.views.html.loginform.render()));
+		return ok(layoutBoxPage.render("Admin", admin.views.html.loginform.render(), null));
 	}
 
 	public static Result login() {
@@ -59,7 +60,7 @@ public class Admin extends Controller {
 			all_forms += admin.views.html.NewForm.render().toString();
 			Html html = Html.apply(all_forms);
 			html = admin.views.html.table.render(html);
-			return ok(layout.render("User Administration", html));
+			return ok(layoutBoxPage.render("User Administration", html, null));
 		}
 	}
 
