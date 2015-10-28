@@ -19,7 +19,7 @@ public class Upload extends Controller {
 
     private enum FileType {IMAGE, PDF, DOCUMENT, OTHER}
 
-    public static String uploadTo(String uploadFolder) throws Unauthorized, ServerError, NoFileInRequest {
+    public static String uploadTo(String inputName, String uploadFolder) throws Unauthorized, ServerError, NoFileInRequest {
         User user = LoginState.getUser();
         if (user.isDefault()) throw new Unauthorized();
 
@@ -42,7 +42,7 @@ public class Upload extends Controller {
         }
 
         MultipartFormData formData = request().body().asMultipartFormData();
-        MultipartFormData.FilePart filePart = formData.getFile("file");
+        MultipartFormData.FilePart filePart = formData.getFile(inputName);
         if(filePart != null) {
             File tempFile = filePart.getFile();
             String filename = filePart.getFilename();
@@ -59,13 +59,13 @@ public class Upload extends Controller {
         }
     }
 
-    public static String upload() throws Unauthorized, NoFileInRequest, ServerError {
-        return uploadTo(null);
+    public static String upload(String inputName) throws Unauthorized, NoFileInRequest, ServerError {
+        return uploadTo(inputName, null);
     }
 
     public static Result ajaxUploadTo(String uploadFolder) {
         try {
-            return ok(uploadTo(uploadFolder));
+            return ok(uploadTo("file", uploadFolder));
         } catch (Unauthorized unauthorized) {
             return unauthorized();
         } catch (NoFileInRequest noFileInRequest) {
