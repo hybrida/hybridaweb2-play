@@ -25,7 +25,7 @@ public class Event extends Model {
 		String error = form.validate();
 		if (error != null) throw new Error(error);
 		Event event = new Event();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 		try {
 			event.signUpStart = Calendar.getInstance();
 			event.secondSignUp = Calendar.getInstance();
@@ -34,12 +34,13 @@ public class Event extends Model {
 			event.eventStops = Calendar.getInstance();
 
 			event.signUpStart.setTime(format.parse(form.signUpStart));
+			System.out.println(format.parse(form.signUpStart));
 			event.secondSignUp.setTime(format.parse(form.secondSignUp));
 			event.signUpDeadline.setTime(format.parse(form.signUpDeadline));
 			event.eventHappens.setTime(format.parse(form.eventHappens));
 			event.eventStops.setTime(format.parse(form.timeFrame));
 		} catch (ParseException excObj) {
-			System.out.println(excObj);
+			System.out.println("HEEEEEEEEEEEE" + excObj);
 		}
 		event.firstYearAllowed = form.firstYearAllowed;
 		event.secondYearAllowed = form.secondYearAllowed;
@@ -184,6 +185,10 @@ public class Event extends Model {
 	private int secondUpperGraduationLimit;
 	private int secondLowerGraduationLimit;
 
+	public String bool2checked(boolean bool) {
+		return bool ? "checked" : "";
+	}
+
 	public boolean
 		firstYearAllowed,
 		secondYearAllowed,
@@ -207,6 +212,22 @@ public class Event extends Model {
 	private Calendar signUpDeadline;
 	private Calendar eventHappens;
 	private Calendar eventStops;
+
+	public Calendar getSignUpStart() {
+		return signUpStart;
+	}
+
+	public String areAllGendersAllowed() {
+		return getGenderAllowed() == 'A' ? "checked" : "";
+	}
+
+	public String areOnlyMalesAllowed() {
+		return getGenderAllowed() == 'M' ? "checked" : "";
+	}
+
+	public String areOnlyFemalesAllowed() {
+		return getGenderAllowed() == 'F' ? "checked" : "";
+	}
 
 	public boolean checkAndAddJoiner(User user) {
 		boolean allowed = false;
@@ -286,6 +307,15 @@ public class Event extends Model {
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+
+	public String calendarToString(Calendar convert) {
+		Integer year = convert.get(Calendar.YEAR),
+			month = convert.get(Calendar.MONTH) + 1,
+			day = convert.get(Calendar.DAY_OF_MONTH),
+			hour = convert.get(Calendar.HOUR_OF_DAY),
+			mins = convert.get(Calendar.MINUTE);
+		return "" + year + "-" + String.format("%02d", month) + "-" + String.format("%02d", day) + "T" + String.format("%02d", hour) + ":" + String.format("%02d", mins);
 	}
 
 	public int getFirstUpperGraduationLimit() {
