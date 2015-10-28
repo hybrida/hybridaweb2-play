@@ -40,7 +40,7 @@ public class ArticleIn extends Controller {
 		try {
 			article = articleForm.bindFromRequest().get();
 		} catch (IllegalStateException exc) {
-			return application.Application.show400("Fikk tom input");
+			return application.Application.show400("Fikk tom input. Frykt ikke; bare trykk tilbake for å redde det du prøvde å poste.");
 		}
 		if (article.validate() != null)
 			return application.Application.showUnauthorizedAccess();
