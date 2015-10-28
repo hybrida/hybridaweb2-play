@@ -336,6 +336,10 @@ public class User extends Model implements ImmutableUser {
 		save();
 	}
 
+	public String getProfilePictureWithFallBackOnDefault() {
+		return getProfileImageFileName().equals("") ? "/assets/images/logo_big.png" : "/assets/uploads/" + getUsername() + "/" + getProfileImageFileName();
+	}
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder("USER[\n");
 		if (id != null) sb.append("\tid: " + id.toString() + ", \n");

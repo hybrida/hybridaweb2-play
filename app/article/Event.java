@@ -36,15 +36,14 @@ public class Event extends Controller {
 	public static Result removeUser() {
 		User user = LoginState.getUser();
 		if (user.isDefault()) {
-			return application.Application.show400("Du må logge inn på nytt.");
+			return show400("Du må logge inn på nytt.");
 		}
 		Long event_id = new HttpRequestData().getLong("eventId");
 		if (event_id == null) {
-			return application.Application.show400("Forventet HTTP data nøkkel 'eventId' ikke funnet.");
+			return show400("Forventet HTTP data nøkkel 'eventId' ikke funnet.");
 		}
 
 		models.Event event = models.Event.find.byId(event_id);
-		event.getJoinedUsers().remove(event.getJoinedUsers().indexOf(user));
 		event.save();
 
 		return redirect(routes.Event.viewEvent(event_id.toString()).absoluteURL(request()));

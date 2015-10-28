@@ -21,8 +21,9 @@ public class Event extends Model {
 
 	public static Event getFromRequest() {
 		Form<EventForm> eventForm = form(EventForm.class);
+		System.out.println(new HttpRequestData());
 		EventForm form = eventForm.bindFromRequest().get();
-		String error = form.validate();
+		String error = form.doValidation();
 		if (error != null) throw new Error(error);
 		Event event = new Event();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
@@ -58,7 +59,7 @@ public class Event extends Model {
 		event.maxParticipants = Integer.parseInt(form.maxParticipants);
 		event.maxParticipantsWaiting = Integer.parseInt(form.maxParticipantsWaiting);
 		event.genderAllowed = form.genderAllowed.charAt(0);
-		event.binding = form.binding;
+		event.binding = form.binding != null;
 		return event;
 	}
 
@@ -71,7 +72,7 @@ public class Event extends Model {
 			eventHappens,
 			timeFrame;
 
-		public boolean
+		public Boolean
 			firstYearAllowed,
 			secondYearAllowed,
 			thirdYearAllowed,
@@ -133,7 +134,7 @@ public class Event extends Model {
 
 		// Validate the newly generated event.
 		// This is a pure function.
-		public String validate() {
+		public String doValidation() {
 			Calendar now = Calendar.getInstance();
 			// Check whether the input is a valid event.
 			boolean isValid = true;
@@ -147,11 +148,15 @@ public class Event extends Model {
 
 			// Check whether the times are valid.
 			isValid &= before(now, signUpStart);
+			if (isValid == false) return "Now is not before the sign up start";
 			isValid &= beforeOrEq(signUpStart, secondSignUp);
+			if (isValid == false) return "Sign up is not before or equal to the second sign up";
 			isValid &= before(secondSignUp, signUpDeadline);
+			if (isValid == false) return "Second sign up is not before the deadline";
 			isValid &= before(signUpDeadline, eventHappens);
+			if (isValid == false) return "The deadline is not before the event's happening";
 			isValid &= before(eventHappens, timeFrame);
-			if (isValid == false) return "wrongdates";
+			if (isValid == false) return "The does not start before the end";
 
 			// Check whether at least one class is allowed
 			int sum = firstYearAllowed ? 1 : 0;
@@ -163,9 +168,7 @@ public class Event extends Model {
 
 			// If the second sign up is null, we need not check if any class is allowed.
 			if (secondSignUp == null)
-			{
 				return "SHEIT";
-			}
 			return null;
 		}
 	}
@@ -219,6 +222,54 @@ public class Event extends Model {
 	private Calendar eventHappens;
 	private Calendar eventStops;
 
+	public boolean canRemove() {
+		return binding && Calendar.getInstance().after(signUpDeadline);
+	}
+
+	public boolean canJoin(User user) {
+		if (user.isDefault())
+			return false;
+		boolean allowed = false;
+		// Check gender requirements
+		char gender = getGenderAllowed();
+		if (gender == 'A')
+			;
+		else if (gender != user.getGender())
+			return false;
+		// Check if the timeframe is correct
+		Calendar calendar = Calendar.getInstance();
+		if (calendar.after(eventHappens))
+			return false;
+		Calendar opening = getSignUpStart();
+		Calendar secondTime = getSecondSignUp();
+		Calendar closing = getSignUpDeadline();
+		if (calendar.before(opening))
+			;
+		else if (calendar.before(secondTime)) {
+			// Check if the class matches
+			switch (user.calculateClass()) {
+				case 1: allowed = firstYearAllowed; break;
+				case 2: allowed = secondYearAllowed; break;
+				case 3: allowed = thirdYearAllowed; break;
+				case 4: allowed = fourthYearAllowed; break;
+				case 5: allowed = fifthYearAllowed; break;
+				default: break;
+			}
+		} else if (calendar.before(closing)) {
+				// Check if the class matches
+			switch (user.calculateClass()) {
+				case 1: allowed = firstYearAllowedAfterSecondSignup; break;
+				case 2: allowed = secondYearAllowedAfterSecondSignup; break;
+				case 3: allowed = thirdYearAllowedAfterSecondSignup; break;
+				case 4: allowed = fourthYearAllowedAfterSecondSignup; break;
+				case 5: allowed = fifthYearAllowedAfterSecondSignup; break;
+				default: break;
+			}
+		} else
+			allowed = false;
+		return allowed;
+	}
+
 	public Calendar getSignUpStart() {
 		return signUpStart;
 	}
@@ -235,36 +286,17 @@ public class Event extends Model {
 		return getGenderAllowed() == 'F' ? "checked" : "";
 	}
 
-	public boolean checkAndAddJoiner(User user) {
-		boolean allowed = false;
-		// Check if the timeframe is correct
-		Calendar calendar = Calendar.getInstance();
-		if (calendar.after(eventHappens))
+	public boolean checkAndRemoveJoiner(User user) {
+		if (canRemove()) {
+			getJoinedUsers().remove(getJoinedUsers().indexOf(user));
+			return true;
+		}
+		else
 			return false;
-		Calendar firstTime = getSignUpDeadline();
-		Calendar secondTime = getSecondSignUp();
-		if (calendar.before(firstTime)) {
-			// Check if the class matches
-			switch (user.calculateClass()) {
-				case 1: allowed = firstYearAllowed; break;
-				case 2: allowed = secondYearAllowed; break;
-				case 3: allowed = thirdYearAllowed; break;
-				case 4: allowed = fourthYearAllowed; break;
-				case 5: allowed = fifthYearAllowed; break;
-				default: break;
-			}
-		} else if (calendar.before(secondTime)) {
-				// Check if the class matches
-			switch (user.calculateClass()) {
-				case 1: allowed = firstYearAllowedAfterSecondSignup; break;
-				case 2: allowed = secondYearAllowedAfterSecondSignup; break;
-				case 3: allowed = thirdYearAllowedAfterSecondSignup; break;
-				case 4: allowed = fourthYearAllowedAfterSecondSignup; break;
-				case 5: allowed = fifthYearAllowedAfterSecondSignup; break;
-				default: break;
-			}
-		} else
-			allowed = false;
+	}
+
+	public boolean checkAndAddJoiner(User user) {
+		boolean allowed = canJoin(user);
 		if (allowed)
 			joinedUsers.add(user);
 		return allowed;

@@ -65,7 +65,7 @@
 						<div class="row">
 							<div class="col-md-1">
 								<a href="@profile.routes.Profile.index(i.getAuthor.getUsername)" class="thumbnail">
-									<img src="@if(i.getAuthor.getProfileImageFileName != null){ /assets/ajaxUpload/@i.getAuthor.getUsername/@i.getAuthor.getProfileImageFileName} @if(i.getAuthor.getProfileImageFileName == null){/assets/images/logo_big.png}" alt="profilepic for @i.getAuthor.getName" width="30px">
+									<img src="@i.getAuthor.getProfilePictureWithFallBackOnDefault" alt="profilepic for @i.getAuthor.getName" width="30px">
 								</a>
 							</div>
 								<div class="col-md-11">
@@ -128,6 +128,7 @@
 							Start<br>
 							Slutt<br>
 							Sted<br>
+							@(if (event.binding) "Bindende Påmelding" else "")<br>
 									@(//TODO LAGE logikk for visning av oppmeldingsinformasjon
 							//@event.getFirstLowerGraduationLimit
 							//@event.getFirstUpperGraduationLimit
@@ -162,12 +163,12 @@
 						 @if(!event.getJoinedUsers.contains(models.LoginState.getUser)){
 							<form method="post" action="@article.routes.Event.updateUser()">
 								<input type="hidden" name="eventId" value="@event.getId">
-							 <button type="submit" class="btn btn-primary btn-sm btn-block"> Meld meg på</button>
+							 <button type="submit" class="@if(!event.canJoin(models.LoginState.getUser)){disabled} btn btn-primary btn-sm btn-block"> Meld meg på</button>
 							</form>
 						 }else{
 							 <form method="post" action="@article.routes.Event.removeUser()">
 								<input type="hidden" name="eventId" value="@event.getId">
-								<button type="submit" class="btn btn-primary btn-sm btn-block"> Meld meg av</button>
+								<button type="submit" class="@if(event.canRemove()){disabled} btn btn-primary btn-sm btn-block"> Meld meg av</button>
 							 </form>
 						}
 					</div>
