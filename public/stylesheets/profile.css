@@ -16,9 +16,6 @@
 
 .picFrame {
     position: relative;
-    margin-top: 25px;
-    margin-left: auto;
-    margin-right: auto;
     width: auto;
     height: auto;
     max-width: 60%;
@@ -28,57 +25,6 @@
     border-radius: 5px;
     background: #ccc;
     overflow: hidden;
-}
-
-.edit .picFrame {
-    height: 300px;
-    text-align: center;
-}
-
-
-.edit .picFrame .pic-inner,
-.edit .picFrame .loader {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.edit .picFrame .pic-inner {
-    width: 0;
-    height: 0;
-    padding: 50%;
-
-    font-size: large;
-    font-weight: bold;
-    color: white;
-}
-
-.edit .picFrame .loader {
-    position: relative;
-    display: block;
-    width: 43px;
-    margin: 0 auto;
-}
-
-.edit .picFrame .link-container,
-.edit .picFrame .drop {
-    line-height: 45px;
-    width:150px;
-    transform: translate(-50%, -50%);
-    cursor:pointer;
-    text-shadow: rgba(0,0,0,1) 0 0 7px;
-    z-index: 3;
-}
-
-.edit .picFrame .link:hover,
-.edit .picFrame .drop {
-    color: #eee;
-    text-shadow: rgba(0,0,0,1) 0 0 10px;
-}
-
-.edit .picFrame .glyphicon {
-    position: relative;
-    top: 3px;
 }
 
 .pic {
@@ -94,39 +40,17 @@
     min-height: 200px;
     height: auto;
     max-height: 600px;
-}
 
-.edit .pic {
-    min-width: 0;
-    max-width: 100%;
-    min-height: 0;
-    max-height: 100%;
-}
-
-.edit .poof .pic-inner {
-    visibility: hidden;
-}
-
-.edit .poof:hover .pic-inner {
-    visibility: visible;
-}
-
-.edit .poof:hover .loader {
-    visibility: hidden;
-}
-
-.edit .poof:hover .pic {
-    opacity: 0.5;
+    background: #ccc;
 }
 
 .info-block {
-    margin-top: 30px;
+    margin: 0;
     padding: 30px 0;
     background: url('/assets/images/profile_bg.gif') center repeat-y;
 }
 
 .info-block + .info-block {
-    margin-top: 0;
     padding-top: 0;
 }
 
@@ -225,6 +149,81 @@
 }
 
 
+.edit .picFrame {
+    height: 300px;
+    text-align: center;
+}
+
+
+.edit .picFrame .pic-inner,
+.edit .picFrame .loader {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.edit .picFrame .pic-inner {
+    width: 0;
+    height: 0;
+    padding: 50%;
+
+    font-size: large;
+    font-weight: bold;
+    color: white;
+}
+
+.edit .picFrame .loader {
+    position: relative;
+    display: block;
+    width: 43px;
+    margin: 0 auto;
+}
+
+.edit .picFrame .link-container,
+.edit .picFrame .drop {
+    line-height: 45px;
+    width:150px;
+    transform: translate(-50%, -50%);
+    cursor:pointer;
+    text-shadow: rgba(0,0,0,1) 0 0 7px;
+    z-index: 3;
+}
+
+.edit .picFrame .link:hover,
+.edit .picFrame .drop {
+    color: #eee;
+    text-shadow: rgba(0,0,0,1) 0 0 10px;
+}
+
+.edit .picFrame .glyphicon {
+    position: relative;
+    top: 3px;
+}
+
+.edit .pic {
+    min-width: 0;
+    max-width: 100%;
+    min-height: 0;
+    max-height: 100%;
+}
+
+.edit .poof .pic-inner {
+    visibility: hidden;
+}
+
+.edit .poof:hover .pic-inner {
+    visibility: visible;
+}
+
+.edit .poof:hover .loader {
+    visibility: hidden;
+}
+
+.edit .poof:hover .pic {
+    opacity: 0.5;
+}
+
+
 @media (min-width : 1300px) {
     .pageInner { width: 80%; margin: 0 auto;}
     .pageItem { width: 40%; float: right;}
@@ -234,7 +233,6 @@
         min-width: 200px;
         max-height: 500px;
     }
-    .nedit .info-block-container { margin-top: 0;}
     .info-block input,
     .info-block select { width: 100%;}
 }
