@@ -58,6 +58,7 @@ public class Event extends Model {
 		event.maxParticipants = Integer.parseInt(form.maxParticipants);
 		event.maxParticipantsWaiting = Integer.parseInt(form.maxParticipantsWaiting);
 		event.genderAllowed = form.genderAllowed.charAt(0);
+		event.binding = form.binding;
 		return event;
 	}
 
@@ -81,7 +82,9 @@ public class Event extends Model {
 			secondYearAllowedAfterSecondSignup,
 			thirdYearAllowedAfterSecondSignup,
 			fourthYearAllowedAfterSecondSignup,
-			fifthYearAllowedAfterSecondSignup;
+			fifthYearAllowedAfterSecondSignup,
+
+			binding;
 
 		public String
 			location,
@@ -185,6 +188,10 @@ public class Event extends Model {
 	private int secondUpperGraduationLimit;
 	private int secondLowerGraduationLimit;
 
+	public String bool2checked(boolean bool) {
+		return bool ? "checked" : "";
+	}
+
 	public boolean
 		firstYearAllowed,
 		secondYearAllowed,
@@ -197,6 +204,9 @@ public class Event extends Model {
 		thirdYearAllowedAfterSecondSignup,
 		fourthYearAllowedAfterSecondSignup,
 		fifthYearAllowedAfterSecondSignup;
+
+	public boolean
+		binding;
 
 	private char genderAllowed;
 
@@ -211,6 +221,18 @@ public class Event extends Model {
 
 	public Calendar getSignUpStart() {
 		return signUpStart;
+	}
+
+	public String areAllGendersAllowed() {
+		return getGenderAllowed() == 'A' ? "checked" : "";
+	}
+
+	public String areOnlyMalesAllowed() {
+		return getGenderAllowed() == 'M' ? "checked" : "";
+	}
+
+	public String areOnlyFemalesAllowed() {
+		return getGenderAllowed() == 'F' ? "checked" : "";
 	}
 
 	public boolean checkAndAddJoiner(User user) {

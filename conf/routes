@@ -2,7 +2,7 @@
 # This file defines all application routes (Higher priority routes first)
 
 # Standard layout accessible pages
-GET           /                                        application.Application.index()
+GET           /                                 application.Application.index()
 
 # Static info pages
 GET           /admin                                   admin.Admin.index()
@@ -12,33 +12,33 @@ GET           /admin/users                             admin.Admin.allUsers()
 POST          /admin/newuser                           admin.Admin.newUser()
 GET           /griffensorden/nominasjon                nomination.Nomination.index()
 GET           /griffensorden/riddere                   riddere.Riddere.index()
-GET           /griffensorden                           orderofthegriff.griffensOrden.index()
+GET           /griffensorden                           orderofthegriff.GriffensOrden.index()
 GET           /jentekom                                jentekom.JenteKom.index()
 GET           /statutter                               statutter.Statutter.index()
 
-GET           /griffensorden                           riddere.Riddere.index()
-GET           /hybrida                                 abouthybrida.AboutHybrida.index()
-GET           /nystudent                               newstudent.NewStudent.index()
-GET           /styret                                  hybridaleaders.HybridaLeaders.index()
+GET           /griffensorden                    riddere.Riddere.index()
+GET           /hybrida                          abouthybrida.AboutHybrida.index()
+GET           /nystudent                        newstudent.NewStudent.index()
+GET           /styret                           hybridaleaders.HybridaLeaders.index()
 
 # Upload
-POST          /api/upload                              controllers.Upload.ajaxUpload()
-POST          /api/upload/:uploadFolder                controllers.Upload.ajaxUploadTo(uploadFolder)
+POST          /api/upload                       controllers.Upload.ajaxUpload()
+POST          /api/upload/:uploadFolder         controllers.Upload.ajaxUploadTo(uploadFolder)
 
 # BedkomDatabase
-GET           /bedkomdatabase                          bedkomdatabase.Bedkomdatabase.index()
+GET           /bedkomdatabase                   bedkomdatabase.Bedkomdatabase.index()
 
-POST          /bedkomdatabase/bedrift                  bedkomdatabase.Bedkomdatabase.saveBedrift()
-POST          /bedkomdatabase/bedrift/ud/:id           bedkomdatabase.Bedkomdatabase.updateBedrift(id)
-POST          /bedkomdatabase/bedrift/slett/:id        bedkomdatabase.Bedkomdatabase.deleteBedrift(id)
+POST          /bedkomdatabase/bedrift           bedkomdatabase.Bedkomdatabase.saveBedrift()
+POST          /bedkomdatabase/bedrift/ud/:id    bedkomdatabase.Bedkomdatabase.updateBedrift(id)
+POST          /bedkomdatabase/bedrift/slett/:id bedkomdatabase.Bedkomdatabase.deleteBedrift(id)
 
-POST          /bedkomdatabase/kontakt/:id              bedkomdatabase.Bedkomdatabase.saveKontaktPerson(id)
-POST          /bedkomdatabase/kontakt/slett/:id        bedkomdatabase.Bedkomdatabase.deleteKontaktPerson(id)
-POST          /bedkomdatabase/kontakt/ud/:id           bedkomdatabase.Bedkomdatabase.updateKontaktPerson(id)
+POST          /bedkomdatabase/kontakt/:id       bedkomdatabase.Bedkomdatabase.saveKontaktPerson(id)
+POST          /bedkomdatabase/kontakt/slett/:id bedkomdatabase.Bedkomdatabase.deleteKontaktPerson(id)
+POST          /bedkomdatabase/kontakt/ud/:id    bedkomdatabase.Bedkomdatabase.updateKontaktPerson(id)
 
-POST          /bedkomdatabase/notat/:id                bedkomdatabase.Bedkomdatabase.saveNote(id)
-POST          /bedkomdatabase/notat/ud/:id             bedkomdatabase.Bedkomdatabase.updateNote(id)
-POST          /bedkomdatabase/notat/slett/:id          bedkomdatabase.Bedkomdatabase.deleteNote(id)
+POST          /bedkomdatabase/notat/:id         bedkomdatabase.Bedkomdatabase.saveNote(id)
+POST          /bedkomdatabase/notat/ud/:id      bedkomdatabase.Bedkomdatabase.updateNote(id)
+POST          /bedkomdatabase/notat/slett/:id   bedkomdatabase.Bedkomdatabase.deleteNote(id)
 
 
 
@@ -48,96 +48,98 @@ GET           /api/kalender/hent                       calendar.Calendar.fetch(s
 POST          /api/kalender/endre                      calendar.Calendar.change()
 
 # Update
-GET           /update                                  update.Update.index()
-POST          /update                                  update.Update.post()
-GET           /update/utgaver                          update.Update.utgaver()
-GET           /update/redaksjon                        update.Update.redaksjon()
+GET           /update                           update.Update.index()
+POST          /update                           update.Update.post()
+GET           /update/utgaver                   update.Update.utgaver()
+GET           /update/redaksjon                 update.Update.redaksjon()
 
 # Article and events
-GET           /artikkel/ny                             article.ArticleIn.index()
-POST          /artikkel/ny                             article.ArticleIn.save()
-GET           /artikkel/:id                            article.Article.viewArticle(id)
-GET           /artikkel/:id/endre                      article.Article.editArticle(id)
-POST          /artikkel/:id/lagreEndring               article.ArticleIn.saveEdit(id)
-GET           /event/:id                               article.Event.viewEvent(id)
-GET           /event/:id/endre                         article.Event.editEvent(id)
-POST          /event/:id/lagreEndring                  article.Event.saveEdit(id)
+GET           /artikkel/ny                      article.ArticleIn.index()
+POST          /artikkel/ny                      article.ArticleIn.save()
+GET           /artikkel/:id                     article.Article.viewArticle(id)
+GET           /artikkel/:id/endre               article.Article.editArticle(id)
+POST          /artikkel/:id/lagreEndring        article.ArticleIn.saveEdit(id)
+GET           /event/:id                        article.Event.viewEvent(id)
+GET           /event/:id/endre                  article.Event.editEvent(id)
+POST          /event/:id/lagreEndring           article.Event.saveEdit(id)
 
-POST          /comment/:articleID                      article.Article.comment(articleID)
-POST          /comment/delete/:commentID               article.Article.deleteComment(commentID)
+POST          /comment/:articleID               article.Article.comment(articleID)
+POST          /comment/delete/:commentID        article.Article.deleteComment(commentID)
 
-GET           /bedriftalt                              company.Company.index()
-GET           /bedrift                                 bedrift.Bedrift.index()
+GET           /bedriftalt                        company.Company.index()
+GET           /bedrift                           bedrift.Bedrift.index()
 
 # Ebean example
-GET           /ebean                                   examples.controllers.ExampleEbean.index()
-POST          /ebean                                   examples.controllers.ExampleEbean.add()
-POST          /ebean/clear                             examples.controllers.ExampleEbean.clear()
+GET           /ebean                            examples.controllers.ExampleEbean.index()
+POST          /ebean                            examples.controllers.ExampleEbean.add()
+POST          /ebean/clear                      examples.controllers.ExampleEbean.clear()
 
 # Bruker current login cookie, og en eventId i POST
-POST          /event/meldpaa                           article.Event.updateUser()
+POST          /event/meldpaa                    article.Event.updateUser()
 # Bruker current login cookie, og en eventId i POST
-POST          /event/meldav                            article.Event.removeUser()
+POST          /event/meldav                     article.Event.removeUser()
 
 # Backup memory database
-GET           /api/backup                              backup.BackupDatabase.index()
+GET           /api/backup                       backup.BackupDatabase.index()
 
 # Search
-GET           /search                                  controllers.Search.index()
+GET           /search                           controllers.Search.index()
 
 # Login
-GET           /login                                   sso.SSOLogin.login(returnarg: String)
-GET           /logout                                  sso.SSOLogin.logout()
-GET           /verifylogin                             sso.SSOLogin.verifylogin()
-GET           /kontaktforbruker                        contactforuser.ContactForUser.index()
+GET           /login                            sso.SSOLogin.login(returnarg: String)
+GET           /logout                           sso.SSOLogin.logout()
+GET           /verifylogin                      sso.SSOLogin.verifylogin()
+GET           /kontaktforbruker                 contactforuser.ContactForUser.index()
 
 # Profile
-GET           /profil/:username                        profile.Profile.index(username)
-GET           /profil/:username/rediger                profile.Profile.edit(username)
-POST          /profil/:username/rediger                profile.Profile.update(username)
+GET           /profil/:username                 profile.Profile.index(username)
+GET           /profil/:username/rediger         profile.Profile.edit(username)
+POST          /profil/:username/rediger         profile.Profile.update(username)
 
 # Quiz
-GET           /quiz                                    quiz.QuizController.index()
-GET           /api/quiz/teams                          quiz.QuizController.quizTeams()
-PUT           /api/quiz/team                           quiz.QuizController.putTeam()
-DELETE        /api/quiz/team/:id                       quiz.QuizController.deleteTeamById(id: Long)
-GET           /api/quiz/seasons                        quiz.QuizController.quizSeasons()
-PUT           /api/quiz/season                         quiz.QuizController.putSeason()
-DELETE        /api/quiz/season/:id                     quiz.QuizController.deleteSeasonById(id: Long)
+GET           /quiz                             quiz.QuizController.index()
+GET           /api/quiz/teams                   quiz.QuizController.quizTeams()
+PUT           /api/quiz/team                    quiz.QuizController.putTeam()
+DELETE        /api/quiz/team/:id                quiz.QuizController.deleteTeamById(id: Long)
+GET           /api/quiz/seasons                 quiz.QuizController.quizSeasons()
+PUT           /api/quiz/season                  quiz.QuizController.putSeason()
+DELETE        /api/quiz/season/:id              quiz.QuizController.deleteSeasonById(id: Long)
 
 
 
 # TEST
 # # Chat
-GET           /chat                                    chat.Chat.connectClient()
-GET           /chatserver                              chat.Chat.socket()
+GET           /chat                             chat.Chat.connectClient()
+GET           /chatserver                       chat.Chat.socket()
 
-GET           /arrkom                                  arrkom.ArrKom.index()
-GET           /andreas                                 andreas.Andreas.index()
+GET           /arrkom                           arrkom.ArrKom.index()
+GET           /andreas                          andreas.Andreas.index()
 
 # EXAMPLES
 # # Ebean
-GET           /examples/ebean                          examples.controllers.ExampleEbean.index()
-POST          /examples/ebean                          examples.controllers.ExampleEbean.add()
-POST          /examples/ebean/clear                    examples.controllers.ExampleEbean.clear()
+GET           /examples/ebean                   examples.controllers.ExampleEbean.index()
+POST          /examples/ebean                   examples.controllers.ExampleEbean.add()
+POST          /examples/ebean/clear             examples.controllers.ExampleEbean.clear()
 # # ImageUpload
-GET           /examples/imageupload                    examples.controllers.ExampleImageUpload.index()
-POST          /examples/imageupload                    examples.controllers.ExampleImageUpload.upload()
+GET           /examples/imageupload             examples.controllers.ExampleImageUpload.index()
+POST          /examples/imageupload             examples.controllers.ExampleImageUpload.upload()
 # # Cookies
-GET           /examples/cookies                        examples.controllers.ExampleCookies.index()
-POST          /examples/cookies/clear                  examples.controllers.ExampleCookies.clearAllCookies()
-GET           /examples/cookies/clear                  examples.controllers.ExampleCookies.clearAllCookies()
+GET           /examples/cookies                 examples.controllers.ExampleCookies.index()
+POST          /examples/cookies/clear           examples.controllers.ExampleCookies.clearAllCookies()
+GET           /examples/cookies/clear           examples.controllers.ExampleCookies.clearAllCookies()
 # # Database
-GET           /examples/database                       examples.controllers.ExampleDatabase.index()
+GET           /examples/database                examples.controllers.ExampleDatabase.index()
 # # AngularJS
-GET           /examples/angular                        examples.controllers.ExampleAngular.index()
+GET           /examples/angular                 examples.controllers.ExampleAngular.index()
+# # Limited Access
+GET           /examples/access                  examples.controllers.ExampleStaticAccess.index()
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET           /assets/*file                            controllers.Assets.at(path="/public", file)
+GET           /assets/*file                     controllers.Assets.at(path="/public", file)
 
-GET           /unauthorized                            application.Application.showUnauthorizedAccess()
+GET           /unauthorized                     application.Application.showUnauthorizedAccess()
 
 # Show some page describing the URL if all else fails
-GET           /$anything<.*>                           application.Application.show404(anything: String)
-GET           /error400/:error                         application.Application.show400(error)
+GET           /$anything<.*>                    application.Application.show404(anything: String)
+GET           /error400/:error                  application.Application.show400(error)
