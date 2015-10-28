@@ -77,8 +77,8 @@ public class User extends Model implements ImmutableUser {
 	// Misc. account info
 	@Column(name = "LAST_LOGIN")
 	private Timestamp          lastLogin; // Used to avoid cookie-stealing schemes and MITM attacks. Combined with AES with time and RNG padded encryption.
-    @Column(name = "PROFILE_IMAGE_POS")
-    public Double              profileImagePos;
+	@Column(name = "PROFILE_IMAGE_POS")
+	public Double              profileImagePos;
 
 	public User() {}
 
@@ -88,7 +88,7 @@ public class User extends Model implements ImmutableUser {
 		this.lastName = lastName;
 	}
 
-    public boolean isDefault() {
+	public boolean isDefault() {
 		return (id == null);
 	}
 
@@ -105,57 +105,57 @@ public class User extends Model implements ImmutableUser {
 	}
 
 
-    // Getters and Setter (and some hassers)
+	// Getters and Setter (and some hassers)
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getUsername() {
-        return this.username;
-    }
+	public String getUsername() {
+		return this.username;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public String getFirstName() {
-        return firstName;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    public boolean hasMiddleName() {
+	public boolean hasMiddleName() {
 		return middleName != null && !middleName.equals("");
 	}
 
-    public String getMiddleName() {
-        return middleName;
-    }
+	public String getMiddleName() {
+		return middleName;
+	}
 
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
 
-    public String getName() {
-        return firstName + " " + lastName;
-    }
+	public String getName() {
+		return firstName + " " + lastName;
+	}
 
-    public String getFullName() {
-        return firstName + " " + (hasMiddleName() ? middleName + " " : "") + lastName;
-    }
+	public String getFullName() {
+		return firstName + " " + (hasMiddleName() ? middleName + " " : "") + lastName;
+	}
 
-    public boolean hasEmail() {
+	public boolean hasEmail() {
 		return email != null && !email.equals("");
 	}
 
@@ -163,13 +163,13 @@ public class User extends Model implements ImmutableUser {
 		return email;
 	}
 
-    public void setEmail(String email) {
-        if (email.isEmpty()) this.email = "";
-        else {
-            int i = email.indexOf('@');
-            this.email = email.substring(0, i) + email.substring(i).toLowerCase();
-        }
-    }
+	public void setEmail(String email) {
+		if (email.isEmpty()) this.email = "";
+		else {
+			int i = email.indexOf('@');
+			this.email = email.substring(0, i) + email.substring(i).toLowerCase();
+		}
+	}
 
 	public boolean hasWebsiteUrl() {
 		return websiteUrl != null && !websiteUrl.equals("");
@@ -179,21 +179,21 @@ public class User extends Model implements ImmutableUser {
 		return websiteUrl;
 	}
 
-    public void setWebsiteUrl(String websiteUrl) {
-        if (websiteUrl.isEmpty()) this.websiteUrl = "";
-        else {
-            if (!websiteUrl.substring(0, 4).equalsIgnoreCase("http")) {
-                websiteUrl = "http://" + websiteUrl + (websiteUrl.indexOf('/') == -1 ? "/" : "");
-            }
-            if (websiteUrl.indexOf('?') != -1) {
-                int i = websiteUrl.indexOf('?');
-                websiteUrl = websiteUrl.substring(0, i).toLowerCase() + websiteUrl.substring(i);
-            }
-            this.websiteUrl = websiteUrl;
-        }
-    }
+	public void setWebsiteUrl(String websiteUrl) {
+		if (websiteUrl.isEmpty()) this.websiteUrl = "";
+		else {
+			if (!websiteUrl.substring(0, 4).equalsIgnoreCase("http")) {
+				websiteUrl = "http://" + websiteUrl + (websiteUrl.indexOf('/') == -1 ? "/" : "");
+			}
+			if (websiteUrl.indexOf('?') != -1) {
+				int i = websiteUrl.indexOf('?');
+				websiteUrl = websiteUrl.substring(0, i).toLowerCase() + websiteUrl.substring(i);
+			}
+			this.websiteUrl = websiteUrl;
+		}
+	}
 
-    public boolean hasPhone() {
+	public boolean hasPhone() {
 		return phone != null && !phone.equals("");
 	}
 
@@ -201,57 +201,57 @@ public class User extends Model implements ImmutableUser {
 		return phone;
 	}
 
-    public void setPhone(String phone) {
-        if (phone.isEmpty()) this.phone = "";
-        else {
-            phone = phone.replaceAll(" ", "");
-            phone = phone.substring(phone.length() - 8);
-            this.phone = "+47 " + phone.substring(0, 3) + " " + phone.substring(3, 5) + " " + phone.substring(5);
-        }
-    }
+	public void setPhone(String phone) {
+		if (phone.isEmpty()) this.phone = "";
+		else {
+			phone = phone.replaceAll(" ", "");
+			phone = phone.substring(phone.length() - 8);
+			this.phone = "+47 " + phone.substring(0, 3) + " " + phone.substring(3, 5) + " " + phone.substring(5);
+		}
+	}
 
-    public boolean hasTitle() {
-        return title != null && title.length() > 0;
-    }
+	public boolean hasTitle() {
+		return title != null && title.length() > 0;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public boolean hasGraduationYear() {
-        return graduationYear != null;
-    }
+	public boolean hasGraduationYear() {
+		return graduationYear != null;
+	}
 
-    public Integer getGraduationYear() {
-        return graduationYear;
-    }
+	public Integer getGraduationYear() {
+		return graduationYear;
+	}
 
-    public void setGraduationYear(Integer graduationYear) {
-        this.graduationYear = graduationYear;
-    }
+	public void setGraduationYear(Integer graduationYear) {
+		this.graduationYear = graduationYear;
+	}
 
-    public boolean hasSpecialization() {
-        return specialization != null && specialization != Specialization.NONE;
-    }
+	public boolean hasSpecialization() {
+		return specialization != null && specialization != Specialization.NONE;
+	}
 
-    public Specialization getSpecialization() {
-        if (specialization == null) specialization = Specialization.NONE;
-        return specialization;
-    }
+	public Specialization getSpecialization() {
+		if (specialization == null) specialization = Specialization.NONE;
+			return specialization;
+	}
 
-    public void setSpecialization(Specialization specialization) {
-        this.specialization = specialization;
-    }
+	public void setSpecialization(Specialization specialization) {
+		this.specialization = specialization;
+	}
 
-    public void setSpecialization(String displayName) {
-        this.specialization = Specialization.fromDisplayName(displayName);
-    }
+	public void setSpecialization(String displayName) {
+		this.specialization = Specialization.fromDisplayName(displayName);
+	}
 
-    public boolean hasProfileImage() {
+	public boolean hasProfileImage() {
 		return profileImageFileName != null && !profileImageFileName.equals("");
 	}
 
@@ -259,9 +259,9 @@ public class User extends Model implements ImmutableUser {
 		return profileImageFileName;
 	}
 
-    public void setProfileImageFileName(String profileImageFileName) {
-        this.profileImageFileName = profileImageFileName;
-    }
+	public void setProfileImageFileName(String profileImageFileName) {
+		this.profileImageFileName = profileImageFileName;
+	}
 
     public Timestamp getLastLoginTime() {
 		return lastLogin;
@@ -279,32 +279,32 @@ public class User extends Model implements ImmutableUser {
 		return getId() == 1;
 	}
 
-    public boolean hasProfileImagePos() {
-        return profileImagePos != null;
-    }
+	public boolean hasProfileImagePos() {
+		return profileImagePos != null;
+	}
 
-    public Double getProfileImagePos() {
-        return profileImagePos;
-    }
+	public Double getProfileImagePos() {
+		return profileImagePos;
+	}
 
-    public void setProfileImagePos(Double profileImagePos) {
-        this.profileImagePos = profileImagePos;
-    }
+	public void setProfileImagePos(Double profileImagePos) {
+		this.profileImagePos = profileImagePos;
+	}
 
-    public String uploadPicture(String inputName) {
-        try {
-            return Upload.upload(inputName);
-        } catch (Unauthorized unauthorized) {
-            unauthorized.printStackTrace();
-        } catch (NoFileInRequest noFileInRequest) {
-            noFileInRequest.printStackTrace();
-        } catch (ServerError serverError) {
-            serverError.printStackTrace();
-        }
-        return null;
-    }
+	public String uploadPicture(String inputName) {
+		try {
+			return Upload.upload(inputName);
+		} catch (Unauthorized unauthorized) {
+			unauthorized.printStackTrace();
+		} catch (NoFileInRequest noFileInRequest) {
+			noFileInRequest.printStackTrace();
+		} catch (ServerError serverError) {
+			serverError.printStackTrace();
+		}
+		return null;
+	}
 
-    public int calculateClass() {
+	public int calculateClass() {
 		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 		int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
 		int classYear = 5 - (graduationYear - currentYear);
