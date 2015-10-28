@@ -79,13 +79,13 @@ public class Event extends Controller {
 
 		String image_path = null;
 		try{
-				image_path = Upload.upload();
+			image_path = Upload.upload();
 		} catch (Unauthorized unauthorized) {
-				unauthorized.printStackTrace();
+			unauthorized.printStackTrace();
 		} catch (NoFileInRequest noFileInRequest) {
-				noFileInRequest.printStackTrace();
+			noFileInRequest.printStackTrace();
 		} catch (ServerError serverError) {
-				serverError.printStackTrace();
+			serverError.printStackTrace();
 		}
 		if (!articleInput.hasErrors()) {
 			models.Article articleModel = articleInput.get();

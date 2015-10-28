@@ -5,15 +5,16 @@
 GET           /                                 application.Application.index()
 
 # Static info pages
-GET           /admin                            admin.Admin.index()
-POST          /admin/login                      admin.Admin.login()
-POST          /admin/logout                     admin.Admin.logout()
-GET           /admin/users                      admin.Admin.allUsers()
-POST          /admin/newuser                    admin.Admin.newUser()
-GET           /griffensorden/nominasjon         nomination.Nomination.index()
-GET           /griffensorden/riddere            riddere.Riddere.index()
-GET           /griffensorden                    orderofthegriff.griffensOrden.index()
-GET           /jentekom                         jentekom.JenteKom.index()
+GET           /admin                                   admin.Admin.index()
+POST          /admin/login                             admin.Admin.login()
+POST          /admin/logout                            admin.Admin.logout()
+GET           /admin/users                             admin.Admin.allUsers()
+POST          /admin/newuser                           admin.Admin.newUser()
+GET           /griffensorden/nominasjon                nomination.Nomination.index()
+GET           /griffensorden/riddere                   riddere.Riddere.index()
+GET           /griffensorden                           orderofthegriff.GriffensOrden.index()
+GET           /jentekom                                jentekom.JenteKom.index()
+GET           /statutter                               statutter.Statutter.index()
 
 GET           /griffensorden                    riddere.Riddere.index()
 GET           /hybrida                          abouthybrida.AboutHybrida.index()
@@ -42,9 +43,9 @@ POST          /bedkomdatabase/notat/slett/:id   bedkomdatabase.Bedkomdatabase.de
 
 
 # Calendar
-GET           /kalender                         calendar.Calendar.display(gcal: Boolean ?= false)
-GET           /api/kalender/hent                calendar.Calendar.fetch(start: String, end: String)
-POST          /api/kalender/endre               calendar.Calendar.change()
+GET           /kalender                                calendar.Calendar.display(gcal: Boolean ?= false)
+GET           /api/kalender/hent                       calendar.Calendar.fetch(start: String, end: String)
+POST          /api/kalender/endre                      calendar.Calendar.change()
 
 # Update
 GET           /update                           update.Update.index()
@@ -130,6 +131,8 @@ GET           /examples/cookies/clear           examples.controllers.ExampleCook
 GET           /examples/database                examples.controllers.ExampleDatabase.index()
 # # AngularJS
 GET           /examples/angular                 examples.controllers.ExampleAngular.index()
+# # Limited Access
+GET           /examples/access                  examples.controllers.ExampleStaticAccess.index()
 
 
 # Map static resources from the /public folder to the /assets URL path
