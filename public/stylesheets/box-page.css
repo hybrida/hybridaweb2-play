@@ -1,7 +1,6 @@
 .box-page {
     width: 80%;
     min-width: 678px;
-    max-width: 1600px;
     margin: 30px 50%;
     padding: 40px 50px 80px;
     transform: translate(-50%, 0);
@@ -18,48 +17,4 @@
 
 .box-page .buttons .button {
     margin-left: 1px;
-}
-
-.box-page .picFrame {
-    background: #ccc;
-    height: auto;
-    width: auto;
-    overflow: hidden;
-}
-
-.box-page .pic {
-    display: block;
-    margin: 0 auto 0;
-    min-height: 200px;
-    width: auto;
-    max-width: 100%;
-}
-
-.box-page .smallTitle {
-    margin: 0 0 10px;
-    padding: 0 0 10px;
-    border-bottom: 2px solid #999;
-    font: normal 18px "Playfair Display", serif;
-    text-transform: uppercase;
-    color: #777;
-}
-
-.box-page .bigTitle,
-.box-page .bigSubTitle {
-    margin: 40px 0 10px;
-
-    text-align: center;
-    text-transform: uppercase;
-    font-family: "Playfair Display";
-}
-
-.box-page .bigTitle {
-    font-size: 60px;
-    color: #046;
-}
-
-.box-page .bigSubTitle {
-    margin: 0.2em 0 0.8em;
-    font-size: 30px;
-    color: #bbb;
 }

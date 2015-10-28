@@ -14,8 +14,8 @@
 					<br>
 					<h3><p class="text-center">@inarticle.getIngress</p></h3>
 					<br>
-					<p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">
-						Av: @inarticle.getAuthor.getName
+					<p class="smallTitle">
+						Av: @inarticle.getAuthor.getFullName
 						@if(models.LoginState.getUser().getUsername == inarticle.getAuthor.getUsername) {
 							<a href="@article.routes.Event.editEvent("" + event.getId)">
 								<button class="btn-xs btn-primary"> Rediger </button>
@@ -24,7 +24,7 @@
 					</p>
 						@Html(inarticle.getText)
 						<hr>
-					<p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">
+					<p class="smallTitle">
 						Påmeldte
 					</p>
 					@if(models.LoginState.isValidlyLoggedIn) {
@@ -60,7 +60,7 @@
 			@if(models.LoginState.isValidlyLoggedIn){
 			<div class="row">
 				<div class="col-md-12 transparent-box" style="margin-top : 1 %">
-					<p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">Kommentarer</p>
+					<p class="smallTitle">Kommentarer</p>
 					@for(i <- inarticle.getCommentList()) {
 						<div class="row">
 							<div class="col-md-1">
