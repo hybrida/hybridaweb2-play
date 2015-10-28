@@ -8,6 +8,7 @@ import models.*;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.layout;
+import static application.Application.show400;
 
 import java.util.List;
 
@@ -18,10 +19,12 @@ public class Event extends Controller {
 	public static Result updateUser() {
 		User user = LoginState.getUser();
 		if (user.isDefault())
-			return application.Application.show400("Du må logge inn på nytt.");
+			return show400("Du må logge inn på nytt.");
+		if (user.isRoot())
+			return show400("Du kan ikke melde deg på som root bruker.");
 		Long event_id = new HttpRequestData().getLong("eventId");
 		if (event_id == null)
-			return application.Application.show400("Forventet HTTP data nøkkel 'eventId' ikke funnet.");
+			return show400("Forventet HTTP data nøkkel 'eventId' ikke funnet.");
 
 		models.Event evt = models.Event.find.byId(event_id);
 		evt.checkAndAddJoiner(user);

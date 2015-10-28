@@ -7,6 +7,7 @@ import static play.data.Form.form;
 
 import java.text.ParseException;
 import java.util.Calendar;
+import java.time.LocalDate;
 
 import article.Article;
 import article.views.html.*;
@@ -21,7 +22,24 @@ public class ArticleIn extends Controller {
 	final static Form<models.Event> eventForm = form(models.Event.class);
 
 	public static Result index() {
-		return ok(layout.render("Hybrida: Opprett Artikkel", index.render()));
+		Calendar signUpStart = Calendar.getInstance();
+		signUpStart.add(Calendar.DAY_OF_MONTH, 1);
+
+		Calendar secondSignUp = Calendar.getInstance();
+		secondSignUp.add(Calendar.DAY_OF_MONTH, 3);
+
+		Calendar signUpDeadline = Calendar.getInstance();
+		signUpDeadline.add(Calendar.DAY_OF_MONTH, 7);
+
+		Calendar eventHappens = Calendar.getInstance();
+		eventHappens.add(Calendar.DAY_OF_MONTH, 8);
+
+		Calendar eventEnds = Calendar.getInstance();
+		eventEnds.add(Calendar.DAY_OF_MONTH, 9);
+
+		return ok(layout.render("Hybrida: Opprett Artikkel",
+			index.render(signUpStart, secondSignUp, signUpDeadline, eventHappens,
+				eventEnds)));
 	}
 
 	public static boolean thisIsAnEvent() {
