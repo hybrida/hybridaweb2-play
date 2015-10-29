@@ -29,6 +29,7 @@
 						<a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">@(models.LoginState.getUser().getName())</a>
 						<ul class="dropdown-menu" role="menu">
 							<li> <a href="@profile.routes.Profile.index(models.LoginState.getUser().getUsername())">Profil</a></li>
+							@if(models.LoginState.getUser.isFirstUser){<li><a href="@admin.routes.Admin.allUsers()">Administrer</a></li>}
 							<li><a href="@sso.routes.SSOLogin.logout()">Logg ut</a></li>
 						</ul>
 					</li>
