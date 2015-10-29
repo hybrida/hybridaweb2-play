@@ -10,6 +10,7 @@ import admin.models.PasswordHash;
 import views.html.layoutBoxPage;
 import admin.views.html.UserForm;
 import admin.views.html.FormHead;
+import admin.views.html.FormHeadNew;
 import admin.models.RingNumber;
 
 public class Admin extends Controller {
@@ -60,6 +61,7 @@ public class Admin extends Controller {
 				formheads += FormHead.render(
 					user.getId()).toString();
 			}
+			formheads += FormHeadNew.render().toString();
 			RingNumber period = new RingNumber(10);
 			for (models.User user : users) {
 				Html gen = UserForm.render(
@@ -83,9 +85,7 @@ public class Admin extends Controller {
 	}
 
 	public static Result newUser() {
-		models.HttpRequestData data = new models.HttpRequestData();
-		models.User user = new models.User();
-		user.username = data.get("username");
+		models.User user = models.User.getUserFromForm();
 		user.save();
 		return redirect(admin.routes.Admin.allUsers());
 	}
