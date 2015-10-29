@@ -1,9 +1,10 @@
 @(title: String)(content: Html)(headContent: Html = null)
 @layoutWithHead(title) {
-    <div class="box-page">
-        @content
+    <div class="container-fluid center-80 page-top">
+        <div class="col-md-12 box-page">
+            @content
+        </div>
     </div>
 } {
-    <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/box-page.css")" />
     @headContent
 }

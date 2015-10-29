@@ -1,0 +1,13 @@
+@(content: Html)
+<div class="container-fluid center-80 page-top">
+    <div class="row">
+	<div class="col-md-9">
+        <div class="box-page">
+            <h5 class="smallTitle">NEWSFEED</h5>
+                @content
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    @application.views.html.sidebar.render
+    </div>
+</div>

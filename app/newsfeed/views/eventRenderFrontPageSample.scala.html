@@ -1,0 +1,35 @@
+@(inarticle : models.Article, inevent : models.Event)
+@(/*This is for rendering a single event preview. It returns the bare html needed for the article to be correctly displayed. CSS should be added as well...*/)
+<div style="position: relative;">
+	<div style="padding-top: 100%;">
+	</div>
+	<div class="container-with-set-aspect-ratio">
+		<a href="@(article.routes.Event.viewEvent(String.valueOf(inevent.getId())))">
+			<div style="position: relative">
+				<div style="padding-top: 61.8%">
+				</div>
+				<div class="container-with-set-aspect-ratio">
+					<img src="@inarticle.getImagePath" alt="No image available" width=100%/>
+				</div>
+			</div>
+			<h3 class="col-xs-12">
+			@inarticle.getTitle
+			</h3>
+		</a>
+		<p class="col-xs-12">@inarticle.getIngress</p>
+		<div class="container-fluid" style="position: absolute; bottom: 0; background: rgba(245,245,245,1); width: 100%;">
+            <div class="row">
+                <div class="col-xs-6">@util.DateUtil.calendarToColloquial(inevent.getEventHappens)</div>
+                <div class="col-xs-6">
+                    <div class="progress" style="margin-bottom: 0;">
+                        <div class="progress-bar" style="width: @(((inevent.getJoinedUsers.size))*100/inevent.getMaxParticipants)%">
+                        </div>
+                        <span>
+                            @(inevent.getJoinedUsers.size) / @inevent.getMaxParticipants
+                        </span>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</div>
+</div>

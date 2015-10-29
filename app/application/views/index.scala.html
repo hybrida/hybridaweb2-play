@@ -1,6 +1,3 @@
-@(content: Html)
-
-@if(!LoginState.isValidlyLoggedIn){
 <div data-ride="carousel" class="carousel slide" id="carousel-frontpage">
 	<ol class="carousel-indicators">
 		<li class="active" data-slide-to="0" data-target="#carousel-frontpage"></li>
@@ -30,35 +27,23 @@
 </div>
 <div class="fp_white" style="margin-top: -.2%">
 </div>
-}
 <!--<div class="fp_beige"></div> -->
-<div class="container-fluid">
+<div class="container-fluid center-80 page-top">
+    <div class="row">
 	<div class="col-md-9">
-		<div class="col-md-12" style="margin-top: 1em; margin-bottom: 1em">
-			<div class="col-md-4 sleek-box-bg" style="background:lightblue; max-height: 200px; height 200px; display: block;">
-				Lett informasjon dukker opp her!
-			</div>
-			<div class="col-md-4 sleek-box-bg" style="background:lightgreen; max-height: 200px; height 200px; display: block; ">
-				<a href="@newstudent.routes.NewStudent.index()"> Ny student? Klikk her!</a>
-			</div>
-			<div class="col-md-4 sleek-box-bg" style="background:lightcoral; max-height: 200px; height 200px; display: block;">
-				Lett informasjon dukker opp her!
-			</div>
-		</div>
-	<div class="col-md-12 sleek-box-bg" style="margin-top: 1em; margin-bottom: 1em">
-		<p class="subtitle_styled">NEWSFEED</p>
-@content
-		<div class="clearfix">
-		</div>
-	</div>
-</div>
-<div class="col-md-3">
-	<div class="col-md-12">
-		<div class="sleek-box-bg" style="margin-top: 1em; margin-bottom: 1em">
-			Her kommer kule widgets<br>
-			Og andre kule ting<br>
-			Som facebooklikes<br>
-			Og Instagramshit<br>
-		</div>
-	</div>
+        <div class="drop-shadow">
+            <div class="col-md-4 white-box no-shadow inverted" style="background:#005675;">
+                Lett informasjon dukker opp her!
+            </div>
+            <div class="col-md-4 white-box no-shadow inverted">
+                <a href="@newstudent.routes.NewStudent.index()"> Ny student? Klikk her!</a>
+            </div>
+            <div class="col-md-4 white-box no-shadow inverted" style="background:#7c3f63;">
+                Lett informasjon dukker opp her!
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    @sidebar.render
+    </div>
 </div>

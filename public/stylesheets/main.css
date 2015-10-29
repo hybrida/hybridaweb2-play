@@ -35,7 +35,7 @@ a {
     color: #777;
 }
 
-a :hover {
+a:hover {
 
     text-decoration: none;
     text-underline: none!important;
@@ -92,43 +92,22 @@ a :hover {
     right: 16px;
 }
 
+.transparent-box,
+.white-box{
+    background-color: rgba(245,245,245,1);
+    _border-radius: 4px;
+    padding: 20px;
+    overflow: auto;
+}
+
 .transparent-box {
     background-color: rgba(245,245,245,0.9);
-    border-radius: 4px;
-    padding: 20px;
-    margin-top: 1%;
-    box-shadow: -5px 5px 25px rgba(0,0,0,0.4);
-}
-.transparent-box-addition {
-    background-color: rgba(245,245,245,0.9);
-    border-radius: 4px;
-    padding: 20px;
-    box-shadow: -5px 5px 25px rgba(0,0,0,0.4);
-    margin-left: 1%;
-}
-.white-boxer{
-    background-color: rgba(245,245,245,1);
-    border-radius: 4px;
-    padding: 20px;
-    margin-top: 1%;
-    box-shadow: -5px 5px 25px rgba(0,0,0,0.4);
 }
 
 .sleek-box{
     background-color: rgba(255,255,255,0.9);
     padding: 1px;
     margin: 1px;
-    -webkit-box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.3);
-    -moz-box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.3);
-    box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.3);
-}
-.sleek-box-bg{
-    background-color: rgba(255,255,255,1);
-    padding: 1em;
-    -webkit-box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.3);
-    -moz-box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.3);
-    box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.3);
-    overflow: auto;
 }
 
 .art-img{
@@ -167,7 +146,7 @@ a :hover {
     padding: 1%;
 }
 .fp_beige{
-    background-color: lightslategray;
+    background-color: #f7eee7;
     padding: .5%;
 }
 
@@ -178,8 +157,47 @@ a :hover {
 .clearfix {
     display: block;
     width: 100%;
-    height: 10px;
+    height: 0;
     clear: both;
+}
+
+.center-80 {
+    width: 80%;
+    margin-left: 50%;
+    margin-right: 50%;
+    transform: translateX(-50%);
+}
+
+.box-page,
+.sleek-box,
+.white-box,
+.white-box,
+.transparent-box,
+.transparent-box-addition,
+.drop-shadow {
+    box-shadow: -5px 5px 25px rgba(0,0,0,0.4);
+}
+
+.no-shadow{
+    box-shadow: none !important;
+}
+
+.box-page {
+    min-width: 678px;
+    margin: 0;
+    padding: 40px 50px 80px;
+
+    background: #fff;
+}
+.box-page .buttons {
+    position: absolute;
+    display: block;
+    top: 32px;
+    right: 50px;
+}
+
+.box-page .buttons .button {
+    margin-left: 1px;
 }
 
 .smallTitle {
@@ -215,6 +233,19 @@ a :hover {
 
 .fc-state-highlight {
     background-color: rgb(184, 201, 216) !important;
+}
+
+.page-top{
+    margin-top: 30px;
+}
+
+.inverted {
+    background-color: #496873;
+    color: #f7eee7;
+}
+.inverted a,
+a.inverted{
+    color: #fff;
 }
 
 @media only screen and (max-width: 888px) {

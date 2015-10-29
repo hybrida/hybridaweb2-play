@@ -3,6 +3,7 @@
 
 # Standard layout accessible pages
 GET           /                                 application.Application.index()
+GET           /forside                          application.Application.frontpage()
 
 # Static info pages
 GET           /admin                                   admin.Admin.index()
