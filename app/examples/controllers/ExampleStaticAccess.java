@@ -13,7 +13,7 @@ public class ExampleStaticAccess extends Controller {
 
     static public Result index() {
         if(!LoginState.isValidlyLoggedIn()) return redirect(sso.routes.SSOLogin.login(request().path()));
-        if(!LoginState.getUser().hasAccess(true, User.Access.ADMIN)) return application.Application.showUnauthorizedAccess();
+        if(!LoginState.getUser().loggedInUserHasAccess(true, User.Access.ADMIN)) return application.Application.showUnauthorizedAccess();
         return ok(layoutWithHead.render(
                 "Example Access",
                 examples.views.html.exampleStaticAccess.render(),

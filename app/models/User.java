@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(
@@ -92,11 +93,15 @@ public class User extends Model implements ImmutableUser {
 	@Column(name = "STUDENT", columnDefinition = "boolean default false")
 	public Boolean             student;    // No special privileges except for file ajaxUpload.
 	@Column(name = "BEDKOM", columnDefinition = "boolean default false")
-	public Boolean             bedkom;     // Control over bedpress.
+	public Boolean             bedkom;     // Access to bedkom functionality.
 	@Column(name = "ARRKOM", columnDefinition = "boolean default false")
-	public Boolean             arrkom;     // Control over arrkom.
+	public Boolean             arrkom;     // Access to arrkom functionality.
 	@Column(name = "VEVKOM", columnDefinition = "boolean default false")
-	public Boolean             vevkom;     // Control over vevkom.
+	public Boolean             vevkom;     // Access to vevkom functionality.
+	@Column(name = "ADMIN", columnDefinition = "boolean default false")
+	public Boolean             jentekom;   // Access to jentekom functionality.
+	@Column(name = "ADMIN", columnDefinition = "boolean default false")
+	public Boolean             redaksjonen;// Access to redkasjonen functionality.
 	@Column(name = "ADMIN", columnDefinition = "boolean default false")
 	public Boolean             admin;      // For control over the entire page. Check your privilege
 	@Column(name = "ROOT", columnDefinition = "boolean default false")
@@ -334,6 +339,37 @@ public class User extends Model implements ImmutableUser {
 		return getId() == 1;
 	}
 
+    public boolean isInArrkom() {
+        return arrkom;
+    }
+
+    public boolean isInBedkom() {
+        return bedkom;
+    }
+
+    public boolean isInVevkom() {
+        return vevkom;
+    }
+
+    public boolean isInJentekom() {
+        return jentekom;
+    }
+
+    public boolean isInRedaksjonen() {
+        return redaksjonen;
+    }
+
+    @Override
+    public ArrayList<Access> getMemberships() {
+        ArrayList<Access> committees = new ArrayList<>();
+        for(Access committee : Access.COMMITTEES) if(committee.userHasAccess(this)) committees.add(committee);
+        return committees;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
 	public boolean hasProfileImagePos() {
 		return profileImagePos != null;
 	}
@@ -419,97 +455,49 @@ public class User extends Model implements ImmutableUser {
 		return sb.toString();
 	}
 
-	public enum Access {
-		BEDKOM,
-		ARRKOM,
-		VEVKOM,
-		ADMIN,
-		ROOT;
-	}
+    public enum Access {
+        BEDKOM("Bedkom"){ @Override public boolean userHasAccess(User user) { return user.isInBedkom();}},
+        ARRKOM("Arrkom"){ @Override public boolean userHasAccess(User user) { return user.isInArrkom();}},
+        VEVKOM("Vevkom"){ @Override public boolean userHasAccess(User user) { return user.isInVevkom();}},
+        JENTEKOM("Jentekom"){ @Override public boolean userHasAccess(User user) { return user.isInJentekom();}},
+        REDAKSJONEN("Redaksjonen"){ @Override public boolean userHasAccess(User user) { return user.isInRedaksjonen();}},
+        ADMIN("Admin"){ @Override public boolean userHasAccess(User user) { return user.isAdmin();}},
+        ROOT("Root"){ @Override public boolean userHasAccess(User user) { return user.isRoot();}};
 
-	public boolean isInArrkom() {
-		return hasAccess(this, true, Access.ARRKOM);
-	}
+        private String name;
+        public static final Access[] COMMITTEES = new Access[]{BEDKOM, ARRKOM, VEVKOM, JENTEKOM, REDAKSJONEN};
+        Access(String name) {this.name = name;}
+        @Override public String toString() {return name;}
+        public abstract boolean userHasAccess(User user);
+    }
 
-	public boolean isAdmin() {
-		return hasAccess(this, true, Access.ADMIN);
-	}
+    public boolean hasAccess(boolean inAll, Access... accessList) {
+        //Parameters explained: user: the user you want to check;
+        //inAll: set true if you want to check if has ALL entered accesses, false if you want to check if has
+        // ANY of the entered accesses.
+        //Accesses are entered on the form models.User.Access.<access> (for example: models.User.Access.BEDKOM)
 
-	public boolean isInBedkom() {
-		return hasAccess(this, true, Access.BEDKOM);
-	}
+        if (isDefault()) {
+            return false;
+        }
+        if (inAll) {
+            for(Access access : accessList) if(!access.userHasAccess(this)) return false;
+            return true;
+        }
+        for(Access access : accessList) if(access.userHasAccess(this)) return true;
+        return false;
+    }
 
-	public boolean isInVevkom() {
-		return hasAccess(this, true, Access.VEVKOM);
-	}
+    public static boolean hasAccess(User user, boolean inAll, Access... accessList) {
+        return user.hasAccess(inAll, accessList);
+    }
 
-	public static boolean hasAccess(boolean inAll, Access... accessList) {
-		return hasAccess(LoginState.getUser(), inAll, accessList);
-	}
+    public static boolean loggedInUserHasAccess(boolean inAll, Access... accessList) {
+        return hasAccess(LoginState.getUser(), inAll, accessList);
+    }
 
-	public static boolean hasAccess(User user, boolean inAll, Access... accessList) {
-		//Parameters explained: user: the user you want to check;
-		//inAll: set true if you want to check if user has ALL entered accesses, false if you want to check if user has
-		// ANY of the entered accesses.
-		//Accesses are entered on the form models.User.Access.<access> (for example: models.User.Access.BEDKOM)
 
-		if (user.isDefault()) {
-			return false;
-		}
-		if (inAll == false) {
-			boolean access = false;
-			for (Access i : accessList) {
-				if (i == Access.BEDKOM) {
-					access = user.bedkom;
-				}
-				if (i == Access.ARRKOM) {
-					access = user.arrkom;
-				}
-				if (i == Access.VEVKOM) {
-					access = user.vevkom;
-				}
-				if (i == Access.ADMIN) {
-					access = user.admin;
-				}
-				if (i == Access.ROOT) {
-					access = user.root;
-				}
-				if (access == true) {
-					return true;
-				}
-			}
-			return false;
-		}
-		else {
-			boolean tempHasAccess = false;
-			for (Access i : accessList) {
-				if (i == Access.BEDKOM) {
-					tempHasAccess = user.bedkom;
-				}
-				if (i == Access.ARRKOM) {
-					tempHasAccess = user.arrkom;
-				}
-				if (i == Access.VEVKOM) {
-					tempHasAccess = user.vevkom;
-				}
-				if (i == Access.ADMIN) {
-					tempHasAccess = user.admin;
-				}
-				if (i == Access.ROOT) {
-					tempHasAccess = user.root;
-				}
-				if (tempHasAccess == false) {
-					return false;
-				}
-			}
-			if (tempHasAccess == false) {
-				return false;
-			}
-			return true;
-		}
-	}
-
-	public boolean isBlockedFrom(models.Event event) {
+    public boolean isBlockedFrom(models.Event event) {
 		if (block4FromThisEvent != null)
 			return event.getId() == block4FromThisEvent.getId();
 		else
