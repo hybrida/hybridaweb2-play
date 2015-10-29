@@ -8,6 +8,7 @@ import models.*;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.layout;
+import article.views.html.*;
 import static application.Application.show400;
 
 import java.util.List;
@@ -54,7 +55,8 @@ public class Event extends Controller {
 			models.Event evt = models.Event.find.byId(Long.valueOf(eventId));
 			models.Article art = evt.getArticle();
 			List<User> signedups = evt.getJoinedUsers();
-			return ok(layout.render("Arrangement", article.views.html.viewEvent.render(art, evt)));
+			System.out.println(evt.getUserBlocked(LoginState.getUser()));
+			return ok(layout.render("Arrangement", viewEvent.render(art, evt)));
 		}
 		else
 			return application.Application.show404(request().uri().replaceFirst("/", ""));

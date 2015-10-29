@@ -108,6 +108,10 @@ public class User extends Model implements ImmutableUser {
 	@Column(name = "DATE_OF_BIRTH")
 	public Timestamp           dateOfBirth;
 
+	@ManyToOne
+	@Column(columnDefinition = "default null")
+	public models.Event block4FromThisEvent;
+
 	// Misc. account info
 	@Column(name = "LAST_LOGIN")
 	private Timestamp          lastLogin; // Used to avoid cookie-stealing schemes and MITM attacks. Combined with AES with time and RNG padded encryption.
@@ -503,6 +507,21 @@ public class User extends Model implements ImmutableUser {
 			}
 			return true;
 		}
+	}
+
+	public boolean isBlockedFrom(models.Event event) {
+		if (block4FromThisEvent != null)
+			return event.getId() == block4FromThisEvent.getId();
+		else
+			return false;
+	}
+
+	public Event getBlockedEvent() {
+		return block4FromThisEvent;
+	}
+
+	public void setBlockedEvent(Event event) {
+		block4FromThisEvent = event;
 	}
 
 	public static Model.Finder<Long, User> find = new Finder<>(

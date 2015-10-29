@@ -164,6 +164,7 @@
 							<form method="post" action="@article.routes.Event.updateUser()">
 								<input type="hidden" name="eventId" value="@event.getId">
 							 <button type="submit" class="@if(!event.canJoin(models.LoginState.getUser)){disabled} btn btn-primary btn-sm btn-block"> Meld meg på</button>
+								@event.getBlockedMessageIfBedpress(LoginState.getUser)
 							</form>
 						 }else{
 							 <form method="post" action="@article.routes.Event.removeUser()">

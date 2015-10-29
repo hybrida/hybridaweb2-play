@@ -58,6 +58,7 @@ public class Event extends Model {
 		event.maxParticipants = Integer.parseInt(form.maxParticipants);
 		event.maxParticipantsWaiting = Integer.parseInt(form.maxParticipantsWaiting);
 		event.genderAllowed = form.genderAllowed.charAt(0);
+		event.bedpres = form.bedpres != null;
 		event.binding = form.binding != null;
 		return event;
 	}
@@ -84,6 +85,7 @@ public class Event extends Model {
 			fourthYearAllowedAfterSecondSignup,
 			fifthYearAllowedAfterSecondSignup,
 
+			bedpres,
 			binding;
 
 		public String
@@ -204,6 +206,7 @@ public class Event extends Model {
 		fifthYearAllowedAfterSecondSignup;
 
 	public boolean
+		bedpres,
 		binding;
 
 	private char genderAllowed;
@@ -221,10 +224,57 @@ public class Event extends Model {
 		return binding && Calendar.getInstance().after(signUpDeadline);
 	}
 
+	/**
+		\brief return the amount of following bedpresses that the user
+		is blocked from.
+
+		When the user is flagged, he will not be able to attend the following four
+		bedpresses. This function finds the following four bedpresses (in start date)
+		and marks checks if 'this' is that bedpres. If it is, it will count the distance
+		between the mark and this bedpres. If the mark is less than zero, -1 will be
+		returned. This means that the user is NOT blocked. If any value [0, 3] is returned,
+		then the user is blocked. Note that this function is used internally, with
+		the exception of being used on the bedpres pages where it may give the user
+		information as: "You are blocked from attending the following X bedpresses".
+	*/
+	public int getUserBlocked(User user) {
+		Event blockedFrom = user.getBlockedEvent();
+		List<Event> blockedFromThese = Event.find.setMaxRows(4).where().eq(
+			"bedpres", true).where().gt("eventId", blockedFrom.getId()).orderBy(
+				"eventHappens ASC").findList();
+		int counter = 3;
+		for (Event blocky : blockedFromThese) {
+			if (blocky.getId() == this.getId())
+				return counter;
+			--counter;
+		}
+		return counter;
+	}
+
+	public String getBlockedMessageIfBedpress(User user) {
+		int count = getUserBlocked(user);
+		String common = " Du kan likevel melde deg på ventelisten. Dersom ikke alle plasser er fylt opp ved tidsslutt, vil du havne på oppmeldte. Du kommer bakerst i ventelisten.";
+		switch (count) {
+			case 3:
+			case 2:
+				return "Du er sperret fra denne og de " + count + " neste bedpresser fordi du ikke møtte opp." + common;
+			case 1:
+				return "Du er sperret fra denne og den neste bedpressen fordi du ikke møtte opp." + common;
+			case 0:
+				return "Du er sperret fra denne bedpressen fordi du ikke møtte opp." + common;
+			default:
+				return "";
+		}
+	}
+
 	public boolean canJoin(User user) {
 		if (user.isDefault())
 			return false;
 		boolean allowed = false;
+		// Check if the user is within four events of his blocked event.
+		if (getUserBlocked(user) != -1)
+			return false;
+
 		// Check gender requirements
 		char gender = getGenderAllowed();
 		if (gender == 'A')

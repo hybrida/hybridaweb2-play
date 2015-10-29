@@ -1,0 +1,11 @@
+@(event: Event)
+<form action="@bedpressblock.routes.BedPresBlock.blockUser()" method="post">
+	<input type="hidden" name="eventId" value="@event.getId">
+	<select name="userId" onchange="this.form.submit()">
+		<option value="0" selected disabled>Velg Person</option>
+		@for(i<-event.getJoinedUsers){
+			<option value="@i.getId" @if(i.isBlockedFrom(event)){disabled}>@(i.getFirstName + " " + i.getLastName)</option>
+		}
+	</select>
+</form>
+
