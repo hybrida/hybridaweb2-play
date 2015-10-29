@@ -53,7 +53,7 @@ public class User extends Model implements ImmutableUser {
 		user.vevkom = form.vevkom != null;
 		user.admin = form.admin != null;
 		user.root = form.root != null;
-		user.gender = form.gender;
+		user.gender = form.gender == null ? '\0' : form.gender;
 		return user;
 	}
 
