@@ -21,11 +21,10 @@
 					<h3><p class="text-center">
 						Endre Arrangement
 					</p></h3>
-					<form name="Article" action="@article.routes.ArticleIn.save()" method="POST" enctype="multipart/form-data">
-						<textarea class="form-control" placeholder="Skriv tittelen her" type="text" name="title"></textarea>
-						<textarea class="form-control" placeholder="Skriv en kort oppsummering her" name="ingress" onfocus=""></textarea>
-						<textarea id="editor1" class="form-control" placeholder="Skriv ditt innlegg her"name="text" contenteditable="true">
-							Artikkel her</textarea>
+					<form name="Article" action="@article.routes.Event.saveEdit(event.getId.toString)" method="POST" enctype="multipart/form-data">
+						<textarea class="form-control" placeholder="Skriv tittelen her" type="text" name="title">@edarticle.getTitle</textarea>
+						<textarea class="form-control" placeholder="Skriv en kort oppsummering her" name="ingress" onfocus="">@edarticle.getIngress</textarea>
+						<textarea id="editor1" class="form-control" placeholder="Skriv ditt innlegg her"name="text" contenteditable="true">@edarticle.getText</textarea>
 						<script>
 							CKEDITOR.disableAutoInline = true;
 							CKEDITOR.inline('editor1');
@@ -57,7 +56,7 @@
 							<label for="loc">Sted:</label>
 							<input type="text" id="loc" class="form-control" name="location" placeholder="Skriv sted her" value="@event.getLocation">
 						</div>
-						<label for="FSU">Klasser tillat ved første påmelding</label>
+						<label for="FSU">Klasser tillatt ved første påmelding</label>
 						<div id="FSU" class="form-group">
 							<label class="checkbox-inline">
 								<input type="checkbox" id="first_signup" name="firstYearAllowed" @event.bool2checked(event.firstYearAllowed)>1
@@ -77,7 +76,7 @@
 						</div>
 
 
-						<label for="SSU">Klasser tillat ved andre påmelding</label>
+						<label for="SSU">Klasser tillatt ved andre påmelding</label>
 						<div id="SSU" class="form-group">
 							<label class="checkbox-inline">
 								<input type="checkbox" id="secound_signup" name="firstYearAllowedAfterSecondSignup" @event.bool2checked(event.firstYearAllowedAfterSecondSignup)>1
@@ -121,7 +120,7 @@
 						<div class="form-group">
 							<label for="mW">Er påmelding bindende? (Det er ikke mulig å melde seg av etter påmeldingen stenges)
 								<label class="checkbox-inline">
-									<input type="checkbox" id="mW" name="binding">Bindende
+									<input type="checkbox" id="mW" name="binding" @event.bool2checked(event.binding)>Bindende
 								</label>
 							</label>
 						</div>
