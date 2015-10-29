@@ -1,14 +1,10 @@
 package profile;
 
-import application.Application;
-import com.google.common.collect.Iterables;
 import models.LoginState;
 import models.User;
 import play.data.Form;
-import play.data.validation.ValidationError;
 import play.mvc.Controller;
 import play.mvc.Result;
-import play.twirl.api.Html;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -38,7 +34,7 @@ public class Profile extends Controller {
 	}
 
 	public static Result update(String username) {
-		if (!authorizedToEditUser(username)) return unauthorized();
+		if (!authorizedToEditUser(username)) return application.Application.showUnauthorizedAccess();
 		User user = User.findByUsername(username);
 		if (user == null) return notFound();
 
@@ -71,7 +67,7 @@ public class Profile extends Controller {
 
 	public static boolean authorizedToEditUser(String username) {
 		User loggedInUser = LoginState.getUser();
-		return loggedInUser != null && (username.equals(loggedInUser.getUsername()) || loggedInUser.hasAccess(false, User.Access.ADMIN));
+		return loggedInUser != null && (username.equals(loggedInUser.getUsername()) || loggedInUser.isAdmin());
 	}
 
 	public static Result edit(String username) {
