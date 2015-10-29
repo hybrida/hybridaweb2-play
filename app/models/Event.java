@@ -239,6 +239,7 @@ public class Event extends Model {
 	*/
 	public int getUserBlocked(User user) {
 		Event blockedFrom = user.getBlockedEvent();
+		if (blockedFrom == null) return -1;
 		List<Event> blockedFromThese = Event.find.setMaxRows(4).where().eq(
 			"bedpres", true).where().gt("eventId", blockedFrom.getId()).orderBy(
 				"eventHappens ASC").findList();
