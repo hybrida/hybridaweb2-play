@@ -27,8 +27,6 @@ public class Application extends Controller {
 	}
 
 	public static Result frontPage() {
-		if (!LoginState.isValidlyLoggedIn() && request().path().equals(routes.Application.frontPage().toString()))
-			return redirect(routes.Application.index());
 		return ok(views.html.layout.render("Hybrida", application.views.html.index.render()));
 	}
 
