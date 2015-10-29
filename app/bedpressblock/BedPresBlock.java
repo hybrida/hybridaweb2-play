@@ -10,6 +10,7 @@ import play.mvc.Result;
 import play.twirl.api.Html;
 import bedpressblock.views.html.*;
 import java.util.List;
+import views.html.*;
 
 public class BedPresBlock extends Controller {
 
@@ -26,7 +27,8 @@ public class BedPresBlock extends Controller {
 
 		List<Event> bedpresses = Event.find.setMaxRows(10).where(
 			).eq("bedpres", true).findList();
-		return ok(pickbedpres.render(bedpresses));
+		return ok(layoutBoxPage.render("Bedpres Prikking", pickbedpres.render(bedpresses,
+			-1L), null));
 	}
 
 	public static Result pickUsers() {
@@ -43,7 +45,7 @@ public class BedPresBlock extends Controller {
 		if (eventId == 0)
 			return redirect(bedpressblock.routes.BedPresBlock.index().url());
 		Event event = Event.find.byId(eventId);
-		return ok(selectUser.render(event));
+		return ok(layoutBoxPage.render("Bedpres Prikking", selectUser.render(event), null));
 	}
 
 	public static Result blockUser() {
@@ -53,7 +55,12 @@ public class BedPresBlock extends Controller {
 		Long eventId = post.getLong("eventId"),
 			userId = post.getLong("userId");
 		User user = User.find.byId(userId);
-		user.setBlockedEvent(Event.find.byId(eventId));
+		Event event = Event.find.byId(eventId);
+		Event blocked = user.getBlockedEvent();
+		if (blocked != null && blocked.getId() == eventId)
+			user.setBlockedEvent(null);
+		else
+			user.setBlockedEvent(event);
 		user.update();
 
 		return pickUsers(eventId);

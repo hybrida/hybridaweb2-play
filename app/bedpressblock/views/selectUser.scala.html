@@ -1,11 +1,21 @@
 @(event: Event)
-<form action="@bedpressblock.routes.BedPresBlock.blockUser()" method="post">
-	<input type="hidden" name="eventId" value="@event.getId">
-	<select name="userId" onchange="this.form.submit()">
-		<option value="0" selected disabled>Velg Person</option>
-		@for(i<-event.getJoinedUsers){
-			<option value="@i.getId" @if(i.isBlockedFrom(event)){disabled}>@(i.getFirstName + " " + i.getLastName)</option>
-		}
-	</select>
-</form>
-
+<div style="display: table;">
+	<div style="display: table-cell">
+		@pickbedpres(Event.find.setMaxRows(10).where().eq("bedpres", true).findList(), event.getId)
+		<form action="@bedpressblock.routes.BedPresBlock.blockUser()" method="post">
+			<input type="hidden" name="eventId" value="@event.getId">
+			<select name="userId" onchange="this.form.submit()">
+				<option value="0" selected disabled>Velg Person</option>
+				@for(i<-event.getJoinedUsers){
+					<option value="@i.getId">@if(i.isBlockedFrom(event)){&#9888;} @(i.getFirstName + " " + i.getLastName)</option>
+				}
+			</select>
+		</form>
+	</div>
+	<div style="display: table-cell">
+		Du velger først bedpressen, og så hvilken person du ønsker å markere. Denne personen
+		vil ikke kunne delta i de fire neste bedpressene.
+		En liten markering (&#9888;) vil dukke opp foran navnet. For å fjerne markeringen,
+		venligst velg det samme navnet igjen.
+	</div>
+</div>

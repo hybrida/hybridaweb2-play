@@ -1,9 +1,9 @@
-@(bedpresses: List[Event])
+@(bedpresses: List[Event], chosenEventId: Long)
 <form action="@bedpressblock.routes.BedPresBlock.pickUsers" method="post">
 	<select name="eventId" onchange="this.form.submit()">
 		<option value="0">Velg Bedpres</option>
 		@for(i<-bedpresses){
-			<option value="@i.getId">@i.getArticle.getTitle</option>
+			<option value="@i.getId" @if(chosenEventId == i.getId){selected}>@i.getArticle.getTitle</option>
 		}
 	</select>
 </form>
