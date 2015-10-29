@@ -431,7 +431,7 @@ public class User extends Model implements ImmutableUser {
 		return hasAccess(this, true, Access.ARRKOM);
 	}
 
-	public boolean isInAdmin() {
+	public boolean isAdmin() {
 		return hasAccess(this, true, Access.ADMIN);
 	}
 
@@ -439,7 +439,7 @@ public class User extends Model implements ImmutableUser {
 		return hasAccess(this, true, Access.BEDKOM);
 	}
 
-	public boolean isInWebkom() {
+	public boolean isInVevkom() {
 		return hasAccess(this, true, Access.VEVKOM);
 	}
 
