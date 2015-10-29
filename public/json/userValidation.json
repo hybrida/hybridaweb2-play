@@ -2,8 +2,8 @@
   "fields": [
     {"name": "firstName", "pattern": "[a-zæøå][a-zæøå .-]{0,19}", "required": true,
       "message": "Fornavn kan kun inneholde bokstaver, mellomrom, bindestrek og punktum. Maks 20 tegn."},
-    {"name": "middleName", "pattern": "[a-zæøå][a-zæøå .-]{0,19}",
-      "message": "Fornavn kan kun inneholde bokstaver, mellomrom, bindestrek og punktum. Maks 20 tegn."},
+    {"name": "middleName", "pattern": "[a-zæøå\" .-]{0,20}",
+      "message": "Mellomnavn kan kun inneholde bokstaver, mellomrom, bindestrek, hermetegn og punktum. Maks 20 tegn."},
     {"name": "lastName", "pattern": "[a-zæøå][a-zæøå.-]{0,19}", "required": true,
       "message": "Etternavn kan kun inneholde bokstaver, bindestrek og punktum. Maks 20 tegn."},
     {"name": "email", "pattern": "[\\w.%+-]+@[a-zæøå0-9.-]+\\.[a-z]{2,6}",
