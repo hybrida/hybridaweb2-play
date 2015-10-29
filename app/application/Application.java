@@ -22,13 +22,15 @@ public class Application extends Controller {
 	* \brief Index entry point of the website.
 	*/
 	public static Result index() {
-		if (LoginState.isValidlyLoggedIn()) return newsfeed.Newsfeed.index();
-		return frontPage();
-	}
+        if (LoginState.isValidlyLoggedIn()) return newsfeed.Newsfeed.index();
+        return frontpage();
+    }
 
-	public static Result frontPage() {
-		return ok(views.html.layout.render("Hybrida", application.views.html.index.render()));
-	}
+    public static Result frontpage() {
+        if (!LoginState.isValidlyLoggedIn() && request().path().equals(routes.Application.frontpage().toString()))
+            return redirect(routes.Application.index());
+        return ok(views.html.layout.render("Hybrida", application.views.html.index.render()));
+    }
 
 	/**
 	* Useful functions to use to return standard messages to the client.
