@@ -1,5 +1,5 @@
 @(event: Event)
-<div style="display: table;">
+<div style="display: table; border-spacing: 1vw;">
 	<div style="display: table-cell">
 		@pickbedpres(Event.find.setMaxRows(10).where().eq("bedpres", true).findList(), event.getId)
 		<form action="@bedpressblock.routes.BedPresBlock.blockUser()" method="post">
