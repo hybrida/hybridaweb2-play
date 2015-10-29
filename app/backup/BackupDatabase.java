@@ -80,6 +80,7 @@ public class BackupDatabase {
             writer.close();
         } catch (Exception e) {
             e.printStackTrace();
+						System.out.println(e);
             return false;
         }
         return true;
