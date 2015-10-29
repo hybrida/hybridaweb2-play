@@ -2,6 +2,7 @@ package models;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface ImmutableUser {
 
@@ -36,7 +37,7 @@ public interface ImmutableUser {
     boolean isInVevkom();
     boolean isInJentekom();
     boolean isInRedaksjonen();
-    ArrayList<User.Access> getMemberships();
+    User.Access[] getMemberships();
     boolean isAdmin();
 	boolean isRoot();
     boolean hasAccess(boolean inAll, User.Access... accessList);
