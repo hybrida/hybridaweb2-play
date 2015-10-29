@@ -512,7 +512,7 @@ public class Event extends Model {
 	/**
 	 * Finder for ebeans - requiered to search this model in the db.
 	 */
-	public static Finder<Long, models.Event> find = new Finder<Long, Event> (
+	public static Model.Finder<Long, models.Event> find = new Finder<Long, Event> (
 		Long.class, models.Event.class
 	);
 }
