@@ -2,6 +2,7 @@
 @import util._
 @if(showTitles){<hr>
 <div style="display: table-row">
+	<div style="display: table-cell"> Link </div>
 	<div style="display: table-cell"> Brukernavn </div>
 	<div style="display: table-cell"> Arrkom </div>
 	<div style="display: table-cell"> Bedkom </div>
@@ -15,6 +16,9 @@
 </div>
 }
 <div style="display: table-row">
+	<div style="display: table-cell">
+		<a href="@profile.routes.Profile.index(user.getUsername)">@uid</a>
+	</div>
 	<div style="display: table-cell">
 		<input type="text" name="username" form="form_@uid" value="@user.getUsername">
 	</div>
