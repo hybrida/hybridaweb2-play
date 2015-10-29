@@ -1,13 +1,15 @@
 @(content: Html)
-<div class="container-fluid center-80 page-top">
-    <div class="row">
-	<div class="col-md-9">
-        <div class="box-page">
-            <h5 class="smallTitle">NEWSFEED</h5>
-                @content
-            <div class="clearfix"></div>
+<div class="container-fluid center-80">
+    <div class="row space-below">
+        <div class="col-lg-9 col-md-8 space-above">
+            <div class="box-page">
+                <h5 class="smallTitle">NEWSFEED</h5>
+                    @content
+                <div class="clearfix"></div>
+            </div>
         </div>
-    </div>
-    @application.views.html.sidebar.render
+        <div class="col-lg-3 col-md-4 space-above">
+        @application.views.html.sidebar.render
+        </div>
     </div>
 </div>
