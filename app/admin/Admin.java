@@ -77,11 +77,19 @@ public class Admin extends Controller {
 	}
 
 	public static Result editUser(String uid) {
-		models.User change = models.User.getUserFromForm();
-		change.setId(Long.parseLong(uid));
-		change.update();
-		System.out.println((new HttpRequestData()));
-		return redirect(admin.routes.Admin.allUsers());
+		if (HttpRequestData.isGiven("delete")) {
+			models.User toRemove = models.User.find.byId(Long.parseLong(uid));
+			if (toRemove != null) {
+				toRemove.delete();
+			}
+			return redirect(admin.routes.Admin.allUsers());
+		} else {
+			models.User change = models.User.getUserFromForm();
+			change.setId(Long.parseLong(uid));
+			change.update();
+			System.out.println((new HttpRequestData()));
+			return redirect(admin.routes.Admin.allUsers());
+		}
 	}
 
 	public static Result newUser() {
