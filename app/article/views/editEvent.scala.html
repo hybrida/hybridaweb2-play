@@ -59,19 +59,19 @@
 						<label for="FSU">Klasser tillatt ved første påmelding</label>
 						<div id="FSU" class="form-group">
 							<label class="checkbox-inline">
-								<input type="checkbox" id="first_signup" name="firstYearAllowed" @event.bool2checked(event.firstYearAllowed)>1
+								<input type="checkbox" id="first_signup" name="firstYearAllowed" @util.TextUtil.bool2checked(event.firstYearAllowed)>1
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="first_signup" name="secondYearAllowed" @event.bool2checked(event.secondYearAllowed)>2
+								<input type="checkbox" id="first_signup" name="secondYearAllowed" @util.TextUtil.bool2checked(event.secondYearAllowed)>2
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="first_signup" name="thirdYearAllowed" @event.bool2checked(event.thirdYearAllowed)>3
+								<input type="checkbox" id="first_signup" name="thirdYearAllowed" @util.TextUtil.bool2checked(event.thirdYearAllowed)>3
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="first_signup" name="fourthYearAllowed" @event.bool2checked(event.fourthYearAllowed)>4
+								<input type="checkbox" id="first_signup" name="fourthYearAllowed" @util.TextUtil.bool2checked(event.fourthYearAllowed)>4
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="first_signup" name="fifthYearAllowed" @event.bool2checked(event.fifthYearAllowed)>5
+								<input type="checkbox" id="first_signup" name="fifthYearAllowed" @util.TextUtil.bool2checked(event.fifthYearAllowed)>5
 							</label>
 						</div>
 
@@ -79,19 +79,19 @@
 						<label for="SSU">Klasser tillatt ved andre påmelding</label>
 						<div id="SSU" class="form-group">
 							<label class="checkbox-inline">
-								<input type="checkbox" id="secound_signup" name="firstYearAllowedAfterSecondSignup" @event.bool2checked(event.firstYearAllowedAfterSecondSignup)>1
+								<input type="checkbox" id="secound_signup" name="firstYearAllowedAfterSecondSignup" @util.TextUtil.bool2checked(event.firstYearAllowedAfterSecondSignup)>1
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="secound_signup" name="secondYearAllowedAfterSecondSignup" @event.bool2checked(event.secondYearAllowedAfterSecondSignup)>2
+								<input type="checkbox" id="secound_signup" name="secondYearAllowedAfterSecondSignup" @util.TextUtil.bool2checked(event.secondYearAllowedAfterSecondSignup)>2
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="secound_signup" name="thirdYearAllowedAfterSecondSignup" @event.bool2checked(event.thirdYearAllowedAfterSecondSignup)>3
+								<input type="checkbox" id="secound_signup" name="thirdYearAllowedAfterSecondSignup" @util.TextUtil.bool2checked(event.thirdYearAllowedAfterSecondSignup)>3
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="secound_signup" name="fourthYearAllowedAfterSecondSignup" @event.bool2checked(event.fourthYearAllowedAfterSecondSignup)>4
+								<input type="checkbox" id="secound_signup" name="fourthYearAllowedAfterSecondSignup" @util.TextUtil.bool2checked(event.fourthYearAllowedAfterSecondSignup)>4
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="secound_signup" name="fifthYearAllowedAfterSecondSignup" @event.bool2checked(event.fifthYearAllowedAfterSecondSignup)>5
+								<input type="checkbox" id="secound_signup" name="fifthYearAllowedAfterSecondSignup" @util.TextUtil.bool2checked(event.fifthYearAllowedAfterSecondSignup)>5
 							</label>
 						</div>
 
@@ -120,7 +120,7 @@
 						<div class="form-group">
 							<label for="mW">Er påmelding bindende? (Det er ikke mulig å melde seg av etter påmeldingen stenges)
 								<label class="checkbox-inline">
-									<input type="checkbox" id="mW" name="binding" @event.bool2checked(event.binding)>Bindende
+									<input type="checkbox" id="mW" name="binding" @util.TextUtil.bool2checked(event.binding)>Bindende
 								</label>
 							</label>
 						</div>
