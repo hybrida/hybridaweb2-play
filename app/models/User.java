@@ -1,5 +1,6 @@
 package models;
 
+import static play.data.Form.form;
 import controllers.Upload;
 import exceptions.NoFileInRequest;
 import exceptions.ServerError;
@@ -22,6 +23,39 @@ import java.util.*;
 		@UniqueConstraint(columnNames= {"USERNAME"})
 )
 public class User extends Model implements ImmutableUser {
+
+	public static class UserForm {
+		public Long uid;
+		public String username;
+		public Boolean
+			arrkom, bedkom, root, vevkom, admin;
+		public Integer graduationYear;
+		public Character gender;
+
+		public String doValidation() {
+			User found = User.findByUsername(username);
+			if (found != null && found.getId() != uid)
+				return "User already exists with that name";
+			return null;
+		}
+	}
+
+	public static User getUserFromForm() {
+		Form<UserForm> userForm = form(UserForm.class);
+		UserForm form = userForm.bindFromRequest().get();
+		String error = form.doValidation();
+		if (error != null) throw new Error(error);
+		User user = new User();
+		user.username = form.username;
+		user.graduationYear = form.graduationYear;
+		user.bedkom = form.bedkom != null;
+		user.arrkom = form.arrkom != null;
+		user.vevkom = form.vevkom != null;
+		user.admin = form.admin != null;
+		user.root = form.root != null;
+		user.gender = form.gender;
+		return user;
+	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -88,6 +122,18 @@ public class User extends Model implements ImmutableUser {
 		this.lastName = lastName;
 	}
 
+	public boolean isMale() {
+		return gender == 'M';
+	}
+
+	public boolean isFemale() {
+		return gender == 'F';
+	}
+
+	public boolean isUnknownGender() {
+		return gender == '\0';
+	}
+
 	public boolean isDefault() {
 		return (id == null);
 	}
@@ -109,6 +155,11 @@ public class User extends Model implements ImmutableUser {
 
 	public Long getId() {
 		return id;
+	}
+
+	// Used only during updating specific ids.
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getUsername() {
@@ -370,6 +421,22 @@ public class User extends Model implements ImmutableUser {
 		VEVKOM,
 		ADMIN,
 		ROOT;
+	}
+
+	public boolean isInArrkom() {
+		return hasAccess(this, true, Access.ARRKOM);
+	}
+
+	public boolean isInAdmin() {
+		return hasAccess(this, true, Access.ADMIN);
+	}
+
+	public boolean isInBedkom() {
+		return hasAccess(this, true, Access.BEDKOM);
+	}
+
+	public boolean isInWebkom() {
+		return hasAccess(this, true, Access.VEVKOM);
 	}
 
 	public static boolean hasAccess(boolean inAll, Access... accessList) {

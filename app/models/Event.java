@@ -190,10 +190,6 @@ public class Event extends Model {
 	private int secondUpperGraduationLimit;
 	private int secondLowerGraduationLimit;
 
-	public String bool2checked(boolean bool) {
-		return bool ? "checked" : "";
-	}
-
 	public boolean
 		firstYearAllowed,
 		secondYearAllowed,

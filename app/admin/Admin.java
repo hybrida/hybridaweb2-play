@@ -8,6 +8,9 @@ import models.HttpRequestData;
 import java.util.*;
 import admin.models.PasswordHash;
 import views.html.layoutBoxPage;
+import admin.views.html.UserForm;
+import admin.views.html.FormHead;
+import admin.models.RingNumber;
 
 public class Admin extends Controller {
 	public static Result index() {
@@ -52,16 +55,31 @@ public class Admin extends Controller {
 				}
 			});
 			String all_forms = "";
+			String formheads = "";
 			for (models.User user : users) {
-				Html gen = admin.views.html.UserForm.render(user.getUsername());
+				formheads += FormHead.render(
+					user.getId()).toString();
+			}
+			RingNumber period = new RingNumber(10);
+			for (models.User user : users) {
+				Html gen = UserForm.render(
+					user, period.inc() == 1, user.getId());
 				all_forms += gen.toString();
 			}
 			Html table = admin.views.html.table.render(Html.apply(all_forms));
 			all_forms += admin.views.html.NewForm.render().toString();
-			Html html = Html.apply(all_forms);
+			Html html = Html.apply(formheads + all_forms);
 			html = admin.views.html.table.render(html);
 			return ok(layoutBoxPage.render("User Administration", html, null));
 		}
+	}
+
+	public static Result editUser(String uid) {
+		models.User change = models.User.getUserFromForm();
+		change.setId(Long.parseLong(uid));
+		change.update();
+		System.out.println((new HttpRequestData()));
+		return redirect(admin.routes.Admin.allUsers());
 	}
 
 	public static Result newUser() {

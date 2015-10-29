@@ -8,6 +8,7 @@ GET           /                                        application.Application.f
 # Static info pages
 GET           /admin                                   admin.Admin.index()
 POST          /admin/login                             admin.Admin.login()
+POST          /admin/rediger                           admin.Admin.editUser(uid)
 POST          /admin/logout                            admin.Admin.logout()
 GET           /admin/users                             admin.Admin.allUsers()
 POST          /admin/newuser                           admin.Admin.newUser()
