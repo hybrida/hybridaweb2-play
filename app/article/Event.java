@@ -45,7 +45,8 @@ public class Event extends Controller {
 		}
 
 		models.Event event = models.Event.find.byId(event_id);
-		event.save();
+		event.checkAndRemoveJoiner(user);
+		event.update();
 
 		return redirect(routes.Event.viewEvent(event_id.toString()).absoluteURL(request()));
 	}

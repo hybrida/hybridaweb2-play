@@ -221,7 +221,7 @@ public class Event extends Model {
 	private Calendar eventStops;
 
 	public boolean canRemove() {
-		return binding && Calendar.getInstance().after(signUpDeadline);
+		return !(binding && Calendar.getInstance().after(signUpDeadline));
 	}
 
 	/**
