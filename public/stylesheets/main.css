@@ -263,5 +263,8 @@ a.inverted{
         width: 64px;
     }
 
+}
 
+#notFound {
+	text-align: center;
 }
