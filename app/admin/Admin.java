@@ -8,9 +8,7 @@ import models.HttpRequestData;
 import java.util.*;
 import admin.models.PasswordHash;
 import views.html.layoutBoxPage;
-import admin.views.html.UserForm;
-import admin.views.html.FormHead;
-import admin.views.html.FormHeadNew;
+import admin.views.html.*;
 import admin.models.RingNumber;
 
 public class Admin extends Controller {
@@ -68,10 +66,9 @@ public class Admin extends Controller {
 					user, period.inc() == 1, user.getId());
 				all_forms += gen.toString();
 			}
-			Html table = admin.views.html.table.render(Html.apply(all_forms));
-			all_forms += admin.views.html.NewForm.render().toString();
+			all_forms += NewForm.render().toString();
 			Html html = Html.apply(formheads + all_forms);
-			html = admin.views.html.table.render(html);
+			html = table.render(html);
 			return ok(layoutBoxPage.render("User Administration", html, null));
 		}
 	}

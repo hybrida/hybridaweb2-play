@@ -5,6 +5,8 @@
 	<div style="display: table-cell"> Link </div>
 	<div style="display: table-cell"> Brukernavn </div>
 	<div style="display: table-cell"> Arrkom </div>
+	<div style="display: table-cell"> Jentekom </div>
+	<div style="display: table-cell"> Redaksjon </div>
 	<div style="display: table-cell"> Bedkom </div>
 	<div style="display: table-cell"> Root </div>
 	<div style="display: table-cell"> Vevkom </div>
@@ -24,6 +26,12 @@
 	</div>
 	<div style="display: table-cell">
 		<input type="checkbox" name="arrkom" form="form_@uid" @TextUtil.bool2checked(user.isInArrkom)>
+	</div>
+	<div style="display: table-cell">
+		<input type="checkbox" name="jentekom" form="form_@uid" @TextUtil.bool2checked(user.isInJentekom)>
+	</div>
+	<div style="display: table-cell">
+		<input type="checkbox" name="redaksjonen" form="form_@uid" @TextUtil.bool2checked(user.isInRedaksjonen)>
 	</div>
 	<div style="display: table-cell">
 		<input type="checkbox" name="bedkom" form="form_@uid" @TextUtil.bool2checked(user.isInBedkom)>

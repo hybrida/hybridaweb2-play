@@ -29,7 +29,7 @@ public class User extends Model implements ImmutableUser {
 		public Long uid;
 		public String username;
 		public Boolean
-			arrkom, bedkom, root, vevkom, admin;
+			arrkom, bedkom, root, vevkom, admin, jentekom, redaksjonen;
 		public Integer graduationYear;
 		public Character gender;
 
@@ -52,6 +52,8 @@ public class User extends Model implements ImmutableUser {
 		user.bedkom = form.bedkom != null;
 		user.arrkom = form.arrkom != null;
 		user.vevkom = form.vevkom != null;
+		user.jentekom = form.jentekom != null;
+		user.redaksjonen = form.redaksjonen != null;
 		user.admin = form.admin != null;
 		user.root = form.root != null;
 		user.gender = form.gender == null ? '\0' : form.gender;
