@@ -1,0 +1,39 @@
+<div class="helesiden">
+    <div class="container">
+        <div class="row blank"></div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-5 whitebox topright topleft GO">
+                <img src="/assets/images/GO.png" align="middle">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-5 whitebox line">
+                ________________________________________________________
+            </div>
+        </div>
+
+        <div class="row">
+            <form name="Article" action="@article.routes.ArticleIn.save()" method="POST" enctype="multipart/form-data">
+
+                <div class="col-md-6 col-md-offset-5 whitebox paragraph bottomleft bottomright hiddentopleft hiddentopright">
+                    <p>
+                        Navn på hybrid
+                    </p>
+                    <p>
+                        <textarea class="form-control" placeholder="Navn" type="text" name="name"></textarea>
+                    </p>
+                    <p>
+                        Begrunnelse for nominasjon
+                    </p>
+                    <p>
+                        <textarea class="form-control" placeholder="Begrunnelse" type="text" id="nominasjonin" name="reason"></textarea>
+                    </p>
+                    <p>
+                        <input type="submit" value="Submit">
+                    </p>
+
+            </div>
+        </div>
+
+    </div>
+</div>

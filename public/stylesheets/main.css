@@ -15,7 +15,7 @@ body {
 
 #home {
     padding: 0;
-    margin: 0 32px 0 32px;
+    margin: 0;
     z-index: 99999;
 }
 
@@ -131,6 +131,13 @@ a:hover {
     padding-bottom: 99999px;
 }
 
+.row.container-height > [class*="-box"]:after{
+    content: ' ';
+    display: block;
+    height: 20px;
+}
+
+
 .fixscroll{
     position:fixed;
 }
@@ -162,7 +169,8 @@ a:hover {
 }
 
 .center-container {
-    width: 80%;
+    width: 100%;
+    max-width: 892px;
     margin-left: 50%;
     margin-right: 50%;
     transform: translateX(-50%);
@@ -234,6 +242,11 @@ a:hover {
     margin-top: 30px;
 }
 
+.space-below{
+    margin-bottom: 30px;
+}
+
+.row.inverted,
 .inverted {
     background-color: #496873;
     color: #f7eee7;
@@ -243,20 +256,34 @@ a.inverted{
     color: #fff;
 }
 
-@media only screen and (max-width: 888px) {
+/**
+ * Bootstrap:
+ * 'xs':   0 -  767  -- Extra small, for phones
+ * 'sm': 768 -  991  -- Small, for tablets
+ * 'md': 992 - 1199  -- Medium, for smaller pcs
+ * 'lg': 1200 and up -- Large, for larger pcs
+ *
+ * Since bootstrap uses "mobile first", we will do the same, meaning
+ * design so that it looks good on small screens, then add @media rules
+ * where needed to make it look good on bigger screens as well
+ **/
 
-    #home {
-        padding: 0;
-        margin: 0 0px 0 0px;
-    }
-
-}
-
-@media only screen and (max-width: 888px) and (min-width: 768px){
-
+@media only screen and (max-width: 1199px) and (min-width: 768px){
     #navbar-search {
         width: 64px;
     }
+}
 
-
+@media (min-width: 992px){
+    .center-container{width: 90%; max-width: 959px;}
+}
+@media (min-width: 1200px){
+    #home { margin: 0 32px;}
+    .center-container{width: 80%; max-width: 1399px;}
+}
+@media (min-width: 2000px){
+    .center-container{width: 70%; max-width: 1799px;}
+}
+@media (min-width: 3000px){
+    .center-container{width: 60%; max-width: 2000px;}
 }
