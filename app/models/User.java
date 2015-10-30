@@ -91,23 +91,23 @@ public class User extends Model implements ImmutableUser {
 
 	// Privilege status
 	@Column(name = "STUDENT", columnDefinition = "boolean default false")
-	public Boolean             student;    // No special privileges except for file ajaxUpload.
+	public Boolean             student = false;    // No special privileges except for file ajaxUpload.
 	@Column(name = "BEDKOM", columnDefinition = "boolean default false")
-	public Boolean             bedkom;     // Access to bedkom functionality.
+	public Boolean             bedkom = false;     // Access to bedkom functionality.
 	@Column(name = "ARRKOM", columnDefinition = "boolean default false")
-	public Boolean             arrkom;     // Access to arrkom functionality.
+	public Boolean             arrkom = false;     // Access to arrkom functionality.
 	@Column(name = "VEVKOM", columnDefinition = "boolean default false")
-	public Boolean             vevkom;     // Access to vevkom functionality.
+	public Boolean             vevkom = false;     // Access to vevkom functionality.
 	@Column(name = "ADMIN", columnDefinition = "boolean default false")
-	public Boolean             jentekom;   // Access to jentekom functionality.
+	public Boolean             jentekom = false;   // Access to jentekom functionality.
 	@Column(name = "ADMIN", columnDefinition = "boolean default false")
-	public Boolean             redaksjonen;// Access to redkasjonen functionality.
+	public Boolean             redaksjonen = false;// Access to redkasjonen functionality.
 	@Column(name = "ADMIN", columnDefinition = "boolean default false")
-	public Boolean             admin;      // For control over the entire page. Check your privilege
+	public Boolean             admin = false;      // For control over the entire page. Check your privilege
 	@Column(name = "ROOT", columnDefinition = "boolean default false")
-	public Boolean             root;       // Powers too great for mere mortals.
+	public Boolean             root = false;       // Powers too great for mere mortals.
 	@Column(name = "GENDER", columnDefinition = "char(1) default '\0'")
-	public Character           gender;     // For specific events.
+	public Character           gender = '\0';     // For specific events.
     @Column(name = "ENROLLED")
 	public Timestamp           enrolled;   // For specific bedpreses requiring a year number.
 	@Column(name = "DATE_OF_BIRTH")
@@ -339,36 +339,36 @@ public class User extends Model implements ImmutableUser {
 		return getId() == 1;
 	}
 
-    public boolean isInArrkom() {
-        return arrkom;
-    }
+	public boolean isInArrkom() {
+		return arrkom;
+	}
 
-    public boolean isInBedkom() {
-        return bedkom;
-    }
+	public boolean isInBedkom() {
+		return bedkom;
+	}
 
-    public boolean isInVevkom() {
-        return vevkom;
-    }
+	public boolean isInVevkom() {
+		return vevkom;
+	}
 
-    public boolean isInJentekom() {
-        return jentekom;
-    }
+	public boolean isInJentekom() {
+		return jentekom;
+	}
 
-    public boolean isInRedaksjonen() {
-        return redaksjonen;
-    }
+	public boolean isInRedaksjonen() {
+		return redaksjonen;
+	}
 
-    @Override
-    public ArrayList<Access> getMemberships() {
-        ArrayList<Access> committees = new ArrayList<>();
-        for(Access committee : Access.COMMITTEES) if(committee.userHasAccess(this)) committees.add(committee);
-        return committees;
-    }
+	@Override
+	public ArrayList<Access> getMemberships() {
+		ArrayList<Access> committees = new ArrayList<>();
+		for(Access committee : Access.COMMITTEES) if(committee.userHasAccess(this)) committees.add(committee);
+		return committees;
+	}
 
-    public boolean isAdmin() {
-        return admin;
-    }
+	public boolean isAdmin() {
+		return admin;
+	}
 
 	public boolean hasProfileImagePos() {
 		return profileImagePos != null;
