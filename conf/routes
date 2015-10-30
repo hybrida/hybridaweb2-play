@@ -137,6 +137,8 @@ GET           /examples/cookies/clear                  examples.controllers.Exam
 GET           /examples/database                       examples.controllers.ExampleDatabase.index()
 # # AngularJS
 GET           /examples/angular                        examples.controllers.ExampleAngular.index()
+# # Limited Access
+GET           /examples/access                         examples.controllers.ExampleStaticAccess.index()
 
 
 # Map static resources from the /public folder to the /assets URL path
@@ -145,5 +147,5 @@ GET           /assets/*file                            controllers.Assets.at(pat
 GET           /unauthorized                            application.Application.showUnauthorizedAccess()
 
 # Show some page describing the URL if all else fails
-GET           /$anything<.*>                           application.Application.show404(anything: String)
 GET           /error400/:error                         application.Application.show400(error)
+GET           /$anything<.*>                           application.Application.show404(anything: String)
