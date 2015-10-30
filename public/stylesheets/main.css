@@ -279,6 +279,10 @@ a.inverted{
     }
 }
 
+
+#notFound {
+	text-align: center;
+}
 @media (min-width: 992px){
     .center-container{width: 90%; max-width: 959px;}
 }
