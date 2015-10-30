@@ -35,26 +35,26 @@ public class Application extends Controller {
 	*/
 	public static Result showUnauthorizedAccess() {
 		return unauthorized(
-                views.html.layoutBoxPage.render(
-                        "Unauthorized",
-                        application.views.html.showUnauthorizedAccess.render(),
-                        null));
+			views.html.layoutBoxPage.render(
+				"Unauthorized",
+				application.views.html.showUnauthorizedAccess.render(),
+				null));
 	}
 
 	public static Result show404(String get_value) {
 		return notFound(
-                views.html.layoutBoxPage.render(
-                        "404",
-                        application.views.html.show404.render(get_value),
-                        null));
+			views.html.layoutBoxPage.render(
+				"404",
+				application.views.html.show404.render(get_value),
+				null));
 	}
 
 	public static Result show400(String get_value) {
 		return badRequest(
-                views.html.layoutBoxPage.render(
-                        "400",
-                        application.views.html.show400.render(get_value),
-                        null));
+			views.html.layoutBoxPage.render(
+							"400",
+							application.views.html.show400.render(get_value),
+							null));
 	}
 
 	/**
