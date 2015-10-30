@@ -176,6 +176,7 @@ img {
     clear: both;
 }
 
+.nav-container,
 .center-container {
     width: 100%;
     max-width: 892px;
@@ -251,7 +252,7 @@ img {
 }
 
 .space-below{
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 
 .row.inverted,
@@ -290,14 +291,18 @@ a.inverted{
 }
 @media (min-width: 992px){
     .center-container{width: 90%; max-width: 959px;}
+    .nav-container{max-width: 1079px;}
 }
 @media (min-width: 1200px){
-    #home { margin: 0 32px;}
+    #home { margin-right: 32px;}
     .center-container{width: 80%; max-width: 1119px;}
+    .nav-container{width: 90%; max-width: 1279px;}
 }
 @media (min-width: 1600px){
     .center-container{width: 70%; max-width: 1799px;}
+    .nav-container{width: 80%; max-width: 2099px;}
 }
 @media (min-width: 3000px){
     .center-container{width: 60%; max-width: 2000px;}
+    .nav-container{width: 70%; max-width: 2400px;}
 }
