@@ -92,6 +92,8 @@ public class User extends Model implements ImmutableUser {
 	// Privilege status
 	@Column(name = "STUDENT", columnDefinition = "boolean default false")
 	public Boolean             student = false;    // No special privileges except for file ajaxUpload.
+	@Column(name = "STYRET", columnDefinition = "boolean default false")
+	public Boolean             styret;     // Access to styret functionality.
 	@Column(name = "BEDKOM", columnDefinition = "boolean default false")
 	public Boolean             bedkom = false;     // Access to bedkom functionality.
 	@Column(name = "ARRKOM", columnDefinition = "boolean default false")
@@ -100,7 +102,7 @@ public class User extends Model implements ImmutableUser {
 	public Boolean             vevkom = false;     // Access to vevkom functionality.
 	@Column(name = "JENTEKOM", columnDefinition = "boolean default false")
 	public Boolean             jentekom = false;   // Access to jentekom functionality.
-	@Column(name = "REDAKSJON", columnDefinition = "boolean default false")
+	@Column(name = "REDAKSJONEN", columnDefinition = "boolean default false")
 	public Boolean             redaksjonen = false;// Access to redkasjonen functionality.
 	@Column(name = "ADMIN", columnDefinition = "boolean default false")
 	public Boolean             admin = false;      // For control over the entire page. Check your privilege
@@ -331,13 +333,9 @@ public class User extends Model implements ImmutableUser {
 		return gender;
 	}
 
-	public boolean isRoot() {
-		return thisOrFalse(root);
-	}
-
-	public boolean isFirstUser() {
-		return getId() == 1;
-	}
+    public boolean isInStyret() {
+        return styret;
+    }
 
 	public boolean isInArrkom() {
 		return arrkom;
@@ -360,14 +358,22 @@ public class User extends Model implements ImmutableUser {
 	}
 
 	@Override
-	public ArrayList<Access> getMemberships() {
-		ArrayList<Access> committees = new ArrayList<>();
+	public Access[] getMemberships() {
+		List<Access> committees = new ArrayList<>();
 		for(Access committee : Access.COMMITTEES) if(committee.userHasAccess(this)) committees.add(committee);
-		return committees;
+		return committees.toArray(new Access[committees.size()]);
 	}
 
 	public boolean isAdmin() {
 		return admin;
+	}
+
+	public boolean isRoot() {
+		return thisOrFalse(root);
+	}
+
+	public boolean isFirstUser() {
+		return getId() == 1;
 	}
 
 	public boolean hasProfileImagePos() {
@@ -456,6 +462,7 @@ public class User extends Model implements ImmutableUser {
 	}
 
     public enum Access {
+        STYRET("Styret"){ @Override public boolean userHasAccess(User user) { return user.isInStyret();}},
         BEDKOM("Bedkom"){ @Override public boolean userHasAccess(User user) { return user.isInBedkom();}},
         ARRKOM("Arrkom"){ @Override public boolean userHasAccess(User user) { return user.isInArrkom();}},
         VEVKOM("Vevkom"){ @Override public boolean userHasAccess(User user) { return user.isInVevkom();}},
@@ -465,7 +472,7 @@ public class User extends Model implements ImmutableUser {
         ROOT("Root"){ @Override public boolean userHasAccess(User user) { return user.isRoot();}};
 
         private String name;
-        public static final Access[] COMMITTEES = new Access[]{BEDKOM, ARRKOM, VEVKOM, JENTEKOM, REDAKSJONEN};
+        public static final Access[] COMMITTEES = new Access[]{STYRET, BEDKOM, ARRKOM, VEVKOM, JENTEKOM, REDAKSJONEN};
         Access(String name) {this.name = name;}
         @Override public String toString() {return name;}
         public abstract boolean userHasAccess(User user);

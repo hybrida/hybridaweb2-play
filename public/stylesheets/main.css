@@ -15,12 +15,12 @@ body {
 
 #home {
     padding: 0;
-    margin: 0 32px 0 32px;
+    margin: 0;
     z-index: 99999;
 }
 
 
-h1, h2 {
+h1, h2, h3 {
     font-family: 'Playfair Display', serif;
 }
 
@@ -131,6 +131,13 @@ a:hover {
     padding-bottom: 99999px;
 }
 
+.row.container-height > [class*="-box"]:after{
+    content: ' ';
+    display: block;
+    height: 20px;
+}
+
+
 .fixscroll{
     position:fixed;
 }
@@ -161,32 +168,16 @@ a:hover {
     clear: both;
 }
 
-.center-80 {
-    width: 80%;
+.center-container {
+    width: 100%;
+    max-width: 892px;
     margin-left: 50%;
     margin-right: 50%;
     transform: translateX(-50%);
 }
 
-.box-page,
-.sleek-box,
-.white-box,
-.white-box,
-.transparent-box,
-.transparent-box-addition,
-.drop-shadow {
-    box-shadow: -5px 5px 25px rgba(0,0,0,0.4);
-}
-
-.no-shadow{
-    box-shadow: none !important;
-}
-
 .box-page {
-    min-width: 678px;
-    margin: 0;
     padding: 40px 50px 80px;
-
     background: #fff;
 }
 .box-page .buttons {
@@ -200,6 +191,18 @@ a:hover {
     margin-left: 1px;
 }
 
+.box-page,
+.sleek-box,
+.white-box,
+.transparent-box,
+.transparent-box-addition,
+.drop-shadow {
+    box-shadow: -5px 5px 25px rgba(0,0,0,0.4);
+}
+
+.no-shadow{
+    box-shadow: none !important;
+}
 .smallTitle {
     margin: 0 0 10px;
     padding: 0 0 5px;
@@ -235,10 +238,15 @@ a:hover {
     background-color: rgb(184, 201, 216) !important;
 }
 
-.page-top{
+.space-above{
     margin-top: 30px;
 }
 
+.space-below{
+    margin-bottom: 30px;
+}
+
+.row.inverted,
 .inverted {
     background-color: #496873;
     color: #f7eee7;
@@ -248,23 +256,38 @@ a.inverted{
     color: #fff;
 }
 
-@media only screen and (max-width: 888px) {
+/**
+ * Bootstrap:
+ * 'xs':   0 -  767  -- Extra small, for phones
+ * 'sm': 768 -  991  -- Small, for tablets
+ * 'md': 992 - 1199  -- Medium, for smaller pcs
+ * 'lg': 1200 and up -- Large, for larger pcs
+ *
+ * Since bootstrap uses "mobile first", we will do the same, meaning
+ * design so that it looks good on small screens, then add @media rules
+ * where needed to make it look good on bigger screens as well
+ **/
 
-    #home {
-        padding: 0;
-        margin: 0 0px 0 0px;
-    }
-
-}
-
-@media only screen and (max-width: 888px) and (min-width: 768px){
-
+@media only screen and (max-width: 1199px) and (min-width: 768px){
     #navbar-search {
         width: 64px;
     }
-
 }
+
 
 #notFound {
 	text-align: center;
+}
+@media (min-width: 992px){
+    .center-container{width: 90%; max-width: 959px;}
+}
+@media (min-width: 1200px){
+    #home { margin: 0 32px;}
+    .center-container{width: 80%; max-width: 1399px;}
+}
+@media (min-width: 2000px){
+    .center-container{width: 70%; max-width: 1799px;}
+}
+@media (min-width: 3000px){
+    .center-container{width: 60%; max-width: 2000px;}
 }

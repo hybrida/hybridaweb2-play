@@ -45,6 +45,7 @@
             <div class="info-block">
                 <ul>
                     @if(user.hasTitle){ @infoItem("TITTEL", user.getTitle)}
+                    @if(!user.getMemberships.isEmpty){ @infoItem("MEDLEM AV", util.TextUtil.capitalized(util.ArrayUtil.prettyJoin(user.getMemberships)))}
                     @if(user.hasGraduationYear){ @infoItem("AVGANGSÅR", user.getGraduationYear.toString)}
                     @if(user.hasSpecialization){ @infoItem("SPESIALISERING", user.getSpecialization.toString)}
                 </ul>

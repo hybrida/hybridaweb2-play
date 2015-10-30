@@ -28,22 +28,26 @@
 <div class="fp_white" style="margin-top: -.2%">
 </div>
 <!--<div class="fp_beige"></div> -->
-<div class="container-fluid center-80 page-top">
-    <div class="row">
-	<div class="col-md-9">
-        <div class="drop-shadow">
-            <div class="col-md-4 white-box no-shadow inverted" style="background:#005675;">
-                Lett informasjon dukker opp her!
-            </div>
-            <div class="col-md-4 white-box no-shadow inverted">
-                <a href="@newstudent.routes.NewStudent.index()"> Ny student? Klikk her!</a>
-            </div>
-            <div class="col-md-4 white-box no-shadow inverted" style="background:#7c3f63;">
-                Lett informasjon dukker opp her!
+<div class="container-fluid center-container">
+    <div class="row space-below">
+        <div class="col-lg-9 col-md-8 space-above">
+            <div class="col-xs-12 drop-shadow">
+                <div class="row container-height inverted">
+                    <div class="col-sm-4 white-box no-shadow inverted" style="background:#005675;">
+                        Lett informasjon dukker opp her!
+                    </div>
+                    <div class="col-sm-4 white-box no-shadow inverted">
+                        <a href="@newstudent.routes.NewStudent.index()"> Ny student? Klikk her!</a>
+                    </div>
+                    <div class="col-sm-4 white-box no-shadow inverted" style="background:#7c3f63;">
+                        Lett informasjon dukker opp her!
+                    </div>
+                </div>
             </div>
             <div class="clearfix"></div>
         </div>
-    </div>
-    @sidebar.render
+        <div class="col-lg-3 col-md-4 space-above">
+        @sidebar.render
+        </div>
     </div>
 </div>
