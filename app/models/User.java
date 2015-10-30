@@ -98,9 +98,9 @@ public class User extends Model implements ImmutableUser {
 	public Boolean             arrkom = false;     // Access to arrkom functionality.
 	@Column(name = "VEVKOM", columnDefinition = "boolean default false")
 	public Boolean             vevkom = false;     // Access to vevkom functionality.
-	@Column(name = "ADMIN", columnDefinition = "boolean default false")
+	@Column(name = "JENTEKOM", columnDefinition = "boolean default false")
 	public Boolean             jentekom = false;   // Access to jentekom functionality.
-	@Column(name = "ADMIN", columnDefinition = "boolean default false")
+	@Column(name = "REDAKSJON", columnDefinition = "boolean default false")
 	public Boolean             redaksjonen = false;// Access to redkasjonen functionality.
 	@Column(name = "ADMIN", columnDefinition = "boolean default false")
 	public Boolean             admin = false;      // For control over the entire page. Check your privilege
