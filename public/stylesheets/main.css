@@ -120,7 +120,10 @@ a:hover {
     background-repeat: repeat;
     min-height: 100vh;
     height: auto;
+    margin-top: -50px;
+    padding-top: 50px;
 }
+
 .row.container-height {
     overflow: hidden;
     background-color: #fff;
@@ -258,10 +261,12 @@ a.inverted{
 
 /**
  * Bootstrap:
- * 'xs':   0 -  767  -- Extra small, for phones
- * 'sm': 768 -  991  -- Small, for tablets
- * 'md': 992 - 1199  -- Medium, for smaller pcs
+ * 'xs': any size    -- Extra small, for phones
+ * 'sm': 768 and up  -- Small, for tablets
+ * 'md': 992 and up  -- Medium, for smaller pcs
  * 'lg': 1200 and up -- Large, for larger pcs
+ *
+ * 'xl': 1600 and up -- Extra large, for even larger pcs. Not standard.
  *
  * Since bootstrap uses "mobile first", we will do the same, meaning
  * design so that it looks good on small screens, then add @media rules
@@ -279,9 +284,9 @@ a.inverted{
 }
 @media (min-width: 1200px){
     #home { margin: 0 32px;}
-    .center-container{width: 80%; max-width: 1399px;}
+    .center-container{width: 80%; max-width: 1119px;}
 }
-@media (min-width: 2000px){
+@media (min-width: 1600px){
     .center-container{width: 70%; max-width: 1799px;}
 }
 @media (min-width: 3000px){
