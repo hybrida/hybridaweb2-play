@@ -20,7 +20,7 @@ body {
 }
 
 
-h1, h2 {
+h1, h2, h3 {
     font-family: 'Playfair Display', serif;
 }
 
@@ -161,32 +161,15 @@ a:hover {
     clear: both;
 }
 
-.center-80 {
+.center-container {
     width: 80%;
     margin-left: 50%;
     margin-right: 50%;
     transform: translateX(-50%);
 }
 
-.box-page,
-.sleek-box,
-.white-box,
-.white-box,
-.transparent-box,
-.transparent-box-addition,
-.drop-shadow {
-    box-shadow: -5px 5px 25px rgba(0,0,0,0.4);
-}
-
-.no-shadow{
-    box-shadow: none !important;
-}
-
 .box-page {
-    min-width: 678px;
-    margin: 0;
     padding: 40px 50px 80px;
-
     background: #fff;
 }
 .box-page .buttons {
@@ -200,6 +183,18 @@ a:hover {
     margin-left: 1px;
 }
 
+.box-page,
+.sleek-box,
+.white-box,
+.transparent-box,
+.transparent-box-addition,
+.drop-shadow {
+    box-shadow: -5px 5px 25px rgba(0,0,0,0.4);
+}
+
+.no-shadow{
+    box-shadow: none !important;
+}
 .smallTitle {
     margin: 0 0 10px;
     padding: 0 0 5px;
