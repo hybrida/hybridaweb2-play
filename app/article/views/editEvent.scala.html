@@ -1,4 +1,5 @@
 @(event: Event, edarticle: Article)
+@import util._
 <div>
 	<div class="container-fluid">
 		<script src="/assets/ckeditor/ckeditor.js"></script>
@@ -34,23 +35,23 @@
 						<br>
 						<div class="form-group">
 							<label for="oD">Påmelding Åpnes:</label>
-							<input class="form-control" id="oD" type="datetime-local" name="signUpStart" value="@(util.DateUtil.calendarToString(event.getSignUpStart))">
+							<input class="form-control" id="oD" type="datetime-local" name="signUpStart" value="@(DateUtil.calendarToString(event.getSignUpStart))">
 						</div>
 						<div class="form-group">
 							<label for="aOD">Påmelding åpnes for andre:</label>
-							<input class="form-control" id="aOD" type="datetime-local" name="secondSignUp" value="@(util.DateUtil.calendarToString(event.getSecondSignUp))">
+							<input class="form-control" id="aOD" type="datetime-local" name="secondSignUp" value="@(DateUtil.calendarToString(event.getSecondSignUp))">
 						</div>
 						<div class="form-group">
 							<label for="oD">Påmelding Stenges:</label>
-							<input class="form-control" id="oD" type="datetime-local" name="signUpDeadline" value="@(util.DateUtil.calendarToString(event.getSignUpDeadline))">
+							<input class="form-control" id="oD" type="datetime-local" name="signUpDeadline" value="@(DateUtil.calendarToString(event.getSignUpDeadline))">
 						</div>
 						<div class="form-group">
 							<label for="nDS">Starttid:</label>
-							<input class="form-control" id="nDS" type="datetime-local" name="eventHappens" value="@(util.DateUtil.calendarToString(event.getEventHappens))">
+							<input class="form-control" id="nDS" type="datetime-local" name="eventHappens" value="@(DateUtil.calendarToString(event.getEventHappens))">
 						</div>
 						<div class="form-group">
 							<label for="tF">Sluttid:</label>
-							<input class="form-control" id="tF" type="datetime-local" name="timeFrame" placeholder="Varighet" value="@(util.DateUtil.calendarToString(event.getEventStops))">
+							<input class="form-control" id="tF" type="datetime-local" name="timeFrame" placeholder="Varighet" value="@(DateUtil.calendarToString(event.getEventStops))">
 						</div>
 						<div class="form-group">
 							<label for="loc">Sted:</label>
@@ -59,19 +60,19 @@
 						<label for="FSU">Klasser tillatt ved første påmelding</label>
 						<div id="FSU" class="form-group">
 							<label class="checkbox-inline">
-								<input type="checkbox" id="first_signup" name="firstYearAllowed" @util.TextUtil.bool2checked(event.firstYearAllowed)>1
+								<input type="checkbox" id="first_signup" name="firstYearAllowed" @TextUtil.bool2checked(event.firstYearAllowed)>1
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="first_signup" name="secondYearAllowed" @util.TextUtil.bool2checked(event.secondYearAllowed)>2
+								<input type="checkbox" id="first_signup" name="secondYearAllowed" @TextUtil.bool2checked(event.secondYearAllowed)>2
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="first_signup" name="thirdYearAllowed" @util.TextUtil.bool2checked(event.thirdYearAllowed)>3
+								<input type="checkbox" id="first_signup" name="thirdYearAllowed" @TextUtil.bool2checked(event.thirdYearAllowed)>3
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="first_signup" name="fourthYearAllowed" @util.TextUtil.bool2checked(event.fourthYearAllowed)>4
+								<input type="checkbox" id="first_signup" name="fourthYearAllowed" @TextUtil.bool2checked(event.fourthYearAllowed)>4
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="first_signup" name="fifthYearAllowed" @util.TextUtil.bool2checked(event.fifthYearAllowed)>5
+								<input type="checkbox" id="first_signup" name="fifthYearAllowed" @TextUtil.bool2checked(event.fifthYearAllowed)>5
 							</label>
 						</div>
 
@@ -79,19 +80,19 @@
 						<label for="SSU">Klasser tillatt ved andre påmelding</label>
 						<div id="SSU" class="form-group">
 							<label class="checkbox-inline">
-								<input type="checkbox" id="secound_signup" name="firstYearAllowedAfterSecondSignup" @util.TextUtil.bool2checked(event.firstYearAllowedAfterSecondSignup)>1
+								<input type="checkbox" id="secound_signup" name="firstYearAllowedAfterSecondSignup" @TextUtil.bool2checked(event.firstYearAllowedAfterSecondSignup)>1
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="secound_signup" name="secondYearAllowedAfterSecondSignup" @util.TextUtil.bool2checked(event.secondYearAllowedAfterSecondSignup)>2
+								<input type="checkbox" id="secound_signup" name="secondYearAllowedAfterSecondSignup" @TextUtil.bool2checked(event.secondYearAllowedAfterSecondSignup)>2
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="secound_signup" name="thirdYearAllowedAfterSecondSignup" @util.TextUtil.bool2checked(event.thirdYearAllowedAfterSecondSignup)>3
+								<input type="checkbox" id="secound_signup" name="thirdYearAllowedAfterSecondSignup" @TextUtil.bool2checked(event.thirdYearAllowedAfterSecondSignup)>3
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="secound_signup" name="fourthYearAllowedAfterSecondSignup" @util.TextUtil.bool2checked(event.fourthYearAllowedAfterSecondSignup)>4
+								<input type="checkbox" id="secound_signup" name="fourthYearAllowedAfterSecondSignup" @TextUtil.bool2checked(event.fourthYearAllowedAfterSecondSignup)>4
 							</label>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="secound_signup" name="fifthYearAllowedAfterSecondSignup" @util.TextUtil.bool2checked(event.fifthYearAllowedAfterSecondSignup)>5
+								<input type="checkbox" id="secound_signup" name="fifthYearAllowedAfterSecondSignup" @TextUtil.bool2checked(event.fifthYearAllowedAfterSecondSignup)>5
 							</label>
 						</div>
 
@@ -120,14 +121,14 @@
 						<div class="form-group">
 								<label for="mX"> Spesifiser om dette er en bedpres
 									<label class="checkbox-inline">
-										<input type="checkbox" id="mX" name="bedpres">Bedpres
+										<input type="checkbox" id="mX" name="bedpres" @TextUtil.bool2checked(event.bedpres)>Bedpres
 									</label>
 								</label>
 							</div>
 						<div class="form-group">
 							<label for="mW">Er påmelding bindende? (Det er ikke mulig å melde seg av etter påmeldingen stenges)
 								<label class="checkbox-inline">
-									<input type="checkbox" id="mW" name="binding" @util.TextUtil.bool2checked(event.binding)>Bindende
+									<input type="checkbox" id="mW" name="binding" @TextUtil.bool2checked(event.binding)>Bindende
 								</label>
 							</label>
 						</div>

@@ -20,70 +20,76 @@ import java.util.List;
  */
 public class BackupDatabase {
 
-    public static Result index() {
-        models.User user = LoginState.getUser();
-        if (!(!user.isDefault() && (user.admin || user.root))) {
-            return application.Application.showUnauthorizedAccess();
-        }
+	public static Result index() {
+		models.User user = LoginState.getUser();
+		if (!(!user.isDefault() && (user.admin || user.root))) {
+			return application.Application.showUnauthorizedAccess();
+		}
 
-        if (backup())
-            return Results.ok("Database backup successful!");
-        return Results.internalServerError("Couldn't backup database!");
-    }
+		if (backup())
+			return Results.ok("Database backup successful!");
+		return Results.internalServerError("Couldn't backup database!");
+	}
 
-    private static Boolean backup() {
-        javax.sql.DataSource ds = DB.getDataSource();
-        String ups = "";
-        String downs = "";
-        try {
-            java.sql.Connection connection = ds.getConnection("hybrid", "");
-            java.sql.Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery("SCRIPT SIMPLE NOSETTINGS"); // TO 'conf\\evolutions\\default\\2.sql'");
-            ArrayList<String> table_names = new ArrayList<>();
-            while (result.next()) {
-                Reader reader = new InputStreamReader(result.getAsciiStream(1));
-                String everything = "";
-                List<String> lines = new ArrayList<>();
-                int count_of_qout = 0;
-                while (reader.ready()) {
-                    char character = (char) reader.read();
-                    everything += character;
-                    if (character == '\'') count_of_qout++;
-                    else if (character == ';' && count_of_qout%2 == 0) {
-                        lines.add(everything + System.lineSeparator());
-                        everything = "";
-                    } else if (character == ';') {
-                        everything += ';'; //everything.substring(0,everything.length()-1) + ";";
-                    }
-                }
-                for (String line : lines) {
-                    String upper_line = line.toUpperCase();
-                    if (upper_line.startsWith("INSERT") && !upper_line.startsWith("INSERT INTO SYSTEM_LOB_STREAM") && !upper_line.startsWith("INSERT INTO PUBLIC.PLAY_EVOLUTIONS")) {
-                        if (upper_line.startsWith("INSERT INTO PUBLIC.USER")) ups = line + ups;
-                        else ups += line;
-                        String table_name = upper_line.substring(12, upper_line.indexOf("(", 12));
-                        if (!table_names.contains(table_name)) {
-                            table_names.add(table_name);
-                            downs += "TRUNCATE TABLE " + table_name + ";" + System.lineSeparator(); //18 is the location after INSERT INTO PUBLIC.
-                        }
-                    }
-                }
-                reader.close();
-            }
-            result.close();
-            String now = new SimpleDateFormat("yyyymmddhhmmss").format(new Date());
-            BufferedWriter writer = new BufferedWriter(new FileWriter("./conf/evolutions/default/backup/" + now + ".sql")); //When it's going to be used, call it 2.sql or something
-            ups = "# --- !Ups" + System.lineSeparator() + ups;
-            downs = "# --- !Downs" + System.lineSeparator() + "SET FOREIGN_KEY_CHECKS = 0;" + System.lineSeparator() + downs + "SET FOREIGN_KEY_CHECKS = 1;";
-            writer.write(ups + System.lineSeparator() + downs);
-            writer.flush();
-            writer.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+	private static Boolean backup() {
+		javax.sql.DataSource ds = DB.getDataSource();
+		String ups = "";
+		String downs = "";
+		try {
+			java.sql.Connection connection = ds.getConnection("hybrid", "");
+			java.sql.Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery("SCRIPT SIMPLE NOSETTINGS"); // TO 'conf\\evolutions\\default\\2.sql'");
+			ArrayList<String> table_names = new ArrayList<>();
+			while (result.next()) {
+				Reader reader = new InputStreamReader(result.getAsciiStream(1));
+				String everything = "";
+				List<String> lines = new ArrayList<>();
+				int count_of_qout = 0;
+				while (reader.ready()) {
+					char character = (char) reader.read();
+					everything += character;
+					if (character == '\'') count_of_qout++;
+					else if (character == ';' && count_of_qout%2 == 0) {
+						lines.add(everything + System.lineSeparator());
+						everything = "";
+					} else if (character == ';') {
+						everything += ';'; //everything.substring(0,everything.length()-1) + ";";
+					}
+				}
+				for (String line : lines) {
+					String upper_line = line.toUpperCase();
+					if (upper_line.startsWith("INSERT") && !upper_line.startsWith("INSERT INTO SYSTEM_LOB_STREAM") && !upper_line.startsWith("INSERT INTO PUBLIC.PLAY_EVOLUTIONS")) {
+						if (upper_line.startsWith("INSERT INTO PUBLIC.USER")) ups = line + ups;
+						else ups += line;
+						String table_name = upper_line.substring(12, upper_line.indexOf("(", 12));
+						if (!table_names.contains(table_name)) {
+							table_names.add(table_name);
+							downs += "TRUNCATE TABLE " + table_name + ";" + System.lineSeparator(); //18 is the location after INSERT INTO PUBLIC.
+						}
+					}
+				}
+				reader.close();
+			}
+			result.close();
+			String now = new SimpleDateFormat("yyyymmddhhmmss").format(new Date());
+			BufferedWriter writer = new BufferedWriter(new FileWriter("./conf/evolutions/default/backup/" + now + ".sql")); //When it's going to be used, call it 2.sql or something
+			ups = "# --- !Ups" + System.lineSeparator() + ups;
+			downs = "# --- !Downs" + System.lineSeparator() + "SET FOREIGN_KEY_CHECKS = 0;" + System.lineSeparator() + downs + "SET FOREIGN_KEY_CHECKS = 1;";
+			writer.write(ups + System.lineSeparator() + downs);
+			writer.flush();
+			writer.close();
+
+			writer = new BufferedWriter(new FileWriter(
+				"./conf/evolutions/default/backup/current_backup.sql"));
+			writer.write(ups + System.lineSeparator() + downs);
+			writer.flush();
+			writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 						System.out.println(e);
-            return false;
-        }
-        return true;
-    }
+			return false;
+		}
+		return true;
+	}
 
 }
