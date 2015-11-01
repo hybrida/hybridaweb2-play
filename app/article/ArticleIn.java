@@ -17,7 +17,6 @@ import views.html.utils.centerBlock;
 import exceptions.*;
 import models.*;
 
-
 public class ArticleIn extends Controller {
 
 	final static Form<models.Article> articleForm = form(models.Article.class);

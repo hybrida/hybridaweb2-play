@@ -178,6 +178,9 @@ public class Event extends Model {
 	@OneToOne // This is a foreign key. It points to an "Article".
 	private Article articleRef;
 
+	@OneToOne
+	private Event previousEdit;
+
 	@ManyToMany
 	private List<User> joinedUsers;
 
@@ -215,6 +218,53 @@ public class Event extends Model {
 	private Calendar signUpDeadline;
 	private Calendar eventHappens;
 	private Calendar eventStops;
+
+	public Event() {}
+	public Event(Event copy) {
+		this.articleRef = copy.articleRef;
+		this.previousEdit = copy.previousEdit;
+		this.joinedUsers = copy.joinedUsers;
+		this.location = copy.location;
+		this.firstUpperGraduationLimit = copy.firstUpperGraduationLimit;
+		this.firstLowerGraduationLimit = copy.firstLowerGraduationLimit;
+		this.secondUpperGraduationLimit = copy.secondUpperGraduationLimit;
+		this.secondLowerGraduationLimit = copy.secondLowerGraduationLimit;
+
+		this.firstYearAllowed = copy.firstYearAllowed;
+		this.secondYearAllowed = copy.secondYearAllowed;
+		this.thirdYearAllowed = copy.thirdYearAllowed;
+		this.fourthYearAllowed = copy.fourthYearAllowed;
+		this.fifthYearAllowed = copy.fifthYearAllowed;
+
+		this.firstYearAllowedAfterSecondSignup = copy.firstYearAllowedAfterSecondSignup;
+		this.secondYearAllowedAfterSecondSignup = copy.secondYearAllowedAfterSecondSignup;
+		this.thirdYearAllowedAfterSecondSignup = copy.thirdYearAllowedAfterSecondSignup;
+		this.fourthYearAllowedAfterSecondSignup = copy.fourthYearAllowedAfterSecondSignup;
+		this.fifthYearAllowedAfterSecondSignup = copy.fifthYearAllowedAfterSecondSignup;
+
+		this.bedpres = copy.bedpres;
+		this.binding = copy.binding;
+		this.genderAllowed = copy.genderAllowed;
+		this.maxParticipants = copy.maxParticipants;
+		this.maxParticipantsWaiting = copy.maxParticipantsWaiting;
+		this.signUpStart = copy.signUpStart;
+		this.secondSignUp = copy.secondSignUp;
+		this.signUpDeadline = copy.signUpDeadline;
+		this.eventHappens = copy.eventHappens;
+		this.eventStops = copy.eventStops;
+	}
+
+	public void setPrevious(Event previous) {
+		this.previousEdit = previous;
+	}
+
+	public Event getPrevious() {
+		return this.previousEdit;
+	}
+
+	public Boolean hasPrevious() {
+		return this.previousEdit != null;
+	}
 
 	public boolean canRemove() {
 		return !(binding && Calendar.getInstance().after(signUpDeadline));

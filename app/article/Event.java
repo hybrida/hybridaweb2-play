@@ -72,7 +72,7 @@ public class Event extends Controller {
 		return ok(layout.render("", article.views.html.editEvent.render(evt, art)));
 	}
 
-	public static Result saveEdit(String id) {
+	public static Result saveEdit(String id) throws Unauthorized, ServerError {
 		User user = LoginState.getUser();
 		Result error = application.Application.checkEditPrivilege(user);
 		if (error != null)
@@ -97,15 +97,24 @@ public class Event extends Controller {
 			serverError.printStackTrace();
 		}
 		if (!articleInput.hasErrors()) {
+
+			models.Event oldevent = new models.Event(event);
+			oldevent.save();
+
 			models.Article articleModel = articleInput.get();
 			if (image_path != null)
 				articleModel.setImagePath(image_path);
-			articleModel.setId(event.getArticle().getId());
-			articleModel.update();
+			else
+				articleModel.setImagePath(oldevent.getArticle().getImagePath());
+			articleModel.setAuthor(LoginState.getUser());
+			articleModel.save();
 
 			Long eid = event.getId();
 			event = models.Event.getFromRequest();
+			event.setPrevious(oldevent);
 			event.setId(eid);
+			event.setArticle(articleModel);
+
 			event.update();
 		}
 		return application.Application.index();

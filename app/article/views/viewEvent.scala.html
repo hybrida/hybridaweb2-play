@@ -21,6 +21,11 @@
 								<button class="btn-xs btn-primary"> Rediger </button>
 							</a>
 						}
+						@if(event.hasPrevious){
+							<a href="@(article.routes.Event.viewEvent(event.getPrevious.getId + ""))">
+								Old
+							</a>
+						}
 					</p>
 						@Html(inarticle.getText)
 						<hr>
@@ -149,7 +154,7 @@
 				<div class="row">
 					<div class="col-md-12">
 					<div class="progress">
-						<div class="progress-bar"style="width: @((event.getJoinedUsers.size)*100/event.getMaxParticipants)%">
+						<div class="progress-bar" style="width: @((event.getJoinedUsers.size)*100/event.getMaxParticipants)%">
 						</div>
 						<span>
 							@(event.getJoinedUsers.size) / @event.getMaxParticipants
