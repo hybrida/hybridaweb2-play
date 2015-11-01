@@ -1,4 +1,4 @@
-@(bedpresses: List[Event], chosenEventId: Long)
+@(bedpresses: List[Renders], chosenEventId: Long)
 <div style="display: table-cell">
 Du velger først bedpressen, og så hvilken person du ønsker å markere. Denne personen
 vil ikke kunne delta i de fire neste bedpressene. Personen vil havne bakerst på ventelista.
@@ -13,7 +13,7 @@ frem til hvilke bedpresser er ulovlig å delta i).
 	<select class="form-control" name="eventId" onchange="this.form.submit()">
 		<option value="0">Velg Bedpres</option>
 		@for(i<-bedpresses){
-			<option value="@i.getId" @if(chosenEventId == i.getId){selected}>@i.getArticle.getTitle</option>
+			<option value="@i.eventReference.getId" @if(chosenEventId == i.eventReference.getId){selected}>@i.eventReference.getArticle.getTitle</option>
 		}
 	</select>
 </form>

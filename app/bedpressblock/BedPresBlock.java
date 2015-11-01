@@ -25,8 +25,8 @@ public class BedPresBlock extends Controller {
 	public static Result index() {
 		if (checkAccess()) return unauthorize();
 
-		List<Event> bedpresses = Event.find.setMaxRows(10).where(
-			).eq("bedpres", true).findList();
+		List<Renders> bedpresses = Renders.find.setMaxRows(10).where(
+			).eq("eventReference.bedpres", true).findList();
 		return ok(layoutBoxPage.render("Bedpres Prikking", pickbedpres.render(bedpresses,
 			-1L), null));
 	}
