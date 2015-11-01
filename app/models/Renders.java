@@ -5,11 +5,12 @@ import play.db.ebean.Model;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
+import org.hibernate.annotations.*;
 
 /**
  * Created by Sindre on 28.01.2015.
  */
-@Entity
+@javax.persistence.Entity
 public class Renders extends Model {
 
 	@Id
@@ -17,8 +18,10 @@ public class Renders extends Model {
 	@Column(nullable = false)
 	public Long renderId;
 	@OneToOne
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	public Article articleReference = null;
 	@OneToOne
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	public Event eventReference = null;
 
 	public static void addArticle(Article article) {
@@ -36,6 +39,10 @@ public class Renders extends Model {
 	public static List<Renders> getVisibleRenderables() {
 		List<Renders> renders = Renders.find.orderBy().desc("renderId").findList();
 		return renders;
+	}
+
+	public static Renders getByEventId(Long eventId) {
+		return find.where().eq("eventReference.eventId", eventId).findUnique();
 	}
 
 	public static Finder<Long, Renders> find = new Finder<>(
