@@ -42,7 +42,7 @@
 										<div class="row" style="margin-left: 1%">
 											<div class="col-md-1">
 												<a href="@profile.routes.Profile.index(j.getUsername)" class="thumbnail">
-													<img src="@if(j.getProfileImageFileName != null){ /assets/ajaxUpload/@j.getUsername/@j.getProfileImageFileName} @if(j.getProfileImageFileName == null){/assets/images/logo_big.png}" alt="profilepic for @j.getName" width="30px">
+													<img src="@j.getProfilePictureWithFallBackOnDefault" alt="profilepic for @j.getName" width="30px">
 												</a>
 											</div>
 											<div class="col-md-11">
