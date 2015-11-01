@@ -81,25 +81,6 @@ public class ArticleIn extends Controller {
 		}
 	}
 
-	public static models.Article saveArticle() throws IllegalStateException {
-		User user = LoginState.getUser();
-		Form<models.Article> articleInput = articleForm.bindFromRequest();
-//		String image_link = user.uploadPicture();
-		if (!articleInput.hasErrors()) {
-			models.Article articleModel = articleInput.get();
-//			if (image_link != null)
-//				articleModel.setImagePath(image_link);
-//			else
-//				articleModel.setDefaultImage();
-			articleModel.setDefaultImage(); //TODO: Should use Upload Controller (sry Kev)
-			articleModel.setAuthor(user);
-			articleModel.save();
-
-			return articleModel;
-		}
-		throw new IllegalStateException();
-	}
-
 	public static long saveSpecificArticle(String id)
 		throws IllegalStateException,
 			Unauthorized,
