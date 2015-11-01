@@ -63,6 +63,16 @@ public class Upload extends Controller {
 		return uploadTo(inputName, null);
 	}
 
+	public static String uploadOptional(String inputName) throws Unauthorized, ServerError {
+		try {
+			return upload(inputName);
+		} catch (NoFileInRequest exception) {
+			// Swallow this exception, it may be expected
+			return null;
+		}
+	}
+
+
 	public static Result ajaxUploadTo(String uploadFolder) {
 		try {
 			return ok(uploadTo("file", uploadFolder));

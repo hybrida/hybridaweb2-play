@@ -48,12 +48,12 @@ public class ArticleIn extends Controller {
 		return (new HttpRequestData()).get("event") != null;
 	}
 
-	public static Result save() {
+	public static Result save() throws Unauthorized, ServerError {
 		User user = LoginState.getUser();
 		if (!user.canCreateNewArticle())
 			return application.Application.showUnauthorizedAccess();
 
-		String image_link = user.uploadPicture("picture");
+		String image_link = Upload.uploadOptional("picture");
 
 		models.Article article;
 		try {
@@ -89,11 +89,7 @@ public class ArticleIn extends Controller {
 		User user = LoginState.getUser();
 
 		Form<models.Article> articleInput = articleForm.bindFromRequest();
-		String image_link = null;
-
-		try {
-			image_link = Upload.uploadTo("picture", user.getUsername());
-		} catch (NoFileInRequest exc) { }
+		String image_link = Upload.uploadOptional("picture");
 
 		if (!articleInput.hasErrors()) {
 			models.Article articleModel = articleInput.get();
@@ -120,11 +116,7 @@ public class ArticleIn extends Controller {
 		User user = LoginState.getUser();
 
 
-		String image_link = null;
-
-		try { // Iver; are exceptions really necessary for such mundane control flow? - Kef
-			image_link = Upload.uploadTo("picture", user.getUsername());
-		} catch (NoFileInRequest exc) { }
+		String image_link = Upload.uploadOptional("picture");
 
 		models.Article article = models.Article.find.byId(Long.valueOf(id));
 		if (HttpRequestData.isGiven("delete"))
