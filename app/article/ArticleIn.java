@@ -114,7 +114,6 @@ public class ArticleIn extends Controller {
 
 		User user = LoginState.getUser();
 
-
 		String image_link = Upload.uploadOptional("picture");
 
 		models.Article article = models.Article.find.byId(Long.valueOf(id));
@@ -133,7 +132,7 @@ public class ArticleIn extends Controller {
 			if (image_link != null)
 				article.setImagePath(image_link);
 			else
-				article.setDefaultImage();
+				article.setImagePath(article.getImagePath());
 
 			article.save();
 		}
