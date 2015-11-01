@@ -1,5 +1,5 @@
 <nav class="navbar navbar-default navbar-fixed-top">
-	<div class="container-fluid nav-container">
+	<div class="container-fluid center-container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation_menu">
 				<span class="sr-only">Toggle navigation</span>
@@ -12,7 +12,7 @@
 		<div class="collapse navbar-collapse" id="navigation_menu">
 			<ul class="nav navbar-nav">
 
-				<!--@if(models.LoginState.isValidlyLoggedIn()) {<li><a href="@application.routes.Application.frontpage()">Forside</a></li>}-->
+				@if(models.LoginState.isValidlyLoggedIn()) {<li><a href="@application.routes.Application.frontpage()">Forside</a></li>}
 				@if(models.LoginState.getUser().canCreateNewArticle()) {<li><a href="@article.routes.ArticleIn.index()">Nytt Innlegg</a></li>}
 				<li><a href="@bedrift.routes.Bedrift.index()">Bedrift</a></li>
 				<li><a href="@calendar.routes.Calendar.display()">Kalender</a></li>
@@ -30,7 +30,8 @@
 						<ul class="dropdown-menu" role="menu">
 							<li> <a href="@profile.routes.Profile.index(models.LoginState.getUser().getUsername())">Profil</a></li>
 							@if(models.LoginState.getUser.isFirstUser){<li><a href="@admin.routes.Admin.allUsers()">Administrer</a></li>}
-							@if(models.LoginState.getUser.isInBedkom){<li><a href="@bedpressblock.routes.BedPresBlock.index()">Bedpres Prikking</a></li>}
+							@if(models.LoginState.getUser.isInBedkom){<li><a href="@bedpressblock.routes.BedPresBlock.index()">Bedpres Prikking</a></li>
+								<li><a href="@bedkomdatabase.routes.Bedkomdatabase.index()">Bedrifter</a></li>}
 							@if(LoginState.getUser.isFirstUser){
 								<li><a href="@admin.routes.Admin.logout()">Logg ut</a></li>
 							}else{
