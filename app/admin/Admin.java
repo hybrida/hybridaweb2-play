@@ -66,7 +66,7 @@ public class Admin extends Controller {
 					user, period.inc() == 1, user.getId());
 				all_forms += gen.toString();
 			}
-			all_forms += NewForm.render().toString();
+			all_forms = NewForm.render().toString() + all_forms;
 			Html html = Html.apply(formheads + all_forms);
 			html = table.render(html);
 			return ok(layoutBoxPage.render("User Administration", html, null));

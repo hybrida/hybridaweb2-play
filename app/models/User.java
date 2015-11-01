@@ -95,7 +95,7 @@ public class User extends Model implements ImmutableUser {
 	@Column(name = "STUDENT", columnDefinition = "boolean default false")
 	public Boolean             student = false;    // No special privileges except for file ajaxUpload.
 	@Column(name = "STYRET", columnDefinition = "boolean default false")
-	public Boolean             styret;     // Access to styret functionality.
+	public Boolean             styret = false;     // Access to styret functionality.
 	@Column(name = "BEDKOM", columnDefinition = "boolean default false")
 	public Boolean             bedkom = false;     // Access to bedkom functionality.
 	@Column(name = "ARRKOM", columnDefinition = "boolean default false")
