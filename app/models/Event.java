@@ -144,8 +144,6 @@ public class Event extends Model {
 			if (secondSignUp.equals("")) secondSignUp = signUpStart;
 
 			// Check whether the times are valid.
-			isValid &= before(now, signUpStart);
-			if (isValid == false) return "Now is not before the sign up start";
 			isValid &= beforeOrEq(signUpStart, secondSignUp);
 			if (isValid == false) return "Sign up is not before or equal to the second sign up";
 			isValid &= before(secondSignUp, signUpDeadline);
