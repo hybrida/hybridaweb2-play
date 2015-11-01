@@ -4,9 +4,7 @@ import play.db.ebean.Model;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 /**
  * Created by Sindre on 28.01.2015.
@@ -14,6 +12,10 @@ import javax.persistence.OneToOne;
 @Entity
 public class Renders extends Model {
 
+	@Id
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@Column(nullable = false)
+	public Long renderId;
 	@OneToOne
 	public Article articleReference = null;
 	@OneToOne
@@ -32,7 +34,7 @@ public class Renders extends Model {
 	}
 
 	public static List<Renders> getVisibleRenderables() {
-		List<Renders> renders = Renders.find.all();
+		List<Renders> renders = Renders.find.orderBy().desc("renderId").findList();
 		return renders;
 	}
 
