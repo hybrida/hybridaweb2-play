@@ -16,7 +16,9 @@
                             @if(models.LoginState.getUser.getId == inarticle.getAuthor.getId || LoginState.getUser.isAdmin) {
                                 <a href="@article.routes.Article.editArticle(String.valueOf(inarticle.getId))">
                                     <button class="btn-xs btn-primary"> Rediger </button> </a>
-                            }
+                            }@if(inarticle.getParent != null){
+
+															<a href="@article.routes.Article.viewArticle(inarticle.getParent.getId + "")">Tidligere Revisjon</a> }
                         </h6>
                         <p class="text-center">@Html(inarticle.getText)</p>
                     <br>

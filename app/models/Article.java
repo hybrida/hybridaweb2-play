@@ -36,6 +36,10 @@ public class Article extends Model {
 		previousEdit = article;
 	}
 
+	public Article getParent() {
+		return previousEdit;
+	}
+
 	public Article(Article copy) {
 		this.title = copy.title;
 		this.ingress = copy.ingress;
