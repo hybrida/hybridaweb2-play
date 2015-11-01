@@ -56,7 +56,6 @@ public class Event extends Controller {
 			models.Event evt = models.Event.find.byId(Long.valueOf(eventId));
 			models.Article art = evt.getArticle();
 			List<User> signedups = evt.getJoinedUsers();
-			System.out.println(evt.getUserBlocked(LoginState.getUser()));
 			return ok(layout.render("Arrangement", viewEvent.render(art, evt)));
 		}
 		else

@@ -12,7 +12,9 @@ import java.time.LocalDate;
 import article.Article;
 import article.views.html.*;
 import views.html.layout;
+import controllers.Upload;
 import views.html.utils.centerBlock;
+import exceptions.*;
 import models.*;
 
 
@@ -47,7 +49,6 @@ public class ArticleIn extends Controller {
 	}
 
 	public static Result save() {
-		System.out.println(new HttpRequestData());
 		User user = LoginState.getUser();
 		if (!user.canCreateNewArticle())
 			return application.Application.showUnauthorizedAccess();
@@ -83,7 +84,6 @@ public class ArticleIn extends Controller {
 	public static models.Article saveArticle() throws IllegalStateException {
 		User user = LoginState.getUser();
 		Form<models.Article> articleInput = articleForm.bindFromRequest();
-		System.out.println(new HttpRequestData());
 //		String image_link = user.uploadPicture();
 		if (!articleInput.hasErrors()) {
 			models.Article articleModel = articleInput.get();
@@ -100,18 +100,27 @@ public class ArticleIn extends Controller {
 		throw new IllegalStateException();
 	}
 
-	public static long saveSpecificArticle(String id) throws IllegalStateException {
+	public static long saveSpecificArticle(String id)
+		throws IllegalStateException,
+			Unauthorized,
+			ServerError,
+			NoFileInRequest {
 		User user = LoginState.getUser();
 
 		Form<models.Article> articleInput = articleForm.bindFromRequest();
-//		String image_link = user.uploadPicture();
+		String image_link = null;
+
+		try {
+			image_link = Upload.uploadTo("picture", user.getUsername());
+		} catch (NoFileInRequest exc) { }
+
 		if (!articleInput.hasErrors()) {
 			models.Article articleModel = articleInput.get();
-//			if (image_link != null)
-//				articleModel.setImagePath(image_link);
-//			else
-//				articleModel.setDefaultImage();
-            articleModel.setDefaultImage(); //TODO: Should use Upload Controller (sry Kev)
+			if (image_link != null)
+				articleModel.setImagePath(image_link);
+			else
+				articleModel.setDefaultImage();
+
 			articleModel.setAuthor(user);
 			articleModel.setId(Long.valueOf(id));
 			articleModel.update();
@@ -122,20 +131,40 @@ public class ArticleIn extends Controller {
 	}
 
 
-	public static Result saveEdit(String id) {
-		Result error = application.Application.checkEditPrivilege(LoginState.getUser());
-		if (error != null)
-			return error;
+	public static Result saveEdit(String id)
+		throws Unauthorized,
+			ServerError,
+			NoFileInRequest {
+
+		User user = LoginState.getUser();
+
+
+		String image_link = null;
+
+		try { // Iver; are exceptions really necessary for such mundane control flow? - Kef
+			image_link = Upload.uploadTo("picture", user.getUsername());
+		} catch (NoFileInRequest exc) { }
 
 		models.Article article = models.Article.find.byId(Long.valueOf(id));
-		HttpRequestData httpdata = new HttpRequestData();
-		article.setTitle(httpdata.get("title"));
-		article.setIngress(httpdata.get("ingress"));
-		article.setText(httpdata.get("text"));
-		String new_image = null;
-		if (new_image != null)
-			article.setImagePath(new_image);
-		article.save();
+		if (HttpRequestData.isGiven("delete"))
+			Renders.getByArticleId(article.getId()).delete();
+		else {
+			HttpRequestData httpdata = new HttpRequestData();
+			models.Article oldart = new models.Article(article);
+			oldart.save();
+			article.setTitle(httpdata.get("title"));
+			article.setIngress(httpdata.get("ingress"));
+			article.setText(httpdata.get("text"));
+			article.setAuthor(LoginState.getUser());
+			article.setParent(oldart);
+
+			if (image_link != null)
+				article.setImagePath(image_link);
+			else
+				article.setDefaultImage();
+
+			article.save();
+		}
 		return application.Application.index();
 	}
 

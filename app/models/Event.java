@@ -34,13 +34,11 @@ public class Event extends Model {
 			event.eventStops = Calendar.getInstance();
 
 			event.signUpStart.setTime(format.parse(form.signUpStart));
-			System.out.println(format.parse(form.signUpStart));
 			event.secondSignUp.setTime(format.parse(form.secondSignUp));
 			event.signUpDeadline.setTime(format.parse(form.signUpDeadline));
 			event.eventHappens.setTime(format.parse(form.eventHappens));
 			event.eventStops.setTime(format.parse(form.timeFrame));
 		} catch (ParseException excObj) {
-			System.out.println(excObj);
 		}
 		event.firstYearAllowed = form.firstYearAllowed != null;
 		event.secondYearAllowed = form.secondYearAllowed != null;
@@ -116,7 +114,6 @@ public class Event extends Model {
 				cal2.setTime(dateFormat.parse(ad));
 				return cal1.before(cal2) || cal1.equals(cal2);
 			} catch (ParseException parseExc) {
-				System.out.println(parseExc);
 				return false;
 			}
 		}
@@ -128,7 +125,6 @@ public class Event extends Model {
 				cal2.setTime(dateFormat.parse(ad));
 				return bc.before(cal2);
 			} catch (ParseException parseExc) {
-				System.out.println(parseExc);
 				return false;
 			}
 		}

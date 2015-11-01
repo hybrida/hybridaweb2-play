@@ -22,6 +22,8 @@ public class Article extends Model {
 	@Column(columnDefinition = "text")
 	private String      text;
 	@OneToOne
+	private Article     previousEdit;
+	@OneToOne
 	private User        author;
 	@CreatedTimestamp
 	private Timestamp   dateMade;
@@ -29,6 +31,21 @@ public class Article extends Model {
 	@OneToMany
 	@OrderBy("Comment.getCreationDate DESC")
 	private List<Comment> commentList;
+
+	public void setParent(Article article) {
+		previousEdit = article;
+	}
+
+	public Article(Article copy) {
+		this.title = copy.title;
+		this.ingress = copy.ingress;
+		this.text = copy.text;
+		this.previousEdit = copy.previousEdit;
+		this.author = copy.author;
+		this.dateMade = copy.dateMade;
+		this.imagePath = copy.imagePath;
+		this.commentList = copy.commentList;
+	}
 
 	public Article(String title, String text, String ingress, User author, String imagePath) {
 		this.title = title;

@@ -84,7 +84,6 @@ public class Admin extends Controller {
 			models.User change = models.User.getUserFromForm();
 			change.setId(Long.parseLong(uid));
 			change.update();
-			System.out.println((new HttpRequestData()));
 			return redirect(admin.routes.Admin.allUsers());
 		}
 	}

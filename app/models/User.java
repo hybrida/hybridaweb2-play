@@ -163,7 +163,6 @@ public class User extends Model implements ImmutableUser {
 		return thisOrFalse(bedkom) || thisOrFalse(admin) || thisOrFalse(root);
 	}
 
-
 	// Getters and Setter (and some hassers)
 
 	public Long getId() {

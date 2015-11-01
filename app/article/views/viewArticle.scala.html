@@ -13,7 +13,7 @@
                     <br>
                     <h3><p class="text-center">@inarticle.getIngress</p></h3>
                     <h6 class="smallTitle">Av: @inarticle.getAuthor.getName
-                            @if(models.LoginState.getUser.getId == inarticle.getAuthor.getId) {
+                            @if(models.LoginState.getUser.getId == inarticle.getAuthor.getId || LoginState.getUser.isAdmin) {
                                 <a href="@article.routes.Article.editArticle(String.valueOf(inarticle.getId))">
                                     <button class="btn-xs btn-primary"> Rediger </button> </a>
                             }

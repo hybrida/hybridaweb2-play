@@ -37,9 +37,10 @@ public class Newsfeed extends Controller {
 			}
 		}
 		//Example for user access check:
-		System.out.println(
+		/* System.out.println(
 			User.hasAccess(LoginState.getUser(),
 				true, User.Access.BEDKOM, User.Access.ADMIN));
+		*/
 		return ok(views.html.layoutWithHead.render(
 			"Hybrida - Newsfeed",
 			newsfeedBody.render(views.html.utils.toHtml.render(concatenation)),
