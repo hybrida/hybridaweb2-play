@@ -9,6 +9,7 @@ import play.mvc.Result;
 import views.html.layout;
 import play.twirl.api.Html;
 import java.util.List;
+import controllers.views.html.emptySearch;
 
 import static play.data.Form.form;
 
@@ -41,7 +42,11 @@ public class Search extends Controller {
 					.endJunction()
 				.orderBy().desc("renderId").findList();
 
-			return newsfeed.Newsfeed.index(renderables);
+			if (renderables.isEmpty()) {
+				return ok(layout.render("Ingenting Funnet", emptySearch.render()));
+			} else {
+				return newsfeed.Newsfeed.index(renderables);
+			}
 		}
 	}
 
