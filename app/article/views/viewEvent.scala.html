@@ -16,7 +16,7 @@
 					<br>
 					<p class="smallTitle">
 						Av: @inarticle.getAuthor.getFullName
-						@if(models.LoginState.getUser().getUsername == inarticle.getAuthor.getUsername) {
+						@if(models.LoginState.getUser().getUsername == inarticle.getAuthor.getUsername || LoginState.getUser.isAdmin) {
 							<a href="@article.routes.Event.editEvent("" + event.getId)">
 								<button class="btn-xs btn-primary"> Rediger </button>
 							</a>
