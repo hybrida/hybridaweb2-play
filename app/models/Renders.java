@@ -49,7 +49,7 @@ public class Renders extends Model {
 		return find.where().eq("articleReference.articleId", articleId).findUnique();
 	}
 
-	public static Finder<Long, Renders> find = new Finder<>(
+	public static Model.Finder<Long, Renders> find = new Finder<>(
 		Long.class, Renders.class
 	);
 }
