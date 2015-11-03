@@ -5,10 +5,12 @@ package bedrift;
  */
 public class Bedrift extends play.mvc.Controller {
     public static play.mvc.Result index() {
+
         return ok(
-                views.html.layout.render(
+                views.html.layoutWithHead.render(
                         "Bedrift",
-                        bedrift.views.html.index.render()
+                        bedrift.views.html.bedrifthead.render(),
+                        bedrift.views.html.bedriftbody.render()
                 )
         );
     }
