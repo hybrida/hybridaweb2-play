@@ -37,16 +37,14 @@ public class Application extends Controller {
 		return unauthorized(
 			views.html.layoutBoxPage.render(
 				"Unauthorized",
-				application.views.html.showUnauthorizedAccess.render(),
-				null));
+				application.views.html.showUnauthorizedAccess.render()));
 	}
 
 	public static Result show404(String get_value) {
 		return notFound(
 			views.html.layoutBoxPage.render(
 				"404",
-				application.views.html.show404.render(get_value),
-				null));
+				application.views.html.show404.render(get_value)));
 	}
 
 	public static Result show404() {
@@ -61,8 +59,7 @@ public class Application extends Controller {
 		return badRequest(
 			views.html.layoutBoxPage.render(
 							"400",
-							application.views.html.show400.render(get_value),
-							null));
+							application.views.html.show400.render(get_value)));
 	}
 
 	public static Result showBadRequest(String get_value) {

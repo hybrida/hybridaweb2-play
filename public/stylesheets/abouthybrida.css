@@ -1,7 +1,8 @@
 /* all links */
 .bs-docs-sidebar .nav>li>a {
-    /*add trasnparent border */
+    /*add transparent border */
     border-left: 2px solid transparent;
+    color: #555;
 }
 /* active & hover links */
 .bs-docs-sidebar .nav>.active>a,
@@ -70,13 +71,11 @@
 }
 .column1  {
     z-index:2;
-    border-style: solid;
-    border: 10px;
-    border-color: #000000;
     width: 15%;
     height:100%;
     position: fixed;
-    background-color: rgba(155,155,155,0.8);
+    color: black;
+    background-color: rgba(75,125,185,0.6);
     border-radius: 15px;
 }
 .column2 {
@@ -121,6 +120,7 @@
     text-align: center;
     font-size: 22px;
     line-height: 1.5;
+    width: 85%;
 }
 
 #griff {
@@ -142,7 +142,7 @@
 #grifflogo {
     padding-top: 5em;
     height: 240px;
-    width: 100%;
+    width: 85%;
     text-align: center;
     background-color: #ffffff;
 }
@@ -181,7 +181,7 @@
 
 /* all links */
 .bs-docs-sidebar .nav>li>a {
-    color: #999;
+    color: #555;
     border-left: 2px solid transparent;
     padding: 4px 20px;
     font-size: 13px;
