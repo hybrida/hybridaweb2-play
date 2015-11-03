@@ -1,6 +1,7 @@
 package models;
 
 import play.db.ebean.Model;
+import play.db.ebean.Model.Finder;
 
 import java.util.ArrayList;
 import java.util.List;
