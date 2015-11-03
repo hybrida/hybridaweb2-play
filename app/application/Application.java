@@ -49,12 +49,24 @@ public class Application extends Controller {
 				null));
 	}
 
+	public static Result show404() {
+		return show404(request().uri());
+	}
+
+	public static Result showNotFound() {
+		return show404();
+	}
+
 	public static Result show400(String get_value) {
 		return badRequest(
 			views.html.layoutBoxPage.render(
 							"400",
 							application.views.html.show400.render(get_value),
 							null));
+	}
+
+	public static Result showBadRequest(String get_value) {
+		return show400(get_value);
 	}
 
 	/**
