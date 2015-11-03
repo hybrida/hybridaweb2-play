@@ -1,23 +1,31 @@
-@(thumbnails: Array[String])
-<link rel="stylesheet" media="screen" href= "/assets/stylesheets/main.css")">
+@(folders: Map[String, Array[String]])
+<style>
+.thumbnail {
+height : 326px ;
+width : 253px ;
+display: inline-block;
+overflow: hidden;
+}
+</style>
 
 <div class="container">
     <div class="white-box">
-        <div> @*style="border-bottom: 2px solid  #9e9d98 *@
-            @*<div class="subtitle_styled">*@
+        <div>
             <p><h1>Update<sup>k</sup></h1>
-            </div>
-            <br>
-
-        <div class="row">
-            @for(thumbnail <- thumbnails) {
-                <div class="col-xs-6 col-md-3">
-                    <a href="@routes.Assets.at("update/" + thumbnail + ".pdf")" class="thumbnail">
-                        <img src="@routes.Assets.at("update/"+thumbnail+".png")" alt = "thumbnail"/>
-                    </a>
-                </div>
-            }
         </div>
+        <br>
+        @for((foldername, folder) <- folders) {
+            <h3>@foldername</h3>
+            <div class="well">
+            @if(folder != null) {
+                @for(thumbnail <- folder) {
+                    <a href="@routes.Assets.at("update/" + foldername + "/" + thumbnail.substring(0, thumbnail.length()-2) + "df")" class="thumbnail">
+                        <img src="@routes.Assets.at("update/" + foldername + "/" + thumbnail)" alt = "thumbnail"/>
+                    </a>
+                }
+            }
+            </div>
+        }
         <p> <b>Update<sup>k</sup></b> (’/øpdeit ikå:té’/, red.anm.) er linjeforeningsavisen til Hybrida - en avis av og for Hybrider.<br>
             <a href="@update.routes.Update.redaksjon()">Redaksjonen</a> har som mål å gi ut tre aviser på høstsemesteret og fire,
             med en sommeravis i posten til de nye studentene, på
@@ -27,15 +35,8 @@
         <p>Dersom du er alumni og ønsker å abonnemere på avisen,
             kan du sende en mail til redaktøren.</p>
 
-        <p> Enda tidligere utgaver av Update<sup>k</sup> ligger <a href=@update.routes.Update.utgaver()>her</a></p>
+        <p> Enda tidligere utgaver av Update<sup>k</sup> ligger <a href="@update.routes.Update.utgaver()">her</a></p>
 
-        @if(LoginState.isValidlyLoggedIn && LoginState.getUser.admin){
-            Admin: Upload ny Update(kun pdf)
-            <form action="@update.routes.Update.index()" method="POST" enctype = multipart/form-data>
-                <input type="file" name="picture">
-                <input type="submit" value="ajaxUpload">
-            </form>
-        }
         <div style="clear:both"></div>
     </div>
 </div>
