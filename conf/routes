@@ -55,7 +55,6 @@ POST          /api/kalender/endre                      calendar.Calendar.change(
 
 # Update
 GET           /update                                  update.Update.index()
-POST          /update                                  update.Update.post()
 GET           /update/utgaver                          update.Update.utgaver()
 GET           /update/redaksjon                        update.Update.redaksjon()
 
