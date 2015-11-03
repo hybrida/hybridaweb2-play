@@ -1,0 +1,10 @@
+@(title: String)(content: Html)(headContent: Html = null)
+@layoutWithHead(title) {
+    <div class="container-fluid center-container space-above space-below">
+        <div class="col-md-12 box-page">
+            @content
+        </div>
+    </div>
+} {
+    @headContent
+}

@@ -1,6 +1,8 @@
 package models;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public interface ImmutableUser {
 
@@ -30,7 +32,15 @@ public interface ImmutableUser {
 	boolean hasSpecialization();
 	boolean hasProfileImage();
 	boolean hasProfileImagePos();
+    boolean isInBedkom();
+    boolean isInArrkom();
+    boolean isInVevkom();
+    boolean isInJentekom();
+    boolean isInRedaksjonen();
+    User.Access[] getMemberships();
+    boolean isAdmin();
 	boolean isRoot();
+    boolean hasAccess(boolean inAll, User.Access... accessList);
 	boolean isDefault();
 	boolean canCreateNewArticle();
 	int calculateClass();

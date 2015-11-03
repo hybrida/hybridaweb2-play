@@ -9,6 +9,7 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.twirl.api.Html;
+import views.html.layoutBoxPage;
 import views.html.layoutWithHead;
 
 import java.sql.Timestamp;
@@ -34,10 +35,10 @@ public class Calendar extends Controller {
             if (LoginState.isValidlyLoggedIn() && LoginState.getUser().canCreateNewArticle())
                 calendarType = calendar.views.html.calendarHeadGoogle.render();
 
-        return ok(layoutWithHead.render(
-			"Kalender",
-			calendarType,
-			calendar.views.html.calendarBody.render()));
+        return ok(layoutBoxPage.render(
+                "Kalender",
+                calendar.views.html.calendarBody.render(),
+                calendarType));
 	}
 
 	public static Result change() {
@@ -134,16 +135,16 @@ public class Calendar extends Controller {
 				}
 
 				// Set title
-				Article article = event.getArticle();
+				Article articledata = event.getArticle();
 				String title;
-				if (article == null || article.getTitle() == null || article.getTitle().isEmpty()) {
+				if (articledata == null || articledata.getTitle() == null || articledata.getTitle().isEmpty()) {
 					title = EVENT_DEFAULT_TITLE;
 				} else {
-					title = article.getTitle();
+					title = articledata.getTitle();
 				}
 				reformatted.set("title", new TextNode(title));
 				// Set url
-				reformatted.set("url", new TextNode("event/ut/" + event.getId())); //TODO: forandre event til arrangement?
+				reformatted.set("url", new TextNode(article.routes.Event.viewEvent("" + event.getId()).url())); //TODO: forandre event til arrangement?
 				// Set color
 				reformatted.set("color", new TextNode(EVENT_COLOR));
 				reformatted_list_json.add(reformatted);

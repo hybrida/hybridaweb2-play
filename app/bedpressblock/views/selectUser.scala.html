@@ -1,0 +1,11 @@
+@(event: Event)
+@pickbedpres(Renders.find.setMaxRows(10).where().eq("eventReference.bedpres", true).findList(), event.getId)
+<form action="@bedpressblock.routes.BedPresBlock.blockUser()" method="post">
+	<input type="hidden" name="eventId" value="@event.getId">
+	<select class="form-control" name="userId" onchange="this.form.submit()">
+		<option value="0" selected disabled>Velg Person</option>
+		@for(i<-event.getJoinedUsers){
+			<option value="@i.getId">@if(i.isBlockedFrom(event)){&#9888;} @(i.getFirstName + " " + i.getLastName)</option>
+		}
+	</select>
+</form>

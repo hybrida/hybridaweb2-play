@@ -7,10 +7,13 @@ import play.twirl.api.Html;
 import models.HttpRequestData;
 import java.util.*;
 import admin.models.PasswordHash;
+import views.html.layoutBoxPage;
+import admin.views.html.*;
+import admin.models.RingNumber;
 
 public class Admin extends Controller {
 	public static Result index() {
-		return ok(layout.render("Admin", admin.views.html.loginform.render()));
+		return ok(layoutBoxPage.render("Admin", admin.views.html.loginform.render(), null));
 	}
 
 	public static Result login() {
@@ -51,22 +54,42 @@ public class Admin extends Controller {
 				}
 			});
 			String all_forms = "";
+			String formheads = "";
 			for (models.User user : users) {
-				Html gen = admin.views.html.UserForm.render(user.getUsername());
+				formheads += FormHead.render(
+					user.getId()).toString();
+			}
+			formheads += FormHeadNew.render().toString();
+			RingNumber period = new RingNumber(10);
+			for (models.User user : users) {
+				Html gen = UserForm.render(
+					user, period.inc() == 1, user.getId());
 				all_forms += gen.toString();
 			}
-			Html table = admin.views.html.table.render(Html.apply(all_forms));
-			all_forms += admin.views.html.NewForm.render().toString();
-			Html html = Html.apply(all_forms);
-			html = admin.views.html.table.render(html);
-			return ok(layout.render("User Administration", html));
+			all_forms = NewForm.render().toString() + all_forms;
+			Html html = Html.apply(formheads + all_forms);
+			html = table.render(html);
+			return ok(layoutBoxPage.render("User Administration", html, null));
+		}
+	}
+
+	public static Result editUser(String uid) {
+		if (HttpRequestData.isGiven("delete")) {
+			models.User toRemove = models.User.find.byId(Long.parseLong(uid));
+			if (toRemove != null) {
+				toRemove.delete();
+			}
+			return redirect(admin.routes.Admin.allUsers());
+		} else {
+			models.User change = models.User.getUserFromForm();
+			change.setId(Long.parseLong(uid));
+			change.update();
+			return redirect(admin.routes.Admin.allUsers());
 		}
 	}
 
 	public static Result newUser() {
-		models.HttpRequestData data = new models.HttpRequestData();
-		models.User user = new models.User();
-		user.username = data.get("username");
+		models.User user = models.User.getUserFromForm();
 		user.save();
 		return redirect(admin.routes.Admin.allUsers());
 	}

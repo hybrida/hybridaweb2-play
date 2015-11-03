@@ -1,5 +1,6 @@
 package models;
 
+import static play.data.Form.form;
 import controllers.Upload;
 import exceptions.NoFileInRequest;
 import exceptions.ServerError;
@@ -14,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(
@@ -22,6 +24,41 @@ import java.util.*;
 		@UniqueConstraint(columnNames= {"USERNAME"})
 )
 public class User extends Model implements ImmutableUser {
+
+	public static class UserForm {
+		public Long uid;
+		public String username;
+		public Boolean
+			arrkom, bedkom, root, vevkom, admin, jentekom, redaksjonen;
+		public Integer graduationYear;
+		public Character gender;
+
+		public String doValidation() {
+			User found = User.findByUsername(username);
+			if (found != null && found.getId() != uid)
+				return "User already exists with that name";
+			return null;
+		}
+	}
+
+	public static User getUserFromForm() {
+		Form<UserForm> userForm = form(UserForm.class);
+		UserForm form = userForm.bindFromRequest().get();
+		String error = form.doValidation();
+		if (error != null) throw new Error(error);
+		User user = new User();
+		user.username = form.username;
+		user.graduationYear = form.graduationYear;
+		user.bedkom = form.bedkom != null;
+		user.arrkom = form.arrkom != null;
+		user.vevkom = form.vevkom != null;
+		user.jentekom = form.jentekom != null;
+		user.redaksjonen = form.redaksjonen != null;
+		user.admin = form.admin != null;
+		user.root = form.root != null;
+		user.gender = form.gender == null ? '\0' : form.gender;
+		return user;
+	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -56,29 +93,39 @@ public class User extends Model implements ImmutableUser {
 
 	// Privilege status
 	@Column(name = "STUDENT", columnDefinition = "boolean default false")
-	public Boolean             student;    // No special privileges except for file ajaxUpload.
+	public Boolean             student = false;    // No special privileges except for file ajaxUpload.
+	@Column(name = "STYRET", columnDefinition = "boolean default false")
+	public Boolean             styret = false;     // Access to styret functionality.
 	@Column(name = "BEDKOM", columnDefinition = "boolean default false")
-	public Boolean             bedkom;     // Control over bedpress.
+	public Boolean             bedkom = false;     // Access to bedkom functionality.
 	@Column(name = "ARRKOM", columnDefinition = "boolean default false")
-	public Boolean             arrkom;     // Control over arrkom.
+	public Boolean             arrkom = false;     // Access to arrkom functionality.
 	@Column(name = "VEVKOM", columnDefinition = "boolean default false")
-	public Boolean             vevkom;     // Control over vevkom.
+	public Boolean             vevkom = false;     // Access to vevkom functionality.
+	@Column(name = "JENTEKOM", columnDefinition = "boolean default false")
+	public Boolean             jentekom = false;   // Access to jentekom functionality.
+	@Column(name = "REDAKSJONEN", columnDefinition = "boolean default false")
+	public Boolean             redaksjonen = false;// Access to redkasjonen functionality.
 	@Column(name = "ADMIN", columnDefinition = "boolean default false")
-	public Boolean             admin;      // For control over the entire page. Check your privilege
+	public Boolean             admin = false;      // For control over the entire page. Check your privilege
 	@Column(name = "ROOT", columnDefinition = "boolean default false")
-	public Boolean             root;       // Powers too great for mere mortals.
+	public Boolean             root = false;       // Powers too great for mere mortals.
 	@Column(name = "GENDER", columnDefinition = "char(1) default '\0'")
-	public Character           gender;     // For specific events.
+	public Character           gender = '\0';     // For specific events.
     @Column(name = "ENROLLED")
 	public Timestamp           enrolled;   // For specific bedpreses requiring a year number.
 	@Column(name = "DATE_OF_BIRTH")
 	public Timestamp           dateOfBirth;
 
+	@ManyToOne
+	@Column(columnDefinition = "default null")
+	public models.Event block4FromThisEvent;
+
 	// Misc. account info
 	@Column(name = "LAST_LOGIN")
 	private Timestamp          lastLogin; // Used to avoid cookie-stealing schemes and MITM attacks. Combined with AES with time and RNG padded encryption.
-    @Column(name = "PROFILE_IMAGE_POS")
-    public Double              profileImagePos;
+	@Column(name = "PROFILE_IMAGE_POS")
+	public Double              profileImagePos;
 
 	public User() {}
 
@@ -88,7 +135,19 @@ public class User extends Model implements ImmutableUser {
 		this.lastName = lastName;
 	}
 
-    public boolean isDefault() {
+	public boolean isMale() {
+		return gender == 'M';
+	}
+
+	public boolean isFemale() {
+		return gender == 'F';
+	}
+
+	public boolean isUnknownGender() {
+		return gender == '\0';
+	}
+
+	public boolean isDefault() {
 		return (id == null);
 	}
 
@@ -104,58 +163,62 @@ public class User extends Model implements ImmutableUser {
 		return thisOrFalse(bedkom) || thisOrFalse(admin) || thisOrFalse(root);
 	}
 
+	// Getters and Setter (and some hassers)
 
-    // Getters and Setter (and some hassers)
+	public Long getId() {
+		return id;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	// Used only during updating specific ids.
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getUsername() {
-        return this.username;
-    }
+	public String getUsername() {
+		return this.username;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public String getFirstName() {
-        return firstName;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    public boolean hasMiddleName() {
+	public boolean hasMiddleName() {
 		return middleName != null && !middleName.equals("");
 	}
 
-    public String getMiddleName() {
-        return middleName;
-    }
+	public String getMiddleName() {
+		return middleName;
+	}
 
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
 
-    public String getName() {
-        return firstName + " " + lastName;
-    }
+	public String getName() {
+		return firstName + " " + lastName;
+	}
 
-    public String getFullName() {
-        return firstName + " " + (hasMiddleName() ? middleName + " " : "") + lastName;
-    }
+	public String getFullName() {
+		return firstName + " " + (hasMiddleName() ? middleName + " " : "") + lastName;
+	}
 
-    public boolean hasEmail() {
+	public boolean hasEmail() {
 		return email != null && !email.equals("");
 	}
 
@@ -163,13 +226,13 @@ public class User extends Model implements ImmutableUser {
 		return email;
 	}
 
-    public void setEmail(String email) {
-        if (email.isEmpty()) this.email = "";
-        else {
-            int i = email.indexOf('@');
-            this.email = email.substring(0, i) + email.substring(i).toLowerCase();
-        }
-    }
+	public void setEmail(String email) {
+		if (email.isEmpty()) this.email = "";
+		else {
+			int i = email.indexOf('@');
+			this.email = email.substring(0, i) + email.substring(i).toLowerCase();
+		}
+	}
 
 	public boolean hasWebsiteUrl() {
 		return websiteUrl != null && !websiteUrl.equals("");
@@ -179,21 +242,21 @@ public class User extends Model implements ImmutableUser {
 		return websiteUrl;
 	}
 
-    public void setWebsiteUrl(String websiteUrl) {
-        if (websiteUrl.isEmpty()) this.websiteUrl = "";
-        else {
-            if (!websiteUrl.substring(0, 4).equalsIgnoreCase("http")) {
-                websiteUrl = "http://" + websiteUrl + (websiteUrl.indexOf('/') == -1 ? "/" : "");
-            }
-            if (websiteUrl.indexOf('?') != -1) {
-                int i = websiteUrl.indexOf('?');
-                websiteUrl = websiteUrl.substring(0, i).toLowerCase() + websiteUrl.substring(i);
-            }
-            this.websiteUrl = websiteUrl;
-        }
-    }
+	public void setWebsiteUrl(String websiteUrl) {
+		if (websiteUrl.isEmpty()) this.websiteUrl = "";
+		else {
+			if (!websiteUrl.substring(0, 4).equalsIgnoreCase("http")) {
+				websiteUrl = "http://" + websiteUrl + (websiteUrl.indexOf('/') == -1 ? "/" : "");
+			}
+			if (websiteUrl.indexOf('?') != -1) {
+				int i = websiteUrl.indexOf('?');
+				websiteUrl = websiteUrl.substring(0, i).toLowerCase() + websiteUrl.substring(i);
+			}
+			this.websiteUrl = websiteUrl;
+		}
+	}
 
-    public boolean hasPhone() {
+	public boolean hasPhone() {
 		return phone != null && !phone.equals("");
 	}
 
@@ -201,57 +264,57 @@ public class User extends Model implements ImmutableUser {
 		return phone;
 	}
 
-    public void setPhone(String phone) {
-        if (phone.isEmpty()) this.phone = "";
-        else {
-            phone = phone.replaceAll(" ", "");
-            phone = phone.substring(phone.length() - 8);
-            this.phone = "+47 " + phone.substring(0, 3) + " " + phone.substring(3, 5) + " " + phone.substring(5);
-        }
-    }
+	public void setPhone(String phone) {
+		if (phone.isEmpty()) this.phone = "";
+		else {
+			phone = phone.replaceAll(" ", "");
+			phone = phone.substring(phone.length() - 8);
+			this.phone = "+47 " + phone.substring(0, 3) + " " + phone.substring(3, 5) + " " + phone.substring(5);
+		}
+	}
 
-    public boolean hasTitle() {
-        return title != null && title.length() > 0;
-    }
+	public boolean hasTitle() {
+		return title != null && title.length() > 0;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public boolean hasGraduationYear() {
-        return graduationYear != null;
-    }
+	public boolean hasGraduationYear() {
+		return graduationYear != null;
+	}
 
-    public Integer getGraduationYear() {
-        return graduationYear;
-    }
+	public Integer getGraduationYear() {
+		return graduationYear;
+	}
 
-    public void setGraduationYear(Integer graduationYear) {
-        this.graduationYear = graduationYear;
-    }
+	public void setGraduationYear(Integer graduationYear) {
+		this.graduationYear = graduationYear;
+	}
 
-    public boolean hasSpecialization() {
-        return specialization != null && specialization != Specialization.NONE;
-    }
+	public boolean hasSpecialization() {
+		return specialization != null && specialization != Specialization.NONE;
+	}
 
-    public Specialization getSpecialization() {
-        if (specialization == null) specialization = Specialization.NONE;
-        return specialization;
-    }
+	public Specialization getSpecialization() {
+		if (specialization == null) specialization = Specialization.NONE;
+			return specialization;
+	}
 
-    public void setSpecialization(Specialization specialization) {
-        this.specialization = specialization;
-    }
+	public void setSpecialization(Specialization specialization) {
+		this.specialization = specialization;
+	}
 
-    public void setSpecialization(String displayName) {
-        this.specialization = Specialization.fromDisplayName(displayName);
-    }
+	public void setSpecialization(String displayName) {
+		this.specialization = Specialization.fromDisplayName(displayName);
+	}
 
-    public boolean hasProfileImage() {
+	public boolean hasProfileImage() {
 		return profileImageFileName != null && !profileImageFileName.equals("");
 	}
 
@@ -259,9 +322,9 @@ public class User extends Model implements ImmutableUser {
 		return profileImageFileName;
 	}
 
-    public void setProfileImageFileName(String profileImageFileName) {
-        this.profileImageFileName = profileImageFileName;
-    }
+	public void setProfileImageFileName(String profileImageFileName) {
+		this.profileImageFileName = profileImageFileName;
+	}
 
     public Timestamp getLastLoginTime() {
 		return lastLogin;
@@ -271,36 +334,75 @@ public class User extends Model implements ImmutableUser {
 		return gender;
 	}
 
+    public boolean isInStyret() {
+        return styret;
+    }
+
+	public boolean isInArrkom() {
+		return arrkom;
+	}
+
+	public boolean isInBedkom() {
+		return bedkom;
+	}
+
+	public boolean isInVevkom() {
+		return vevkom;
+	}
+
+	public boolean isInJentekom() {
+		return jentekom;
+	}
+
+	public boolean isInRedaksjonen() {
+		return redaksjonen;
+	}
+
+	@Override
+	public Access[] getMemberships() {
+		List<Access> committees = new ArrayList<>();
+		for(Access committee : Access.COMMITTEES) if(committee.userHasAccess(this)) committees.add(committee);
+		return committees.toArray(new Access[committees.size()]);
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
 	public boolean isRoot() {
 		return thisOrFalse(root);
 	}
 
-    public boolean hasProfileImagePos() {
-        return profileImagePos != null;
-    }
+	public boolean isFirstUser() {
+		return getId() == 1;
+	}
 
-    public Double getProfileImagePos() {
-        return profileImagePos;
-    }
+	public boolean hasProfileImagePos() {
+		return profileImagePos != null;
+	}
 
-    public void setProfileImagePos(Double profileImagePos) {
-        this.profileImagePos = profileImagePos;
-    }
+	public Double getProfileImagePos() {
+		return profileImagePos;
+	}
 
-    public String uploadPicture() {
-        try {
-            return Upload.upload();
-        } catch (Unauthorized unauthorized) {
-            unauthorized.printStackTrace();
-        } catch (NoFileInRequest noFileInRequest) {
-            noFileInRequest.printStackTrace();
-        } catch (ServerError serverError) {
-            serverError.printStackTrace();
-        }
-        return null;
-    }
+	public void setProfileImagePos(Double profileImagePos) {
+		this.profileImagePos = profileImagePos;
+	}
 
-    public int calculateClass() {
+	public String uploadPicture(String inputName) {
+		try {
+			return Upload.upload(inputName);
+		} catch (Unauthorized unauthorized) {
+			unauthorized.printStackTrace();
+		} catch (NoFileInRequest noFileInRequest) {
+			noFileInRequest.printStackTrace();
+		} catch (ServerError serverError) {
+			serverError.printStackTrace();
+		}
+		return null;
+	}
+
+	public int calculateClass() {
 		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 		int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
 		int classYear = 5 - (graduationYear - currentYear);
@@ -332,6 +434,10 @@ public class User extends Model implements ImmutableUser {
 		save();
 	}
 
+	public String getProfilePictureWithFallBackOnDefault() {
+		return getProfileImageFileName().equals("") ? "/assets/images/logo_big.png" : "/assets/uploads/" + getUsername() + "/" + getProfileImageFileName();
+	}
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder("USER[\n");
 		if (id != null) sb.append("\tid: " + id.toString() + ", \n");
@@ -356,78 +462,62 @@ public class User extends Model implements ImmutableUser {
 		return sb.toString();
 	}
 
-	public enum Access {
-		BEDKOM,
-		ARRKOM,
-		VEVKOM,
-		ADMIN,
-		ROOT;
+    public enum Access {
+        STYRET("Styret"){ @Override public boolean userHasAccess(User user) { return user.isInStyret();}},
+        BEDKOM("Bedkom"){ @Override public boolean userHasAccess(User user) { return user.isInBedkom();}},
+        ARRKOM("Arrkom"){ @Override public boolean userHasAccess(User user) { return user.isInArrkom();}},
+        VEVKOM("Vevkom"){ @Override public boolean userHasAccess(User user) { return user.isInVevkom();}},
+        JENTEKOM("Jentekom"){ @Override public boolean userHasAccess(User user) { return user.isInJentekom();}},
+        REDAKSJONEN("Redaksjonen"){ @Override public boolean userHasAccess(User user) { return user.isInRedaksjonen();}},
+        ADMIN("Admin"){ @Override public boolean userHasAccess(User user) { return user.isAdmin();}},
+        ROOT("Root"){ @Override public boolean userHasAccess(User user) { return user.isRoot();}};
+
+        private String name;
+        public static final Access[] COMMITTEES = new Access[]{STYRET, BEDKOM, ARRKOM, VEVKOM, JENTEKOM, REDAKSJONEN};
+        Access(String name) {this.name = name;}
+        @Override public String toString() {return name;}
+        public abstract boolean userHasAccess(User user);
+    }
+
+    public boolean hasAccess(boolean inAll, Access... accessList) {
+        //Parameters explained: user: the user you want to check;
+        //inAll: set true if you want to check if has ALL entered accesses, false if you want to check if has
+        // ANY of the entered accesses.
+        //Accesses are entered on the form models.User.Access.<access> (for example: models.User.Access.BEDKOM)
+
+        if (isDefault()) {
+            return false;
+        }
+        if (inAll) {
+            for(Access access : accessList) if(!access.userHasAccess(this)) return false;
+            return true;
+        }
+        for(Access access : accessList) if(access.userHasAccess(this)) return true;
+        return false;
+    }
+
+    public static boolean hasAccess(User user, boolean inAll, Access... accessList) {
+        return user.hasAccess(inAll, accessList);
+    }
+
+    public static boolean loggedInUserHasAccess(boolean inAll, Access... accessList) {
+        return hasAccess(LoginState.getUser(), inAll, accessList);
+    }
+
+
+    public boolean isBlockedFrom(models.Event event) {
+		if (block4FromThisEvent != null)
+			return event.getId() == block4FromThisEvent.getId();
+		else
+			return false;
 	}
 
-	public static boolean hasAccess(boolean inAll, Access... accessList) {
-		return hasAccess(LoginState.getUser(), inAll, accessList);
+	public Event getBlockedEvent() {
+		return block4FromThisEvent;
 	}
 
-	public static boolean hasAccess(User user, boolean inAll, Access... accessList) {
-		//Parameters explained: user: the user you want to check;
-		//inAll: set true if you want to check if user has ALL entered accesses, false if you want to check if user has
-		// ANY of the entered accesses.
-		//Accesses are entered on the form models.User.Access.<access> (for example: models.User.Access.BEDKOM)
-
-		if (user.isDefault()) {
-			return false;
-		}
-		if (inAll == false) {
-			boolean access = false;
-			for (Access i : accessList) {
-				if (i == Access.BEDKOM) {
-					access = user.bedkom;
-				}
-				if (i == Access.ARRKOM) {
-					access = user.arrkom;
-				}
-				if (i == Access.VEVKOM) {
-					access = user.vevkom;
-				}
-				if (i == Access.ADMIN) {
-					access = user.admin;
-				}
-				if (i == Access.ROOT) {
-					access = user.root;
-				}
-				if (access == true) {
-					return true;
-				}
-			}
-			return false;
-		}
-		else {
-			boolean tempHasAccess = false;
-			for (Access i : accessList) {
-				if (i == Access.BEDKOM) {
-					tempHasAccess = user.bedkom;
-				}
-				if (i == Access.ARRKOM) {
-					tempHasAccess = user.arrkom;
-				}
-				if (i == Access.VEVKOM) {
-					tempHasAccess = user.vevkom;
-				}
-				if (i == Access.ADMIN) {
-					tempHasAccess = user.admin;
-				}
-				if (i == Access.ROOT) {
-					tempHasAccess = user.root;
-				}
-				if (tempHasAccess == false) {
-					return false;
-				}
-			}
-			if (tempHasAccess == false) {
-				return false;
-			}
-			return true;
-		}
+	public void setBlockedEvent(Event event) {
+		block4FromThisEvent = event;
 	}
 
 	public static Model.Finder<Long, User> find = new Finder<>(
