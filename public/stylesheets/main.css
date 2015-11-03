@@ -187,12 +187,12 @@ img {
     transform: translateX(-50%);
 }
 
-.box-page {
+.page-box {
     padding: 40px 50px 80px;
     background: #fff;
 }
 
-.box-page,
+.page-box,
 .sleek-box,
 .white-box,
 .transparent-box,
