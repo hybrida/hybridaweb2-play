@@ -35,7 +35,7 @@ public class Calendar extends Controller {
             if (LoginState.isValidlyLoggedIn() && LoginState.getUser().canCreateNewArticle())
                 calendarType = calendar.views.html.calendarHeadGoogle.render();
 
-        return ok(layoutBoxPage.render(
+        return ok(layoutWithHead.render(
                 "Kalender",
                 calendar.views.html.calendarBody.render(),
                 calendarType));

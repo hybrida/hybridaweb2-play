@@ -13,7 +13,7 @@ import admin.models.RingNumber;
 
 public class Admin extends Controller {
 	public static Result index() {
-		return ok(layoutBoxPage.render("Admin", admin.views.html.loginform.render(), null));
+		return ok(layoutBoxPage.render("Admin", admin.views.html.loginform.render()));
 	}
 
 	public static Result login() {
@@ -69,7 +69,7 @@ public class Admin extends Controller {
 			all_forms = NewForm.render().toString() + all_forms;
 			Html html = Html.apply(formheads + all_forms);
 			html = table.render(html);
-			return ok(layoutBoxPage.render("User Administration", html, null));
+			return ok(layoutBoxPage.render("User Administration", html));
 		}
 	}
 
