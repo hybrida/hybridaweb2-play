@@ -225,18 +225,3 @@
 .edit .info-block .label {
     line-height: 29px;
 }
-
-
-@media (min-width : 1300px) {
-    .pageInner { width: 90%; margin: 0 auto;}
-    .pageItem { width: 45%; margin-left: 2.5%; margin-right: 2.5%; float: right;}
-    .info-block input,
-    .info-block select { width: 100%;}
-    .edit .picFrame { height: 500px}
-}
-@media (min-width : 1300px) and (max-width : 1450px) {
-    .box-page .bigTitle { font-size: 3.5em;}
-}
-@media (min-width : 1450px) and (max-width : 1600px) {
-    .box-page .bigTitle { font-size: 4em;}
-}
