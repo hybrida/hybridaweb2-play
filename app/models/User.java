@@ -41,6 +41,8 @@ public class User extends Model implements ImmutableUser {
 		}
 	}
 
+
+	//FIXME: Really? A Form object named userForm and a UserForm object named form... get yo shit together, man
 	public static User getUserFromForm() {
 		Form<UserForm> userForm = form(UserForm.class);
 		UserForm form = userForm.bindFromRequest().get();
@@ -431,7 +433,7 @@ public class User extends Model implements ImmutableUser {
 		setTitle(form.apply("title").valueOr(getTitle()));
 		setGraduationYear(Integer.parseInt(form.apply("graduationYear").valueOr(getGraduationYear().toString())));
 		setSpecialization(form.apply("specialization").valueOr(getSpecialization().toString()));
-		save();
+		update();
 	}
 
 	public String getProfilePictureWithFallBackOnDefault() {
