@@ -15,8 +15,6 @@
     }
 
     $(document).ready(function(){
-
-
         $(".edit .picFrame .ajaxUpload").click(function(){$(".profile-image-file-input").click()});
         $(".edit .picFrame .remove").click(function(){
             $(".pic").attr("src", "@routes.Assets.at("images/placeholder-profile.jpg")");
@@ -24,40 +22,19 @@
             $(".picFrame .remove").addClass("hidden");
         });
         $(".edit .picFrame").on("dragover", function(jqe) {
-                var e = jqe.originalEvent;
-                e.stopPropagation();
-                e.preventDefault();
-                e.dataTransfer.dropEffect = 'copy';
-            }).on("dragenter", function(jqe) {
-                var e = jqe.originalEvent;
-                e.stopPropagation();
-                e.preventDefault();
-                $(".picFrame").removeClass(".poof");
-            }).on("dragleave", function(jqe) {
-                var e = jqe.originalEvent;
-                e.stopPropagation();
-                e.preventDefault();
-                $(".picFrame").addClass(".poof");
+                jqe.preventDefault();
             }).on("drop", function(jqe) {
-                var e = jqe.originalEvent;
-                e.stopPropagation();
-                e.preventDefault();
-                uploadImage(e.dataTransfer);
+                jqe.preventDefault();
+                uploadImage(jqe.originalEvent.dataTransfer);
             });
         $(".profile-image-file-input").change(function(){uploadImage(this);});
 
-
-        $(".error :input").focus(function(){
-            var thiz = $(this);
-            $("." + thiz.attr("name")+ ".error").removeClass("error");
-            $("." + thiz.attr("name")+ " .message").addClass("active-message");
-        });
-        $(".error :input").blur(function(){
-            $("." + $(this).attr("name")+ " .message").removeClass("active-message");
-        });
-        $(".message").click(function(){
-            $(this).toggleClass("active-message");
-            $
+        $ ('.error :input').popover({
+            placement : 'left',
+            container : 'body',
+            trigger: 'focus',
+            html : true,
+            content: function(){return $('.' +$(this).attr('name') + ' .message').html();}
         });
     });
 </script>
