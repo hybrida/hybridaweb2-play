@@ -58,7 +58,7 @@ public class User extends Model implements ImmutableUser {
 		user.redaksjonen = form.redaksjonen != null;
 		user.admin = form.admin != null;
 		user.root = form.root != null;
-		user.gender = form.gender == null ? '\0' : form.gender;
+		user.gender = form.gender == null ? 'U' : form.gender;
 		return user;
 	}
 
@@ -112,8 +112,8 @@ public class User extends Model implements ImmutableUser {
 	public Boolean             admin = false;      // For control over the entire page. Check your privilege
 	@Column(name = "root", columnDefinition = "boolean default false")
 	public Boolean             root = false;       // Powers too great for mere mortals.
-	@Column(name = "gender", columnDefinition = "char(1) default '\0'")
-	public Character           gender = '\0';     // For specific events.
+	@Column(name = "gender", columnDefinition = "char(1) default 'U'")
+	public Character           gender = 'U';     // For specific events.
     @Column(name = "enrolled")
 	public Timestamp           enrolled;   // For specific bedpreses requiring a year number.
 	@Column(name = "date_of_birth")
@@ -146,7 +146,7 @@ public class User extends Model implements ImmutableUser {
 	}
 
 	public boolean isUnknownGender() {
-		return gender == '\0';
+		return gender == 'U';
 	}
 
 	public boolean isDefault() {
