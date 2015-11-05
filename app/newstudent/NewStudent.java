@@ -10,7 +10,7 @@ import views.html.layoutWithHead;
 public class NewStudent extends Controller {
 	final static public Result index() {
 		return ok(layoutWithHead.render(
-			"",
+			"Hybrida - Ny student",
 			newstudent.views.html.NyStudentHead.render(),
 			newstudent.views.html.NyStudentBody.render()));
 	}
