@@ -11,19 +11,19 @@ create table article (
   previous_edit_article_id  bigint,
   author_id                 bigint,
   image_path                varchar(255),
-  date_made                 timestamp not null,
+  date_made                 datetime not null,
   constraint pk_article primary key (article_id))
 ;
 
 create table bedrift (
   bedrift_id                bigint auto_increment not null,
   bedrift_name              varchar(255),
-  active                    boolean,
+  active                    tinyint(1) default 0,
   webpage                   varchar(255),
   responsible_id            bigint,
   priority                  integer,
-  date_made                 timestamp not null,
-  when_updated              timestamp not null,
+  date_made                 datetime not null,
+  when_updated              datetime not null,
   constraint pk_bedrift primary key (bedrift_id))
 ;
 
@@ -32,7 +32,7 @@ create table comment (
   comment                   varchar(255),
   author_id                 bigint,
   article_article_id        bigint,
-  created_date              timestamp not null,
+  created_date              datetime not null,
   constraint pk_comment primary key (comment_id))
 ;
 
@@ -43,8 +43,8 @@ create table contact (
   email                     varchar(255),
   other                     text,
   bedrift_bedrift_id        bigint,
-  date_made                 timestamp not null,
-  when_updated              timestamp not null,
+  date_made                 datetime not null,
+  when_updated              datetime not null,
   constraint pk_contact primary key (contact_id))
 ;
 
@@ -57,26 +57,26 @@ create table event (
   first_lower_graduation_limit integer,
   second_upper_graduation_limit integer,
   second_lower_graduation_limit integer,
-  first_year_allowed        boolean,
-  second_year_allowed       boolean,
-  third_year_allowed        boolean,
-  fourth_year_allowed       boolean,
-  fifth_year_allowed        boolean,
-  first_year_allowed_after_second_signup boolean,
-  second_year_allowed_after_second_signup boolean,
-  third_year_allowed_after_second_signup boolean,
-  fourth_year_allowed_after_second_signup boolean,
-  fifth_year_allowed_after_second_signup boolean,
-  bedpres                   boolean,
-  binding                   boolean,
+  first_year_allowed        tinyint(1) default 0,
+  second_year_allowed       tinyint(1) default 0,
+  third_year_allowed        tinyint(1) default 0,
+  fourth_year_allowed       tinyint(1) default 0,
+  fifth_year_allowed        tinyint(1) default 0,
+  first_year_allowed_after_second_signup tinyint(1) default 0,
+  second_year_allowed_after_second_signup tinyint(1) default 0,
+  third_year_allowed_after_second_signup tinyint(1) default 0,
+  fourth_year_allowed_after_second_signup tinyint(1) default 0,
+  fifth_year_allowed_after_second_signup tinyint(1) default 0,
+  bedpres                   tinyint(1) default 0,
+  binding                   tinyint(1) default 0,
   gender_allowed            varchar(255),
   max_participants          integer,
   max_participants_waiting  integer,
-  sign_up_start             timestamp,
-  second_sign_up            timestamp,
-  sign_up_deadline          timestamp,
-  event_happens             timestamp,
-  event_stops               timestamp,
+  sign_up_start             datetime,
+  second_sign_up            datetime,
+  sign_up_deadline          datetime,
+  event_happens             datetime,
+  event_stops               datetime,
   constraint pk_event primary key (event_id))
 ;
 
@@ -84,8 +84,8 @@ create table note (
   note_id                   bigint auto_increment not null,
   note                      text,
   bedrift_bedrift_id        bigint,
-  date_made                 timestamp not null,
-  when_updated              timestamp not null,
+  date_made                 datetime not null,
+  when_updated              datetime not null,
   constraint pk_note primary key (note_id))
 ;
 
@@ -119,10 +119,10 @@ create table user (
   admin                     boolean default false,
   root                      boolean default false,
   gender                    char(1) default 'U',
-  enrolled                  timestamp,
-  date_of_birth             timestamp,
+  enrolled                  datetime,
+  date_of_birth             datetime,
   block4from_this_event_event_id bigint,
-  last_login                timestamp,
+  last_login                datetime,
   profile_image_pos         double,
   constraint ck_user_specialization check (specialization in ('NONE','GEOMATIKK','KONSTRUKSJON','MARIN','MASKIN','PETROLIUM','PRODUKSJONSLEDELSE')),
   constraint uq_user_1 unique (username),
@@ -173,27 +173,27 @@ alter table event_user add constraint fk_event_user_user_02 foreign key (user_id
 
 # --- !Downs
 
-SET REFERENTIAL_INTEGRITY FALSE;
+SET FOREIGN_KEY_CHECKS=0;
 
-drop table if exists article;
+drop table article;
 
-drop table if exists bedrift;
+drop table bedrift;
 
-drop table if exists comment;
+drop table comment;
 
-drop table if exists contact;
+drop table contact;
 
-drop table if exists event;
+drop table event;
 
-drop table if exists event_user;
+drop table event_user;
 
-drop table if exists note;
+drop table note;
 
-drop table if exists renders;
+drop table renders;
 
-drop table if exists user;
+drop table user;
 
-drop table if exists user_event_joined;
+drop table user_event_joined;
 
-SET REFERENTIAL_INTEGRITY TRUE;
+SET FOREIGN_KEY_CHECKS=1;
 

@@ -53,8 +53,10 @@ public class BackupDatabase {
 				new InputStreamReader(proc.getErrorStream()));
 		if ((stdError.ready())) throw new Exception(stdError.readLine());
 
-		BufferedReader stdInput = new BufferedReader(new
-				InputStreamReader(proc.getInputStream()));
+		BufferedReader stdInput = new BufferedReader(new InputStreamReader(
+				proc.getInputStream(),
+				Charset.forName("UTF-8").newDecoder()
+		));
 		return stdInput.lines();
 	}
 
