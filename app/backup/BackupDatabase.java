@@ -7,6 +7,7 @@ import play.mvc.Result;
 import play.mvc.Results;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -64,7 +65,7 @@ public class BackupDatabase {
 		int upsTopSize = ups.length();
 		StringBuilder downs = new StringBuilder("# --- !Downs");
 		downs.append(System.lineSeparator());
-		downs.append("SET FOREIGN_KEY_CHEKCS = 0;");
+		downs.append("SET FOREIGN_KEY_CHECKS = 0;");
 		downs.append(System.lineSeparator());
 		ArrayList<String> tables = new ArrayList<>();
 		String everything = "";
@@ -92,6 +93,8 @@ public class BackupDatabase {
 					else if (character == ';' && count_of_qout%2 == 0) {
 						lines.add(everything + System.lineSeparator());
 						everything = "";
+					} else if (character == '\\') {
+						everything += "\\";
 					} else if (character == ';') {
 						everything += ';'; //everything.substring(0,everything.length()-1) + ";";
 						//FIXME: So if character == ';', everything now ends with ';;'? Why?
@@ -99,39 +102,59 @@ public class BackupDatabase {
 				}
 				reader.close();
 			}
-			Pattern insertPattern = Pattern.compile("^insert into `?([a-z0-9_]+)\\b", Pattern.CASE_INSENSITIVE);
+			Pattern insertPattern = Pattern.compile("^INSERT INTO `?([a-z0-9_.]+)`?( ?(\\(|V))", Pattern.CASE_INSENSITIVE);
+			Pattern stringDecodePattern = Pattern.compile("STRINGDECODE\\(('(\\\\'|[^'])*[^\\\\]')\\)");
+			Pattern escapeCharPattern = Pattern.compile("\\\\\\\\u[0-9a-f]{4}");
+
+			int h = 0, i = 0, j = 0;
 			for (String line : lines) {
 				Matcher insert = insertPattern.matcher(line);
 				String table;
-				if (insert.find() && !(table = insert.group(1).toLowerCase()).matches("system_lob_stream|play_evolutions")) {
-					line = line.replaceAll(insert.group(0), "INSERT INTO `" + table);
-					line = line.replaceAll("VALUES ", "VALUES" + System.lineSeparator() + "\t");
-					line = line.replaceAll("\\),\\(", ")," + System.lineSeparator() + "\t(");
-					if (table.equals("user")) ups.insert(upsTopSize, line); // Make sure users are at the top
+				if (insert.find() && !(table = insert.group(1).toLowerCase()).matches(".*(system_lob_stream|play_evolutions)")) {
+
+					Matcher stringDecode = stringDecodePattern.matcher(line);
+					while (stringDecode.find()) {
+						String oldStringDecode = stringDecode.group(0);
+						String newStringDecode = stringDecode.group(1);
+						Matcher escapeChar = escapeCharPattern.matcher(oldStringDecode);
+						while (escapeChar.find()) {
+							String escape = escapeChar.group(0);
+							String unescape = ""+(char)Integer.parseInt(escape.substring(3), 16);
+							newStringDecode = newStringDecode.replace(escape, unescape);
+						}
+						line = line.replace(oldStringDecode, newStringDecode);
+					}
+
+					if (table.startsWith("public")) table = table.substring(7);
+					line = line.replace(insert.group(0), "INSERT INTO " + table + insert.group(2));
+					line = line.replace("VALUES ", "VALUES" + System.lineSeparator() + "\t");
+					line = line.replace("),(", ")," + System.lineSeparator() + "\t(");
+					if (table.endsWith("user")) ups.insert(upsTopSize, line); // Make sure users are at the top
 					else ups.append(line);
 					if (!tables.contains(table)) {
 						tables.add(table);
-						downs.append("TRUNCATE TABLE `");
+						downs.append("TRUNCATE TABLE ");
 						downs.append(table);
-						downs.append("`;");
+						downs.append(";");
 						downs.append(System.lineSeparator());
 					}
 				}
 			}
-
-
-			String now = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
-			BufferedWriter writer = new BufferedWriter(new FileWriter("./conf/evolutions/default/backup/" + now + ".sql"));
 			downs.append("SET FOREIGN_KEY_CHECKS = 1;");
-			writer.write(ups + System.lineSeparator() + downs);
-			writer.flush();
-			writer.close();
 
-			writer = new BufferedWriter(new FileWriter(
-					"./conf/evolutions/default/backup/current_backup.sql"));
-			writer.write(ups + System.lineSeparator() + downs);
-			writer.flush();
-			writer.close();
+
+			String now = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+			String[] fileNames = {now + ".sql", "current_backup.sql"};
+			for(String fileName : fileNames) {
+				BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+						new FileOutputStream("./conf/evolutions/default/backup/" + fileName),
+						Charset.forName("UTF-8").newEncoder()
+				));
+				writer.write(ups + System.lineSeparator() + downs);
+				writer.flush();
+				writer.close();
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
