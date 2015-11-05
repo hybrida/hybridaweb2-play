@@ -1,3 +1,5 @@
+_=function(o){return function(){return o;}};
+
 clearSelf = function(obj) {
     obj.innerHTML="";
 };
