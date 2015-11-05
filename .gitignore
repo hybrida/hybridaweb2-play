@@ -1,6 +1,7 @@
-# Ignore backup and local test data
+# Ignore backup, local configuration and local test data
 conf/evolutions/default/backup/
 conf/evolutions/default/3.sql
+conf/application.conf
 public/uploads/**
 !public/uploads/hybrid
 
