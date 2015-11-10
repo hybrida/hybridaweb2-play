@@ -438,6 +438,11 @@ public class Event extends Model {
 		return allowed;
 	}
 
+	public boolean hasUserJoined() {
+		User user = LoginState.getUser();
+		return getJoinedUsers().contains(user) || getWaitingUsers().contains(user);
+	}
+
 	public List<User> getJoinedUsers() {
 		return joinedUsers;
 	}
