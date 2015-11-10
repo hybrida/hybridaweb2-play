@@ -437,7 +437,10 @@ public class User extends Model implements ImmutableUser {
 	}
 
 	public String getProfilePictureWithFallBackOnDefault() {
-		return getProfileImageFileName().equals("") ? "/assets/images/logo_big.png" : "/assets/uploads/" + getUsername() + "/" + getProfileImageFileName();
+
+		return getProfileImageFileName() != null && getProfileImageFileName().equals("")
+			? "/assets/images/logo_big.png"
+				: "/assets/uploads/" + getUsername() + "/" + getProfileImageFileName();
 	}
 
 	public String toString() {

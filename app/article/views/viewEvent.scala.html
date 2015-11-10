@@ -160,6 +160,13 @@
 							@(event.getJoinedUsers.size) / @event.getMaxParticipants
 						</span>
 					</div>
+					<div class="progress">
+						<div class="progress-bar" style="width: @((event.getWaitingUsers.size)*100/event.getMaxParticipantsWaiting)%">
+						</div>
+						<span>
+							@(event.getWaitingUsers.size) / @event.getMaxParticipantsWaiting
+						</span>
+					</div>
 					</div>
 				</div>
 					@if(models.LoginState.isValidlyLoggedIn){
