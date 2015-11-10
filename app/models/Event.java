@@ -310,11 +310,12 @@ public class Event extends Model {
 	public int getUserBlocked(User user) {
 		Event blockedFrom = user.getBlockedEvent();
 		if (blockedFrom == null) return -1;
-		List<Event> blockedFromThese = Event.find.setMaxRows(4).where().eq(
-			"bedpres", true).where().gt("eventId", blockedFrom.getId()).orderBy(
-				"eventHappens ASC").findList();
+		List<Renders> blockedFromThese = Renders.find.setMaxRows(4).where().eq(
+			"eventReference.bedpres", true).where().gt("eventReference.eventId", blockedFrom.getId()).orderBy(
+				"eventReference.eventHappens ASC").findList();
 		int counter = 3;
-		for (Event blocky : blockedFromThese) {
+		for (Renders renders : blockedFromThese) {
+			Event blocky = renders.eventReference;
 			if (blocky.getId() == this.getId())
 				return counter;
 			--counter;
