@@ -47,7 +47,7 @@
 	</div>
 	<div style="display: table-cell">
 		<select class="form-control" name="gender" form="form_@uid">
-			<option value="" @TextUtil.bool2selected(user.isUnknownGender)>Ikke satt</option>
+			<option value="U" @TextUtil.bool2selected(user.isUnknownGender)>Ikke satt</option>
 			<option value="M" @TextUtil.bool2selected(user.isMale)>Mann</option>
 			<option value="F" @TextUtil.bool2selected(user.isFemale)>Kvinne</option>
 		</select>

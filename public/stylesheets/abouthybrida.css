@@ -70,6 +70,7 @@
 
 }
 .column1  {
+    display: none;
     z-index:2;
     width: 15%;
     height:100%;
@@ -225,4 +226,28 @@
 /* show active nested list */
 .bs-docs-sidebar .nav>.active>ul.nav {
     display: block;
+}
+
+.onepage-pagination,
+.onepage-pagination:before,
+.onepage-pagination:after,
+.onepage-pagination *,
+.onepage-pagination *:before,
+.onepage-pagination *:after{
+    box-sizing: content-box;
+}
+.onepage-pagination {
+    background: #fff;
+    border-radius: 12px;
+    transform: translateY(-50%);
+    margin-top: 25px;
+    padding: 2px 0;
+}
+.onepage-pagination li a:before {left: 10px;}
+.onepage-pagination li a.active:before {left: 6px;}
+
+
+@media (min-width: 768px) {
+    .onepage-pagination{display: none;}
+    .column1{display: block;}
 }
