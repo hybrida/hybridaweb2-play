@@ -181,6 +181,8 @@ public class Event extends Model {
 
 	@ManyToMany
 	private List<User> joinedUsers;
+	@ManyToMany
+	private List<User> waitingUsers;
 
 	private String location;
 
@@ -222,6 +224,7 @@ public class Event extends Model {
 		this.articleRef = copy.articleRef;
 		this.previousEdit = copy.previousEdit;
 		this.joinedUsers = copy.joinedUsers;
+		this.waitingUsers = copy.waitingUsers;
 		this.location = copy.location;
 		this.firstUpperGraduationLimit = copy.firstUpperGraduationLimit;
 		this.firstLowerGraduationLimit = copy.firstLowerGraduationLimit;
@@ -394,6 +397,10 @@ public class Event extends Model {
 
 	public List<User> getJoinedUsers() {
 		return joinedUsers;
+	}
+
+	public List<User> getWaitingUsers() {
+		return waitingUsers;
 	}
 
 	public List<User> getJoinedSpecificClass(int classnum) {
