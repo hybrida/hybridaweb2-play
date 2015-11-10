@@ -18,6 +18,10 @@ public class HttpRequestData extends java.util.HashMap<String, String> {
 			super.putAll(Form.form().bindFromRequest().data());
 	}
 
+	public static boolean isGiven(String key) {
+		return (new HttpRequestData()).get(key) != null;
+	}
+
 	public Integer getInt(String key) {
 		String input = this.get(key);
 		if (input == null)

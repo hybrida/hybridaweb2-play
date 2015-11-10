@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
-<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/griffensOrden.css")">
-<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/arrkom-test.css")">
+<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/staticinfo.css")">
+<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/main.css")">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href='http://fonts.googleapis.com/css?family=Raleway+Dots' rel='stylesheet' type='text/css'>
 <meta charset="UTF-8">
@@ -21,66 +21,41 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </script>
 <script href="/js/dev/underscore-min.js"></script>
 <script href="/js/require.js"></script>
-<div class="bakgrunn">
+
+
+<div class="helesiden">
     <div class="container">
         <div class="row blank"></div>
         <div class="row">
-            <div class="col-md-6 col-md-offset-3 whitebox topright topleft GO">
-                <img src="/assets/images/GO.png" align="middle">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3 whitebox line">
-                ________________________________________________________
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3 whitebox paragraph bottomleft bottomright hiddentopleft hiddentopright">
-                <div id="widget-knightPresentation">
-
-                    <script>
-
-                    $(document).ready(function(){
-
-                    $("name").css( 'cursor', 'pointer' );
-
-                        $(".reason").hide();
-                        $(".knight").click(function(){
-                            $("reason").hide();
-                        });
-                        $(".knight").click(function(){
-                            $("reason").show();
-                        });
-                    });
-                    </script>
-
-                    <div id="hide" id="show" class="knight g-clearfix">
-                        <div class="name">Hovedtittel</div>
-                        <div class="reason"><b>Undertittel:</b> her kan man si noe kort</div>
-                        <div class="reason"><b>Hovedtekst:</b> Main body text</div>
-                    </div>
-                    <div id="hide" id="show" class="knight g-clearfic">
-                        <div class="name">Grupper</div>
-                        <div class="reason"><b>Grupper i Arrkom</b> I arrkom har vi mange forskjellige grupper</div>
-                        <div class="reason">Her er noen av dem</div>
-                    </div>
-
-
-                    <script type="text/javascript">
-                    var knights = $("#widget-knightPresentation").find(".knight");
-                    knights.find(".name").click(function(e) {
-                    var parent = $(this).parent();
-                    var reason = parent.find(".reason").toggle();
-                    });
-
-                    </script>
+            <div class="col-md-10 col-md-offset-1 whitebox topright topleft">
+                <div class="text-center" id='article-title'>
+                    <h1 style="border-bottom: black solid 1px; display: inline-block; width: 350pt;">
+                        Arrangement Komite
+                    </h1>
                 </div>
-                <div>
-            </div>
             </div>
         </div>
-        <div class="row blank"></div>
-        <div class="row blank"></div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 whitebox line"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 whitebox paragraph bottomleft bottomright hiddentopleft hiddentopright">
+
+                <h2 style="border-bottom: black dotted 1px; display: inline-block">
+                    Arrkom
+                </h2>
+                <p>
+                    Do you see any Teletubbies in here? Do you see a slender plastic tag clipped to my shirt with my name printed on it? Do you see a little Asian child with a blank expression on his face sitting outside on a mechanical helicopter that shakes when you put quarters in it? No? Well, that's what you see at a toy store. And you must think you're in a toy store, because you're here shopping for an infant named Jeb.</p>
+                <p>
+                    Your bones don't break, mine do. That's clear. Your cells react to bacteria and viruses differently than mine. You don't get sick, I do. That's also clear. But for some reason, you and I react the exact same way to water. We swallow it too fast, we choke. We get some in our lungs, we drown. However unreal it may seem, we are connected, you and I. We're on the same curve, just on opposite ends.</p>
+                <p>
+                    Your bones don't break, mine do. That's clear. Your cells react to bacteria and viruses differently than mine. You don't get sick, I do. That's also clear. But for some reason, you and I react the exact same way to water. We swallow it too fast, we choke. We get some in our lungs, we drown. However unreal it may seem, we are connected, you and I. We're on the same curve, just on opposite ends.</p>
+
+                <p>
+                    Hovedmålet vårt er at vi vil hjelpe studentene på linja med prosjektoppgaver, hovedoppgaver, sommerjobber og fast ansettelse. I tillegg kan bedriftsbesøk, ekskursjoner og temakvelder gi bedrifter og studenter mulighet til å snakke sammen.</p>
+                <p><img class="center-block" src="/assets/images/arrkom_eksempel_bilde.jpeg"></p>
+
+            </div>
+        </div>
     </div>
 </div>

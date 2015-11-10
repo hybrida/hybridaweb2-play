@@ -14,10 +14,10 @@ import java.util.List;
 @javax.persistence.Entity
 public class UserEventJoined extends play.db.ebean.Model {
 
-	@javax.persistence.Id
+	@javax.persistence.Column(columnDefinition = "bigint not null")
 	private Long userId;
 
-	@javax.persistence.Id
+	@javax.persistence.Column(columnDefinition = "bigint not null")
 	private Long eventId;
 
 	/**

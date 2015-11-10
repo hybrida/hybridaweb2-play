@@ -1,11 +1,13 @@
-@(username: String, name: String, imageFilePath: String, form: Form[User], messages: Map[String, Html])
+@(username: String, name: String, imageFilePath: String, form: Form[User], messages: Map[String, String])
 
 @infoItemTop(label:String, name: String) = {
-    <li class="@name">
-        <div class="label @if(messages.contains(name)){error}">
+    <li class="@name @if(messages.contains(name)){error}">
+        <div class="label">
             @label
         </div>
-        @if(messages.contains(name)) {@messages.get(name)}
+        @if(messages.contains(name)) {
+            <div class="hide message">@(messages(name))</div>
+        }
         <div class="info">
 }
 @infoItemBottom() = {
@@ -14,10 +16,18 @@
     </li>
 }
 
+@infoItem(label: String, value: String) = {
+    @infoItemTop(label, name)
+        <div class="input-container">
+            @value
+        </div>
+    @infoItemBottom()
+}
+
 @inputItem(label:String, value:String, name: String = "", inputType:String = "text") = {
     @infoItemTop(label, name)
     <div class="input-container">
-        <input class="@if(messages.contains(name)){error}" type="@inputType" name="@name" value="@value">
+        <input type="@inputType" name="@name" value="@value">
     </div>
     @infoItemBottom()
 }
@@ -25,7 +35,7 @@
 @dropDownItem(label:String, value:String, name: String = "", options: Array[String]) = {
     @infoItemTop(label, name)
     <div class="select-container">
-        <select class="@if(messages.contains(name)){error}" name="@name">
+        <select name="@name">
             @for(option <- options) {
                 <option value="@option"@if(value == option){ selected="selected"}>@option</option>
             }
@@ -34,148 +44,92 @@
     @infoItemBottom()
 }
 
-@layoutWithHead("Hybrida - " + name) {
+<div class="container-fluid center-container edit space-above">
     <form method="POST" action="@profile.routes.Profile.update(username)"
             onsubmit="$('#profile_image_file').prop('disabled', true)">
-        <div class="page">
-            <div class="buttons">
-                <input class="float-right btn btn-primary" type="submit" value="Lagre">
-                <a class="float-right btn btn-primary" href="@profile.routes.Profile.index(username)">Avbryt</a>
-            </div>
-            <h5 class="smallTitle">@name</h5>
-            <div class="pageInner edit">
-                <div class="pageItem">
-                    <h3 class="bigSubTitle">PROFILBILDE</h3>
-                    <input type="file" name="profileImageFile" class="profile-image-file-input hidden">
-                    <input type="hidden" name="profileImageFileName" class="profile-image-file-name"
-                            value="@form("profileImageFileName").value">
-                    <div class="picFrame poof">
-                        <img class="loader" src="@routes.Assets.at("images/ajax-loader.gif")">
-                        <img class="pic" src="@(if(imageFilePath != null && !imageFilePath.equals("")) {
-                            routes.Assets.at(imageFilePath)
-                        })">
-
-                        <div class="pic-inner">
-                            <div class="link-container">
-                                <div class="link ajaxUpload">
-                                    <span class="glyphicon glyphicon-ajaxUpload"></span> Last opp bilde
-                                </div>
-                                <div class="link remove@if(imageFilePath == null || imageFilePath.equals("")){ hidden}">
-                                    <span class="glyphicon glyphicon-remove-circle"></span> Fjern bildet
-                                </div>
+        <div class="row space-below">
+            <div class="col-xs-12">
+                <div class="page-box">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="buttons">
+                                <input class="pull-right btn btn-primary" type="submit" value="Lagre">
+                                <a class="pull-right btn btn-primary" href="@profile.routes.Profile.index(username)">Avbryt</a>
                             </div>
-                            <div class="drop hidden">
-                                <span class="glyphicon glyphicon-ajaxUpload"></span> Slipp for å laste opp
+                            <h5 class="smallTitle">@name</h5>
+                        </div>
+                        <div class="col-xl-6 pull-right space-above">
+                            <h3 class="bigSubTitle">PROFILBILDE</h3>
+                            @if(messages.contains("profileImageFileName")) {
+                                <div class="message">
+                                    <span class="bubble"></span>
+                                    <span class="show-when-active">@(messages("profileImageFileName"))</span>
+                                    <span class="hide-when-active">!</span>
+                                </div>
+                            }
+                            <input type="file" name="profileImageFile" class="profile-image-file-input hidden">
+                            <input type="hidden" name="profileImageFileName" class="profile-image-file-name"
+                                    value="@form("profileImageFileName").value">
+                            <div class="picFrame poof">
+                                <img class="loader" src="@routes.Assets.at("images/ajax-loader.gif")">
+                                <img class="pic super-center" src="@(if(imageFilePath != null && !imageFilePath.equals("")) {
+                                    routes.Assets.at(imageFilePath)
+                                }else{
+                                    routes.Assets.at("images/placeholder-profile.jpg")
+                                })">
+
+                                <div class="pic-inner">
+                                    <div class="link-container">
+                                        <div class="link ajaxUpload">
+                                            <span class="glyphicon glyphicon-upload"></span> Last opp bilde
+                                        </div>
+                                        <div class="link remove@if(imageFilePath == null || imageFilePath.equals("")){ hidden}">
+                                            <span class="glyphicon glyphicon-remove-circle"></span> Fjern bildet
+                                        </div>
+                                    </div>
+                                    <div class="drop hidden">
+                                        <span class="glyphicon glyphicon-ajaxUpload"></span> Slipp for å laste opp
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="pageItem info-block-container">
-                    <h3 class="bigSubTitle">BRUKERINFO</h3>
-                    <div class="info-block">
-                        <ul>
-                            @inputItem("NTNU-BRUKERNAVN", username)
-                        </ul>
-                    </div>
-                    <div class="info-block">
-                        <ul>
-                            @inputItem("FORNAVN", form("firstName").value, "firstName")
-                            @inputItem("MELLOMNAVN", form("middleName").value, "middleName")
-                            @inputItem("ETTERNAVN", form("lastName").value, "lastName")
-                        </ul>
-                    </div>
-                    <div class="info-block">
-                        <ul>
-                            @inputItem("ALTERNATIV E-POST", form("email").value, "email", "email")
-                            @inputItem("HJEMMESIDE", form("websiteUrl").value, "websiteUrl")
-                            @inputItem("TELEFON", form("phone").value, "phone")
-                        </ul>
-                    </div>
-                    <div class="info-block">
-                        <ul>
-                            @inputItem("TITTEL", form("title").value, "title")
-                            @inputItem("AVGANGSÅR", form("graduationYear").value, "graduationYear", "number")
-                            @dropDownItem("SPESIALISERING", form("specialization").value, "specialization",
-                                Specialization.displayNames())
-                        </ul>
-                    </div>
-                </div>
+                        <div class="col-xl-6 pull-left space-above">
+                            <h3 class="bigSubTitle">BRUKERINFO</h3>
+                            <div class="info-block">
+                                <ul>
+                                    @infoItem("NTNU-BRUKERNAVN", username)
+                                </ul>
+                            </div>
+                            <div class="info-block">
+                                <ul>
+                                    @inputItem("FORNAVN", form("firstName").value, "firstName")
+                                    @inputItem("MELLOMNAVN", form("middleName").value, "middleName")
+                                    @inputItem("ETTERNAVN", form("lastName").value, "lastName")
+                                </ul>
+                            </div>
+                            <div class="info-block">
+                                <ul>
+                                    @inputItem("ALTERNATIV E-POST", form("email").value, "email", "email")
+                                    @inputItem("HJEMMESIDE", form("websiteUrl").value, "websiteUrl")
+                                    @inputItem("TELEFON", form("phone").value, "phone")
+                                </ul>
+                            </div>
+                            <div class="info-block">
+                                <ul>
+                                    @inputItem("TITTEL", form("title").value, "title")
+                                    @inputItem("AVGANGSÅR", form("graduationYear").value, "graduationYear", "number")
+                                    @dropDownItem("SPESIALISERING", form("specialization").value, "specialization",
+                                        Specialization.displayNames())
+                                </ul>
+                            </div>
+                        </div>
 
-                <div class="clearfix">
+                        <div class="clearfix">
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
             </div>
         </div>
     </form>
-} {
-    <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/profile.css")" />
-    <script type="text/javascript">
-        function calculatePicTop(){
-            var pic = $(".nedit .pic");
-            pic.css("width", "auto");
-            pic.css("height", "auto");
-            if (pic.height() < parseFloat($(".picFrame").css("max-height"))) {
-                pic.css("top", pic.height()/2 + "px");
-            } else pic.css("top", "50%");
-            pic.css("width", "");
-            pic.css("height", "");
-        }
-
-        function uploadImage(filesParent){
-            $(".picFrame .link, .picFrame .drop, .pic").addClass("hidden");
-            uploadFile(filesParent.files[0], function(url) {
-                var filename = url.substring(url.lastIndexOf("/")+1);
-                $(".profile-image-file-name").val(filename);
-                $(".pic").attr("src", url);
-                $(".picFrame").removeClass("hidden");
-                $(".picFrame .link, .pic").removeClass("hidden");
-                $(".picFrame").addClass("poof");
-            }, "@username");
-            calculatePicTop();
-        }
-
-        $(document).ready(function(){
-            calculatePicTop();
-            $(".edit .picFrame .ajaxUpload").click(function(){$(".profile-image-file-input").click()});
-            $(".edit .picFrame .remove").click(function(){
-                $(".pic").attr("src", "@routes.Assets.at("images/placeholder-profile.jpg")");
-                $(".profile-image-file-name").val("");
-                $(".picFrame .remove").addClass("hidden");
-                calculatePicTop();
-            });
-            $(".edit .picFrame").on("dragover", function(jqe) {
-                    var e = jqe.originalEvent;
-                    e.stopPropagation();
-                    e.preventDefault();
-                    e.dataTransfer.dropEffect = 'copy';
-                }).on("dragenter", function(jqe) {
-                    var e = jqe.originalEvent;
-                    e.stopPropagation();
-                    e.preventDefault();
-                    $(".picFrame").removeClass(".poof");
-                }).on("dragleave", function(jqe) {
-                    var e = jqe.originalEvent;
-                    e.stopPropagation();
-                    e.preventDefault();
-                    $(".picFrame").addClass(".poof");
-                }).on("drop", function(jqe) {
-                    var e = jqe.originalEvent;
-                    e.stopPropagation();
-                    e.preventDefault();
-                    uploadImage(e.dataTransfer);
-                });
-            $(".profile-image-file-input").change(function(){uploadImage(this);});
-            $(".error").focus(function(){
-                var thiz = $(this);
-                thiz.removeClass("error");
-                $("." + thiz.attr("name")+ " .label").removeClass("error");
-                $("." + $(this).attr("name")+ " .message").removeClass("hidden");
-            });
-            $(".error").blur(function(){
-                $("." + $(this).attr("name")+ " .message").addClass("hidden");
-            });
-            $(".message.error").click(function(){
-                $(this).addClass("hidden");
-            });
-        });
-    </script>
-}
+</div>
