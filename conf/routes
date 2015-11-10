@@ -115,7 +115,6 @@ PUT           /api/quiz/season                          quiz.QuizController.putS
 DELETE        /api/quiz/season/:id                      quiz.QuizController.deleteSeasonById(id: Long)
 
 
-GET           /begrenset/:restriction/*file           restricted.Restricted.restrict(restriction, file)
 
 # TEST
 # # Chat
@@ -147,6 +146,8 @@ GET           /examples/access                          examples.controllers.Exa
 
 # Map static resources from the /public folder to the /assets URL path
 GET           /assets/*file                             controllers.Assets.at(path="/public", file)
+# Map static resources with restricted access from the /restricted folder to the /begrenset URL path
+GET           /begrenset/:restriction/*file             controllers.Restricted.at(restriction, file)
 
 GET           /unauthorized                             application.Application.showUnauthorizedAccess()
 
