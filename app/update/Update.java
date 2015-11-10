@@ -25,10 +25,10 @@ public class Update {
     //"gs -sDEVICE=png16m -o public/update/" + thumbName + " public/update/" + fileName r243x313
 
     public static HashMap<String, String[]> getFiles() {
-        String[] foldernamess = new File("public/update").list((dir, name) -> dir.isDirectory());
+        String[] foldernamess = new File("restricted/innlogget/update").list((dir, name) -> dir.isDirectory());
         HashMap<String, String[]> folders = new HashMap<String, String[]>();
         for (String foldername : foldernamess) {
-            folders.put(foldername, new File("public/update/"+foldername).list((dir, name) -> name.toLowerCase().endsWith(".png")));
+            folders.put(foldername, new File("restricted/innlogget/update/"+foldername).list((dir, name) -> name.toLowerCase().endsWith(".png")));
         }
         return folders;
     }

@@ -19,8 +19,8 @@ overflow: hidden;
             <div class="well">
             @if(folder != null) {
                 @for(thumbnail <- folder) {
-                    <a href="@routes.Assets.at("update/" + foldername + "/" + thumbnail.substring(0, thumbnail.length()-2) + "df")" class="thumbnail">
-                        <img src="@routes.Assets.at("update/" + foldername + "/" + thumbnail)" alt = "thumbnail"/>
+                    <a href="@routes.Restricted.at("innlogget", "update/" + foldername + "/" + thumbnail.substring(0, thumbnail.length()-2) + "df")" class="thumbnail">
+                        <img src="@routes.Restricted.at("innlogget", "update/" + foldername + "/" + thumbnail)" alt = "thumbnail"/>
                     </a>
                 }
             }
