@@ -1,0 +1,134 @@
+<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/styret.css")">
+<div style="background-image:url('../assets/images/office_background.png'); height:17em; ">
+    <button type="button" class="emails" data-toggle="popover" data-placement="right" title="Epostadresser" >
+        Epost
+    </button>
+    <div class="popper-content hide">
+        <a href="@profile.routes.Profile.index("ivarhk")">Leder:</a> andreamf@@stud.ntnu.no <br>
+        <a href="@profile.routes.Profile.index("ivarhk")">Nestleder:</a> henrilof@@stud.ntnu.no <br>
+        <a href="@profile.routes.Profile.index("ivarhk")">Skattmester:</a> sigribra@@stud.ntnu.no <br>
+        <a href="@profile.routes.Profile.index("ivarhk")">Festivalus:</a> astridnd@@stud.ntnu.no <br>
+        <a href="@profile.routes.Profile.index("ivarhk")">BKsjef:</a> arntks@@stud.ntnu.no <br>
+        <a href="@profile.routes.Profile.index("ivarhk")">Vevsjef:</a> ivarhk@@stud.ntnu.no  <br>
+        <a href="@profile.routes.Profile.index("ivarhk")">Jentekomsjef:</a> tonjerm@@stud.ntnu.no
+    </div>
+</div>
+
+<div id="tabell">
+	<div id="innertabell">
+
+		<div class="omStyretBoks">
+			<h2 id="tekst-header">Styret i Hybrida</h2>
+			<p class="omstyret">
+				<br>Dette er de syv styremedlemmene som per dags dato har hovedansvaret for å holde liv i linjeforeningen (og dens medlemmer).
+			</p>
+
+		</div>
+
+
+        <style type="text/css">
+        .bs-example{
+        position: fixed;
+            margin-top: 20em;
+            margin-left: 2em;
+        }
+
+        </style>
+
+		<table id="bildetabell">
+			<tr>
+                <td id="vevsjeftab"><input type="image" class="styretprofil" src="/assets/images/vevsjef.jpg"/> <!-- Størrelse på styrebilder: 1400px x 3500 px -->
+                    <div class="bildetekst">
+                        <b>Ivar Haga Kråbøl</b>
+                        <br><i>Vevsjef</i><br>
+                        Ansvar for utvikling og drift av nettsidene, samt informasjonsflyten i linjeforeningen og HybridLAN.
+                    </div>
+                </td>
+
+				<td id="bksjeftab"><input type="image" class="styretprofil" src="/assets/images/bksjef.jpg" />
+					<div class="bildetekst">
+						<b>Andrea Marie Festøy</b>
+						<br>
+						<i>Bedriftskomitésjef</i>
+						<br>
+						Fikser og ordner med profileringen av linja og linjeforeningen utad til bedrifter og næringslivet. Sørger for at vi får de saftigste jobbene på markedet.
+					</div>
+				</td>
+
+				<td id="nestledertab"><input type="image" class="styretprofil" src="/assets/images/nestleder.jpg"  />
+					<div class="bildetekst">
+						<b>Stephanie Buadu</b>
+						<br>
+						<i>Nestleder</i>
+						<br>
+						"Samarbeider" med lederen om det organisatoriske og administrative ansvaret i styret.
+						<br><br>
+					</div>
+				</td>
+
+				<td id="ledertab"><input type="image" class="styretprofil" src="/assets/images/leder.jpg" />
+					<div class="bildetekst">
+						<b>Simen Lillehagen</b>
+						<br>
+						<i>Leder</i>
+						<br>
+						Har det overordnede ansvaret i Hybrida, og er rett og slett helt sjef. Glad for å ha mange jenter i styret.
+						<br><br>
+					</div>
+				</td>
+
+
+				<td id="skattmestertab"><input type="image" class="styretprofil" src="/assets/images/skattmester.jpg" />
+					<div class="bildetekst">
+						<b>Sigrid Bratsberg</b>
+						<br>
+						<i>Skattmester</i>
+						<br>
+						Ansvaret for pengestrømmen inn og, selvfølgelig mest, ut. Driver i følge pålitelige kilder ikke med underslag (men man vet jo aldri)
+					</div>
+				</td>
+
+                <td id="festivalustab"><input type="image" class="styretprofil" src="/assets/images/skattmester.jpg"/>
+                    <div class="bildetekst">
+                        <b>Astrid Nerhus Dale</b>
+                        <br>
+                        <i>Festivalus</i>
+                        <br>
+                        Ansvaret for det som blir arrangert av fester, turer og en hel rekke andre arrangementer. Er også daglig leder på Hybridas eksklusive bar på Moholt.
+                        <br><br>
+                    </div>
+                </td>
+
+                <td id="jentekomtab">
+                    <input type="image" class="styretprofil" src="/assets/images/jentekomsjef.jpg">
+                    <div class="bildetekst">
+                        <b>Helene Dypbukt</b>
+                        <br>
+                        <i>Jentekomitésjef</i>
+                        <br>
+                        Sjef for jentekomiteen, eller chicas united som det kalles i spania. Sørger for at damene oppfører seg i henhold.<br><br>
+                    </div>
+                </td>
+
+
+			</tr>
+		</table>
+	</div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+    $ ('.emails').popover({
+        placement : 'right',
+        container : 'body',
+        html : true,
+            content: function() {
+            return $(this).next('.popper-content').html();
+    }
+
+    });
+    });
+
+
+
+</script>

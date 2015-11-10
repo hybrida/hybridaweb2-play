@@ -1,8 +1,10 @@
-# Ignore backup and local test data
-conf/evolutions/default/backup.sql
+# Ignore backup, local configuration and local test data
 conf/evolutions/default/backup/
 conf/evolutions/default/3.sql
-public/uploads/
+conf/application.conf
+public/uploads/**
+!public/uploads/hybrid
+
 
 # Ignore Eclipse
 .classpath
@@ -13,7 +15,7 @@ public/uploads/
 .idea/
 *.iws
 
-# Ignore Play! working directory #
+# Ignore Play! working directory
 bin/
 .eclipse
 /logs/
@@ -30,3 +32,6 @@ server.pid
 .cache
 .*
 RUNNING_PID
+
+# Don't ignore this file
+!.gitignore

@@ -2,8 +2,8 @@
   "fields": [
     {"name": "firstName", "pattern": "[a-zæøå][a-zæøå .-]{0,19}", "required": true,
       "message": "Fornavn kan kun inneholde bokstaver, mellomrom, bindestrek og punktum. Maks 20 tegn."},
-    {"name": "middleName", "pattern": "[a-zæøå][a-zæøå .-]{0,19}",
-      "message": "Fornavn kan kun inneholde bokstaver, mellomrom, bindestrek og punktum. Maks 20 tegn."},
+    {"name": "middleName", "pattern": "[a-zæøå\" .-]{0,20}",
+      "message": "Mellomnavn kan kun inneholde bokstaver, mellomrom, bindestrek, hermetegn og punktum. Maks 20 tegn."},
     {"name": "lastName", "pattern": "[a-zæøå][a-zæøå.-]{0,19}", "required": true,
       "message": "Etternavn kan kun inneholde bokstaver, bindestrek og punktum. Maks 20 tegn."},
     {"name": "email", "pattern": "[\\w.%+-]+@[a-zæøå0-9.-]+\\.[a-z]{2,6}",
@@ -18,7 +18,7 @@
       "message": "Avgangsår må være et tall mellom 2000 og 2099."},
     {"name": "specialization", "pattern": "[a-zæøå .,-]{5,50}",
       "message": "Noe er dårlig programmert. Eller så prøvde du å være lur. Du var ikke lur, sorry."},
-    {"name": "profileImageFileName", "pattern": "[\\w .-]+\\.(jpe?g|gif|png)",
+    {"name": "profileImageFileName", "pattern": "[^\\\\/:\\*\\?\"<>\\|]+\\.(jpe?g|gif|png)",
       "message": "Noe er dårlig programmert. Eller så prøvde du å være lur. Du var ikke lur, sorry."}
   ]
 }

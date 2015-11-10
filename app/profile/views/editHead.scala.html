@@ -1,0 +1,40 @@
+@(username: String)
+@indexHead()
+<script type="text/javascript">
+
+    function uploadImage(filesParent){
+        $(".picFrame .link, .picFrame .drop, .pic").addClass("hidden");
+        uploadFile(filesParent.files[0], function(url) {
+            var filename = url.substring(url.lastIndexOf("/")+1);
+            $(".profile-image-file-name").val(filename);
+            $(".pic").attr("src", url);
+            $(".picFrame").removeClass("hidden");
+            $(".picFrame .link, .pic").removeClass("hidden");
+            $(".picFrame").addClass("poof");
+        }, "@username");
+    }
+
+    $(document).ready(function(){
+        $(".edit .picFrame .ajaxUpload").click(function(){$(".profile-image-file-input").click()});
+        $(".edit .picFrame .remove").click(function(){
+            $(".pic").attr("src", "@routes.Assets.at("images/placeholder-profile.jpg")");
+            $(".profile-image-file-name").val("");
+            $(".picFrame .remove").addClass("hidden");
+        });
+        $(".edit .picFrame").on("dragover", function(jqe) {
+                jqe.preventDefault();
+            }).on("drop", function(jqe) {
+                jqe.preventDefault();
+                uploadImage(jqe.originalEvent.dataTransfer);
+            });
+        $(".profile-image-file-input").change(function(){uploadImage(this);});
+
+        $ ('.error :input').popover({
+            placement : 'left',
+            container : 'body',
+            trigger: 'focus',
+            html : true,
+            content: function(){return $('.' +$(this).attr('name') + ' .message').html();}
+        });
+    });
+</script>

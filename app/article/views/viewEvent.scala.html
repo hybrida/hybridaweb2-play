@@ -5,7 +5,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-9" style="padding-top : 0.3 %">
-				<div class="row white-boxer">
+				<div class="row white-box">
 					@if(inarticle.getImagePath != null) {
 						<img src="@inarticle.getImagePath" alt="No image available" class="center-block img-responsive art-img">
 						<br>
@@ -14,17 +14,22 @@
 					<br>
 					<h3><p class="text-center">@inarticle.getIngress</p></h3>
 					<br>
-					<p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">
-						Av: @inarticle.getAuthor.getName
-						@if(models.LoginState.getUser().getUsername == inarticle.getAuthor.getUsername) {
+					<p class="smallTitle">
+						Av: @inarticle.getAuthor.getFullName
+						@if(models.LoginState.getUser().getUsername == inarticle.getAuthor.getUsername || LoginState.getUser.isAdmin) {
 							<a href="@article.routes.Event.editEvent("" + event.getId)">
 								<button class="btn-xs btn-primary"> Rediger </button>
+							</a>
+						}
+						@if(event.hasPrevious){
+							<a href="@(article.routes.Event.viewEvent(event.getPrevious.getId + ""))">
+								Tidligere revisjon
 							</a>
 						}
 					</p>
 						@Html(inarticle.getText)
 						<hr>
-					<p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">
+					<p class="smallTitle">
 						Påmeldte
 					</p>
 					@if(models.LoginState.isValidlyLoggedIn) {
@@ -42,7 +47,7 @@
 										<div class="row" style="margin-left: 1%">
 											<div class="col-md-1">
 												<a href="@profile.routes.Profile.index(j.getUsername)" class="thumbnail">
-													<img src="@if(j.getProfileImageFileName != null){ /assets/ajaxUpload/@j.getUsername/@j.getProfileImageFileName} @if(j.getProfileImageFileName == null){/assets/images/logo_big.png}" alt="profilepic for @j.getName" width="30px">
+													<img src="@j.getProfilePictureWithFallBackOnDefault" alt="profilepic for @j.getName" width="30px">
 												</a>
 											</div>
 											<div class="col-md-11">
@@ -60,36 +65,36 @@
 			@if(models.LoginState.isValidlyLoggedIn){
 			<div class="row">
 				<div class="col-md-12 transparent-box" style="margin-top : 1 %">
-					<p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">Kommentarer</p>
+					<p class="smallTitle">Kommentarer</p>
 					@for(i <- inarticle.getCommentList()) {
 						<div class="row">
 							<div class="col-md-1">
 								<a href="@profile.routes.Profile.index(i.getAuthor.getUsername)" class="thumbnail">
-										<img src="@if(i.getAuthor.getProfileImageFileName != null){ /assets/ajaxUpload/@i.getAuthor.getUsername/@i.getAuthor.getProfileImageFileName} @if(i.getAuthor.getProfileImageFileName == null){/assets/images/logo_big.png}" alt="profilepic for @i.getAuthor.getName" width="30px">
+									<img src="@i.getAuthor.getProfilePictureWithFallBackOnDefault" alt="profilepic for @i.getAuthor.getName" width="30px">
 								</a>
 							</div>
 								<div class="col-md-11">
 									<div class="row">
-											<div class="col-md-10">
-													<strong>@(i.getAuthor().getName() + ":")</strong>
-											</div>
-											<div class="col-md-2">
-												@if(i.getAuthor() == models.LoginState.getUser() || i.getAuthor().admin) {
-													<!-- Extra small button group -->
-													<div class="btn-group">
-															<button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-																<span class="caret"></span>
-															</button>
-														<ul class="dropdown-menu" role="menu">
-															<form method="POST" action="@article.routes.Article.deleteComment(i.getCommentID.toString)">
-																<input type="hidden" name="isEvent" value="@event.getId">
-																<button type="submit" class="form-control"> Slett </button>
-															</form>
-														</ul>
-													</div>
-												}
-											</div>
+										<div class="col-md-10">
+											<strong>@(i.getAuthor().getName() + ":")</strong>
 										</div>
+										<div class="col-md-2">
+											@if(i.getAuthor() == models.LoginState.getUser() || i.getAuthor().admin) {
+												<!-- Extra small button group -->
+												<div class="btn-group">
+														<button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+															<span class="caret"></span>
+														</button>
+													<ul class="dropdown-menu" role="menu">
+														<form method="POST" action="@article.routes.Article.deleteComment(i.getCommentID.toString)">
+															<input type="hidden" name="isEvent" value="@event.getId">
+															<button type="submit" class="form-control"> Slett </button>
+														</form>
+													</ul>
+												</div>
+											}
+										</div>
+									</div>
 										<div class="row">
 											<div class="col-md-12">
 												@(i.getComment())
@@ -104,45 +109,52 @@
 								</div>
 							}
 							<div style="margin-top:1em">
-							<form action="@article.routes.Article.comment(inarticle.getId.toString)" method="POST">
+								<form action="@article.routes.Article.comment(inarticle.getId.toString)" method="POST">
 									<input type="hidden" name="isEvent" value="@event.getId">
 									<label for="comment" class="sr-only">Kommenter:</label>
 									<div class="input-group">
-											<input type="text" class="form-control" id="comment" name="comment" autocomplete="off" maxlength="250">
-											<span class="input-group-btn">
-													<button type="submit" class="btn btn-primary">Kommenter</button>
-											</span>
+										<input type="text" class="form-control" id="comment" name="comment" autocomplete="off" maxlength="250">
+										<span class="input-group-btn">
+											<button type="submit" class="btn btn-primary">Kommenter</button>
+										</span>
 									</div>
-							</form>
+								</form>
+							</div>
 						</div>
 					</div>
-		</div>
-	</div>
-	<div class="col-md-3">
-			<div class="transparent-box-addition" style="margin-top:3%">
-					<div class="row">
-							<div class="col-md-6" style="border-right: solid lightslategray">
-									Start<br>
-									Slutt<br>
-									Sted<br>
-											@(//TODO LAGE logikk for visning av oppmeldingsinformasjon
-									//@event.getFirstLowerGraduationLimit
-									//@event.getFirstUpperGraduationLimit
-															)
+				</div>
+			<div class="col-md-3">
+			<div class="transparent-box transparent-box-addition" style="margin-top:3%">
+				<div class="row">
+					<div class="col-md-6" style="border-right: solid lightslategray">
+							Åpnes<br>
+							Frist<br>
+							2. Frist<br>
+							Start<br>
+							Slutt<br>
+							Sted<br>
+							@(if (event.binding) "Bindende Påmelding" else "")<br>
+									@(//TODO LAGE logikk for visning av oppmeldingsinformasjon
+							//@event.getFirstLowerGraduationLimit
+							//@event.getFirstUpperGraduationLimit
+													)
 
-							</div>
-							<div class="col-md-6">
-								@event.getEventHappens.getTime
-								@event.getEventStops.getTime
-								@event.getLocation
-							</div>
-						</div>
-					}
-					<br>
+					</div>
+					<div class="col-md-6">
+						@event.getSignUpStart.getTime
+						@event.getSecondSignUp.getTime
+						@event.getSignUpDeadline.getTime
+						@event.getEventHappens.getTime
+						@event.getEventStops.getTime
+						@event.getLocation
+					</div>
+				</div>
+			}
+				<br>
 				<div class="row">
 					<div class="col-md-12">
 					<div class="progress">
-						<div class="progress-bar"style="width: @((event.getJoinedUsers.size)*100/event.getMaxParticipants)%">
+						<div class="progress-bar" style="width: @((event.getJoinedUsers.size)*100/event.getMaxParticipants)%">
 						</div>
 						<span>
 							@(event.getJoinedUsers.size) / @event.getMaxParticipants
@@ -156,12 +168,13 @@
 						 @if(!event.getJoinedUsers.contains(models.LoginState.getUser)){
 							<form method="post" action="@article.routes.Event.updateUser()">
 								<input type="hidden" name="eventId" value="@event.getId">
-							 <button type="submit" class="btn btn-primary btn-sm btn-block"> Meld meg på</button>
+							 <button type="submit" class="@if(!event.canJoin(models.LoginState.getUser)){disabled} btn btn-primary btn-sm btn-block"> Meld meg på</button>
+								@event.getBlockedMessageIfBedpress(LoginState.getUser)
 							</form>
 						 }else{
 							 <form method="post" action="@article.routes.Event.removeUser()">
 								<input type="hidden" name="eventId" value="@event.getId">
-								<button type="submit" class="btn btn-primary btn-sm btn-block"> Meld meg av</button>
+								<button type="submit" class="@if(!event.canRemove()){disabled} btn btn-primary btn-sm btn-block"> Meld meg av</button>
 							 </form>
 						}
 					</div>
