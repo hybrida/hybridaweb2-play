@@ -6,11 +6,7 @@
             @label
         </div>
         @if(messages.contains(name)) {
-            <div class="message">
-                <span class="bubble"></span>
-                <span class="show-when-active">@(messages(name))</span>
-                <span class="hide-when-active">!</span>
-            </div>
+            <div class="hide message">@(messages(name))</div>
         }
         <div class="info">
 }
@@ -53,7 +49,7 @@
             onsubmit="$('#profile_image_file').prop('disabled', true)">
         <div class="row space-below">
             <div class="col-xs-12">
-                <div class="box-page">
+                <div class="page-box">
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="buttons">

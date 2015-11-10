@@ -19,9 +19,9 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(
-	name="USER",
+	name="user",
 	uniqueConstraints=
-		@UniqueConstraint(columnNames= {"USERNAME"})
+		@UniqueConstraint(columnNames= {"username"})
 )
 public class User extends Model implements ImmutableUser {
 
@@ -41,6 +41,8 @@ public class User extends Model implements ImmutableUser {
 		}
 	}
 
+
+	//FIXME: Really? A Form object named userForm and a UserForm object named form... get yo shit together, man
 	public static User getUserFromForm() {
 		Form<UserForm> userForm = form(UserForm.class);
 		UserForm form = userForm.bindFromRequest().get();
@@ -56,65 +58,65 @@ public class User extends Model implements ImmutableUser {
 		user.redaksjonen = form.redaksjonen != null;
 		user.admin = form.admin != null;
 		user.root = form.root != null;
-		user.gender = form.gender == null ? '\0' : form.gender;
+		user.gender = form.gender == null ? 'U' : form.gender;
 		return user;
 	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "ID", nullable = false)
+	@Column(name = "id", nullable = false)
 	public Long        id;
 
 	// Name, identification, contact
 	public String      username;  // Assigned by NTNU
     @Required
-	@Column(name = "FIRST_NAME", columnDefinition = "varchar(256) default 'Fornavn'", nullable = false)
+	@Column(name = "first_name", columnDefinition = "varchar(256) default 'Fornavn'", nullable = false)
 	public String      firstName;
     @Required
-    @Column(name = "LAST_NAME", columnDefinition = "varchar(256) default 'Etternavn'", nullable = false)
+    @Column(name = "last_name", columnDefinition = "varchar(256) default 'Etternavn'", nullable = false)
 	public String      lastName;
-	@Column(name = "MIDDLE_NAME")
+	@Column(name = "middle_name")
 	public String      middleName;
-    @Column(name = "EMAIL")
+    @Column(name = "email")
 	public String      email;
-	@Column(name = "WEBSITE_URL")
+	@Column(name = "website_url")
 	public String      websiteUrl;
-    @Column(name = "PHONE")
+    @Column(name = "phone")
 	public String      phone;
-    @Column(name = "TITLE")
+    @Column(name = "title")
 	public String      title; // Ph.D., Civ.Eng., Stud., Chief, Commander, General, Lord, Admiral, Vevsjef,...
-	@Column(name = "GRADUATION_YEAR")
+	@Column(name = "graduation_year")
 	public Integer     graduationYear = 0;
     @Enumerated(EnumType.STRING)
-    @Column(name = "SPECIALIZATION")
+    @Column(name = "specialization")
 	public Specialization specialization = Specialization.NONE;
-    @Column(name = "PROFILE_IMAGE_FILE_NAME")
+    @Column(name = "profile_image_file_name")
 	public String      profileImageFileName;
 
 	// Privilege status
-	@Column(name = "STUDENT", columnDefinition = "boolean default false")
+	@Column(name = "student", columnDefinition = "boolean default false")
 	public Boolean             student = false;    // No special privileges except for file ajaxUpload.
-	@Column(name = "STYRET", columnDefinition = "boolean default false")
+	@Column(name = "styret", columnDefinition = "boolean default false")
 	public Boolean             styret = false;     // Access to styret functionality.
-	@Column(name = "BEDKOM", columnDefinition = "boolean default false")
+	@Column(name = "bedkom", columnDefinition = "boolean default false")
 	public Boolean             bedkom = false;     // Access to bedkom functionality.
-	@Column(name = "ARRKOM", columnDefinition = "boolean default false")
+	@Column(name = "arrkom", columnDefinition = "boolean default false")
 	public Boolean             arrkom = false;     // Access to arrkom functionality.
-	@Column(name = "VEVKOM", columnDefinition = "boolean default false")
+	@Column(name = "vevkom", columnDefinition = "boolean default false")
 	public Boolean             vevkom = false;     // Access to vevkom functionality.
-	@Column(name = "JENTEKOM", columnDefinition = "boolean default false")
+	@Column(name = "jentekom", columnDefinition = "boolean default false")
 	public Boolean             jentekom = false;   // Access to jentekom functionality.
-	@Column(name = "REDAKSJONEN", columnDefinition = "boolean default false")
+	@Column(name = "redaksjonen", columnDefinition = "boolean default false")
 	public Boolean             redaksjonen = false;// Access to redkasjonen functionality.
-	@Column(name = "ADMIN", columnDefinition = "boolean default false")
+	@Column(name = "admin", columnDefinition = "boolean default false")
 	public Boolean             admin = false;      // For control over the entire page. Check your privilege
-	@Column(name = "ROOT", columnDefinition = "boolean default false")
+	@Column(name = "root", columnDefinition = "boolean default false")
 	public Boolean             root = false;       // Powers too great for mere mortals.
-	@Column(name = "GENDER", columnDefinition = "char(1) default '\0'")
-	public Character           gender = '\0';     // For specific events.
-    @Column(name = "ENROLLED")
+	@Column(name = "gender", columnDefinition = "char(1) default 'U'")
+	public Character           gender = 'U';     // For specific events.
+    @Column(name = "enrolled")
 	public Timestamp           enrolled;   // For specific bedpreses requiring a year number.
-	@Column(name = "DATE_OF_BIRTH")
+	@Column(name = "date_of_birth")
 	public Timestamp           dateOfBirth;
 
 	@ManyToOne
@@ -122,9 +124,9 @@ public class User extends Model implements ImmutableUser {
 	public models.Event block4FromThisEvent;
 
 	// Misc. account info
-	@Column(name = "LAST_LOGIN")
+	@Column(name = "last_login")
 	private Timestamp          lastLogin; // Used to avoid cookie-stealing schemes and MITM attacks. Combined with AES with time and RNG padded encryption.
-	@Column(name = "PROFILE_IMAGE_POS")
+	@Column(name = "profile_image_pos")
 	public Double              profileImagePos;
 
 	public User() {}
@@ -144,11 +146,11 @@ public class User extends Model implements ImmutableUser {
 	}
 
 	public boolean isUnknownGender() {
-		return gender == '\0';
+		return gender == 'U';
 	}
 
 	public boolean isDefault() {
-		return (id == null);
+		return id == null;
 	}
 
 	public void setLastLoginTimeNow() {
@@ -431,11 +433,14 @@ public class User extends Model implements ImmutableUser {
 		setTitle(form.apply("title").valueOr(getTitle()));
 		setGraduationYear(Integer.parseInt(form.apply("graduationYear").valueOr(getGraduationYear().toString())));
 		setSpecialization(form.apply("specialization").valueOr(getSpecialization().toString()));
-		save();
+		update();
 	}
 
 	public String getProfilePictureWithFallBackOnDefault() {
-		return getProfileImageFileName().equals("") ? "/assets/images/logo_big.png" : "/assets/uploads/" + getUsername() + "/" + getProfileImageFileName();
+
+		return getProfileImageFileName() == null || getProfileImageFileName().equals("")
+			? "/assets/images/logo_big.png"
+				: "/assets/uploads/" + getUsername() + "/" + getProfileImageFileName();
 	}
 
 	public String toString() {

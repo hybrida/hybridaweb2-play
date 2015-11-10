@@ -16,7 +16,6 @@ public class ExampleStaticAccess extends Controller {
         if(!LoginState.getUser().loggedInUserHasAccess(true, User.Access.ADMIN)) return application.Application.showUnauthorizedAccess();
         return ok(layoutBoxPage.render(
                 "Example Access",
-                examples.views.html.exampleStaticAccess.render(),
-                null));
+                examples.views.html.exampleStaticAccess.render()));
     }
 }

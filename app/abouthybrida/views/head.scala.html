@@ -1,0 +1,36 @@
+@()
+<script type="text/javascript" src="@routes.Assets.at("onepage-scroll/jquery.onepage-scroll.min.js")"></script>
+<link rel="stylesheet" type="text/css" href="@routes.Assets.at("onepage-scroll/onepage-scroll.css")">
+<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/abouthybrida.css")">
+<style type="text/css">
+    .content {
+        height: 100vh;
+    }
+    .pages > section {
+        min-height: 100vh;
+        background: #fff;
+    }
+
+    #sidebar li a {
+        outline: 0;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#sidebar").find("a[href*='#1']").focus();
+
+        $("#sidebar").find("li a").click(function(){
+            $(".pages").moveTo(parseInt($(this).attr("href").substr(1)));
+        });
+
+        $(".pages").onepage_scroll({
+                sectionContainer: ".pages > section",
+                pagination: true,
+                loop: false,
+                updateURL: true,
+                beforeMove: function(index) {
+                    $("#sidebar").find("a[href*='#" + index + "']").focus();
+                }
+        });
+    });
+</script>

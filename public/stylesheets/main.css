@@ -187,22 +187,12 @@ img {
     transform: translateX(-50%);
 }
 
-.box-page {
+.page-box {
     padding: 40px 50px 80px;
     background: #fff;
 }
-.box-page .buttons {
-    position: absolute;
-    display: block;
-    top: 32px;
-    right: 50px;
-}
 
-.box-page .buttons .button {
-    margin-left: 1px;
-}
-
-.box-page,
+.page-box,
 .sleek-box,
 .white-box,
 .transparent-box,
@@ -214,6 +204,11 @@ img {
 .no-shadow{
     box-shadow: none !important;
 }
+
+.rounded{
+    border-radius: 10px;
+}
+
 .smallTitle {
     margin: 0 0 10px;
     padding: 0 0 5px;
@@ -221,6 +216,10 @@ img {
     font: normal 16px "Playfair Display", serif;
     text-transform: uppercase;
     color: #777;
+}
+
+.buttons + .smallTitle {
+    margin-top: 12px;
 }
 
 .bigTitle,
@@ -243,6 +242,10 @@ img {
     margin-bottom: 0.8em;
     font-size: 30px;
     color: #bbb;
+}
+
+.btn + .btn {
+    margin-right: 2px;
 }
 
 .fc-state-highlight {

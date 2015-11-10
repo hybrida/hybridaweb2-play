@@ -22,7 +22,8 @@ public class Profile extends Controller {
 
 	private static boolean authorizedToEditUser(String username) {
 		User loggedInUser = LoginState.getUser();
-		return loggedInUser != null && (username.equals(loggedInUser.getUsername()) || loggedInUser.isAdmin());
+		return loggedInUser != null && (username.equals(loggedInUser.getUsername())
+			|| loggedInUser.isAdmin());
 	}
 
 	public static Result index(String username) {

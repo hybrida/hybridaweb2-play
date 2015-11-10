@@ -28,7 +28,7 @@ public class BedPresBlock extends Controller {
 		List<Renders> bedpresses = Renders.find.setMaxRows(10).where(
 			).eq("eventReference.bedpres", true).findList();
 		return ok(layoutBoxPage.render("Bedpres Prikking", pickbedpres.render(bedpresses,
-			-1L), null));
+			-1L)));
 	}
 
 	public static Result pickUsers() {
@@ -45,7 +45,7 @@ public class BedPresBlock extends Controller {
 		if (eventId == 0)
 			return redirect(bedpressblock.routes.BedPresBlock.index().url());
 		Event event = Event.find.byId(eventId);
-		return ok(layoutBoxPage.render("Bedpres Prikking", selectUser.render(event), null));
+		return ok(layoutBoxPage.render("Bedpres Prikking", selectUser.render(event)));
 	}
 
 	public static Result blockUser() {
