@@ -11,6 +11,9 @@ import play.mvc.Result;
 import views.html.layout;
 import controllers.Upload;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Tormod on 06.10.2015.
  */
@@ -27,7 +30,6 @@ public class Gallery extends Controller {
 
         try {
             String url = null;
-            System.out.println("adsdas");
             url = Upload.upload();
 
             if (url != null) {
