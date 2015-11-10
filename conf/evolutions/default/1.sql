@@ -129,11 +129,6 @@ create table user (
   constraint pk_user primary key (id))
 ;
 
-create table user_event_joined (
-  user_id                   bigint not null,
-  event_id                  bigint not null)
-;
-
 
 create table event_user (
   event_event_id                 bigint not null,
@@ -192,8 +187,6 @@ drop table if exists note;
 drop table if exists renders;
 
 drop table if exists user;
-
-drop table if exists user_event_joined;
 
 SET REFERENTIAL_INTEGRITY TRUE;
 

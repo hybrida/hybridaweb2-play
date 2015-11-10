@@ -2,6 +2,9 @@ package models;
 
 
 import play.db.ebean.Model;
+import play.api.libs.Crypto;
+import java.util.Date;
+import play.mvc.Controller;
 
 /**
  * \brief Login state manager.
@@ -19,13 +22,13 @@ public class LoginState extends Model {
 		Long usertime_int = Long.valueOf(usertime) + 1000L;
 		if (user.getLastLoginTime() == null)
 			return true;
-		return user.getLastLoginTime().before(new java.util.Date(usertime_int));
+		return user.getLastLoginTime().before(new Date(usertime_int));
 	}
 
 	public static boolean isValidlyLoggedIn() {
 		String user = play.mvc.Controller.session("user");
 		if (user != null) {
-			String data[] = play.api.libs.Crypto.decryptAES(user).split(",");
+			String data[] = Crypto.decryptAES(user).split(",");
 			if (isUserInDatabase(data[0])) {
 				if (isUserTimeValid(data[0], data[1])) {
 					return true;
@@ -36,9 +39,9 @@ public class LoginState extends Model {
 	}
 
 	public static User getUser() {
-		String user = play.mvc.Controller.session("user");
+		String user = Controller.session("user");
 		if (user != null) {
-			String data[] = play.api.libs.Crypto.decryptAES(user).split(",");
+			String data[] = Crypto.decryptAES(user).split(",");
 			if (isUserInDatabase(data[0])) {
 				if (isUserTimeValid(data[0], data[1])) {
 					return User.find.where().eq("username", data[0]).findUnique();
