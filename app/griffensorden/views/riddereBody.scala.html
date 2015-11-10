@@ -137,6 +137,7 @@
                     var open = false;
                     var parent_name;
                     var recent_name;
+                    var recent;
                     knights.find(".name").click(function(e) {
 
                     var parent = $(this).parent();
@@ -144,11 +145,12 @@
                     if (open==true && recent_name != parent_name){
                     recent.find(".reason").toggle();
                     }
-                    if (recent==parent) {
+                    if (recent_name==parent_name) {
                     open = false;
                     } else {
                     open = true;
                     }
+                    recent = parent;
                     recent_name = $(this).text();
                     parent.find(".reason").toggle();
 
