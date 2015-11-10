@@ -16,19 +16,16 @@
             <div class="col-md-6 col-md-offset-5 whitebox paragraph bottomleft bottomright hiddentopleft hiddentopright">
                 <div id="widget-knightPresentation">
 
+
                     <script>
 
                     $(document).ready(function(){
 
                         $(".reason").hide();
-                        $(".knight").click(function(){
-                            $("reason").hide();
-                        });
-                        $(".knight").click(function(){
-                            $("reason").show();
-                        });
+
                     });
                     </script>
+
 
                     <div id="hide" id="show" class="knight g-clearfix">
                         <div class="name">Ole Magnus Urdahl</div>
@@ -133,12 +130,28 @@
                         </div>
                     </div>
 
+
                     <script type="text/javascript">
 
                     var knights = $("#widget-knightPresentation").find(".knight");
+                    var open = false;
+                    var parent_name;
+                    var recent_name;
                     knights.find(".name").click(function(e) {
+
                     var parent = $(this).parent();
-                    var reason = parent.find(".reason").toggle();
+                    parent_name = $(this).text();
+                    if (open==true && recent_name != parent_name){
+                    recent.find(".reason").toggle();
+                    }
+                    if (recent==parent) {
+                    open = false;
+                    } else {
+                    open = true;
+                    }
+                    recent_name = $(this).text();
+                    parent.find(".reason").toggle();
+
                     });
 
                     </script>
