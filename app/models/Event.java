@@ -151,7 +151,7 @@ public class Event extends Model {
 			isValid &= before(signUpDeadline, eventHappens);
 			if (isValid == false) return "The deadline is not before the event's happening";
 			isValid &= before(eventHappens, timeFrame);
-			if (isValid == false) return "The does not start before the end";
+			if (isValid == false) return "The date does not start before the end";
 
 			// Check whether at least one class is allowed
 			int sum = firstYearAllowed != null ? 1 : 0;
@@ -160,6 +160,9 @@ public class Event extends Model {
 			sum += fourthYearAllowed != null ? 1 : 0;
 			sum += fifthYearAllowed != null ? 1 : 0;
 			if (sum == 0) isValid = false;
+
+			if (Long.valueOf(maxParticipants) <= 0) return "The maximum amount of participants must be above zero";
+			if (Long.valueOf(maxParticipantsWaiting) <= 0) return "The maximum amount of waiting participants must be above zero";
 
 			// If the second sign up is null, we need not check if any class is allowed.
 			if (secondSignUp == null)
@@ -398,8 +401,17 @@ public class Event extends Model {
 
 	public boolean checkAndAddJoiner(User user) {
 		boolean allowed = canJoin(user);
+
+		List<User> waitingUsersList = waitingUsers.getList();
 		if (allowed)
-			joinedUsers.add(user);
+		{
+			if (joinedUsers.size() < maxParticipants)
+				joinedUsers.add(user);
+			else if (waitingUsersList.size() < maxParticipantsWaiting)
+				waitingUsersList.add(user);
+			else
+				return false;
+		}
 		return allowed;
 	}
 
