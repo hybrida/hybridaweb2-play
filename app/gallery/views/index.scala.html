@@ -25,16 +25,16 @@
 </form>
 
 <div id="gallery">
-    <!--for(image <- images) {
+    @for(image <- images) {
         <div class="grid-item">
-            <img src="image.getImageURL()" alt="image.getTitle()" longdesc="image.getDescription()"></img>
-        </div>
-    }-->
-    @for(a <- 1 until 20) {
-        <div class="image" style="width: @(100+scala.util.Random.nextInt(3)*100)px; height: @(100+scala.util.Random.nextInt(3)*100)px;">
-            @a
+            <img src="@image.getImageURL()" alt="@image.getTitle()" longdesc="@image.getDescription()"></img>
         </div>
     }
+    <!--for(a <- 1 until 200) {
+        <div class="image" style="width: (100+scala.util.Random.nextInt(5)*100)px; height: (100+scala.util.Random.nextInt(5)*100)px;">
+            a
+        </div>
+    }-->
 </div>
 
 <script>

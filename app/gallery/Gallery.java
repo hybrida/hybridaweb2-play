@@ -11,9 +11,6 @@ import play.mvc.Result;
 import views.html.layout;
 import controllers.Upload;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Tormod on 06.10.2015.
  */
