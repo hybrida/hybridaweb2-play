@@ -153,32 +153,39 @@
 				<br>
 				<div class="row">
 					<div class="col-md-12">
-					<div class="progress">
-						<div class="progress-bar" style="width: @((event.getJoinedUsers.size)*100/event.getMaxParticipants)%">
+						<div class="progress">
+							<div class="progress-bar" style="width: @((event.getJoinedUsers.size)*100/event.getMaxParticipants)%">
+							</div>
+							<span>
+								@(event.getJoinedUsers.size) / @event.getMaxParticipants
+							</span>
 						</div>
-						<span>
-							@(event.getJoinedUsers.size) / @event.getMaxParticipants
-						</span>
-					</div>
+						<div class="progress">
+							<div data-toggle="Venteliste" class="progress-bar" style="width: @((event.getWaitingUsers.size)*100/event.getMaxParticipantsWaiting)%">
+							</div>
+							<span>
+								@(event.getWaitingUsers.size) / @event.getMaxParticipantsWaiting
+							</span>
+						</div>
 					</div>
 				</div>
 					@if(models.LoginState.isValidlyLoggedIn){
-				 <div class="row">
-					 <div class="col-md-12">
-						 @if(!event.getJoinedUsers.contains(models.LoginState.getUser)){
-							<form method="post" action="@article.routes.Event.updateUser()">
-								<input type="hidden" name="eventId" value="@event.getId">
-							 <button type="submit" class="@if(!event.canJoin(models.LoginState.getUser)){disabled} btn btn-primary btn-sm btn-block"> Meld meg på</button>
-								@event.getBlockedMessageIfBedpress(LoginState.getUser)
-							</form>
-						 }else{
-							 <form method="post" action="@article.routes.Event.removeUser()">
-								<input type="hidden" name="eventId" value="@event.getId">
-								<button type="submit" class="@if(!event.canRemove()){disabled} btn btn-primary btn-sm btn-block"> Meld meg av</button>
-							 </form>
-						}
-					</div>
-				 </div>
+						<div class="row">
+							<div class="col-md-12">
+								@if(!event.hasUserJoined){
+									<form method="post" action="@article.routes.Event.updateUser()">
+										<input type="hidden" name="eventId" value="@event.getId">
+									<button type="submit" class="@if(!event.canJoin(models.LoginState.getUser)){disabled} btn btn-primary btn-sm btn-block"> Meld meg på</button>
+										@event.getBlockedMessageIfBedpress(LoginState.getUser)
+									</form>
+								}else{
+									<form method="post" action="@article.routes.Event.removeUser()">
+										<input type="hidden" name="eventId" value="@event.getId">
+										<button type="submit" class="@if(!event.canRemove()){disabled} btn btn-primary btn-sm btn-block"> Meld meg av</button>
+									</form>
+								}
+							</div>
+						</div>
 					}
 				</div>
 			</div>

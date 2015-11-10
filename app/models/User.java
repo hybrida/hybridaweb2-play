@@ -14,6 +14,7 @@ import javax.persistence.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -87,8 +88,8 @@ public class User extends Model implements ImmutableUser {
 	public String      title; // Ph.D., Civ.Eng., Stud., Chief, Commander, General, Lord, Admiral, Vevsjef,...
 	@Column(name = "graduation_year")
 	public Integer     graduationYear = 0;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "specialization")
+	@Enumerated(EnumType.STRING)
+	@Column(name = "specialization")
 	public Specialization specialization = Specialization.NONE;
     @Column(name = "profile_image_file_name")
 	public String      profileImageFileName;
@@ -437,7 +438,10 @@ public class User extends Model implements ImmutableUser {
 	}
 
 	public String getProfilePictureWithFallBackOnDefault() {
-		return getProfileImageFileName().equals("") ? "/assets/images/logo_big.png" : "/assets/uploads/" + getUsername() + "/" + getProfileImageFileName();
+
+		return getProfileImageFileName() == null || getProfileImageFileName().equals("")
+			? "/assets/images/logo_big.png"
+				: "/assets/uploads/" + getUsername() + "/" + getProfileImageFileName();
 	}
 
 	public String toString() {
@@ -471,6 +475,7 @@ public class User extends Model implements ImmutableUser {
         VEVKOM("Vevkom"){ @Override public boolean userHasAccess(User user) { return user.isInVevkom();}},
         JENTEKOM("Jentekom"){ @Override public boolean userHasAccess(User user) { return user.isInJentekom();}},
         REDAKSJONEN("Redaksjonen"){ @Override public boolean userHasAccess(User user) { return user.isInRedaksjonen();}},
+		UPDATE("Update"){ @Override public boolean userHasAccess(User user) { return user.canReadUpdate();}},
         ADMIN("Admin"){ @Override public boolean userHasAccess(User user) { return user.isAdmin();}},
         ROOT("Root"){ @Override public boolean userHasAccess(User user) { return user.isRoot();}},
 				USER("User"){ @Override public boolean userHasAccess(User user) { return !user.isDefault();}},
@@ -487,7 +492,14 @@ public class User extends Model implements ImmutableUser {
         public abstract boolean userHasAccess(User user);
     }
 
-    public boolean hasAccess(boolean inAll, Access... accessList) {
+	public boolean canReadUpdate() {
+		if (this.enrolled == null) return false;
+		Calendar date = Calendar.getInstance();
+		date.add(Calendar.MONTH, 1);
+		return this.enrolled.after(date.getTime());
+	}
+
+	public boolean hasAccess(boolean inAll, Access... accessList) {
         //Parameters explained: user: the user you want to check;
         //inAll: set true if you want to check if has ALL entered accesses, false if you want to check if has
         // ANY of the entered accesses.
