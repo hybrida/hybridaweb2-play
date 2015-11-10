@@ -181,6 +181,8 @@ public class Event extends Model {
 
 	@ManyToMany
 	private List<User> joinedUsers;
+	@ManyToMany
+	private List<User> waitingUsers;
 
 	private String location;
 
@@ -394,6 +396,10 @@ public class Event extends Model {
 
 	public List<User> getJoinedUsers() {
 		return joinedUsers;
+	}
+
+	public List<User> getWaitingUsers() {
+		return waitingUsers;
 	}
 
 	public List<User> getJoinedSpecificClass(int classnum) {
