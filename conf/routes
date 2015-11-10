@@ -23,6 +23,7 @@ GET           /bedkom                                  bedkom.Bedkom.index()
 GET           /hybrida                                 abouthybrida.AboutHybrida.index()
 GET           /nystudent                               newstudent.NewStudent.index()
 GET           /styret                                  styret.Styret.index()
+GET           /tillitsvalgte                           tillitsvalgte.Tillitsvalgte.index()
 
 # Upload
 POST          /api/upload                              controllers.Upload.ajaxUpload()
