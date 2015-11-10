@@ -7,6 +7,9 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 /**
  * Created by ivar on 05.11.2015.
@@ -14,7 +17,7 @@ import java.io.File;
 public class Restricted extends Controller {
 	public static Result at(String restriction, String file) {
 		if(!LoginState.isValidlyLoggedIn()) return redirect(sso.routes.SSOLogin.login(request().uri()));
-		if(restriction.equals("innlogget")) return showFile("loggedin/" + file);
+		if(restriction.equals("innlogget")) return showFile("innlogget/" + file);
 		Access committee = Access.fromString(restriction);
 		if(committee != Access.NONE) return restrictByCommittee(committee, file);
 		User user = User.findByUsername(restriction);
@@ -33,9 +36,14 @@ public class Restricted extends Controller {
 	}
 
 	private static Result showFile(String filePath) {
-		File file = new File("restricted/" + filePath);
-		if(!file.exists()) return application.Application.showNotFound();
-		return ok(file).as("application/octet-stream");
+		try {
+			File file = new File("restricted/" + URLDecoder.decode(filePath, "UTF-8"));
+			if(!file.exists()) throw new FileNotFoundException();
+			return ok(file).as("application/octet-stream");
+		} catch (UnsupportedEncodingException | FileNotFoundException e) {
+			e.printStackTrace();
+			return application.Application.showNotFound();
+		}
 	}
 
 }
