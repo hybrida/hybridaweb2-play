@@ -18,11 +18,10 @@ GET           /griffensorden/riddere                   griffensorden.GriffensOrd
 GET           /griffensorden/nominasjon                griffensorden.GriffensOrden.nomination()
 GET           /jentekom                                jentekom.JenteKom.index()
 GET           /statutter                               statutter.Statutter.index()
-GET           /bedkom                                  bedkom.Bedkom.index()
 
 GET           /hybrida                                 abouthybrida.AboutHybrida.index()
 GET           /nystudent                               newstudent.NewStudent.index()
-GET           /styret                                  styret.Styret.index()
+GET           /styret                                  hybridaleaders.HybridaLeaders.index()
 
 # Upload
 POST          /api/upload                              controllers.Upload.ajaxUpload()
@@ -56,6 +55,7 @@ POST          /api/kalender/endre                      calendar.Calendar.change(
 
 # Update
 GET           /update                                  update.Update.index()
+POST          /update                                  update.Update.post()
 GET           /update/utgaver                          update.Update.utgaver()
 GET           /update/redaksjon                        update.Update.redaksjon()
 
