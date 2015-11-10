@@ -472,12 +472,18 @@ public class User extends Model implements ImmutableUser {
         JENTEKOM("Jentekom"){ @Override public boolean userHasAccess(User user) { return user.isInJentekom();}},
         REDAKSJONEN("Redaksjonen"){ @Override public boolean userHasAccess(User user) { return user.isInRedaksjonen();}},
         ADMIN("Admin"){ @Override public boolean userHasAccess(User user) { return user.isAdmin();}},
-        ROOT("Root"){ @Override public boolean userHasAccess(User user) { return user.isRoot();}};
+        ROOT("Root"){ @Override public boolean userHasAccess(User user) { return user.isRoot();}},
+				USER("User"){ @Override public boolean userHasAccess(User user) { return !user.isDefault();}},
+				NONE("None"){ @Override public boolean userHasAccess(User user) { return true;}};
 
         private String name;
         public static final Access[] COMMITTEES = new Access[]{STYRET, BEDKOM, ARRKOM, VEVKOM, JENTEKOM, REDAKSJONEN};
         Access(String name) {this.name = name;}
         @Override public String toString() {return name;}
+				public static Access fromString(String name) {
+					for (Access committee : COMMITTEES) if (committee.toString().equalsIgnoreCase(name)) return committee;
+					return NONE;
+				}
         public abstract boolean userHasAccess(User user);
     }
 

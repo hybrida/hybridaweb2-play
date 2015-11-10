@@ -112,6 +112,7 @@ PUT           /api/quiz/season                         quiz.QuizController.putSe
 DELETE        /api/quiz/season/:id                     quiz.QuizController.deleteSeasonById(id: Long)
 
 
+GET           /begrenset/:restriction/*file           restricted.Restricted.restrict(restriction, file)
 
 # TEST
 # # Chat

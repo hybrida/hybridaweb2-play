@@ -1,0 +1,4 @@
+@(path: String, filename: String)
+<h1>Happy downloading!</h1>
+<h2>@filename</h2>
+<iframe style="display:none;" type="x-nedlastning" src="@routes.Assets.at(path)"></iframe>
