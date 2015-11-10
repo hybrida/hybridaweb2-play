@@ -19,7 +19,7 @@ GET           /griffensorden/riddere                   griffensorden.GriffensOrd
 GET           /griffensorden/nominasjon                griffensorden.GriffensOrden.nomination()
 GET           /jentekom                                jentekom.JenteKom.index()
 GET           /statutter                               statutter.Statutter.index()
-
+GET           /vevkom                                  vevkom.VevKom.index()
 GET           /hybrida                                 abouthybrida.AboutHybrida.index()
 GET           /nystudent                               newstudent.NewStudent.index()
 GET           /styret                                  styret.Styret.index()
