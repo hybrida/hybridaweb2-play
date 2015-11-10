@@ -392,7 +392,12 @@ public class Event extends Model {
 
 	public boolean checkAndRemoveJoiner(User user) {
 		if (canRemove()) {
-			getJoinedUsers().remove(getJoinedUsers().indexOf(user));
+			int inJoined = getJoinedUsers().indexOf(user);
+			if (inJoined != -1)
+				getJoinedUsers().remove(inJoined);
+			int inWaiting = getWaitingUsers().indexOf(user);
+			if (inWaiting != -1)
+				getWaitingUsers().remove(inWaiting);
 			return true;
 		}
 		else
