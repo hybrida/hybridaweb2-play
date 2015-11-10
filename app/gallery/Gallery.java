@@ -30,7 +30,7 @@ public class Gallery extends Controller {
 
         try {
             String url = null;
-            url = Upload.upload();
+            url = Upload.upload("image");
 
             if (url != null) {
                 Event event = null;

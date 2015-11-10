@@ -1,4 +1,8 @@
 @(images: List[GalleryImage])
+<div class="container-fluid center-container">
+    <div class="row space-below">
+        <div class="col-xs-12 space-above">
+            <div class="page-box">
 <script src='assets/javascripts/jquery-1.11.2.min.js'></script>
 <script src='assets/javascripts/masonry.js'></script>
 
@@ -18,7 +22,7 @@
 </style>
 
 <form name="GalleryImage" action="@gallery.routes.Gallery.uploadGalleryImage()" method="POST" enctype="multipart/form-data">
-    <input type="file" name="file"></input>
+    <input type="file" name="image"></input>
     <input type="text" name="title"></input>
     <input type="text" name="description"></input>
     <input type="submit" value="Post"></input>
@@ -26,7 +30,7 @@
 
 <div id="gallery">
     @for(image <- images) {
-        <div class="grid-item">
+        <div class="image">
             <img src="@image.getImageURL()" alt="@image.getTitle()" longdesc="@image.getDescription()">
         </div>
     }
@@ -44,3 +48,7 @@
         columnWidth: 100
     });
 </script>
+</div>
+</div>
+</div>
+</div>
