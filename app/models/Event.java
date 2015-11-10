@@ -192,8 +192,14 @@ public class Event extends Model {
 		super.save();
 	}
 
+	@Override
+	public void update() {
+		waitingUsers.update();
+		super.update();
+	}
+
 	@OneToOne
-	private EventWaitingUsers waitingUsers = new EventWaitingUsers();
+	private EventWaitingUsers waitingUsers;
 
 	private String location;
 
@@ -230,7 +236,10 @@ public class Event extends Model {
 	private Calendar eventHappens;
 	private Calendar eventStops;
 
-	public Event() {}
+	public Event() {
+		waitingUsers = new EventWaitingUsers();
+	}
+
 	public Event(Event copy) {
 		this.articleRef = copy.articleRef;
 		this.previousEdit = copy.previousEdit;
@@ -393,12 +402,21 @@ public class Event extends Model {
 	public boolean checkAndRemoveJoiner(User user) {
 		if (canRemove()) {
 			int inJoined = getJoinedUsers().indexOf(user);
-			if (inJoined != -1)
-				getJoinedUsers().remove(inJoined);
 			int inWaiting = getWaitingUsers().indexOf(user);
-			if (inWaiting != -1)
-				getWaitingUsers().remove(inWaiting);
-			return true;
+
+			if (inJoined != -1) {
+				getJoinedUsers().remove(inJoined);
+				if (getWaitingUsers().size() > 0) {
+					User first = getWaitingUsers().remove(0);
+					getJoinedUsers().add(first);
+				}
+				return true;
+			}
+			else if (inWaiting != -1) {
+					getWaitingUsers().remove(inWaiting);
+				return true;
+			}
+			return false;
 		}
 		else
 			return false;
