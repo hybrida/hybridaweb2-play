@@ -150,7 +150,7 @@ public class User extends Model implements ImmutableUser {
 	}
 
 	public boolean isDefault() {
-		return (id == null);
+		return id == null;
 	}
 
 	public void setLastLoginTimeNow() {
