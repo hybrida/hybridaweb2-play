@@ -180,9 +180,17 @@ public class Event extends Model {
 	private Event previousEdit;
 
 	@ManyToMany
+	@JoinTable(name="joined_users")
 	private List<User> joinedUsers;
-	@ManyToMany
-	private List<User> waitingUsers;
+
+	@Override
+	public void save() {
+		waitingUsers.save();
+		super.save();
+	}
+
+	@OneToOne
+	private EventWaitingUsers waitingUsers = new EventWaitingUsers();
 
 	private String location;
 
@@ -400,7 +408,10 @@ public class Event extends Model {
 	}
 
 	public List<User> getWaitingUsers() {
-		return waitingUsers;
+		if (waitingUsers == null) {
+			System.out.println("WaitingUsers is null");
+		}
+		return waitingUsers.getList();
 	}
 
 	public List<User> getJoinedSpecificClass(int classnum) {

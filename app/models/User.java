@@ -88,8 +88,8 @@ public class User extends Model implements ImmutableUser {
 	public String      title; // Ph.D., Civ.Eng., Stud., Chief, Commander, General, Lord, Admiral, Vevsjef,...
 	@Column(name = "graduation_year")
 	public Integer     graduationYear = 0;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "specialization")
+	@Enumerated(EnumType.STRING)
+	@Column(name = "specialization")
 	public Specialization specialization = Specialization.NONE;
     @Column(name = "profile_image_file_name")
 	public String      profileImageFileName;
