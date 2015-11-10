@@ -8,6 +8,7 @@ import static play.data.Form.form;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
@@ -26,7 +27,11 @@ public class EventWaitingUsers extends Model {
 	public EventWaitingUsers() {}
 
 	public EventWaitingUsers(EventWaitingUsers evtusers) {
-		waitingUsers = evtusers.waitingUsers;
+		waitingUsers = new ArrayList<>();
+		for (User user : evtusers.waitingUsers) {
+			waitingUsers.add(user);
+		}
+		Collections.reverse(waitingUsers);
 	}
 
 	public List<User> getList() {

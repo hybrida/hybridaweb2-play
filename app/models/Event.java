@@ -338,6 +338,10 @@ public class Event extends Model {
 		}
 	}
 
+	public boolean canJoin() {
+		return canJoin(LoginState.getUser());
+	}
+
 	public boolean canJoin(User user) {
 		if (user.isDefault())
 			return false;
