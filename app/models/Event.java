@@ -194,7 +194,10 @@ public class Event extends Model {
 
 	@Override
 	public void update() {
-		waitingUsers.update();
+		if (waitingUsers.id == null)
+			waitingUsers.save();
+		else
+			waitingUsers.update();
 		super.update();
 	}
 
@@ -244,7 +247,7 @@ public class Event extends Model {
 		this.articleRef = copy.articleRef;
 		this.previousEdit = copy.previousEdit;
 		this.joinedUsers = copy.joinedUsers;
-		this.waitingUsers = copy.waitingUsers;
+		this.waitingUsers = new EventWaitingUsers(copy.waitingUsers);
 		this.location = copy.location;
 		this.firstUpperGraduationLimit = copy.firstUpperGraduationLimit;
 		this.firstLowerGraduationLimit = copy.firstLowerGraduationLimit;
@@ -307,11 +310,12 @@ public class Event extends Model {
 	public int getUserBlocked(User user) {
 		Event blockedFrom = user.getBlockedEvent();
 		if (blockedFrom == null) return -1;
-		List<Event> blockedFromThese = Event.find.setMaxRows(4).where().eq(
-			"bedpres", true).where().gt("eventId", blockedFrom.getId()).orderBy(
-				"eventHappens ASC").findList();
+		List<Renders> blockedFromThese = Renders.find.setMaxRows(4).where().eq(
+			"eventReference.bedpres", true).where().gt("eventReference.eventId", blockedFrom.getId()).orderBy(
+				"eventReference.eventHappens ASC").findList();
 		int counter = 3;
-		for (Event blocky : blockedFromThese) {
+		for (Renders renders : blockedFromThese) {
+			Event blocky = renders.eventReference;
 			if (blocky.getId() == this.getId())
 				return counter;
 			--counter;
@@ -335,13 +339,14 @@ public class Event extends Model {
 		}
 	}
 
+	public boolean canJoin() {
+		return canJoin(LoginState.getUser());
+	}
+
 	public boolean canJoin(User user) {
 		if (user.isDefault())
 			return false;
 		boolean allowed = false;
-		// Check if the user is within four events of his blocked event.
-		if (getUserBlocked(user) != -1)
-			return false;
 
 		// Check gender requirements
 		char gender = getGenderAllowed();
@@ -407,8 +412,13 @@ public class Event extends Model {
 			if (inJoined != -1) {
 				getJoinedUsers().remove(inJoined);
 				if (getWaitingUsers().size() > 0) {
-					User first = getWaitingUsers().remove(0);
-					getJoinedUsers().add(first);
+					List<User> waiting = getWaitingUsers();
+					for (User waiter : waiting) {
+						if (getUserBlocked(waiter) == -1) {
+							getJoinedUsers().add(waiter);
+							break;
+						}
+					}
 				}
 				return true;
 			}
@@ -428,7 +438,7 @@ public class Event extends Model {
 		List<User> waitingUsersList = waitingUsers.getList();
 		if (allowed)
 		{
-			if (joinedUsers.size() < maxParticipants)
+			if (joinedUsers.size() < maxParticipants && getUserBlocked(user) == -1)
 				joinedUsers.add(user);
 			else if (waitingUsersList.size() < maxParticipantsWaiting)
 				waitingUsersList.add(user);
@@ -445,6 +455,14 @@ public class Event extends Model {
 
 	public List<User> getJoinedUsers() {
 		return joinedUsers;
+	}
+
+	public void setWaitingUsers(EventWaitingUsers evtusers) {
+		waitingUsers = evtusers;
+	}
+
+	public EventWaitingUsers getRawWaitingUsers() {
+		return waitingUsers;
 	}
 
 	public List<User> getWaitingUsers() {

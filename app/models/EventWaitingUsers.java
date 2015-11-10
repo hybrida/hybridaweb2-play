@@ -8,6 +8,7 @@ import static play.data.Form.form;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
@@ -17,10 +18,21 @@ import javax.persistence.*;
 public class EventWaitingUsers extends Model {
 
 	@Id
-	private Long id;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	public Long id;
 
 	@ManyToMany
 	private List<User> waitingUsers;
+
+	public EventWaitingUsers() {}
+
+	public EventWaitingUsers(EventWaitingUsers evtusers) {
+		waitingUsers = new ArrayList<>();
+		for (User user : evtusers.waitingUsers) {
+			waitingUsers.add(user);
+		}
+		Collections.reverse(waitingUsers);
+	}
 
 	public List<User> getList() {
 		return waitingUsers;

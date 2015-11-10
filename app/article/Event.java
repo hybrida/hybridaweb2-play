@@ -109,11 +109,13 @@ public class Event extends Controller {
 			articleModel.setAuthor(LoginState.getUser());
 			articleModel.save();
 
+			EventWaitingUsers waitingUsers = event.getRawWaitingUsers();
 			Long eid = event.getId();
 			event = models.Event.getFromRequest();
 			event.setPrevious(oldevent);
 			event.setId(eid);
 			event.setArticle(articleModel);
+			event.setWaitingUsers(waitingUsers);
 
 			event.update();
 		}

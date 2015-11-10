@@ -1,4 +1,4 @@
-@(folders: Map[String, Array[String]])
+@(folders: Array[String], contents: Map[String, Array[String]])
 <style>
 .thumbnail {
 height : 326px ;
@@ -14,29 +14,27 @@ overflow: hidden;
             <p><h1>Update<sup>k</sup></h1>
         </div>
         <br>
-        @for((foldername, folder) <- folders) {
-            <h3>@foldername</h3>
-            <div class="well">
-            @if(folder != null) {
-                @for(thumbnail <- folder) {
-                    <a href="@routes.Restricted.at("innlogget", "update/" + foldername + "/" + thumbnail.substring(0, thumbnail.length()-2) + "df")" class="thumbnail">
-                        <img src="@routes.Restricted.at("innlogget", "update/" + foldername + "/" + thumbnail)" alt = "thumbnail"/>
-                    </a>
-                }
-            }
-            </div>
-        }
         <p> <b>Update<sup>k</sup></b> (’/øpdeit ikå:té’/, red.anm.) er linjeforeningsavisen til Hybrida - en avis av og for Hybrider.<br>
             <a href="@update.routes.Update.redaksjon()">Redaksjonen</a> har som mål å gi ut tre aviser på høstsemesteret og fire,
             med en sommeravis i posten til de nye studentene, på
             vårsemesteret. Avisen printes og distribueres (i all hovedsak
             på lesesalen), og er tilgjengelig på nett for hybrider."</p>
 
-        <p>Dersom du er alumni og ønsker å abonnemere på avisen,
+        <p>Dersom du er alumni og ønsker å abonnere på avisen,
             kan du sende en mail til redaktøren.</p>
 
-        <p> Enda tidligere utgaver av Update<sup>k</sup> ligger <a href="@update.routes.Update.utgaver()">her</a></p>
-
+        @for(folder <- folders) {
+            <h3>@folder</h3>
+            <div class="well">
+            @if(contents.get(folder) != null) {
+                @for(thumbnail <- contents.get(folder)) {
+                    <a href="@routes.Restricted.at("innlogget", "update/" + folder + "/" + thumbnail.substring(0, thumbnail.length()-2) + "df")" class="thumbnail">
+                        <img src="@routes.Restricted.at("innlogget", "update/" + folder + "/" + thumbnail)" alt = "thumbnail"/>
+                    </a>
+                }
+            }
+            </div>
+        }
         <div style="clear:both"></div>
     </div>
 </div>
