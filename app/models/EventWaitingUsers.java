@@ -17,10 +17,17 @@ import javax.persistence.*;
 public class EventWaitingUsers extends Model {
 
 	@Id
-	private Long id;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	public Long id;
 
 	@ManyToMany
 	private List<User> waitingUsers;
+
+	public EventWaitingUsers() {}
+
+	public EventWaitingUsers(EventWaitingUsers evtusers) {
+		waitingUsers = evtusers.waitingUsers;
+	}
 
 	public List<User> getList() {
 		return waitingUsers;

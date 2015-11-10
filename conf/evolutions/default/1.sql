@@ -82,7 +82,7 @@ create table event (
 ;
 
 create table event_waiting_users (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   constraint pk_event_waiting_users primary key (id))
 ;
 
@@ -147,8 +147,6 @@ create table event_waiting_users_user (
   user_id                        bigint not null,
   constraint pk_event_waiting_users_user primary key (event_waiting_users_id, user_id))
 ;
-create sequence event_waiting_users_seq;
-
 alter table article add constraint fk_article_previousEdit_1 foreign key (previous_edit_article_id) references article (article_id) on delete restrict on update restrict;
 create index ix_article_previousEdit_1 on article (previous_edit_article_id);
 alter table article add constraint fk_article_author_2 foreign key (author_id) references user (id) on delete restrict on update restrict;
@@ -213,6 +211,4 @@ drop table if exists renders;
 drop table if exists user;
 
 SET REFERENTIAL_INTEGRITY TRUE;
-
-drop sequence if exists event_waiting_users_seq;
 
