@@ -278,6 +278,23 @@ public class Event extends Model {
 		this.eventStops = copy.eventStops;
 	}
 
+	/**
+		\brief Check if the sign up deadline has been reached. Adds waiters to empty slots.
+
+		This function checks if the signup deadline is reached. If this is true, we'll reassign
+		people from the waiting list to the main list, if there is space there.
+		This is mainly for those who have gotten a 'prikk' from bedpresses.
+	*/
+	public void checkAndAssignWaiters() {
+		if (signUpDeadline.before(Calendar.getInstance())) {
+			while (joinedUsers.size() < maxParticipants
+				&& getWaitingUsers().size() > 0) {
+				joinedUsers.add(getWaitingUsers().remove(0));
+			}
+		}
+		this.update();
+	}
+
 	public void setPrevious(Event previous) {
 		this.previousEdit = previous;
 	}
