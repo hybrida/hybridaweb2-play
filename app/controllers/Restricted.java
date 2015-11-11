@@ -40,7 +40,10 @@ public class Restricted extends Controller {
 			File file = new File("restricted/" + URLDecoder.decode(filePath, "UTF-8"));
 			if(!file.exists()) throw new FileNotFoundException();
 			return ok(file).as("application/octet-stream");
-		} catch (UnsupportedEncodingException | FileNotFoundException e) {
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return application.Application.showInternalServerError();
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return application.Application.showNotFound();
 		}
