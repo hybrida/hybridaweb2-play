@@ -54,6 +54,8 @@ public class Event extends Controller {
 	public static Result viewEvent(String eventId) {
 		if (models.Event.find.byId(Long.valueOf(eventId)) != null) {
 			models.Event evt = models.Event.find.byId(Long.valueOf(eventId));
+			evt.checkAndAssignWaiters();
+
 			models.Article art = evt.getArticle();
 			List<User> signedups = evt.getJoinedUsers();
 			return ok(layout.render("Arrangement", viewEvent.render(art, evt)));
