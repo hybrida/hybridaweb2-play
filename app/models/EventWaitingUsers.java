@@ -28,9 +28,10 @@ public class EventWaitingUsers extends Model {
 
 	public EventWaitingUsers(EventWaitingUsers evtusers) {
 		waitingUsers = new ArrayList<>();
-		for (User user : evtusers.waitingUsers) {
-			waitingUsers.add(user);
-		}
+		if (evtusers.waitingUsers != null)
+			for (User user : evtusers.waitingUsers) {
+				waitingUsers.add(user);
+			}
 		Collections.reverse(waitingUsers);
 	}
 
