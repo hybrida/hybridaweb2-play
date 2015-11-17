@@ -106,6 +106,14 @@ img {
     padding: 20px;
     overflow: auto;
 }
+.clean-white-box{
+    background-color: rgba(245,245,245,1);
+    _border-radius: 4px;
+    padding: 20px;
+    overflow: auto;
+    border: solid rgba(0, 0, 0, .1) 2px;
+    border-bottom: white;
+}
 
 .transparent-box {
     background-color: rgba(245,245,245,0.9);
