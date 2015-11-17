@@ -5,7 +5,6 @@ import com.avaje.ebean.annotation.*;
 import com.avaje.ebean.*;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import play.db.ebean.Model;
-import play.twirl.api.Html;
 
 import javax.persistence.*;
 import javax.persistence.OrderBy;
