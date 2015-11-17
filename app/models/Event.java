@@ -194,6 +194,8 @@ public class Event extends Model {
 
 	@Override
 	public void update() {
+		if (waitingUsers == null)
+			waitingUsers = new EventWaitingUsers();
 		if (waitingUsers.id == null)
 			waitingUsers.save();
 		else

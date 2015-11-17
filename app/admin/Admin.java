@@ -74,6 +74,10 @@ public class Admin extends Controller {
 	}
 
 	public static Result editUser(String uid) {
+		models.User loginuser = models.LoginState.getUser();
+		if (!loginuser.isRoot()) {
+			return redirect(application.routes.Application.showUnauthorizedAccess().url());
+		}
 		if (HttpRequestData.isGiven("delete")) {
 			models.User toRemove = models.User.find.byId(Long.parseLong(uid));
 			if (toRemove != null) {
@@ -89,6 +93,10 @@ public class Admin extends Controller {
 	}
 
 	public static Result newUser() {
+		models.User loginuser = models.LoginState.getUser();
+		if (!loginuser.isRoot()) {
+			return redirect(application.routes.Application.showUnauthorizedAccess().url());
+		}
 		models.User user = models.User.getUserFromForm();
 		user.save();
 		return redirect(admin.routes.Admin.allUsers());
