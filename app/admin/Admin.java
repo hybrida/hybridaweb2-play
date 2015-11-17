@@ -56,17 +56,17 @@ public class Admin extends Controller {
 			String all_forms = "";
 			String formheads = "";
 			for (models.User user : users) {
-				formheads += FormHead.render(
+				formheads += formHead.render(
 					user.getId()).toString();
 			}
-			formheads += FormHeadNew.render().toString();
+			formheads += formHeadNew.render().toString();
 			RingNumber period = new RingNumber(10);
 			for (models.User user : users) {
-				Html gen = UserForm.render(
+				Html gen = userForm.render(
 					user, period.inc() == 1, user.getId());
 				all_forms += gen.toString();
 			}
-			all_forms = NewForm.render().toString() + all_forms;
+			all_forms = newForm.render().toString() + all_forms;
 			Html html = Html.apply(formheads + all_forms);
 			html = table.render(html);
 			return ok(layoutBoxPage.render("User Administration", html));
