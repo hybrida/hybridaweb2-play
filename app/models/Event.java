@@ -151,7 +151,7 @@ public class Event extends Model {
 			isValid &= before(signUpDeadline, eventHappens);
 			if (isValid == false) return "The deadline is not before the event's happening";
 			isValid &= before(eventHappens, timeFrame);
-			if (isValid == false) return "The does not start before the end";
+			if (isValid == false) return "The date does not start before the end";
 
 			// Check whether at least one class is allowed
 			int sum = firstYearAllowed != null ? 1 : 0;
@@ -160,6 +160,9 @@ public class Event extends Model {
 			sum += fourthYearAllowed != null ? 1 : 0;
 			sum += fifthYearAllowed != null ? 1 : 0;
 			if (sum == 0) isValid = false;
+
+			if (Long.valueOf(maxParticipants) <= 0) return "The maximum amount of participants must be above zero";
+			if (Long.valueOf(maxParticipantsWaiting) <= 0) return "The maximum amount of waiting participants must be above zero";
 
 			// If the second sign up is null, we need not check if any class is allowed.
 			if (secondSignUp == null)
@@ -180,9 +183,26 @@ public class Event extends Model {
 	private Event previousEdit;
 
 	@ManyToMany
+	@JoinTable(name="joined_users")
 	private List<User> joinedUsers;
-	@ManyToMany
-	private List<User> waitingUsers;
+
+	@Override
+	public void save() {
+		waitingUsers.save();
+		super.save();
+	}
+
+	@Override
+	public void update() {
+		if (waitingUsers.id == null)
+			waitingUsers.save();
+		else
+			waitingUsers.update();
+		super.update();
+	}
+
+	@OneToOne
+	private EventWaitingUsers waitingUsers;
 
 	private String location;
 
@@ -219,11 +239,15 @@ public class Event extends Model {
 	private Calendar eventHappens;
 	private Calendar eventStops;
 
-	public Event() {}
+	public Event() {
+		waitingUsers = new EventWaitingUsers();
+	}
+
 	public Event(Event copy) {
 		this.articleRef = copy.articleRef;
 		this.previousEdit = copy.previousEdit;
 		this.joinedUsers = copy.joinedUsers;
+		this.waitingUsers = new EventWaitingUsers(copy.waitingUsers);
 		this.location = copy.location;
 		this.firstUpperGraduationLimit = copy.firstUpperGraduationLimit;
 		this.firstLowerGraduationLimit = copy.firstLowerGraduationLimit;
@@ -252,6 +276,23 @@ public class Event extends Model {
 		this.signUpDeadline = copy.signUpDeadline;
 		this.eventHappens = copy.eventHappens;
 		this.eventStops = copy.eventStops;
+	}
+
+	/**
+		\brief Check if the sign up deadline has been reached. Adds waiters to empty slots.
+
+		This function checks if the signup deadline is reached. If this is true, we'll reassign
+		people from the waiting list to the main list, if there is space there.
+		This is mainly for those who have gotten a 'prikk' from bedpresses.
+	*/
+	public void checkAndAssignWaiters() {
+		if (signUpDeadline.before(Calendar.getInstance())) {
+			while (joinedUsers.size() < maxParticipants
+				&& getWaitingUsers().size() > 0) {
+				joinedUsers.add(getWaitingUsers().remove(0));
+			}
+		}
+		this.update();
 	}
 
 	public void setPrevious(Event previous) {
@@ -286,11 +327,12 @@ public class Event extends Model {
 	public int getUserBlocked(User user) {
 		Event blockedFrom = user.getBlockedEvent();
 		if (blockedFrom == null) return -1;
-		List<Event> blockedFromThese = Event.find.setMaxRows(4).where().eq(
-			"bedpres", true).where().gt("eventId", blockedFrom.getId()).orderBy(
-				"eventHappens ASC").findList();
+		List<Renders> blockedFromThese = Renders.find.setMaxRows(4).where().eq(
+			"eventReference.bedpres", true).where().gt("eventReference.eventId", blockedFrom.getId()).orderBy(
+				"eventReference.eventHappens ASC").findList();
 		int counter = 3;
-		for (Event blocky : blockedFromThese) {
+		for (Renders renders : blockedFromThese) {
+			Event blocky = renders.eventReference;
 			if (blocky.getId() == this.getId())
 				return counter;
 			--counter;
@@ -314,13 +356,14 @@ public class Event extends Model {
 		}
 	}
 
+	public boolean canJoin() {
+		return canJoin(LoginState.getUser());
+	}
+
 	public boolean canJoin(User user) {
 		if (user.isDefault())
 			return false;
 		boolean allowed = false;
-		// Check if the user is within four events of his blocked event.
-		if (getUserBlocked(user) != -1)
-			return false;
 
 		// Check gender requirements
 		char gender = getGenderAllowed();
@@ -380,8 +423,27 @@ public class Event extends Model {
 
 	public boolean checkAndRemoveJoiner(User user) {
 		if (canRemove()) {
-			getJoinedUsers().remove(getJoinedUsers().indexOf(user));
-			return true;
+			int inJoined = getJoinedUsers().indexOf(user);
+			int inWaiting = getWaitingUsers().indexOf(user);
+
+			if (inJoined != -1) {
+				getJoinedUsers().remove(inJoined);
+				if (getWaitingUsers().size() > 0) {
+					List<User> waiting = getWaitingUsers();
+					for (User waiter : waiting) {
+						if (getUserBlocked(waiter) == -1) {
+							getJoinedUsers().add(waiter);
+							break;
+						}
+					}
+				}
+				return true;
+			}
+			else if (inWaiting != -1) {
+					getWaitingUsers().remove(inWaiting);
+				return true;
+			}
+			return false;
 		}
 		else
 			return false;
@@ -389,17 +451,42 @@ public class Event extends Model {
 
 	public boolean checkAndAddJoiner(User user) {
 		boolean allowed = canJoin(user);
+
+		List<User> waitingUsersList = waitingUsers.getList();
 		if (allowed)
-			joinedUsers.add(user);
+		{
+			if (joinedUsers.size() < maxParticipants && getUserBlocked(user) == -1)
+				joinedUsers.add(user);
+			else if (waitingUsersList.size() < maxParticipantsWaiting)
+				waitingUsersList.add(user);
+			else
+				return false;
+		}
 		return allowed;
+	}
+
+	public boolean hasUserJoined() {
+		User user = LoginState.getUser();
+		return getJoinedUsers().contains(user) || getWaitingUsers().contains(user);
 	}
 
 	public List<User> getJoinedUsers() {
 		return joinedUsers;
 	}
 
-	public List<User> getWaitingUsers() {
+	public void setWaitingUsers(EventWaitingUsers evtusers) {
+		waitingUsers = evtusers;
+	}
+
+	public EventWaitingUsers getRawWaitingUsers() {
 		return waitingUsers;
+	}
+
+	public List<User> getWaitingUsers() {
+		if (waitingUsers == null) {
+			System.out.println("WaitingUsers is null");
+		}
+		return waitingUsers.getList();
 	}
 
 	public List<User> getJoinedSpecificClass(int classnum) {

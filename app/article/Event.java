@@ -21,15 +21,15 @@ public class Event extends Controller {
 		User user = LoginState.getUser();
 		if (user.isDefault())
 			return show400("Du må logge inn på nytt.");
-		if (user.isFirstUser())
-			return show400("Du kan ikke melde deg på som root bruker.");
+		//if (user.isFirstUser())
+			//return show400("Du kan ikke melde deg på som root bruker.");
 		Long event_id = new HttpRequestData().getLong("eventId");
 		if (event_id == null)
 			return show400("Forventet HTTP data nøkkel 'eventId' ikke funnet.");
 
 		models.Event evt = models.Event.find.byId(event_id);
 		evt.checkAndAddJoiner(user);
-		evt.save();
+		evt.update();
 
 		return redirect(routes.Event.viewEvent(event_id.toString()).absoluteURL(request()));
 	}
@@ -54,6 +54,8 @@ public class Event extends Controller {
 	public static Result viewEvent(String eventId) {
 		if (models.Event.find.byId(Long.valueOf(eventId)) != null) {
 			models.Event evt = models.Event.find.byId(Long.valueOf(eventId));
+			evt.checkAndAssignWaiters();
+
 			models.Article art = evt.getArticle();
 			List<User> signedups = evt.getJoinedUsers();
 			return ok(layout.render("Arrangement", viewEvent.render(art, evt)));
@@ -109,11 +111,13 @@ public class Event extends Controller {
 			articleModel.setAuthor(LoginState.getUser());
 			articleModel.save();
 
+			EventWaitingUsers waitingUsers = event.getRawWaitingUsers();
 			Long eid = event.getId();
 			event = models.Event.getFromRequest();
 			event.setPrevious(oldevent);
 			event.setId(eid);
 			event.setArticle(articleModel);
+			event.setWaitingUsers(waitingUsers);
 
 			event.update();
 		}
