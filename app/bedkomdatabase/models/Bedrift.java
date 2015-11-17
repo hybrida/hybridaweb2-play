@@ -9,8 +9,6 @@ import play.twirl.api.Html;
 
 import javax.persistence.*;
 import javax.persistence.OrderBy;
-import java.lang.Override;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
