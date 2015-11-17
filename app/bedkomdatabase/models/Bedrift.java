@@ -55,6 +55,11 @@ public class Bedrift extends Model {
     @OrderBy("Note.getDateMade DESC")
     private List<Note> notes;
 
+		@Override
+		public void update() {
+			whenUpdated = new Timestamp(System.currentTimeMillis());
+			super.update();
+		}
 
     public Bedrift(String bedriftName, String webpage, int priority, User responsible){
         this.bedriftName = bedriftName;
