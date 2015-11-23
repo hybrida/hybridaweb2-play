@@ -49,6 +49,16 @@ public class Upload extends Controller {
 		}
 	}
 
+	public static String getFileNameFromRequest(String inputName) throws NoFileInRequest {
+		MultipartFormData formData = request().body().asMultipartFormData();
+		MultipartFormData.FilePart filePart = formData.getFile(inputName);
+		if(filePart != null) {
+			return filePart.getFilename();
+		} else {
+			throw new NoFileInRequest();
+		}
+	}
+
 	public static String uploadTo(String inputName, String uploadFolder, int flags) throws Unauthorized, ServerError, NoFileInRequest, IncorrectFileType {
 
 		User user = LoginState.getUser();
@@ -62,8 +72,7 @@ public class Upload extends Controller {
 		}
 
 		File tempFile = getFileFromRequest(inputName);
-
-		String filename = tempFile.getName();
+		String filename = getFileNameFromRequest(inputName);
 		String extension = filename.substring(filename.lastIndexOf('.'));
 		String filenameNoExtension = filename.substring(0, filename.lastIndexOf('.'));
 		String folder = "uploads/" + uploadFolder + "/";
