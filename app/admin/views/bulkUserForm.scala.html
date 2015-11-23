@@ -1,0 +1,54 @@
+@(output: String, serializedData:List[String])
+<div style="text-align: left;">
+    <h3>Legg til brukere</h3>
+    @if(output){<pre class="output" style="height:200px;padding-top:0px;padding-bottom:0px;">@output</pre>}
+    <div class="progress hidden">
+        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="transition:none;"></div>
+    </div>
+    <div class="hidden users">
+        @for(user <- serializedData) {
+            <div class="user">@user</div>
+        }
+    </div>
+    <div class="well" style="min-width: 630px;">
+        <h5>Format:</h5>
+        <div style="font-family: monospace; font-size:10px">
+                @Html("brukernavn  etternavn           e-postadresse            avgangsår          hybrid     admin   fødselsdato".replaceAll(" ", "&nbsp;"))<br>
+            <strong>@("olamnor,Ola,Nordmann,Mellomnavn,ola@nordmann.no,12345678,1900,Marin teknikk,true,false,false,M,1814-05-17,")</strong><br>
+                @Html("        fornavn      mellomnavn                 telefonnr.    spesialisering     bedkom      kjønn(M/F/U) ".replaceAll(" ", "&nbsp;"))<br>
+        </div>
+    </div>
+    <form action="@admin.routes.Admin.bulkUsers()" method="post" enctype="multipart/form-data" style="display:block;">
+        <div class="form-group"><input class="form-control" type="file" name="userdataFile"></div>
+        <div class="form-group"><textarea class="form-control" name="userdata" style="display:block; width: 100%"></textarea></div>
+        <div class="form-group"><input class="btn btn-primary form-control" type="submit" style="display:block; width: 100%"></div>
+    </form>
+</div>
+<script>
+    function nextUser(elem, i) {
+        $.ajax({
+            url: "@admin.routes.Admin.bulkAddSingle.url?data=" + elem.html()
+            , success: function(data) {
+                var output = $(".output");
+                output.append($("<span>").text(data));
+                elem.remove();
+                var progressBar = $(".progress-bar");
+                progressBar.attr("aria-valuenow", i).css("width",(100*i/progressBar.attr("aria-valuemax"))+"%");
+                var elems = $(".user");
+                if(elems.length > 0) nextUser(elems.first(), ++i);
+                else {
+                    output.append("Fin.\n")
+                    progressBar.removeClass("progress-bar-striped active");
+                }
+            }
+        });
+    }
+    $(document).ready(function(){
+        var elems = $(".user");
+        if(elems.length > 0) {
+            $(".progress").removeClass("hidden");
+            $(".progress-bar").attr("aria-valuemax", elems.length);
+            nextUser(elems.first(), 1);
+        }
+    });
+</script>

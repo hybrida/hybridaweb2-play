@@ -113,7 +113,7 @@ create table user (
   phone                     varchar(255),
   title                     varchar(255),
   graduation_year           integer,
-  specialization            varchar(29),
+  specialization            varchar(30),
   profile_image_file_name   varchar(255),
   student                   boolean default false,
   styret                    boolean default false,
@@ -130,7 +130,7 @@ create table user (
   block4from_this_event_event_id bigint,
   last_login                timestamp,
   profile_image_pos         double,
-  constraint ck_user_specialization check (specialization in ('NONE','GEOMATIKK','KONSTRUKSJON','MARIN','MASKIN','PETROLIUM','PRODUKSJONSLEDELSE')),
+  constraint ck_user_specialization check (specialization in ('NONE','GEOMATIKK','KONSTRUKSJON','MARIN','MASKIN','PETROLEUM','PRODUKSJONSLEDELSE','VARME_OG_STROMNING')),
   constraint uq_user_1 unique (username),
   constraint pk_user primary key (id))
 ;
