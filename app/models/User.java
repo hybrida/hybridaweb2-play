@@ -95,7 +95,7 @@ public class User extends Model implements ImmutableUser {
 	public String      profileImageFileName;
 
 	// Privilege status
-	@Column(name = "student", columnDefinition = "boolean default false")
+	@Column(name = "student", columnDefinition = "boolean default false") //TODO: Seems unnecessary, maybe change to member? As in having paid membership fee
 	public Boolean             student = false;    // No special privileges except for file ajaxUpload.
 	@Column(name = "styret", columnDefinition = "boolean default false")
 	public Boolean             styret = false;     // Access to styret functionality.
