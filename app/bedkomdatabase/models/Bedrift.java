@@ -2,17 +2,17 @@ package bedkomdatabase.models;
 
 import com.avaje.ebean.annotation.CreatedTimestamp;
 import com.avaje.ebean.annotation.*;
-import com.avaje.ebean.*;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
 import javax.persistence.OrderBy;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
-import models.*;
+
 import play.data.validation.Constraints;
+import profile.models.User;
+
 import java.util.Collections;
 
 @Entity

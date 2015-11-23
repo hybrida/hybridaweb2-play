@@ -1,10 +1,12 @@
-package models;
+package profile.models;
 
 import static play.data.Form.form;
 import controllers.Upload;
 import exceptions.NoFileInRequest;
 import exceptions.ServerError;
 import exceptions.Unauthorized;
+import models.Event;
+import models.LoginState;
 import play.data.Form;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
@@ -14,9 +16,7 @@ import javax.persistence.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(
@@ -475,7 +475,7 @@ public class User extends Model implements ImmutableUser {
         VEVKOM("Vevkom"){ @Override public boolean userHasAccess(User user) { return user.isInVevkom();}},
         JENTEKOM("Jentekom"){ @Override public boolean userHasAccess(User user) { return user.isInJentekom();}},
         REDAKSJONEN("Redaksjonen"){ @Override public boolean userHasAccess(User user) { return user.isInRedaksjonen();}},
-		UPDATE("Update"){ @Override public boolean userHasAccess(User user) { return user.canReadUpdate();}},
+				UPDATE("Update"){ @Override public boolean userHasAccess(User user) { return user.canReadUpdate();}},
         ADMIN("Admin"){ @Override public boolean userHasAccess(User user) { return user.isAdmin();}},
         ROOT("Root"){ @Override public boolean userHasAccess(User user) { return user.isRoot();}},
 				USER("User"){ @Override public boolean userHasAccess(User user) { return !user.isDefault();}},

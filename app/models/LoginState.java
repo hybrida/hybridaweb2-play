@@ -5,6 +5,7 @@ import play.db.ebean.Model;
 import play.api.libs.Crypto;
 import java.util.Date;
 import play.mvc.Controller;
+import profile.models.User;
 
 /**
  * \brief Login state manager.

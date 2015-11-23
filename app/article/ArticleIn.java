@@ -5,15 +5,12 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import static play.data.Form.form;
 
-import java.text.ParseException;
 import java.util.Calendar;
-import java.time.LocalDate;
 
-import article.Article;
 import article.views.html.*;
+import profile.models.User;
 import views.html.layout;
 import controllers.Upload;
-import views.html.utils.centerBlock;
 import exceptions.*;
 import models.*;
 

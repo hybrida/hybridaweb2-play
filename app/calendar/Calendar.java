@@ -9,7 +9,7 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.twirl.api.Html;
-import views.html.layoutBoxPage;
+import profile.models.User;
 import views.html.layoutWithHead;
 
 import java.sql.Timestamp;

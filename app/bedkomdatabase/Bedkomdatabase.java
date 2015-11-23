@@ -4,6 +4,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import bedkomdatabase.views.html.*;
+import profile.models.User;
 import views.html.*;
 import models.*;
 import bedkomdatabase.models.*;

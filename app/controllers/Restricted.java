@@ -1,8 +1,8 @@
 package controllers;
 
 import models.LoginState;
-import models.User;
-import models.User.Access;
+import profile.models.User;
+import profile.models.User.Access;
 import play.mvc.Controller;
 import play.mvc.Result;
 

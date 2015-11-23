@@ -2,7 +2,7 @@ package controllers;
 
 import exceptions.*;
 import models.LoginState;
-import models.User;
+import profile.models.User;
 import play.mvc.Controller;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Result;

@@ -1,9 +1,9 @@
 package models;
 
 import play.db.ebean.Model;
-import play.data.format.Formats;
-import play.twirl.api.Html;
 import play.data.Form;
+import profile.models.User;
+
 import static play.data.Form.form;
 
 import java.util.ArrayList;

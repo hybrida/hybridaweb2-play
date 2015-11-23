@@ -3,12 +3,11 @@ package admin;
 import controllers.Upload;
 import exceptions.*;
 import models.LoginState;
-import models.Specialization;
-import models.User;
+import profile.models.Specialization;
+import profile.models.User;
 import play.mvc.Controller;
 import play.mvc.Result;
 import util.Validator;
-import views.html.layout;
 import play.twirl.api.Html;
 import models.HttpRequestData;
 
@@ -55,27 +54,27 @@ public class Admin extends Controller {
 	}
 
 	public static Result allUsers() {
-		models.User loginuser = models.LoginState.getUser();
+		User loginuser = models.LoginState.getUser();
 		if (!loginuser.isRoot()) {
 			return redirect(application.routes.Application.showUnauthorizedAccess().url());
 		} else {
-			java.util.List<models.User> users = models.User.find.all();
-			Collections.sort(users, new Comparator<models.User>() {
+			java.util.List<User> users = User.find.all();
+			Collections.sort(users, new Comparator<User>() {
 				@Override
-				public int compare(final models.User lhs, models.User rhs)
+				public int compare(final User lhs, User rhs)
 				{
 					return lhs.getUsername().compareTo(rhs.getUsername());
 				}
 			});
 			String all_forms = "";
 			String formheads = "";
-			for (models.User user : users) {
+			for (User user : users) {
 				formheads += formHead.render(
 					user.getId()).toString();
 			}
 			formheads += formHeadNew.render().toString();
 			RingNumber period = new RingNumber(10);
-			for (models.User user : users) {
+			for (User user : users) {
 				Html gen = userForm.render(
 					user, period.inc() == 1, user.getId());
 				all_forms += gen.toString();
@@ -88,18 +87,18 @@ public class Admin extends Controller {
 	}
 
 	public static Result editUser(String uid) {
-		models.User loginuser = models.LoginState.getUser();
+		User loginuser = models.LoginState.getUser();
 		if (!loginuser.isRoot()) {
 			return redirect(application.routes.Application.showUnauthorizedAccess().url());
 		}
 		if (HttpRequestData.isGiven("delete")) {
-			models.User toRemove = models.User.find.byId(Long.parseLong(uid));
+			User toRemove = User.find.byId(Long.parseLong(uid));
 			if (toRemove != null) {
 				toRemove.delete();
 			}
 			return redirect(admin.routes.Admin.allUsers());
 		} else {
-			models.User change = models.User.getUserFromForm();
+			User change = User.getUserFromForm();
 			change.setId(Long.parseLong(uid));
 			change.update();
 			return redirect(admin.routes.Admin.allUsers());
@@ -107,11 +106,11 @@ public class Admin extends Controller {
 	}
 
 	public static Result newUser() {
-		models.User loginuser = models.LoginState.getUser();
+		User loginuser = models.LoginState.getUser();
 		if (!loginuser.isRoot()) {
 			return redirect(application.routes.Application.showUnauthorizedAccess().url());
 		}
-		models.User user = models.User.getUserFromForm();
+		User user = User.getUserFromForm();
 		user.save();
 		return redirect(admin.routes.Admin.allUsers());
 	}

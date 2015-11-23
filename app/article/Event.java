@@ -7,6 +7,7 @@ import exceptions.Unauthorized;
 import models.*;
 import play.mvc.Controller;
 import play.mvc.Result;
+import profile.models.User;
 import views.html.layout;
 import article.views.html.*;
 import static application.Application.show400;

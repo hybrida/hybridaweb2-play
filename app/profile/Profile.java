@@ -1,7 +1,7 @@
 package profile;
 
 import models.LoginState;
-import models.User;
+import profile.models.User;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
