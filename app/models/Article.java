@@ -7,6 +7,7 @@ import profile.models.User;
 import javax.persistence.*;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +32,13 @@ public class Article extends Model {
 	@OneToMany
 	@OrderBy("Comment.getCreationDate DESC")
 	private List<Comment> commentList;
+
+	public Article() {
+		title = "";
+		ingress = "";
+		text = "Artikkel her";
+		commentList = new ArrayList<>();
+	}
 
 	public void setParent(Article article) {
 		previousEdit = article;
@@ -121,45 +129,6 @@ public class Article extends Model {
 
 	public void setAuthor(User author) {
 		this.author = author;
-	}
-
-	public static String getArticleData() throws SQLException {
-
-		List<Article> entities = Article.find.all();
-		return "";
-		/*
-		javax.sql.DataSource ds = DB.getDataSource();
-		java.sql.Connection connection = ds.getConnection("hybrid", "");
-		java.sql.Statement statement = connection.createStatement();
-
-		ResultSet result = statement.executeQuery("SELECT COUNT(*) FROM feed");
-
-		result.absolute(1);
-		int length = result.getInt(1);
-		result = statement.executeQuery("SELECT * FROM feed ORDER BY id DESC");
-
-		String finalPost = "";
-		for (int i = 1; i <= length; ++i) {
-			result.absolute(i);
-			String check = result.getString(3);
-			String url = routes.Feed.generateArticle(result.getString(1).replace(" ", "_")).absoluteURL(request());
-			if (!check.equalsIgnoreCase("null")) {
-				finalPost += "<a href=" + url +"><div class=\"content2\">" +
-					"<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
-					"<img src=\"/assets/Upload/" + result.getString(3) + "\" alt=\"rect\" width=50% height=50%/><br>" +
-					escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</div></a><br>" +
-					escapeText.apply(result.getString(5)).toString().replace("\n", "<br />") + "</div>";
-			} else {
-				finalPost += "<a href=" + url +"><div class=\"content2\">" +
-					"<div style=\"border-bottom: 2px solid  #9e9d98 \">" +
-					"<img src=\"/assets/images/favicon.ico\" alt=\"rect\"/><br>" +
-					escapeText.apply(result.getString(2).toUpperCase()).toString().replace("\n", "<br />") + "</a></div><br>" +
-					escapeText.apply(result.getString(5)).toString().replace("\n", "<br />") + "</div>";
-			}
-		}
-
-		return finalPost;
-		*/
 	}
 
 	public static Finder<Long, Article> find = new Finder<>(

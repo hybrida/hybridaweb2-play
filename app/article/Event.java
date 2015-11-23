@@ -66,7 +66,7 @@ public class Event extends Controller {
 	}
 
 	public static Result editEvent(String id) {
-		Result error = application.Application.checkEditPrivilege(LoginState.getUser());
+		Result error = application.Application.checkEditPrivilege(LoginState.getUser()); //TODO: Each controller should take care of it's own auth logic
 		if (error != null)
 			return error;
 
@@ -84,7 +84,7 @@ public class Event extends Controller {
 
 		if (HttpRequestData.isGiven("delete")) {
 			models.Renders.getByEventId(Long.valueOf(id)).delete();
-			return application.Application.index();
+			return redirect(application.routes.Application.index());
 		}
 
 		play.data.Form<models.Article> articleInput = articleForm.bindFromRequest();

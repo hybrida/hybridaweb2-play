@@ -1,8 +1,8 @@
 @(inarticle: models.Article)
 <div class="article-bg">
 	<div class="container-fluid center-container">
-		<script src="/assets/ckeditor/ckeditor.js"></script>
-		<link href="sample.css" rel="stylesheet">
+		<script src="/assets/ckeditor/ckeditor.js"></script>@*FIXME: Doesn't belong here*@
+		<link href="sample.css" rel="stylesheet">@*FIXME: Doesn't belong here*@
 		<style>
 
 		/* Style the CKEditor element to look like a textfield */
@@ -21,22 +21,15 @@
 			<div class="col-lg-8 space-above">
 				<div class="article_writer transparent-box">
 					<h3><p class="text-center">Endre artikkel</p></h3>
-					<form name="Article" action="@article.routes.ArticleIn.saveEdit(inarticle.getId.toString).absoluteURL()" method="POST" enctype="multipart/form-data">
-						<textarea class="form-control" type="text" name="title">@inarticle.getTitle</textarea>
-						<textarea class="form-control" name="ingress" onfocus="">@inarticle.getIngress</textarea>
-						<textarea id="editor1" class="form-control" rows="12" cols="75" name="text">@inarticle.getText</textarea>
-						<input class="pad_1percent_top center_block form-control" style="display : block ; background-color : #c3c3c3 ; " type="file" name="picture">
-						<div class="form-group">
+					<form name="Article" action="@article.routes.ArticleIn.saveEdit(inarticle.getId.toString)" method="POST" enctype="multipart/form-data">
+						@dependencies.articleInputs(inarticle)
+                        <div class="form-group">
 							<input class="btn btn-primary form-control" type="submit" value="Post">
 						</div>
 						<div class="form-group">
 							<input class="btn btn-danger form-control" type="submit" name="delete" value="delete">
 						</div>
-
 					</form>
-					<script>
-					CKEDITOR.inline ( 'editor1' ) ;
-					</script>
 				</div>
 			</div>
             <div class="col-lg-4 space-above">

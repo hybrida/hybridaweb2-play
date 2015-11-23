@@ -243,6 +243,24 @@ public class Event extends Model {
 
 	public Event() {
 		waitingUsers = new EventWaitingUsers();
+		signUpStart = Calendar.getInstance();
+		(secondSignUp = Calendar.getInstance()).add(Calendar.DATE, 3); //Too hacky? Whatevs
+		(signUpDeadline = Calendar.getInstance()).add(Calendar.DATE, 7);
+		(eventHappens = Calendar.getInstance()).add(Calendar.DATE, 8);
+		(eventStops = Calendar.getInstance()).add(Calendar.DATE, 9);
+		firstYearAllowed  = true;
+		secondYearAllowed = true;
+		thirdYearAllowed  = true;
+		fourthYearAllowed = true;
+		fifthYearAllowed  = true;
+		firstYearAllowedAfterSecondSignup = true;
+		secondYearAllowedAfterSecondSignup = true;
+		thirdYearAllowedAfterSecondSignup = true;
+		fourthYearAllowedAfterSecondSignup = true;
+		fifthYearAllowedAfterSecondSignup = true;
+		genderAllowed = 'A';
+		maxParticipants = 60;
+		maxParticipantsWaiting = 30;
 	}
 
 	public Event(Event copy) {
@@ -369,9 +387,7 @@ public class Event extends Model {
 
 		// Check gender requirements
 		char gender = getGenderAllowed();
-		if (gender == 'A')
-			;
-		else if (gender != user.getGender())
+		if (gender != 'A' && gender != user.getGender())
 			return false;
 		// Check if the timeframe is correct
 		Calendar calendar = Calendar.getInstance();

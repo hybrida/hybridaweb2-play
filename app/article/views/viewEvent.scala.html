@@ -71,40 +71,40 @@
 							<div class="col-xs-2">
 								@i.getAuthor.getThumbnail
 							</div>
-                            <div class="col-xs-10">
-                                <div class="row">
-                                    <div class="col-xs-10">
-                                        <strong>@{i.getAuthor.getNameLink}:</strong>
-                                    </div>
-                                    <div class="col-xs-2">
-                                        @if(i.getAuthor == models.LoginState.getUser || i.getAuthor.admin) {
-                                            <!-- Extra small button group -->
-                                            <div class="btn-group">
-                                                    <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                                                        <span class="caret"></span>
-                                                    </button>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <form method="POST" action="@article.routes.Article.deleteComment(i.getCommentID.toString)">
-                                                        <input type="hidden" name="isEvent" value="@event.getId">
-                                                        <button type="submit" class="form-control"> Slett </button>
-                                                    </form>
-                                                </ul>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        @(i.getComment())
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <small> @i.getTimestamp() </small>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
+								<div class="col-xs-10">
+									<div class="row">
+										<div class="col-xs-10">
+											<strong>@{i.getAuthor.getNameLink}:</strong>
+										</div>
+										<div class="col-xs-2">
+											@if(i.getAuthor == models.LoginState.getUser || i.getAuthor.admin) {
+												<!-- Extra small button group -->
+												<div class="btn-group">
+														<button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+															<span class="caret"></span>
+														</button>
+													<ul class="dropdown-menu" role="menu">
+														<form method="POST" action="@article.routes.Article.deleteComment(i.getCommentID.toString)">
+															<input type="hidden" name="isEvent" value="@event.getId">
+															<button type="submit" class="form-control"> Slett </button>
+														</form>
+													</ul>
+												</div>
+											}
+										</div>
+									</div>
+										<div class="row">
+											<div class="col-md-12">
+												@(i.getComment())
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<small> @i.getTimestamp() </small>
+											</div>
+										</div>
+									</div>
+								</div>
 							}
 							<div style="margin-top:1em">
 								<form action="@article.routes.Article.comment(inarticle.getId.toString)" method="POST">
