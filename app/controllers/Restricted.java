@@ -17,7 +17,7 @@ import java.net.URLDecoder;
 public class Restricted extends Controller {
 	public static Result at(String restriction, String file) {
 		if(!LoginState.isValidlyLoggedIn()) return redirect(sso.routes.SSOLogin.login(request().uri()));
-		if(restriction.equals("innlogget")) return showFile("innlogget/" + file);
+		if(restriction.equals("innlogget")) return showFile("loggedin/" + file);
 		Access committee = Access.fromString(restriction);
 		if(committee != Access.NONE) return restrictByCommittee(committee, file);
 		User user = User.findByUsername(restriction);
