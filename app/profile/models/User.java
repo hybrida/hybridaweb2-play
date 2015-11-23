@@ -395,6 +395,7 @@ public class User extends Model implements ImmutableUser {
 	} //FIXME: Why?
 
 	public int calculateClass() {
+		if (!hasGraduationYear()) return 0;
 		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 		int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
 		int classYear = 5 - (graduationYear - currentYear);
