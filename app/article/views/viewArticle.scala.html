@@ -30,25 +30,23 @@
 					<p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">Kommentarer</p>
 						@for(i <- inarticle.getCommentList){
 							<div class="row">
-								<div class="col-md-1">
-									<a href="@profile.routes.Profile.index(i.getAuthor.getUsername)" class="thumbnail">
-									<img src="@i.getAuthor.getProfilePictureWithFallBackOnDefault" alt="profilepic for @i.getAuthor.getName">
-									</a>
+								<div class="col-xs-2 col-lg-2" style="padding-right:0">
+									    @i.getAuthor.getThumbnail
 								</div>
-								<div class="col-md-11">
+								<div class="col-xs-10 col-lg-10" style="padding-left:2.5%">
 									<div class="row">
-										<div class="col-md-10">
+										<div class="col-xs-10">
 											<strong>@{i.getAuthor.getNameLink}:</strong>
 										</div>
-										<div class="col-md-2">
+										<div class="col-xs-2" style="text-align: right;">
 											@if(i.getAuthor.equals(models.LoginState.getUser) || i.getAuthor.admin){
 												<div class="btn-group">
 													<button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
 														<span class="caret"></span>
 													</button>
-													<ul class="dropdown-menu" role="menu">
+													<ul class="dropdown-menu dropdown-menu-right" role="menu">
 														<form method="POST" action="@article.routes.Article.deleteComment(i.getCommentID.toString)">
-															<button type="submit" class="form-control"> Slett </button>
+															<button type="submit"> Slett </button>
 														</form>
 													</ul>
 											</div>

@@ -1,5 +1,7 @@
 package profile.models;
 
+import play.mvc.Call;
+
 import java.sql.Timestamp;
 
 public interface ImmutableUser {
@@ -18,9 +20,9 @@ public interface ImmutableUser {
 	Integer getGraduationYear();
 	Specialization getSpecialization();
 	String getProfileImageFileName();
+	Call getProfileImageCall();
 	Timestamp getLastLoginTime();
 	char getGender();
-	Double getProfileImagePos();
 	boolean hasMiddleName();
 	boolean hasEmail();
 	boolean hasWebsiteUrl();
@@ -29,16 +31,15 @@ public interface ImmutableUser {
 	boolean hasGraduationYear();
 	boolean hasSpecialization();
 	boolean hasProfileImage();
-	boolean hasProfileImagePos();
-    boolean isInBedkom();
-    boolean isInArrkom();
-    boolean isInVevkom();
-    boolean isInJentekom();
-    boolean isInRedaksjonen();
-    User.Access[] getMemberships();
-    boolean isAdmin();
+	boolean isInBedkom();
+	boolean isInArrkom();
+	boolean isInVevkom();
+	boolean isInJentekom();
+	boolean isInRedaksjonen();
+	User.Access[] getMemberships();
+	boolean isAdmin();
 	boolean isRoot();
-    boolean hasAccess(boolean inAll, User.Access... accessList);
+	boolean hasAccess(boolean inAll, User.Access... accessList);
 	boolean isDefault();
 	boolean canCreateNewArticle();
 	int calculateClass();

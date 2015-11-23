@@ -34,7 +34,7 @@ public class Profile extends Controller {
 					profile.views.html.index.render(
 							username,
 							user.getName(),
-							user.hasProfileImage() ? "uploads/" + user.getUsername() + "/" + user.getProfileImageFileName() : null,
+							user.getProfileImageCall().url(),
 							user,
 							authorizedToEditUser(user.getUsername()),
 							user.hasTitle() ? user.getTitle() : user.hasMiddleName() ? user.getFullName() : null
@@ -49,7 +49,7 @@ public class Profile extends Controller {
 				profile.views.html.edit.render(
 						username,
 						user.getName(),
-						user.hasProfileImage() ? "uploads/" + user.getUsername() + "/" + user.getProfileImageFileName() : null,
+						user.hasProfileImage() ? user.getProfileImageCall().url() : null,
 						form,
 						messages
 				),

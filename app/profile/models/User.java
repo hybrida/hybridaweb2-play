@@ -2,6 +2,7 @@ package profile.models;
 
 import static play.data.Form.form;
 import controllers.Upload;
+import controllers.routes;
 import exceptions.NoFileInRequest;
 import exceptions.ServerError;
 import exceptions.Unauthorized;
@@ -10,6 +11,7 @@ import models.LoginState;
 import play.data.Form;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
+import play.mvc.Call;
 import play.twirl.api.Html;
 import util.Validator;
 
@@ -21,8 +23,8 @@ import java.util.*;
 
 @Entity
 @Table(
-	name="user",
-	uniqueConstraints=
+		name="user",
+		uniqueConstraints=
 		@UniqueConstraint(columnNames= {"username"})
 )
 public class User extends Model implements ImmutableUser {
@@ -31,7 +33,7 @@ public class User extends Model implements ImmutableUser {
 		public Long uid;
 		public String username;
 		public Boolean
-			arrkom, bedkom, root, vevkom, admin, jentekom, redaksjonen;
+				arrkom, bedkom, root, vevkom, admin, jentekom, redaksjonen;
 		public Integer graduationYear;
 		public Character gender;
 
@@ -71,28 +73,28 @@ public class User extends Model implements ImmutableUser {
 
 	// Name, identification, contact
 	public String      username;  // Assigned by NTNU
-    @Required
+	@Required
 	@Column(name = "first_name", columnDefinition = "varchar(256) default 'Fornavn'", nullable = false)
 	public String      firstName;
-    @Required
-    @Column(name = "last_name", columnDefinition = "varchar(256) default 'Etternavn'", nullable = false)
+	@Required
+	@Column(name = "last_name", columnDefinition = "varchar(256) default 'Etternavn'", nullable = false)
 	public String      lastName;
 	@Column(name = "middle_name")
 	public String      middleName;
-    @Column(name = "email")
+	@Column(name = "email")
 	public String      email;
 	@Column(name = "website_url")
 	public String      websiteUrl;
-    @Column(name = "phone")
+	@Column(name = "phone")
 	public String      phone;
-    @Column(name = "title")
+	@Column(name = "title")
 	public String      title; // Ph.D., Civ.Eng., Stud., Chief, Commander, General, Lord, Admiral, Vevsjef,...
 	@Column(name = "graduation_year")
 	public Integer     graduationYear = 0;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "specialization")
 	public Specialization specialization = Specialization.NONE;
-    @Column(name = "profile_image_file_name")
+	@Column(name = "profile_image_file_name")
 	public String      profileImageFileName;
 
 	// Privilege status
@@ -116,7 +118,7 @@ public class User extends Model implements ImmutableUser {
 	public Boolean             root = false;       // Powers too great for mere mortals.
 	@Column(name = "gender", columnDefinition = "char(1) default 'U'")
 	public Character           gender = 'U';     // For specific events.
-    @Column(name = "enrolled")
+	@Column(name = "enrolled")
 	public Timestamp           enrolled;   // For specific bedpreses requiring a year number.
 	@Column(name = "date_of_birth")
 	public Timestamp           dateOfBirth;
@@ -128,8 +130,6 @@ public class User extends Model implements ImmutableUser {
 	// Misc. account info
 	@Column(name = "last_login")
 	private Timestamp          lastLogin; // Used to avoid cookie-stealing schemes and MITM attacks. Combined with AES with time and RNG padded encryption.
-	@Column(name = "profile_image_pos")
-	public Double              profileImagePos;
 
 	public User() {}
 
@@ -311,7 +311,7 @@ public class User extends Model implements ImmutableUser {
 
 	public Specialization getSpecialization() {
 		if (specialization == null) specialization = Specialization.NONE;
-			return specialization;
+		return specialization;
 	}
 
 	public void setSpecialization(Specialization specialization) {
@@ -334,7 +334,16 @@ public class User extends Model implements ImmutableUser {
 		this.profileImageFileName = profileImageFileName;
 	}
 
-    public Timestamp getLastLoginTime() {
+	public Call getProfileImageCall() {
+		if(hasProfileImage()) return controllers.routes.Assets.at("uploads/" + getUsername() + "/" + getProfileImageFileName());
+		return controllers.routes.Assets.at("images/placeholder-profile.jpg");
+	}
+
+	public Html getThumbnail() {
+		return profile.views.html.thumbnail.render(this);
+	}
+
+	public Timestamp getLastLoginTime() {
 		return lastLogin;
 	}
 
@@ -342,9 +351,9 @@ public class User extends Model implements ImmutableUser {
 		return gender;
 	}
 
-    public boolean isInStyret() {
-        return styret;
-    }
+	public boolean isInStyret() {
+		return styret;
+	}
 
 	public boolean isInArrkom() {
 		return arrkom;
@@ -385,31 +394,6 @@ public class User extends Model implements ImmutableUser {
 		return getId() == 1;
 	} //FIXME: Why?
 
-	public boolean hasProfileImagePos() {
-		return profileImagePos != null;
-	}
-
-	public Double getProfileImagePos() {
-		return profileImagePos;
-	}
-
-	public void setProfileImagePos(Double profileImagePos) {
-		this.profileImagePos = profileImagePos;
-	}
-
-	public String uploadPicture(String inputName) {
-		try {
-			return Upload.upload(inputName);
-		} catch (Unauthorized unauthorized) {
-			unauthorized.printStackTrace();
-		} catch (NoFileInRequest noFileInRequest) {
-			noFileInRequest.printStackTrace();
-		} catch (ServerError serverError) {
-			serverError.printStackTrace();
-		}
-		return null;
-	}
-
 	public int calculateClass() {
 		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 		int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
@@ -443,10 +427,7 @@ public class User extends Model implements ImmutableUser {
 	}
 
 	public String getProfilePictureWithFallBackOnDefault() {
-
-		return getProfileImageFileName() == null || getProfileImageFileName().equals("")
-			? "/assets/images/logo_big.png"
-				: "/assets/uploads/" + getUsername() + "/" + getProfileImageFileName();
+		return getProfileImageCall().url();
 	}
 
 	public String toString() {
@@ -473,29 +454,29 @@ public class User extends Model implements ImmutableUser {
 		return sb.toString();
 	}
 
-    public enum Access {
-        STYRET("Styret"){ @Override public boolean userHasAccess(User user) { return user.isInStyret();}},
-        BEDKOM("Bedkom"){ @Override public boolean userHasAccess(User user) { return user.isInBedkom();}},
-        ARRKOM("Arrkom"){ @Override public boolean userHasAccess(User user) { return user.isInArrkom();}},
-        VEVKOM("Vevkom"){ @Override public boolean userHasAccess(User user) { return user.isInVevkom();}},
-        JENTEKOM("Jentekom"){ @Override public boolean userHasAccess(User user) { return user.isInJentekom();}},
-        REDAKSJONEN("Redaksjonen"){ @Override public boolean userHasAccess(User user) { return user.isInRedaksjonen();}},
-				UPDATE("Update"){ @Override public boolean userHasAccess(User user) { return user.canReadUpdate();}},
-        ADMIN("Admin"){ @Override public boolean userHasAccess(User user) { return user.isAdmin();}},
-        ROOT("Root"){ @Override public boolean userHasAccess(User user) { return user.isRoot();}},
-				USER("User"){ @Override public boolean userHasAccess(User user) { return !user.isDefault();}},
-				NONE("None"){ @Override public boolean userHasAccess(User user) { return true;}};
+	public enum Access {
+		STYRET("Styret"){ @Override public boolean userHasAccess(User user) { return user.isInStyret();}},
+		BEDKOM("Bedkom"){ @Override public boolean userHasAccess(User user) { return user.isInBedkom();}},
+		ARRKOM("Arrkom"){ @Override public boolean userHasAccess(User user) { return user.isInArrkom();}},
+		VEVKOM("Vevkom"){ @Override public boolean userHasAccess(User user) { return user.isInVevkom();}},
+		JENTEKOM("Jentekom"){ @Override public boolean userHasAccess(User user) { return user.isInJentekom();}},
+		REDAKSJONEN("Redaksjonen"){ @Override public boolean userHasAccess(User user) { return user.isInRedaksjonen();}},
+		UPDATE("Update"){ @Override public boolean userHasAccess(User user) { return user.canReadUpdate();}},
+		ADMIN("Admin"){ @Override public boolean userHasAccess(User user) { return user.isAdmin();}},
+		ROOT("Root"){ @Override public boolean userHasAccess(User user) { return user.isRoot();}},
+		USER("User"){ @Override public boolean userHasAccess(User user) { return !user.isDefault();}},
+		NONE("None"){ @Override public boolean userHasAccess(User user) { return true;}};
 
-        private String name;
-        public static final Access[] COMMITTEES = new Access[]{STYRET, BEDKOM, ARRKOM, VEVKOM, JENTEKOM, REDAKSJONEN};
-        Access(String name) {this.name = name;}
-        @Override public String toString() {return name;}
-				public static Access fromString(String name) {
-					for (Access committee : COMMITTEES) if (committee.toString().equalsIgnoreCase(name)) return committee;
-					return NONE;
-				}
-        public abstract boolean userHasAccess(User user);
-    }
+		private String name;
+		public static final Access[] COMMITTEES = new Access[]{STYRET, BEDKOM, ARRKOM, VEVKOM, JENTEKOM, REDAKSJONEN};
+		Access(String name) {this.name = name;}
+		@Override public String toString() {return name;}
+		public static Access fromString(String name) {
+			for (Access committee : COMMITTEES) if (committee.toString().equalsIgnoreCase(name)) return committee;
+			return NONE;
+		}
+		public abstract boolean userHasAccess(User user);
+	}
 
 	public boolean canReadUpdate() {
 		if (this.enrolled == null) return false;
@@ -505,32 +486,35 @@ public class User extends Model implements ImmutableUser {
 	}
 
 	public boolean hasAccess(boolean inAll, Access... accessList) {
-        //Parameters explained: user: the user you want to check;
-        //inAll: set true if you want to check if has ALL entered accesses, false if you want to check if has
-        // ANY of the entered accesses.
-        //Accesses are entered on the form models.User.Access.<access> (for example: models.User.Access.BEDKOM)
+		//Parameters explained: user: the user you want to check;
+		//inAll: set true if you want to check if has ALL entered accesses, false if you want to check if has
+		// ANY of the entered accesses.
+		//Accesses are entered on the form models.User.Access.<access> (for example: models.User.Access.BEDKOM)
 
-        if (isDefault()) {
-            return false;
-        }
-        if (inAll) {
-            for(Access access : accessList) if(!access.userHasAccess(this)) return false;
-            return true;
-        }
-        for(Access access : accessList) if(access.userHasAccess(this)) return true;
-        return false;
-    }
+		if (isDefault()) {
+			return false;
+		}
+		if (isRoot()) {
+			return true;
+		}
+		if (inAll) {
+			for(Access access : accessList) if(!access.userHasAccess(this)) return false;
+			return true;
+		}
+		for(Access access : accessList) if(access.userHasAccess(this)) return true;
+		return false;
+	}
 
-    public static boolean hasAccess(User user, boolean inAll, Access... accessList) {
-        return user.hasAccess(inAll, accessList);
-    }
+	public static boolean hasAccess(User user, boolean inAll, Access... accessList) {
+		return user.hasAccess(inAll, accessList);
+	}
 
-    public static boolean loggedInUserHasAccess(boolean inAll, Access... accessList) {
-        return hasAccess(LoginState.getUser(), inAll, accessList);
-    }
+	public static boolean loggedInUserHasAccess(boolean inAll, Access... accessList) {
+		return hasAccess(LoginState.getUser(), inAll, accessList);
+	}
 
 
-    public boolean isBlockedFrom(models.Event event) {
+	public boolean isBlockedFrom(models.Event event) {
 		if (block4FromThisEvent != null)
 			return event.getId() == block4FromThisEvent.getId();
 		else
@@ -546,7 +530,7 @@ public class User extends Model implements ImmutableUser {
 	}
 
 	public static Model.Finder<Long, User> find = new Finder<>(
-		Long.class, User.class
+			Long.class, User.class
 	);
 
 	public static User findByUsername(String username) {

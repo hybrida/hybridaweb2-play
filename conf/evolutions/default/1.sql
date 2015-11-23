@@ -129,7 +129,6 @@ create table user (
   date_of_birth             timestamp,
   block4from_this_event_event_id bigint,
   last_login                timestamp,
-  profile_image_pos         double,
   constraint ck_user_specialization check (specialization in ('NONE','GEOMATIKK','KONSTRUKSJON','MARIN','MASKIN','PETROLEUM','PRODUKSJONSLEDELSE','VARME_OG_STROMNING')),
   constraint uq_user_1 unique (username),
   constraint pk_user primary key (id))
