@@ -1,8 +1,8 @@
 {
   "fields": [
-    {"name": "firstName", "pattern": "[\\p{Alpha}][^<>\\n]{0,29}", "required": true,
+    {"name": "firstName", "pattern": "\\p{Alpha}[^<>\\n\\r]{0,29}", "required": true,
       "message": "Fornavn kan ikke inneholde vinkelparenteser eller linjeskift. Maks 30 tegn."},
-    {"name": "lastName", "pattern": "[\\p{Alpha}][^<>\\n]{0,29}", "required": true,
+    {"name": "lastName", "pattern": "\\p{Alpha}[^<>\\n\\r]{0,29}", "required": true,
       "message": "Etternavn kan ikke inneholde vinkelparenteser eller linjeskift. Maks 30 tegn."},
     {"name": "middleName", "pattern": "[^<>\\n]{0,50}",
       "message": "Mellomnavn kan ikke inneholde vinkelparenteser eller linjeskift. Maks 50 tegn."},
