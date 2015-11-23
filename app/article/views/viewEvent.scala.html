@@ -15,7 +15,7 @@
 					<h3><p class="text-center">@inarticle.getIngress</p></h3>
 					<br>
 					<p class="smallTitle">
-						Av: @inarticle.getAuthor.getFullName
+						Av: @inarticle.getAuthor.getNameLink
 						@if(models.LoginState.getUser().getUsername == inarticle.getAuthor.getUsername || LoginState.getUser.isAdmin) {
 							<a href="@article.routes.Event.editEvent("" + event.getId)">
 								<button class="btn-xs btn-primary"> Rediger </button>
@@ -51,7 +51,7 @@
 												</a>
 											</div>
 											<div class="col-md-11">
-												<strong>@j.getName</strong>
+												<strong>@j.getNameLink</strong>
 											</div>
 										</div>
 										}
@@ -66,7 +66,7 @@
 			<div class="row">
 				<div class="col-md-12 transparent-box" style="margin-top : 1 %">
 					<p class="smallTitle">Kommentarer</p>
-					@for(i <- inarticle.getCommentList()) {
+					@for(i <- inarticle.getCommentList) {
 						<div class="row">
 							<div class="col-md-1">
 								<a href="@profile.routes.Profile.index(i.getAuthor.getUsername)" class="thumbnail">
@@ -76,10 +76,10 @@
 								<div class="col-md-11">
 									<div class="row">
 										<div class="col-md-10">
-											<strong>@(i.getAuthor().getName() + ":")</strong>
+											<strong>@{i.getAuthor.getNameLink}:</strong>
 										</div>
 										<div class="col-md-2">
-											@if(i.getAuthor() == models.LoginState.getUser() || i.getAuthor().admin) {
+											@if(i.getAuthor == models.LoginState.getUser || i.getAuthor.admin) {
 												<!-- Extra small button group -->
 												<div class="btn-group">
 														<button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">

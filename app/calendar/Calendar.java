@@ -9,6 +9,7 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.twirl.api.Html;
+import profile.*;
 import profile.models.User;
 import views.html.layoutWithHead;
 
@@ -156,7 +157,7 @@ public class Calendar extends Controller {
 			List<User> users = User.find.all();
 			if (users != null) {
 				for (User user : users) {
-					if (user == null || user.dateOfBirth == null || user.dateOfBirth.getTime() == 0 || user.getName() == null || user.getName().isEmpty())
+					if (user == null || user.dateOfBirth == null || user.dateOfBirth.getTime() == 0 || user.getName() == null || user.getName().isEmpty()) //TODO: user.getName() returnern aldri null eller ""
 						continue;
 					java.util.Calendar tempCalendar = new GregorianCalendar();
 
@@ -186,7 +187,7 @@ public class Calendar extends Controller {
 						reformatted.set("title", new TextNode(BIRTHDAY_DEFAULT_TITLE.replaceAll("\\[NAME\\]", user.getName())));
 						// Set url
 						if (user.getUsername() != null && !user.getUsername().isEmpty()) {
-							reformatted.set("url", new TextNode("profil/" + user.getUsername()));
+							reformatted.set("url", new TextNode(profile.routes.Profile.index(user.getUsername()).url()));
 						}
 						// Set color
 						reformatted.set("color", new TextNode(BIRTHDAY_COLOR));

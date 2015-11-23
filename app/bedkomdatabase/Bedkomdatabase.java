@@ -20,7 +20,7 @@ public class Bedkomdatabase extends Controller {
 		List<Bedrift> bedriftList = Bedrift.find.orderBy("priority desc").findList();
 
 		for(Bedrift i : bedriftList){
-			System.out.println(i.getResponsible().getFullName());
+			System.out.println(i.getResponsible().getFullName()); //TODO: Remove debugging text
 		}
 
 		return ok(layout.render("Bedriftsdatabase", beddb.render(bedriftList)));

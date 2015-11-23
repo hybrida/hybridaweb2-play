@@ -10,6 +10,7 @@ import models.LoginState;
 import play.data.Form;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
+import play.twirl.api.Html;
 import util.Validator;
 
 import javax.persistence.*;
@@ -221,6 +222,10 @@ public class User extends Model implements ImmutableUser {
 		return firstName + " " + (hasMiddleName() ? middleName + " " : "") + lastName;
 	}
 
+	public Html getNameLink() {
+		return profile.views.html.nameLink.render(this);
+	}
+
 	public boolean hasEmail() {
 		return email != null && !email.equals("");
 	}
@@ -378,7 +383,7 @@ public class User extends Model implements ImmutableUser {
 
 	public boolean isFirstUser() {
 		return getId() == 1;
-	}
+	} //FIXME: Why?
 
 	public boolean hasProfileImagePos() {
 		return profileImagePos != null;

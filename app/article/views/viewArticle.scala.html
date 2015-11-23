@@ -7,15 +7,15 @@
 				<div class="white-box">
 					<div style="border-bottom : 2 px solid #9e9d98 \">
 						@if(inarticle.getImagePath != null) {
-							<img src="@inarticle.getImagePath" alt="No image available" class="center-block img-responsive art-img"><br>}
+							<img src="@inarticle.getImagePath" class="center-block img-responsive art-img"><br>}
 						<h1><p class="text-center">@inarticle.getTitle</p></h1>
 					</div>
 					<br>
 					<h3><p class="text-center">@inarticle.getIngress</p></h3>
-					<h6 class="smallTitle">Av: @inarticle.getAuthor.getName
+					<h6 class="smallTitle">Av: @inarticle.getAuthor.getNameLink
 						@if(models.LoginState.getUser.getId == inarticle.getAuthor.getId || LoginState.getUser.isAdmin) {
 					<a href="@article.routes.Article.editArticle(String.valueOf(inarticle.getId))">
-							<button class="btn-xs btn-primary"> Rediger </button> </a>
+							<button class="btn-xs btn-primary pull-right"> Rediger </button> </a>
 						}@if(inarticle.getParent != null){
 
 																<a href="@article.routes.Article.viewArticle(inarticle.getParent.getId + "")">Tidligere Revisjon</a> }
@@ -28,7 +28,7 @@
 				<div class="col-xl-5 space-above">
 		    <div class="transparent-box">
 					<p style="color:lightslategray; border-bottom: solid 2px #d3d3d3;">Kommentarer</p>
-						@for(i <- inarticle.getCommentList()){
+						@for(i <- inarticle.getCommentList){
 							<div class="row">
 								<div class="col-md-1">
 									<a href="@profile.routes.Profile.index(i.getAuthor.getUsername)" class="thumbnail">
@@ -38,10 +38,10 @@
 								<div class="col-md-11">
 									<div class="row">
 										<div class="col-md-10">
-											<strong>@(i.getAuthor().getName() + ":")</strong>
+											<strong>@{i.getAuthor.getNameLink}:</strong>
 										</div>
 										<div class="col-md-2">
-											@if(i.getAuthor() == models.LoginState.getUser() || i.getAuthor().admin){
+											@if(i.getAuthor.equals(models.LoginState.getUser) || i.getAuthor.admin){
 												<div class="btn-group">
 													<button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
 														<span class="caret"></span>
@@ -57,19 +57,19 @@
 									</div>
 									<div class="row">
 										<div class="col-md-12">
-											@(i.getComment())
+											@(i.getComment)
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-12">
-											<small> @i.getTimestamp() </small>
+											<small> @i.getTimestamp </small>
 										</div>
 									</div>
 								</div>
 							</div>
 						}
 						<div style="margin-top:1em">
-							<form action="@article.routes.Article.comment(inarticle.getId.toString())" method="POST">
+							<form action="@article.routes.Article.comment(inarticle.getId.toString)" method="POST">
 								<label for="comment" class="sr-only">Comment:</label>
 								<div class="input-group">
 									<input type="text" class="form-control" id="comment" name="comment" autocomplete="off" maxlength="250">
