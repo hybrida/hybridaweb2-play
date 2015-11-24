@@ -10,10 +10,6 @@ body {
     /*background: url("../images/kilt3.PNG") repeat;*/
 }
 
-.content {
-    padding-bottom: 30px;
-}
-
 #logo {
     height: 5em;
     z-index: 99999;
