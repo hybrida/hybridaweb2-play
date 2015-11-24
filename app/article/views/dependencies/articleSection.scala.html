@@ -1,0 +1,21 @@
+@(inarticle: Article, revisable: Revisable[_ <: CRUDable])
+
+@if(inarticle.getImagePath != null) {
+    <img src="@inarticle.getImagePath" class="center-block img-responsive art-img">
+}
+<h1>@inarticle.getTitle</h1>
+<h3><p class="text-center">@inarticle.getIngress</p></h3>
+<h6 class="smallTitle">
+    Av: @inarticle.getAuthor.getNameLink
+    @if(models.LoginState.getUser().getUsername == inarticle.getAuthor.getUsername || LoginState.getUser.isAdmin) {
+        <a class="pull-right" href="@revisable.getUpdateCall">
+            <button class="btn btn-xs btn-primary"> Rediger </button>
+        </a>
+    }
+    @if(revisable.hasPrevious){
+        <a href="@revisable.getPrevious.getReadCall">
+            Tidligere revisjon
+        </a>
+    }
+</h6>
+<p class="text-center">@Html(inarticle.getText)</p>

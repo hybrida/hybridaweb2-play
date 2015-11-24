@@ -1,0 +1,4 @@
+@(user: profile.models.ImmutableUser)
+<a class="userThumbnailLink" id="@user.getUsername" href="@profile.routes.Profile.index(user.getUsername)">
+    <img class="userThumbnail" src="@user.getProfileImageCall" alt="@user.getFullName">
+</a>

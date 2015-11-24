@@ -7,13 +7,6 @@ GET           /forside                                  application.Application.
 
 # Static info pages
 
-GET           /admin                                   admin.Admin.index()
-POST          /admin/login                             admin.Admin.login()
-POST          /admin/rediger                           admin.Admin.editUser(uid)
-POST          /admin/logout                            admin.Admin.logout()
-GET           /admin/logout                            admin.Admin.logout()
-GET           /admin/users                             admin.Admin.allUsers()
-POST          /admin/newuser                           admin.Admin.newUser()
 GET           /griffensorden                           griffensorden.GriffensOrden.index()
 GET           /griffensorden/riddere                   griffensorden.GriffensOrden.riddere()
 GET           /griffensorden/nominasjon                griffensorden.GriffensOrden.nomination()
@@ -21,12 +14,23 @@ GET           /jentekom                                jentekom.JenteKom.index()
 GET           /statutter                               statutter.Statutter.index()
 GET           /vevkom                                  vevkom.VevKom.index()
 GET           /bedkom                                  bedkom.Bedkom.index()
-GET           /redaksjonen                                  redaksjonen.Redaksjonen.index()
-
+GET           /redaksjonen                             redaksjonen.Redaksjonen.index()
 GET           /hybrida                                 abouthybrida.AboutHybrida.index()
 GET           /nystudent                               newstudent.NewStudent.index()
 GET           /styret                                  styret.Styret.index()
 GET           /tillitsvalgte                           tillitsvalgte.Tillitsvalgte.index()
+
+# Admin
+GET           /admin                                   admin.Admin.index()
+POST          /admin/login                             admin.Admin.login()
+POST          /admin/rediger                           admin.Admin.editUser(uid)
+POST          /admin/logout                            admin.Admin.logout()
+GET           /admin/logout                            admin.Admin.logout()
+GET           /admin/users                             admin.Admin.allUsers()
+POST          /admin/newuser                           admin.Admin.newUser()
+GET           /admin/bulkusers                         admin.Admin.bulkUsersForm()
+POST          /admin/bulkusers                         admin.Admin.bulkUsers()
+GET           /admin/api/bulkaddsingle                 admin.Admin.bulkAddSingle()
 
 # Upload
 POST          /api/upload                               controllers.Upload.ajaxUpload()
@@ -52,6 +56,9 @@ GET           /bedkomblokkering                         bedpressblock.BedPresBlo
 POST          /bedkomblokkering                         bedpressblock.BedPresBlock.pickUsers()
 POST          /bedkomblokkering/blokker                 bedpressblock.BedPresBlock.blockUser()
 
+# Gallery
+GET           /galleri                           gallery.Gallery.display()
+POST          /api/submitImage                   gallery.Gallery.uploadGalleryImage()
 
 # Calendar
 GET           /kalender                                 calendar.Calendar.display(gcal: Boolean ?= false)

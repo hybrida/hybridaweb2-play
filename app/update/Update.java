@@ -20,11 +20,11 @@ import static play.mvc.Results.ok;
 public class Update {
 
     public static Result index() throws FileNotFoundException {
-        String[] foldernamess = new File("restricted/innlogget/update").list((dir, name) -> !name.contains("."));
+        String[] foldernamess = new File("restricted/loggedin/update").list((dir, name) -> !name.contains("."));
         Arrays.sort(foldernamess, Comparator.<String>reverseOrder());
         HashMap<String, String[]> folders = new HashMap<String, String[]>();
         for (String foldername : foldernamess) {
-            folders.put(foldername, new File("restricted/innlogget/update/"+foldername).list((dir, name) -> name.toLowerCase().endsWith(".png")));
+            folders.put(foldername, new File("restricted/loggedin/update/"+foldername).list((dir, name) -> name.toLowerCase().endsWith(".png")));
         }
 
         return ok(layout.render("Update!", update.views.html.index.render(foldernamess, folders)));

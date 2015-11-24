@@ -10,6 +10,10 @@ body {
     /*background: url("../images/kilt3.PNG") repeat;*/
 }
 
+.content {
+    padding-bottom: 30px;
+}
+
 #logo {
     height: 5em;
     z-index: 99999;
@@ -32,13 +36,11 @@ h1 {
 }
 
 a {
-    font-family: Raleway;
     text-decoration: none;
     color: #777;
 }
 
 a:hover {
-
     text-decoration: none;
     text-underline: none!important;
     color: #000000;
@@ -49,6 +51,9 @@ img {
     height: auto;
 }
 
+.btn {
+    font-family: Raleway, sans-serif;
+}
 
 .navbar {
     background-color: #ffffff;
@@ -312,6 +317,7 @@ a.inverted{
     .nav-container{width: 90%; max-width: 1279px;}
 }
 @media (min-width: 1600px){
+    .content { padding-bottom: 0;}
     .center-container{width: 70%; max-width: 1799px;}
     .nav-container{width: 80%; max-width: 2099px;}
 }
