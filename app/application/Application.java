@@ -1,7 +1,7 @@
 package application;
 
 import models.LoginState;
-import models.User;
+import profile.models.User;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -40,30 +40,68 @@ public class Application extends Controller {
 				application.views.html.showUnauthorizedAccess.render()));
 	}
 
-	public static Result show404(String get_value) {
-		return notFound(
-			views.html.layoutBoxPage.render(
-				"404",
-				application.views.html.show404.render(get_value)));
+	public static Result show401() {
+		return showUnauthorizedAccess();
 	}
 
-	public static Result show404() {
-		return show404(request().uri());
+	public static Result showForbidden() {
+		return forbidden(
+				views.html.layoutBoxPage.render(
+						"Unauthorized",
+						application.views.html.showUnauthorizedAccess.render()));
+	}
+
+	public static Result show403() {
+		return showForbidden();
+	}
+
+	public static Result showNotFound(String get_value) {
+		return notFound(
+				views.html.layoutBoxPage.render(
+						"404",
+						application.views.html.show404.render(get_value)));
 	}
 
 	public static Result showNotFound() {
-		return show404();
+		return showNotFound(request().uri());
 	}
 
-	public static Result show400(String get_value) {
-		return badRequest(
-			views.html.layoutBoxPage.render(
-							"400",
-							application.views.html.show400.render(get_value)));
+	public static Result show404(String get_value) {
+		return showNotFound(get_value);
+	}
+
+	public static Result show404() {
+		return showNotFound();
 	}
 
 	public static Result showBadRequest(String get_value) {
-		return show400(get_value);
+		return badRequest(
+				views.html.layoutBoxPage.render(
+						"400",
+						application.views.html.show400.render(get_value)));
+	}
+
+	public static Result showBadRequest() {
+		return showBadRequest(request().uri());
+	}
+
+	public static Result show400(String get_value) {
+		return showBadRequest(get_value);
+	}
+
+	public static Result show400() {
+		return showBadRequest();
+	}
+
+	public static Result showInternalServerError() {
+		return internalServerError(
+				views.html.layoutBoxPage.render(
+						"400",
+						application.views.html.show500.render()));
+	}
+
+	public static Result show500() {
+		return showInternalServerError();
 	}
 
 	/**
@@ -77,5 +115,4 @@ public class Application extends Controller {
 		}
 		return null;
 	}
-
 }

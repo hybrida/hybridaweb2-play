@@ -52,6 +52,7 @@ create table event (
   event_id                  bigint auto_increment not null,
   article_ref_article_id    bigint,
   previous_edit_event_id    bigint,
+  waiting_users_id          bigint,
   location                  varchar(255),
   first_upper_graduation_limit integer,
   first_lower_graduation_limit integer,
@@ -91,6 +92,11 @@ create table gallery_image (
   constraint pk_gallery_image primary key (image_id))
 ;
 
+create table event_waiting_users (
+  id                        bigint auto_increment not null,
+  constraint pk_event_waiting_users primary key (id))
+;
+
 create table note (
   note_id                   bigint auto_increment not null,
   note                      text,
@@ -118,7 +124,7 @@ create table user (
   phone                     varchar(255),
   title                     varchar(255),
   graduation_year           integer,
-  specialization            varchar(29),
+  specialization            varchar(30),
   profile_image_file_name   varchar(255),
   student                   boolean default false,
   styret                    boolean default false,
@@ -134,22 +140,22 @@ create table user (
   date_of_birth             timestamp,
   block4from_this_event_event_id bigint,
   last_login                timestamp,
-  profile_image_pos         double,
-  constraint ck_user_specialization check (specialization in ('NONE','GEOMATIKK','KONSTRUKSJON','MARIN','MASKIN','PETROLIUM','PRODUKSJONSLEDELSE')),
+  constraint ck_user_specialization check (specialization in ('NONE','GEOMATIKK','KONSTRUKSJON','MARIN','MASKIN','PETROLEUM','PRODUKSJONSLEDELSE','VARME_OG_STROMNING')),
   constraint uq_user_1 unique (username),
   constraint pk_user primary key (id))
 ;
 
-create table user_event_joined (
-  user_id                   bigint not null,
-  event_id                  bigint not null)
-;
 
-
-create table event_user (
+create table joined_users (
   event_event_id                 bigint not null,
   user_id                        bigint not null,
-  constraint pk_event_user primary key (event_event_id, user_id))
+  constraint pk_joined_users primary key (event_event_id, user_id))
+;
+
+create table event_waiting_users_user (
+  event_waiting_users_id         bigint not null,
+  user_id                        bigint not null,
+  constraint pk_event_waiting_users_user primary key (event_waiting_users_id, user_id))
 ;
 alter table article add constraint fk_article_previousEdit_1 foreign key (previous_edit_article_id) references article (article_id) on delete restrict on update restrict;
 create index ix_article_previousEdit_1 on article (previous_edit_article_id);
@@ -171,20 +177,24 @@ alter table gallery_image add constraint fk_gallery_image_uploadedBy_9 foreign k
 create index ix_gallery_image_uploadedBy_9 on gallery_image (uploaded_by_id);
 alter table gallery_image add constraint fk_gallery_image_eventConnect_10 foreign key (event_connected_event_id) references event (event_id) on delete restrict on update restrict;
 create index ix_gallery_image_eventConnect_10 on gallery_image (event_connected_event_id);
-alter table note add constraint fk_note_bedrift_11 foreign key (bedrift_bedrift_id) references bedrift (bedrift_id) on delete restrict on update restrict;
-create index ix_note_bedrift_11 on note (bedrift_bedrift_id);
-alter table renders add constraint fk_renders_articleReference_12 foreign key (article_reference_article_id) references article (article_id) on delete restrict on update restrict;
-create index ix_renders_articleReference_12 on renders (article_reference_article_id);
-alter table renders add constraint fk_renders_eventReference_13 foreign key (event_reference_event_id) references event (event_id) on delete restrict on update restrict;
-create index ix_renders_eventReference_13 on renders (event_reference_event_id);
-alter table user add constraint fk_user_block4FromThisEvent_14 foreign key (block4from_this_event_event_id) references event (event_id) on delete restrict on update restrict;
-create index ix_user_block4FromThisEvent_14 on user (block4from_this_event_event_id);
+alter table event add constraint fk_event_waitingUsers_9 foreign key (waiting_users_id) references event_waiting_users (id) on delete restrict on update restrict;
+create index ix_event_waitingUsers_9 on event (waiting_users_id);
+alter table note add constraint fk_note_bedrift_10 foreign key (bedrift_bedrift_id) references bedrift (bedrift_id) on delete restrict on update restrict;
+create index ix_note_bedrift_10 on note (bedrift_bedrift_id);
+alter table renders add constraint fk_renders_articleReference_11 foreign key (article_reference_article_id) references article (article_id) on delete restrict on update restrict;
+create index ix_renders_articleReference_11 on renders (article_reference_article_id);
+alter table renders add constraint fk_renders_eventReference_12 foreign key (event_reference_event_id) references event (event_id) on delete restrict on update restrict;
+create index ix_renders_eventReference_12 on renders (event_reference_event_id);
+alter table user add constraint fk_user_block4FromThisEvent_13 foreign key (block4from_this_event_event_id) references event (event_id) on delete restrict on update restrict;
+create index ix_user_block4FromThisEvent_13 on user (block4from_this_event_event_id);
 
+alter table joined_users add constraint fk_joined_users_event_01 foreign key (event_event_id) references event (event_id) on delete restrict on update restrict;
 
+alter table joined_users add constraint fk_joined_users_user_02 foreign key (user_id) references user (id) on delete restrict on update restrict;
 
-alter table event_user add constraint fk_event_user_event_01 foreign key (event_event_id) references event (event_id) on delete restrict on update restrict;
+alter table event_waiting_users_user add constraint fk_event_waiting_users_user_e_01 foreign key (event_waiting_users_id) references event_waiting_users (id) on delete restrict on update restrict;
 
-alter table event_user add constraint fk_event_user_user_02 foreign key (user_id) references user (id) on delete restrict on update restrict;
+alter table event_waiting_users_user add constraint fk_event_waiting_users_user_u_02 foreign key (user_id) references user (id) on delete restrict on update restrict;
 
 # --- !Downs
 
@@ -200,7 +210,11 @@ drop table if exists contact;
 
 drop table if exists event;
 
-drop table if exists event_user;
+drop table if exists joined_users;
+
+drop table if exists event_waiting_users;
+
+drop table if exists event_waiting_users_user;
 
 drop table if exists gallery_image;
 
@@ -209,8 +223,6 @@ drop table if exists note;
 drop table if exists renders;
 
 drop table if exists user;
-
-drop table if exists user_event_joined;
 
 SET REFERENTIAL_INTEGRITY TRUE;
 

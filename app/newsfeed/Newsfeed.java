@@ -1,10 +1,8 @@
 package newsfeed;
 
 import java.util.List;
-import com.google.common.collect.Lists;
-import models.LoginState;
+
 import models.Renders;
-import models.User;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.twirl.api.Html;

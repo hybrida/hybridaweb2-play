@@ -1,9 +1,11 @@
 package models;
 
+import article.routes;
 import play.db.ebean.Model;
-import play.data.format.Formats;
-import play.twirl.api.Html;
 import play.data.Form;
+import play.mvc.Call;
+import profile.models.User;
+
 import static play.data.Form.form;
 
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ import javax.persistence.*;
  * Created by eliasbragstadhagen on 28.01.15.
  */
 @Entity
-public class Event extends Model {
+public class Event extends Model implements Revisable<Event> {
 
 	public static Event getFromRequest() {
 		Form<EventForm> eventForm = form(EventForm.class);
@@ -59,6 +61,26 @@ public class Event extends Model {
 		event.bedpres = form.bedpres != null;
 		event.binding = form.binding != null;
 		return event;
+	}
+
+	@Override
+	public Call getCreateCall() {
+		return article.routes.ArticleIn.index();
+	}
+
+	@Override
+	public Call getReadCall() {
+		return article.routes.Event.viewEvent("" + getId());
+	}
+
+	@Override
+	public Call getUpdateCall() {
+		return article.routes.Event.editEvent("" + getId());
+	}
+
+	@Override
+	public Call getDeleteCall() {
+		return null;
 	}
 
 	public static class EventForm {
@@ -151,7 +173,7 @@ public class Event extends Model {
 			isValid &= before(signUpDeadline, eventHappens);
 			if (isValid == false) return "The deadline is not before the event's happening";
 			isValid &= before(eventHappens, timeFrame);
-			if (isValid == false) return "The does not start before the end";
+			if (isValid == false) return "The date does not start before the end";
 
 			// Check whether at least one class is allowed
 			int sum = firstYearAllowed != null ? 1 : 0;
@@ -160,6 +182,9 @@ public class Event extends Model {
 			sum += fourthYearAllowed != null ? 1 : 0;
 			sum += fifthYearAllowed != null ? 1 : 0;
 			if (sum == 0) isValid = false;
+
+			if (Long.valueOf(maxParticipants) <= 0) return "The maximum amount of participants must be above zero";
+			if (Long.valueOf(maxParticipantsWaiting) <= 0) return "The maximum amount of waiting participants must be above zero";
 
 			// If the second sign up is null, we need not check if any class is allowed.
 			if (secondSignUp == null)
@@ -180,7 +205,28 @@ public class Event extends Model {
 	private Event previousEdit;
 
 	@ManyToMany
+	@JoinTable(name="joined_users")
 	private List<User> joinedUsers;
+
+	@Override
+	public void save() {
+		waitingUsers.save();
+		super.save();
+	}
+
+	@Override
+	public void update() {
+		if (waitingUsers == null)
+			waitingUsers = new EventWaitingUsers();
+		if (waitingUsers.id == null)
+			waitingUsers.save();
+		else
+			waitingUsers.update();
+		super.update();
+	}
+
+	@OneToOne
+	private EventWaitingUsers waitingUsers;
 
 	private String location;
 
@@ -217,11 +263,33 @@ public class Event extends Model {
 	private Calendar eventHappens;
 	private Calendar eventStops;
 
-	public Event() {}
+	public Event() {
+		waitingUsers = new EventWaitingUsers();
+		signUpStart = Calendar.getInstance();
+		(secondSignUp = Calendar.getInstance()).add(Calendar.DATE, 3); //Too hacky? Whatevs
+		(signUpDeadline = Calendar.getInstance()).add(Calendar.DATE, 7);
+		(eventHappens = Calendar.getInstance()).add(Calendar.DATE, 8);
+		(eventStops = Calendar.getInstance()).add(Calendar.DATE, 9);
+		firstYearAllowed  = true;
+		secondYearAllowed = true;
+		thirdYearAllowed  = true;
+		fourthYearAllowed = true;
+		fifthYearAllowed  = true;
+		firstYearAllowedAfterSecondSignup = true;
+		secondYearAllowedAfterSecondSignup = true;
+		thirdYearAllowedAfterSecondSignup = true;
+		fourthYearAllowedAfterSecondSignup = true;
+		fifthYearAllowedAfterSecondSignup = true;
+		genderAllowed = 'A';
+		maxParticipants = 60;
+		maxParticipantsWaiting = 30;
+	}
+
 	public Event(Event copy) {
 		this.articleRef = copy.articleRef;
 		this.previousEdit = copy.previousEdit;
 		this.joinedUsers = copy.joinedUsers;
+		this.waitingUsers = new EventWaitingUsers(copy.waitingUsers);
 		this.location = copy.location;
 		this.firstUpperGraduationLimit = copy.firstUpperGraduationLimit;
 		this.firstLowerGraduationLimit = copy.firstLowerGraduationLimit;
@@ -252,16 +320,41 @@ public class Event extends Model {
 		this.eventStops = copy.eventStops;
 	}
 
+	/**
+		\brief Check if the sign up deadline has been reached. Adds waiters to empty slots.
+
+		This function checks if the signup deadline is reached. If this is true, we'll reassign
+		people from the waiting list to the main list, if there is space there.
+		This is mainly for those who have gotten a 'prikk' from bedpresses.
+	*/
+	public void checkAndAssignWaiters() {
+		if (signUpDeadline.before(Calendar.getInstance())) {
+			while (joinedUsers.size() < maxParticipants
+				&& getWaitingUsers().size() > 0) {
+				joinedUsers.add(getWaitingUsers().remove(0));
+			}
+		}
+		this.update();
+	}
+
+	@Override
 	public void setPrevious(Event previous) {
 		this.previousEdit = previous;
 	}
 
+	@Override
 	public Event getPrevious() {
 		return this.previousEdit;
 	}
 
-	public Boolean hasPrevious() {
+	@Override
+	public boolean hasPrevious() {
 		return this.previousEdit != null;
+	}
+
+	@Override
+	public Long getPreviousId() {
+		return getPrevious().getId();
 	}
 
 	public boolean canRemove() {
@@ -284,11 +377,12 @@ public class Event extends Model {
 	public int getUserBlocked(User user) {
 		Event blockedFrom = user.getBlockedEvent();
 		if (blockedFrom == null) return -1;
-		List<Event> blockedFromThese = Event.find.setMaxRows(4).where().eq(
-			"bedpres", true).where().gt("eventId", blockedFrom.getId()).orderBy(
-				"eventHappens ASC").findList();
+		List<Renders> blockedFromThese = Renders.find.setMaxRows(4).where().eq(
+			"eventReference.bedpres", true).where().gt("eventReference.eventId", blockedFrom.getId()).orderBy(
+				"eventReference.eventHappens ASC").findList();
 		int counter = 3;
-		for (Event blocky : blockedFromThese) {
+		for (Renders renders : blockedFromThese) {
+			Event blocky = renders.eventReference;
 			if (blocky.getId() == this.getId())
 				return counter;
 			--counter;
@@ -312,19 +406,18 @@ public class Event extends Model {
 		}
 	}
 
+	public boolean canJoin() {
+		return canJoin(LoginState.getUser());
+	}
+
 	public boolean canJoin(User user) {
 		if (user.isDefault())
 			return false;
 		boolean allowed = false;
-		// Check if the user is within four events of his blocked event.
-		if (getUserBlocked(user) != -1)
-			return false;
 
 		// Check gender requirements
 		char gender = getGenderAllowed();
-		if (gender == 'A')
-			;
-		else if (gender != user.getGender())
+		if (gender != 'A' && gender != user.getGender())
 			return false;
 		// Check if the timeframe is correct
 		Calendar calendar = Calendar.getInstance();
@@ -378,8 +471,27 @@ public class Event extends Model {
 
 	public boolean checkAndRemoveJoiner(User user) {
 		if (canRemove()) {
-			getJoinedUsers().remove(getJoinedUsers().indexOf(user));
-			return true;
+			int inJoined = getJoinedUsers().indexOf(user);
+			int inWaiting = getWaitingUsers().indexOf(user);
+
+			if (inJoined != -1) {
+				getJoinedUsers().remove(inJoined);
+				if (getWaitingUsers().size() > 0) {
+					List<User> waiting = getWaitingUsers();
+					for (User waiter : waiting) {
+						if (getUserBlocked(waiter) == -1) {
+							getJoinedUsers().add(waiter);
+							break;
+						}
+					}
+				}
+				return true;
+			}
+			else if (inWaiting != -1) {
+					getWaitingUsers().remove(inWaiting);
+				return true;
+			}
+			return false;
 		}
 		else
 			return false;
@@ -387,13 +499,42 @@ public class Event extends Model {
 
 	public boolean checkAndAddJoiner(User user) {
 		boolean allowed = canJoin(user);
+
+		List<User> waitingUsersList = waitingUsers.getList();
 		if (allowed)
-			joinedUsers.add(user);
+		{
+			if (joinedUsers.size() < maxParticipants && getUserBlocked(user) == -1)
+				joinedUsers.add(user);
+			else if (waitingUsersList.size() < maxParticipantsWaiting)
+				waitingUsersList.add(user);
+			else
+				return false;
+		}
 		return allowed;
+	}
+
+	public boolean hasUserJoined() {
+		User user = LoginState.getUser();
+		return getJoinedUsers().contains(user) || getWaitingUsers().contains(user);
 	}
 
 	public List<User> getJoinedUsers() {
 		return joinedUsers;
+	}
+
+	public void setWaitingUsers(EventWaitingUsers evtusers) {
+		waitingUsers = evtusers;
+	}
+
+	public EventWaitingUsers getRawWaitingUsers() {
+		return waitingUsers;
+	}
+
+	public List<User> getWaitingUsers() {
+		if (waitingUsers == null) {
+			System.out.println("WaitingUsers is null");
+		}
+		return waitingUsers.getList();
 	}
 
 	public List<User> getJoinedSpecificClass(int classnum) {
@@ -405,9 +546,10 @@ public class Event extends Model {
 		return joinedClassNum;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return eventId;
 	}
+
 
 	public void setId(long id) {
 		eventId = id;

@@ -1,0 +1,2 @@
+@(user:profile.models.ImmutableUser)
+<a class="userLink" id="@user.getUsername" href="@profile.routes.Profile.index(user.getUsername)">@user.getFullName</a>

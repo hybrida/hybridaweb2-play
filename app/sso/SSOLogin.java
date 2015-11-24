@@ -1,11 +1,10 @@
 package sso;
 
-import models.User;
+import profile.models.User;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.utils.escapeText;
 
-import java.io.File;
 import java.sql.Timestamp;
 import java.util.Date;
 

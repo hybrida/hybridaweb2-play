@@ -5,6 +5,7 @@ import play.Configuration;
 import play.db.DB;
 import play.mvc.Result;
 import play.mvc.Results;
+import profile.models.User;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -23,7 +24,7 @@ import java.util.stream.Stream;
 public class BackupDatabase {
 
 	public static Result index() {
-		models.User user = LoginState.getUser();
+		User user = LoginState.getUser();
 		if (!(!user.isDefault() && (user.admin || user.root))) {
 			return application.Application.showUnauthorizedAccess();
 		}

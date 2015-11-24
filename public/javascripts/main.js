@@ -31,9 +31,17 @@ calculateSuperCenter = function(){
         elem.css({"position": "relative", "transform": "translate(-50%, -50%)"});
         var parent = elem.parent();
         elem.css("left", parent.width()/2);
-        elem.css("top", parent.height()/2);
+        var wait = 0;
+        if(parent.height() == 0) wait = 200;
+        setInterval(function(){
+            elem.css("top", parent.height()/2);
+        }, wait);
     });
 };
+
+$(function() {
+    calculateSuperCenter();
+});
 
 $(document).ready(function() {
     calculateSuperCenter();
