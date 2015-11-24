@@ -27,6 +27,10 @@ public class RFIDReader extends Controller {
 		ByteBuffer byteBuffer = ByteBuffer.allocate(Long.BYTES);
 		byteBuffer.putLong(rfidIn);
 
+		byte test = (byte) (((byte) (128)) >> 3);
+		System.out.print("current: " + Integer.toBinaryString(
+			test & 255 | 256).substring(1));
+
 
 		// Try with: 004939781, or, 0004937373
 		final byte nil = 0;
@@ -36,9 +40,9 @@ public class RFIDReader extends Controller {
 
 		for (byte j = 0; j < Long.BYTES; ++j) {
 			for (byte i = 0; i < 8; ++i) {
-				final byte oneCopy = (byte) (one << i);
-				final byte anded = (byte) (currentByte[j] & oneCopy);
-				final byte newByte = (byte) (anded >>> i);
+				final short oneCopy = (short) (one << i);
+				final short anded = (short) (currentByte[j] & oneCopy);
+				short newByte = (short) (anded >>> i);
 				if (newByte == -1) {
 					System.out.print("current: " + Integer.toBinaryString(
 						currentByte[j] & 255 | 256).substring(1));
