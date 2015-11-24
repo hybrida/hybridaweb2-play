@@ -126,6 +126,9 @@ public class User extends Model implements ImmutableUser {
 	@ManyToOne
 	@Column(columnDefinition = "default null")
 	public models.Event block4FromThisEvent;
+	@ManyToOne
+	@Column(columnDefinition = "default null")
+	public models.Event attendedThisEvent;
 
 	// Misc. account info
 	@Column(name = "last_login")

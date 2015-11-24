@@ -1,9 +1,15 @@
-@(currentColor: Int, number: Long)
+@(bedpresses: List[Renders], chosenEventId: Long, currentColor: Int, number: Long)
 
 <div class="col-md-4 @if(currentColor==2||currentColor==1){bg-success}@if(currentColor==0){bg-warning}@if(currentColor== -1){bg-danger}">
 	<form action="@rfid.routes.RFIDReader.read()" method="post">
 		<input name="rfid" type="text" autofocus>
 		<input name="color" value="@currentColor" type="submit" hidden>
+		<select class="form-control" name="eventId">
+			<option value="0">Velg Bedpres</option>
+			@for(i<-bedpresses){
+				<option value="@i.eventReference.getId" @if(chosenEventId == i.eventReference.getId){selected}>@i.eventReference.getArticle.getTitle</option>
+			}
+		</select>
 	</form>
 	@if(number!=0){<p>@number</p>}
 </div>
