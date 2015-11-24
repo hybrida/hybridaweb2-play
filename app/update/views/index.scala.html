@@ -22,18 +22,22 @@ overflow: hidden;
 
         <p>Dersom du er alumni og ønsker å abonnere på avisen,
             kan du sende en mail til redaktøren.</p>
-
-        @for(folder <- folders) {
-            <h3>@folder</h3>
-            <div class="well">
-            @if(contents.get(folder) != null) {
-                @for(thumbnail <- contents.get(folder)) {
-                    <a href="@routes.Restricted.at("innlogget", "update/" + folder + "/" + thumbnail.substring(0, thumbnail.length()-2) + "df")" class="thumbnail">
-                        <img src="@routes.Restricted.at("innlogget", "update/" + folder + "/" + thumbnail)" alt = "thumbnail"/>
-                    </a>
+        @if(models.LoginState.isValidlyLoggedIn()) {
+            @*TODO: begrense tilgang for nye hybrider før opptak *@
+            @for(folder <- folders) {
+                <h3>@folder</h3>
+                <div class="well">
+                @if(contents.get(folder) != null) {
+                    @for(thumbnail <- contents.get(folder)) {
+                        <a href="@routes.Restricted.at("innlogget", "update/" + folder + "/" + thumbnail.substring(0, thumbnail.length() - 2) + "df")" class="thumbnail">
+                            <img src="@routes.Restricted.at("innlogget", "update/" + folder + "/" + thumbnail)" alt = "thumbnail"/>
+                        </a>
+                    }
                 }
+                </div>
             }
-            </div>
+        } else {
+            <a href="@sso.routes.SSOLogin.login(play.mvc.Http.Context.current().request().path())">Logg inn</a>
         }
         <div style="clear:both"></div>
     </div>

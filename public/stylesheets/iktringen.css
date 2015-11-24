@@ -89,12 +89,12 @@
     background-color: #ffffff;
 }
 
-#styret {
+#omIKTRingen {
     overflow: auto;
     margin: 0 auto;
     width: 100%;
     height: 100vh;
-    background-image: url(../images/styret2.jpg);
+    background-image: url(../images/rosa_bakgrunn.jpg);
     background-repeat:no-repeat;
     background-size:cover;
     background-position:center;
@@ -112,10 +112,9 @@
 #hybb {
     width:100%;
     height:100vh;
-    background-color: transparent;
 }
 
-#hybrida {
+#IKT_Ringens_visjon {
     color:#212121;
     padding: 5em 2.5em 1em 2.5em;
     text-align: center;
@@ -141,28 +140,19 @@
 }
 
 #grifflogo {
-    padding-top: 5em;
-    height: 240px;
-    width: 85%;
+    padding-top: 4m;
+    height: 85%;
+    width: 100%;
     text-align: center;
     background-color: #ffffff;
+    background-attachment: fixed;
 }
 
-#transition img {
-    height:240px;
-    width:240px;
-    background-size: 200% 100%;
-    background-color: rgb(80, 180, 250);
-    background-image: -webkit-linear-gradient(left, rgb(50, 120, 240), rgb(19,90,200), rgb(3, 79, 163), rgb(3, 79, 163), rgb(19,90,200), rgb(50, 120, 240));
-    background-image:    -moz-linear-gradient(left, rgb(50, 120, 240), rgb(19,90,200), rgb(3, 79, 163), rgb(3, 79, 163), rgb(19,90,200), rgb(50, 120, 240));
-    background-image:     -ms-linear-gradient(left, rgb(50, 120, 240), rgb(19,90,200), rgb(3, 79, 163), rgb(3, 79, 163), rgb(19,90,200), rgb(50, 120, 240));
-    background-image:      -o-linear-gradient(left, rgb(50, 120, 240), rgb(19,90,200), rgb(3, 79, 163), rgb(3, 79, 163), rgb(19,90,200), rgb(50, 120, 240));
-    background-image:         linear-gradient(left, rgb(50, 120, 240), rgb(19,90,200), rgb(3, 79, 163), rgb(3, 79, 163), rgb(19,90,200), rgb(50, 120, 240));
-    -moz-transition: all 0.3s ease-out;  /* FF4+ */
-    -o-transition: all 0.3s ease-out;  /* Opera 10.5+ */
-    -webkit-transition: all 0.3s ease-out;  /* Saf3.2+, Chrome */
-    -ms-transition: all 0.3s ease-out;  /* IE10? */
-    transition: all 0.3s ease-out;
+#ringenlogo img {
+    height:175px;
+    width:1500px;
+
+
 }
 
 #transition img:hover {
