@@ -1,17 +1,35 @@
 package rfid;
 
 import java.nio.ByteBuffer;
+import java.util.List;
 
 import play.mvc.Controller;
 import play.mvc.Result;
 
 import rfid.views.html.*;
+import views.html.*;
 import models.HttpRequestData;
+import models.Renders;
 
 public class RFIDReader extends Controller {
 
+	private static HttpRequestData htpdata =
+		new HttpRequestData();
 	public static Result index() {
-		return ok(reader.render());
+		List<Renders> bedpresses =
+			Renders.find.setMaxRows(10).where(
+				).eq("eventReference.bedpres", true).findList();
+		return ok(layoutBoxPage.render(
+			"RFID-Skanning", reader.render(bedpresses, -1L, 0, 0L)));
+	}
+
+	public static Result indexContinue(String status, String number) {
+		List<Renders> bedpresses =
+			Renders.find.setMaxRows(10).where(
+				).eq("eventReference.bedpres", true).findList();
+		return ok(layoutBoxPage.render(
+			"RFID-Skanning", reader.render(
+				bedpresses, -1L, Integer.parseInt(status), Long.parseLong(number))));
 	}
 
 	public static Result read() {
@@ -19,8 +37,9 @@ public class RFIDReader extends Controller {
 		System.out.println(
 			htpdata.get("rfid"));
 		Long rfidRead = htpdata.getLong("rfid");
-		System.out.println(reverseBitsInBytes(rfidRead));
-		return redirect(rfid.routes.RFIDReader.index());
+		rfidRead = reverseBitsInBytes(rfidRead);
+		return redirect(rfid.routes.RFIDReader.indexContinue(
+			"2", rfidRead.toString()));
 	}
 
 	public static Long reverseBitsInBytes(Long rfidIn) {

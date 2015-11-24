@@ -21,7 +21,6 @@ GET           /hybrida                                 abouthybrida.AboutHybrida
 GET           /nystudent                               newstudent.NewStudent.index()
 GET           /styret                                  styret.Styret.index()
 GET           /tillitsvalgte                           tillitsvalgte.Tillitsvalgte.index()
-GET           /ktv                                     ktv.Ktv.index()
 
 
 # Admin
@@ -38,6 +37,8 @@ GET           /admin/api/bulkaddsingle              admintools.Admin.bulkAddSing
 
 # RFID
 GET           /rfid                                    rfid.RFIDReader.index()
+GET           /rfid/:status/:number                            rfid.RFIDReader.indexContinue(status, number)
+POST          /rfid                                    rfid.RFIDReader.read()
 POST          /rfid                                    rfid.RFIDReader.read()
 
 # Upload
@@ -65,8 +66,8 @@ POST          /bedkomblokkering                        bedpressblock.BedPresBloc
 POST          /bedkomblokkering/blokker                bedpressblock.BedPresBlock.blockUser()
 
 # Gallery
-GET           /galleri                                 gallery.Gallery.display()
-POST          /api/submitImage                         gallery.Gallery.uploadGalleryImage()
+GET           /galleri                           gallery.Gallery.display()
+POST          /api/submitImage                   gallery.Gallery.uploadGalleryImage()
 
 # Calendar
 GET           /kalender                                calendar.Calendar.display(gcal: Boolean ?= false)
