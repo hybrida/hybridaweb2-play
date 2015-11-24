@@ -1,7 +1,9 @@
 package models;
 
+import article.routes;
 import com.avaje.ebean.annotation.CreatedTimestamp;
 import play.db.ebean.Model;
+import play.mvc.Call;
 import profile.models.User;
 
 import javax.persistence.*;
@@ -12,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Article extends Model {
+public class Article extends Model implements Revisable<Article> {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -40,12 +42,24 @@ public class Article extends Model {
 		commentList = new ArrayList<>();
 	}
 
-	public void setParent(Article article) {
+	@Override
+	public void setPrevious(Article article) {
 		previousEdit = article;
 	}
 
-	public Article getParent() {
+	@Override
+	public Article getPrevious() {
 		return previousEdit;
+	}
+
+	@Override
+	public boolean hasPrevious() {
+		return previousEdit != null;
+	}
+
+	@Override
+	public Long getPreviousId() {
+		return getPrevious().getId();
 	}
 
 	public Article(Article copy) {
@@ -134,4 +148,24 @@ public class Article extends Model {
 	public static Finder<Long, Article> find = new Finder<>(
 		Long.class, Article.class
 	);
+
+	@Override
+	public Call getCreateCall() {
+		return article.routes.ArticleIn.index();
+	}
+
+	@Override
+	public Call getReadCall() {
+		return article.routes.Article.viewArticle("" + getId());
+	}
+
+	@Override
+	public Call getUpdateCall() {
+		return article.routes.Article.editArticle("" + getId());
+	}
+
+	@Override
+	public Call getDeleteCall() {
+		return null;
+	}
 }

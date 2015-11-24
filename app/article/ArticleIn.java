@@ -5,8 +5,6 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import static play.data.Form.form;
 
-import java.util.Calendar;
-
 import article.views.html.*;
 import profile.models.User;
 import views.html.layout;
@@ -108,7 +106,7 @@ public class ArticleIn extends Controller {
 			article.setIngress(httpdata.get("ingress"));
 			article.setText(httpdata.get("text"));
 			article.setAuthor(LoginState.getUser());
-			article.setParent(oldart);
+			article.setPrevious(oldart);
 
 			if (image_link != null)
 				article.setImagePath(image_link);

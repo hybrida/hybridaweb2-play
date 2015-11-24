@@ -1,0 +1,33 @@
+@(event: Event)
+
+<h6 class="smallTitle">Påmeldte</h6>
+@if(models.LoginState.isValidlyLoggedIn) {
+    <div class="col-md-12">
+    @for(i <- 1 to 5) {
+        <div class="row">
+            <div class="col-md-1">
+            @event.getJoinedSpecificClass(i).size
+            </div>
+            <div class="col-md-11">
+                <p onclick="$ ( '.showhide@i' ).toggle ( ) ;" style="cursor: pointer;"> Klasse @i.toString </p>
+            </div>
+            <div style="display: none" class="showhide@i" id="showhide@i" name="showhide@i">
+            @for(j <- event.getJoinedUsers){
+                <div class="row" style="margin-left: 1%">
+                    <div class="col-md-1">
+                        <a href="@profile.routes.Profile.index(j.getUsername)" class="thumbnail">
+                            <img src="@j.getProfilePictureWithFallBackOnDefault" alt="profilepic for @j.getName" width="30px">
+                        </a>
+                    </div>
+                    <div class="col-md-11">
+                        <strong>@j.getNameLink</strong>
+                    </div>
+                </div>
+            }
+            </div>
+        </div>
+    }
+    </div>
+}else{
+    <p>Logg inn for å se hvem som er påmeldt</p>
+}

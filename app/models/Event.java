@@ -1,7 +1,9 @@
 package models;
 
+import article.routes;
 import play.db.ebean.Model;
 import play.data.Form;
+import play.mvc.Call;
 import profile.models.User;
 
 import static play.data.Form.form;
@@ -17,7 +19,7 @@ import javax.persistence.*;
  * Created by eliasbragstadhagen on 28.01.15.
  */
 @Entity
-public class Event extends Model {
+public class Event extends Model implements Revisable<Event> {
 
 	public static Event getFromRequest() {
 		Form<EventForm> eventForm = form(EventForm.class);
@@ -59,6 +61,26 @@ public class Event extends Model {
 		event.bedpres = form.bedpres != null;
 		event.binding = form.binding != null;
 		return event;
+	}
+
+	@Override
+	public Call getCreateCall() {
+		return article.routes.ArticleIn.index();
+	}
+
+	@Override
+	public Call getReadCall() {
+		return article.routes.Event.viewEvent("" + getId());
+	}
+
+	@Override
+	public Call getUpdateCall() {
+		return article.routes.Event.editEvent("" + getId());
+	}
+
+	@Override
+	public Call getDeleteCall() {
+		return null;
 	}
 
 	public static class EventForm {
@@ -315,16 +337,24 @@ public class Event extends Model {
 		this.update();
 	}
 
+	@Override
 	public void setPrevious(Event previous) {
 		this.previousEdit = previous;
 	}
 
+	@Override
 	public Event getPrevious() {
 		return this.previousEdit;
 	}
 
-	public Boolean hasPrevious() {
+	@Override
+	public boolean hasPrevious() {
 		return this.previousEdit != null;
+	}
+
+	@Override
+	public Long getPreviousId() {
+		return getPrevious().getId();
 	}
 
 	public boolean canRemove() {
@@ -516,9 +546,10 @@ public class Event extends Model {
 		return joinedClassNum;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return eventId;
 	}
+
 
 	public void setId(long id) {
 		eventId = id;

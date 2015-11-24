@@ -1,1 +1,53 @@
-@()
+@(inarticle: Article)
+<div class="transparent-box comment-section">
+    <h6 class="smallTitle">Kommentarer</h6>
+    @for(c <- inarticle.getCommentList){
+        <div class="row">
+            <div class="col-xs-2 col-lg-2" style="padding-right:0">
+                @c.getAuthor.getThumbnail
+            </div>
+            <div class="col-xs-10 col-lg-10" style="padding-left:2.5%">
+                <div class="row">
+                    <div class="col-xs-11">
+                        <strong>@{c.getAuthor.getNameLink}:</strong>
+                    </div>
+                    <div class="col-xs-1" style="padding-left: 0;">
+                        @if(c.getAuthor.equals(models.LoginState.getUser) || c.getAuthor.admin){
+                            <div class="btn-group pull-right">
+                                <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-right" role="menu" style="min-width:0;padding:0;border:none;">
+                                    <form method="POST" action="@article.routes.Article.deleteComment(c.getCommentID.toString)">
+                                        <button type="submit" class="btn btn-sm btn-danger"> Slett </button>
+                                    </form>
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        @(c.getComment)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <small> @c.getTimestamp </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div style="margin-top:1em">
+        <form action="@article.routes.Article.comment(inarticle.getId.toString)" method="POST">
+            <label for="comment" class="sr-only">Comment:</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="comment" name="comment" autocomplete="off" maxlength="250">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary">Kommenter</button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>

@@ -9,7 +9,9 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import profile.models.User;
 import views.html.layout;
+import views.html.layoutWithHead;
 import article.views.html.*;
+
 import static application.Application.show400;
 
 import java.util.List;
@@ -72,7 +74,10 @@ public class Event extends Controller {
 
 		models.Event evt = models.Event.find.byId(Long.valueOf(id));
 		models.Article art = evt.getArticle();
-		return ok(layout.render("", article.views.html.editEvent.render(evt, art)));
+		return ok(layoutWithHead.render(
+				""
+				, article.views.html.editEvent.render(evt, art)
+				, article.views.html.editHead.render()));
 	}
 
 	public static Result saveEdit(String id) throws Unauthorized, ServerError {
