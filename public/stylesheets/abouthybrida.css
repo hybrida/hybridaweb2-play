@@ -152,12 +152,12 @@
     height:240px;
     width:240px;
     background-size: 200% 100%;
-    background-color: lightskyblue;
-    background-image: -webkit-linear-gradient(left, rgb(80, 180, 250), rgb(25,140,210), rgb(3, 79, 163), rgb(3, 79, 163), rgb(25,140,210), rgb(80, 180, 250));
-    background-image:    -moz-linear-gradient(left, dodgerblue, blue, darkblue, darkblue, mediumblue, dodgerblue);
-    background-image:     -ms-linear-gradient(left, dodgerblue, blue, darkblue, darkblue, mediumblue, dodgerblue);
-    background-image:      -o-linear-gradient(left, dodgerblue, blue, darkblue, darkblue, mediumblue, dodgerblue);
-    background-image:         linear-gradient(left, dodgerblue, blue, darkblue, darkblue, mediumblue, dodgerblue);
+    background-color: rgb(80, 180, 250);
+    background-image: -webkit-linear-gradient(left, rgb(50, 120, 240), rgb(19,90,200), rgb(3, 79, 163), rgb(3, 79, 163), rgb(19,90,200), rgb(50, 120, 240));
+    background-image:    -moz-linear-gradient(left, rgb(50, 120, 240), rgb(19,90,200), rgb(3, 79, 163), rgb(3, 79, 163), rgb(19,90,200), rgb(50, 120, 240));
+    background-image:     -ms-linear-gradient(left, rgb(50, 120, 240), rgb(19,90,200), rgb(3, 79, 163), rgb(3, 79, 163), rgb(19,90,200), rgb(50, 120, 240));
+    background-image:      -o-linear-gradient(left, rgb(50, 120, 240), rgb(19,90,200), rgb(3, 79, 163), rgb(3, 79, 163), rgb(19,90,200), rgb(50, 120, 240));
+    background-image:         linear-gradient(left, rgb(50, 120, 240), rgb(19,90,200), rgb(3, 79, 163), rgb(3, 79, 163), rgb(19,90,200), rgb(50, 120, 240));
     -moz-transition: all 0.3s ease-out;  /* FF4+ */
     -o-transition: all 0.3s ease-out;  /* Opera 10.5+ */
     -webkit-transition: all 0.3s ease-out;  /* Saf3.2+, Chrome */
