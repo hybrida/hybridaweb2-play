@@ -283,6 +283,11 @@ a.inverted{
     color: #fff;
 }
 
+
+.css-table {display:table;}
+.css-table-row {display:table-row;}
+.css-table-cell {display:table-cell;}
+
 /**
  * Bootstrap:
  * 'xs': any size    -- Extra small, for phones
