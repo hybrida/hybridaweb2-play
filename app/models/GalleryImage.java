@@ -21,7 +21,15 @@ public class GalleryImage extends Model {
 
     private String imageURL;
 
+    private String thumbURL;
+
     private String title;
+
+    private int thumbSize;
+
+    private int width;
+
+    private int height;
 
     @ManyToOne
     private User uploadedBy;
@@ -32,6 +40,22 @@ public class GalleryImage extends Model {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getThumbURL() {
+        return thumbURL;
+    }
+
+    public int getThumbSize() {
+        return thumbSize;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     public String getTitle() {
@@ -58,9 +82,13 @@ public class GalleryImage extends Model {
 
     private Event eventConnected;
 
-    public GalleryImage(String title, String description, Event event, String imageURL){
+    public GalleryImage(String title, String description, int width, int height, int thumbSize, Event event, String imageURL, String thumbURL){
         this.description = description;
         this.imageURL = imageURL;
+        this.thumbSize = thumbSize;
+        this.thumbURL = thumbURL;
+        this.width = width;
+        this.height = height;
         this.title = title;
         this.uploadedBy = LoginState.getUser();
         this.eventConnected = event;
