@@ -117,7 +117,7 @@
 
 #hybrida {
     color:#212121;
-    padding: 5em 2.5em 1em 2.5em;
+    padding: 3em 2.5em 1em 2.5em;
     text-align: center;
     font-size: 22px;
     line-height: 1.5;
@@ -142,15 +142,14 @@
 
 #grifflogo {
     padding-top: 5em;
-    height: 240px;
     width: 85%;
     text-align: center;
     background-color: #ffffff;
 }
 
 #transition img {
-    height:240px;
-    width:240px;
+    height:300px;
+    width:auto;
     background-size: 200% 100%;
     background-color: rgb(80, 180, 250);
     background-image: -webkit-linear-gradient(left, rgb(50, 120, 240), rgb(19,90,200), rgb(3, 79, 163), rgb(3, 79, 163), rgb(19,90,200), rgb(50, 120, 240));
