@@ -1,10 +1,12 @@
-@(content: Html)
+@(title: String,renders: List[Html])
 <div class="container-fluid center-container">
     <div class="row space-below">
         <div class="col-xs-12 space-above">
             <div class="page-box">
-                <h5 class="smallTitle">NEWSFEED</h5>
-                    @content
+                <h5 class="smallTitle">@title</h5>
+                    @for(renderable <- renders){
+                        @renderable
+                    }
                 <div class="clearfix"></div>
             </div>
         </div>

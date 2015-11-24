@@ -18,7 +18,7 @@
                 @Html("        fornavn      mellomnavn                 telefonnr.    spesialisering     bedkom      kjønn(M/F/U) ".replaceAll(" ", "&nbsp;"))<br>
         </div>
     </div>
-    <form action="@admin.routes.Admin.bulkUsers()" method="post" enctype="multipart/form-data" style="display:block;">
+    <form action="@admintools.routes.Admin.bulkUsers()" method="post" enctype="multipart/form-data" style="display:block;">
         <div class="form-group"><input class="form-control" type="file" name="userdataFile"></div>
         <div class="form-group"><textarea class="form-control" name="userdata" style="display:block; width: 100%"></textarea></div>
         <div class="form-group"><input class="btn btn-primary form-control" type="submit" style="display:block; width: 100%"></div>
@@ -27,7 +27,7 @@
 <script>
     function nextUser(elem, i) {
         $.ajax({
-            url: "@admin.routes.Admin.bulkAddSingle.url?data=" + elem.html()
+            url: "@admintools.routes.Admin.bulkAddSingle.url?data=" + elem.html()
             , success: function(data) {
                 var output = $(".output");
                 output.append($("<span>").text(data));

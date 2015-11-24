@@ -1,4 +1,4 @@
-package admin.models;
+package admintools.models;
 
 public class RingNumber {
 	private int counter = 0,

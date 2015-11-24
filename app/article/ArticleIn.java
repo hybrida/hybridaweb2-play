@@ -50,11 +50,11 @@ public class ArticleIn extends Controller {
 			article.save();
 			event.setArticle(article);
 			event.save();
-			models.Renders.addEvent(event);
+			renders.models.Renders.addEvent(event);
 			return redirect(routes.Event.viewEvent("" + event.getId()));
 		} else {
 			article.save();
-			models.Renders.addArticle(article);
+			renders.models.Renders.addArticle(article);
 			return redirect(routes.Article.viewArticle("" + article.getId()));
 		}
 	}
@@ -97,7 +97,7 @@ public class ArticleIn extends Controller {
 
 		models.Article article = models.Article.find.byId(Long.valueOf(id));
 		if (HttpRequestData.isGiven("delete"))
-			Renders.getByArticleId(article.getId()).delete();
+			renders.models.Renders.getByArticleId(article.getId()).delete();
 		else {
 			HttpRequestData httpdata = new HttpRequestData();
 			models.Article oldart = new models.Article(article);

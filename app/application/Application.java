@@ -4,6 +4,7 @@ import models.LoginState;
 import profile.models.User;
 import play.mvc.Controller;
 import play.mvc.Result;
+import renders.Renders;
 
 public class Application extends Controller {
 
@@ -19,7 +20,7 @@ public class Application extends Controller {
 	* \brief Index entry point of the website.
 	*/
 	public static Result index() {
-		if (LoginState.isValidlyLoggedIn()) return newsfeed.Newsfeed.index();
+		if (LoginState.isValidlyLoggedIn()) return Renders.newsfeed();
 		return frontpage();
 	}
 
