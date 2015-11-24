@@ -6,6 +6,7 @@ import controllers.routes;
 import exceptions.NoFileInRequest;
 import exceptions.ServerError;
 import exceptions.Unauthorized;
+import models.CRUDable;
 import models.Event;
 import models.LoginState;
 import play.data.Form;
@@ -13,6 +14,7 @@ import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 import play.mvc.Call;
 import play.twirl.api.Html;
+import renders.models.Renderable;
 import util.Validator;
 
 import javax.persistence.*;
@@ -27,7 +29,32 @@ import java.util.*;
 		uniqueConstraints=
 		@UniqueConstraint(columnNames= {"username"})
 )
-public class User extends Model implements ImmutableUser {
+public class User extends Model implements ImmutableUser, CRUDable, Renderable {
+
+	@Override
+	public Html render() {
+		return profile.views.html.userRender.render(this);
+	}
+
+	@Override
+	public Call getCreateCall() {
+		return admintools.routes.Admin.allUsers();
+	}
+
+	@Override
+	public Call getReadCall() {
+		return profile.routes.Profile.index(username);
+	}
+
+	@Override
+	public Call getUpdateCall() {
+		return profile.routes.Profile.edit(username);
+	}
+
+	@Override
+	public Call getDeleteCall() {
+		return getCreateCall();
+	}
 
 	public static class UserForm {
 		public Long uid;

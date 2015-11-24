@@ -1,0 +1,20 @@
+@(user : profile.models.User)
+@(/*This is for rendering a user preview. It returns the bare html needed for the article to be correctly displayed. CSS should be added as well...*/)
+<div style="position: relative;">
+    <div style="padding-top: 100%;"></div>
+    <div class="container-with-set-aspect-ratio">
+        <a href="@user.getReadCall">
+            <div style="position: relative">
+                <div style="padding-top: 50%"></div>
+                <div class="container-with-set-aspect-ratio">
+                    <img class="super-center" src="@user.getProfileImageCall" width="100%">
+                </div>
+            </div>
+            <h3 class="col-xs-12">
+                @user.getFullName
+            </h3>
+        </a>
+        Masse tekst her
+    </div>
+</div>
+
