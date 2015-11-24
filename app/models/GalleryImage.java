@@ -2,6 +2,7 @@ package models;
 
 import com.avaje.ebean.annotation.CreatedTimestamp;
 import play.db.ebean.Model;
+import profile.models.User;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

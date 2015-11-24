@@ -16,7 +16,7 @@
 				@if(models.LoginState.getUser().canCreateNewArticle()) {<li><a href="@article.routes.ArticleIn.index()">Nytt Innlegg</a></li>}
 				<li><a href="@bedrift.routes.Bedrift.index()">Bedrift</a></li>
 				<li><a href="@calendar.routes.Calendar.display()">Kalender</a></li>
-				<li><a href="@gallery.routes.Gallery.display()">Galleri</a></li>
+				<!--<li><a href="@gallery.routes.Gallery.display()">Galleri</a></li>-->
 				<li><a href="@abouthybrida.routes.AboutHybrida.index()">Om Hybrida</a></li>
 			</ul>
 			<form class="navbar-form navbar-right" role="search" action="@controllers.routes.Search.index()" method="GET">
