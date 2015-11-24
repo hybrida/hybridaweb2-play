@@ -7,8 +7,11 @@
             <div style="position: relative">
                 <div style="padding-top: 50%"></div>
                 <div class="container-with-set-aspect-ratio">
-                    <img class="super-center" src="@user.getProfileImageCall" width="100%">
+                    <img class="super-center" src="@user.getProfileImageCall" style="min-width:100%;min-height:100%;">
                 </div>
+                <!--div class="container-with-set-aspect-ratio" style="background: linear-gradient(to right, rgba(0,86,117,0.8), rgba(0,86,117,0.5), rgba(0,86,117,0.8))">
+                    <img class="super-center" src="@user.getProfileImageCall" style="max-width:100%;max-height:100%;">
+                </div -->
             </div>
             <h3 class="col-xs-12">
                 @user.getFullName
