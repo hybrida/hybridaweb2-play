@@ -37,13 +37,20 @@ public class RFIDReader extends Controller {
 		for (byte j = 0; j < Long.BYTES; ++j) {
 			for (byte i = 0; i < 8; ++i) {
 				final byte oneCopy = (byte) (one << i);
-				final byte newByte = (byte) ((currentByte[j] & oneCopy) >> i);
-				finalByte[j] = (byte) (finalByte[j] | (byte) (newByte << (7 - i)));
+				final byte newByte = (byte) ((currentByte[j] &
+					oneCopy) >>> i);
+				finalByte[j] = (byte) (finalByte[j] |
+					(byte) (newByte << (7 - i)));
 			}
 		}
 
-		System.out.println(Integer.toBinaryString(currentByte[7] & 255 | 256).substring(1));
-		System.out.println(Integer.toBinaryString(finalByte[7] & 255 | 256).substring(1));
+		for (byte i = 0; i < Long.BYTES; ++i)
+			System.out.println(Integer.toBinaryString(
+				currentByte[i] & 255 | 256).substring(1));
+		System.out.println();
+		for (byte i = 0; i < Long.BYTES; ++i)
+			System.out.println(Integer.toBinaryString(
+				finalByte[i] & 255 | 256).substring(1));
 
 		byteBuffer = ByteBuffer.wrap(finalByte);
 		return byteBuffer.getLong();
