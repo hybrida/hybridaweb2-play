@@ -6,12 +6,21 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import rfid.views.html.*;
+import views.html.*;
 import models.HttpRequestData;
 
 public class RFIDReader extends Controller {
 
+	private static HttpRequestData htpdata = new HttpRequestData();
+
 	public static Result index() {
-		return ok(reader.render());
+		return ok(layoutBoxPage.render(
+			"RFID-Skanning", reader.render(0)));
+	}
+
+	public static Result indexContinue(String status) {
+		return ok(layoutBoxPage.render(
+			"RFID-Skanning", reader.render(Integer.parseInt(status))));
 	}
 
 	public static Result read() {
@@ -19,8 +28,7 @@ public class RFIDReader extends Controller {
 		System.out.println(
 			htpdata.get("rfid"));
 		Long rfidRead = htpdata.getLong("rfid");
-		System.out.println(reverseBitsInBytes(rfidRead));
-		return redirect(rfid.routes.RFIDReader.index());
+		return redirect(rfid.routes.RFIDReader.indexContinue("0"));
 	}
 
 	public static Long reverseBitsInBytes(Long rfidIn) {
