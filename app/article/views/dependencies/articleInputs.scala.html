@@ -1,0 +1,13 @@
+@import models.Article
+@(inarticle: Article)
+
+<div class="form-group">
+<textarea class="form-control" type="text" name="title">@inarticle.getTitle</textarea>
+<textarea class="form-control" name="ingress" onfocus="">@inarticle.getIngress</textarea>
+<textarea id="editor1" class="form-control" rows="12" cols="75" name="text">@inarticle.getText</textarea>
+<input class="pad_1percent_top center_block form-control" style="display : block ; background-color : #c3c3c3 ; " type="file" name="picture">
+<script>
+        CKEDITOR.disableAutoInline = true;
+        CKEDITOR.inline('editor1');
+</script>
+</div>

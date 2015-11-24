@@ -1,4 +1,4 @@
-package models;
+package profile.models;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -11,9 +11,10 @@ public enum Specialization {
 	GEOMATIKK("Geomatikk"),
 	KONSTRUKSJON("Konstruksjonsteknikk"),
 	MARIN("Marin teknikk"),
-	MASKIN("Produktutvikling og matrialer"),
-	PETROLIUM("Petroliumsfag"),
-	PRODUKSJONSLEDELSE("Produksjonsledelse");
+	MASKIN("Produktutvikling og materialer"),
+	PETROLEUM("Petroleumsfag"),
+	PRODUKSJONSLEDELSE("Produksjonsledelse"),
+	VARME_OG_STROMNING("Varme- og strømningsteknikk");
 	private final String displayName;
 	Specialization(String displayName) {
 			this.displayName = displayName;

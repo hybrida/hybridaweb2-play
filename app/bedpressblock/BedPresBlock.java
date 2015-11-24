@@ -2,12 +2,11 @@ package bedpressblock;
 
 import models.LoginState;
 import models.Renders;
-import models.User;
+import profile.models.User;
 import models.Event;
 import models.HttpRequestData;
 import play.mvc.Controller;
 import play.mvc.Result;
-import play.twirl.api.Html;
 import bedpressblock.views.html.*;
 import java.util.List;
 import views.html.*;

@@ -1,4 +1,5 @@
 @import bedkomdatabase.models.Bedrift
+@import profile.models.User
 @(content: java.util.List[bedkomdatabase.models.Bedrift])
 @import java.util.Collections
 
@@ -19,7 +20,7 @@
 
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="white-box well" style="border-radius: 0px">
+                        <div class="clean-white-box well" style="border-radius: 0px; border-bottom: rgba(0, 0, 0 ,.1) solid">
                             <div class="col-md-5">
                                 <p>Bedrift:</p>
                             </div>
@@ -35,7 +36,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="white-box">
+                        <div class="clean-white-box">
                             <div class="col-md-12">
                                     <!-- Button trigger modal, triggers bedrift creator -->
                                 <button type="button" class="btn btn-primary btn-md center-block" data-toggle="modal" data-target="#myModal">
@@ -78,10 +79,11 @@
                             </div>
                         </div>
                     </div>
+                    <div style="border-bottom: rgba(0,0,0,.1) solid">
                     @for(i <- content){
                         <div class="row">
                                 <!-- Button trigger modal, triggers bedrift info popup -->
-                            <div class="white-box div_pointer" data-toggle="modal" data-target="#@i.getBedriftId">
+                            <div class="clean-white-box div_pointer" data-toggle="modal" data-target="#@i.getBedriftId">
                                 <div class="col-md-5">
                                     <p>@i.getBedriftName</p>
                                 </div>
@@ -155,9 +157,8 @@
                                                         <div class="form-group">
                                                             <label for="userSelect">Ansvarlig bruker</label>
                                                             <select class="form-control" name="userId" id="userId">
-                                                                <option value="@LoginState.getUser.getId">Meg</option>
                                                                 @for(user <- User.find.where().eq("bedkom", true).findList()){
-                                                                    <option value="@user.getId"> @user.getFullName</option>
+                                                                    <option value="@user.getId" @if(i.getResponsible.equals(user)){selected="selected"}> @user.getFullName</option>
                                                                 }
                                                             </select>
                                                         </div>
@@ -355,7 +356,7 @@
                                 </div>
                             </div>
                         </div>
-                    }
+                    }</div>
                 </div>
             </div>
         </div>

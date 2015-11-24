@@ -5,15 +5,10 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import static play.data.Form.form;
 
-import java.text.ParseException;
-import java.util.Calendar;
-import java.time.LocalDate;
-
-import article.Article;
 import article.views.html.*;
+import profile.models.User;
 import views.html.layout;
 import controllers.Upload;
-import views.html.utils.centerBlock;
 import exceptions.*;
 import models.*;
 
@@ -23,24 +18,8 @@ public class ArticleIn extends Controller {
 	final static Form<models.Event> eventForm = form(models.Event.class);
 
 	public static Result index() {
-		Calendar signUpStart = Calendar.getInstance();
-		signUpStart.add(Calendar.DAY_OF_MONTH, 1);
-
-		Calendar secondSignUp = Calendar.getInstance();
-		secondSignUp.add(Calendar.DAY_OF_MONTH, 3);
-
-		Calendar signUpDeadline = Calendar.getInstance();
-		signUpDeadline.add(Calendar.DAY_OF_MONTH, 7);
-
-		Calendar eventHappens = Calendar.getInstance();
-		eventHappens.add(Calendar.DAY_OF_MONTH, 8);
-
-		Calendar eventEnds = Calendar.getInstance();
-		eventEnds.add(Calendar.DAY_OF_MONTH, 9);
-
 		return ok(layout.render("Hybrida: Opprett Artikkel",
-			index.render(signUpStart, secondSignUp, signUpDeadline, eventHappens,
-				eventEnds)));
+			index.render()));
 	}
 
 	public static boolean thisIsAnEvent() {
@@ -127,7 +106,7 @@ public class ArticleIn extends Controller {
 			article.setIngress(httpdata.get("ingress"));
 			article.setText(httpdata.get("text"));
 			article.setAuthor(LoginState.getUser());
-			article.setParent(oldart);
+			article.setPrevious(oldart);
 
 			if (image_link != null)
 				article.setImagePath(image_link);

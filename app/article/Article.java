@@ -1,14 +1,9 @@
 package article;
 
-import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.layout;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static play.data.Form.form;
+import views.html.layoutWithHead;
 
 /**
  * Created by eliasbragstadhagen on 04.02.15.
@@ -22,8 +17,10 @@ public class Article extends Controller {
 			return error;
 
 		models.Article inarticle = models.Article.find.byId(Long.valueOf(id));
-		return ok(layout.render("Hybrida: Opprett Artikkel",
-			article.views.html.editArticle.render(inarticle)));
+		return ok(layoutWithHead.render(
+				"Hybrida: Opprett Artikkel"
+				, article.views.html.editArticle.render(inarticle)
+		    , article.views.html.editHead.render()));
 	}
 
 	public static Result viewArticle(String id) {

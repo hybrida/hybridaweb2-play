@@ -1,9 +1,11 @@
 package models;
 
+import article.routes;
 import play.db.ebean.Model;
-import play.data.format.Formats;
-import play.twirl.api.Html;
 import play.data.Form;
+import play.mvc.Call;
+import profile.models.User;
+
 import static play.data.Form.form;
 
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ import javax.persistence.*;
  * Created by eliasbragstadhagen on 28.01.15.
  */
 @Entity
-public class Event extends Model {
+public class Event extends Model implements Revisable<Event> {
 
 	public static Event getFromRequest() {
 		Form<EventForm> eventForm = form(EventForm.class);
@@ -59,6 +61,26 @@ public class Event extends Model {
 		event.bedpres = form.bedpres != null;
 		event.binding = form.binding != null;
 		return event;
+	}
+
+	@Override
+	public Call getCreateCall() {
+		return article.routes.ArticleIn.index();
+	}
+
+	@Override
+	public Call getReadCall() {
+		return article.routes.Event.viewEvent("" + getId());
+	}
+
+	@Override
+	public Call getUpdateCall() {
+		return article.routes.Event.editEvent("" + getId());
+	}
+
+	@Override
+	public Call getDeleteCall() {
+		return null;
 	}
 
 	public static class EventForm {
@@ -194,6 +216,8 @@ public class Event extends Model {
 
 	@Override
 	public void update() {
+		if (waitingUsers == null)
+			waitingUsers = new EventWaitingUsers();
 		if (waitingUsers.id == null)
 			waitingUsers.save();
 		else
@@ -241,6 +265,24 @@ public class Event extends Model {
 
 	public Event() {
 		waitingUsers = new EventWaitingUsers();
+		signUpStart = Calendar.getInstance();
+		(secondSignUp = Calendar.getInstance()).add(Calendar.DATE, 3); //Too hacky? Whatevs
+		(signUpDeadline = Calendar.getInstance()).add(Calendar.DATE, 7);
+		(eventHappens = Calendar.getInstance()).add(Calendar.DATE, 8);
+		(eventStops = Calendar.getInstance()).add(Calendar.DATE, 9);
+		firstYearAllowed  = true;
+		secondYearAllowed = true;
+		thirdYearAllowed  = true;
+		fourthYearAllowed = true;
+		fifthYearAllowed  = true;
+		firstYearAllowedAfterSecondSignup = true;
+		secondYearAllowedAfterSecondSignup = true;
+		thirdYearAllowedAfterSecondSignup = true;
+		fourthYearAllowedAfterSecondSignup = true;
+		fifthYearAllowedAfterSecondSignup = true;
+		genderAllowed = 'A';
+		maxParticipants = 60;
+		maxParticipantsWaiting = 30;
 	}
 
 	public Event(Event copy) {
@@ -295,16 +337,24 @@ public class Event extends Model {
 		this.update();
 	}
 
+	@Override
 	public void setPrevious(Event previous) {
 		this.previousEdit = previous;
 	}
 
+	@Override
 	public Event getPrevious() {
 		return this.previousEdit;
 	}
 
-	public Boolean hasPrevious() {
+	@Override
+	public boolean hasPrevious() {
 		return this.previousEdit != null;
+	}
+
+	@Override
+	public Long getPreviousId() {
+		return getPrevious().getId();
 	}
 
 	public boolean canRemove() {
@@ -367,9 +417,7 @@ public class Event extends Model {
 
 		// Check gender requirements
 		char gender = getGenderAllowed();
-		if (gender == 'A')
-			;
-		else if (gender != user.getGender())
+		if (gender != 'A' && gender != user.getGender())
 			return false;
 		// Check if the timeframe is correct
 		Calendar calendar = Calendar.getInstance();
@@ -498,9 +546,10 @@ public class Event extends Model {
 		return joinedClassNum;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return eventId;
 	}
+
 
 	public void setId(long id) {
 		eventId = id;

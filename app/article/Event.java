@@ -7,8 +7,11 @@ import exceptions.Unauthorized;
 import models.*;
 import play.mvc.Controller;
 import play.mvc.Result;
+import profile.models.User;
 import views.html.layout;
+import views.html.layoutWithHead;
 import article.views.html.*;
+
 import static application.Application.show400;
 
 import java.util.List;
@@ -65,13 +68,16 @@ public class Event extends Controller {
 	}
 
 	public static Result editEvent(String id) {
-		Result error = application.Application.checkEditPrivilege(LoginState.getUser());
+		Result error = application.Application.checkEditPrivilege(LoginState.getUser()); //TODO: Each controller should take care of it's own auth logic
 		if (error != null)
 			return error;
 
 		models.Event evt = models.Event.find.byId(Long.valueOf(id));
 		models.Article art = evt.getArticle();
-		return ok(layout.render("", article.views.html.editEvent.render(evt, art)));
+		return ok(layoutWithHead.render(
+				""
+				, article.views.html.editEvent.render(evt, art)
+				, article.views.html.editHead.render()));
 	}
 
 	public static Result saveEdit(String id) throws Unauthorized, ServerError {
@@ -83,7 +89,7 @@ public class Event extends Controller {
 
 		if (HttpRequestData.isGiven("delete")) {
 			models.Renders.getByEventId(Long.valueOf(id)).delete();
-			return application.Application.index();
+			return redirect(application.routes.Application.index());
 		}
 
 		play.data.Form<models.Article> articleInput = articleForm.bindFromRequest();
