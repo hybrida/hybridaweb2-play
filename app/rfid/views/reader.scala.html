@@ -1,4 +1,4 @@
-@(bedpresses: List[Renders], chosenEventId: Long, currentColor: Int, number: Long)
+@(bedpresses: List[renders.models.Renders], chosenEventId: Long, currentColor: Int, number: Long)
 
 <div class="col-md-4 @if(currentColor==2||currentColor==1){bg-success}@if(currentColor==0){bg-warning}@if(currentColor== -1){bg-danger}">
 	<form action="@rfid.routes.RFIDReader.read()" method="post">

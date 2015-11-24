@@ -9,7 +9,7 @@ import play.mvc.Result;
 import rfid.views.html.*;
 import views.html.*;
 import models.HttpRequestData;
-import models.Renders;
+import renders.models.Renders;
 
 public class RFIDReader extends Controller {
 
