@@ -86,6 +86,17 @@ create table event_waiting_users (
   constraint pk_event_waiting_users primary key (id))
 ;
 
+create table gallery_image (
+  image_id                  bigint auto_increment not null,
+  description               varchar(255),
+  image_url                 varchar(255),
+  title                     varchar(255),
+  uploaded_by_id            bigint,
+  event_connected_event_id  bigint,
+  date_uploaded             timestamp not null,
+  constraint pk_gallery_image primary key (image_id))
+;
+
 create table note (
   note_id                   bigint auto_increment not null,
   note                      text,
@@ -164,14 +175,18 @@ alter table event add constraint fk_event_previousEdit_8 foreign key (previous_e
 create index ix_event_previousEdit_8 on event (previous_edit_event_id);
 alter table event add constraint fk_event_waitingUsers_9 foreign key (waiting_users_id) references event_waiting_users (id) on delete restrict on update restrict;
 create index ix_event_waitingUsers_9 on event (waiting_users_id);
-alter table note add constraint fk_note_bedrift_10 foreign key (bedrift_bedrift_id) references bedrift (bedrift_id) on delete restrict on update restrict;
-create index ix_note_bedrift_10 on note (bedrift_bedrift_id);
-alter table renders add constraint fk_renders_articleReference_11 foreign key (article_reference_article_id) references article (article_id) on delete restrict on update restrict;
-create index ix_renders_articleReference_11 on renders (article_reference_article_id);
-alter table renders add constraint fk_renders_eventReference_12 foreign key (event_reference_event_id) references event (event_id) on delete restrict on update restrict;
-create index ix_renders_eventReference_12 on renders (event_reference_event_id);
-alter table user add constraint fk_user_block4FromThisEvent_13 foreign key (block4from_this_event_event_id) references event (event_id) on delete restrict on update restrict;
-create index ix_user_block4FromThisEvent_13 on user (block4from_this_event_event_id);
+alter table gallery_image add constraint fk_gallery_image_uploadedBy_10 foreign key (uploaded_by_id) references user (id) on delete restrict on update restrict;
+create index ix_gallery_image_uploadedBy_10 on gallery_image (uploaded_by_id);
+alter table gallery_image add constraint fk_gallery_image_eventConnect_11 foreign key (event_connected_event_id) references event (event_id) on delete restrict on update restrict;
+create index ix_gallery_image_eventConnect_11 on gallery_image (event_connected_event_id);
+alter table note add constraint fk_note_bedrift_12 foreign key (bedrift_bedrift_id) references bedrift (bedrift_id) on delete restrict on update restrict;
+create index ix_note_bedrift_12 on note (bedrift_bedrift_id);
+alter table renders add constraint fk_renders_articleReference_13 foreign key (article_reference_article_id) references article (article_id) on delete restrict on update restrict;
+create index ix_renders_articleReference_13 on renders (article_reference_article_id);
+alter table renders add constraint fk_renders_eventReference_14 foreign key (event_reference_event_id) references event (event_id) on delete restrict on update restrict;
+create index ix_renders_eventReference_14 on renders (event_reference_event_id);
+alter table user add constraint fk_user_block4FromThisEvent_15 foreign key (block4from_this_event_event_id) references event (event_id) on delete restrict on update restrict;
+create index ix_user_block4FromThisEvent_15 on user (block4from_this_event_event_id);
 
 
 
@@ -202,6 +217,8 @@ drop table if exists joined_users;
 drop table if exists event_waiting_users;
 
 drop table if exists event_waiting_users_user;
+
+drop table if exists gallery_image;
 
 drop table if exists note;
 
