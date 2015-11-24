@@ -152,8 +152,8 @@
     height:240px;
     width:240px;
     background-size: 200% 100%;
-    background-color: blue;
-    background-image: -webkit-linear-gradient(left, dodgerblue, blue, darkblue, darkblue, mediumblue, dodgerblue);
+    background-color: lightskyblue;
+    background-image: -webkit-linear-gradient(left, rgb(80, 180, 250), rgb(25,140,210), rgb(3, 79, 163), rgb(3, 79, 163), rgb(25,140,210), rgb(80, 180, 250));
     background-image:    -moz-linear-gradient(left, dodgerblue, blue, darkblue, darkblue, mediumblue, dodgerblue);
     background-image:     -ms-linear-gradient(left, dodgerblue, blue, darkblue, darkblue, mediumblue, dodgerblue);
     background-image:      -o-linear-gradient(left, dodgerblue, blue, darkblue, darkblue, mediumblue, dodgerblue);
