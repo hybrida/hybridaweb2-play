@@ -36,6 +36,9 @@ GET           /admin/bulkusers                         admin.Admin.bulkUsersForm
 POST          /admin/bulkusers                         admin.Admin.bulkUsers()
 GET           /admin/api/bulkaddsingle                 admin.Admin.bulkAddSingle()
 
+# RFID
+GET           /rfid                                    rfid.RFIDReader.index()
+POST          /rfid                                    rfid.RFIDReader.read()
 
 # Upload
 POST          /api/upload                              controllers.Upload.ajaxUpload()
