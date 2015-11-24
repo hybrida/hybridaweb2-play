@@ -15,12 +15,13 @@ public class RFIDReader extends Controller {
 
 	public static Result index() {
 		return ok(layoutBoxPage.render(
-			"RFID-Skanning", reader.render(0)));
+			"RFID-Skanning", reader.render(0, 0L)));
 	}
 
-	public static Result indexContinue(String status) {
+	public static Result indexContinue(String status, String number) {
 		return ok(layoutBoxPage.render(
-			"RFID-Skanning", reader.render(Integer.parseInt(status))));
+			"RFID-Skanning", reader.render(
+				Integer.parseInt(status), Long.parseLong(number))));
 	}
 
 	public static Result read() {
@@ -28,7 +29,9 @@ public class RFIDReader extends Controller {
 		System.out.println(
 			htpdata.get("rfid"));
 		Long rfidRead = htpdata.getLong("rfid");
-		return redirect(rfid.routes.RFIDReader.indexContinue("0"));
+		rfidRead = reverseBitsInBytes(rfidRead);
+		return redirect(rfid.routes.RFIDReader.indexContinue(
+			"0", rfidRead.toString()));
 	}
 
 	public static Long reverseBitsInBytes(Long rfidIn) {

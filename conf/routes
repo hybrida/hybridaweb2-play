@@ -37,7 +37,8 @@ GET           /admin/api/bulkaddsingle                 admin.Admin.bulkAddSingle
 
 # RFID
 GET           /rfid                                    rfid.RFIDReader.index()
-GET           /rfid/:status                            rfid.RFIDReader.indexContinue(status)
+GET           /rfid/:status/:number                            rfid.RFIDReader.indexContinue(status, number)
+POST          /rfid                                    rfid.RFIDReader.read()
 POST          /rfid                                    rfid.RFIDReader.read()
 
 # Upload
