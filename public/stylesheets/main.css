@@ -318,7 +318,6 @@ a.inverted{
     .nav-container{width: 90%; max-width: 1279px;}
 }
 @media (min-width: 1600px){
-    .content { padding-bottom: 0;}
     .center-container{width: 70%; max-width: 1799px;}
     .nav-container{width: 80%; max-width: 2099px;}
 }
