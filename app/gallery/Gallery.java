@@ -1,5 +1,6 @@
 package gallery;
 
+import exceptions.IncorrectFileType;
 import exceptions.NoFileInRequest;
 import exceptions.ServerError;
 import exceptions.Unauthorized;
@@ -11,6 +12,7 @@ import play.mvc.Result;
 import views.html.layout;
 import controllers.Upload;
 
+import javax.imageio.ImageIO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,7 @@ public class Gallery extends Controller {
         return ok(layout.render("Galleri", gallery.views.html.index.render(GalleryImage.find.all())));
     }
 
+    // TODO: implement in Upload, also make a general GalleryImage for files
     public static Result uploadGalleryImage() {
         HttpRequestData data = new HttpRequestData();
         String description = data.get("description");
@@ -29,21 +32,27 @@ public class Gallery extends Controller {
         Long eventId = data.getLong("eventId");
 
         try {
-            String url = null;
-            url = Upload.upload("image");
-
-            if (url != null) {
+            String[] urls = Upload.uploadAndMakeThumb("image");
+            if (urls != null && urls.length == 4) {
+                int width = Integer.parseInt(urls[2]);
+                int height = Integer.parseInt(urls[3]);
                 Event event = null;
                 if (eventId != null) event = Event.find.byId(eventId);
-                GalleryImage image = new GalleryImage(title, description, event, url);
+                GalleryImage image = new GalleryImage(title, description, width, height, Upload.THUMB_SIZE, event, urls[0], urls[1]);
                 image.save();
                 return redirect(gallery.routes.Gallery.display());
             } else throw new ServerError();
         } catch (Unauthorized unauthorized) {
+            unauthorized.printStackTrace();
             return unauthorized();
         } catch (ServerError serverError) {
+            serverError.printStackTrace();
             return internalServerError();
         } catch (NoFileInRequest noFileInRequest) {
+            noFileInRequest.printStackTrace();
+            return badRequest();
+        } catch (IncorrectFileType incorrectFileType) {
+            incorrectFileType.printStackTrace();
             return badRequest();
         }
     }

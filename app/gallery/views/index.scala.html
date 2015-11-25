@@ -8,16 +8,16 @@
 
 <style>
     .image {
-        width: 200px;
-        height: 200px;
-        background-color: #00F;
         padding: 0;
         margin: 0;
+        box-shadow: 0px 5px 5px rgba(0,0,0,0.5);
+        margin-bottom: 10px;
+        margin-left: 5px;
+        margin-right: 5px;
         overflow: hidden;
-        border-radius: 10px;
-        border: 2px solid;
+        border-radius: 5px;
+        border: 2px solid black;
         float: left;
-        overflow: hidden;
     }
 </style>
 
@@ -28,10 +28,16 @@
     <input type="submit" value="Post"></input>
 </form>
 
-<div id="gallery">
+<div class="gallery">
     @for(image <- images) {
         <div class="image">
-            <img src="@image.getImageURL()" alt="@image.getTitle()" longdesc="@image.getDescription()">
+            <img
+                src="@image.getThumbURL()"
+                alt="@image.getTitle()"
+                longdesc="@image.getDescription()"
+                width="@(image.getThumbSize()/(scala.util.Random.nextInt(3)+1))"
+                height="@(image.getThumbSize()/(scala.util.Random.nextInt(3)+1))"
+            >
         </div>
     }
     <!--@@for(a <- 1 until 20) {
@@ -42,10 +48,10 @@
 </div>
 
 <script>
-    var $grid = $('#gallery').masonry({
+    var $grid = $('.gallery').masonry({
         // options
         itemSelector: '.image',
-        columnWidth: 100
+        columnWidth: 1 //MUST be changed to something bigger to optimize
     });
 </script>
 </div>

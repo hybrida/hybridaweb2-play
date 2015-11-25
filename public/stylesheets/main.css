@@ -8,10 +8,7 @@ body {
     padding-top: 50px;
     /* background: lightgrey; */
     /*background: url("../images/kilt3.PNG") repeat;*/
-}
 
-.content {
-    padding-bottom: 30px;
 }
 
 #logo {
@@ -23,6 +20,10 @@ body {
     padding: 0;
     margin: 0;
     z-index: 99999;
+}
+
+.content {
+    position: relative;
 }
 
 
@@ -211,7 +212,7 @@ img {
 .transparent-box,
 .transparent-box-addition,
 .drop-shadow {
-    box-shadow: -5px 5px 25px rgba(0,0,0,0.4);
+    box-shadow: rgba(0,0,0,0.4) -5px 5px 25px 0;
 }
 
 .no-shadow{
@@ -283,6 +284,11 @@ a.inverted{
     color: #fff;
 }
 
+
+.css-table {display:table;}
+.css-table-row {display:table-row;}
+.css-table-cell {display:table-cell;}
+
 /**
  * Bootstrap:
  * 'xs': any size    -- Extra small, for phones
@@ -317,7 +323,6 @@ a.inverted{
     .nav-container{width: 90%; max-width: 1279px;}
 }
 @media (min-width: 1600px){
-    .content { padding-bottom: 0;}
     .center-container{width: 70%; max-width: 1799px;}
     .nav-container{width: 80%; max-width: 2099px;}
 }

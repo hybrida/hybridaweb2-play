@@ -1,4 +1,4 @@
-package admin;
+package admintools;
 
 import controllers.Upload;
 import exceptions.*;
@@ -19,14 +19,14 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Pattern;
 
-import admin.models.PasswordHash;
+import admintools.models.PasswordHash;
 import views.html.layoutBoxPage;
-import admin.views.html.*;
-import admin.models.RingNumber;
+import admintools.views.html.*;
+import admintools.models.RingNumber;
 
 public class Admin extends Controller {
 	public static Result index() {
-		return ok(layoutBoxPage.render("Admin", admin.views.html.loginform.render()));
+		return ok(layoutBoxPage.render("Admin", admintools.views.html.loginForm.render()));
 	}
 
 	public static Result login() {
@@ -37,7 +37,7 @@ public class Admin extends Controller {
 			boolean correct = PasswordHash.validatePassword(password, hash);
 			if (correct) {
 				session("user", play.api.libs.Crypto.encryptAES("hybrid," + String.valueOf(System.currentTimeMillis())));
-				return redirect(admin.routes.Admin.allUsers());
+				return redirect(admintools.routes.Admin.allUsers());
 			} else {
 				return ok("password incorrect");
 			}
@@ -96,12 +96,12 @@ public class Admin extends Controller {
 			if (toRemove != null) {
 				toRemove.delete();
 			}
-			return redirect(admin.routes.Admin.allUsers());
+			return redirect(admintools.routes.Admin.allUsers());
 		} else {
 			User change = User.getUserFromForm();
 			change.setId(Long.parseLong(uid));
 			change.update();
-			return redirect(admin.routes.Admin.allUsers());
+			return redirect(admintools.routes.Admin.allUsers());
 		}
 	}
 
@@ -112,7 +112,7 @@ public class Admin extends Controller {
 		}
 		User user = User.getUserFromForm();
 		user.save();
-		return redirect(admin.routes.Admin.allUsers());
+		return redirect(admintools.routes.Admin.allUsers());
 	}
 
 	public static Result updateUser() {
@@ -145,12 +145,12 @@ public class Admin extends Controller {
 				users.add(URLEncoder.encode(line, "UTF-8"));
 			}
 		}
-		return ok(views.html.layoutBoxPage.render("Hybrida - legg til mange brukere", admin.views.html.bulkUserForm.render(output.toString(), users)));
+		return ok(views.html.layoutBoxPage.render("Hybrida - legg til mange brukere", admintools.views.html.bulkUserForm.render(output.toString(), users)));
 	}
 
 	public static Result bulkUsersForm() {
 		if(!LoginState.isValidlyLoggedIn() || !LoginState.getUser().isRoot()) return unauthorized();
-		return ok(views.html.layoutBoxPage.render("Hybrida - legg til mange brukere", admin.views.html.bulkUserForm.render(null, new ArrayList<>())));
+		return ok(views.html.layoutBoxPage.render("Hybrida - legg til mange brukere", admintools.views.html.bulkUserForm.render(null, new ArrayList<>())));
 	}
 
 	public static Result bulkAddSingle() throws UnsupportedEncodingException, ParseException {

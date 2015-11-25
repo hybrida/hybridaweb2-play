@@ -24,28 +24,33 @@ GET           /tillitsvalgte                           tillitsvalgte.Tillitsvalg
 
 
 # Admin
-GET           /admin                                   admin.Admin.index()
-POST          /admin/login                             admin.Admin.login()
-POST          /admin/rediger                           admin.Admin.editUser(uid)
-POST          /admin/logout                            admin.Admin.logout()
-GET           /admin/logout                            admin.Admin.logout()
-GET           /admin/users                             admin.Admin.allUsers()
-POST          /admin/newuser                           admin.Admin.newUser()
-GET           /admin/bulkusers                         admin.Admin.bulkUsersForm()
-POST          /admin/bulkusers                         admin.Admin.bulkUsers()
-GET           /admin/api/bulkaddsingle                 admin.Admin.bulkAddSingle()
+GET           /admin                                admintools.Admin.index()
+POST          /admin/login                          admintools.Admin.login()
+POST          /admin/rediger                        admintools.Admin.editUser(uid)
+POST          /admin/logout                         admintools.Admin.logout()
+GET           /admin/logout                         admintools.Admin.logout()
+GET           /admin/users                          admintools.Admin.allUsers()
+POST          /admin/newuser                        admintools.Admin.newUser()
+GET           /admin/bulkusers                      admintools.Admin.bulkUsersForm()
+POST          /admin/bulkusers                      admintools.Admin.bulkUsers()
+GET           /admin/api/bulkaddsingle              admintools.Admin.bulkAddSingle()
 
+# RFID
+GET           /rfid                                    rfid.RFIDReader.index()
+GET           /rfid/:status/:number                            rfid.RFIDReader.indexContinue(status, number)
+POST          /rfid                                    rfid.RFIDReader.read()
+POST          /rfid                                    rfid.RFIDReader.read()
 
 # Upload
-POST          /api/upload                              controllers.Upload.ajaxUpload()
-POST          /api/upload/:uploadFolder                controllers.Upload.ajaxUploadTo(uploadFolder)
+POST          /api/upload                           controllers.Upload.ajaxUpload()
+POST          /api/upload/:uploadFolder             controllers.Upload.ajaxUploadTo(uploadFolder)
 
 # BedkomDatabase
-GET           /bedkomdatabase                          bedkomdatabase.Bedkomdatabase.index()
+GET           /bedkomdatabase                       bedkomdatabase.Bedkomdatabase.index()
 
-POST          /bedkomdatabase/bedrift                  bedkomdatabase.Bedkomdatabase.saveBedrift()
-POST          /bedkomdatabase/bedrift/ud/:id           bedkomdatabase.Bedkomdatabase.updateBedrift(id)
-POST          /bedkomdatabase/bedrift/slett/:id        bedkomdatabase.Bedkomdatabase.deleteBedrift(id)
+POST          /bedkomdatabase/bedrift               bedkomdatabase.Bedkomdatabase.saveBedrift()
+POST          /bedkomdatabase/bedrift/ud/:id        bedkomdatabase.Bedkomdatabase.updateBedrift(id)
+POST          /bedkomdatabase/bedrift/slett/:id         bedkomdatabase.Bedkomdatabase.deleteBedrift(id)
 
 POST          /bedkomdatabase/kontakt/:id              bedkomdatabase.Bedkomdatabase.saveKontaktPerson(id)
 POST          /bedkomdatabase/kontakt/slett/:id        bedkomdatabase.Bedkomdatabase.deleteKontaktPerson(id)
@@ -104,7 +109,7 @@ POST          /event/meldav                            article.Event.removeUser(
 GET           /api/backup                              backup.BackupDatabase.index()
 
 # Search
-GET           /search                                  controllers.Search.index()
+GET           /search                                   renders.Renders.search()
 
 # Login
 GET           /login                                   sso.SSOLogin.login(returnarg: String)

@@ -1,18 +1,19 @@
-package models;
+package renders.models;
 
+import models.Article;
+import models.Event;
 import play.db.ebean.Model;
-import play.db.ebean.Model.Finder;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 import org.hibernate.annotations.*;
+import play.twirl.api.Html;
 
 /**
  * Created by Sindre on 28.01.2015.
  */
 @javax.persistence.Entity
-public class Renders extends Model {
+public class Renders extends Model implements Renderable {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -33,7 +34,7 @@ public class Renders extends Model {
 
 	public static void addEvent(Event event) {
 		Renders renders = new Renders();
-		renders.eventReference= event;
+		renders.eventReference = event;
 		renders.save();
 	}
 
@@ -53,4 +54,10 @@ public class Renders extends Model {
 	public static Model.Finder<Long, Renders> find = new Finder<>(
 		Long.class, Renders.class
 	);
+
+	@Override
+	public Html render() {
+		if(eventReference != null) return renders.views.html.eventRender.render(articleReference, eventReference);
+		return renders.views.html.articleRender.render(articleReference);
+	}
 }

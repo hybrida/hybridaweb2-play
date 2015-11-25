@@ -1,7 +1,7 @@
 package bedpressblock;
 
 import models.LoginState;
-import models.Renders;
+import renders.models.Renders;
 import profile.models.User;
 import models.Event;
 import models.HttpRequestData;
