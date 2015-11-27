@@ -1,0 +1,90 @@
+package renders;
+
+import java.util.*;
+
+import application.Application;
+import models.SearchForm;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import play.data.Form;
+import play.mvc.Controller;
+import play.mvc.Result;
+import play.twirl.api.Html;
+import profile.models.User;
+import renders.models.Renderable;
+import views.html.layoutBoxPage;
+
+import static play.data.Form.form;
+
+/**
+ * Created by ivar on 29.10.2015.
+ */
+public class Renders extends Controller {
+
+	public static Result showRenders(String title, List<? extends Renderable> renderables, boolean big) {
+		List<Html> rendersHtml = new ArrayList<>();
+
+		int count = 0;
+		for (Renderable renderable : renderables) {
+			if (count++ < 1 && big) rendersHtml.add(renders.views.html.renderBig.render(renderable.render()));
+			else rendersHtml.add(renders.views.html.renderSmall.render(renderable.render()));
+		}
+
+		return ok(views.html.layoutWithHead.render(
+				"Hybrida - " + title,
+				renders.views.html.rendersBody.render(title, rendersHtml),
+				renders.views.html.rendersHead.render()));
+	}
+
+	public static Result search() {
+		Form<SearchForm> input = form(SearchForm.class).bindFromRequest();
+
+		if (input.hasErrors()) {
+			SearchForm form = new SearchForm();
+			return Application.showUnauthorizedAccess();
+		} else {
+
+			SearchForm saved = input.get();
+			String key = input.get().term;
+			key = "%" + key + "%";
+
+			String head = "eventReference.articleRef.",
+					art = "articleReference.";
+
+			List<User> renderableUsers = User.find.setMaxRows(10).where().disjunction()
+					.like("username", key)
+					.like("first_name", key)
+					.like("last_name", key)
+					.like("middle_name", key)
+					.like("title", key)
+					.like("email", key)
+					.like("phone", key)
+					.endJunction().findList();
+
+			List<renders.models.Renders> renderableRenders = renders.models.Renders.find.setMaxRows(10 - renderableUsers.size()).where(
+			).disjunction()
+					.like(art + "ingress", key)
+					.like(art + "title", key)
+					.like(art + "text", key)
+					.like(head + "ingress", key)
+					.like(head + "title", key)
+					.like(head + "text", key)
+					.endJunction()
+					.orderBy().desc("renderId").findList();
+
+			Collection<? extends Renderable> renderables = CollectionUtils.union(renderableUsers, renderableRenders);
+
+			if (renderables.isEmpty()) {
+				return ok(layoutBoxPage.render("Ingenting Funnet", renders.views.html.emptySearch.render()));
+			} else {
+				return showRenders("Søkeresultater", new ArrayList<>(renderables), false);
+			}
+		}
+	}
+
+	public static Result newsfeed() {
+		List<renders.models.Renders> articles = renders.models.Renders.getVisibleRenderables();
+		return showRenders("Newsfeed", articles, true);
+	}
+
+}

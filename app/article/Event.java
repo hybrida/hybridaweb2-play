@@ -88,7 +88,7 @@ public class Event extends Controller {
 		models.Event event = models.Event.find.byId(Long.valueOf(id));
 
 		if (HttpRequestData.isGiven("delete")) {
-			models.Renders.getByEventId(Long.valueOf(id)).delete();
+			renders.models.Renders.getByEventId(Long.valueOf(id)).delete();
 			return redirect(application.routes.Application.index());
 		}
 
