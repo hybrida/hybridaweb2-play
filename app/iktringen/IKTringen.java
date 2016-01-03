@@ -9,7 +9,7 @@ import play.mvc.Result;
 public class IKTringen extends Controller {
     final static public Result index() {
         return ok(views.html.layoutWithHead.render(
-                "iktringen nettside",
+                "I&IKT-Ringen",
                 iktringen.views.html.index.render(),
                 iktringen.views.html.head.render()));
     }
