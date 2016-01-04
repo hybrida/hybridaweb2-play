@@ -40,7 +40,7 @@
     background-size:cover;
     background-position:center;
 }
-#update {
+#promotering {
     width:100%;
     height:100vh;
 }
@@ -50,43 +50,82 @@
     height: 100vh;
 }
 
-#hybb {
+#infofoiler {
     width:100%;
     height:100vh;
     background-color: transparent;
 }
+#IKT-Banner {
+    position: fixed;
+    padding-top: 3em;
+    width: 85%;
+    text-align: center;
+    background-color: #ffffff;
+}
 
-#hybrida {
+#overskrift {
     color:#212121;
-    padding: 3em 2.5em 1em 2.5em;
+    padding: 1em 2.5em 0em 2.5em;
+    text-align: center;
+    font-size: 35px;
+    line-height: 1.5;
+    width: 100%;
+}
+
+#ringeninfo {
+    color:#212121;
+    padding: 1em 2.5em 1em 2.5em;
+    text-align: center;
+    font-size: 22px;
+    line-height: 1.5;
+    width: 100%;
+}
+
+#bedbidragoverskrift {
+    color:#212121;
+    padding: 1em 2.5em 0em 2.5em;
+    text-align: center;
+    font-size: 35px;
+    line-height: 1.5;
+    width: 85%;
+}
+
+#bedbidraginfo {
+    color:#212121;
+    padding: 1em 2.5em 1em 2.5em;
     text-align: center;
     font-size: 22px;
     line-height: 1.5;
     width: 85%;
 }
 
-#griff {
-    height:100vh;
-    width:100%;
-    background-image:url(../images/griffens_orden.jpg);
-    background-size: cover;
-    background-position: center;
-}
-
-#student {
-    height:100vh;
-    width:100%;
-    background-image:url(../images/ny_student.jpg);
-    background-size: cover;
-    background-position: center;
-}
-
-#IKT-Banner {
-    padding-top: 3em;
-    width: 100%;
+#medlemsprisbilde {
+    position: fixed;
+    padding-top: 1em;
+    width: 85%;
     text-align: center;
     background-color: #ffffff;
+
 }
+
+#studentene {
+    height:100vh;
+    width:100%;
+    background-image:url(../images/nys.png);
+    background-size: cover;
+    background-position: center;
+}
+
+#studentenetext {
+    color:#212121;
+    padding: 1em 2.5em 1em 2.5em;
+    text-align: center;
+    font-size: 22px;
+    line-height: 1.5;
+    width: 100%;
+}
+
+
 
 #transition img:hover {
     background-position: -100% 100%;
