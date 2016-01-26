@@ -7,17 +7,20 @@
 <script src='assets/javascripts/masonry.js'></script>
 
 <style>
-    .image {
+    .gallery {
         padding: 0;
         margin: 0;
-        box-shadow: 0px 5px 5px rgba(0,0,0,0.5);
-        margin-bottom: 10px;
-        margin-left: 5px;
-        margin-right: 5px;
-        overflow: hidden;
+        width: 1200px;
+    }
+
+    .imageWrapper {
+        padding: 10px;
+        margin: 0;
+    }
+
+    .image {
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
         border-radius: 5px;
-        border: 2px solid black;
-        float: left;
     }
 </style>
 
@@ -30,15 +33,19 @@
 
 <div class="gallery">
     @for(image <- images) {
-        <div class="image">
-            <img
-                src="@image.getThumbURL()"
-                alt="@image.getTitle()"
-                longdesc="@image.getDescription()"
-                width="@(image.getThumbSize()/(scala.util.Random.nextInt(3)+1))"
-                height="@(image.getThumbSize()/(scala.util.Random.nextInt(3)+1))"
-            >
-        </div>
+        @defining(image.getThumbSize()/scala.math.pow(2,scala.util.Random.nextInt(2))) { imgSize =>
+            <div class="imageWrapper" style="
+                height: @(imgSize)px;
+                width: @(imgSize)px;
+            ">
+                <img
+                    class="image"
+                    src="@image.getThumbURL()"
+                    alt="@image.getTitle()"
+                    longdesc="@image.getDescription()"
+                >
+            </div>
+        }
     }
     <!--@@for(a <- 1 until 20) {
         <div class="image" style="width: @@(100+scala.util.Random.nextInt(3)*100)px; height: @@(100+scala.util.Random.nextInt(3)*100)px;">
@@ -50,8 +57,8 @@
 <script>
     var $grid = $('.gallery').masonry({
         // options
-        itemSelector: '.image',
-        columnWidth: 1 //MUST be changed to something bigger to optimize
+        itemSelector: '.imageWrapper',
+        columnWidth: 100 //MUST be changed to something bigger to optimize
     });
 </script>
 </div>
