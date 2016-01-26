@@ -1,11 +1,6 @@
 package profile.models;
 
 import static play.data.Form.form;
-import controllers.Upload;
-import controllers.routes;
-import exceptions.NoFileInRequest;
-import exceptions.ServerError;
-import exceptions.Unauthorized;
 import models.CRUDable;
 import models.Event;
 import models.LoginState;
@@ -56,11 +51,10 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 		return getCreateCall();
 	}
 
-	public static class UserForm {
+	public static class UserData {
 		public Long uid;
 		public String username;
-		public Boolean
-				arrkom, bedkom, root, vevkom, admin, jentekom, redaksjonen;
+		public Boolean arrkom, bedkom, root, vevkom, admin, jentekom, redaksjonen;
 		public Integer graduationYear;
 		public Character gender;
 
@@ -73,23 +67,22 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 	}
 
 
-	//FIXME: Really? A Form object named userForm and a UserForm object named form... get yo shit together, man
 	public static User getUserFromForm() {
-		Form<UserForm> userForm = form(UserForm.class);
-		UserForm form = userForm.bindFromRequest().get();
-		String error = form.doValidation();
+		Form<UserData> userForm = form(UserData.class);
+		UserData userData = userForm.bindFromRequest().get();
+		String error = userData.doValidation();
 		if (error != null) throw new Error(error);
 		User user = new User();
-		user.username = form.username;
-		user.graduationYear = form.graduationYear;
-		user.bedkom = form.bedkom != null;
-		user.arrkom = form.arrkom != null;
-		user.vevkom = form.vevkom != null;
-		user.jentekom = form.jentekom != null;
-		user.redaksjonen = form.redaksjonen != null;
-		user.admin = form.admin != null;
-		user.root = form.root != null;
-		user.gender = form.gender == null ? 'U' : form.gender;
+		user.username = userData.username;
+		user.graduationYear = userData.graduationYear;
+		user.bedkom = userData.bedkom != null;
+		user.arrkom = userData.arrkom != null;
+		user.vevkom = userData.vevkom != null;
+		user.jentekom = userData.jentekom != null;
+		user.redaksjonen = userData.redaksjonen != null;
+		user.admin = userData.admin != null;
+		user.root = userData.root != null;
+		user.gender = userData.gender == null ? 'U' : userData.gender;
 		return user;
 	}
 
