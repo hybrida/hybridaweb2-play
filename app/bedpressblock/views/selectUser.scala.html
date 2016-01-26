@@ -1,3 +1,4 @@
+@import renders.models.Renders
 @(event: Event)
 @pickbedpres(Renders.find.setMaxRows(10).where().eq("eventReference.bedpres", true).findList(), event.getId)
 <form action="@bedpressblock.routes.BedPresBlock.blockUser()" method="post">

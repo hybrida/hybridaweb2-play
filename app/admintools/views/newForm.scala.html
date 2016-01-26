@@ -1,0 +1,58 @@
+<div style="display: table-row">
+	<div style="display: table-cell"> Link </div>
+	<div style="display: table-cell"> Brukernavn </div>
+	<div style="display: table-cell"> Arrkom </div>
+	<div style="display: table-cell"> Jentekom </div>
+	<div style="display: table-cell"> Redaksjon </div>
+	<div style="display: table-cell"> Bedkom </div>
+	<div style="display: table-cell"> Root </div>
+	<div style="display: table-cell"> Vevkom </div>
+	<div style="display: table-cell"> Admin </div>
+	<div style="display: table-cell"> Kjønn </div>
+	<div style="display: table-cell"> Avgangsår </div>
+	<div style="display: table-cell"> </div>
+	<div style="display: table-cell"> </div>
+</div>
+<div style="display: table-row">
+	<div style="display: table-cell">
+	</div>
+	<div style="display: table-cell">
+		<input class="form-control" type="text" name="username" form="form_new" placeholder="Ny Bruker">
+	</div>
+	<div style="display: table-cell">
+		<input type="checkbox" name="arrkom" form="form_new">
+	</div>
+	<div style="display: table-cell">
+		<input type="checkbox" name="jentekom" form="form_new">
+	</div>
+	<div style="display: table-cell">
+		<input type="checkbox" name="redaksjonen" form="form_new">
+	</div>
+	<div style="display: table-cell">
+		<input type="checkbox" name="bedkom" form="form_new">
+	</div>
+	<div style="display: table-cell">
+		<input type="checkbox" name="root" form="form_new">
+	</div>
+	<div style="display: table-cell">
+		<input type="checkbox" name="vevkom" form="form_new">
+	</div>
+	<div style="display: table-cell">
+		<input type="checkbox" name="admin" form="form_new">
+	</div>
+	<div style="display: table-cell">
+		<select class="form-control" name="gender" form="form_new">
+			<option value="">Ikke satt</option>
+			<option value="M" selected>Mann</option>
+			<option value="F">Kvinne</option>
+		</select>
+	</div>
+	<div style="display: table-cell">
+		<input class="form-control" type="text" name="graduationYear" form="form_new" value="@(Calendar.getInstance.get(Calendar.YEAR) + 5)">
+	</div>
+	<div style="display: table-cell">
+		<input class="btn btn-primary" type="submit" form="form_new">
+	</div>
+	<div style="display: table-cell">
+	</div>
+</div>

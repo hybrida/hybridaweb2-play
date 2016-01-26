@@ -377,11 +377,11 @@ public class Event extends Model implements Revisable<Event> {
 	public int getUserBlocked(User user) {
 		Event blockedFrom = user.getBlockedEvent();
 		if (blockedFrom == null) return -1;
-		List<Renders> blockedFromThese = Renders.find.setMaxRows(4).where().eq(
+		List<renders.models.Renders> blockedFromThese = renders.models.Renders.find.setMaxRows(4).where().eq(
 			"eventReference.bedpres", true).where().gt("eventReference.eventId", blockedFrom.getId()).orderBy(
 				"eventReference.eventHappens ASC").findList();
 		int counter = 3;
-		for (Renders renders : blockedFromThese) {
+		for (renders.models.Renders renders : blockedFromThese) {
 			Event blocky = renders.eventReference;
 			if (blocky.getId() == this.getId())
 				return counter;

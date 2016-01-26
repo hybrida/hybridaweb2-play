@@ -115,7 +115,9 @@ public class Article extends Model implements Revisable<Article> {
 
 	public String getImagePath() { return imagePath; }
 
-	public void setDefaultImage() { imagePath = "/assets/images/logo_big.png"; }
+	public void setDefaultImage() { imagePath = getDefaultImage(); }
+
+	public String getDefaultImage() { return "/assets/images/logo_big.png"; }
 
 	public Long getId() { return articleId;}
 

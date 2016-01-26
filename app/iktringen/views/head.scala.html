@@ -2,35 +2,40 @@
 <script type="text/javascript" src="@routes.Assets.at("onepage-scroll/jquery.onepage-scroll.min.js")"></script>
 <link rel="stylesheet" type="text/css" href="@routes.Assets.at("onepage-scroll/onepage-scroll.css")">
 <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/iktringen.css")">
-<style type="text/css">
-    .content {
-        height: 100vh;
-    }
-    .pages > section {
-        min-height: 100vh;
-        background: #fff;
-    }
-
-    #sidebar li a {
-        outline: 0;
-    }
-</style>
 <script type="text/javascript">
     $(document).ready(function(){
-        $("#sidebar").find("a[href*='#1']").focus();
-
-        $("#sidebar").find("li a").click(function(){
-            $(".pages").moveTo(parseInt($(this).attr("href").substr(1)));
+        var openNav = $();
+        var sidebar = $("#sidebar");
+        sidebar.find(".sub-nav").each(function(){
+            $(this).data("height", $(this).height());
+            $(this).height(0);
         });
+        sidebar.find(".page-link[href*='#1']").first().focus();
 
-        $(".pages").onepage_scroll({
+        var pages = $(".pages");
+        pages.onepage_scroll({
                 sectionContainer: ".pages > section",
                 pagination: true,
                 loop: false,
                 updateURL: true,
                 beforeMove: function(index) {
-                    $("#sidebar").find("a[href*='#" + index + "']").focus();
+                    var link = sidebar.find(".page-link[href*='#" + index + "']").first();
+                    link.focus();
+                    var nav = link.next(".sub-nav");
+                    if(!openNav.is(nav)) {
+                        if(openNav.size() > 0) {
+                            openNav.animate({"height": 0});
+                            openNav = $();
+                        }if(nav.size() > 0) {
+                            nav.animate({"height": nav.data("height")});
+                            openNav = nav;
+                        }
+                    }
                 }
         });
+        sidebar.find(".page-link").click(function(){
+            pages.moveTo(parseInt($(this).attr("href").substr(1)));
+        });
+
     });
 </script>

@@ -90,7 +90,11 @@ create table gallery_image (
   image_id                  bigint auto_increment not null,
   description               varchar(255),
   image_url                 varchar(255),
+  thumb_url                 varchar(255),
   title                     varchar(255),
+  thumb_size                integer,
+  width                     integer,
+  height                    integer,
   uploaded_by_id            bigint,
   event_connected_event_id  bigint,
   date_uploaded             timestamp not null,
@@ -139,6 +143,7 @@ create table user (
   enrolled                  timestamp,
   date_of_birth             timestamp,
   block4from_this_event_event_id bigint,
+  attended_this_event_event_id bigint,
   last_login                timestamp,
   constraint ck_user_specialization check (specialization in ('NONE','GEOMATIKK','KONSTRUKSJON','MARIN','MASKIN','PETROLEUM','PRODUKSJONSLEDELSE','VARME_OG_STROMNING')),
   constraint uq_user_1 unique (username),
@@ -187,6 +192,8 @@ alter table renders add constraint fk_renders_eventReference_14 foreign key (eve
 create index ix_renders_eventReference_14 on renders (event_reference_event_id);
 alter table user add constraint fk_user_block4FromThisEvent_15 foreign key (block4from_this_event_event_id) references event (event_id) on delete restrict on update restrict;
 create index ix_user_block4FromThisEvent_15 on user (block4from_this_event_event_id);
+alter table user add constraint fk_user_attendedThisEvent_16 foreign key (attended_this_event_event_id) references event (event_id) on delete restrict on update restrict;
+create index ix_user_attendedThisEvent_16 on user (attended_this_event_event_id);
 
 
 

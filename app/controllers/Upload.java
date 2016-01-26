@@ -7,7 +7,11 @@ import play.mvc.Controller;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Result;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +42,9 @@ public class Upload extends Controller {
 	public static final int REQUIRE_IMAGE        = 1<<3;
 	public static final int REQUIRE_PDF          = 1<<4;
 	public static final int REQUIRE_DOCUMENT     = 1<<5;
+
+	public static final int THUMB_SIZE = 256; // 2^8
+	public static final String THUMB_URL_END = "_thumb";
 
 	public static File getFileFromRequest(String inputName) throws NoFileInRequest {
 		MultipartFormData formData = request().body().asMultipartFormData();
@@ -104,6 +111,56 @@ public class Upload extends Controller {
 		}
 	}
 
+	public static String[] uploadAndMakeThumb(String inputName) throws Unauthorized, NoFileInRequest, ServerError, IncorrectFileType {
+		// Save original image
+		String imagePath = upload(inputName, LOCAL_PATH);
+		if (imagePath == null) throw new ServerError();
+        File tempFile = new File(imagePath);
+
+		// Load file
+		BufferedImage tempThumb = null;
+		try {
+			tempThumb = ImageIO.read(tempFile);
+		} catch (IOException e) {
+			throw new IncorrectFileType();
+		}
+		if (tempThumb == null) throw new ServerError();
+
+		// Center and make 1:1 aspect ratio
+		int width = tempThumb.getWidth();
+		int height = tempThumb.getHeight();
+		int smallestBound = height > width ? width : height;
+		int halfDeltaWidth = (width - smallestBound)/2;
+		int halfDeltaHeight = (height - smallestBound)/2;
+		tempThumb = tempThumb.getSubimage(halfDeltaWidth, halfDeltaHeight, smallestBound, smallestBound);
+
+		// Shrink
+		Image tempThumbImg = tempThumb.getScaledInstance(THUMB_SIZE, THUMB_SIZE, BufferedImage.SCALE_SMOOTH);
+		tempThumb = new BufferedImage(THUMB_SIZE, THUMB_SIZE, tempThumb.getType());
+		tempThumb.getGraphics().drawImage(tempThumbImg, 0, 0 , null);
+
+		// Write
+		int fileFormatStartIndex = imagePath.lastIndexOf('.');
+		int rootURLLength = imagePath.lastIndexOf('/');
+		if (fileFormatStartIndex == -1 || rootURLLength > fileFormatStartIndex) throw new IncorrectFileType();
+		String filename = imagePath.substring(fileFormatStartIndex + 1);
+		String thumbPathWithoutFormat = imagePath.substring(0, fileFormatStartIndex) + Upload.THUMB_URL_END;
+
+		File newFile = new File(thumbPathWithoutFormat + "." + filename);
+		for (int i = 1; newFile.exists(); i++) newFile = new File(thumbPathWithoutFormat + " (" + i + ")" + "." + filename);
+		newFile.getParentFile().mkdirs();
+
+		try {
+			if (!ImageIO.write(tempThumb, filename, newFile)) throw new ServerError();
+		} catch (IOException e) {
+			throw new ServerError();
+		}
+		return new String[]{
+                controllers.routes.Assets.at(tempFile.getPath().substring(7)).url(),  //TODO: HACKY!!
+                controllers.routes.Assets.at(newFile.getPath().substring(7)).url(),
+                ""+width, ""+height}; //sorry, not sorry
+	}
+
 	public static String uploadTo(String inputName, String uploadFolder) throws Unauthorized, NoFileInRequest, ServerError {
 		try {
 			return uploadTo(inputName, uploadFolder, 0);
@@ -132,7 +189,6 @@ public class Upload extends Controller {
 			return null;
 		}
 	}
-
 
 	public static Result ajaxUploadTo(String uploadFolder, int flags) {
 		try {

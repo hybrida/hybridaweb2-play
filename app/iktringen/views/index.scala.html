@@ -1,120 +1,122 @@
-<div class="column1" style="right: 0;">
-        <!--Nav Bar -->
-
-    <nav class="bs-docs-sidebar">
-        <ul id="sidebar" class="nav nav-stacked" style="position: absolute; top: 64px">
-            <li>
-                <a href="#1">IKT Ringens Visjon</a>
-                <ul class="nav nav-stacked">
-                    </ul>
-            </li>
-            <li>
-                <a href="#2">Hva er IKT-Ringen?</a>
-                <ul class="nav nav-stacked">
-                    </ul>
-            </li>
-            <li>
-                <a href="#3">Medlemmer</a>
-                <ul class="nav nav-stacked">
-                    <li><a href="#vevkom">VevKom</a></li>
-                    <li><a href="#bedkom">BedKom</a></li>
-                    <li><a class="link" href="@arrkom.routes.ArrKom.index()">ArrKom</a></li>
-                    <li><a class="link" href="@jentekom.routes.JenteKom.index()">JenteKom</a></li>
-                    <li><a href="#Redaksjonen">Redaksjonen</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#4">Update</a>
-            </li>
-            <li>
-                <a href="#5">Informasjon til nye studenter</a>
-            </li>
-            <li>
-                <a href="#6">Griffens Orden</a>
-            </li>
-            <li>
-                <a href="#7">Kontaktinformasjon</a>
-                <ul class="nav nav-stacked">
-                    <li><a href="#adresse">Adresse</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
-
-</div> <!-- right-thix  g -->
+<nav class="transparent-box" id="sidebar">
+    <ul class="nav nav-pills nav-stacked">
+        <li><a class="page-link" href="#1">IKT-Ringen</a></li>
+        <li><a class="page-link" href="#2">Hva er I&IKT Ringen?:</a></li>
+        <li>
+            <a class="page-link" href="#3">Medlemmer</a>
+            <ul class="nav nav-pills nav-stacked sub-nav">
+                <li><a href="http://www.kbedesign.com/" target="_blank">Aker Solutions KBe Design</a></li>
+                <li><a href="http://www.focus.no/" target="_blank"> Focus Software AS </a></li>
+                <li><a href="http://www.nkgs.no/" target="_blank"> Norkart AS </a></li>
+                <li><a href="http://www.anko.no/" target="_blank"> Anko AS </a></li>
+            </ul>
+        </li>
+        <li><a class="page-link" href="#4">Promotering</a></li>
+        <li>
+            <a class="page-link" href="#5">I&IKT Studentene</a>
+            <ul class="nav nav-pills nav-stacked sub-nav">
+                <li><a href="https://www.ntnu.no/studier/mting/oppbygning/geomatikk" target="_blank">Geomatikk</a></li>
+                <li><a href="https://www.ntnu.no/studier/mting/oppbygning/konstruksjonsteknikk" target="_blank">IKT og konstruksjonsteknikk</a></li>
+                <li><a href="https://www.ntnu.no/studier/mting/oppbygning/marinteknikk" target="_blank">IKT og Marin teknikk</a></li>
+                <li><a href="https://www.ntnu.no/studier/mting/oppbygning/petroleumsfag" target="_blank">IKT og Petroleumsfag</a></li>
+                <li><a href="https://www.ntnu.no/studier/mting/oppbygning/produktprosess" target="_blank">IKT, produktutvikling og materialer</a></li>
+                <li><a href="http://www.ntnu.no/studier/mting/ikt-produksjonsledelse" target="_blank">IKT og produksjonsledelse</a></li>
+            </ul>
+        </li>
+        <li><a class="page-link" href="#6">Bedriftens bidrag</a></li>
+        <li>
+            <a class="page-link" href="#7">Kontaktinformasjon</a>
+            <ul class="nav nav-pills nav-stacked sub-nav">
+            </ul>
+        </li>
+    </ul>
+</nav>
 
 <div class="pages">
-    <section id="IKT_Ringens_visjon">
-        <a href="#" name="IKT_Ringens_visjon"></a>
-        <div id="hybb">
+    <section id="IKT-Ringen">
+        <a href="#" name="IKT-Ringen"></a>
+        <div id="infofoiler">
 
-            <div id="Ringen Header" >
-                <section id="ringenlogo">
-                    <img src="../assets/images/IKT_ringen_banner.png"/>
-                    <h2><b>"Vi sikrer kvaliteten for næringslivet"</b></h2>
-
-                    <p>I&IKT-ringen skal gjøre studiet I&IKT bedre og sørge for en fremdeles sterk rekruttering av høy kvalitet til studiet og næringslivet. Dette gjøres ved å hindre frafall og ved å holde karaktersnittet for opptaksstudenter på et høyt nivå.
-                        Med bakgrunn i finansiering fra I&IKT-ringen og målrettede handlinger fra styret i samarbeidet med innspill fra medlemmene skal dette bli en realitet.
-                        Medlemsbedriftene får en eksklusiv mulighet til å promotere seg ovenfor, og rekruttere studenter med bakgrunn fra tradisjonell ingeniørvitenskap med kunnskaper innenfor IKT.
-                    </p>
-                </section>
+            <div id="IKT-Banner" >
+                <img src="@controllers.routes.Assets.at("/images/IKT_ringen_banner.png")" /
             </div>
+            <p id="overskrift"
+            <b>"Vi sikrer kvaliteten for næringslivet"</b>
+            </p>
 
+            <p id="ringeninfo">
+                <b>I&IKT-ringen</b> skal gjøre studiet I&IKT bedre og sørge for en fremdeles sterk rekruttering av høy kvalitet til studiet og næringslivet.
+                Dette gjøres ved å hindre frafall og ved å holde karaktersnittet for opptaksstudenter på et høyt nivå.
+                Med bakgrunn i finansiering fra I&IKT-ringen og målrettede handlinger fra styret i samarbeidet med
+                innspill fra medlemmene skal dette bli en realitet.
+                Medlemsbedriftene får en eksklusiv mulighet til å promotere seg ovenfor,
+                og rekruttere studenter med bakgrunn fra tradisjonell ingeniørvitenskap med kunnskaper innenfor IKT.
+            </p>
 
         </div>
     </section>
-    <section id="omIKTRingen">
-        <div id="omIKTRingen">
-            <a href="#" name="omIKTRingen"></a>
+
+    <section id="omIKT-Ringen">
+        <div id="omikt">
+            <a href="#" name="omIKT-Ringen"></a>
             <a class="link" href="@omiktringen.routes.omIKTRingen.index()">
-                <div class="bildetekst" >Hva er IKT-ringen?</div>
-
-            </a>
-
-        </div>
-    </section>
-    <section id="Medlemmer">
-        <div id="Medlemmer">
-            <a href="#" name="Medlemmer"></a>
-                <h2 class="bildetekst"> Medlemmer i IKT-Ringen </h2>
-                <p>Vevkom <br>BedKom <br>ArrKom<br>Jentekom<br>Redaksjonen</p>
-
-
-            </a>
-
-        </div>
-    </section>
-    <section id="Update">
-        <div id="update">
-            <a href="#" name="Update"></a>
-            <a class="link" href="@update.routes.Update.index()">
-                <div class="bildetekst">Update<sup>k</sup></div>
+                <div class="bildetekst" >Om IKT-Ringen</div>
             </a>
         </div>
     </section>
-    <section id="Student">
-        <div id="student">
-            <a href="#" name="Student"></a>
-            <a class="link" href="@newstudent.routes.NewStudent.index()">
 
-                <div class="bildetekst">
+    <section id="Medlemmene">
+        <div id="Medlemmene">
+            <a href="#" name="Medlemmene"></a>
+                <h2 class="bildetekst"> Medlemmene i IKT-Ringen </h2>
+            </a>
+        </div>
+    </section>
+
+    <section id="Promotering">
+        <div id="promotering">
+            <a href="#" name="Promotering"></a>
+                <div class="bildetekst">Promoteringsmetoder</div>
+            </div>
+    </section>
+
+    <section id="Studentene">
+        <div id="studentene">
+            <a href="#" name="Studentene"></a>
+
+                <div class="studentenetext">
                     <div>
-                    Ny Student?
+                    Tekst Her: litt om hvordan studeet er oppbygd? (kan hente fra https://www.ntnu.no/studier/mting/oppbygning)
                     </div>
                 </div>
             </a>
         </div>
     </section>
-    <section id="GriffensOrden">
-        <div id="griff">
-            <a href="#" name="GriffensOrden"></a>
-            <a class="link" href="@griffensorden.routes.GriffensOrden.index()">
-                <div class="bildetekst">
-                    <div>Griffens Orden</div>
-                </div>
-            </a>
+
+    <section id="BedriftensBidrag">
+        <div id="infofoiler">
+            <p id="bedbidragoverskrift"
+            <b>Bedriftens bidrag</b>
+            </p>
+
+            <p id="bedbidraginfo">
+               Bedriften bidrar med en årlig medlemskapsavgift gjennom sitt medlemskap i I&IKT-ringen.
+                Styret i I&IKT-ringen ivaretar inntektene fra avgiften og disse pengene brukes til å forbedre
+                studieprogrammet I&IKT. Denne medlemskapsavgiften avhenger selvsagt av bedriftens størrelse.
+                En oversikt over bidraget fra hver størrelsesgruppe finnes i tabellen under.
+            </p>
+
+            <div id="medlemsprisbilde" >
+                <img src="@controllers.routes.Assets.at("/images/medlemspris.png")" /
+            </div>
+
+            <p id="ringeninfo">
+                 Et samarbeid gjennom I&IKT-ringen vil være avtalefestet gjennom en
+                samarbeidsavtale som oppsummerer forpliktelsene til alle parter i samarbeidet.
+            </p>
         </div>
     </section>
+
     <section id="Kontaktinfo">
         <div id="kontakinfo">
             <a href="#" name="Kontaktinfo"></a>

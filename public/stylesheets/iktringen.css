@@ -1,53 +1,3 @@
-/* all links */
-.bs-docs-sidebar .nav>li>a {
-    /*add transparent border */
-    border-left: 2px solid transparent;
-    color: #555;
-}
-/* active & hover links */
-.bs-docs-sidebar .nav>.active>a,
-.bs-docs-sidebar .nav>li>a:hover,
-.bs-docs-sidebar .nav>li>a:focus {
-    color: #563d7c;
-    text-decoration: none;
-    background-color: transparent;
-    border-left: 2px solid #563d7c;
-}
-/* all active links */
-.bs-docs-sidebar .nav>.active>a,
-.bs-docs-sidebar .nav>.active:hover>a,
-.bs-docs-sidebar .nav>.active:focus>a {
-    font-weight: 700;
-}
-/* nested active links */
-.bs-docs-sidebar .nav .nav>.active>a,
-.bs-docs-sidebar .nav .nav>.active:hover>a,
-.bs-docs-sidebar .nav .nav>.active:focus>a {
-    font-weight: 500;
-}
-/* hide all (inactive) nested list */
-.bs-docs-sidebar .nav ul.nav {
-    display: none;
-}
-/* show active nested list */
-.bs-docs-sidebar .nav>.active>ul.nav {
-    display: block;
-}
-
-.bs-docs-sidebar .nav>.active>a {
-    color: #563d7c;
-}
-.link {
-    height: 100%;
-}
-
-.link:link {
-    background-color:transparent;
-    text-decoration:none;
-}
-.link:visited {
-    background-color:transparent;
-}
 .bildetekst {
     color:#212121;
     padding-top: 6em;
@@ -69,16 +19,7 @@
     text-decoration: none;
 
 }
-.column1  {
-    display: none;
-    z-index:2;
-    width: 15%;
-    height:100%;
-    position: fixed;
-    color: black;
-    background-color: rgba(75,125,185,0.6);
-    border-radius: 15px;
-}
+
 .column2 {
     z-index:1;
     overflow: auto;
@@ -89,17 +30,17 @@
     background-color: #ffffff;
 }
 
-#omIKTRingen {
+#omikt {
     overflow: auto;
     margin: 0 auto;
     width: 100%;
     height: 100vh;
-    background-image: url(../images/rosa_bakgrunn.jpg);
+    background-image: url(../images/styret2.jpg);
     background-repeat:no-repeat;
     background-size:cover;
     background-position:center;
 }
-#update {
+#promotering {
     width:100%;
     height:100vh;
 }
@@ -109,113 +50,85 @@
     height: 100vh;
 }
 
-#hybb {
+#infofoiler {
     width:100%;
     height:100vh;
+    background-color: transparent;
+}
+#IKT-Banner {
+    position: fixed;
+    padding-top: 3em;
+    width: 85%;
+    text-align: center;
+    background-color: #ffffff;
 }
 
-#IKT_Ringens_visjon {
+#overskrift {
     color:#212121;
-    padding: 5em 2.5em 1em 2.5em;
+    padding: 1em 2.5em 0em 2.5em;
+    text-align: center;
+    font-size: 35px;
+    line-height: 1.5;
+    width: 100%;
+}
+
+#ringeninfo {
+    color:#212121;
+    padding: 1em 2.5em 1em 2.5em;
+    text-align: center;
+    font-size: 22px;
+    line-height: 1.5;
+    width: 100%;
+}
+
+#bedbidragoverskrift {
+    color:#212121;
+    padding: 1em 2.5em 0em 2.5em;
+    text-align: center;
+    font-size: 35px;
+    line-height: 1.5;
+    width: 85%;
+}
+
+#bedbidraginfo {
+    color:#212121;
+    padding: 1em 2.5em 1em 2.5em;
     text-align: center;
     font-size: 22px;
     line-height: 1.5;
     width: 85%;
 }
 
-#griff {
-    height:100vh;
-    width:100%;
-    background-image:url(../images/griffens_orden.jpg);
-    background-size: cover;
-    background-position: center;
-}
-
-#student {
-    height:100vh;
-    width:100%;
-    background-image:url(../images/ny_student.jpg);
-    background-size: cover;
-    background-position: center;
-}
-
-#grifflogo {
-    padding-top: 4m;
-    height: 85%;
-    width: 100%;
+#medlemsprisbilde {
+    position: fixed;
+    padding-top: 1em;
+    width: 85%;
     text-align: center;
     background-color: #ffffff;
-    background-attachment: fixed;
-}
-
-#ringenlogo img {
-    height:175px;
-    width:1500px;
-
 
 }
+
+#studentene {
+    height:100vh;
+    width:100%;
+    background-image:url(../images/nys.png);
+    background-size: cover;
+    background-position: center;
+}
+
+#studentenetext {
+    color:#212121;
+    padding: 1em 2.5em 1em 2.5em;
+    text-align: center;
+    font-size: 22px;
+    line-height: 1.5;
+    width: 100%;
+}
+
+
 
 #transition img:hover {
     background-position: -100% 100%;
-}
-
-
-#sidebar.affix {
-    top: 20px;
-}
-/* sidebar */
-.bs-docs-sidebar {
-    padding-left: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-/* all links */
-.bs-docs-sidebar .nav>li>a {
-    color: #555;
-    border-left: 2px solid transparent;
-    padding: 4px 20px;
-    font-size: 13px;
-    font-weight: 400;
-}
-
-/* nested links */
-.bs-docs-sidebar .nav .nav>li>a {
-    padding-top: 1px;
-    padding-bottom: 1px;
-    padding-left: 30px;
-    font-size: 12px;
-}
-
-/* active & hover links */
-.bs-docs-sidebar .nav>.active>a,
-.bs-docs-sidebar .nav>li>a:hover,
-.bs-docs-sidebar .nav>li>a:focus {
-    color: darkblue;
-    text-decoration: none;
-    background-color: transparent;
-    border-left-color: darkblue;
-}
-/* all active links */
-.bs-docs-sidebar .nav>.active>a,
-.bs-docs-sidebar .nav>.active:hover>a,
-.bs-docs-sidebar .nav>.active:focus>a {
-    font-weight: 700;
-}
-/* nested active links */
-.bs-docs-sidebar .nav .nav>.active>a,
-.bs-docs-sidebar .nav .nav>.active:hover>a,
-.bs-docs-sidebar .nav .nav>.active:focus>a {
-    font-weight: 500;
-}
-
-/* hide inactive nested list */
-.bs-docs-sidebar .nav ul.nav {
-    display: none;
-}
-/* show active nested list */
-.bs-docs-sidebar .nav>.active>ul.nav {
-    display: block;
 }
 
 .onepage-pagination,
@@ -237,7 +150,55 @@
 .onepage-pagination li a.active:before {left: 6px;}
 
 
+.wrap {
+    height: 100vh;
+    padding-top: 50px;
+}
+
+.content {
+    height: 100%;
+}
+
+.pages > section {
+    min-height: 100vh;
+    background: #fff;
+}
+
+#sidebar  {
+    display: none;
+    z-index:2;
+    position: fixed;
+    top: 50px;
+    right: -10px;
+    max-width: 170px;
+    padding: 8px 5px;
+    box-shadow: rgba(0, 0, 0, 1) 0 0 8px 0;
+}
+
+#sidebar li a {
+    outline: 0;
+    padding-right: 20px;
+}
+
+#sidebar .sub-nav {
+    overflow: hidden;
+}
+
+#sidebar .sub-nav li a {
+    padding: 5px 30px;
+    font-size: 0.9em;
+}
+
 @media (min-width: 768px) {
     .onepage-pagination{display: none;}
-    .column1{display: block;}
+    #sidebar{display: block;}
 }
+
+@media (min-width: 992px) {
+    #sidebar{top: 80px; right: 15px; max-width: 180px; padding: 10px; box-shadow:rgba(0,0,0,0.4) -5px 5px 25px 0;}
+}
+
+@media (min-width: 1200px) {
+    #sidebar{max-width: 16%; padding: 15px;}
+}
+
