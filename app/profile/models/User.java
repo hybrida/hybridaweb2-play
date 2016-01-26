@@ -134,7 +134,7 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 	public Boolean             redaksjonen = false;// Access to redkasjonen functionality.
 	@Column(name = "admin", columnDefinition = "boolean default false")
 	public Boolean             admin = false;      // For control over the entire page. Check your privilege
-	@Column(name = "root", columnDefinition = "boolean default false")
+	@Column(name = "root", columnDefinition = "boolean default false", unique = true)
 	public Boolean             root = false;       // Powers too great for mere mortals.
 	@Column(name = "gender", columnDefinition = "char(1) default 'U'")
 	public Character           gender = 'U';     // For specific events.
