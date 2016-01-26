@@ -48,10 +48,15 @@ public class Renders extends Controller {
 			String key = input.get().term;
 			key = "%" + key + "%";
 
+			Integer page = (new models.HttpRequestData()).getInt("page");
+			if (page == null) page = 0;
+
 			String head = "eventReference.articleRef.",
 					art = "articleReference.";
 
-			List<User> renderableUsers = User.find.setMaxRows(10).where().disjunction()
+			int pagesize = 10;
+
+			List<User> renderableUsers = User.find.where().disjunction()
 					.like("username", key)
 					.like("first_name", key)
 					.like("last_name", key)
@@ -59,9 +64,9 @@ public class Renders extends Controller {
 					.like("title", key)
 					.like("email", key)
 					.like("phone", key)
-					.endJunction().findList();
+					.endJunction().findPagingList(pagesize).getPage(page).getList();
 
-			List<renders.models.Renders> renderableRenders = renders.models.Renders.find.setMaxRows(10 - renderableUsers.size()).where(
+			List<renders.models.Renders> renderableRenders = renders.models.Renders.find.where(
 			).disjunction()
 					.like(art + "ingress", key)
 					.like(art + "title", key)
@@ -70,7 +75,7 @@ public class Renders extends Controller {
 					.like(head + "title", key)
 					.like(head + "text", key)
 					.endJunction()
-					.orderBy().desc("renderId").findList();
+					.orderBy().desc("renderId").findPagingList(pagesize).getPage(page).getList();
 
 			Collection<? extends Renderable> renderables = CollectionUtils.union(renderableUsers, renderableRenders);
 
