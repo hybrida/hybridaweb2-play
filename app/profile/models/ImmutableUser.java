@@ -41,7 +41,6 @@ public interface ImmutableUser {
 	boolean isRoot();
 	boolean hasAccess(boolean inAll, User.Access... accessList);
 	boolean isDefault();
-	boolean canCreateNewArticle();
 	int calculateClass();
 	String toString();
 

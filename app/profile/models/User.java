@@ -10,6 +10,7 @@ import play.db.ebean.Model;
 import play.mvc.Call;
 import play.twirl.api.Html;
 import renders.models.Renderable;
+import util.Oolean;
 import util.Validator;
 
 import javax.persistence.*;
@@ -81,7 +82,7 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 		user.jentekom = userData.jentekom != null;
 		user.redaksjonen = userData.redaksjonen != null;
 		user.admin = userData.admin != null;
-		user.root = userData.root != null;
+		if(userData.root) user.root = Oolean.TRUE;
 		user.gender = userData.gender == null ? 'U' : userData.gender;
 		return user;
 	}
@@ -118,7 +119,7 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 	public String      profileImageFileName;
 
 	// Privilege status
-	@Column(name = "student", columnDefinition = "boolean default false") //TODO: Seems unnecessary, maybe change to member? As in having paid membership fee
+	@Column(name = "student", columnDefinition = "boolean default false") //TODO: Seems unnecessary (all users should be student), maybe change to member? As in having paid membership fee
 	public Boolean             student = false;    // No special privileges except for file ajaxUpload.
 	@Column(name = "styret", columnDefinition = "boolean default false")
 	public Boolean             styret = false;     // Access to styret functionality.
@@ -134,8 +135,9 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 	public Boolean             redaksjonen = false;// Access to redkasjonen functionality.
 	@Column(name = "admin", columnDefinition = "boolean default false")
 	public Boolean             admin = false;      // For control over the entire page. Check your privilege
-	@Column(name = "root", columnDefinition = "boolean default false", unique = true)
-	public Boolean             root = false;       // Powers too great for mere mortals.
+	@Enumerated(EnumType.STRING)
+	@Column(name = "root", unique = true)
+	public Oolean							 root = null;       // Powers too great for mere mortals.
 	@Column(name = "gender", columnDefinition = "char(1) default 'U'")
 	public Character           gender = 'U';     // For specific events.
 	@Column(name = "enrolled")
@@ -180,14 +182,6 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 
 	public void setLastLoginTimeNow() {
 		lastLogin = new Timestamp(new java.util.Date(System.currentTimeMillis()).getTime());
-	}
-
-	private boolean thisOrFalse(Boolean object) {
-		return (object != null ? object : false);
-	}
-
-	public boolean canCreateNewArticle() {
-		return thisOrFalse(bedkom) || thisOrFalse(admin) || thisOrFalse(root);
 	}
 
 	// Getters and Setter (and some hassers)
@@ -406,11 +400,11 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 	}
 
 	public boolean isAdmin() {
-		return admin;
+		return admin||isRoot();
 	}
 
 	public boolean isRoot() {
-		return thisOrFalse(root);
+		return root == Oolean.TRUE;
 	}
 
 	public boolean isFirstUser() {
@@ -559,5 +553,9 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 
 	public static User findByUsername(String username) {
 		return find.where().eq("username", username).findUnique();
+	}
+
+	public boolean canCreateNewArticle() {
+		return hasAccess(false, Access.ADMIN, Access.STYRET, Access.ARRKOM);
 	}
 }

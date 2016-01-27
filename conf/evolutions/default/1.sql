@@ -138,7 +138,7 @@ create table user (
   jentekom                  boolean default false,
   redaksjonen               boolean default false,
   admin                     boolean default false,
-  root                      boolean default false,
+  root                      varchar(4),
   gender                    char(1) default 'U',
   enrolled                  timestamp,
   date_of_birth             timestamp,
@@ -146,6 +146,7 @@ create table user (
   attended_this_event_event_id bigint,
   last_login                timestamp,
   constraint ck_user_specialization check (specialization in ('NONE','GEOMATIKK','KONSTRUKSJON','MARIN','MASKIN','PETROLEUM','PRODUKSJONSLEDELSE','VARME_OG_STROMNING')),
+  constraint ck_user_root check (root in ('TRUE')),
   constraint uq_user_root unique (root),
   constraint uq_user_1 unique (username),
   constraint pk_user primary key (id))
