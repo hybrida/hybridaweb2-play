@@ -1,0 +1,26 @@
+@import voting.Candidate
+@(candidates: List[Candidate])
+<div class="container white-box">
+    <h1>Resultat</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Navn</th>
+                <th>Antall</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for( candidate <- candidates) {
+                <tr>
+                    <th>@candidate.name</th>
+                    <th>@candidate.votes</th>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <form method="post" action="@voting.routes.VoteController.newVoting()" id="form">
+        <input type="text" name="option1" /><br/>
+
+        <input type="submit" value="Start" />
+    </form>
+</div>

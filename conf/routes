@@ -131,6 +131,11 @@ GET           /api/quiz/seasons                        quiz.QuizController.quizS
 PUT           /api/quiz/season                         quiz.QuizController.putSeason()
 DELETE        /api/quiz/season/:id                     quiz.QuizController.deleteSeasonById(id: Long)
 
+# Voting
+GET           /stemming                                voting.VoteController.index()
+POST          /stemming                                voting.VoteController.attemptVote()
+GET           /stemming/oversikt                       voting.VoteController.overview()
+POST          /stemming/oversikt                       voting.VoteController.newVoting()
 
 
 # TEST

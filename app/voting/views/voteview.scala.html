@@ -1,0 +1,12 @@
+@(options: List[String])
+<div class="container white-box">
+    <h1>Stemmingsgreie</h1>
+    @helper.form(action = voting.routes.VoteController.attemptVote()) {
+        <select name="selected">
+        @for( option <- options) {
+            <option>@option</option>
+        }
+        </select>
+        <button >stem</button>
+    }
+</div>
