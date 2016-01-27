@@ -1,30 +1,37 @@
 @import profile.models.User
-@(user: User, showTitles: Boolean, uid: Long)
 @import util._
+@(user: User, showTitles: Boolean, uid: Long, rootAccess: Boolean)
 @if(showTitles){<hr>
 <div style="display: table-row">
+    <div style="display: table-cell"> Id </div>
 	<div style="display: table-cell"> Link </div>
-	<div style="display: table-cell"> Brukernavn </div>
+@*	<div style="display: table-cell"> Brukernavn </div> *@
 	<div style="display: table-cell"> Arrkom </div>
 	<div style="display: table-cell"> Jentekom </div>
 	<div style="display: table-cell"> Redaksjon </div>
 	<div style="display: table-cell"> Bedkom </div>
-	<div style="display: table-cell"> Root </div>
 	<div style="display: table-cell"> Vevkom </div>
-	<div style="display: table-cell"> Admin </div>
-	<div style="display: table-cell"> Kjønn </div>
+    @if(rootAccess) {
+        <div style="display: table-cell"> Admin </div>
+    }
+    <div style="display: table-cell"> Kjønn </div>
 	<div style="display: table-cell"> Avgangsår </div>
 	<div style="display: table-cell"> </div>
-	<div style="display: table-cell"> </div>
+    @if(rootAccess) {
+        <div style="display: table-cell"> </div>
+    }
 </div>
 }
 <div style="display: table-row">
+    <div style="display: table-cell">
+        @uid
+    </div>
 	<div style="display: table-cell">
-		<a href="@profile.routes.Profile.index(user.getUsername)">@uid</a>
+		<a href="@profile.routes.Profile.index(user.getUsername)">@user.getUsername</a>
 	</div>
-	<div style="display: table-cell">
+@*	<div style="display: table-cell">
 		<input class="form-control" type="text" name="username" form="form_@uid" value="@user.getUsername">
-	</div>
+	</div> *@
 	<div style="display: table-cell">
 		<input type="checkbox" name="arrkom" form="form_@uid" @TextUtil.bool2checked(user.isInArrkom)>
 	</div>
@@ -38,14 +45,13 @@
 		<input type="checkbox" name="bedkom" form="form_@uid" @TextUtil.bool2checked(user.isInBedkom)>
 	</div>
 	<div style="display: table-cell">
-		<input type="checkbox" name="root" form="form_@uid" @TextUtil.bool2checked(user.isRoot)>
-	</div>
-	<div style="display: table-cell">
 		<input type="checkbox" name="vevkom" form="form_@uid" @TextUtil.bool2checked(user.isInVevkom)>
 	</div>
-	<div style="display: table-cell">
-		<input type="checkbox" name="admin" form="form_@uid" @TextUtil.bool2checked(user.isAdmin)>
-	</div>
+    @if(rootAccess){
+        <div style="display: table-cell">
+            <input type="checkbox" name="admin" form="form_@uid" @TextUtil.bool2checked(user.isAdmin)>
+        </div>
+    }
 	<div style="display: table-cell">
 		<select class="form-control" name="gender" form="form_@uid">
 			<option value="U" @TextUtil.bool2selected(user.isUnknownGender)>Ikke satt</option>
@@ -59,9 +65,11 @@
 	<div style="display: table-cell">
 		<input class="btn btn-primary" type="submit" form="form_@uid">
 	</div>
-	<div style="display: table-cell">
-		<button class="btn btn-danger" type="submit" name="delete" form="form_@uid">
-			<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-		</button>
-	</div>
+    @if(rootAccess) {
+        <div style="display: table-cell">
+            <button class="btn btn-danger" type="submit" name="delete" form="form_@uid">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </button>
+        </div>
+    }
 </div>

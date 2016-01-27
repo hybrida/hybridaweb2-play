@@ -1,0 +1,33 @@
+@(loggedIn: Boolean, user: profile.models.User)
+
+<form action="@admintools.routes.Admin.login" method="post" id="rootlogin"></form>
+<form action="@admintools.routes.Admin.logout" method="post" id="logout"></form>
+
+<h1>Administrasjonspanel</h1>
+<hr>
+<div>
+    @if(!loggedIn || !user.isRoot){
+        <span style="display: inline-block; width: 200px; margin-right: 5px;"><input autofocus name="adminpass" type="password" form="rootlogin" class="form-control"></span>
+        <input type="submit" value="Logg inn som rotbruker" form="rootlogin" class="btn btn-primary">
+    }else{
+        <span style="display: inline-block; width: 200px;"><input type="text" DISABLED class="form-control disabled"></span>
+        <input type="button" value="Logg inn som rotbruker" DISABLED class="btn btn-primary disabled">
+    }
+    |
+    @if(loggedIn){
+        <input type="submit" value="Logg ut" form="logout" class="btn btn-primary">
+    }else{
+        <input type="button" value="Logg ut" DISABLED class="btn btn-primary disabled">
+    }
+</div>
+@if(loggedIn && user.isAdmin){
+    <hr>
+    <div>
+        <a href="@admintools.routes.Admin.allUsers" class="btn btn-primary">Brukeradministrasjon</a>
+        @if(user.isRoot) {
+            <a href="@admintools.routes.Admin.bulkUsersForm" class="btn btn-primary">Legg til brukere fra csv</a>
+        }else{
+            <input type="button" value="Legg til brukere fra csv" DISABLED class="btn btn-primary disabled">
+        }
+    </div>
+}

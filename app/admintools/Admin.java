@@ -26,7 +26,9 @@ import admintools.models.RingNumber;
 
 public class Admin extends Controller {
 	public static Result index() {
-		return ok(layoutBoxPage.render("Admin", admintools.views.html.loginForm.render()));
+		Boolean loggedIn = models.LoginState.isValidlyLoggedIn();
+		User loginuser = models.LoginState.getUser();
+		return ok(layoutBoxPage.render("Admin", admintools.views.html.index.render(loggedIn, loginuser)));
 	}
 
 	public static Result login() {
@@ -37,7 +39,7 @@ public class Admin extends Controller {
 			boolean correct = PasswordHash.validatePassword(password, hash);
 			if (correct) {
 				session("user", play.api.libs.Crypto.encryptAES("hybrid," + String.valueOf(System.currentTimeMillis())));
-				return redirect(admintools.routes.Admin.allUsers());
+				return redirect(admintools.routes.Admin.index());
 			} else {
 				return ok("password incorrect");
 			}
@@ -50,12 +52,12 @@ public class Admin extends Controller {
 
 	public static Result logout() {
 		session().remove("user");
-		return redirect(application.routes.Application.index());
+		return redirect(admintools.routes.Admin.index());
 	}
 
 	public static Result allUsers() {
 		User loginuser = models.LoginState.getUser();
-		if (!loginuser.isRoot()) {
+		if (!loginuser.isAdmin()) {
 			return redirect(application.routes.Application.showUnauthorizedAccess().url());
 		} else {
 			java.util.List<User> users = User.find.all();
@@ -72,17 +74,19 @@ public class Admin extends Controller {
 				formheads += formHead.render(
 					user.getId()).toString();
 			}
-			formheads += formHeadNew.render().toString();
-			RingNumber period = new RingNumber(10);
+			int period = 0;
 			for (User user : users) {
 				Html gen = userForm.render(
-					user, period.inc() == 1, user.getId());
+					user, period++ % 10 == 0, user.getId(), loginuser.isRoot());
 				all_forms += gen.toString();
 			}
-			all_forms = newForm.render().toString() + all_forms;
+			if(loginuser.isRoot()) {
+				formheads += formHeadNew.render().toString();
+				all_forms = newForm.render().toString() + all_forms;
+			}
 			Html html = Html.apply(formheads + all_forms);
-			html = table.render(html);
-			return ok(layoutBoxPage.render("User Administration", html));
+			html = allUsersIndex.render(html);
+			return ok(layoutBoxPage.render("Hybrida - brukeradministrasjon", html));
 		}
 	}
 
