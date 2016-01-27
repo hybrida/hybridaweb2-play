@@ -22,6 +22,10 @@ import static play.data.Form.form;
 public class Renders extends Controller {
 
 	public static Result showRenders(String title, List<? extends Renderable> renderables, boolean big) {
+		return showRenders(title, renderables, big, 0, "");
+	}
+
+	public static Result showRenders(String title, List<? extends Renderable> renderables, boolean big, int page, String searchterm) {
 		List<Html> rendersHtml = new ArrayList<>();
 
 		int count = 0;
@@ -32,7 +36,7 @@ public class Renders extends Controller {
 
 		return ok(views.html.layoutWithHead.render(
 				"Hybrida - " + title,
-				renders.views.html.rendersBody.render(title, rendersHtml),
+				renders.views.html.rendersBody.render(title, rendersHtml, page, searchterm),
 				renders.views.html.rendersHead.render()));
 	}
 
@@ -48,10 +52,15 @@ public class Renders extends Controller {
 			String key = input.get().term;
 			key = "%" + key + "%";
 
+			Integer page = saved.page == null || saved.page == "" ? null : Integer.parseInt(saved.page);
+			if (page == null) page = 0;
+
 			String head = "eventReference.articleRef.",
 					art = "articleReference.";
 
-			List<User> renderableUsers = User.find.setMaxRows(10).where().disjunction()
+			int pagesize = 10;
+
+			List<User> renderableUsers = User.find.where().disjunction()
 					.like("username", key)
 					.like("first_name", key)
 					.like("last_name", key)
@@ -59,9 +68,9 @@ public class Renders extends Controller {
 					.like("title", key)
 					.like("email", key)
 					.like("phone", key)
-					.endJunction().findList();
+					.endJunction().findPagingList(pagesize).getPage(page).getList();
 
-			List<renders.models.Renders> renderableRenders = renders.models.Renders.find.setMaxRows(10 - renderableUsers.size()).where(
+			List<renders.models.Renders> renderableRenders = renders.models.Renders.find.where(
 			).disjunction()
 					.like(art + "ingress", key)
 					.like(art + "title", key)
@@ -70,14 +79,14 @@ public class Renders extends Controller {
 					.like(head + "title", key)
 					.like(head + "text", key)
 					.endJunction()
-					.orderBy().desc("renderId").findList();
+					.orderBy().desc("renderId").findPagingList(pagesize).getPage(page).getList();
 
 			Collection<? extends Renderable> renderables = CollectionUtils.union(renderableUsers, renderableRenders);
 
 			if (renderables.isEmpty()) {
 				return ok(layoutBoxPage.render("Ingenting Funnet", renders.views.html.emptySearch.render()));
 			} else {
-				return showRenders("Søkeresultater", new ArrayList<>(renderables), false);
+				return showRenders("Søkeresultater", new ArrayList<>(renderables), false, page, input.get().term);
 			}
 		}
 	}

@@ -18,6 +18,7 @@ import java.util.Map;
 
 /**
  * Created by ivar on 29.09.2015.
+ * Tormod helped!
  */
 public class Upload extends Controller {
 
@@ -43,7 +44,7 @@ public class Upload extends Controller {
 	public static final int REQUIRE_PDF          = 1<<4;
 	public static final int REQUIRE_DOCUMENT     = 1<<5;
 
-	public static final int THUMB_SIZE = 256; // 2^8
+	public static final int THUMB_SIZE = 400;
 	public static final String THUMB_URL_END = "_thumb";
 
 	public static File getFileFromRequest(String inputName) throws NoFileInRequest {

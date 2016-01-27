@@ -21,7 +21,7 @@ GET           /hybrida                                 abouthybrida.AboutHybrida
 GET           /nystudent                               newstudent.NewStudent.index()
 GET           /styret                                  styret.Styret.index()
 GET           /tillitsvalgte                           tillitsvalgte.Tillitsvalgte.index()
-
+GET           /strikk                                  strikk.HybridaStrikk.index()
 
 # Admin
 GET           /admin                                admintools.Admin.index()

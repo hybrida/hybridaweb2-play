@@ -57,7 +57,8 @@ public class Renders extends Model implements Renderable {
 
 	@Override
 	public Html render() {
-		if(eventReference != null) return renders.views.html.eventRender.render(articleReference, eventReference);
+		System.out.println(articleReference);
+		if(eventReference != null) return renders.views.html.eventRender.render(eventReference.getArticle(), eventReference);
 		return renders.views.html.articleRender.render(articleReference);
 	}
 }

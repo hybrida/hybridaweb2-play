@@ -1,17 +1,23 @@
-@(title: String,renders: List[Html])
+@(title: String, rendersx: List[Html], page: Int = 0, term: String)
 <div class="container-fluid center-container">
-    <div class="row space-below">
-        <div class="col-xs-12 space-above">
-            <div class="page-box">
-                <h5 class="smallTitle">@title</h5>
-                    @for(renderable <- renders){
-                        @renderable
-                    }
-                <div class="clearfix"></div>
-            </div>
-        </div>
-@*        <div class="col-lg-3 col-md-4 space-above">
-        @application.views.html.sidebar.render
-        </div>
-*@    </div>
+	<div class="row space-below">
+		<div class="col-xs-12 space-above">
+			<div class="page-box">
+				<h5 class="smallTitle">@title</h5>
+					@for(renderable <- rendersx){
+						@renderable
+					}
+				<div class="clearfix"></div>
+				<form action="@renders.routes.Renders.search()" method="get">
+					<input type="hidden" name="term" value="@term">
+					<input type="hidden" name="page" value="@(page+1)">
+					<input class="btn btn-primary" value="Neste Side" type="submit">
+				</form>
+			</div>
+		</div>
+@*	<div class="col-lg-3 col-md-4 space-above">
+		@application.views.html.sidebar.render
+		</div>
+*@
+	</div>
 </div>

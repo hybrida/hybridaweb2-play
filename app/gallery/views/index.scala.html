@@ -3,58 +3,84 @@
     <div class="row space-below">
         <div class="col-xs-12 space-above">
             <div class="page-box">
-<script src='assets/javascripts/jquery-1.11.2.min.js'></script>
-<script src='assets/javascripts/masonry.js'></script>
+                <script src='assets/javascripts/jquery-1.11.2.min.js'></script>
+                <script src='assets/javascripts/masonry.js'></script>
+                <script src='assets/javascripts/photoswipe.js'></script>
+                <script src='assets/javascripts/photoswipe-ui-default.js'></script>
+                <link rel="stylesheet" href="assets/stylesheets/photoswipe.css">
+                <link rel="stylesheet" href="assets/photoswipe/default-skin.css">
 
-<style>
-    .image {
-        padding: 0;
-        margin: 0;
-        box-shadow: 0px 5px 5px rgba(0,0,0,0.5);
-        margin-bottom: 10px;
-        margin-left: 5px;
-        margin-right: 5px;
-        overflow: hidden;
-        border-radius: 5px;
-        border: 2px solid black;
-        float: left;
-    }
-</style>
+                <style>
+                    .gallery {
+                        padding: 0;
+                        margin: 0;
+                        width: 1200px;
+                    }
 
-<form name="GalleryImage" action="@gallery.routes.Gallery.uploadGalleryImage()" method="POST" enctype="multipart/form-data">
-    <input type="file" name="image"></input>
-    <input type="text" name="title"></input>
-    <input type="text" name="description"></input>
-    <input type="submit" value="Post"></input>
-</form>
+                    .gigante {
+                        width: 500px;
+                    }
 
-<div class="gallery">
-    @for(image <- images) {
-        <div class="image">
-            <img
-                src="@image.getThumbURL()"
-                alt="@image.getTitle()"
-                longdesc="@image.getDescription()"
-                width="@(image.getThumbSize()/(scala.util.Random.nextInt(3)+1))"
-                height="@(image.getThumbSize()/(scala.util.Random.nextInt(3)+1))"
-            >
+                    .imageWrapper {
+                        padding: 10px;
+                        margin: 0;
+                        object-fit: contain;
+                        transition: all 0.2s ease;
+                    }
+
+                    .image {
+                        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.5);
+                        border-radius: 5px;
+                        transition: all 0.2s ease;
+                    }
+
+                    .imageWrapper:hover {
+                        padding: 0px;
+                    }
+
+                    .imageWrapper:hover .image {
+                        box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.5);
+                    }
+                </style>
+
+                <form name="GalleryImage" action="@gallery.routes.Gallery.uploadGalleryImage()" method="POST" enctype="multipart/form-data">
+                    <input type="file" name="image"></input>
+                    <input type="text" name="title"></input>
+                    <input type="text" name="description"></input>
+                    <input type="submit" value="Post"></input>
+                </form>
+
+                <div class="gallery">
+                    @for(image <- images) {
+                        @defining(image.getThumbSize()/scala.math.pow(2,scala.util.Random.nextInt(2))) { imgSize =>
+                            <div class="imageWrapper" style="
+                                height: @(imgSize)px;
+                                width: @(imgSize)px;
+                            ">
+                                <img
+                                    class="image"
+                                    src="@image.getThumbURL()"
+                                    alt="@image.getTitle()"
+                                    longdesc="@image.getDescription()"
+                                >
+                            </div>
+                        }
+                    }
+                    <!--@@for(a <- 1 until 20) {
+                        <div class="image" style="width: @@(100+scala.util.Random.nextInt(3)*100)px; height: @@(100+scala.util.Random.nextInt(3)*100)px;">
+                            @@a
+                        </div>
+                    }-->
+                </div>
+
+                <script>
+                    var $grid = $('.gallery').masonry({
+                        // options
+                        itemSelector: '.imageWrapper',
+                        columnWidth: 100
+                    });
+                </script>
+            </div>
         </div>
-    }
-    <!--@@for(a <- 1 until 20) {
-        <div class="image" style="width: @@(100+scala.util.Random.nextInt(3)*100)px; height: @@(100+scala.util.Random.nextInt(3)*100)px;">
-            @@a
-        </div>
-    }-->
-</div>
-
-<script>
-    var $grid = $('.gallery').masonry({
-        // options
-        itemSelector: '.image',
-        columnWidth: 1 //MUST be changed to something bigger to optimize
-    });
-</script>
-</div>
-</div>
-</div>
+    </div>
 </div>
