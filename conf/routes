@@ -68,6 +68,8 @@ POST          /bedkomblokkering/blokker                bedpressblock.BedPresBloc
 # Gallery
 GET           /galleri                           gallery.Gallery.display()
 POST          /api/submitImage                   gallery.Gallery.uploadGalleryImage()
+GET           /api/clickScoreImage               gallery.Gallery.giveImageClickScore(imageId: Long)
+GET           /api/viewScoreImage                gallery.Gallery.giveImageViewScore(imageId: Long)
 
 # Calendar
 GET           /kalender                                calendar.Calendar.display(gcal: Boolean ?= false)

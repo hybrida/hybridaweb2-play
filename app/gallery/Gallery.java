@@ -24,6 +24,20 @@ public class Gallery extends Controller {
         return ok(layout.render("Galleri", gallery.views.html.index.render(GalleryImage.find.all())));
     }
 
+    public static Result giveImageClickScore(long imageId) {
+        GalleryImage image = GalleryImage.find.byId(imageId);
+        if (image == null) return badRequest();
+        image.giveClickScore();
+        return ok();
+    }
+
+    public static Result giveImageViewScore(long imageId) {
+        GalleryImage image = GalleryImage.find.byId(imageId);
+        if (image == null) return badRequest();
+        image.giveClickScore();
+        return ok();
+    }
+
     // TODO: implement in Upload, also make a general GalleryImage for files
     public static Result uploadGalleryImage() {
         HttpRequestData data = new HttpRequestData();

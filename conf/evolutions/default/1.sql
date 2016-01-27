@@ -92,6 +92,7 @@ create table gallery_image (
   image_url                 varchar(255),
   thumb_url                 varchar(255),
   title                     varchar(255),
+  score                     integer,
   thumb_size                integer,
   width                     integer,
   height                    integer,
