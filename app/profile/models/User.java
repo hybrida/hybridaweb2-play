@@ -67,22 +67,19 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 		}
 	}
 
-
-	public static User getUserFromForm() {
+	public static User getUserFromForm(boolean rootAccess) {
 		Form<UserData> userForm = form(UserData.class);
 		UserData userData = userForm.bindFromRequest().get();
 		String error = userData.doValidation();
 		if (error != null) throw new Error(error);
 		User user = new User();
-		user.username = userData.username;
 		user.graduationYear = userData.graduationYear;
 		user.bedkom = userData.bedkom != null;
 		user.arrkom = userData.arrkom != null;
 		user.vevkom = userData.vevkom != null;
 		user.jentekom = userData.jentekom != null;
 		user.redaksjonen = userData.redaksjonen != null;
-		user.admin = userData.admin != null;
-		if(userData.root) user.root = Oolean.TRUE;
+		user.admin = rootAccess && userData.admin != null;
 		user.gender = userData.gender == null ? 'U' : userData.gender;
 		return user;
 	}
