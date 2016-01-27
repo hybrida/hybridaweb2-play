@@ -9,6 +9,10 @@ import java.sql.Timestamp;
 
 @Entity
 public class GalleryImage extends Model {
+    private static final int CLICK_SCORE = 3;
+
+    private static final int VIEW_SCORE = 1;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
@@ -24,6 +28,8 @@ public class GalleryImage extends Model {
     private String thumbURL;
 
     private String title;
+
+    private int score;
 
     private int thumbSize;
 
@@ -44,6 +50,10 @@ public class GalleryImage extends Model {
 
     public String getThumbURL() {
         return thumbURL;
+    }
+
+    public int getScore() {
+        return score;
     }
 
     public int getThumbSize() {
@@ -78,6 +88,16 @@ public class GalleryImage extends Model {
         return dateUploaded;
     }
 
+    public void giveClickScore() {
+        score += CLICK_SCORE;
+        save();
+    }
+
+    public void giveViewScore() {
+        score += VIEW_SCORE;
+        save();
+    }
+
     @ManyToOne
 
     private Event eventConnected;
@@ -91,6 +111,7 @@ public class GalleryImage extends Model {
         this.height = height;
         this.title = title;
         this.uploadedBy = LoginState.getUser();
+        this.score = 0;
         this.eventConnected = event;
     }
 
