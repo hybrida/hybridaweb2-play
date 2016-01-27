@@ -3,6 +3,7 @@ package admintools;
 import controllers.Upload;
 import exceptions.*;
 import models.LoginState;
+import play.Application;
 import profile.models.Specialization;
 import profile.models.User;
 import play.mvc.Controller;
@@ -26,7 +27,9 @@ import admintools.models.RingNumber;
 
 public class Admin extends Controller {
 	public static Result index() {
-		return ok(layoutBoxPage.render("Admin", admintools.views.html.loginForm.render()));
+		Boolean loggedIn = models.LoginState.isValidlyLoggedIn();
+		User loginUser = models.LoginState.getUser();
+		return ok(admintools.views.html.adminLayout.render("Admin", admintools.views.html.index.render(loggedIn, loginUser), false));
 	}
 
 	public static Result login() {
@@ -37,7 +40,7 @@ public class Admin extends Controller {
 			boolean correct = PasswordHash.validatePassword(password, hash);
 			if (correct) {
 				session("user", play.api.libs.Crypto.encryptAES("hybrid," + String.valueOf(System.currentTimeMillis())));
-				return redirect(admintools.routes.Admin.allUsers());
+				return redirect(admintools.routes.Admin.index());
 			} else {
 				return ok("password incorrect");
 			}
@@ -50,12 +53,12 @@ public class Admin extends Controller {
 
 	public static Result logout() {
 		session().remove("user");
-		return redirect(application.routes.Application.index());
+		return redirect(admintools.routes.Admin.index());
 	}
 
 	public static Result allUsers() {
-		User loginuser = models.LoginState.getUser();
-		if (!loginuser.isRoot()) {
+		User loginUser = models.LoginState.getUser();
+		if (!loginUser.isAdmin()) {
 			return redirect(application.routes.Application.showUnauthorizedAccess().url());
 		} else {
 			java.util.List<User> users = User.find.all();
@@ -72,45 +75,48 @@ public class Admin extends Controller {
 				formheads += formHead.render(
 					user.getId()).toString();
 			}
-			formheads += formHeadNew.render().toString();
-			RingNumber period = new RingNumber(10);
+			int period = 0;
 			for (User user : users) {
 				Html gen = userForm.render(
-					user, period.inc() == 1, user.getId());
+					user, period++ % 10 == 0, user.getId(), loginUser.isRoot());
 				all_forms += gen.toString();
 			}
-			all_forms = newForm.render().toString() + all_forms;
+			if(loginUser.isRoot()) {
+				formheads += formHeadNew.render().toString();
+				all_forms = newForm.render().toString() + all_forms;
+			}
 			Html html = Html.apply(formheads + all_forms);
-			html = table.render(html);
-			return ok(layoutBoxPage.render("User Administration", html));
+			html = allUsersIndex.render(html);
+			return ok(admintools.views.html.adminLayout.render("Hybrida - brukeradministrasjon", html, true));
 		}
 	}
 
 	public static Result editUser(String uid) {
-		User loginuser = models.LoginState.getUser();
-		if (!loginuser.isRoot()) {
+		User loginUser = models.LoginState.getUser();
+		if (!loginUser.isAdmin()) {
 			return redirect(application.routes.Application.showUnauthorizedAccess().url());
 		}
 		if (HttpRequestData.isGiven("delete")) {
 			User toRemove = User.find.byId(Long.parseLong(uid));
 			if (toRemove != null) {
-				toRemove.delete();
+//				toRemove.delete(); FIXME: Needs confirmation before deleting entry
 			}
 			return redirect(admintools.routes.Admin.allUsers());
 		} else {
-			User change = User.getUserFromForm();
-			change.setId(Long.parseLong(uid));
-			change.update();
+			User toUpdate = User.getUserFromForm(loginUser.isRoot());
+			toUpdate.setId(Long.parseLong(uid));
+			toUpdate.update();
 			return redirect(admintools.routes.Admin.allUsers());
 		}
 	}
 
 	public static Result newUser() {
-		User loginuser = models.LoginState.getUser();
-		if (!loginuser.isRoot()) {
+		User loginUser = models.LoginState.getUser();
+		if (!loginUser.isRoot()) {
 			return redirect(application.routes.Application.showUnauthorizedAccess().url());
 		}
-		User user = User.getUserFromForm();
+		User user = User.getUserFromForm(loginUser.isRoot());
+		user.setUsername(new HttpRequestData().get("username"));
 		user.save();
 		return redirect(admintools.routes.Admin.allUsers());
 	}
@@ -120,7 +126,7 @@ public class Admin extends Controller {
 	}
 
 	public static Result bulkUsers() throws IOException {
-		if(!LoginState.isValidlyLoggedIn() || !LoginState.getUser().isRoot()) return unauthorized();
+		if(!LoginState.isValidlyLoggedIn() || !LoginState.getUser().isRoot()) return application.Application.showUnauthorizedAccess();
 		BufferedReader inputReader;
 		StringBuilder output = new StringBuilder();
 		HttpRequestData formData = new HttpRequestData();
@@ -145,17 +151,21 @@ public class Admin extends Controller {
 				users.add(URLEncoder.encode(line, "UTF-8"));
 			}
 		}
-		return ok(views.html.layoutBoxPage.render("Hybrida - legg til mange brukere", admintools.views.html.bulkUserForm.render(output.toString(), users)));
+		return bulkUsersForm(output.toString(), users);
 	}
 
 	public static Result bulkUsersForm() {
-		if(!LoginState.isValidlyLoggedIn() || !LoginState.getUser().isRoot()) return unauthorized();
-		return ok(views.html.layoutBoxPage.render("Hybrida - legg til mange brukere", admintools.views.html.bulkUserForm.render(null, new ArrayList<>())));
+		if(!LoginState.isValidlyLoggedIn() || !LoginState.getUser().isRoot()) return application.Application.showUnauthorizedAccess();
+		return bulkUsersForm(null, new ArrayList<>());
+	}
+
+	private static Result bulkUsersForm(String output, List<String> users) {
+		return ok(admintools.views.html.adminLayout.render("Hybrida - legg til mange brukere", admintools.views.html.bulkUserForm.render(output, users), true));
 	}
 
 	public static Result bulkAddSingle() throws UnsupportedEncodingException, ParseException {
-		if(!LoginState.isValidlyLoggedIn() || !LoginState.getUser().isRoot()) return unauthorized();
-		if(!HttpRequestData.isGiven("data")) return badRequest();
+		if(!LoginState.isValidlyLoggedIn() || !LoginState.getUser().isRoot()) return application.Application.showUnauthorizedAccess();
+		if(!HttpRequestData.isGiven("data")) return application.Application.showBadRequest();
 		String output = "";
 		String data = new HttpRequestData().get("data");
 //		data = new String(data.getBytes("ISO-8859-1"), "UTF-8");
@@ -169,7 +179,7 @@ public class Admin extends Controller {
 		try {
 			errors = (validator = Validator.fromJSON(new File("public/json/userValidation.json"))).validate(userMap);
 		} catch (IOException e) {
-			return internalServerError();
+			return application.Application.showInternalServerError();
 		}
 		output += "User: '" + userMap.get("username") + "'\n";
 		if(User.findByUsername(userMap.get("username")) != null) return ok(output + "  User already extists.\n");

@@ -1,11 +1,6 @@
 package profile.models;
 
 import static play.data.Form.form;
-import controllers.Upload;
-import controllers.routes;
-import exceptions.NoFileInRequest;
-import exceptions.ServerError;
-import exceptions.Unauthorized;
 import models.CRUDable;
 import models.Event;
 import models.LoginState;
@@ -15,6 +10,7 @@ import play.db.ebean.Model;
 import play.mvc.Call;
 import play.twirl.api.Html;
 import renders.models.Renderable;
+import util.Oolean;
 import util.Validator;
 
 import javax.persistence.*;
@@ -56,11 +52,10 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 		return getCreateCall();
 	}
 
-	public static class UserForm {
+	public static class UserData {
 		public Long uid;
 		public String username;
-		public Boolean
-				arrkom, bedkom, root, vevkom, admin, jentekom, redaksjonen;
+		public Boolean arrkom, bedkom, root, vevkom, admin, jentekom, redaksjonen;
 		public Integer graduationYear;
 		public Character gender;
 
@@ -72,24 +67,20 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 		}
 	}
 
-
-	//FIXME: Really? A Form object named userForm and a UserForm object named form... get yo shit together, man
-	public static User getUserFromForm() {
-		Form<UserForm> userForm = form(UserForm.class);
-		UserForm form = userForm.bindFromRequest().get();
-		String error = form.doValidation();
+	public static User getUserFromForm(boolean rootAccess) {
+		Form<UserData> userForm = form(UserData.class);
+		UserData userData = userForm.bindFromRequest().get();
+		String error = userData.doValidation();
 		if (error != null) throw new Error(error);
 		User user = new User();
-		user.username = form.username;
-		user.graduationYear = form.graduationYear;
-		user.bedkom = form.bedkom != null;
-		user.arrkom = form.arrkom != null;
-		user.vevkom = form.vevkom != null;
-		user.jentekom = form.jentekom != null;
-		user.redaksjonen = form.redaksjonen != null;
-		user.admin = form.admin != null;
-		user.root = form.root != null;
-		user.gender = form.gender == null ? 'U' : form.gender;
+		user.graduationYear = userData.graduationYear;
+		user.bedkom = userData.bedkom != null;
+		user.arrkom = userData.arrkom != null;
+		user.vevkom = userData.vevkom != null;
+		user.jentekom = userData.jentekom != null;
+		user.redaksjonen = userData.redaksjonen != null;
+		user.admin = rootAccess && userData.admin != null;
+		user.gender = userData.gender == null ? 'U' : userData.gender;
 		return user;
 	}
 
@@ -125,7 +116,7 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 	public String      profileImageFileName;
 
 	// Privilege status
-	@Column(name = "student", columnDefinition = "boolean default false") //TODO: Seems unnecessary, maybe change to member? As in having paid membership fee
+	@Column(name = "student", columnDefinition = "boolean default false") //TODO: Seems unnecessary (all users should be student), maybe change to member? As in having paid membership fee
 	public Boolean             student = false;    // No special privileges except for file ajaxUpload.
 	@Column(name = "styret", columnDefinition = "boolean default false")
 	public Boolean             styret = false;     // Access to styret functionality.
@@ -141,8 +132,9 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 	public Boolean             redaksjonen = false;// Access to redkasjonen functionality.
 	@Column(name = "admin", columnDefinition = "boolean default false")
 	public Boolean             admin = false;      // For control over the entire page. Check your privilege
-	@Column(name = "root", columnDefinition = "boolean default false")
-	public Boolean             root = false;       // Powers too great for mere mortals.
+	@Enumerated(EnumType.STRING)
+	@Column(name = "root", unique = true)
+	public Oolean							 root = null;       // Powers too great for mere mortals.
 	@Column(name = "gender", columnDefinition = "char(1) default 'U'")
 	public Character           gender = 'U';     // For specific events.
 	@Column(name = "enrolled")
@@ -187,14 +179,6 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 
 	public void setLastLoginTimeNow() {
 		lastLogin = new Timestamp(new java.util.Date(System.currentTimeMillis()).getTime());
-	}
-
-	private boolean thisOrFalse(Boolean object) {
-		return (object != null ? object : false);
-	}
-
-	public boolean canCreateNewArticle() {
-		return thisOrFalse(bedkom) || thisOrFalse(admin) || thisOrFalse(root);
 	}
 
 	// Getters and Setter (and some hassers)
@@ -413,11 +397,11 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 	}
 
 	public boolean isAdmin() {
-		return admin;
+		return admin||isRoot();
 	}
 
 	public boolean isRoot() {
-		return thisOrFalse(root);
+		return root == Oolean.TRUE;
 	}
 
 	public boolean isFirstUser() {
@@ -566,5 +550,9 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 
 	public static User findByUsername(String username) {
 		return find.where().eq("username", username).findUnique();
+	}
+
+	public boolean canCreateNewArticle() {
+		return hasAccess(false, Access.ADMIN, Access.STYRET, Access.ARRKOM);
 	}
 }

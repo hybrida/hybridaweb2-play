@@ -8,7 +8,7 @@
     $(document).ready(function() {
         $('#calendar').fullCalendar({
             lang: "nb",
-            @defining(models.LoginState.getUser().canCreateNewArticle()) { admin =>
+            @defining(models.LoginState.getUser.canCreateNewArticle) { admin =>
                 @if(admin) {
                     customButtons: {
                         gcal: {

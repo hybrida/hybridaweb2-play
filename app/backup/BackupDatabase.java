@@ -25,7 +25,7 @@ public class BackupDatabase {
 
 	public static Result index() {
 		User user = LoginState.getUser();
-		if (!(!user.isDefault() && (user.admin || user.root))) {
+		if (user.hasAccess(true, User.Access.ADMIN)) {
 			return application.Application.showUnauthorizedAccess();
 		}
 
