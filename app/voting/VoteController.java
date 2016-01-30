@@ -68,6 +68,7 @@ public class VoteController extends Controller {
 
     private static void countVotes(List<Candidate> candidates) {//TODO: using outputparameter, should find better solution
         for (String vote : votes) {
+            if (vote == null) continue;//TODO: fix properly
             for (Candidate candidate : candidates) {
                 if (vote.equals(candidate.name)) {
                     candidate.votes += 1;

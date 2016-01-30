@@ -2,11 +2,11 @@
 <div class="container white-box">
     <h1>Stemmingsgreie</h1>
     @helper.form(action = voting.routes.VoteController.attemptVote()) {
-        <select name="selected">
-        @for( option <- options) {
+        <select name="selected" class="form-control">
+        @for(option <- options) {
             <option>@option</option>
         }
         </select>
-        <button >stem</button>
+        <button class="btn btn-default">stem</button>
     }
 </div>

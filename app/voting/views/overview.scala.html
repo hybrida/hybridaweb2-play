@@ -1,26 +1,70 @@
 @import voting.Candidate
 @(candidates: List[Candidate])
-<div class="container white-box">
-    <h1>Resultat</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Navn</th>
-                <th>Antall</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for( candidate <- candidates) {
+<div class="row white-box">
+    <div class="col-sm-8 col-md-offset-1 col-md-7">
+        <h1>Resultat</h1>
+        <table class="table">
+            <thead>
                 <tr>
-                    <th>@candidate.name</th>
-                    <th>@candidate.votes</th>
+                    <th>Navn</th>
+                    <th>Antall</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-    <form method="post" action="@voting.routes.VoteController.newVoting()" id="form">
-        <input type="text" name="option1" /><br/>
-
-        <input type="submit" value="Start" />
-    </form>
+            </thead>
+            <tbody>
+                @for(candidate <- candidates) {
+                    <tr>
+                        <th>@candidate.name</th>
+                        <th>@candidate.votes</th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-4 col-md-3">
+        <h2>Nytt valg</h2>
+        <form method="post" action="@voting.routes.VoteController.newVoting()" id="form">
+            <div id="new-choices">
+            </div>
+            <div class="btn-group btn-group-justified" role="group">
+                <div class="btn-group" role="group">
+                    <button class="btn btn-success" type="button" onclick="addInput()"><span class="glyphicon glyphicon-plus"></span></button>
+                </div>
+            </div>
+            <div class="btn-group btn-group-justified" role="group">
+                <div class="btn-group" role="group">
+                    <button class="btn btn-primary" type="submit">Start Avstemming</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button class="btn btn-default" type="reset">Lag ny</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
+<script>
+        $(document).ready(function() {
+            addInput();
+            addInput();
+        });
+        var choices = 0;
+        function addInput() {
+            $('#new-choices').append(
+                    '<div class="input-group" id="choice-' + choices + '">' +
+                    '<input class="form-control" type="text" name="choice-' + choices + '"/>' +
+                    '<span class="input-group-btn">' +
+                    '<button type="button" class="btn btn-danger" onclick="removeChoice(' + choices + ')">' +
+                    '<span class="glyphicon glyphicon-remove">' +
+                    '</span>' +
+                    '</button>' +
+                    '</span>' +
+                    '</div>'
+            );
+            choices++;
+        }
+        function updateInputs() {
+
+        }
+        function removeChoice(number) {
+            $("#choice-"+number).remove();
+        }
+</script>
