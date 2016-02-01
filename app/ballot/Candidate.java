@@ -1,4 +1,4 @@
-package voting;
+package ballot;
 
 public class Candidate {
     public String name;

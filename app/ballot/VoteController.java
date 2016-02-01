@@ -1,4 +1,4 @@
-package voting;
+package ballot;
 
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -21,7 +21,7 @@ public class VoteController extends Controller {
 
     public static Result index() {
         if (choices == null) choices = generateGenericChoices();
-        return ok(views.html.layout.render("stemming", voting.views.html.voteview.render(choices)));
+        return ok(views.html.layout.render("stemming", ballot.views.html.voteview.render(choices)));
     }
     private static List<String> generateGenericChoices() {
         List<String> choices = new ArrayList<String>();
@@ -40,7 +40,7 @@ public class VoteController extends Controller {
             usersThatHasVoted.add(loginUser.getId());
             vote(Form.form().bindFromRequest());
         }
-        return redirect(voting.routes.VoteController.index());
+        return redirect(ballot.routes.VoteController.index());
     }
     private static void vote(DynamicForm dynamicForm) {
         votes.add(dynamicForm.get("selected"));
@@ -55,7 +55,7 @@ public class VoteController extends Controller {
 
         List<Candidate> candidates = createCandidatesFromChoices();
         countVotes(candidates);
-        return ok(views.html.layout.render("Oversikt", voting.views.html.overview.render(candidates)));
+        return ok(views.html.layout.render("Oversikt", ballot.views.html.overview.render(candidates)));
     }
 
     private static List<Candidate> createCandidatesFromChoices() {
@@ -68,7 +68,6 @@ public class VoteController extends Controller {
 
     private static void countVotes(List<Candidate> candidates) {//TODO: using outputparameter, should find better solution
         for (String vote : votes) {
-            if (vote == null) continue;//TODO: fix properly
             for (Candidate candidate : candidates) {
                 if (vote.equals(candidate.name)) {
                     candidate.votes += 1;
@@ -77,13 +76,18 @@ public class VoteController extends Controller {
         }
     }
 
-    public static Result newVoting() {
+    public static Result newBallot() {
         User loginUser = models.LoginState.getUser();
         if (!loginUser.isAdmin()) {//should get changed to a specific user or something
             return redirect(application.routes.Application.showUnauthorizedAccess().url());
         }
-        DynamicForm dynamicForm = Form.form().bindFromRequest();
+        createBallot(Form.form().bindFromRequest());
+        return redirect(ballot.routes.VoteController.index());
+    }
+
+    private static void createBallot(DynamicForm dynamicForm) {
         choices = new ArrayList<String>(dynamicForm.data().values());
-        return redirect(voting.routes.VoteController.index());
+        votes = new ArrayList<>();
+        usersThatHasVoted = new ArrayList<>();
     }
 }

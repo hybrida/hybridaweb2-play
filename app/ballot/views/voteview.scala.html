@@ -1,7 +1,8 @@
 @(options: List[String])
+<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/ballot.css")">
 <div class="container white-box">
     <h1>Stemmingsgreie</h1>
-    @helper.form(action = voting.routes.VoteController.attemptVote()) {
+    @helper.form(action = ballot.routes.VoteController.attemptVote()) {
         <select name="selected" class="form-control">
         @for(option <- options) {
             <option>@option</option>
