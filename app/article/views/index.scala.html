@@ -24,7 +24,7 @@
 						Ny artikkel/event
 					</p></h3>
 					<form name="Article" action="@article.routes.ArticleIn.save()" method="POST" enctype="multipart/form-data">
-                        @dependencies.articleInputs(new Article())
+						@dependencies.articleInputs(new Article())
 						<div class="form-group" data-toggle="buttons">
 							<label class="checkbox btn btn-primary form-control" onclick="$ ('.showhide').toggle ();">
 								<input class="checkbox-center" id="arr" type="checkbox" name="event" value="Event">
@@ -33,7 +33,7 @@
 						</div>
 						<div class="showhide" id="showhide" name="showhide" style="display: none;">
 							<br>
-                            @dependencies.eventInputs(new Event())
+							@dependencies.eventInputs(new Event())
 						</div>
 
 						<div class="form-group">
