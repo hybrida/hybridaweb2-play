@@ -9,8 +9,8 @@ public class omIKTRingen extends play.mvc.Controller {
         return ok(
                 views.html.layoutWithHead.render(
                         "omiktringen",
-                        omiktringen.views.html.index.render(),
-                        omiktringen.views.html.head.render()
+                        omiktringen.views.html.head.render(),
+                        omiktringen.views.html.index.render()
                 )
         );
     }
