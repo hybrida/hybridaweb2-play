@@ -5,9 +5,11 @@
 GET           /                                         application.Application.index()
 GET           /forside                                  application.Application.frontpage()
 
-# Static info pages
-
+# STATIC INFO PAGES
 GET           /arrkom                                   arrkom.ArrKom.index()
+#FIXME(TrulsElg): Hva er forskjellen på bedrift og bedriftalt?
+GET           /bedrift                                  bedrift.Bedrift.index()
+GET           /bedriftalt                               company.Company.index()
 GET           /bedkom                                   bedkom.Bedkom.index()
 GET           /griffensorden                            griffensorden.GriffensOrden.index()
 GET           /griffensorden/riddere                    griffensorden.GriffensOrden.riddere()
@@ -24,7 +26,9 @@ GET           /styret                                   styret.Styret.index()
 GET           /tillitsvalgte                            tillitsvalgte.Tillitsvalgte.index()
 GET           /vevkom                                   vevkom.VevKom.index()
 
-# Admin
+# MODULES
+
+# # Admin
 GET           /admin                                    admintools.Admin.index()
 POST          /admin/login                              admintools.Admin.login()
 POST          /admin/rediger                            admintools.Admin.editUser(uid)
@@ -36,16 +40,26 @@ GET           /admin/bulkusers                          admintools.Admin.bulkUse
 POST          /admin/bulkusers                          admintools.Admin.bulkUsers()
 GET           /admin/api/bulkaddsingle                  admintools.Admin.bulkAddSingle()
 
-# RFID
-GET           /rfid                                     rfid.RFIDReader.index()
-GET           /rfid/:status/:number                     rfid.RFIDReader.indexContinue(status, number)
-POST          /rfid                                     rfid.RFIDReader.read()
+# # Article and events
+GET           /artikkel/ny                              article.ArticleIn.index()
+POST          /artikkel/ny                              article.ArticleIn.save()
+GET           /artikkel/:id                             article.Article.viewArticle(id)
+GET           /artikkel/:id/endre                       article.Article.editArticle(id)
+#FIXME: Tillater vi stor bokstav i url-er?
+POST          /artikkel/:id/lagreEndring                article.ArticleIn.saveEdit(id)
 
-# Upload
-POST          /api/upload                               controllers.Upload.ajaxUpload()
-POST          /api/upload/:uploadFolder                 controllers.Upload.ajaxUploadTo(uploadFolder)
+GET           /event/:id                                article.Event.viewEvent(id)
+GET           /event/:id/endre                          article.Event.editEvent(id)
+#FIXME: Tillater vi stor bokstav i url-er?
+POST          /event/:id/lagreEndring                   article.Event.saveEdit(id)
+# # Bruker current login cookie, og en eventId i POST
+POST          /event/meldpaa                            article.Event.updateUser()
+POST          /event/meldav                             article.Event.removeUser()
 
-# BedkomDatabase
+POST          /comment/:articleID                       article.Article.comment(articleID)
+POST          /comment/delete/:commentID                article.Article.deleteComment(commentID)
+
+# # Bedkom-database
 GET           /bedkomdatabase                           bedkomdatabase.Bedkomdatabase.index()
 
 POST          /bedkomdatabase/bedrift                   bedkomdatabase.Bedkomdatabase.saveBedrift()
@@ -60,71 +74,36 @@ POST          /bedkomdatabase/notat/:id                 bedkomdatabase.Bedkomdat
 POST          /bedkomdatabase/notat/ud/:id              bedkomdatabase.Bedkomdatabase.updateNote(id)
 POST          /bedkomdatabase/notat/slett/:id           bedkomdatabase.Bedkomdatabase.deleteNote(id)
 
-# Bedkom Blocking
+# # Bedkom Blocking
 GET           /bedkomblokkering                         bedpressblock.BedPresBlock.index()
 POST          /bedkomblokkering                         bedpressblock.BedPresBlock.pickUsers()
 POST          /bedkomblokkering/blokker                 bedpressblock.BedPresBlock.blockUser()
 
-# Gallery
-GET           /galleri                                  gallery.Gallery.display()
-POST          /api/submitImage                          gallery.Gallery.uploadGalleryImage()
-GET           /api/clickScoreImage                      gallery.Gallery.giveImageClickScore(imageId: Long)
-GET           /api/viewScoreImage                       gallery.Gallery.giveImageViewScore(imageId: Long)
-
-# Calendar
+# # Calendar
 GET           /kalender                                 calendar.Calendar.display(gcal: Boolean ?= false)
 GET           /api/kalender/hent                        calendar.Calendar.fetch(start: String, end: String)
 POST          /api/kalender/endre                       calendar.Calendar.change()
 
-# Update
-GET           /update                                   update.Update.index()
-GET           /update/utgaver                           update.Update.utgaver()
-GET           /update/redaksjon                         update.Update.redaksjon()
+# # Gallery
+GET           /galleri                                  gallery.Gallery.display()
+#FIXME: Tillater vi stor bokstav i url-er?
+#FIXME: Burde vell være /api/galleri/...
+POST          /api/submitImage                          gallery.Gallery.uploadGalleryImage()
+GET           /api/clickScoreImage                      gallery.Gallery.giveImageClickScore(imageId: Long)
+GET           /api/viewScoreImage                       gallery.Gallery.giveImageViewScore(imageId: Long)
 
-# Article and events
-GET           /artikkel/ny                              article.ArticleIn.index()
-POST          /artikkel/ny                              article.ArticleIn.save()
-GET           /artikkel/:id                             article.Article.viewArticle(id)
-GET           /artikkel/:id/endre                       article.Article.editArticle(id)
-POST          /artikkel/:id/lagreEndring                article.ArticleIn.saveEdit(id)
-GET           /event/:id                                article.Event.viewEvent(id)
-GET           /event/:id/endre                          article.Event.editEvent(id)
-POST          /event/:id/lagreEndring                   article.Event.saveEdit(id)
-
-POST          /comment/:articleID                       article.Article.comment(articleID)
-POST          /comment/delete/:commentID                article.Article.deleteComment(commentID)
-
-GET           /bedriftalt                               company.Company.index()
-GET           /bedrift                                  bedrift.Bedrift.index()
-
-# Ebean example
-GET           /ebean                                    examples.controllers.ExampleEbean.index()
-POST          /ebean                                    examples.controllers.ExampleEbean.add()
-POST          /ebean/clear                              examples.controllers.ExampleEbean.clear()
-
-# Bruker current login cookie, og en eventId i POST
-POST          /event/meldpaa                            article.Event.updateUser()
-# Bruker current login cookie, og en eventId i POST
-POST          /event/meldav                             article.Event.removeUser()
-
-# Backup memory database
-GET           /api/backup                               backup.BackupDatabase.index()
-
-# Search
-GET           /search                                   renders.Renders.search()
-
-# Login
+# # Login
 GET           /login                                    sso.SSOLogin.login(returnarg: String)
 GET           /logout                                   sso.SSOLogin.logout()
 GET           /verifylogin                              sso.SSOLogin.verifylogin()
 GET           /kontaktforbruker                         contactforuser.ContactForUser.index()
 
-# Profile
+# # Profile
 GET           /profil/:username                         profile.Profile.index(username)
 GET           /profil/:username/rediger                 profile.Profile.edit(username)
 POST          /profil/:username/rediger                 profile.Profile.update(username)
 
-# Quiz
+# # Quiz
 GET           /quiz                                     quiz.QuizController.index()
 GET           /api/quiz/teams                           quiz.QuizController.quizTeams()
 PUT           /api/quiz/team                            quiz.QuizController.putTeam()
@@ -133,11 +112,33 @@ GET           /api/quiz/seasons                         quiz.QuizController.quiz
 PUT           /api/quiz/season                          quiz.QuizController.putSeason()
 DELETE        /api/quiz/season/:id                      quiz.QuizController.deleteSeasonById(id: Long)
 
-# Voting
+# # RFID
+GET           /rfid                                     rfid.RFIDReader.index()
+GET           /rfid/:status/:number                     rfid.RFIDReader.indexContinue(status, number)
+POST          /rfid                                     rfid.RFIDReader.read()
+
+# # Search
+GET           /search                                   renders.Renders.search()
+
+# # Update
+GET           /update                                   update.Update.index()
+GET           /update/utgaver                           update.Update.utgaver()
+GET           /update/redaksjon                         update.Update.redaksjon()
+
+# # Voting
+#FIXME(Simen): 'stemming' vs 'avstemming'?
 GET           /stemming                                 ballot.VoteController.index()
 POST          /stemming                                 ballot.VoteController.attemptVote()
 GET           /stemming/oversikt                        ballot.VoteController.overview()
 POST          /stemming/oversikt                        ballot.VoteController.newBallot()
+
+# API
+# # Backup database
+GET           /api/backup                               backup.BackupDatabase.index()
+
+# # Upload files
+POST          /api/upload                               controllers.Upload.ajaxUpload()
+POST          /api/upload/:uploadFolder                 controllers.Upload.ajaxUploadTo(uploadFolder)
 
 
 # TEST
@@ -170,6 +171,7 @@ GET           /assets/*file                             controllers.Assets.at(pa
 # Map static resources with restricted access from the /restricted folder to the /begrenset URL path
 GET           /begrenset/:restriction/*file             controllers.Restricted.at(restriction, file)
 
+#FIXME: Burde kanskje returnere Application.showUnauthorizedAccess() heller enn å redirecte?
 GET           /unauthorized                             application.Application.showUnauthorizedAccess()
 
 # Show some page describing the URL if all else fails
