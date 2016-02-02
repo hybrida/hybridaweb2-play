@@ -481,6 +481,7 @@ public class Event extends Model implements Revisable<Event> {
 					for (User waiter : waiting) {
 						if (getUserBlocked(waiter) == -1) {
 							getJoinedUsers().add(waiter);
+							waiting.remove(waiting.indexOf(waiter));
 							break;
 						}
 					}
