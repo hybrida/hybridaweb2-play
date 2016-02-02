@@ -259,7 +259,7 @@ img {
 }
 
 .btn + .btn {
-    margin-right: 2px;
+    /*margin-right: 2px; Denne burde ikke ha vært her i utgangspunket*/
 }
 
 .fc-state-highlight {

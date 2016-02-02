@@ -43,13 +43,17 @@ public class Renders extends Controller {
 	public static Result search() {
 		Form<SearchForm> input = form(SearchForm.class).bindFromRequest();
 
+		SearchForm saved = new SearchForm();
 		if (input.hasErrors()) {
-			SearchForm form = new SearchForm();
-			return Application.showUnauthorizedAccess();
+			saved.term = "";
+			saved.page = models.HttpRequestData.getLongStatic("page").toString();
+			// return Application.showUnauthorizedAccess();
 		} else {
+			saved = input.get();
+		}
+		{
 
-			SearchForm saved = input.get();
-			String key = input.get().term;
+			String key = saved.term;
 			key = "%" + key + "%";
 
 			Integer page = saved.page == null || saved.page == "" ? null : Integer.parseInt(saved.page);
@@ -86,7 +90,7 @@ public class Renders extends Controller {
 			if (renderables.isEmpty()) {
 				return ok(layoutBoxPage.render("Ingenting Funnet", renders.views.html.emptySearch.render()));
 			} else {
-				return showRenders("Søkeresultater", new ArrayList<>(renderables), false, page, input.get().term);
+				return showRenders("Søkeresultater", new ArrayList<>(renderables), false, page, saved.term);
 			}
 		}
 	}
