@@ -4,7 +4,12 @@
         <div class="col-xs-12 space-above">
             <div class="page-box">
 
-                <!-- Make this into two templates, one for the import/links and one for the gallery -->
+                <!--
+                     Make this into two templates, one for the import/links and one for the gallery
+                     Implement lazy loading: load the page and load images through ajax, adding them to the gallery
+                     Implement your own image viewer?
+                     Give a view score to image if hold over for more than 1 second, and click score in clicked on
+                -->
 
                 <script src='assets/javascripts/jquery-1.11.2.min.js'></script>
                 <script src='assets/javascripts/masonry.js'></script>
@@ -20,28 +25,53 @@
                         width: 1200px;
                     }
 
-                    .gigante {
-                        width: 500px;
-                    }
-
-                    .imageWrapper {
+                    .gallery .imageWrapper {
                         padding: 10px;
                         margin: 0;
                         object-fit: contain;
                         transition: all 0.2s ease;
                     }
 
-                    .image {
+                    .gallery .imageWrapper .image {
                         box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.5);
                         border-radius: 5px;
                         transition: all 0.2s ease;
                     }
 
-                    .imageWrapper:hover {
+                    #viewerUnderlay {
+                        opacity: 0;
+                        position: fixed;
+                        z-index: -2;
+                        top: 0;
+                        left: 0;
+                        height: 100%;
+                        width: 100%;
+                        background-color: rgba(0, 0, 0, 0.5);
+                        transition: opacity 0.2s linear;
+                    }
+
+                    #viewerOverlay {
+                        opacity: 0;
+                        position: fixed;
+                        z-index: -1;
+                        top: 50%;
+                        left: 50%;
+                        height: 0;
+                        width: 0;
+                        background-size: cover;
+                        background-color: #FFF;
+                        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+                        transition: height 0.2s linear,
+                                    width 0.2s linear,
+                                    top 0.2s linear,
+                                    left 0.2s linear;
+                    }
+
+                    .gallery .imageWrapper:hover {
                         padding: 0px;
                     }
 
-                    .imageWrapper:hover .image {
+                    .gallery .imageWrapper:hover .image {
                         box-shadow: 0 15px 15px -10px rgba(0, 0, 0, 0.5);
                     }
                 </style>
@@ -65,6 +95,13 @@
                                     src="@image.getThumbURL()"
                                     alt="@image.getTitle()"
                                     longdesc="@image.getDescription()"
+                                    data-score="@image.getScore()"
+                                    data-id="@image.getImageId()"
+                                    data-uploader="@image.getUploadedBy().getFullName()"
+                                    data-date="@image.getDateUploaded().getTime()"
+                                    data-orgwidth="@image.getWidth()"
+                                    data-orgheight="@image.getHeight()"
+                                    data-orgurl="@image.getImageURL()"
                                 >
                             </div>
                         }
@@ -81,6 +118,35 @@
                         // options
                         itemSelector: '.imageWrapper',
                         columnWidth: 100
+                    });
+                    $("body").append('<div id="viewerUnderlay"></div>');
+                    $("body").append('<div id="viewerOverlay"></div>');
+                    var $underlay = $('#viewerUnderlay');
+                    var $overlay = $('#viewerOverlay');
+                    $underlay.click(function() {
+                        $underlay.css('opacity', 0);
+                        $underlay.css('z-index', -2);
+                        $overlay.css('opacity', 0);
+                        $overlay.css('z-index', -1);
+                        $overlay.css('height', 0);
+                        $overlay.css('width', 0);
+                        $overlay.css('top', '50%');
+                        $overlay.css('left', '50%');
+                        $overlay.css('background-image', '');
+                    });
+                    $('.gallery .imageWrapper').click(function() {
+                        $image = $(this).children(":first-child");
+                        console.log($image);
+                        console.log($image.data("orgwidth"));
+                        $overlay.css("width", $image.data("orgwidth"));
+                        $overlay.css("height", $image.data("orgheight"));
+                        $overlay.css("left", $(window).width()/2 - $image.data("orgwidth")/2);
+                        $overlay.css("top", $(window).height()/2 - $image.data("orgheight")/2);
+                        $overlay.css('background-image', 'url("' + $image.data("orgurl") + '")');
+                        $underlay.css('opacity', 1);
+                        $underlay.css('z-index', 999);
+                        $overlay.css('opacity', 1);
+                        $overlay.css('z-index', 1000);
                     });
                 </script>
             </div>
