@@ -7,21 +7,22 @@ GET           /forside                                  application.Application.
 
 # Static info pages
 
+GET           /arrkom                                   arrkom.ArrKom.index()
+GET           /bedkom                                   bedkom.Bedkom.index()
 GET           /griffensorden                            griffensorden.GriffensOrden.index()
 GET           /griffensorden/riddere                    griffensorden.GriffensOrden.riddere()
 GET           /griffensorden/nominasjon                 griffensorden.GriffensOrden.nomination()
+GET           /info                                     info.Info.index()
 GET           /i&iktringen                              ringen.Ringen.index()
 GET           /i&iktringen/om                           ringen.Ringen.about()
 GET           /jentekom                                 jentekom.JenteKom.index()
-GET           /statutter                                statutter.Statutter.index()
-GET           /vevkom                                   vevkom.VevKom.index()
-GET           /bedkom                                   bedkom.Bedkom.index()
-GET           /redaksjonen                              redaksjonen.Redaksjonen.index()
-GET           /info                                     info.Info.index()
 GET           /nystudent                                newstudent.NewStudent.index()
+GET           /redaksjonen                              redaksjonen.Redaksjonen.index()
+GET           /statutter                                statutter.Statutter.index()
+GET           /strikk                                   strikk.HybridaStrikk.index()
 GET           /styret                                   styret.Styret.index()
 GET           /tillitsvalgte                            tillitsvalgte.Tillitsvalgte.index()
-GET           /strikk                                   strikk.HybridaStrikk.index()
+GET           /vevkom                                   vevkom.VevKom.index()
 
 # Admin
 GET           /admin                                    admintools.Admin.index()
@@ -143,9 +144,6 @@ POST          /stemming/oversikt                        ballot.VoteController.ne
 # # Chat
 GET           /chat                                     chat.Chat.connectClient()
 GET           /chatserver                               chat.Chat.socket()
-
-GET           /arrkom                                   arrkom.ArrKom.index()
-GET           /andreas                                  andreas.Andreas.index()
 
 # EXAMPLES
 # # Ebean
