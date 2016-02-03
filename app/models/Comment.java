@@ -1,7 +1,7 @@
 package models;
 
 import com.avaje.ebean.annotation.CreatedTimestamp;
-import play.db.ebean.Model;
+import com.avaje.ebean.Model;
 import profile.models.User;
 
 import javax.persistence.*;

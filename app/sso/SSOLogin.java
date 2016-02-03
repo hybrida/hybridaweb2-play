@@ -4,6 +4,7 @@ import profile.models.User;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.utils.escapeText;
+import play.libs.Crypto;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -55,7 +56,7 @@ public class SSOLogin extends Controller {
 					returnarg == null || returnarg.length() == 0
 					? request().path() : returnarg));
 		} else {
-			session("user", play.api.libs.Crypto.encryptAES("hybrid," + String.valueOf(System.currentTimeMillis())));
+			session("user", play.Play.application().injector().instanceOf(Crypto.class).encryptAES("hybrid," + String.valueOf(System.currentTimeMillis())));
 			return redirect(returnarg.length() == 0 ? request().path() : returnarg);
 		}
 	}

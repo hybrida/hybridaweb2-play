@@ -1,7 +1,7 @@
 package models;
 
 
-import play.db.ebean.Model;
+import com.avaje.ebean.Model;
 import play.api.libs.Crypto;
 import java.util.Date;
 import play.mvc.Controller;
@@ -29,7 +29,7 @@ public class LoginState extends Model {
 	public static boolean isValidlyLoggedIn() {
 		String user = play.mvc.Controller.session("user");
 		if (user != null) {
-			String data[] = Crypto.decryptAES(user).split(",");
+			String data[] = play.Play.application().injector().instanceOf(play.libs.Crypto.class).decryptAES(user).split(",");
 			if (isUserInDatabase(data[0])) {
 				if (isUserTimeValid(data[0], data[1])) {
 					return true;
@@ -42,7 +42,7 @@ public class LoginState extends Model {
 	public static User getUser() {
 		String user = Controller.session("user");
 		if (user != null) {
-			String data[] = Crypto.decryptAES(user).split(",");
+			String data[] = play.Play.application().injector().instanceOf(play.libs.Crypto.class).decryptAES(user).split(",");
 			if (isUserInDatabase(data[0])) {
 				if (isUserTimeValid(data[0], data[1])) {
 					return User.find.where().eq("username", data[0]).findUnique();

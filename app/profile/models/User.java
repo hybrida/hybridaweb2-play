@@ -6,12 +6,13 @@ import models.Event;
 import models.LoginState;
 import play.data.Form;
 import play.data.validation.Constraints.Required;
-import play.db.ebean.Model;
+import com.avaje.ebean.Model;
 import play.mvc.Call;
 import play.twirl.api.Html;
 import renders.models.Renderable;
 import util.Oolean;
 import util.Validator;
+import play.libs.Crypto;
 
 import javax.persistence.*;
 import java.io.File;
@@ -419,7 +420,7 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 	}
 
 	public void saveToSession() {
-		play.mvc.Controller.session("user", play.api.libs.Crypto.encryptAES(username + "," + String.valueOf(System.currentTimeMillis())));
+		play.mvc.Controller.session("user", play.Play.application().injector().instanceOf(Crypto.class).encryptAES(username + "," + String.valueOf(System.currentTimeMillis())));
 	}
 
 	public static Map<String, String> validateForm(Form<User> form) throws IOException {

@@ -2,7 +2,7 @@ package bedkomdatabase.models;
 
 import com.avaje.ebean.annotation.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import play.db.ebean.Model;
+import com.avaje.ebean.Model;
 
 import javax.persistence.*;
 import java.lang.String;

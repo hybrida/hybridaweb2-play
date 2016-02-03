@@ -11,6 +11,7 @@ import play.mvc.Result;
 import util.Validator;
 import play.twirl.api.Html;
 import models.HttpRequestData;
+import play.libs.Crypto;
 
 import java.io.*;
 import java.net.URLEncoder;
@@ -39,7 +40,7 @@ public class Admin extends Controller {
 			String hash = "1000:273fad43db7f567593c84d7eab74256fb569d9328e21f938:02a4f3199ffc2c12389ca9bfb55a07f4692f180cc13083e0";
 			boolean correct = PasswordHash.validatePassword(password, hash);
 			if (correct) {
-				session("user", play.api.libs.Crypto.encryptAES("hybrid," + String.valueOf(System.currentTimeMillis())));
+				session("user", play.Play.application().injector().instanceOf(Crypto.class).encryptAES("hybrid," + String.valueOf(System.currentTimeMillis())));
 				return redirect(admintools.routes.Admin.index());
 			} else {
 				return ok("password incorrect");

@@ -1,7 +1,7 @@
 package models;
 
 import article.routes;
-import play.db.ebean.Model;
+import com.avaje.ebean.Model;
 import play.data.Form;
 import play.mvc.Call;
 import profile.models.User;
@@ -481,7 +481,6 @@ public class Event extends Model implements Revisable<Event> {
 					for (User waiter : waiting) {
 						if (getUserBlocked(waiter) == -1) {
 							getJoinedUsers().add(waiter);
-							waiting.remove(waiting.indexOf(waiter));
 							break;
 						}
 					}

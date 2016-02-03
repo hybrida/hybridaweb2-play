@@ -40,10 +40,6 @@ public class HttpRequestData extends java.util.HashMap<String, String> {
 		return Long.valueOf(input);
 	}
 
-	public static Long getLongStatic(String key) {
-		return (new HttpRequestData()).getLong(key);
-	}
-
 	public String toString() {
 		String total = "";
 		if (!super.isEmpty()) {

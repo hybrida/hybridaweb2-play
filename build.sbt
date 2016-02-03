@@ -2,13 +2,13 @@ name := """webkom-play"""
 
 version := "1.0"
 
-lazy val root = (project in file(".")).enablePlugins(PlayJava)
+lazy val root = (project in file(".")).enablePlugins(PlayJava, PlayEbean)
 
 scalaVersion := "2.11.1"
 
 libraryDependencies ++= Seq(
+  evolutions,
   javaJdbc,
-  javaEbean,
   cache,
   javaWs,
   javaJpa,

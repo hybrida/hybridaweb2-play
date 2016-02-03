@@ -1,6 +1,6 @@
 package models;
 
-import play.db.ebean.Model;
+import com.avaje.ebean.Model;
 
 /**
  * Created by ivar on 24.11.2015.

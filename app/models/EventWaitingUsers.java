@@ -1,6 +1,6 @@
 package models;
 
-import play.db.ebean.Model;
+import com.avaje.ebean.Model;
 import profile.models.User;
 
 import static play.data.Form.form;
