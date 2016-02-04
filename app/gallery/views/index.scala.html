@@ -1,155 +1,183 @@
 @(images: List[GalleryImage])
-<div class="container-fluid center-container">
-    <div class="row space-below">
-        <div class="col-xs-12 space-above">
-            <div class="page-box">
 
-                <!--
-                     Make this into two templates, one for the import/links and one for the gallery
-                     Implement lazy loading: load the page and load images through ajax, adding them to the gallery
-                     Implement your own image viewer?
-                     Give a view score to image if hold over for more than 1 second, and click score in clicked on
-                -->
+<!--
+     Make this into two templates, one for the import/links and one for the gallery
+     Implement lazy loading: load the page and load images through ajax, adding them to the gallery
+     Implement your own image viewer?
+     Give a view score to image if hold over for more than 1 second, and click score in clicked on
+-->
 
-                <script src='assets/javascripts/jquery-1.11.2.min.js'></script>
-                <script src='assets/javascripts/masonry.js'></script>
-                <script src='assets/javascripts/photoswipe.js'></script>
-                <script src='assets/javascripts/photoswipe-ui-default.js'></script>
-                <link rel="stylesheet" href="assets/stylesheets/photoswipe.css">
-                <link rel="stylesheet" href="assets/photoswipe/default-skin.css">
+<!--<script src='assets/javascripts/jquery-1.11.2.min.js'></script>-->
+<script src='assets/javascripts/masonry.js'></script>
+<!--<script src='assets/javascripts/photoswipe.js'></script>
+<script src='assets/javascripts/photoswipe-ui-default.js'></script>
+<link rel="stylesheet" href="assets/stylesheets/photoswipe.css">
+<link rel="stylesheet" href="assets/photoswipe/default-skin.css">-->
 
-                <style>
-                    .gallery {
-                        padding: 0;
-                        margin: 0;
-                        width: 1200px;
-                    }
+<style>
+    .gallery {
+        padding: 0;
+        margin: 0;
+        width: 1200px;
+    }
 
-                    .gallery .imageWrapper {
-                        padding: 10px;
-                        margin: 0;
-                        object-fit: contain;
-                        transition: all 0.2s ease;
-                    }
+    .gallery .imageWrapper {
+        padding: 10px;
+        margin: 0;
+        /*object-fit: contain;*/
+        transition: padding 0.2s ease;
+    }
 
-                    .gallery .imageWrapper .image {
-                        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.5);
-                        border-radius: 5px;
-                        transition: all 0.2s ease;
-                    }
+    .gallery .imageWrapper .image {
+        background: url(assets/images/ajax-loader.gif) #CCC no-repeat center;
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.5);
+        height: 100%;
+        width: 100%;
+        border-radius: 5px;
+        transition: box-shadow 0.2s ease;
+    }
 
-                    #viewerUnderlay {
-                        opacity: 0;
-                        position: fixed;
-                        z-index: -2;
-                        top: 0;
-                        left: 0;
-                        height: 100%;
-                        width: 100%;
-                        background-color: rgba(0, 0, 0, 0.5);
-                        transition: opacity 0.2s linear;
-                    }
+    #viewerUnderlay {
+        opacity: 0;
+        position: fixed;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        transition: opacity 0.2s linear;
+    }
 
-                    #viewerOverlay {
-                        opacity: 0;
-                        position: fixed;
-                        z-index: -1;
-                        top: 50%;
-                        left: 50%;
-                        height: 0;
-                        width: 0;
-                        background-size: cover;
-                        background-color: #FFF;
-                        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-                        transition: height 0.2s linear,
-                                    width 0.2s linear,
-                                    top 0.2s linear,
-                                    left 0.2s linear;
-                    }
+    #viewerOverlay {
+        opacity: 0;
+        position: fixed;
+        z-index: -1;
+        top: 50%;
+        left: 50%;
+        height: 0;
+        width: 0;
+        background: url(assets/images/ajax-loader.gif) #CCC no-repeat center;
+        /*background-size: cover;*/
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        transition: opacity 0.2s ease,
+                    height 0.2s ease,
+                    width 0.2s ease,
+                    top 0.2s ease,
+                    left 0.2s ease;
+    }
 
-                    .gallery .imageWrapper:hover {
-                        padding: 0px;
-                    }
+    .gallery .imageWrapper:hover {
+        padding: 0px;
+    }
 
-                    .gallery .imageWrapper:hover .image {
-                        box-shadow: 0 15px 15px -10px rgba(0, 0, 0, 0.5);
-                    }
-                </style>
+    .gallery .imageWrapper:hover .image {
+        box-shadow: 0 15px 15px -10px rgba(0, 0, 0, 0.5);
+    }
+</style>
 
-                <form name="GalleryImage" action="@gallery.routes.Gallery.uploadGalleryImage()" method="POST" enctype="multipart/form-data">
-                    <input type="file" name="image"></input>
-                    <input type="text" name="title"></input>
-                    <input type="text" name="description"></input>
-                    <input type="submit" value="Post"></input>
-                </form>
+<form name="GalleryImage" action="@gallery.routes.Gallery.uploadGalleryImage()" method="POST" enctype="multipart/form-data">
+    <input type="file" name="image"></input>
+    <input type="text" name="title"></input>
+    <input type="text" name="description"></input>
+    <input type="submit" value="Post"></input>
+</form>
 
-                <div class="gallery">
-                    @for(image <- images) {
-                        @defining(image.getThumbSize()/scala.math.pow(2,scala.util.Random.nextInt(2))) { imgSize =>
-                            <div class="imageWrapper" style="
-                                height: @(imgSize)px;
-                                width: @(imgSize)px;
-                            ">
-                                <img
-                                    class="image"
-                                    src="@image.getThumbURL()"
-                                    alt="@image.getTitle()"
-                                    longdesc="@image.getDescription()"
-                                    data-score="@image.getScore()"
-                                    data-id="@image.getImageId()"
-                                    data-uploader="@image.getUploadedBy().getFullName()"
-                                    data-date="@image.getDateUploaded().getTime()"
-                                    data-orgwidth="@image.getWidth()"
-                                    data-orgheight="@image.getHeight()"
-                                    data-orgurl="@image.getImageURL()"
-                                >
-                            </div>
-                        }
-                    }
-                    <!--@@for(a <- 1 until 20) {
-                        <div class="image" style="width: @@(100+scala.util.Random.nextInt(3)*100)px; height: @@(100+scala.util.Random.nextInt(3)*100)px;">
-                            @@a
-                        </div>
-                    }-->
-                </div>
-
-                <script>
-                    var $grid = $('.gallery').masonry({
-                        // options
-                        itemSelector: '.imageWrapper',
-                        columnWidth: 100
-                    });
-                    $("body").append('<div id="viewerUnderlay"></div>');
-                    $("body").append('<div id="viewerOverlay"></div>');
-                    var $underlay = $('#viewerUnderlay');
-                    var $overlay = $('#viewerOverlay');
-                    $underlay.click(function() {
-                        $underlay.css('opacity', 0);
-                        $underlay.css('z-index', -2);
-                        $overlay.css('opacity', 0);
-                        $overlay.css('z-index', -1);
-                        $overlay.css('height', 0);
-                        $overlay.css('width', 0);
-                        $overlay.css('top', '50%');
-                        $overlay.css('left', '50%');
-                        $overlay.css('background-image', '');
-                    });
-                    $('.gallery .imageWrapper').click(function() {
-                        $image = $(this).children(":first-child");
-                        console.log($image);
-                        console.log($image.data("orgwidth"));
-                        $overlay.css("width", $image.data("orgwidth"));
-                        $overlay.css("height", $image.data("orgheight"));
-                        $overlay.css("left", $(window).width()/2 - $image.data("orgwidth")/2);
-                        $overlay.css("top", $(window).height()/2 - $image.data("orgheight")/2);
-                        $overlay.css('background-image', 'url("' + $image.data("orgurl") + '")');
-                        $underlay.css('opacity', 1);
-                        $underlay.css('z-index', 999);
-                        $overlay.css('opacity', 1);
-                        $overlay.css('z-index', 1000);
-                    });
-                </script>
+<div class="gallery">
+    @for(image <- images) {
+        @defining(image.getThumbSize()/scala.math.pow(2,scala.util.Random.nextInt(2))) { imgSize =>
+            <div class="imageWrapper" style="height: @(imgSize)px; width: @(imgSize)px;">
+                <div
+                    class="image"
+                    data-title="@image.getTitle()"
+                    data-desc="@image.getDescription()"
+                    data-score="@image.getScore()"
+                    data-id="@image.getImageId()"
+                    data-uploader="@image.getUploadedBy().getFullName()"
+                    data-date="@image.getDateUploaded().getTime()"
+                    data-orgwidth="@image.getWidth()"
+                    data-orgheight="@image.getHeight()"
+                    data-orgurl="@image.getImageURL()"
+                    data-thumburl="@image.getThumbURL()"
+                ></div>
             </div>
+        }
+    }
+    <!--@@for(a <- 1 until 20) {
+        <div class="image" style="width: @@(100+scala.util.Random.nextInt(3)*100)px; height: @@(100+scala.util.Random.nextInt(3)*100)px;">
+            @@a
         </div>
-    </div>
+    }-->
 </div>
+
+<script>
+    var $grid = $('.gallery').masonry({
+        // options
+        itemSelector: '.imageWrapper',
+        columnWidth: 100
+    });
+
+    $("body")
+        .append('<div id="viewerUnderlay"></div>')
+        .append('<div id="viewerOverlay"></div>');
+
+    var $underlay = $('#viewerUnderlay');
+    var $overlay = $('#viewerOverlay');
+    var $window = $(window);
+    var border = 100;
+
+    $underlay.click(function() {
+        $underlay.on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', function() {
+            $underlay.css('z-index', -2);
+            $overlay.css('z-index', -1);
+            $overlay.css('background-image', '');
+        });
+        $underlay.css('opacity', 0);
+        $overlay.css('opacity', 0);
+        $overlay.css('height', 0);
+        $overlay.css('width', 0);
+        $overlay.css('top', '50%');
+        $overlay.css('left', '50%');
+    });
+
+    $('.gallery .imageWrapper').click(function() {
+        $underlay.off('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd');
+        var $image = $(this).children(":first-child");
+        var allowedWidth = $window.width() - 2*border;
+        var allowedHeight = $window.height() - 2*border;
+
+        var imgWidth = $image.data("orgwidth");
+        var imgHeight = $image.data("orgheight");
+        if (imgHeight > allowedHeight || imgWidth > allowedWidth) {
+            var aspect = imgHeight / imgWidth;
+            var heightOver = imgHeight - allowedHeight;
+            var widthOver = imgWidth - allowedWidth;
+            if (heightOver > widthOver) {
+                imgHeight = allowedHeight;
+                imgWidth = imgHeight / aspect;
+            } else {
+                imgWidth = allowedWidth;
+                imgHeight = imgWidth * aspect;
+            }
+        }
+
+        var imgLeft = ($window.width() - imgWidth)/2;
+        var imgTop = ($window.height() - imgHeight)/2;
+
+        $overlay.css("width", imgWidth);
+        $overlay.css("height", imgHeight);
+        $overlay.css("left", imgLeft);
+        $overlay.css("top", imgTop);
+        //$overlay.css('background-image', 'url("' + $image.data("orgurl") + '")');
+        $underlay.css('opacity', 1);
+        $underlay.css('z-index', 999);
+        $overlay.css('opacity', 1);
+        $overlay.css('z-index', 1000);
+    });
+
+    function loadGalleryThumb(elem) {
+        //$(elem).parent().removeAttr("hidden");
+        //$grid.masonry.append($(elem).parent());
+        //$grid.masonry('layout');
+    }
+</script>
