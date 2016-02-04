@@ -2,6 +2,7 @@
 conf/evolutions/default/backup/
 conf/evolutions/default/3.sql
 conf/application.conf
+db/
 data/
 public/uploads/**
 !public/uploads/hybrid
