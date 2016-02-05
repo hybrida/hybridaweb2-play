@@ -60,7 +60,6 @@ public class Event extends Controller {
 			evt.checkAndAssignWaiters();
 
 			models.Article art = evt.getArticle();
-			List<User> signedups = evt.getJoinedUsers();
 			return ok(layout.render("Arrangement", viewEvent.render(art, evt)));
 		}
 		else

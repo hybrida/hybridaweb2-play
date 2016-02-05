@@ -157,8 +157,8 @@ public class Upload extends Controller {
 			throw new ServerError();
 		}
 		return new String[]{
-                controllers.routes.Assets.at(tempFile.getPath().substring(7)).url(),  //TODO: HACKY!!
-                controllers.routes.Assets.at(newFile.getPath().substring(7)).url(),
+                controllers.routes.Assets.at(tempFile.getPath().substring(7)).url().replace('\\', '/'),  //TODO: HACKY!!
+                controllers.routes.Assets.at(newFile.getPath().substring(7)).url().replace('\\', '/'),
                 ""+width, ""+height}; //sorry, not sorry
 	}
 
