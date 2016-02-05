@@ -11,6 +11,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.layout;
 import controllers.Upload;
+import views.html.layoutBoxPage;
 
 import javax.imageio.ImageIO;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import java.util.List;
  */
 public class Gallery extends Controller {
     public static Result display() {
-        return ok(layout.render("Galleri", gallery.views.html.index.render(GalleryImage.find.all())));
+        return ok(layoutBoxPage.render("Galleri", gallery.views.html.index.render(GalleryImage.find.all())));
     }
 
     public static Result giveImageClickScore(long imageId) {
