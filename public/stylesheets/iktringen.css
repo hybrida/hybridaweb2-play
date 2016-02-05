@@ -35,7 +35,7 @@
     margin: 0 auto;
     width: 100%;
     height: 100vh;
-    background-image: url(../images/styret2.jpg);
+    background-image: url(../images/tempbackground.jpg);
     background-repeat:no-repeat;
     background-size:cover;
     background-position:center;
@@ -85,7 +85,7 @@
     color:#212121;
     padding: 1em 2.5em 0em 2.5em;
     text-align: center;
-    font-size: 35px;
+    font-size: 45px;
     line-height: 1.5;
     width: 85%;
 }
@@ -94,7 +94,7 @@
     color:#212121;
     padding: 1em 2.5em 1em 2.5em;
     text-align: center;
-    font-size: 22px;
+    font-size: 20px;
     line-height: 1.5;
     width: 85%;
 }
@@ -164,6 +164,12 @@
     background: #fff;
 }
 
+.row {
+    width: 85%;
+    font-size: 19px;
+    padding: 1em 2.5em 1em 2.5em;
+}
+
 #sidebar  {
     display: none;
     z-index:2;
@@ -185,9 +191,18 @@
 }
 
 #sidebar .sub-nav li a {
-    padding: 5px 30px;
+    padding: 5px 30px;s
     font-size: 0.9em;
 }
+
+.kontaktinfo-rader {
+    padding: 1em 2.5em 1em 2.5em;
+    width: 85%;
+    font-size: 22px;
+}
+
+
+
 
 @media (min-width: 768px) {
     .onepage-pagination{display: none;}
@@ -201,4 +216,5 @@
 @media (min-width: 1200px) {
     #sidebar{max-width: 16%; padding: 15px;}
 }
+
 
