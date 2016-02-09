@@ -54,9 +54,7 @@
 		</div>
 	</div>
 </nav>
-<form action="@(article.routes.Article.viewArticle("1"))" method="get">
-	<button  type="submit" class="btn btn-default btn-lg fixed-bottom-right">
-		<span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span> Feedback
-	</button>
-</form>
+<a href="@(article.routes.Article.viewArticle("1"))" class="feedback btn btn-default btn-lg fixed-bottom-right">
+    <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span> Feedback
+</a>
 @import java.sql.Timestamp
