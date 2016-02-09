@@ -22,7 +22,7 @@ GET           /nystudent                                newstudent.NewStudent.in
 GET           /redaksjonen                              redaksjonen.Redaksjonen.index()
 GET           /statutter                                statutter.Statutter.index()
 GET           /strikk                                   strikk.HybridaStrikk.index()
-GET           /styret                                   styret.Styret.index()
+GET           /styret                                   info.Info.styret()
 GET           /tillitsvalgte                            tillitsvalgte.Tillitsvalgte.index()
 GET           /vevkom                                   vevkom.VevKom.index()
 
