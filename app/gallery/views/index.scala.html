@@ -28,7 +28,7 @@
         transition: padding 0.2s ease;
     }
 
-    .gallery .imageWrapper .image {
+    .gallery .imageWrapper .loader {
         background: url(assets/images/ajax-loader.gif) #CCC no-repeat center;
         box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.5);
         height: 100%;
@@ -36,6 +36,13 @@
         border-radius: 5px;
         transition: box-shadow 0.2s ease;
     }
+
+    .gallery .imageWrapper .loader .image {
+        border-radius: 5px;
+        opacity: 0;
+        transition: opacity 1s ease;
+    }
+
 
     #viewerUnderlay {
         opacity: 0;
@@ -67,11 +74,17 @@
                     left 0.2s ease;
     }
 
+    #viewerOverlay #viewerImage {
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+    }
+
     .gallery .imageWrapper:hover {
         padding: 0px;
     }
 
-    .gallery .imageWrapper:hover .image {
+    .gallery .imageWrapper:hover .loader {
         box-shadow: 0 15px 15px -10px rgba(0, 0, 0, 0.5);
     }
 </style>
@@ -86,20 +99,21 @@
 <div class="gallery">
     @for(image <- images) {
         @defining(image.getThumbSize()/scala.math.pow(2,scala.util.Random.nextInt(2))) { imgSize =>
-            <div class="imageWrapper" style="height: @(imgSize)px; width: @(imgSize)px;">
-                <div
-                    class="image"
-                    data-title="@image.getTitle()"
-                    data-desc="@image.getDescription()"
-                    data-score="@image.getScore()"
-                    data-id="@image.getImageId()"
-                    data-uploader="@image.getUploadedBy().getFullName()"
-                    data-date="@image.getDateUploaded().getTime()"
-                    data-orgwidth="@image.getWidth()"
-                    data-orgheight="@image.getHeight()"
-                    data-orgurl="@image.getImageURL()"
-                    data-thumburl="@image.getThumbURL()"
-                ></div>
+            <div
+                class="imageWrapper"
+                style="height: @(imgSize)px; width: @(imgSize)px;"
+                data-title="@image.getTitle()"
+                data-desc="@image.getDescription()"
+                data-score="@image.getScore()"
+                data-id="@image.getImageId()"
+                data-uploader="@image.getUploadedBy().getFullName()"
+                data-date="@image.getDateUploaded().getTime()"
+                data-orgwidth="@image.getWidth()"
+                data-orgheight="@image.getHeight()"
+                data-orgurl="@image.getImageURL()"
+                data-thumburl="@image.getThumbURL()"
+            >
+                <div class="loader"></div>
             </div>
         }
     }
@@ -111,7 +125,8 @@
 </div>
 
 <script>
-    var $grid = $('.gallery').masonry({
+    var $gallery = $('.gallery');
+    var $grid = $gallery.masonry({
         // options
         itemSelector: '.imageWrapper',
         columnWidth: 100
@@ -119,11 +134,12 @@
 
     $("body")
         .append('<div id="viewerUnderlay"></div>')
-        .append('<div id="viewerOverlay"></div>');
+        .append('<div id="viewerOverlay"><img id="viewerImage"></div>');
 
     var $underlay = $('#viewerUnderlay');
     var $overlay = $('#viewerOverlay');
     var $window = $(window);
+    var $thumbs = $gallery.children('.imageWrapper');
     var border = 100;
 
     $underlay.click(function() {
@@ -142,7 +158,7 @@
 
     $('.gallery .imageWrapper').click(function() {
         $underlay.off('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd');
-        var $image = $(this).children(":first-child");
+        var $image = $(this);
         var allowedWidth = $window.width() - 2*border;
         var allowedHeight = $window.height() - 2*border;
 
@@ -175,9 +191,18 @@
         $overlay.css('z-index', 1000);
     });
 
-    function loadGalleryThumb(elem) {
-        //$(elem).parent().removeAttr("hidden");
-        //$grid.masonry.append($(elem).parent());
-        //$grid.masonry('layout');
+    window.onload = function() {
+        for (var i = 0; i < $thumbs.length; i++) {
+            var $thumb = $($thumbs[i]);
+            var tempImg = new Image();
+
+            tempImg.onload = function() {
+                this.style.opacity = 1;
+            }
+
+            tempImg.className = "image";
+            tempImg.src = $thumb.data("thumburl");
+            $thumb.children().first().append(tempImg);
+        }
     }
 </script>

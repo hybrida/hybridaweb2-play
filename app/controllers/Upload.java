@@ -113,7 +113,9 @@ public class Upload extends Controller {
 	}
 
 	public static String[] uploadAndMakeThumb(String inputName) throws Unauthorized, NoFileInRequest, ServerError, IncorrectFileType {
-		// Save original image
+		// Convert every file format to png or jpg
+
+        // Save original image
 		String imagePath = upload(inputName, LOCAL_PATH);
 		if (imagePath == null) throw new ServerError();
         File tempFile = new File(imagePath);
