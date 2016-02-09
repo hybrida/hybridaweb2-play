@@ -9,8 +9,8 @@ public class Bedkom extends play.mvc.Controller {
         return ok(
                 views.html.layoutWithHead.render(
                         "Bedkom",
-                        bedkom.views.html.bedkomhead.render(),
-                        bedkom.views.html.bedkombody.render()
+                        bedkom.views.html.bedkomHead.render(),
+                        bedkom.views.html.bedkomBody.render()
                 )
         );
     }

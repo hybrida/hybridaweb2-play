@@ -9,8 +9,8 @@ public class Bedrift extends play.mvc.Controller {
         return ok(
                 views.html.layoutWithHead.render(
                         "Bedrift",
-                        bedrift.views.html.bedrifthead.render(),
-                        bedrift.views.html.bedriftbody.render()
+                        bedrift.views.html.bedriftHead.render(),
+                        bedrift.views.html.bedriftBody.render()
                 )
         );
     }
