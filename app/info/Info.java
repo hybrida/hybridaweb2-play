@@ -10,13 +10,19 @@ import views.html.layout;
 public class Info extends Controller {
 	static public Result index() {
 		return ok(views.html.layoutWithHead.render(
-				"Hybrida - Om Hybrida",
+				"Om Hybrida",
 				info.views.html.index.render(),
 				info.views.html.head.render()));
 	}
+
 	static public Result styret() {
 		return ok(layout.render(
-				"Hybrida - Styret",
+				"Styret",
 				info.views.html.styret.render()));
+	}
+
+	public static Result arrkom() {
+		return ok(layout.render(
+				"Arrangementkomitéen", info.views.html.arrkom.render()));
 	}
 }

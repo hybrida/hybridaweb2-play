@@ -6,7 +6,7 @@ GET           /                                         application.Application.
 GET           /forside                                  application.Application.frontpage()
 
 # STATIC INFO PAGES
-GET           /arrkom                                   arrkom.ArrKom.index()
+GET           /arrkom                                   info.Info.arrkom()
 #FIXME(TrulsElg): Hva er forskjellen på bedrift og bedriftalt?
 GET           /bedrift                                  bedrift.Bedrift.index()
 GET           /bedriftalt                               company.Company.index()
