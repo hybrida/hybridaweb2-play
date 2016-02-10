@@ -7,7 +7,7 @@ GET           /forside                         application.Application.frontpage
 
 # STATIC INFO PAGES
 GET           /arrkom                          staticpages.About.arrkom()
-GET           /bedrift                         bedrift.Bedrift.index()
+GET           /bedrift                         staticpages.Bedrift.index()
 GET           /bedkom                          staticpages.About.bedkom()
 GET           /griffensorden                   griffensorden.GriffensOrden.index()
 GET           /griffensorden/riddere           griffensorden.GriffensOrden.riddere()

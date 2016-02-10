@@ -38,7 +38,7 @@ public class About extends Controller {
 		);
 	}
 
-	public static play.mvc.Result vevkom() {
+	public static Result vevkom() {
 		return ok(
 				layoutWithHead.render(
 						"Vevkom",
@@ -48,7 +48,7 @@ public class About extends Controller {
 		);
 	}
 
-	public static play.mvc.Result bedkom() {
+	public static Result bedkom() {
 		return ok(
 				layoutWithHead.render(
 						"Bedkom",
@@ -58,7 +58,7 @@ public class About extends Controller {
 		);
 	}
 
-	public static play.mvc.Result jentekom() {
+	public static Result jentekom() {
 		return ok(
 				layoutWithHead.render(
 						"Jentekom",

@@ -14,7 +14,7 @@
 
 				@if(models.LoginState.isValidlyLoggedIn()) {<li><a href="@application.routes.Application.frontpage()">Forside</a></li>}
 				@if(models.LoginState.getUser().canCreateNewArticle()) {<li><a href="@article.routes.ArticleIn.index()">Nytt Innlegg</a></li>}
-				<li><a href="@bedrift.routes.Bedrift.index()">Bedrift</a></li>
+				<li><a href="@staticpages.routes.Bedrift.index()">Bedrift</a></li>
 				<li><a href="@calendar.routes.Calendar.display()">Kalender</a></li>
 				<!--<li><a href="@gallery.routes.Gallery.display()">Galleri</a></li>-->
 				<li><a href="@staticpages.routes.About.index()">Om Hybrida</a></li>
