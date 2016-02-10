@@ -1,4 +1,4 @@
-package info;
+package staticpages;
 
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -13,8 +13,8 @@ public class Info extends Controller {
 		return ok(
 				layoutWithHead.render(
 						"Om Hybrida",
-						info.views.html.index.render(),
-						info.views.html.head.render()
+						staticpages.views.html.index.render(),
+						staticpages.views.html.head.render()
 				)
 		);
 	}
@@ -23,7 +23,7 @@ public class Info extends Controller {
 		return ok(
 				layout.render(
 						"Styret",
-						info.views.html.styret.render()
+						staticpages.views.html.styret.render()
 				)
 		);
 	}
@@ -32,8 +32,8 @@ public class Info extends Controller {
 		return ok(
 				layoutWithHead.render(
 						"Arrangementkomitéen",
-						info.views.html.arrkom.render(),
-						info.views.html.staticpageHead.render()
+						staticpages.views.html.arrkom.render(),
+						staticpages.views.html.staticpageHead.render()
 				)
 		);
 	}
@@ -42,8 +42,8 @@ public class Info extends Controller {
 		return ok(
 				layoutWithHead.render(
 						"Vevkom",
-						info.views.html.vevkom.render(),
-						info.views.html.staticpageHead.render()
+						staticpages.views.html.vevkom.render(),
+						staticpages.views.html.staticpageHead.render()
 				)
 		);
 	}
@@ -52,8 +52,8 @@ public class Info extends Controller {
 		return ok(
 				layoutWithHead.render(
 						"Bedkom",
-						info.views.html.bedkom.render(),
-						info.views.html.staticpageHead.render()
+						staticpages.views.html.bedkom.render(),
+						staticpages.views.html.staticpageHead.render()
 				)
 		);
 	}
@@ -62,8 +62,8 @@ public class Info extends Controller {
 		return ok(
 				layoutWithHead.render(
 						"Jentekom",
-						info.views.html.jentekom.render(),
-						info.views.html.staticpageHead.render()
+						staticpages.views.html.jentekom.render(),
+						staticpages.views.html.staticpageHead.render()
 				)
 		);
 	}
@@ -72,7 +72,7 @@ public class Info extends Controller {
 		return ok(
 				layout.render(
 						"Redaksjonen",
-						info.views.html.redaksjonen.render()
+						staticpages.views.html.redaksjonen.render()
 				)
 		);
 	}
