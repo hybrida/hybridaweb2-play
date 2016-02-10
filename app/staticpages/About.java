@@ -8,7 +8,7 @@ import views.html.layoutWithHead;
 /**
  * Created by Kia on 16.10.14.
  */
-public class Info extends Controller {
+public class About extends Controller {
 	public static Result index() {
 		return ok(
 				layoutWithHead.render(
