@@ -7,9 +7,7 @@ GET           /forside                         application.Application.frontpage
 
 # STATIC INFO PAGES
 GET           /arrkom                          staticpages.Info.arrkom()
-#FIXME(TrulsElg): Hva er forskjellen på bedrift og bedriftalt?
 GET           /bedrift                         bedrift.Bedrift.index()
-GET           /bedriftalt                      company.Company.index()
 GET           /bedkom                          staticpages.Info.bedkom()
 GET           /griffensorden                   griffensorden.GriffensOrden.index()
 GET           /griffensorden/riddere           griffensorden.GriffensOrden.riddere()
