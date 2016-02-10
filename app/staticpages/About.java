@@ -33,7 +33,7 @@ public class About extends Controller {
 				layoutWithHead.render(
 						"Arrangementkomitéen",
 						staticpages.views.html.arrkom.render(),
-						staticpages.views.html.staticpageHead.render()
+						staticpages.views.html.staticPageHead.render()
 				)
 		);
 	}
@@ -43,7 +43,7 @@ public class About extends Controller {
 				layoutWithHead.render(
 						"Vevkom",
 						staticpages.views.html.vevkom.render(),
-						staticpages.views.html.staticpageHead.render()
+						staticpages.views.html.staticPageHead.render()
 				)
 		);
 	}
@@ -53,7 +53,7 @@ public class About extends Controller {
 				layoutWithHead.render(
 						"Bedkom",
 						staticpages.views.html.bedkom.render(),
-						staticpages.views.html.staticpageHead.render()
+						staticpages.views.html.staticPageHead.render()
 				)
 		);
 	}
@@ -63,7 +63,7 @@ public class About extends Controller {
 				layoutWithHead.render(
 						"Jentekom",
 						staticpages.views.html.jentekom.render(),
-						staticpages.views.html.staticpageHead.render()
+						staticpages.views.html.staticPageHead.render()
 				)
 		);
 	}
