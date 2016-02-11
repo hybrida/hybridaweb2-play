@@ -75,9 +75,8 @@
     }
 
     #viewerOverlay #viewerImage {
-        width: 100%;
-        height: 100%;
         opacity: 0;
+        transition: opacity 1s ease;
     }
 
     .gallery .imageWrapper:hover {
@@ -134,7 +133,7 @@
 
     $("body")
         .append('<div id="viewerUnderlay"></div>')
-        .append('<div id="viewerOverlay"><img id="viewerImage"></div>');
+        .append('<div id="viewerOverlay">');
 
     var $underlay = $('#viewerUnderlay');
     var $overlay = $('#viewerOverlay');
@@ -147,6 +146,7 @@
             $underlay.css('z-index', -2);
             $overlay.css('z-index', -1);
             $overlay.css('background-image', '');
+            $overlay.empty();
         });
         $underlay.css('opacity', 0);
         $overlay.css('opacity', 0);
@@ -189,6 +189,17 @@
         $underlay.css('z-index', 999);
         $overlay.css('opacity', 1);
         $overlay.css('z-index', 1000);
+
+        // Load image
+        var tempImg = new Image();
+
+        tempImg.onload = function() {
+            this.style.opacity = 1;
+        }
+
+        tempImg.id = "viewerImage";
+        tempImg.src = $image.data("orgurl");
+        $overlay.append(tempImg);
     });
 
     window.onload = function() {
