@@ -1,0 +1,170 @@
+<script src='assets/javascripts/masonry.js'></script>
+
+<style>
+    .gallery {
+        padding: 0;
+        margin: 0;
+        width: 1200px;
+    }
+
+    .gallery .imageWrapper {
+        padding: 10px;
+        margin: 0;
+        /*object-fit: contain;*/
+        transition: padding 0.2s ease;
+    }
+
+    .gallery .imageWrapper .loader {
+        background: url(assets/images/ajax-loader.gif) #CCC no-repeat center;
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.5);
+        height: 100%;
+        width: 100%;
+        border-radius: 5px;
+        transition: box-shadow 0.2s ease;
+    }
+
+    .gallery .imageWrapper .loader .image {
+        border-radius: 5px;
+        opacity: 0;
+        transition: opacity 1s ease;
+    }
+
+
+    #viewerUnderlay {
+        opacity: 0;
+        position: fixed;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        transition: opacity 0.2s linear;
+    }
+
+    #viewerOverlay {
+        opacity: 0;
+        position: fixed;
+        z-index: -1;
+        top: 50%;
+        left: 50%;
+        height: 0;
+        width: 0;
+        background: url(assets/images/ajax-loader.gif) #CCC no-repeat center;
+        /*background-size: cover;*/
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        transition: opacity 0.2s ease,
+                    height 0.2s ease,
+                    width 0.2s ease,
+                    top 0.2s ease,
+                    left 0.2s ease;
+    }
+
+    #viewerOverlay #viewerImage {
+        opacity: 0;
+        transition: opacity 1s ease;
+    }
+
+    .gallery .imageWrapper:hover {
+        padding: 0px;
+    }
+
+    .gallery .imageWrapper:hover .loader {
+        box-shadow: 0 15px 15px -10px rgba(0, 0, 0, 0.5);
+    }
+</style>
+
+<script>
+    var $galleries = $('.gallery');
+    var $grids = $galleries.masonry({
+        // options
+        itemSelector: '.imageWrapper',
+        columnWidth: 100
+    });
+
+    $("body")
+        .append('<div id="viewerUnderlay"></div>')
+        .append('<div id="viewerOverlay">');
+
+    var $underlay = $('#viewerUnderlay');
+    var $overlay = $('#viewerOverlay');
+    var $window = $(window);
+    var $thumbs = $galleries.children('.imageWrapper');
+    var border = 100;
+
+    $underlay.click(function() {
+        $underlay.on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', function() {
+            $underlay.css('z-index', -2);
+            $overlay.css('z-index', -1);
+            $overlay.css('background-image', '');
+            $overlay.empty();
+        });
+        $underlay.css('opacity', 0);
+        $overlay.css('opacity', 0);
+        $overlay.css('height', 0);
+        $overlay.css('width', 0);
+        $overlay.css('top', '50%');
+        $overlay.css('left', '50%');
+    });
+
+    $('.gallery .imageWrapper').click(function() {
+        $underlay.off('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd');
+        var $image = $(this);
+        var allowedWidth = $window.width() - 2*border;
+        var allowedHeight = $window.height() - 2*border;
+
+        var imgWidth = $image.data("orgwidth");
+        var imgHeight = $image.data("orgheight");
+        if (imgHeight > allowedHeight || imgWidth > allowedWidth) {
+            var aspect = imgHeight / imgWidth;
+            var heightOver = imgHeight - allowedHeight;
+            var widthOver = imgWidth - allowedWidth;
+            if (heightOver > widthOver) {
+                imgHeight = allowedHeight;
+                imgWidth = imgHeight / aspect;
+            } else {
+                imgWidth = allowedWidth;
+                imgHeight = imgWidth * aspect;
+            }
+        }
+
+        var imgLeft = ($window.width() - imgWidth)/2;
+        var imgTop = ($window.height() - imgHeight)/2;
+
+        $overlay.css("width", imgWidth);
+        $overlay.css("height", imgHeight);
+        $overlay.css("left", imgLeft);
+        $overlay.css("top", imgTop);
+        //$overlay.css('background-image', 'url("' + $image.data("orgurl") + '")');
+        $underlay.css('opacity', 1);
+        $underlay.css('z-index', 999);
+        $overlay.css('opacity', 1);
+        $overlay.css('z-index', 1000);
+
+        // Load image
+        var tempImg = new Image();
+
+        tempImg.onload = function() {
+            this.style.opacity = 1;
+        }
+
+        tempImg.id = "viewerImage";
+        tempImg.src = $image.data("orgurl");
+        $overlay.append(tempImg);
+    });
+
+    window.onload = function() {
+        for (var i = 0; i < $thumbs.length; i++) {
+            var $thumb = $($thumbs[i]);
+            var tempImg = new Image();
+
+            tempImg.onload = function() {
+                this.style.opacity = 1;
+            }
+
+            tempImg.className = "image";
+            tempImg.src = $thumb.data("thumburl");
+            $thumb.children().first().append(tempImg);
+        }
+    }
+</script>
