@@ -1,12 +1,5 @@
 @(images: List[GalleryImage])
 
-<!--
-     Make this into two templates, one for the import/links and one for the gallery
-     Implement lazy loading: load the page and load images through ajax, adding them to the gallery
-     Implement your own image viewer?
-     Give a view score to image if hold over for more than 1 second, and click score in clicked on
--->
-
 <form name="GalleryImage" action="@gallery.routes.Gallery.uploadGalleryImage()" method="POST" enctype="multipart/form-data">
     <input type="file" name="image"></input>
     <input type="text" name="title"></input>
@@ -15,4 +8,4 @@
 </form>
 
 @galleryContainer(images)
-@galleryFramework()
+@galleryFramework(true)

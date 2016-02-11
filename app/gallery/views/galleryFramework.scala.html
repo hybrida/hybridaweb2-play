@@ -1,3 +1,4 @@
+@(shouldSize: Boolean, biggestThumb: Int = 400)
 <script src='assets/javascripts/masonry.js'></script>
 
 <style>
@@ -76,6 +77,35 @@
 
 <script>
     var $galleries = $('.gallery');
+    var precentBig = 0.1;
+    var precentMedium = 0.3;
+    var sizingLimit = 5;
+    var biggestSize = @biggestThumb;
+
+    for (var i = 0; i < $galleries.length; i++) {
+        var $tempThumbs = $($galleries[i]).children('.imageWrapper');
+        var imagesTotal = $tempThumbs.length;
+        var imagesBig = Math.ceil(imagesTotal*precentBig);
+        var imagesMedium = Math.ceil(imagesTotal*precentMedium);
+        var scores = $tempThumbs.data('score');
+        for (var j = 0; j < $tempThumbs.length; j++) {
+            var size = biggestSize;
+            if (imagesTotal >= sizingLimit && @shouldSize) {
+                if (imagesBig > 0) {
+                    imagesBig--;
+                } else if (imagesMedium > 0) {
+                    imagesMedium--;
+                    size = biggestSize / 2;
+                } else {
+                    size = biggestSize / 4;
+                }
+            }
+            var $tempThumb = $($tempThumbs[j]);
+            $tempThumb.css('height', size);
+            $tempThumb.css('width', size);
+        }
+    }
+
     var $grids = $galleries.masonry({
         // options
         itemSelector: '.imageWrapper',
@@ -88,8 +118,8 @@
 
     var $underlay = $('#viewerUnderlay');
     var $overlay = $('#viewerOverlay');
-    var $window = $(window);
     var $thumbs = $galleries.children('.imageWrapper');
+    var $window = $(window);
     var border = 100;
 
     $underlay.click(function() {
@@ -151,6 +181,9 @@
         tempImg.id = "viewerImage";
         tempImg.src = $image.data("orgurl");
         $overlay.append(tempImg);
+
+        // Give score
+        $.get("/api/clickScoreImage", {imageId: $image.data("id")});
     });
 
     window.onload = function() {

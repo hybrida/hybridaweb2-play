@@ -22,17 +22,10 @@ import java.util.List;
  */
 public class Gallery extends Controller {
     public static Result display() {
-        return ok(layoutBoxPage.render("Galleri", gallery.views.html.index.render(GalleryImage.find.all())));
+        return ok(layoutBoxPage.render("Galleri", gallery.views.html.index.render(GalleryImage.find.where().orderBy("score desc").findList())));
     }
 
     public static Result giveImageClickScore(long imageId) {
-        GalleryImage image = GalleryImage.find.byId(imageId);
-        if (image == null) return badRequest();
-        image.giveClickScore();
-        return ok();
-    }
-
-    public static Result giveImageViewScore(long imageId) {
         GalleryImage image = GalleryImage.find.byId(imageId);
         if (image == null) return badRequest();
         image.giveClickScore();
