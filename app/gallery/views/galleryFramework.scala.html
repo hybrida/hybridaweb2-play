@@ -34,12 +34,12 @@
     #viewerUnderlay {
         opacity: 0;
         position: fixed;
-        z-index: -2;
+        z-index: -3;
         top: 0;
         left: 0;
         height: 100%;
         width: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
+        background-color: rgba(0, 0, 0, 0.9);
         transition: opacity 0.2s linear;
     }
 
@@ -63,7 +63,7 @@
 
     #viewerOverlay #viewerImage {
         opacity: 0;
-        transition: opacity 1s ease;
+        transition: opacity 0.2s ease;
     }
 
     .gallery .imageWrapper:hover {
@@ -79,11 +79,17 @@
     var $galleries = $('.gallery');
     var precentBig = 0.1;
     var precentMedium = 0.3;
-    var sizingLimit = 5;
+    var sizingLimit = 4;
     var biggestSize = @biggestThumb;
 
     for (var i = 0; i < $galleries.length; i++) {
         var $tempThumbs = $($galleries[i]).children('.imageWrapper');
+
+        // Uncomment this and make Gallery.java sort by date?
+        /*$tempThumbs.sort(function(a, b) {
+            return $(b).data("score") - $(a).data("score");
+        });*/
+
         var imagesTotal = $tempThumbs.length;
         var imagesBig = Math.ceil(imagesTotal*precentBig);
         var imagesMedium = Math.ceil(imagesTotal*precentMedium);
@@ -120,7 +126,7 @@
     var $overlay = $('#viewerOverlay');
     var $thumbs = $galleries.children('.imageWrapper');
     var $window = $(window);
-    var border = 100;
+    var border = 30;
 
     $underlay.click(function() {
         $underlay.on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', function() {
@@ -165,11 +171,10 @@
         $overlay.css("height", imgHeight);
         $overlay.css("left", imgLeft);
         $overlay.css("top", imgTop);
-        //$overlay.css('background-image', 'url("' + $image.data("orgurl") + '")');
         $underlay.css('opacity', 1);
-        $underlay.css('z-index', 999);
+        $underlay.css('z-index', 99999);
         $overlay.css('opacity', 1);
-        $overlay.css('z-index', 1000);
+        $overlay.css('z-index', 100000);
 
         // Load image
         var tempImg = new Image();

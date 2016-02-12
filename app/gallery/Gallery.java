@@ -17,7 +17,7 @@ import views.html.layoutBoxPage;
  */
 public class Gallery extends Controller {
     public static Result display() {
-        return ok(layoutBoxPage.render("Galleri", gallery.views.html.index.render(GalleryImage.find.where().orderBy("score desc").findList())));
+        return ok(layoutBoxPage.render("Galleri", gallery.views.html.index.render(GalleryImage.find.where().orderBy("score desc").findList()))); //dateUploaded
     }
 
     public static Result giveImageClickScore(long imageId) {
