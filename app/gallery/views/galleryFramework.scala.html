@@ -1,5 +1,5 @@
 @(shouldSize: Boolean, biggestThumb: Int = 400)
-<script src='assets/javascripts/masonry.js'></script>
+<script src='assets/javascripts/packery.pkgd.min.js'></script>
 
 <style>
     .gallery {
@@ -18,6 +18,7 @@
     .gallery .imageWrapper .loader {
         background: url(assets/images/ajax-loader.gif) #CCC no-repeat center;
         box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.5);
+        /*box-shadow: inset 0 0 40px 0 rgba(0, 0, 0, 0.5);*/
         height: 100%;
         width: 100%;
         border-radius: 5px;
@@ -29,7 +30,6 @@
         opacity: 0;
         transition: opacity 1s ease;
     }
-
 
     #viewerUnderlay {
         opacity: 0;
@@ -86,9 +86,9 @@
         var $tempThumbs = $($galleries[i]).children('.imageWrapper');
 
         // Uncomment this and make Gallery.java sort by date?
-        /*$tempThumbs.sort(function(a, b) {
+        $tempThumbs.sort(function(a, b) {
             return $(b).data("score") - $(a).data("score");
-        });*/
+        });
 
         var imagesTotal = $tempThumbs.length;
         var imagesBig = Math.ceil(imagesTotal*precentBig);
@@ -112,10 +112,10 @@
         }
     }
 
-    var $grids = $galleries.masonry({
+    var $grids = $galleries.packery({
         // options
         itemSelector: '.imageWrapper',
-        columnWidth: 100
+        //columnWidth: 100
     });
 
     $("body")
@@ -202,7 +202,7 @@
 
             tempImg.className = "image";
             tempImg.src = $thumb.data("thumburl");
-            $thumb.children().first().append(tempImg);
+            $thumb.children().first().prepend(tempImg);
         }
     }
 </script>
