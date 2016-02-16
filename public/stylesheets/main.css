@@ -284,6 +284,9 @@ img {
 a.inverted{
     color: #fff;
 }
+.background-blue{
+    background-color: #0066cc;
+}
 
 
 .css-table {display:table;}
