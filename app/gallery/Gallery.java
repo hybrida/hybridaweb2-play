@@ -9,20 +9,15 @@ import models.Event;
 import models.HttpRequestData;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.layout;
 import controllers.Upload;
 import views.html.layoutBoxPage;
-
-import javax.imageio.ImageIO;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Tormod on 06.10.2015.
  */
 public class Gallery extends Controller {
     public static Result display() {
-        return ok(layoutBoxPage.render("Galleri", gallery.views.html.index.render(GalleryImage.find.all())));
+        return ok(layoutBoxPage.render("Galleri", gallery.views.html.index.render(GalleryImage.find.where().orderBy("score desc").findList())));
     }
 
     public static Result giveImageClickScore(long imageId) {
@@ -32,14 +27,8 @@ public class Gallery extends Controller {
         return ok();
     }
 
-    public static Result giveImageViewScore(long imageId) {
-        GalleryImage image = GalleryImage.find.byId(imageId);
-        if (image == null) return badRequest();
-        image.giveClickScore();
-        return ok();
-    }
-
     // TODO: implement in Upload, also make a general GalleryImage for files
+    // Switch from masonry to isotope and order the thumbs by date (or scrable) and use packery layout
     public static Result uploadGalleryImage() {
         HttpRequestData data = new HttpRequestData();
         String description = data.get("description");

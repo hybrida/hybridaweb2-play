@@ -9,9 +9,6 @@ import java.sql.Timestamp;
 
 @Entity
 public class GalleryImage extends Model {
-    private static final int CLICK_SCORE = 3;
-
-    private static final int VIEW_SCORE = 1;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -89,12 +86,7 @@ public class GalleryImage extends Model {
     }
 
     public void giveClickScore() {
-        score += CLICK_SCORE;
-        save();
-    }
-
-    public void giveViewScore() {
-        score += VIEW_SCORE;
+        score++;
         save();
     }
 

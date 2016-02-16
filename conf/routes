@@ -2,37 +2,37 @@
 # This file defines all application routes (Higher priority routes first)
 
 # Standard layout accessible pages
-GET           /                                application.Application.index()
-GET           /forside                         application.Application.frontpage()
+GET           /                                         application.Application.index()
+GET           /forside                                  application.Application.frontpage()
 
 # STATIC INFO PAGES
-GET           /arrkom                          staticpages.About.arrkom()
-GET           /bedrift                         staticpages.Bedrift.index()
-GET           /bedkom                          staticpages.About.bedkom()
-GET           /griffensorden                   griffensorden.GriffensOrden.index()
-GET           /griffensorden/riddere           griffensorden.GriffensOrden.riddere()
-GET           /griffensorden/nominasjon        griffensorden.GriffensOrden.nomination()
-GET           /info                            staticpages.About.index()
-GET           /i&iktringen                     ringen.Ringen.index()
-GET           /i&iktringen/om                  ringen.Ringen.about()
-GET           /jentekom                        staticpages.About.jentekom()
-GET           /nystudent                       newstudent.NewStudent.index()
-GET           /redaksjonen                     staticpages.About.redaksjonen()
-GET           /statutter                       statutter.Statutter.index()
-GET           /strikk                          strikk.HybridaStrikk.index()
-GET           /styret                          staticpages.About.styret()
-GET           /tillitsvalgte                   tillitsvalgte.Tillitsvalgte.index()
-GET           /vevkom                          staticpages.About.vevkom()
+GET           /arrkom                                   staticpages.About.arrkom()
+GET           /bedrift                                  staticpages.Bedrift.index()
+GET           /bedkom                                   staticpages.About.bedkom()
+GET           /griffensorden                            griffensorden.GriffensOrden.index()
+GET           /griffensorden/riddere                    griffensorden.GriffensOrden.riddere()
+GET           /griffensorden/nominasjon                 griffensorden.GriffensOrden.nomination()
+GET           /info                                     staticpages.About.index()
+GET           /i&iktringen                              ringen.Ringen.index()
+GET           /i&iktringen/om                           ringen.Ringen.about()
+GET           /jentekom                                 staticpages.About.jentekom()
+GET           /nystudent                                newstudent.NewStudent.index()
+GET           /redaksjonen                              staticpages.About.redaksjonen()
+GET           /statutter                                statutter.Statutter.index()
+GET           /strikk                                   strikk.HybridaStrikk.index()
+GET           /styret                                   staticpages.About.styret()
+GET           /tillitsvalgte                            tillitsvalgte.Tillitsvalgte.index()
+GET           /vevkom                                   staticpages.About.vevkom()
 
 # MODULES
 
 # # Admin
-GET           /admin                           admintools.Admin.index()
-POST          /admin/login                     admintools.Admin.login()
-POST          /admin/rediger                   admintools.Admin.editUser(uid)
-POST          /admin/logout                    admintools.Admin.logout()
-GET           /admin/logout                    admintools.Admin.logout()
-GET           /admin/users                     admintools.Admin.allUsers()
+GET           /admin                                    admintools.Admin.index()
+POST          /admin/login                              admintools.Admin.login()
+POST          /admin/rediger                            admintools.Admin.editUser(uid)
+POST          /admin/logout                             admintools.Admin.logout()
+GET           /admin/logout                             admintools.Admin.logout()
+GET           /admin/users                              admintools.Admin.allUsers()
 POST          /admin/newuser                            admintools.Admin.newUser()
 GET           /admin/bulkusers                          admintools.Admin.bulkUsersForm()
 POST          /admin/bulkusers                          admintools.Admin.bulkUsers()
@@ -84,11 +84,8 @@ POST          /api/kalender/endre                       calendar.Calendar.change
 
 # # Gallery
 GET           /galleri                                  gallery.Gallery.display()
-#FIXME: Tillater vi stor bokstav i url-er?
-#FIXME: Burde vell være /api/galleri/...
 POST          /api/submitImage                          gallery.Gallery.uploadGalleryImage()
 GET           /api/clickScoreImage                      gallery.Gallery.giveImageClickScore(imageId: Long)
-GET           /api/viewScoreImage                       gallery.Gallery.giveImageViewScore(imageId: Long)
 
 # # Login
 GET           /login                                    sso.SSOLogin.login(returnarg: String)
@@ -118,6 +115,9 @@ POST          /rfid                                     rfid.RFIDReader.read()
 # # Search
 GET           /search                                   renders.Renders.search()
 
+# # Timeline
+GET           /tidslinje                               timeline.Timeline.index()
+
 # # Update
 GET           /update                                   update.Update.index()
 GET           /update/utgaver                           update.Update.utgaver()
@@ -125,10 +125,10 @@ GET           /update/redaksjon                         update.Update.redaksjon(
 
 # # Voting
 #FIXME(Simen): 'stemming' vs 'avstemming'?
-GET           /stemming                                 ballot.VoteController.index()
-POST          /stemming                                 ballot.VoteController.attemptVote()
-GET           /stemming/oversikt                        ballot.VoteController.overview()
-POST          /stemming/oversikt                        ballot.VoteController.newBallot()
+GET           /stemming                                ballot.VoteController.index()
+POST          /stemming                                ballot.VoteController.attemptVote()
+GET           /stemming/oversikt                       ballot.VoteController.overview()
+POST          /stemming/oversikt                       ballot.VoteController.newBallot()
 
 # API
 # # Backup database
@@ -137,7 +137,6 @@ GET           /api/backup                               backup.BackupDatabase.in
 # # Upload files
 POST          /api/upload                               controllers.Upload.ajaxUpload()
 POST          /api/upload/:uploadFolder                 controllers.Upload.ajaxUploadTo(uploadFolder)
-
 
 # TEST
 # # Chat
