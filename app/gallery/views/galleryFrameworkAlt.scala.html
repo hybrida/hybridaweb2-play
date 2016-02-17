@@ -9,26 +9,41 @@
     }
 
     .gallery .imageWrapper {
-        padding: 10px;
-        margin: 0;
-        /*object-fit: contain;*/
-        transition: padding 0.2s ease;
-    }
-
-    .gallery .imageWrapper .loader {
         background: url(assets/images/ajax-loader.gif) #CCC no-repeat center;
-        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.5);
-        /*box-shadow: inset 0 0 40px 0 rgba(0, 0, 0, 0.5);*/
-        height: 100%;
-        width: 100%;
-        border-radius: 5px;
-        transition: box-shadow 0.2s ease;
+        /*box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5);*/
+        padding: 2px;
     }
 
-    .gallery .imageWrapper .loader .image {
-        border-radius: 5px;
+    .gallery .imageWrapper .image {
         opacity: 0;
-        transition: opacity 1s ease;
+        transition: -webkit-filter 0.2s ease,
+                    opacity 1s ease;
+    }
+
+    .gallery .imageWrapper .shader {
+        box-shadow: inset 0 0 50px 0 rgba(0, 0, 0, 0.5);
+        border: 2px solid #FFF;
+        background-color: rgba(0, 0, 0, 0);
+        transition: background-color 0.2s ease;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .gallery .imageWrapper .shower {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        padding-bottom: 10px;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        font-size: large;
+        white-space: nowrap;
+        color: #FFF;
+        transition: opacity 0.2s ease,
+                    padding-bottom 0.2s ease;
     }
 
     #viewerUnderlay {
@@ -66,12 +81,17 @@
         transition: opacity 0.2s ease;
     }
 
-    .gallery .imageWrapper:hover {
-        padding: 0px;
+    .gallery .imageWrapper:hover .image {
+        -webkit-filter: blur(2px);
     }
 
-    .gallery .imageWrapper:hover .loader {
-        box-shadow: 0 15px 15px -10px rgba(0, 0, 0, 0.5);
+    .gallery .imageWrapper:hover .shower {
+        opacity: 1;
+        padding-bottom: 0;
+    }
+
+    .gallery .imageWrapper:hover .shader {
+        background-color: rgba(0, 0, 0, 0.7);
     }
 </style>
 
@@ -81,11 +101,13 @@
     var precentMedium = 0.3;
     var sizingLimit = 4;
     var biggestSize = @biggestThumb;
+    var spacing = 0;
+    var textInThumbSpace = 20;
 
     for (var i = 0; i < $galleries.length; i++) {
         var $tempThumbs = $($galleries[i]).children('.imageWrapper');
 
-        $tempThumbs.append('<div class="loader"></div>');
+        $tempThumbs.append('<div class="shader"></div><div class="shower"></div>');
 
         // Uncomment this and make Gallery.java sort by date?
         $tempThumbs.sort(function(a, b) {
@@ -109,14 +131,20 @@
                 }
             }
             var $tempThumb = $($tempThumbs[j]);
-            $tempThumb.css('height', size);
-            $tempThumb.css('width', size);
+            var $tempShower = $tempThumb.children('.shower').first();
+            $tempShower.text($tempThumb.data('title'));
+            while ($tempShower.width() >= size - spacing - textInThumbSpace) {
+                $tempShower.text($tempShower.text().slice(0, -3) + '..');
+            }
+            $tempThumb.css('height', size - spacing);
+            $tempThumb.css('width', size - spacing);
         }
     }
 
     var $grids = $galleries.packery({
         // options
         itemSelector: '.imageWrapper',
+        gutter: spacing
         //columnWidth: 100
     });
 
@@ -204,7 +232,7 @@
 
             tempImg.className = "image";
             tempImg.src = $thumb.data("thumburl");
-            $thumb.children().first().prepend(tempImg);
+            $thumb.prepend(tempImg);
         }
     }
 </script>

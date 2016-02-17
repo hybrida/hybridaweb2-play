@@ -35,7 +35,7 @@ public class Gallery extends Controller {
     // While images with metadata have the data shown next to the image, if too hard, have the user
     // able to switch to a new image with the required info
     // Maybe make a pageload animation for the boxes
-    // Place a limit on title length and desciption
+    // Place a limit on title length (50) and desciption
     public static Result uploadGalleryImage() {
         HttpRequestData data = new HttpRequestData();
         String description = data.get("description");
