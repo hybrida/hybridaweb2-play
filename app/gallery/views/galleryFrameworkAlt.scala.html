@@ -47,37 +47,83 @@
     }
 
     #viewerUnderlay {
+        text-align: center;
         opacity: 0;
         position: fixed;
-        z-index: -3;
+        z-index: -1;
         top: 0;
         left: 0;
         height: 100%;
         width: 100%;
         background-color: rgba(0, 0, 0, 0.9);
-        transition: opacity 0.2s linear;
+        transition: opacity 0.2s ease;
     }
 
-    #viewerOverlay {
-        opacity: 0;
-        position: fixed;
-        z-index: -1;
-        top: 50%;
-        left: 50%;
+    #viewerUnderlay #metaDivider {
+        width: 1px;
         height: 0;
-        width: 0;
+        top: 50%;
+        transform: translate(0, -50%);
+        background-color: white;
+        display: inline-block;
+        vertical-align: top;
+        position: relative;
+        transition: height 0.2s ease;
+    }
+
+    #viewerUnderlay #viewerTextBox {
+        display: inline-block;
+        vertical-align: top;
+        text-align: left;
+        position: relative;
+        margin-left: 0;
+        top: 50%;
+        transform: translate(0, -50%);
+        max-width: 300px;
+        transition: margin-left 0.2s ease;
+        color: white;
+    }
+
+    #viewerUnderlay #viewerTextBox #viewerTitle {
+        width: 100%;
+        font-size: 50px;
+    }
+
+    #viewerUnderlay #viewerTextBox #viewerDescription {
+        width: 100%;
+        font-size: medium;
+        font-style: italic;
+    }
+
+    #viewerUnderlay #viewerTextBox #viewerAuthor {
+        width: 100%;
+        margin: 10px 0;
+        font-size: smaller;
+        color: #CCC;
+    }
+
+    #viewerUnderlay #viewerImageContainer {
+        display: inline-block;
+        position: relative;
+        vertical-align: top;
+        margin-right: 0;
+        height: 500px;
+        width: 300px;
+        top: 50%;
+        transform: translate(0, -50%);
         background: url(assets/images/ajax-loader.gif) #CCC no-repeat center;
         /*background-size: cover;*/
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-        transition: opacity 0.2s ease,
-                    height 0.2s ease,
-                    width 0.2s ease,
-                    top 0.2s ease,
-                    left 0.2s ease;
+        transition: margin-right 0.2s ease;
     }
 
-    #viewerOverlay #viewerImage {
+    #viewerUnderlay #viewerImageContainer #viewerImage {
         opacity: 0;
+        position: relative;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
         transition: opacity 0.2s ease;
     }
 
@@ -102,7 +148,8 @@
     var sizingLimit = 4;
     var biggestSize = @biggestThumb;
     var spacing = 0;
-    var textInThumbSpace = 20;
+    var textInThumbSpace = 30;
+    var viewerTextBoxSpacing = 50;
 
     for (var i = 0; i < $galleries.length; i++) {
         var $tempThumbs = $($galleries[i]).children('.imageWrapper');
@@ -132,9 +179,11 @@
             }
             var $tempThumb = $($tempThumbs[j]);
             var $tempShower = $tempThumb.children('.shower').first();
-            $tempShower.text($tempThumb.data('title'));
+            var tempTitle = $tempThumb.data('title');
+            tempTitle = tempTitle == "" ? $tempThumb.data('date') : tempTitle;
+            $tempShower.text(tempTitle);
             while ($tempShower.width() >= size - spacing - textInThumbSpace) {
-                $tempShower.text($tempShower.text().slice(0, -3) + '..');
+                $tempShower.text($tempShower.text().slice(0, -3).trim() + '..');
             }
             $tempThumb.css('height', size - spacing);
             $tempThumb.css('width', size - spacing);
@@ -149,34 +198,48 @@
     });
 
     $("body")
-        .append('<div id="viewerUnderlay"></div>')
-        .append('<div id="viewerOverlay">');
+        .append('' +
+         '<div id="viewerUnderlay">' +
+          '<div id="viewerImageContainer"></div>' +
+          '<div id="metaDivider"></div>' +
+          '<div id="viewerTextBox">' +
+           '<div id="viewerTitle"></div>' +
+           '<div id="viewerDescription"></div>' +
+           '<div id="viewerAuthor"></div>' +
+          '</div>' +
+         '</div>');
 
     var $underlay = $('#viewerUnderlay');
-    var $overlay = $('#viewerOverlay');
+    var $divider = $underlay.children('#metaDivider').first();
+    var $container = $underlay.children('#viewerImageContainer').first();
+    var $textBox = $underlay.children('#viewerTextBox').first();
+    var $textBoxTitle = $textBox.children('#viewerTitle').first();
+    var $textBoxDesc = $textBox.children('#viewerDescription').first();
+    var $textBoxAuth = $textBox.children('#viewerAuthor').first();
     var $thumbs = $galleries.children('.imageWrapper');
     var $window = $(window);
     var border = 30;
 
     $underlay.click(function() {
         $underlay.on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', function() {
-            $underlay.css('z-index', -2);
-            $overlay.css('z-index', -1);
-            $overlay.css('background-image', '');
-            $overlay.empty();
+            $underlay.css('z-index', -1);
+            //$overlay.css('background-image', '');
+            $container.empty();
         });
+        $container.css('margin-right', 0);
+        $textBox.css('margin-left', 0);
+        $divider.css('height', 0);
         $underlay.css('opacity', 0);
-        $overlay.css('opacity', 0);
-        $overlay.css('height', 0);
-        $overlay.css('width', 0);
-        $overlay.css('top', '50%');
-        $overlay.css('left', '50%');
+        //$overlay.css('height', 0);
+        //$overlay.css('width', 0);
+        //$overlay.css('top', '50%');
+        //$overlay.css('left', '50%');
     });
 
-    $('.gallery .imageWrapper').click(function() {
+    $thumbs.click(function() {
         $underlay.off('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd');
         var $image = $(this);
-        var allowedWidth = $window.width() - 2*border;
+        var allowedWidth = $window.width() - 2*border - $textBox.width() - viewerTextBoxSpacing;
         var allowedHeight = $window.height() - 2*border;
 
         var imgWidth = $image.data("orgwidth");
@@ -194,17 +257,23 @@
             }
         }
 
-        var imgLeft = ($window.width() - imgWidth)/2;
-        var imgTop = ($window.height() - imgHeight)/2;
+        //var imgLeft = $window.width()/2 - imgWidth - viewerTextBoxSpacing/2;
+        //var imgTop = ($window.height() - imgHeight)/2;
 
-        $overlay.css("width", imgWidth);
-        $overlay.css("height", imgHeight);
-        $overlay.css("left", imgLeft);
-        $overlay.css("top", imgTop);
+        $container.css('width', imgWidth);
+        $container.css('height', imgHeight);
+        $container.css('margin-right', viewerTextBoxSpacing/2);
+        $textBox.css('margin-left', viewerTextBoxSpacing/2);
+        $textBoxDesc.text($image.data('desc'));
+        var tempTitle = $image.data('title');
+        tempTitle = tempTitle == "" ? $image.data('date') : tempTitle;
+        $textBoxTitle.text(tempTitle);
+        $textBoxAuth.text('Lastet opp av '+$image.data('uploader'));
+        $divider.css('height', '50%');
+        //$overlay.css('top', imgTop);
+        //$container.css('left', imgLeft);
         $underlay.css('opacity', 1);
-        $underlay.css('z-index', 99999);
-        $overlay.css('opacity', 1);
-        $overlay.css('z-index', 100000);
+        $underlay.css('z-index', 100000);
 
         // Load image
         var tempImg = new Image();
@@ -215,7 +284,7 @@
 
         tempImg.id = "viewerImage";
         tempImg.src = $image.data("orgurl");
-        $overlay.append(tempImg);
+        $container.append(tempImg);
 
         // Give score
         $.get("/api/clickScoreImage", {imageId: $image.data("id")});

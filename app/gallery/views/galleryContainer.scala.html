@@ -9,7 +9,7 @@
             data-score="@image.getScore()"
             data-id="@image.getImageId()"
             data-uploader="@image.getUploadedBy().getFullName()"
-            data-date="@image.getDateUploaded().getTime()"
+            data-date="@image.getDateUploaded().format("d. MMM, yyyy")"
             data-orgwidth="@image.getWidth()"
             data-orgheight="@image.getHeight()"
             data-orgurl="@image.getImageURL()"
