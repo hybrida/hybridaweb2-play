@@ -29,11 +29,13 @@ create table user (
 	phone          varchar(255) default null,
 	title          varchar(255) default null,
 	graduationYear int default null,
-	spez int default null,
+	specialization int default null,
 	profileImageFileName varchar(255) default null,
+	gender         char(1) default 'U',
+	enrolled       timestamp,
 
 	primary key(id),
-	foreign key (spez) references specialization(id)
+	foreign key (specialization) references specialization(id)
 );
 
 create table userPropertyNames (
@@ -51,6 +53,7 @@ insert into userPropertyNames values (4, 'Vevkom');
 insert into userPropertyNames values (5, 'Jentekom');
 insert into userPropertyNames values (6, 'Redaksjonen');
 insert into userPropertyNames values (7, 'Admin');
+insert into userPropertyNames values (8, 'Root');
 
 create table userProperties (
 	propId int not null,
