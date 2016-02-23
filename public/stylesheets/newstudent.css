@@ -16,25 +16,5 @@ hr {
 }
 
 .article-bg {
-    background: url("../images/nys.png") fixed center;
     background-size: 100%;
-}
-
-.tittel{
-	font-family: 'Playfair Display', serif;
-	position: relative;
-}
-.undershit{
-}
-.topright{
-	border-top-right-radius: 10px;
-}
-.topleft{
-	border-top-left-radius: 10px;
-}
-.bottomright{
-	border-bottom-right-radius: 10px;
-}
-.bottomleft{
-	border-bottom-left-radius: 10px;
 }

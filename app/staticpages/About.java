@@ -76,4 +76,11 @@ public class About extends Controller {
 				)
 		);
 	}
+
+	public static Result newStudent() {
+		return ok(layoutWithHead.render(
+				"Hybrida - Ny student",
+				staticpages.views.html.newStudentHead.render(),
+				staticpages.views.html.newStudent.render()));
+	}
 }

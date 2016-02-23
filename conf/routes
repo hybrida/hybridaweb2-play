@@ -16,7 +16,7 @@ GET           /info                                     staticpages.About.index(
 GET           /i&iktringen                              ringen.Ringen.index()
 GET           /i&iktringen/om                           ringen.Ringen.about()
 GET           /jentekom                                 staticpages.About.jentekom()
-GET           /nystudent                                newstudent.NewStudent.index()
+GET           /nystudent                                staticpages.About.newStudent()
 GET           /redaksjonen                              staticpages.About.redaksjonen()
 GET           /statutter                                statutter.Statutter.index()
 GET           /strikk                                   strikk.HybridaStrikk.index()
