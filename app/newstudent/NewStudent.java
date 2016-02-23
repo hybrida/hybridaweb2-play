@@ -4,6 +4,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.layoutWithHead;
 
+//TODO: Move to staticpages
 /**
  * Created by Torsten on
  */
