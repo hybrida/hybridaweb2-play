@@ -56,16 +56,17 @@ function toggleSuggestionBox() {
 
 function submitSuggestion() {
     var title = window.location.href;
-    var pretext = $('#suggestionBox #suggestionPretext').val();
-    var suggestion = $('#suggestionBox #suggestionContent').val();
+    var $pretext = $('#suggestionBox #suggestionPretext');
+    var $suggestion = $('#suggestionBox #suggestionContent');
     $.post("https://hooks.slack.com/services/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", 'payload={"attachments":[{\
         "fallback":     "Nytt forslag til forbedring!",\
-        "pretext":      "'+pretext+'",\
+        "pretext":      "'+$pretext.val()+'",\
         "color":        "good",\
         "fields":[{\
             "title":    "'+title+'",\
-            "value":    "'+suggestion+'",\
+            "value":    "'+$suggestion.val()+'",\
             "short":    false\
     }]}]}');
+    $suggestion.val('');
     toggleSuggestionBox();
 }
