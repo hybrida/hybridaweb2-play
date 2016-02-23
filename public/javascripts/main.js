@@ -56,8 +56,10 @@ function toggleSuggestionBox() {
 
 function submitSuggestion() {
     var title = window.location.href;
+    var $button = $('#suggestionBox #suggestionButton');
     var $pretext = $('#suggestionBox #suggestionPretext');
     var $suggestion = $('#suggestionBox #suggestionContent');
+    $button.prop('disabled', true);
     $.post("https://hooks.slack.com/services/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", 'payload={"attachments":[{\
         "fallback":     "Nytt forslag til forbedring!",\
         "pretext":      "'+$pretext.val()+'",\
@@ -66,7 +68,12 @@ function submitSuggestion() {
             "title":    "'+title+'",\
             "value":    "'+$suggestion.val()+'",\
             "short":    false\
-    }]}]}');
-    $suggestion.val('');
-    toggleSuggestionBox();
+    }]}]}').fail(function() {
+        alert("Noe gikk galt og forslaget ble ikke sent.");
+        $button.prop('disabled', false);
+    }).done(function() {
+        $suggestion.val('');
+        toggleSuggestionBox();
+        $button.prop('disabled', false);
+    });
 }
