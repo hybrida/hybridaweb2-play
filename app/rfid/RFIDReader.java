@@ -15,12 +15,22 @@ public class RFIDReader extends Controller {
 
 	private static HttpRequestData htpdata =
 		new HttpRequestData();
+
 	public static Result index() {
-		List<Renders> bedpresses =
-			Renders.find.setMaxRows(10).where(
-				).eq("eventReference.bedpres", true).findList();
+		List<Renders> bedpresses = getBedpresses();
+		return renderFrontPage(bedpresses);
+	}
+
+	private static List<Renders> getBedpresses() {
+		return Renders.find.setMaxRows(10).where(
+			).eq("eventReference.bedpres", true).findList();
+	}
+	private static Result renderFrontPage(List<Renders> bedpresses) {
 		return ok(layoutBoxPage.render(
-			"RFID-Skanning", reader.render(bedpresses, -1L, 0, 0L)));
+				"RFID-Skanning", reader.render(
+					bedpresses, -1L, 0, 0L)
+				)
+			);
 	}
 
 	public static Result indexContinue(String status, String number) {
