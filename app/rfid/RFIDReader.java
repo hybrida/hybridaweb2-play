@@ -2,40 +2,28 @@ package rfid;
 
 import java.nio.ByteBuffer;
 import java.util.List;
-
 import play.mvc.Controller;
 import play.mvc.Result;
 
-import rfid.views.html.*;
-import views.html.*;
 import models.HttpRequestData;
 import renders.models.Renders;
+import rfid.views.html.*;
+import views.html.*;
 
 public class RFIDReader extends Controller {
 
-	private static HttpRequestData htpdata =
-		new HttpRequestData();
 	public static Result index() {
-		List<Renders> bedpresses =
-			Renders.find.setMaxRows(10).where(
-				).eq("eventReference.bedpres", true).findList();
-		return ok(layoutBoxPage.render(
-			"RFID-Skanning", reader.render(bedpresses, -1L, 0, 0L)));
+		List<Renders> bedpresses = getBedpresses();
+		return renderFrontPage(bedpresses);
 	}
 
 	public static Result indexContinue(String status, String number) {
-		List<Renders> bedpresses =
-			Renders.find.setMaxRows(10).where(
-				).eq("eventReference.bedpres", true).findList();
-		return ok(layoutBoxPage.render(
-			"RFID-Skanning", reader.render(
-				bedpresses, -1L, Integer.parseInt(status), Long.parseLong(number))));
+		List<Renders> bedpresses = getBedpresses();
+		return renderOk(bedpresses, status, number);
 	}
 
 	public static Result read() {
 		HttpRequestData htpdata = new HttpRequestData();
-		System.out.println(
-			htpdata.get("rfid"));
 		Long rfidRead = htpdata.getLong("rfid");
 		rfidRead = reverseBitsInBytes(rfidRead);
 		return redirect(rfid.routes.RFIDReader.indexContinue(
@@ -63,6 +51,23 @@ public class RFIDReader extends Controller {
 
 		byteBuffer = ByteBuffer.wrap(finalByte);
 		return byteBuffer.getLong();
+	}
+
+	private static List<Renders> getBedpresses() {
+		return Renders.find.setMaxRows(10).where(
+			).eq("eventReference.bedpres", true).findList();
+	}
+
+	private static Result renderOk(List<Renders> bedpresses, String status, String number) {
+		return ok(layoutBoxPage.render(
+			"RFID-Skanning", reader.render(
+				bedpresses, -1L, Integer.parseInt(status), Long.parseLong(number))));
+	}
+
+	private static Result renderFrontPage(List<Renders> bedpresses) {
+		return ok(layoutBoxPage.render(
+				"RFID-Skanning", reader.render(
+					bedpresses, -1L, 0, 0L)));
 	}
 
 }

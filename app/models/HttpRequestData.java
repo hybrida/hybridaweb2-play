@@ -1,5 +1,6 @@
 package models;
 
+import java.util.HashMap;
 import play.data.Form;
 
 /**
@@ -11,7 +12,7 @@ import play.data.Form;
  * a toString method as to grant the ability to quickly print out all data
  * in the entire HTTP request header.
  */
-public class HttpRequestData extends java.util.HashMap<String, String> {
+public class HttpRequestData extends HashMap<String, String> {
 
 	public HttpRequestData () {
 		if (Form.form().bindFromRequest().data() != null)
