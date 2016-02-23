@@ -1,10 +1,20 @@
 @(images: List[GalleryImage])
 
-<form name="GalleryImage" action="@gallery.routes.Gallery.uploadGalleryImage()" method="POST" enctype="multipart/form-data">
-    <input type="file" name="image"></input>
-    <input type="text" name="title"></input>
-    <input type="text" name="description"></input>
-    <input type="submit" value="Post"></input>
+<form name="GalleryImage" style="text-align: left; margin-bottom: 20px" action="@gallery.routes.Gallery.uploadGalleryImage()" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <lable for="image">Bildet (eller fil)</lable>
+        <input type="file" id="image" name="image"></input>
+        <p class="help-block">Last opp en fil til profilen din. Er det et bilde, blir den lagt til galleriet.</p>
+    </div>
+    <div class="form-group">
+        <lable for="title">Tittel på bildet</lable>
+        <input type="text" id="title" class="form-control" placeholder="Tittel" name="title"></input>
+    </div>
+    <div class="form-group">
+        <lable for="desc">Beskrivelse av bildet</lable>
+        <textarea rows="3" id="desc" class="form-control" name="description"></textarea>
+    </div>
+    <button type="submit" class="btn btn-default">Send</button>
 </form>
 
 @galleryContainer(images)

@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.annotation.CreatedTimestamp;
+import play.api.data.validation.Constraint;
 import play.db.ebean.Model;
 import profile.models.User;
 
@@ -24,6 +25,7 @@ public class GalleryImage extends Model {
 
     private String thumbURL;
 
+    @Column(columnDefinition = "VARCHAR(50)")
     private String title;
 
     private int score;

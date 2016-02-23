@@ -5,12 +5,12 @@
     .gallery {
         padding: 0;
         margin: 0;
-        width: 1200px;
+        max-width: 1200px;
+        min-width: 400px;
     }
 
     .gallery .imageWrapper {
         background: url(assets/images/ajax-loader.gif) #CCC no-repeat center;
-        /*box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5);*/
         padding: 2px;
     }
 
@@ -112,7 +112,6 @@
         top: 50%;
         transform: translate(0, -50%);
         background: url(assets/images/ajax-loader.gif) #CCC no-repeat center;
-        /*background-size: cover;*/
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
         transition: margin-right 0.2s ease;
     }
@@ -193,8 +192,9 @@
     var $grids = $galleries.packery({
         // options
         itemSelector: '.imageWrapper',
-        gutter: spacing
-        //columnWidth: 100
+        gutter: spacing,
+        columnWidth: 100,
+        rowHeight: 100
     });
 
     $("body")
@@ -223,17 +223,12 @@
     $underlay.click(function() {
         $underlay.on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', function() {
             $underlay.css('z-index', -1);
-            //$overlay.css('background-image', '');
             $container.empty();
         });
         $container.css('margin-right', 0);
         $textBox.css('margin-left', 0);
         $divider.css('height', 0);
         $underlay.css('opacity', 0);
-        //$overlay.css('height', 0);
-        //$overlay.css('width', 0);
-        //$overlay.css('top', '50%');
-        //$overlay.css('left', '50%');
     });
 
     $thumbs.click(function() {
@@ -257,9 +252,6 @@
             }
         }
 
-        //var imgLeft = $window.width()/2 - imgWidth - viewerTextBoxSpacing/2;
-        //var imgTop = ($window.height() - imgHeight)/2;
-
         $container.css('width', imgWidth);
         $container.css('height', imgHeight);
         $container.css('margin-right', viewerTextBoxSpacing/2);
@@ -270,12 +262,9 @@
         $textBoxTitle.text(tempTitle);
         $textBoxAuth.text('Lastet opp av '+$image.data('uploader'));
         $divider.css('height', '50%');
-        //$overlay.css('top', imgTop);
-        //$container.css('left', imgLeft);
         $underlay.css('opacity', 1);
         $underlay.css('z-index', 100000);
 
-        // Load image
         var tempImg = new Image();
 
         tempImg.onload = function() {
@@ -286,7 +275,6 @@
         tempImg.src = $image.data("orgurl");
         $container.append(tempImg);
 
-        // Give score
         $.get("/api/clickScoreImage", {imageId: $image.data("id")});
     });
 
