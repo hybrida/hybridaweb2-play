@@ -109,7 +109,7 @@ DELETE        /api/quiz/season/:id                      quiz.QuizController.dele
 
 # # RFID
 GET           /rfid                                     rfid.RFIDReader.index()
-GET           /rfid/:status/:number                     rfid.RFIDReader.indexContinue(status, number)
+GET           /rfid/:status/:number                     rfid.RFIDReader.indexContinue(status, number, eventId)
 POST          /rfid                                     rfid.RFIDReader.read()
 
 # # Search
