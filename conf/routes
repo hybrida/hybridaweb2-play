@@ -19,7 +19,7 @@ GET           /i&iktringen/om                           ringen.Ringen.about()
 GET           /jentekom                                 staticpages.About.jentekom()
 GET           /nystudent                                staticpages.About.newStudent()
 GET           /redaksjonen                              staticpages.About.redaksjonen()
-GET           /statutter                                statutter.Statutter.index()
+GET           /statutter                                staticpages.Statutter.index()
 GET           /strikk                                   strikk.HybridaStrikk.index()
 GET           /styret                                   staticpages.About.styret()
 GET           /tillitsvalgte                            tillitsvalgte.Tillitsvalgte.index()
@@ -126,10 +126,10 @@ GET           /update/redaksjon                         update.Update.redaksjon(
 
 # # Voting
 #FIXME(Simen): 'stemming' vs 'avstemming'?
-GET           /stemming                                ballot.VoteController.index()
-POST          /stemming                                ballot.VoteController.attemptVote()
-GET           /stemming/oversikt                       ballot.VoteController.overview()
-POST          /stemming/oversikt                       ballot.VoteController.newBallot()
+GET           /stemming                                 ballot.VoteController.index()
+POST          /stemming                                 ballot.VoteController.attemptVote()
+GET           /stemming/oversikt                        ballot.VoteController.overview()
+POST          /stemming/oversikt                        ballot.VoteController.newBallot()
 
 # API
 # # Backup database

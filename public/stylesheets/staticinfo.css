@@ -1,0 +1,90 @@
+.helesiden{
+    background: url("../images/office_background.png");
+    width: 100%;
+    height: 100%;
+    padding-bottom: 42px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+.line{
+    text-align: center;
+}
+.GO{
+    padding-left: 80px;
+}
+
+.name{
+    font-weight: bold;
+    text-align: center;
+    cursor:pointer;
+}
+.reason{
+    font-size: 16px;
+}
+
+.blank {
+    height: 42px;
+}
+
+.whitebox{
+    background-color: #ffffff;
+    opacity: 0.8;
+}
+.paragraph{
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    padding: 70px;
+    padding-top: 40px;
+}
+
+.topright{
+    border-top-right-radius: 30px;
+}
+.topleft{
+    border-top-left-radius: 30px;
+}
+.bottomright{
+    border-bottom-right-radius: 30px;
+}
+.bottomleft {
+    border-bottom-left-radius: 30px;
+}
+
+@media screen and (max-width: 1199px) and (min-width: 992px) {
+    .GO{
+        padding-left: 50px;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .GO{
+        ;
+    }
+    .line{
+        display: none;
+    }
+    .hiddentopleft{
+        border-top-left-radius: 0px;
+    }
+    .hiddentopright{
+        border-top-right-radius: 0px;
+    }
+    .helesiden{
+        background: url("../images/office_background.png") repeat;
+        background-attachment: fixed;
+        width: 100%;
+        height: 100%;
+    }
+    .hide{
+        display: none;
+    }
+}
+
+#begrunnelsein{
+    start:atthetop;
+    height:200px;
+    font-size:14pt;
+
+}
