@@ -54,7 +54,8 @@
 		</div>
 	</div>
 </nav>
-<a href="@(article.routes.Article.viewArticle("1"))" class="feedback btn btn-default btn-lg fixed-bottom-right">
+<button href="@(article.routes.Article.viewArticle("1"))" class="feedback btn btn-default btn-lg fixed-bottom-right" onclick="toggleSuggestionBox()">
     <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span> Feedback
-</a>
+</button>
+@suggestionBox()
 @import java.sql.Timestamp
