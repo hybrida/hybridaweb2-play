@@ -47,3 +47,33 @@ $(document).ready(function() {
     calculateSuperCenter();
     $(window).resize(calculateSuperCenter);
 });
+
+function toggleSuggestionBox() {
+    var $sb = $('#suggestionBox');
+    console.log($sb.css('right'));
+    $sb.css('right', $sb.css('right') == '16px' ? '-100%' : 16);
+}
+
+function submitSuggestion() {
+    var title = window.location.href;
+    var $button = $('#suggestionBox #suggestionButton');
+    var $pretext = $('#suggestionBox #suggestionPretext');
+    var $suggestion = $('#suggestionBox #suggestionContent');
+    $button.prop('disabled', true);
+    $.post("https://hooks.slack.com/services/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", 'payload={"attachments":[{\
+        "fallback":     "Nytt forslag til forbedring!",\
+        "pretext":      "'+$pretext.val()+'",\
+        "color":        "good",\
+        "fields":[{\
+            "title":    "'+title+'",\
+            "value":    "'+$suggestion.val()+'",\
+            "short":    false\
+    }]}]}').fail(function() {
+        alert("Noe gikk galt og forslaget ble ikke sent.");
+        $button.prop('disabled', false);
+    }).done(function() {
+        $suggestion.val('');
+        toggleSuggestionBox();
+        $button.prop('disabled', false);
+    });
+}

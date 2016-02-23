@@ -17,7 +17,7 @@ import views.html.layoutBoxPage;
  */
 public class Gallery extends Controller {
     public static Result display() {
-        return ok(layoutBoxPage.render("Galleri", gallery.views.html.index.render(GalleryImage.find.where().orderBy("dateUploaded desc").findList()))); //score
+        return ok(layoutBoxPage.render("Galleri", gallery.views.html.index.render(GalleryImage.find.all()))); //where().orderBy("dateUploaded desc").findList()))); //score
     }
 
     public static Result giveImageClickScore(long imageId) {
@@ -28,12 +28,7 @@ public class Gallery extends Controller {
     }
 
     // TODO: implement in Upload, also make a general GalleryImage for files
-    // Switch from masonry to isotope and order the thumbs by date (or scrable) and use packery layout
-    // Restylise hovering and look of the gallery, remove rounded corners and have a black banner
-    // overlay when hovering over which displays the title.
-    // Also make images with no metadata have the image centered once pressed (have author/date right under the image)
-    // While images with metadata have the data shown next to the image, if too hard, have the user
-    // able to switch to a new image with the required info
+    // Make viewer more mobile friendly
     // Maybe make a pageload animation for the boxes
     // Place a limit on title length (50) and desciption
     public static Result uploadGalleryImage() {
