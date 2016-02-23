@@ -2,19 +2,43 @@ package models.db;
 
 import java.sql.*;
 
-class Database {
+public class Database {
 
 	Connection connection = null;
 
-	public Database() throws SQLException {
-		// Class.forName("com.mysql.jdbc.Driver");
-		connection = DriverManager.getConnection(
-			"jdbc:mysql://hostname:port/dbname",
-			"username", "password");
+	public Database() {
+		try {
+			connection = DriverManager.getConnection(
+				"jdbc:mysql://localhost:3306/hybrida",
+				"username", "password");
+			connection.setAutoCommit(false);
+		} catch (SQLException exc) {
+			throw new RuntimeException(exc);
+		}
 	}
 
-	public void close() throws SQLException {
-		connection.close();
+	public PreparedStatement prepare(String sql) {
+		try {
+			return connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		} catch (SQLException exception) {
+			throw new RuntimeException(exception);
+		}
+	}
+
+	public void commit() {
+		try {
+			connection.commit();
+		} catch (SQLException exception) {
+			throw new RuntimeException(exception);
+		}
+	}
+
+	public void close() {
+		try {
+			connection.close();
+		} catch (SQLException exc) {
+			throw new RuntimeException(exc);
+		}
 	}
 
 	public Connection get() {
