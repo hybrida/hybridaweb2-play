@@ -34,6 +34,7 @@
 							@if(models.LoginState.getUser.canReadUpdate){<li><a href="/update">Update<sup>k</sup></a></li>} @*TODO:enrolled is currently null*@
 							@if(models.LoginState.getUser.isFirstUser){<li><a href="@admintools.routes.Admin.allUsers()">Administrer</a></li>}
 							@if(models.LoginState.getUser.isInBedkom){<li><a href="@bedpressblock.routes.BedPresBlock.index()">Bedpres Prikking</a></li>
+								<li><a href="@rfid.routes.RFIDReader.index()">RFID Prikking</a></li>
 								<li><a href="@bedkomdatabase.routes.Bedkomdatabase.index()">Bedrifter</a></li>}
 							@if(LoginState.getUser.isFirstUser){
 								<li><a href="@admintools.routes.Admin.logout()">Logg ut</a></li>
