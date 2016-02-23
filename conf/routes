@@ -4,6 +4,7 @@
 # Standard layout accessible pages
 GET           /                                         application.Application.index()
 GET           /forside                                  application.Application.frontpage()
+GET           /insertqt                                 test.TestDatabase.index()
 
 # STATIC INFO PAGES
 GET           /arrkom                                   staticpages.About.arrkom()
