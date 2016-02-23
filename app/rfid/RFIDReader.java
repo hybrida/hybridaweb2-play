@@ -17,17 +17,18 @@ public class RFIDReader extends Controller {
 		return renderFrontPage(bedpresses);
 	}
 
-	public static Result indexContinue(String status, String number) {
+	public static Result indexContinue(String status, String number, String eventId) {
 		List<Renders> bedpresses = getBedpresses();
-		return renderOk(bedpresses, status, number);
+		return renderOk(bedpresses, status, number, eventId);
 	}
 
 	public static Result read() {
 		HttpRequestData htpdata = new HttpRequestData();
 		Long rfidRead = htpdata.getLong("rfid");
+		Long eventId = htpdata.getLong("eventId");
 		rfidRead = reverseBitsInBytes(rfidRead);
 		return redirect(rfid.routes.RFIDReader.indexContinue(
-			"2", rfidRead.toString()));
+			"2", rfidRead.toString(), eventId.toString()));
 	}
 
 	public static Long reverseBitsInBytes(Long rfidIn) {
@@ -58,10 +59,10 @@ public class RFIDReader extends Controller {
 			).eq("eventReference.bedpres", true).findList();
 	}
 
-	private static Result renderOk(List<Renders> bedpresses, String status, String number) {
+	private static Result renderOk(List<Renders> bedpresses, String status, String number, String eventId) {
 		return ok(layoutBoxPage.render(
 			"RFID-Skanning", reader.render(
-				bedpresses, -1L, Integer.parseInt(status), Long.parseLong(number))));
+				bedpresses, Long.parseLong(eventId), Integer.parseInt(status), Long.parseLong(number))));
 	}
 
 	private static Result renderFrontPage(List<Renders> bedpresses) {
