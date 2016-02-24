@@ -63,14 +63,18 @@ function submitSuggestion() {
     var $button = $('#suggestionBox #suggestionButton');
     var $pretext = $('#suggestionBox #suggestionPretext');
     var $suggestion = $('#suggestionBox #suggestionContent');
+    var jsonsafe = function(string) {
+        return string.replaceAll('\\\\', '\\\\').replaceAll('"', '\\"');
+    };
+
     $button.prop('disabled', true);
     $.post("https://hooks.slack.com/services/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", 'payload={"attachments":[{\
         "fallback":     "Nytt forslag til forbedring!",\
-        "pretext":      "'+$pretext.val().replaceAll('"','\\"')+'",\
+        "pretext":      "' + jsonsafe($pretext.val()) + '",\
         "color":        "good",\
         "fields":[{\
-            "title":    "'+title.replaceAll('"','\\"')+'",\
-            "value":    "'+$suggestion.val().replaceAll('"','\\"')+'",\
+            "title":    "' + jsonsafe(title) + '",\
+            "value":    "' + jsonsafe($suggestion.val()) + '",\
             "short":    false\
     }]}]}').fail(function() {
         alert("Noe gikk galt og forslaget ble ikke sent.");
