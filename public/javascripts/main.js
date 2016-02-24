@@ -1,5 +1,9 @@
 _=function(o){return function(){return o;}};
 
+String.prototype.replaceAll = function(replacing, replacement) {
+    return this.replace(new RegExp(replacing, 'g'), replacement);
+}
+
 clearSelf = function(obj) {
     obj.innerHTML="";
 };
@@ -62,18 +66,18 @@ function submitSuggestion() {
     $button.prop('disabled', true);
     $.post("https://hooks.slack.com/services/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", 'payload={"attachments":[{\
         "fallback":     "Nytt forslag til forbedring!",\
-        "pretext":      "'+$pretext.val()+'",\
+        "pretext":      "'+$pretext.val().replaceAll('"','\\"')+'",\
         "color":        "good",\
         "fields":[{\
-            "title":    "'+title+'",\
-            "value":    "'+$suggestion.val()+'",\
+            "title":    "'+title.replaceAll('"','\\"')+'",\
+            "value":    "'+$suggestion.val().replaceAll('"','\\"')+'",\
             "short":    false\
     }]}]}').fail(function() {
         alert("Noe gikk galt og forslaget ble ikke sent.");
-        $button.prop('disabled', false);
     }).done(function() {
         $suggestion.val('');
         toggleSuggestionBox();
+    }).always(function() {
         $button.prop('disabled', false);
     });
 }
