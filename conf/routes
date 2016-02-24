@@ -22,7 +22,7 @@ GET           /redaksjonen                              staticpages.About.redaks
 GET           /statutter                                staticpages.Statutter.index()
 GET           /strikk                                   strikk.HybridaStrikk.index()
 GET           /styret                                   staticpages.About.styret()
-GET           /tillitsvalgte                            tillitsvalgte.Tillitsvalgte.index()
+GET           /tillitsvalgte                            staticpages.Tillitsvalgte.index()
 GET           /vevkom                                   staticpages.About.vevkom()
 
 # MODULES
