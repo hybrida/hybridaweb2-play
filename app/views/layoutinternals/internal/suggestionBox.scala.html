@@ -1,3 +1,5 @@
+@()
+
 <div id="suggestionBox" class="white-box fixed-bottom-right">
     <input id="suggestionPretext" value="@if(models.LoginState.isValidlyLoggedIn()) {Nytt forslag fra @models.LoginState.getUser().getFullName()} else {Nytt anonymt forslag}" hidden>
     <div class="form-group">
