@@ -14,7 +14,7 @@ public class About extends Controller {
 				layoutWithHead.render(
 						"Om Hybrida",
 						staticpages.views.html.index.render(),
-						staticpages.views.html.head.render()
+						staticpages.views.html.indexHead.render()
 				)
 		);
 	}

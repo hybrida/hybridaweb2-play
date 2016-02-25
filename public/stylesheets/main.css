@@ -2,13 +2,11 @@
 @import url(http://fonts.googleapis.com/css?family=Raleway);
 
 body {
-    background-image: url(/assets/images/kilt3.PNG);
+    background-color: lightgrey;
+    background-image: url("/assets/images/kilt4.jpg");
     background-repeat: repeat;
     font-family: 'Raleway', sans-serif;
     padding-top: 50px;
-    /* background: lightgrey; */
-    /*background: url("../images/kilt3.PNG") repeat;*/
-
 }
 
 #suggestionBox {
@@ -275,11 +273,11 @@ img {
 }
 
 .space-above{
-    margin-top: 30px;
+    margin-top: 15px;
 }
 
 .space-below{
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 .row.inverted,
@@ -320,13 +318,14 @@ a.inverted{
     }
 }
 
-
-#notFound {
+#notFound { /*Does not belong here*/
 	text-align: center;
 }
 @media (min-width: 992px){
     .center-container{width: 90%; max-width: 959px;}
     .nav-container{max-width: 1079px;}
+    .space-above{margin-top: 30px;}
+    .space-below{margin-bottom: 50px;}
 }
 @media (min-width: 1200px){
     #home { margin-right: 32px;}
