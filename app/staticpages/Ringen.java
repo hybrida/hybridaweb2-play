@@ -1,4 +1,4 @@
-package ringen;
+package staticpages;
 
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -10,13 +10,13 @@ public class Ringen extends Controller {
 	public static Result index() {
 		return ok(views.html.layoutWithHead.render(
 				"I&IKT-Ringen",
-				ringen.views.html.index.render(),
-				ringen.views.html.indexHead.render()));
+				staticpages.views.html.ringen.render(),
+				staticpages.views.html.ringenHead.render()));
 	}
 	public static play.mvc.Result about() {
 		return ok(views.html.layoutWithHead.render(
 				"Om I&IKT-Ringen",
-				ringen.views.html.about.render(),
-				ringen.views.html.aboutHead.render()));
+				staticpages.views.html.aboutRingen.render(),
+				staticpages.views.html.aboutRingenHead.render()));
 	}
 }

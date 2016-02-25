@@ -14,15 +14,15 @@ GET           /griffensorden                            griffensorden.GriffensOr
 GET           /griffensorden/riddere                    griffensorden.GriffensOrden.riddere()
 GET           /griffensorden/nominasjon                 griffensorden.GriffensOrden.nomination()
 GET           /info                                     staticpages.About.index()
-GET           /i&iktringen                              ringen.Ringen.index()
-GET           /i&iktringen/om                           ringen.Ringen.about()
+GET           /i&iktringen                              staticpages.Ringen.index()
+GET           /i&iktringen/om                           staticpages.Ringen.about()
 GET           /jentekom                                 staticpages.About.jentekom()
 GET           /nystudent                                staticpages.About.newStudent()
 GET           /redaksjonen                              staticpages.About.redaksjonen()
 GET           /statutter                                staticpages.Statutter.index()
 GET           /strikk                                   strikk.HybridaStrikk.index()
 GET           /styret                                   staticpages.About.styret()
-GET           /tillitsvalgte                            tillitsvalgte.Tillitsvalgte.index()
+GET           /tillitsvalgte                            staticpages.Tillitsvalgte.index()
 GET           /vevkom                                   staticpages.About.vevkom()
 
 # MODULES
