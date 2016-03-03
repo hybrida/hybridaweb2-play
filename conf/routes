@@ -125,11 +125,10 @@ GET           /update/utgaver                           update.Update.utgaver()
 GET           /update/redaksjon                         update.Update.redaksjon()
 
 # # Voting
-#FIXME(Simen): 'stemming' vs 'avstemming'?
-GET           /stemming                                 ballot.VoteController.index()
-POST          /stemming                                 ballot.VoteController.attemptVote()
-GET           /stemming/oversikt                        ballot.VoteController.overview()
-POST          /stemming/oversikt                        ballot.VoteController.newBallot()
+GET           /avstemning                               ballot.VoteController.index()
+POST          /avstemning                               ballot.VoteController.attemptVote()
+GET           /avstemning/oversikt                      ballot.VoteController.overview()
+POST          /avstemning/oversikt                      ballot.VoteController.newBallot()
 
 # API
 # # Backup database
