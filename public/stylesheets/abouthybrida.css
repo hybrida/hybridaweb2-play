@@ -28,11 +28,10 @@
 
 .bildelink {
     display: block;
-    padding: 1px;
+    padding: 35vh 0 5vh;
 }
 
 .bildetekst {
-    margin: 35vh 0 5vh;
     padding: 2vh 10%;
     color:#eee;
     background: rgba(25, 50, 65, 0.9);
@@ -142,7 +141,7 @@
     .section-box p {padding: 30px 25%; font-size: 18px;}
     .pages {position: relative; height: 100vh;}
     .pages > section {min-height: 100vh; padding-bottom: 50px;}
-    .bildetekst {margin-top: 50vh;}
+    .bildelink {padding-top: 50vh;}
     #grifflogo-container {margin-bottom: 5vh;}
 }
 
