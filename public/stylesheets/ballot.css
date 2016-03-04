@@ -3,3 +3,29 @@
     -moz-border-radius:0;
     border-radius:0;
 }
+
+.option {
+    display: none;
+}
+
+.option + .btn{
+    padding: .5em;
+    width: 100%;
+    font-size: 400%;
+    border-top: grey solid thin;
+}
+
+.option:checked + .btn {
+    background-color: darkblue;
+    color: limegreen;
+    transition: 500ms;
+}
+
+.option:checked + .btn:before {
+    content: '✔ ';
+}
+
+.option:checked + .btn:after {
+    content: ' ✔';
+}
+

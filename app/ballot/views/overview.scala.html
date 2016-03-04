@@ -1,6 +1,7 @@
 @import ballot.Candidate
-@(candidates: List[Candidate])
-<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/ballot.css")">
+@(candidates: List[Candidate], totalVotes: Int)
+<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/ballot.css")"
+xmlns="http://www.w3.org/1999/html">
 <div class="container">
     <div class="row white-box">
         <div class="col-sm-8">
@@ -17,15 +18,27 @@
                         <tr>
                             <th>@candidate.name</th>
                             <th>@candidate.votes</th>
+                            @if(totalVotes > 0) {
+                                <th><div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" style="width: @((100 * candidate.votes) / totalVotes) %"></div></div></th>
+                            }
                         </tr>
                     }
+                    <tr>
+                        <th>Totalt</th>
+                        <th>@totalVotes</th>
+                    </tr>
                 </tbody>
             </table>
         </div>
         <div class="col-sm-4">
-            <h2>Nytt valg</h2>
+            <h2>Ny avstemning</h2>
             <form method="post" action="@ballot.routes.VoteController.newBallot()" id="form">
+                <div class="form-group">
+                    <span>Tittel</span>
+                    <input class="form-control" type="text" name="title"/>
+                </div>
                 <div id="new-choices">
+                    <span>Valg</span>
                 </div>
                 <div class="btn-group btn-group-justified" role="group">
                     <div class="btn-group" role="group">
