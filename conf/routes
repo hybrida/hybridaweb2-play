@@ -125,11 +125,10 @@ GET           /update/utgaver                           update.Update.utgaver()
 GET           /update/redaksjon                         update.Update.redaksjon()
 
 # # Voting
-#FIXME(Simen): 'stemming' vs 'avstemming'?
-GET           /stemming                                 ballot.VoteController.index()
-POST          /stemming                                 ballot.VoteController.attemptVote()
-GET           /stemming/oversikt                        ballot.VoteController.overview()
-POST          /stemming/oversikt                        ballot.VoteController.newBallot()
+GET           /avstemning                               ballot.VoteController.index()
+POST          /avstemning                               ballot.VoteController.attemptVote()
+GET           /avstemning/oversikt                      ballot.VoteController.overview()
+POST          /avstemning/oversikt                      ballot.VoteController.newBallot()
 
 # API
 # # Backup database
@@ -163,13 +162,16 @@ GET           /examples/angular                         examples.controllers.Exa
 # # Limited Access
 GET           /examples/access                          examples.controllers.ExampleStaticAccess.index()
 
+# REDIRECT OLD
+GET           /artikler/*path                           redir.Redir.artikler(path)
+GET           /nyheter                                  redir.Redir.nyheter()
 
 # Map static resources from the /public folder to the /assets URL path
 GET           /assets/*file                             controllers.Assets.at(path="/public", file)
 # Map static resources with restricted access from the /restricted folder to the /begrenset URL path
 GET           /begrenset/:restriction/*file             controllers.Restricted.at(restriction, file)
 
-#FIXME: Burde kanskje returnere Application.showUnauthorizedAccess() heller enn å redirecte?
+#FIXME: Controllers burde kanskje returnere Application.showUnauthorizedAccess() heller enn å redirecte dit?
 GET           /unauthorized                             application.Application.showUnauthorizedAccess()
 
 # Show some page describing the URL if all else fails

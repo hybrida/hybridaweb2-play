@@ -15,13 +15,14 @@ import static play.mvc.Results.redirect;
 
 public class VoteController extends Controller {
 
+    private static String title = "Avstemning";
     private static List<String> votes = new ArrayList<>();
     private static List<String> choices = new ArrayList<>();
     private static List<Long> usersThatHasVoted = new ArrayList<>();//TODO: alternatives to List
 
     public static Result index() {
-        if (choices == null) choices = generateGenericChoices();
-        return ok(views.html.layout.render("stemming", ballot.views.html.voteview.render(choices)));
+        if (choices == null || choices.size() == 0) choices = generateGenericChoices();
+        return ok(views.html.layout.render("stemming", ballot.views.html.voteview.render(choices, title)));
     }
     private static List<String> generateGenericChoices() {
         List<String> choices = new ArrayList<String>();
@@ -55,7 +56,7 @@ public class VoteController extends Controller {
 
         List<Candidate> candidates = createCandidatesFromChoices();
         countVotes(candidates);
-        return ok(views.html.layout.render("Oversikt", ballot.views.html.overview.render(candidates)));
+        return ok(views.html.layout.render("Oversikt", ballot.views.html.overview.render(candidates, votes.size())));
     }
 
     private static List<Candidate> createCandidatesFromChoices() {
@@ -86,6 +87,8 @@ public class VoteController extends Controller {
     }
 
     private static void createBallot(DynamicForm dynamicForm) {
+        title = dynamicForm.data().get("title");
+        dynamicForm.data().remove("title");
         choices = new ArrayList<String>(dynamicForm.data().values());
         votes = new ArrayList<>();
         usersThatHasVoted = new ArrayList<>();

@@ -1,13 +1,17 @@
-@(options: List[String])
+@(options: List[String], title: String)
 <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/ballot.css")">
 <div class="container white-box">
-    <h1>Stemmingsgreie</h1>
+    <h1>@title</h1>
+    <br>
     @helper.form(action = ballot.routes.VoteController.attemptVote()) {
-        <select name="selected" class="form-control">
-        @for(option <- options) {
-            <option>@option</option>
-        }
-        </select>
-        <button class="btn btn-default">stem</button>
+        <form class="form-control">
+            @for(option <- options) {
+                <div>
+                    <input type="radio" name="selected" id="@option" class="option" value="@option">
+                    <label for="@option" class="btn">@option</label>
+                </div>
+            }
+            <button class="btn btn-default">stem</button>
+        </form>
     }
 </div>
