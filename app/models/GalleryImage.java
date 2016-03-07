@@ -25,7 +25,7 @@ public class GalleryImage extends Model {
 
     private String thumbURL;
 
-    @Column(columnDefinition = "VARCHAR(50)")
+    @Column(length=50)
     private String title;
 
     private int score;
