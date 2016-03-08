@@ -44,7 +44,7 @@ import java.util.Date;
  */
 public class SSOLogin extends Controller {
 
-	public static String innsida_login_link = "https://innsida.ntnu.no/sso/?target=hybridawebtest&returnargs=";
+	public static String innsida_login_link = "https://innsida.ntnu.no/sso/?target=hybridaweb&returnargs=";
 
 	public static Result login(String returnarg) {
 		java.io.File file = new java.io.File(models.Certificate.getPath());
@@ -53,7 +53,7 @@ public class SSOLogin extends Controller {
 			return redirect(
 				innsida_login_link + (
 					returnarg == null || returnarg.length() == 0
-					? request().path() : returnarg));
+					? request().path() : returnarg) + ",");
 		} else {
 			session("user", play.api.libs.Crypto.encryptAES("hybrid," + String.valueOf(System.currentTimeMillis())));
 			return redirect(returnarg.length() == 0 ? request().path() : returnarg);
