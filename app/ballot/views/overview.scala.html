@@ -19,7 +19,7 @@ xmlns="http://www.w3.org/1999/html">
                             <th>@candidate.name</th>
                             <th>@candidate.votes</th>
                             @if(totalVotes > 0) {
-                                <th><div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" style="width: @((100 * candidate.votes) / totalVotes) %"></div></div></th>
+                                <th><div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" style="width: @((100 * candidate.votes) / totalVotes)%"></div></div></th>
                             }
                         </tr>
                     }
