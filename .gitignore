@@ -1,7 +1,6 @@
 # Ignore backup, local configuration and local test data
 conf/evolutions/default/backup/
 conf/evolutions/default/3.sql
-conf/application.conf
 db/
 data/
 db/
