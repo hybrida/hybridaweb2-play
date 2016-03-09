@@ -1,6 +1,8 @@
 @import url(http://fonts.googleapis.com/css?family=Playfair+Display);
 @import url(http://fonts.googleapis.com/css?family=Raleway);
 
+@import "colors";
+
 body {
     background-color: lightgrey;
     background-image: url("/assets/images/kilt4.jpg");
@@ -43,13 +45,13 @@ h1 {
 
 a {
     text-decoration: none;
-    color: #777;
+    color: @gray;
 }
 
 a:hover {
     text-decoration: none;
     text-underline: none!important;
-    color: #000000;
+    color: #000;
 }
 
 img {
@@ -62,15 +64,15 @@ img {
 }
 
 .navbar {
-    background-color: #ffffff;
-    box-shadow: 0 0 8px #000000;
+    background-color: #fff;
+    box-shadow: 0 0 8px #000;
     border: none;
     text-align: center;
     vertical-align: bottom;
 }
 
 .form-control:focus {
-    border-color: #000000;
+    border-color: #000;
     box-shadow: none;
 }
 
@@ -112,13 +114,13 @@ img {
 
 .transparent-box,
 .white-box{
-    background-color: rgba(245,245,245,1);
+    background-color: #fff;
     _border-radius: 4px;
     padding: 20px;
     overflow: auto;
 }
 .clean-white-box{
-    background-color: rgba(245,245,245,1);
+    background-color: #fff;
     _border-radius: 4px;
     padding: 20px;
     overflow: auto;
@@ -127,7 +129,7 @@ img {
 }
 
 .transparent-box {
-    background-color: rgba(245,245,245,0.9);
+    background-color: rgba(255,255,255,0.9);
 }
 
 .sleek-box{
@@ -142,7 +144,7 @@ img {
     height:auto;
 }
 .article-bg{
-    background-image: url(/assets/images/kilt3.PNG);
+    background-image: url("/assets/images/kilt3.PNG");
     background-repeat: repeat;
     min-height: 100vh;
     height: auto;
@@ -172,17 +174,17 @@ img {
 }
 .subtitle_styled{
     font-size: 25px;
-    color:lightslategray;
+    color: @light-gray;
     /*border-bottom: solid 2px #d3d3d3;*/
     padding :1%;
 
 }
 .fp_white{
-    background-color: #ffffff;
+    background-color: #fff;
     padding: 1%;
 }
 .fp_beige{
-    background-color: #f7eee7;
+    background-color: @beige;
     padding: .5%;
 }
 
@@ -217,7 +219,7 @@ img {
 .transparent-box,
 .transparent-box-addition,
 .drop-shadow {
-    box-shadow: rgba(0,0,0,0.4) -5px 5px 25px 0;
+    box-shadow: rgba(0,0,0,.4) -5px 5px 25px 0;
 }
 
 .no-shadow{
@@ -232,10 +234,10 @@ img {
 .smallTitle {
     margin: 0 0 10px;
     padding: 0 0 5px;
-    border-bottom: 2px solid #999;
+    border-bottom: 2px solid @gray;
     font: normal 16px "Playfair Display", serif;
     text-transform: uppercase;
-    color: #777;
+    color: #9e9d98;
 }
 
 .buttons + .smallTitle {
@@ -249,19 +251,18 @@ img {
 
     text-align: center;
     text-transform: uppercase;
-    font-family: "Playfair Display";
 }
 
 .bigTitle {
     font-size: 60px;
-    color: #046;
+    color: @hybrida-blue;
 }
 
 .bigSubTitle {
     margin-top: 0.2em;
     margin-bottom: 0.8em;
     font-size: 30px;
-    color: #bbb;
+    color: @light-gray;
 }
 
 .btn + .btn {
@@ -269,7 +270,7 @@ img {
 }
 
 .fc-state-highlight {
-    background-color: rgb(184, 201, 216) !important;
+    background-color: @light-blue !important;
 }
 
 .space-above{
@@ -282,15 +283,15 @@ img {
 
 .row.inverted,
 .inverted {
-    background-color: #496873;
-    color: #f7eee7;
+    background-color: @blue-green;
+    color: #fff;
 }
 .inverted a,
 a.inverted{
     color: #fff;
 }
 .background-blue{
-    background-color: #0066cc;
+    background-color: @hybrida-blue;
 }
 
 
@@ -318,9 +319,6 @@ a.inverted{
     }
 }
 
-#notFound { /*Does not belong here*/
-	text-align: center;
-}
 @media (min-width: 992px){
     .center-container{width: 90%; max-width: 959px;}
     .nav-container{max-width: 1079px;}
