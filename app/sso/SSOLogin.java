@@ -1,5 +1,6 @@
 package sso;
 
+import play.Play;
 import profile.models.User;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -44,7 +45,10 @@ import java.util.Date;
  */
 public class SSOLogin extends Controller {
 
-	public static String innsida_login_link = "https://innsida.ntnu.no/sso/?target=hybridaweb&returnargs=";
+	private static String target = Play.application().configuration().getString("ssologin.target"); // Get target from application.conf
+	public static String innsida_login_link = "https://innsida.ntnu.no/sso/?target="
+			+ (target != null ? target : "hybridaweb") // Fallback to "hybridaweb" if no ssologin.target entry in conf
+			+ "&returnargs=";
 
 	public static Result login(String returnarg) {
 		java.io.File file = new java.io.File(models.Certificate.getPath());
@@ -70,10 +74,11 @@ public class SSOLogin extends Controller {
 			sso.models.SSOData data = new sso.models.SSOData();
 			try {
 				String return_url = new models.HttpRequestData().get("returnargs");
+				if(return_url.endsWith(",")) return_url = return_url.substring(0, return_url.length()-1); // Remove trailing comma bc beta-fix
 				if (data.login()) {
 					User user = User.find.where().eq("username", data.getLoginInfo().get("username")).findUnique();
 					if (user != null) { // Check if user exists
-						if (user.getLastLoginTime() != null ? user.getLastLoginTime().before(new Timestamp(new Date(Integer.valueOf(data.getLoginInfo().get("time")) * 1000L).getTime())) : true) { // Check if the current user is logging in AFTER the last valid login.
+						if (user.getLastLoginTime() == null || user.getLastLoginTime().before(new Timestamp(new Date(Integer.valueOf(data.getLoginInfo().get("time")) * 1000L).getTime()))) { // Check if the current user is logging in AFTER the last valid login.
 						// System.out.println(data.getLoginInfo().get("username") + " has logged in.");
 							user.setLastLoginTimeNow();
 							user.save();
@@ -84,7 +89,6 @@ public class SSOLogin extends Controller {
 						return redirect(contactforuser.routes.ContactForUser.index().url());
 					}
 
-					//return redirect(return_url);
 					return redirect(return_url);
 				} else {
 					session().clear();
@@ -94,7 +98,7 @@ public class SSOLogin extends Controller {
 				return ok(escapeText.render(exc_obj.toString()));
 			}
 		} catch (Exception exc_obj) {
-			return ok("Well damn the SSOData failed.");
+			return ok("Well damn, the SSOData failed.");
 		}
 	}
 }
