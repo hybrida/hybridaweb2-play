@@ -28,7 +28,7 @@ overflow: hidden;
                     @*TODO: begrense tilgang for nye hybrider før opptak *@
                     @for(folder <- folders) {
                         <h3>@folder</h3>
-                        <div class="well">
+                        <div>
                         @if(contents.get(folder) != null) {
                             @for(thumbnail <- contents.get(folder)) {
                                 <a href="@routes.Restricted.at("innlogget", "update/" + folder + "/" + thumbnail.substring(0, thumbnail.length() - 2) + "df")" class="thumbnail">
