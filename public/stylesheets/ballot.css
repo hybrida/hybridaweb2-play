@@ -16,9 +16,10 @@
 }
 
 .option:checked + .btn {
-    background-color: darkblue;
-    color: limegreen;
+    background-color: white;
+    color: black;
     transition: 500ms;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.125) inset;
 }
 
 .option:checked + .btn:before {

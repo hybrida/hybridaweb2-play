@@ -1,5 +1,3 @@
-@import ballot.Candidate
-@(candidates: List[Candidate], totalVotes: Int)
 <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/ballot.css")"
 xmlns="http://www.w3.org/1999/html">
 <div class="container">
@@ -13,22 +11,10 @@ xmlns="http://www.w3.org/1999/html">
                         <th>Antall</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @for(candidate <- candidates) {
-                        <tr>
-                            <th>@candidate.name</th>
-                            <th>@candidate.votes</th>
-                            @if(totalVotes > 0) {
-                                <th><div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" style="width: @((100 * candidate.votes) / totalVotes)%"></div></div></th>
-                            }
-                        </tr>
-                    }
-                    <tr>
-                        <th>Totalt</th>
-                        <th>@totalVotes</th>
-                    </tr>
+                <tbody id="resultater">
                 </tbody>
             </table>
+            <button class="btn" type="button" onclick="updateResults()">Oppdater</button>
         </div>
         <div class="col-sm-4">
             <h2>Ny avstemning</h2>
@@ -77,9 +63,20 @@ xmlns="http://www.w3.org/1999/html">
             );
             choices++;
         }
-        function updateInputs() {
-
-        }
+        setInterval(function() {
+                    $.ajax({
+                        url: 'resultater',
+                        type: 'GET',
+                        success: function(response) {
+                            var newResults = "";
+                            for (candidate of response) {
+                                newResults += '<tr><th>' + candidate.name + '</th>';
+                                newResults += '<th>' + candidate.votes+ '</th></tr>';
+                            }
+                            $('#resultater').html(newResults);
+                        }
+                    })},
+                500);
         function removeChoice(number) {
             $("#choice-"+number).remove();
         }
