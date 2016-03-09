@@ -12,8 +12,8 @@ import views.html.layoutBoxPage;
 public class ExampleStaticAccess extends Controller {
 
     static public Result index() {
-        if(!LoginState.isValidlyLoggedIn()) return redirect(sso.routes.SSOLogin.login(request().path()));
-        if(!LoginState.getUser().loggedInUserHasAccess(true, User.Access.ADMIN)) return application.Application.showUnauthorizedAccess();
+        if(!LoginState.isValidlyLoggedIn()) return redirect(sso.routes.SSOLogin.login(""));
+        if(!User.loggedInUserHasAccess(true, User.Access.ADMIN)) return application.Application.showUnauthorizedAccess();
         return ok(layoutBoxPage.render(
                 "Example Access",
                 examples.views.html.exampleStaticAccess.render()));

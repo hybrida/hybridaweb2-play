@@ -58,10 +58,10 @@
                                 <input class="pull-right btn btn-primary" type="submit" value="Lagre">
                                 <a class="pull-right btn btn-primary" href="@profile.routes.Profile.index(username)">Avbryt</a>
                             </div>
-                            <h5 class="smallTitle">@name</h5>
+                            <h5 class="top-text">@name</h5>
                         </div>
                         <div class="col-xl-6 pull-right space-above">
-                            <h3 class="bigSubTitle">PROFILBILDE</h3>
+                            <h3 class="big-sub-title">PROFILBILDE</h3>
                             @if(messages.contains("profileImageFileName")) {
                                 <div class="message">
                                     <span class="bubble"></span>
@@ -96,7 +96,7 @@
                             </div>
                         </div>
                         <div class="col-xl-6 pull-left space-above">
-                            <h3 class="bigSubTitle">BRUKERINFO</h3>
+                            <h3 class="big-sub-title">BRUKERINFO</h3>
                             <div class="info-block">
                                 <ul>
                                     @infoItem("NTNU-BRUKERNAVN", username)

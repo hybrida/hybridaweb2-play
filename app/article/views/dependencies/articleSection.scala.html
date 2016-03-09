@@ -5,7 +5,7 @@
 }
 <h1>@inarticle.getTitle</h1>
 <h3><p class="text-center">@inarticle.getIngress</p></h3>
-<h6 class="smallTitle">
+<h6 class="top-text">
     Av: @inarticle.getAuthor.getNameLink
     @if(models.LoginState.getUser().getUsername == inarticle.getAuthor.getUsername || LoginState.getUser.isAdmin) {
         <a class="pull-right" href="@revisable.getUpdateCall">
