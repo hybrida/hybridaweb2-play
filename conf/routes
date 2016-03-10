@@ -125,6 +125,7 @@ GET           /update/utgaver                           update.Update.utgaver()
 GET           /update/redaksjon                         update.Update.redaksjon()
 
 # # Voting
+GET           /avstemning/resultater                    ballot.VoteController.getResults()
 GET           /avstemning                               ballot.VoteController.index()
 POST          /avstemning                               ballot.VoteController.attemptVote()
 GET           /avstemning/oversikt                      ballot.VoteController.overview()

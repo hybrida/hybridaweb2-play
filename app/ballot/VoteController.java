@@ -1,5 +1,6 @@
 package ballot;
 
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -22,41 +23,41 @@ public class VoteController extends Controller {
 
     public static Result index() {
         if (choices == null || choices.size() == 0) choices = generateGenericChoices();
-        return ok(views.html.layout.render("stemming", ballot.views.html.voteview.render(choices, title)));
+        return ok(views.html.layout.render("Avstemning", ballot.views.html.voteview.render(choices, title)));
     }
+
     private static List<String> generateGenericChoices() {
         List<String> choices = new ArrayList<String>();
         choices.add("blankt");
-        choices.add("Simen");
-        choices.add("Kia");
-        choices.add("Truls");
+        choices.add("Vevkom");
+        choices.add("Bedkom");
+        choices.add("Arrkom");
+        choices.add("Jentekom");
         return choices;
     }
 
     public static Result attemptVote() {
-        if (!models.LoginState.isValidlyLoggedIn())
-            return redirect(application.routes.Application.showUnauthorizedAccess().url());//TODO: redirect to login page instead
-        User loginUser = models.LoginState.getUser();
-        if (!usersThatHasVoted.contains(loginUser.getId())) {//TODO: add isMember check
-            usersThatHasVoted.add(loginUser.getId());
-            vote(Form.form().bindFromRequest());
-        }
-        return redirect(ballot.routes.VoteController.index());
-    }
-    private static void vote(DynamicForm dynamicForm) {
-        votes.add(dynamicForm.get("selected"));
-    }
 
+        if (!models.LoginState.isValidlyLoggedIn())
+            return redirect(sso.routes.SSOLogin.login(play.mvc.Http.Context.current().request().path()).url());
+
+        User loginUser = models.LoginState.getUser();
+        if (usersThatHasVoted.contains(loginUser.getId())) {//TODO: add isMember check
+            return ok("Du har allerede stemt");
+        }
+
+        String vote = Form.form().bindFromRequest().get("option");
+        if (choices.contains(vote)) {//maybe have null == blankt?
+            usersThatHasVoted.add(loginUser.getId());
+            votes.add(vote);
+            return ok("Du stemte på: " + vote);
+        }
+
+        return ok("Du avga ingen stemme");
+    }
 
     public static Result overview() {
-        User loginUser = models.LoginState.getUser();
-
-        //should get changed to a specific user or something
-        if (!loginUser.isAdmin()) return redirect(application.routes.Application.showUnauthorizedAccess().url());
-
-        List<Candidate> candidates = createCandidatesFromChoices();
-        countVotes(candidates);
-        return ok(views.html.layout.render("Oversikt", ballot.views.html.overview.render(candidates, votes.size())));
+        return ok(views.html.layout.render("Oversikt", ballot.views.html.overview.render()));
     }
 
     private static List<Candidate> createCandidatesFromChoices() {
@@ -65,6 +66,22 @@ public class VoteController extends Controller {
             candidates.add(new Candidate(choice));
         }
         return candidates;
+    }
+
+    public static Result getResults() {
+        User loginUser = models.LoginState.getUser();
+        if (!loginUser.isAdmin()) {//should get changed to a specific user or something
+            List<Candidate> candidates = new ArrayList<>();
+            candidates.add(new Candidate("vevkom"));
+            candidates.get(0).votes = 9001;
+            candidates.add(new Candidate("andre"));
+            return ok(Json.toJson(candidates));
+        }
+
+        List<Candidate> candidates = createCandidatesFromChoices();
+        countVotes(candidates);
+
+        return ok(Json.toJson(candidates));
     }
 
     private static void countVotes(List<Candidate> candidates) {//TODO: using outputparameter, should find better solution
@@ -78,10 +95,15 @@ public class VoteController extends Controller {
     }
 
     public static Result newBallot() {
+
+        if (!models.LoginState.isValidlyLoggedIn())
+            return redirect(sso.routes.SSOLogin.login(play.mvc.Http.Context.current().request().path()).url());
+
         User loginUser = models.LoginState.getUser();
         if (!loginUser.isAdmin()) {//should get changed to a specific user or something
             return redirect(application.routes.Application.showUnauthorizedAccess().url());
         }
+
         createBallot(Form.form().bindFromRequest());
         return redirect(ballot.routes.VoteController.index());
     }
