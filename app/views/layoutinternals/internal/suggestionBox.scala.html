@@ -1,0 +1,10 @@
+@()
+
+<div id="suggestionBox" class="white-box fixed-bottom-right">
+    <input id="suggestionPretext" value="@if(models.LoginState.isValidlyLoggedIn()) {Nytt forslag fra @models.LoginState.getUser().getFullName()} else {Nytt anonymt forslag}" hidden>
+    <div class="form-group">
+        <lable for="desc">Forslag til forbedring</lable>
+        <textarea rows="10" cols="25" class="form-control" id="suggestionContent"></textarea>
+    </div>
+    <button type="submit" class="btn btn-default" id="suggestionButton" onclick="submitSuggestion()">Send</button>
+</div>

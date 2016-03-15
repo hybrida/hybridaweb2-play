@@ -1,13 +1,15 @@
-@(options: List[String])
+@(options: List[String], title: String)
 <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/ballot.css")">
 <div class="container white-box">
-    <h1>Stemmingsgreie</h1>
-    @helper.form(action = ballot.routes.VoteController.attemptVote()) {
-        <select name="selected" class="form-control">
-        @for(option <- options) {
-            <option>@option</option>
-        }
-        </select>
-        <button class="btn btn-default">stem</button>
-    }
+    <h1>@title</h1>
+    <br>
+        <form id="vote_form">
+            @for(option <- options) {
+                <div>
+                    <input type="radio" name="option" id="@option" class="option" value="@option">
+                    <label for="@option" class="btn">@option</label>
+                </div>
+            }
+            <button class="btn btn-default" type="button" onclick="$.post('avstemning', $('#vote_form').serialize(), function(response) {$('#vote_form').html(response)})">stem</button>
+        </form>
 </div>

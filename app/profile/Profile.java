@@ -10,9 +10,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Ivar on 21.10.2014.
- */
 public class Profile extends Controller {
 
 	private static void addMessage(Map<String, String> messages, String key, String content) {

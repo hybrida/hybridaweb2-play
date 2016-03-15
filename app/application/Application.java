@@ -1,10 +1,14 @@
 package application;
 
+import application.views.html.*;
 import models.LoginState;
 import profile.models.User;
+import play.twirl.api.Html;
 import play.mvc.Controller;
 import play.mvc.Result;
 import renders.Renders;
+import views.html.*;
+
 
 public class Application extends Controller {
 
@@ -35,10 +39,10 @@ public class Application extends Controller {
 	* @return
 	*/
 	public static Result showUnauthorizedAccess() {
-		return unauthorized(
-			views.html.layoutBoxPage.render(
-				"Unauthorized",
-				application.views.html.showUnauthorizedAccess.render()));
+		String title = "Unauthorized";
+		Html unauthorized = showUnauthorizedAccess.render();
+		Html rendered = layoutBoxPage.render(title, unauthorized);
+		return unauthorized(rendered);
 	}
 
 	public static Result show401() {

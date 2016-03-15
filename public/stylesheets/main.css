@@ -2,13 +2,18 @@
 @import url(http://fonts.googleapis.com/css?family=Raleway);
 
 body {
-    background-image: url(/assets/images/kilt3.PNG);
+    background-color: lightgrey;
+    background-image: url("/assets/images/kilt4.jpg");
     background-repeat: repeat;
     font-family: 'Raleway', sans-serif;
     padding-top: 50px;
-    /* background: lightgrey; */
-    /*background: url("../images/kilt3.PNG") repeat;*/
+}
 
+#suggestionBox {
+    right: -100%;
+    bottom: 75px;
+    z-index: 50000;
+    transition: right 0.2s ease;
 }
 
 #logo {
@@ -28,7 +33,7 @@ body {
 
 
 h1, h2, h3 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 h1 {
@@ -221,6 +226,7 @@ img {
 
 .rounded{
     border-radius: 10px;
+
 }
 
 .smallTitle {
@@ -267,11 +273,11 @@ img {
 }
 
 .space-above{
-    margin-top: 30px;
+    margin-top: 15px;
 }
 
 .space-below{
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 .row.inverted,
@@ -282,6 +288,9 @@ img {
 .inverted a,
 a.inverted{
     color: #fff;
+}
+.background-blue{
+    background-color: #0066cc;
 }
 
 
@@ -309,13 +318,14 @@ a.inverted{
     }
 }
 
-
-#notFound {
+#notFound { /*Does not belong here*/
 	text-align: center;
 }
 @media (min-width: 992px){
     .center-container{width: 90%; max-width: 959px;}
     .nav-container{max-width: 1079px;}
+    .space-above{margin-top: 30px;}
+    .space-below{margin-bottom: 50px;}
 }
 @media (min-width: 1200px){
     #home { margin-right: 32px;}

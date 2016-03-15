@@ -24,33 +24,33 @@ GET           /tillitsvalgte                           tillitsvalgte.Tillitsvalg
 GET           /strikk                                  strikk.HybridaStrikk.index()
 
 # Admin
-GET           /admin                                   admintools.Admin.index()
-POST          /admin/login                             admintools.Admin.login()
-POST          /admin/rediger                           admintools.Admin.editUser(uid)
-POST          /admin/logout                            admintools.Admin.logout()
-GET           /admin/logout                            admintools.Admin.logout()
-GET           /admin/users                             admintools.Admin.allUsers()
-POST          /admin/newuser                           admintools.Admin.newUser()
-GET           /admin/bulkusers                         admintools.Admin.bulkUsersForm()
-POST          /admin/bulkusers                         admintools.Admin.bulkUsers()
-GET           /admin/api/bulkaddsingle                 admintools.Admin.bulkAddSingle()
+GET           /admin                                admintools.Admin.index()
+POST          /admin/login                          admintools.Admin.login()
+POST          /admin/rediger                        admintools.Admin.editUser(uid)
+POST          /admin/logout                         admintools.Admin.logout()
+GET           /admin/logout                         admintools.Admin.logout()
+GET           /admin/users                          admintools.Admin.allUsers()
+POST          /admin/newuser                        admintools.Admin.newUser()
+GET           /admin/bulkusers                      admintools.Admin.bulkUsersForm()
+POST          /admin/bulkusers                      admintools.Admin.bulkUsers()
+GET           /admin/api/bulkaddsingle              admintools.Admin.bulkAddSingle()
 
 # RFID
 GET           /rfid                                    rfid.RFIDReader.index()
-GET           /rfid/:status/:number                    rfid.RFIDReader.indexContinue(status, number)
+GET           /rfid/:status/:number                            rfid.RFIDReader.indexContinue(status, number)
 POST          /rfid                                    rfid.RFIDReader.read()
 POST          /rfid                                    rfid.RFIDReader.read()
 
 # Upload
-POST          /api/upload                              controllers.Upload.ajaxUpload()
-POST          /api/upload/:uploadFolder                controllers.Upload.ajaxUploadTo(uploadFolder)
+POST          /api/upload                           controllers.Upload.ajaxUpload()
+POST          /api/upload/:uploadFolder             controllers.Upload.ajaxUploadTo(uploadFolder)
 
 # BedkomDatabase
-GET           /bedkomdatabase                          bedkomdatabase.Bedkomdatabase.index()
+GET           /bedkomdatabase                       bedkomdatabase.Bedkomdatabase.index()
 
-POST          /bedkomdatabase/bedrift                  bedkomdatabase.Bedkomdatabase.saveBedrift()
-POST          /bedkomdatabase/bedrift/ud/:id           bedkomdatabase.Bedkomdatabase.updateBedrift(id)
-POST          /bedkomdatabase/bedrift/slett/:id        bedkomdatabase.Bedkomdatabase.deleteBedrift(id)
+POST          /bedkomdatabase/bedrift               bedkomdatabase.Bedkomdatabase.saveBedrift()
+POST          /bedkomdatabase/bedrift/ud/:id        bedkomdatabase.Bedkomdatabase.updateBedrift(id)
+POST          /bedkomdatabase/bedrift/slett/:id         bedkomdatabase.Bedkomdatabase.deleteBedrift(id)
 
 POST          /bedkomdatabase/kontakt/:id              bedkomdatabase.Bedkomdatabase.saveKontaktPerson(id)
 POST          /bedkomdatabase/kontakt/slett/:id        bedkomdatabase.Bedkomdatabase.deleteKontaktPerson(id)
@@ -66,10 +66,10 @@ POST          /bedkomblokkering                        bedpressblock.BedPresBloc
 POST          /bedkomblokkering/blokker                bedpressblock.BedPresBlock.blockUser()
 
 # Gallery
-GET           /galleri                                 gallery.Gallery.display()
-POST          /api/submitImage                         gallery.Gallery.uploadGalleryImage()
-GET           /api/clickScoreImage                     gallery.Gallery.giveImageClickScore(imageId: Long)
-GET           /api/viewScoreImage                      gallery.Gallery.giveImageViewScore(imageId: Long)
+GET           /galleri                           gallery.Gallery.display()
+POST          /api/submitImage                   gallery.Gallery.uploadGalleryImage()
+GET           /api/clickScoreImage               gallery.Gallery.giveImageClickScore(imageId: Long)
+GET           /api/viewScoreImage                gallery.Gallery.giveImageViewScore(imageId: Long)
 
 # Calendar
 GET           /kalender                                calendar.Calendar.display(gcal: Boolean ?= false)
@@ -111,7 +111,7 @@ POST          /event/meldav                            article.Event.removeUser(
 GET           /api/backup                              backup.BackupDatabase.index()
 
 # Search
-GET           /search                                  renders.Renders.search()
+GET           /search                                   renders.Renders.search()
 
 # Login
 GET           /login                                   sso.SSOLogin.login(returnarg: String)

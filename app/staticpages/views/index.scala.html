@@ -1,0 +1,102 @@
+<nav class="transparent-box" id="sidebar">
+    <ul class="nav nav-pills nav-stacked">
+        <li><a class="page-link" href="#1">Hybrida</a></li>
+        <li><a class="page-link" href="#2">Styret</a></li>
+        <li>
+            <a class="page-link" href="#3">Hybridas Komitéer</a>
+            <ul class="nav nav-pills nav-stacked sub-nav">
+                <li><a href="@staticpages.routes.About.vevkom()">VevKom</a></li>
+                <li><a href="@staticpages.routes.About.bedkom()">BedKom</a></li>
+                <li><a href="@staticpages.routes.About.arrkom()">ArrKom</a></li>
+                <li><a href="@staticpages.routes.About.jentekom()">JenteKom</a></li>
+                <li><a href="@staticpages.routes.About.redaksjonen()">Redaksjonen</a></li>
+            </ul>
+        </li>
+        <li><a class="page-link" href="#4">Update</a></li>
+        <li><a class="page-link" href="#5">Informasjon til nye studenter</a></li>
+        <li><a class="page-link" href="#6">Griffens Orden</a></li>
+        <li>
+            <a class="page-link" href="#7">Kontaktinformasjon</a>
+            <ul class="nav nav-pills nav-stacked sub-nav">
+                <li><a href="#adresse">Adresse</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+<div class="container-fluid center-container">
+    <div class="row">
+        <div class="col-xs-12 space-below">
+            <div class="pages">
+                <section id="hybrida">
+                    <div class="section-box drop-shadow space-above">
+                        <a href="#" name="Hybrida"></a>
+                        <div id="grifflogo-container">
+                            <section id="grifflogo">
+                                <img src="@controllers.routes.Assets.at("/images/logo_big_transparent_shadow.png")" />
+                            </section>
+                        </div>
+                        <p>
+                            <b>Hybrida</b> er linjeforeningen for studieprogrammet <b>Ingeniørvitenskap og IKT</b> ved NTNU i Trondheim.
+                            Foreningens formål er å fremme samhold og kameratskap innad på studieprogrammet ved blant annet å
+                            avholde arrangementer av både sosial og faglig karakter.
+                        </p>
+                    </div>
+                </section>
+
+                <section id="styret">
+                    <div class="section-box drop-shadow space-above">
+                        <a href="#" name="Styret"></a>
+                        <a class="bildelink" href="@staticpages.routes.About.styret()">
+                            <div class="bildetekst" >Styret i Hybrida</div>
+                        </a>
+                    </div>
+                </section>
+
+                <section id="komiteer">
+                    <div class="section-box drop-shadow space-above">
+                        <a href="#" name="Komitéer"></a>
+                        <a class="link" href="@staticpages.routes.About.styret()">
+                            <h2> Hybridas Komitéer </h2>
+                            <p>Vevkom <br>BedKom <br>ArrKom<br>Jentekom<br>Redaksjonen</p>
+                        </a>
+                    </div>
+                </section>
+
+                <section id="update">
+                    <div class="section-box drop-shadow space-above">
+                        <a href="#" name="Update"></a>
+                        <a class="bildelink" href="@update.routes.Update.index()">
+                            <div class="bildetekst">Update<sup>k</sup></div>
+                        </a>
+                    </div>
+                </section>
+
+                <section id="student">
+                    <div class="section-box drop-shadow space-above">
+                        <a href="#" name="Student"></a>
+                        <a class="bildelink" href="@staticpages.routes.About.newStudent()">
+                            <div class="bildetekst">Ny Student?</div>
+                        </a>
+                    </div>
+                </section>
+
+                <section id="griffensorden">
+                    <div class="section-box drop-shadow space-above">
+                        <a href="#" name="GriffensOrden"></a>
+                        <a class="bildelink" href="@griffensorden.routes.GriffensOrden.index()">
+                            <div class="bildetekst">Griffens Orden</div>
+                        </a>
+                    </div>
+                </section>
+
+                <section id="kontaktinfo">
+                    <div class="section-box drop-shadow space-above">
+                        <a href="#" name="Kontaktinfo"></a>
+                        Kontakinformasjon
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

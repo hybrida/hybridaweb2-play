@@ -14,11 +14,11 @@
 
 				@if(models.LoginState.isValidlyLoggedIn()) {<li><a href="@application.routes.Application.frontpage()">Forside</a></li>}
 				@if(models.LoginState.getUser().canCreateNewArticle()) {<li><a href="@article.routes.ArticleIn.index()">Nytt Innlegg</a></li>}
-				<li><a href="@bedrift.routes.Bedrift.index()">Bedrift</a></li>
+				<li><a href="@staticpages.routes.Bedrift.index()">Bedrift</a></li>
 				<li><a href="@calendar.routes.Calendar.display()">Kalender</a></li>
 				<!--<li><a href="@gallery.routes.Gallery.display()">Galleri</a></li>-->
-				<li><a href="@abouthybrida.routes.AboutHybrida.index()">Om Hybrida</a></li>
-				<li><a href="@iktringen.routes.IKTringen.index()">I&IKT-Ringen</a></li>
+				<li><a href="@staticpages.routes.About.index()">Om Hybrida</a></li>
+				<li><a href="@staticpages.routes.Ringen.index()">I&IKT-Ringen</a></li>
 			</ul>
 			<form class="navbar-form navbar-right" role="search" action="@renders.routes.Renders.search()" method="GET">
 				<div class="form-group">
@@ -34,6 +34,7 @@
 							@if(models.LoginState.getUser.canReadUpdate){<li><a href="/update">Update<sup>k</sup></a></li>} @*TODO:enrolled is currently null*@
 							@if(models.LoginState.getUser.isFirstUser){<li><a href="@admintools.routes.Admin.allUsers()">Administrer</a></li>}
 							@if(models.LoginState.getUser.isInBedkom){<li><a href="@bedpressblock.routes.BedPresBlock.index()">Bedpres Prikking</a></li>
+								<li><a href="@rfid.routes.RFIDReader.index()">RFID Prikking</a></li>
 								<li><a href="@bedkomdatabase.routes.Bedkomdatabase.index()">Bedrifter</a></li>}
 							@if(LoginState.getUser.isFirstUser){
 								<li><a href="@admintools.routes.Admin.logout()">Logg ut</a></li>
@@ -54,9 +55,8 @@
 		</div>
 	</div>
 </nav>
-<form action="@(article.routes.Article.viewArticle("1"))" method="get">
-	<button  type="submit" class="btn btn-default btn-lg fixed-bottom-right">
-		<span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span> Feedback
-	</button>
-</form>
+<button href="@(article.routes.Article.viewArticle("1"))" class="feedback btn btn-default btn-lg fixed-bottom-right" onclick="toggleSuggestionBox()">
+    <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span> Feedback
+</button>
+@suggestionBox()
 @import java.sql.Timestamp

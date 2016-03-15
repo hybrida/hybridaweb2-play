@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.annotation.CreatedTimestamp;
+import play.api.data.validation.Constraint;
 import play.db.ebean.Model;
 import profile.models.User;
 
@@ -9,9 +10,6 @@ import java.sql.Timestamp;
 
 @Entity
 public class GalleryImage extends Model {
-    private static final int CLICK_SCORE = 3;
-
-    private static final int VIEW_SCORE = 1;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +25,7 @@ public class GalleryImage extends Model {
 
     private String thumbURL;
 
+    @Column(length=50)
     private String title;
 
     private int score;
@@ -89,12 +88,7 @@ public class GalleryImage extends Model {
     }
 
     public void giveClickScore() {
-        score += CLICK_SCORE;
-        save();
-    }
-
-    public void giveViewScore() {
-        score += VIEW_SCORE;
+        score++;
         save();
     }
 

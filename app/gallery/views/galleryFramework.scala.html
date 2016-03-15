@@ -1,0 +1,210 @@
+@(shouldSize: Boolean, biggestThumb: Int = 400)
+<script src='assets/javascripts/packery.pkgd.min.js'></script>
+
+<style>
+    .gallery {
+        padding: 0;
+        margin: 0;
+        width: 1200px;
+    }
+
+    .gallery .imageWrapper {
+        padding: 10px;
+        margin: 0;
+        /*object-fit: contain;*/
+        transition: padding 0.2s ease;
+    }
+
+    .gallery .imageWrapper .loader {
+        background: url(assets/images/ajax-loader.gif) #CCC no-repeat center;
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.5);
+        /*box-shadow: inset 0 0 40px 0 rgba(0, 0, 0, 0.5);*/
+        height: 100%;
+        width: 100%;
+        border-radius: 5px;
+        transition: box-shadow 0.2s ease;
+    }
+
+    .gallery .imageWrapper .loader .image {
+        border-radius: 5px;
+        opacity: 0;
+        transition: opacity 1s ease;
+    }
+
+    #viewerUnderlay {
+        opacity: 0;
+        position: fixed;
+        z-index: -3;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        transition: opacity 0.2s linear;
+    }
+
+    #viewerOverlay {
+        opacity: 0;
+        position: fixed;
+        z-index: -1;
+        top: 50%;
+        left: 50%;
+        height: 0;
+        width: 0;
+        background: url(assets/images/ajax-loader.gif) #CCC no-repeat center;
+        /*background-size: cover;*/
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        transition: opacity 0.2s ease,
+                    height 0.2s ease,
+                    width 0.2s ease,
+                    top 0.2s ease,
+                    left 0.2s ease;
+    }
+
+    #viewerOverlay #viewerImage {
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+
+    .gallery .imageWrapper:hover {
+        padding: 0px;
+    }
+
+    .gallery .imageWrapper:hover .loader {
+        box-shadow: 0 15px 15px -10px rgba(0, 0, 0, 0.5);
+    }
+</style>
+
+<script>
+    var $galleries = $('.gallery');
+    var precentBig = 0.1;
+    var precentMedium = 0.3;
+    var sizingLimit = 4;
+    var biggestSize = @biggestThumb;
+
+    for (var i = 0; i < $galleries.length; i++) {
+        var $tempThumbs = $($galleries[i]).children('.imageWrapper');
+
+        $tempThumbs.append('<div class="loader"></div>');
+
+        // Uncomment this and make Gallery.java sort by date?
+        $tempThumbs.sort(function(a, b) {
+            return $(b).data("score") - $(a).data("score");
+        });
+
+        var imagesTotal = $tempThumbs.length;
+        var imagesBig = Math.ceil(imagesTotal*precentBig);
+        var imagesMedium = Math.ceil(imagesTotal*precentMedium);
+        var scores = $tempThumbs.data('score');
+        for (var j = 0; j < $tempThumbs.length; j++) {
+            var size = biggestSize;
+            if (imagesTotal >= sizingLimit && @shouldSize) {
+                if (imagesBig > 0) {
+                    imagesBig--;
+                } else if (imagesMedium > 0) {
+                    imagesMedium--;
+                    size = biggestSize / 2;
+                } else {
+                    size = biggestSize / 4;
+                }
+            }
+            var $tempThumb = $($tempThumbs[j]);
+            $tempThumb.css('height', size);
+            $tempThumb.css('width', size);
+        }
+    }
+
+    var $grids = $galleries.packery({
+        // options
+        itemSelector: '.imageWrapper',
+        //columnWidth: 100
+    });
+
+    $("body")
+        .append('<div id="viewerUnderlay"></div>')
+        .append('<div id="viewerOverlay">');
+
+    var $underlay = $('#viewerUnderlay');
+    var $overlay = $('#viewerOverlay');
+    var $thumbs = $galleries.children('.imageWrapper');
+    var $window = $(window);
+    var border = 30;
+
+    $underlay.click(function() {
+        $underlay.on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', function() {
+            $underlay.css('z-index', -2);
+            $overlay.css('z-index', -1);
+            $overlay.css('background-image', '');
+            $overlay.empty();
+        });
+        $underlay.css('opacity', 0);
+        $overlay.css('opacity', 0);
+        $overlay.css('height', 0);
+        $overlay.css('width', 0);
+        $overlay.css('top', '50%');
+        $overlay.css('left', '50%');
+    });
+
+    $('.gallery .imageWrapper').click(function() {
+        $underlay.off('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd');
+        var $image = $(this);
+        var allowedWidth = $window.width() - 2*border;
+        var allowedHeight = $window.height() - 2*border;
+
+        var imgWidth = $image.data("orgwidth");
+        var imgHeight = $image.data("orgheight");
+        if (imgHeight > allowedHeight || imgWidth > allowedWidth) {
+            var aspect = imgHeight / imgWidth;
+            var heightOver = imgHeight - allowedHeight;
+            var widthOver = imgWidth - allowedWidth;
+            if (heightOver > widthOver) {
+                imgHeight = allowedHeight;
+                imgWidth = imgHeight / aspect;
+            } else {
+                imgWidth = allowedWidth;
+                imgHeight = imgWidth * aspect;
+            }
+        }
+
+        var imgLeft = ($window.width() - imgWidth)/2;
+        var imgTop = ($window.height() - imgHeight)/2;
+
+        $overlay.css("width", imgWidth);
+        $overlay.css("height", imgHeight);
+        $overlay.css("left", imgLeft);
+        $overlay.css("top", imgTop);
+        $underlay.css('opacity', 1);
+        $underlay.css('z-index', 99999);
+        $overlay.css('opacity', 1);
+        $overlay.css('z-index', 100000);
+
+        // Load image
+        var tempImg = new Image();
+
+        tempImg.onload = function() {
+            this.style.opacity = 1;
+        }
+
+        tempImg.id = "viewerImage";
+        tempImg.src = $image.data("orgurl");
+        $overlay.append(tempImg);
+
+        // Give score
+        $.get("/api/clickScoreImage", {imageId: $image.data("id")});
+    });
+
+    window.onload = function() {
+        for (var i = 0; i < $thumbs.length; i++) {
+            var $thumb = $($thumbs[i]);
+            var tempImg = new Image();
+
+            tempImg.onload = function() {
+                this.style.opacity = 1;
+            }
+
+            tempImg.className = "image";
+            tempImg.src = $thumb.data("thumburl");
+            $thumb.children().first().prepend(tempImg);
+        }
+    }
+</script>

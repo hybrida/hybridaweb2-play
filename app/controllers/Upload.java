@@ -46,6 +46,7 @@ public class Upload extends Controller {
 
 	public static final int THUMB_SIZE = 400;
 	public static final String THUMB_URL_END = "_thumb";
+	public static final String THUMB_FORMAT = "PNG";
 
 	public static File getFileFromRequest(String inputName) throws NoFileInRequest {
 		MultipartFormData formData = request().body().asMultipartFormData();
@@ -113,7 +114,9 @@ public class Upload extends Controller {
 	}
 
 	public static String[] uploadAndMakeThumb(String inputName) throws Unauthorized, NoFileInRequest, ServerError, IncorrectFileType {
-		// Save original image
+		// Convert every file format to png or jpg
+
+        // Save original image
 		String imagePath = upload(inputName, LOCAL_PATH);
 		if (imagePath == null) throw new ServerError();
         File tempFile = new File(imagePath);
@@ -147,8 +150,8 @@ public class Upload extends Controller {
 		String filename = imagePath.substring(fileFormatStartIndex + 1);
 		String thumbPathWithoutFormat = imagePath.substring(0, fileFormatStartIndex) + Upload.THUMB_URL_END;
 
-		File newFile = new File(thumbPathWithoutFormat + "." + filename);
-		for (int i = 1; newFile.exists(); i++) newFile = new File(thumbPathWithoutFormat + " (" + i + ")" + "." + filename);
+		File newFile = new File(thumbPathWithoutFormat + "." + THUMB_FORMAT);
+		for (int i = 1; newFile.exists(); i++) newFile = new File(thumbPathWithoutFormat + " (" + i + ")" + "." + THUMB_FORMAT);
 		newFile.getParentFile().mkdirs();
 
 		try {

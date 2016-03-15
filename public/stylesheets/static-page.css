@@ -1,0 +1,23 @@
+.article-bg{
+    background-image: url("../images/kilt3.PNG");
+    background-size: 100%;
+}
+
+h1, h2 {
+    border: black solid 0;
+    border-bottom-width: 1px;
+    display: inline-block;
+    width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h2 {
+    border-style: dotted;
+    width: auto;
+}
+
+.paragraph{
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+}

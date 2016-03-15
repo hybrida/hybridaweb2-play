@@ -1,0 +1,42 @@
+@()
+<script type="text/javascript" src="@routes.Assets.at("onepage-scroll/jquery.onepage-scroll.js")"></script>
+<link rel="stylesheet" type="text/css" href="@routes.Assets.at("onepage-scroll/onepage-scroll.css")">
+<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/abouthybrida.css")">
+<script type="text/javascript">
+    $(document).ready(function(){
+        var openNav = $();
+        var sidebar = $("#sidebar");
+        sidebar.find(".sub-nav").each(function(){
+            $(this).data("height", $(this).height());
+            $(this).height(0);
+        });
+        sidebar.find(".page-link[href*='#1']").first().focus();
+
+        var pages = $(".pages");
+        pages.onepage_scroll({
+                sectionContainer: ".pages > section",
+                pagination: true,
+                loop: false,
+                updateURL: true,
+                responsiveFallback: 768,
+                beforeMove: function(index) {
+                    var link = sidebar.find(".page-link[href*='#" + index + "']").first();
+                    link.focus();
+                    var nav = link.next(".sub-nav");
+                    if(!openNav.is(nav)) {
+                        if(openNav.size() > 0) {
+                            openNav.animate({"height": 0});
+                            openNav = $();
+                        }if(nav.size() > 0) {
+                            nav.animate({"height": nav.data("height")});
+                            openNav = nav;
+                        }
+                    }
+                }
+        });
+        sidebar.find(".page-link").click(function(){
+            pages.moveTo(parseInt($(this).attr("href").substr(1)));
+        });
+
+    });
+</script>

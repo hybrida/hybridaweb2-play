@@ -6,9 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-/**
- * Created by Ivar on 30.09.2014.
- */
 @Entity
 public class ExampleEbeanEntity extends Model {
     @Id
