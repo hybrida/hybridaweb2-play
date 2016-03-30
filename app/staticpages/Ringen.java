@@ -17,6 +17,6 @@ public class Ringen extends Controller {
 		return ok(views.html.layoutWithHead.render(
 				"Om I&IKT-Ringen",
 				staticpages.views.html.aboutRingen.render(),
-				staticpages.views.html.aboutRingenHead.render()));
+				staticpages.views.html.staticPageHead.render()));
 	}
 }

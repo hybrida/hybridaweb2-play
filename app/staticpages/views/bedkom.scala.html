@@ -1,6 +1,6 @@
 <div class="article-bg">
     <div class="container">
-        <div class="row space-above space-below">
+        <div class="row space-above space-below" >
             <div class="col-md-10 col-md-offset-1 transparent-box rounded">
                 <div class="text-center">
                     <h1>Bedkom</h1>
@@ -8,8 +8,28 @@
                 <div class="paragraph">
                     <h2>Info</h2>
 
-                    <!--@if(!models.LoginState.isValidlyLoggedIn) {<p>Dette er en test</p>} else{<p>Dette er ikke en test</p>}-->
+                    <div>
 
+                            <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#forside" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
+                            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
+                            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
+                            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+                        </ul>
+
+                            <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="forside">Home</div>
+                            <div role="tabpanel" class="tab-pane" id="profile">Profil</div>
+                            <div role="tabpanel" class="tab-pane" id="messages">Message</div>
+                            <div role="tabpanel" class="tab-pane" id="settings">Settings</div>
+                        </div>
+
+                    </div>
+
+                    <!--@if(!models.LoginState.isValidlyLoggedIn) {<p>Dette er en test</p>} else{<p>Dette er ikke en test</p>}-->
+                    <!--
                     <p>
                         <strong>Hybridas Bedriftskomite (Hybrida BedKom) har ansvaret for kontakten med bedriftene for sivilingeniørstudiet Ingeniørvitenskap og IKT (I &amp; IKT) ved NTNU. Vi ble etablert for å gi bedrifter informasjon om vårt studieprogram og hvilken kompetanse vi kan bidra med.</strong></p>
                     <p>
@@ -53,10 +73,12 @@
                             Still med flere personer, slik at det er enklere å komme i kontakt med dere under bespisningen.</li>
                     </ul>
                     -->
+                    <!--
                     <h2>Final paragraph:</h2>
                     <p>
                         Nam ut leo pharetra, venenatis justo non, ultrices nibh. Mauris dolor nisi, venenatis ac interdum nec, ultrices eu velit. Nunc mattis maximus congue. Fusce semper sapien eu enim scelerisque, vel faucibus elit gravida. Vivamus ultrices justo non orci molestie, sed molestie ex placerat. Quisque blandit mauris nec nibh porta placerat. Suspendisse rutrum, augue vitae tincidunt bibendum, tellus ipsum sollicitudin arcu, ac efficitur dui sapien at est. Nam suscipit nulla non lectus aliquam congue eu ac ante. Aenean id lobortis nulla. Aliquam lacinia, orci in maximus blandit, est ligula tincidunt nibh, sit amet ultricies quam ligula ultrices velit. Suspendisse eu ante non quam congue gravida a at erat. Curabitur nec finibus augue, ac luctus tortor.
                     </p>
+                    -->
                 </div>
             </div>
         </div>
