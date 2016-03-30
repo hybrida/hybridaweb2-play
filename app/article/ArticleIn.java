@@ -115,7 +115,7 @@ public class ArticleIn extends Controller {
 
 			article.save();
 		}
-		return application.Application.index();
+		return redirect(application.routes.Application.index());
 	}
 
 }
