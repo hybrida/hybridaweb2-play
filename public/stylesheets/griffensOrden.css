@@ -5,6 +5,7 @@
 	background-size: 100%;
     padding-left: 10px;
     padding-right: 10px;
+	min-height: 100vh;
 }
 
 .line{

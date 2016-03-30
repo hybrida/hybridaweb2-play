@@ -45,6 +45,17 @@
     height:100vh;
 }
 
+#medlemmer {
+    overflow: auto;
+    margin: 0 auto;
+    width: 100%;
+    height: 100vh;
+    background-image: url(../images/medlemmer_ringen.png);
+    background-repeat:no-repeat;
+    background-size:contain;
+    background-position:center;
+    }
+
 #kontakinfo {
     width: 100%;
     height: 100vh;
@@ -100,12 +111,10 @@
 }
 
 #medlemsprisbilde {
-    position: fixed;
     padding-top: 1em;
-    width: 85%;
+    width: 100vw;
     text-align: center;
     background-color: #ffffff;
-
 }
 
 #studentene {
@@ -168,6 +177,15 @@
     width: 85%;
     font-size: 16px;
     padding: 1em 2.5em 1em 2.5em;
+    position: fixed;
+}
+
+.rowProm {
+    width: 85%;
+    font-size: 16px;
+    margin-left: 50%;
+    transform: translate(-50%,0);
+    background-color: green;
 }
 
 #sidebar  {

@@ -36,9 +36,9 @@ public class Article extends Model implements Revisable<Article> {
 	private List<Comment> commentList;
 
 	public Article() {
-		title = "";
-		ingress = "";
-		text = "Artikkel her";
+		title = "Tittel";
+		ingress = "Ingress";
+		text = "Artikkel";
 		commentList = new ArrayList<>();
 	}
 
