@@ -3,7 +3,7 @@
 
 # Standard layout accessible pages
 GET           /                                         application.Application.index()
-GET           /forside                                  application.Application.frontpage()
+GET           /forside                                  application.Application.forside()
 GET           /insertqt                                 test.TestDatabase.index()
 
 # STATIC INFO PAGES

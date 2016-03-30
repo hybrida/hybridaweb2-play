@@ -2,10 +2,8 @@ package renders;
 
 import java.util.*;
 
-import application.Application;
 import models.SearchForm;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.ArrayUtils;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -21,22 +19,27 @@ import static play.data.Form.form;
  */
 public class Renders extends Controller {
 
+	public static List<Html> rendersHtml(List<? extends Renderable> renderables, boolean big) {
+		List<Html> htmlList = new ArrayList<>();
+
+		int count = 0;
+		for (Renderable renderable : renderables) {
+			if (count++ < 1 && big) htmlList.add(renders.views.html.renderBig.render(renderable.render()));
+			else htmlList.add(renders.views.html.renderSmall.render(renderable.render()));
+		}
+
+		return htmlList;
+	}
+
+
 	public static Result showRenders(String title, List<? extends Renderable> renderables, boolean big) {
 		return showRenders(title, renderables, big, 0, "");
 	}
 
 	public static Result showRenders(String title, List<? extends Renderable> renderables, boolean big, int page, String searchterm) {
-		List<Html> rendersHtml = new ArrayList<>();
-
-		int count = 0;
-		for (Renderable renderable : renderables) {
-			if (count++ < 1 && big) rendersHtml.add(renders.views.html.renderBig.render(renderable.render()));
-			else rendersHtml.add(renders.views.html.renderSmall.render(renderable.render()));
-		}
-
 		return ok(views.html.layoutWithHead.render(
 				"Hybrida - " + title,
-				renders.views.html.rendersBody.render(title, rendersHtml, page, searchterm),
+				renders.views.html.rendersBody.render(title, rendersHtml(renderables, big), page, searchterm),
 				renders.views.html.rendersHead.render()));
 	}
 

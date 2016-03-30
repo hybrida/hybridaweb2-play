@@ -1,3 +1,5 @@
+@()
+
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container-fluid nav-container">
 		<div class="navbar-header">
@@ -12,7 +14,6 @@
 		<div class="collapse navbar-collapse" id="navigation_menu">
 			<ul class="nav navbar-nav">
 
-				@if(models.LoginState.isValidlyLoggedIn()) {<li><a href="@application.routes.Application.frontpage()">Forside</a></li>}
 				@if(models.LoginState.getUser().canCreateNewArticle()) {<li><a href="@article.routes.ArticleIn.index()">Nytt Innlegg</a></li>}
 				<li><a href="@staticpages.routes.Bedrift.index()">Bedrift</a></li>
 				<li><a href="@calendar.routes.Calendar.display()">Kalender</a></li>

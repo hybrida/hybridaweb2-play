@@ -7,7 +7,10 @@ import play.twirl.api.Html;
 import play.mvc.Controller;
 import play.mvc.Result;
 import renders.Renders;
+import renders.models.Renderable;
 import views.html.*;
+
+import java.util.List;
 
 
 public class Application extends Controller {
@@ -24,14 +27,19 @@ public class Application extends Controller {
 	* \brief Index entry point of the website.
 	*/
 	public static Result index() {
-		if (LoginState.isValidlyLoggedIn()) return Renders.newsfeed();
-		return frontpage();
+		if(LoginState.isValidlyLoggedIn() && !request().path().equals(application.routes.Application.forside().toString()))
+			return redirect(application.routes.Application.forside().toString() + "#nyhetsfeed");
+		Html newsfeed = null;
+		if (LoginState.isValidlyLoggedIn()) {
+			List<renders.models.Renders> articles = renders.models.Renders.getVisibleRenderables();
+			newsfeed = renders.views.html.rendersBody.render("Nyhetsfeed", renders.Renders.rendersHtml(articles, true), 1, "");
+		};
+		List<renders.models.Renders> articles = renders.models.Renders.getVisibleRenderables();
+		return ok(views.html.layout.render("Hybrida", application.views.html.index.render(newsfeed)));
 	}
 
-	public static Result frontpage() {
-		if (!LoginState.isValidlyLoggedIn() && request().path().equals(routes.Application.frontpage().toString()))
-			return redirect(routes.Application.index());
-		return ok(views.html.layout.render("Hybrida", application.views.html.index.render()));
+	public static Result forside() {
+		return index();
 	}
 
 	/**
