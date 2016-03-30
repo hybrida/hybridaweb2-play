@@ -67,7 +67,6 @@
     background-color: transparent;
 }
 #IKT-Banner {
-    position: fixed;
     padding-top: 3em;
     width: 85%;
     text-align: center;
@@ -111,12 +110,10 @@
 }
 
 #medlemsprisbilde {
-    position: fixed;
     padding-top: 1em;
-    width: 85%;
+    width: 100vw;
     text-align: center;
     background-color: #ffffff;
-
 }
 
 #studentene {
