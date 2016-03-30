@@ -4,7 +4,7 @@
 @import "colors";
 
 body {
-  background-color: lightgrey;
+  background-color: @light-gray;
   background-image: url("/assets/images/kilt4.jpg");
   background-repeat: repeat;
   font-family: 'Raleway', sans-serif;
@@ -46,18 +46,19 @@ h1, h2, h3,
 
 h1,
 .big-title{
-  font-size: 5em;
+  font-size: 3.2em;
   color: @hybrida-blue;
 }
 
 h2,
 .small-title{
-  font-size: 3em;
+  text-align: inherit;
+  font-size: 2.5em;
   color: #000;
 }
 
 h1 + h3,
-.big-title + .big-sub-title{
+.big-title +  .big-sub-title{
   font-size: 2.5em;
   color: @gray;
   margin-top: -0.5em;
@@ -229,7 +230,7 @@ img {
 }
 
 .page-box {
-  padding: 40px 50px 80px;
+  padding: 20px 15px 30px;
   background: #fff;
 }
 
@@ -257,7 +258,7 @@ img {
   border-bottom: 2px solid @gray;
   font: normal 16px "Playfair Display", serif;
   text-transform: uppercase;
-  color: #9e9d98;
+  color: @gray;
 }
 
 .buttons + .top-text {
@@ -324,6 +325,7 @@ a.inverted{
   .nav-container{max-width: 1079px;}
   .space-above{margin-top: 30px;}
   .space-below{margin-bottom: 50px;}
+  .page-box{padding: 40px 50px 80px;}
 }
 @media (min-width: 1200px){
   #home { margin-right: 32px;}
@@ -337,4 +339,8 @@ a.inverted{
 @media (min-width: 3000px){
   .center-container{width: 60%; max-width: 2000px;}
   .nav-container{width: 70%; max-width: 2400px;}
+}
+
+@media (max-width: 992px) {
+  .btn-responsive{padding:4px 9px; font-size:90%;}
 }
