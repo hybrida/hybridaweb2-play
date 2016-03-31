@@ -3,13 +3,23 @@
 <div class="container white-box">
     <h1>@title</h1>
     <br>
-        <form id="vote_form">
+    <form id="vote_form">
+        <div class="row">
             @for(option <- options) {
-                <div>
+                <div class="col-md-6">
                     <input type="radio" name="option" id="@option" class="option" value="@option">
-                    <label for="@option" class="btn">@option</label>
+                    <label for="@option" class="btn btn-default">@option</label>
                 </div>
             }
-            <button class="btn btn-default" type="button" onclick="$.post('avstemning', $('#vote_form').serialize(), function(response) {$('#vote_form').html(response)})">stem</button>
-        </form>
+            <div class="col-md-12">
+                <span id="msg"></span>
+                <button class="btn btn-primary" type="button" id="submitButton"
+                onclick="$.post('avstemning', $('#vote_form').serialize(), function(response) {
+                    $('#msg').html(response);
+                    if (response.indexOf('Du stemte') == 0 || response.indexOf('Du har') == 0)
+                        document.getElementById('vote_form').reset();
+                })">Stem</button>
+            </div>
+        </div>
+    </form>
 </div>

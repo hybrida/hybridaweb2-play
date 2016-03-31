@@ -1,25 +1,21 @@
 package ballot;
 
+import play.data.DynamicForm;
+import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import profile.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import play.data.DynamicForm;
-import play.data.Form;
-import profile.models.User;
-
-import static play.mvc.Results.ok;
-import static play.mvc.Results.redirect;
 
 public class VoteController extends Controller {
 
     private static String title = "Avstemning";
     private static List<String> votes = new ArrayList<>();
     private static List<String> choices = new ArrayList<>();
-    private static List<Long> usersThatHasVoted = new ArrayList<>();//TODO: alternatives to List
+    private static List<Long> usersThatHasVoted = new ArrayList<>();
 
     public static Result index() {
         if (choices == null || choices.size() == 0) choices = generateGenericChoices();
@@ -28,7 +24,7 @@ public class VoteController extends Controller {
 
     private static List<String> generateGenericChoices() {
         List<String> choices = new ArrayList<String>();
-        choices.add("blankt");
+        choices.add("Blankt");
         choices.add("Vevkom");
         choices.add("Bedkom");
         choices.add("Arrkom");
@@ -39,7 +35,7 @@ public class VoteController extends Controller {
     public static Result attemptVote() {
 
         if (!models.LoginState.isValidlyLoggedIn())
-            return redirect(sso.routes.SSOLogin.login(play.mvc.Http.Context.current().request().path()).url());
+            return ok("Du må være innlogget for å stemme");
 
         User loginUser = models.LoginState.getUser();
         if (usersThatHasVoted.contains(loginUser.getId())) {//TODO: add isMember check
@@ -47,7 +43,7 @@ public class VoteController extends Controller {
         }
 
         String vote = Form.form().bindFromRequest().get("option");
-        if (choices.contains(vote)) {//maybe have null == blankt?
+        if (choices.contains(vote)) {
             usersThatHasVoted.add(loginUser.getId());
             votes.add(vote);
             return ok("Du stemte på: " + vote);
@@ -57,6 +53,15 @@ public class VoteController extends Controller {
     }
 
     public static Result overview() {
+
+        if (!models.LoginState.isValidlyLoggedIn())
+            return redirect(sso.routes.SSOLogin.login(play.mvc.Http.Context.current().request().path()).url());
+
+        User loginUser = models.LoginState.getUser();
+        if (!loginUser.isAdmin()) {//should get changed to a specific user or something
+            return redirect(application.routes.Application.showUnauthorizedAccess().url());
+        }
+
         return ok(views.html.layout.render("Oversikt", ballot.views.html.overview.render()));
     }
 
@@ -80,8 +85,7 @@ public class VoteController extends Controller {
 
         List<Candidate> candidates = createCandidatesFromChoices();
         countVotes(candidates);
-
-        return ok(Json.toJson(candidates));
+        return ok(Json.toJson(new Ballot(title, candidates)));
     }
 
     private static void countVotes(List<Candidate> candidates) {//TODO: using outputparameter, should find better solution

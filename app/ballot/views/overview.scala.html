@@ -3,7 +3,7 @@ xmlns="http://www.w3.org/1999/html">
 <div class="container">
     <div class="row white-box">
         <div class="col-sm-8">
-            <h1>Resultat</h1>
+            <h1 id="title">Resultat</h1>
             <table class="table">
                 <thead>
                     <tr>
@@ -44,10 +44,12 @@ xmlns="http://www.w3.org/1999/html">
     </div>
 </div>
 <script>
+
         $(document).ready(function() {
             addInput();
             addInput();
         });
+
         var choices = 0;
         function addInput() {
             $('#new-choices').append(
@@ -63,21 +65,25 @@ xmlns="http://www.w3.org/1999/html">
             );
             choices++;
         }
+
         setInterval(function() {
                     $.ajax({
                         url: 'resultater',
                         type: 'GET',
                         success: function(response) {
                             var newResults = "";
-                            for (candidate of response) {
+                            for (candidate of response.results) {
                                 newResults += '<tr><th>' + candidate.name + '</th>';
                                 newResults += '<th>' + candidate.votes+ '</th></tr>';
                             }
                             $('#resultater').html(newResults);
+                            $('#title').html(response.title);
                         }
                     })},
                 500);
+
         function removeChoice(number) {
             $("#choice-"+number).remove();
         }
+
 </script>

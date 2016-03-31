@@ -1,7 +1,7 @@
 package ballot;
 
 public class Candidate {
-    public String name;
+    public final String name;
     public int votes = 0;
 
     public Candidate(String name) {
