@@ -1,7 +1,6 @@
 <link href='assets/stylesheets/fullcalendar.css' rel='stylesheet' />
 <link href='assets/stylesheets/fullcalendar.print.css' rel='stylesheet' media='print' />
 <script src='assets/javascripts/moment.min.js'></script>
-<script src='assets/javascripts/jquery-1.11.2.min.js'></script>
 <script src='assets/javascripts/fullcalendar.js'></script>
 <script src='assets/javascripts/fullcalendar.nb.js'></script>
 <script src='assets/javascripts/fullcalendar.gcal.js'></script>
@@ -31,7 +30,8 @@
             },
             loading: function(bool) {
                 $('#loading').toggle(bool);
-            }
+            },
+            aspectRatio: 1.7
         });
     });
 </script>
