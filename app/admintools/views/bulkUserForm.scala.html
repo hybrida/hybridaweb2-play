@@ -13,9 +13,9 @@
     <div class="well" style="min-width: 630px;">
         <h5>Format:</h5>
         <div style="font-family: monospace; font-size:10px">
-            <strong>@("olamnor,Ola,Nordmann,Mellomnavn,ola@nordmann.no,12345678,1900,Marin teknikk,true,false,false,M,1814-05-17,")</strong><br>
-                @Html("brukernavn  etternavn           e-postadresse            avgangsår          hybrid     admin   fødselsdato".replaceAll(" ", "&nbsp;"))<br>
-                @Html("        fornavn      mellomnavn                 telefonnr.    spesialisering     bedkom      kjønn(M/F/U) ".replaceAll(" ", "&nbsp;"))<br>
+            <strong>@("olamnor,Ola,Nordmann,Mellomnavn,ola@nordmann.no,12345678,1900,Marin teknikk,true,false,false,false,M,1814-05-17,")</strong><br>
+                @Html("brukernavn  etternavn           e-postadresse            avgangsår          medlem     admin       kjønn(M/F/U)".replaceAll(" ", "&nbsp;"))<br>
+                @Html("        fornavn      mellomnavn                 telefonnr.    spesialisering     bedkom      alumni  fødselsdato".replaceAll(" ", "&nbsp;"))<br>
         </div>
     </div>
     <form action="@admintools.routes.Admin.bulkUsers()" method="post" enctype="multipart/form-data" style="display:block;">

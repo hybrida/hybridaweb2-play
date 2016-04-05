@@ -116,8 +116,8 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 	public String      profileImageFileName;
 
 	// Privilege status
-	@Column(name = "student", columnDefinition = "boolean default false") //TODO: Seems unnecessary (all users should be student), maybe change to member? As in having paid membership fee
-	public Boolean             student = false;    // No special privileges except for file ajaxUpload.
+	@Column(name = "member", columnDefinition = "boolean default false")
+	public Boolean             member = false;     // Access to member only events etc.
 	@Column(name = "styret", columnDefinition = "boolean default false")
 	public Boolean             styret = false;     // Access to styret functionality.
 	@Column(name = "bedkom", columnDefinition = "boolean default false")
@@ -141,6 +141,8 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 	public Timestamp           enrolled;   // For specific bedpreses requiring a year number.
 	@Column(name = "date_of_birth")
 	public Timestamp           dateOfBirth;
+	@Column(name = "alumni", columnDefinition = "boolean default false")
+	public Boolean             alumni = false;    // No special privileges except for file ajaxUpload.
 
 	@ManyToOne
 	@Column(columnDefinition = "default null")
@@ -364,6 +366,9 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 	public char getGender() {
 		return gender;
 	}
+	public boolean isMember() {
+		return member;
+	}
 
 	public boolean isInStyret() {
 		return styret;
@@ -457,12 +462,13 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 		if (middleName != null) sb.append("\tmiddleName: " + middleName.toString() + ", \n");
 		if (profileImageFileName != null) sb.append("\tprofileImageFileName: " + profileImageFileName.toString() + ", \n");
 		if (websiteUrl != null) sb.append("\twebsiteUrl: " + websiteUrl.toString() + ", \n");
-		if (student != null) sb.append("\tstudent: " + student.toString() + ", \n");
+		if (member != null) sb.append("\tmember: " + member.toString() + ", \n");
 		if (bedkom != null) sb.append("\tbedkom: " + bedkom.toString() + ", \n");
 		if (admin != null) sb.append("\tadmin: " + admin.toString() + ", \n");
 		if (root != null) sb.append("\troot: " + root.toString() + ", \n");
 		if (gender != null) sb.append("\tgender: " + gender.toString() + ", \n");
 		if (enrolled != null) sb.append("\tenrollied: " + enrolled.toString() + ", \n");
+		if (alumni != null) sb.append("\talumni: " + alumni.toString() + ", \n");
 		if (dateOfBirth != null) sb.append("\tdateOfBirth: " + dateOfBirth.toString() + ", \n");
 		if (lastLogin != null) sb.append("\tlastLogin: " + lastLogin.toString() + ", \n");
 		sb.append("]");
@@ -470,6 +476,7 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 	}
 
 	public enum Access {
+		MEMBER("Member"){ @Override public boolean userHasAccess(User user) { return user.isMember();}},
 		STYRET("Styret"){ @Override public boolean userHasAccess(User user) { return user.isInStyret();}},
 		BEDKOM("Bedkom"){ @Override public boolean userHasAccess(User user) { return user.isInBedkom();}},
 		ARRKOM("Arrkom"){ @Override public boolean userHasAccess(User user) { return user.isInArrkom();}},
