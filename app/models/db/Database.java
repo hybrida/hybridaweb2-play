@@ -13,7 +13,7 @@ public class Database {
 				"jdbc:postgresql://localhost/hybrida",
 				"hybrida", "");
 			connection.setAutoCommit(false);
-		} catch (SQLException exc) {
+		} catch (Exception exc) {
 			throw new RuntimeException(exc);
 		}
 	}
