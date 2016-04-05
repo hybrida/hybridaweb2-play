@@ -41,10 +41,11 @@ create sequence article_seq;
 create table article (
 	id bigint primary key not null default nextval('article_seq'),
 	title varchar(255),
+	authorId bigint not null references hybrid(id),
 	ingress varchar(255),
 	text text,
-	datemade timestamp,
-	imagepath varchar(255)
+	datemade timestamp default now(),
+	imagepath varchar(255) default null
 );
 alter table article add "previousArticle" bigint default null references article(id);
 
