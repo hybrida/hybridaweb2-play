@@ -43,8 +43,7 @@ create table article (
 	ingress varchar(255),
 	text text,
 	datemade timestamp,
-	imagepath varchar(255),
-	visible boolean default false
+	imagepath varchar(255)
 );
 alter table article add "previousArticle" bigint default null references article(id);
 
@@ -65,9 +64,7 @@ create table event (
 	"secondSignUp" timestamp,
 	"signUpDeadline" timestamp,
 	"eventHappens" timestamp,
-	"eventStops" timestamp,
-
-	visible boolean default false
+	"eventStops" timestamp
 );
 alter table event add "previousEvent" bigint default null references event(id);
 
@@ -77,4 +74,9 @@ create table comment (
 	comment text,
 	author bigint not null references hybrid(id),
 	"createdDate" timestamp default now()
+);
+
+create table visible (
+	"articleId" bigint primary key default null references article(id),
+	sorting timestamp
 );
