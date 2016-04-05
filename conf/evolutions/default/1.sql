@@ -130,6 +130,7 @@ create table user (
   graduation_year           integer,
   specialization            varchar(30),
   profile_image_file_name   varchar(255),
+  card_code                 varchar(255),
   member                    boolean default false,
   styret                    boolean default false,
   bedkom                    boolean default false,

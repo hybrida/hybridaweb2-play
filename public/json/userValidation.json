@@ -19,6 +19,8 @@
     {"name": "specialization", "pattern": "[\\p{Alpha} .,-]{5,50}",
       "message": "Noe er dårlig programmert. Eller så prøvde du å være lur. Du var ikke lur, sorry."},
     {"name": "profileImageFileName", "pattern": "[^\\\\/:\\*\\?\"<>\\|]+\\.(jpe?g|gif|png)",
-      "message": "Noe er dårlig programmert. Eller så prøvde du å være lur. Du var ikke lur, sorry."}
+      "message": "Noe er dårlig programmert. Eller så prøvde du å være lur. Du var ikke lur, sorry."},
+    {"name": "cardCode", "pattern": "\\d{8}",
+      "message": "Kortkoden skal bestå av åtte siffer."}
   ]
 }
