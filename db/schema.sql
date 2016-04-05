@@ -80,5 +80,5 @@ create table comment (
 
 create table visible (
 	"articleId" bigint primary key default null references article(id),
-	sorting timestamp
+	sorting timestamp default now()
 );
