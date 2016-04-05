@@ -2,7 +2,6 @@ package staticpages;
 
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.layout;
 import views.html.layoutWithHead;
 
 public class Bedrift extends Controller {
@@ -15,7 +14,7 @@ public class Bedrift extends Controller {
 				)
 		);
 	}
-	public static play.mvc.Result bedriftspresentasjoner() {
+	public static Result bedriftspresentasjoner() {
 		return ok(views.html.layoutWithHead.render(
 				"Bedriftspresentasjoner",
 				staticpages.views.html.bedriftspresentasjoner.render(),
