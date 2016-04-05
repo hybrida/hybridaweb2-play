@@ -8,9 +8,10 @@ public class Database {
 
 	public Database() {
 		try {
+			Class.forName("org.postgresql.Driver");
 			connection = DriverManager.getConnection(
-				"jdbc:mysql://localhost:3306/hybrida",
-				"username", "password");
+				"jdbc:postgresql://localhost/hybrida",
+				"hybrida", "");
 			connection.setAutoCommit(false);
 		} catch (SQLException exc) {
 			throw new RuntimeException(exc);
