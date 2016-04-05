@@ -31,10 +31,11 @@ public class Calendar extends Controller {
 	private final static String BIRTHDAY_DEFAULT_TITLE = "Bursdag til [NAME]";
 
 	public static Result display(Boolean gcal) {
-        Html calendarType = calendar.views.html.calendarHead.render();
-        if (gcal)
-            if (LoginState.isValidlyLoggedIn() && LoginState.getUser().canCreateNewArticle())
-                calendarType = calendar.views.html.calendarHeadGoogle.render();
+        Html calendarType;
+        if (gcal && LoginState.isValidlyLoggedIn() && LoginState.getUser().canCreateNewArticle())
+			calendarType = calendar.views.html.calendarHeadGoogle.render();
+		else
+			calendarType = calendar.views.html.calendarHead.render();
 
         return ok(layoutWithHead.render(
                 "Kalender",
