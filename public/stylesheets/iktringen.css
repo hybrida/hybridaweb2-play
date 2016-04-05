@@ -88,7 +88,15 @@
     text-align: center;
     font-size: 22px;
     line-height: 1.5;
-    width: 100%;
+    width: 85%;
+}
+
+#bedbigrag {
+    height:100vh;
+    width:100%;
+    background-image:url(../images/kilt3.PNG);
+    background-size: cover;
+    background-position: center;
 }
 
 #bedbidragoverskrift {
@@ -109,9 +117,10 @@
     width: 85%;
 }
 
+
 #medlemsprisbilde {
     padding-top: 1em;
-    width: 100vw;
+    width: 85%;
     text-align: center;
     background-color: #ffffff;
 }
