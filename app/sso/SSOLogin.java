@@ -46,9 +46,10 @@ import java.util.Date;
 public class SSOLogin extends Controller {
 
 	private static String target = Play.application().configuration().getString("ssologin.target"); // Get target from application.conf
-	public static String innsida_login_link = "https://innsida.ntnu.no/sso/?target="
-			+ (target != null ? target : "hybridaweb") // Fallback to "hybridaweb" if no ssologin.target entry in conf
-			+ "&returnargs=";
+	public static String getTarget() {
+		return target != null ? target : "hybridaweb"; // Fallback to "hybridaweb" if no ssologin.target entry in conf
+	}
+	public static String innsida_login_link = "https://innsida.ntnu.no/sso/?target=" + getTarget() + "&returnargs=";
 
 	public static Result login(String returnarg) {
 		java.io.File file = new java.io.File(models.Certificate.getPath());
@@ -101,5 +102,6 @@ public class SSOLogin extends Controller {
 			return ok("Well damn, the SSOData failed.");
 		}
 	}
+
 }
 
