@@ -33,7 +33,8 @@ create table hybrid (
 
 	enrolled timestamp default now(),
 	"dateOfBirth" timestamp default null,
-	"lastLogin" timestamp default null
+	"lastLogin" timestamp default null,
+	"cardCode" varchar(255) default null
 );
 
 create sequence article_seq;
