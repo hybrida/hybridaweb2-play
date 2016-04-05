@@ -11,6 +11,7 @@ import renders.models.Renderable;
 import views.html.*;
 
 import java.util.List;
+import java.sql.*;
 
 
 public class Application extends Controller {
@@ -23,11 +24,14 @@ public class Application extends Controller {
 	*
 	*/
 
+	public static boolean isNotFrontPage() {
+		return !request().path().equals(application.routes.Application.forside().toString());
+	}
 	/**
 	* \brief Index entry point of the website.
 	*/
 	public static Result index() {
-		if(LoginState.isValidlyLoggedIn() && !request().path().equals(application.routes.Application.forside().toString()))
+		if(LoginState.isValidlyLoggedIn() && isNotFrontPage())
 			return redirect(application.routes.Application.forside().toString() + "#nyhetsfeed");
 		Html newsfeed = null;
 		if (LoginState.isValidlyLoggedIn()) {
