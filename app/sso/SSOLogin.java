@@ -92,7 +92,7 @@ public class SSOLogin extends Controller {
 					return redirect(return_url);
 				} else {
 					session().clear();
-					return application.Application.index();
+					return application.Application.showInternalServerError();
 				}
 			} catch (Exception exc_obj) {
 				return ok(escapeText.render(exc_obj.toString()));
