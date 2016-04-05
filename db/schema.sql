@@ -1,39 +1,32 @@
---
--- PostgreSQL database dump
---
+create sequence user_seq;
 
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
+create table hybrid (
+	id bigint primary key not null default nextval('user_seq'),
+	username varchar(255) not null,
+	firstname varchar(255) default null,
+	lastname varchar(255) default null,
+	middlename varchar(255) default null,
+	email varchar(255) default null,
+	websiteUrl varchar(255) default null,
+	phone varchar(255) default null,
+	title varchar(255) default null,
+	graduationyear int default null,
+	specialization_id bigint default null,
+	profileimagefilename varchar(255) default null,
 
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
---
+	student boolean default false,
+	styret boolean default false,
+	bedkom boolean default false,
+	arrkom boolean default false,
+	vevkom boolean default false,
+	jentekom boolean default false,
+	redaksjon boolean default false,
+	admin boolean default false,
+	root boolean default false,
 
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+	gender char default 'U',
 
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
---
--- Name: public; Type: ACL; Schema: -; Owner: postgres
---
-
-REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM postgres;
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO PUBLIC;
-
-
---
--- PostgreSQL database dump complete
---
-
+	enrolled timestamp default now(),
+	dateofbirth timestamp default null,
+	lastLogin timestamp default null
+);
