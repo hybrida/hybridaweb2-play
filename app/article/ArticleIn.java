@@ -48,7 +48,8 @@ public class ArticleIn extends Controller {
 		try {
 			articleSql = articleFormSql.bindFromRequest().get();
 			if (articleSql.validate() == null) {
-				articleSql.createNewArticle(user.getId(), imagePath);
+				Long id = articleSql.createNewArticle(user.getId(), imagePath);
+				models.Visible.setArticleVisible(id);
 			} else {
 				System.out.println("HEEY");
 			}
