@@ -31,7 +31,7 @@ public class Application extends Controller {
 	* \brief Index entry point of the website.
 	*/
 	public static Result index() {
-		if(LoginState.isValidlyLoggedIn() && isNotFrontPage())
+		if (LoginState.isValidlyLoggedIn() && isNotFrontPage())
 			return redirect(application.routes.Application.forside().toString() + "#nyhetsfeed");
 		Html newsfeed = null;
 		if (LoginState.isValidlyLoggedIn()) {

@@ -11,7 +11,7 @@ public class Database {
 			Class.forName("org.postgresql.Driver");
 			connection = DriverManager.getConnection(
 				"jdbc:postgresql://localhost/hybrida",
-				"hybrida", "");
+				"postgres", "");
 			connection.setAutoCommit(false);
 		} catch (Exception exc) {
 			throw new RuntimeException(exc);

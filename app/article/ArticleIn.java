@@ -33,6 +33,8 @@ public class ArticleIn extends Controller {
 
 		String image_link = Upload.uploadOptional("picture");
 
+		models.ArticleSQL.createNewArticle(user.getId(), "Hello", "World", "Hey!");
+
 		models.Article article;
 		try {
 			article = articleForm.bindFromRequest().get();
