@@ -200,15 +200,15 @@
 
     $("body")
         .append('' +
-         '<div id="viewerUnderlay">' +
-          '<div id="viewerImageContainer"></div>' +
-          '<div id="metaDivider"></div>' +
-          '<div id="viewerTextBox">' +
-           '<div id="viewerTitle"></div>' +
-           '<div id="viewerDescription"></div>' +
-           '<div id="viewerAuthor"></div>' +
-          '</div>' +
-         '</div>');
+                '<div id="viewerUnderlay">' +
+                    '<div id="viewerImageContainer"></div>' +
+                    '<div id="metaDivider"></div>' +
+                    '<div id="viewerTextBox">' +
+                        '<div id="viewerTitle"></div>' +
+                        '<div id="viewerDescription"></div>' +
+                        '<div id="viewerAuthor"></div>' +
+                    '</div>' +
+                '</div>');
 
     var $underlay = $('#viewerUnderlay');
     var $divider = $underlay.children('#metaDivider').first();
@@ -235,6 +235,13 @@
     $thumbs.click(function() {
         $underlay.off('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd');
         var $image = $(this);
+
+        $textBoxDesc.text($image.data('desc'));
+        var tempTitle = $image.data('title');
+        tempTitle = tempTitle == "" ? $image.data('date') : tempTitle;
+        $textBoxTitle.text(tempTitle);
+        $textBoxAuth.text('Lastet opp av '+$image.data('uploader'));
+
         var allowedWidth = $window.width() - 2*border - $textBox.width() - viewerTextBoxSpacing;
         var allowedHeight = $window.height() - 2*border;
 
@@ -257,11 +264,6 @@
         $container.css('height', imgHeight);
         $container.css('margin-right', viewerTextBoxSpacing/2);
         $textBox.css('margin-left', viewerTextBoxSpacing/2);
-        $textBoxDesc.text($image.data('desc'));
-        var tempTitle = $image.data('title');
-        tempTitle = tempTitle == "" ? $image.data('date') : tempTitle;
-        $textBoxTitle.text(tempTitle);
-        $textBoxAuth.text('Lastet opp av '+$image.data('uploader'));
         $divider.css('height', '50%');
         $underlay.css('opacity', 1);
         $underlay.css('z-index', 100000);
