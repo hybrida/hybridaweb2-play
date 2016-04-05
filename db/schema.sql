@@ -1,3 +1,9 @@
+create sequence specialization_seq;
+create table specialization (
+	id bigint primary key not null default nextval('specialization_seq'),
+	description varchar(255)
+);
+
 create sequence user_seq;
 create table hybrid (
 	id bigint primary key not null default nextval('user_seq'),
@@ -10,8 +16,8 @@ create table hybrid (
 	phone varchar(255) default null,
 	title varchar(255) default null,
 	graduationyear int default null,
-	specialization_id bigint default null,
-	profileimagefilename varchar(255) default null,
+	"specializationId" bigint default null references specialization(id),
+	"profileImageFilename" varchar(255) default null,
 
 	student boolean default false,
 	styret boolean default false,
@@ -26,8 +32,8 @@ create table hybrid (
 	gender char default 'U',
 
 	enrolled timestamp default now(),
-	dateofbirth timestamp default null,
-	lastLogin timestamp default null
+	"dateOfBirth" timestamp default null,
+	"lastLogin" timestamp default null
 );
 
 create sequence article_seq;
@@ -39,26 +45,26 @@ create table article (
 	datemade timestamp,
 	imagepath varchar(255)
 );
-alter table article add previousArticle bigint default null references article(id);
+alter table article add "previousArticle" bigint default null references article(id);
 
 create sequence event_seq;
 create table event (
-	id bigint primary key not null default nextval('event_seq'),
-	article_id bigint not null references article(id),
+	"id" bigint primary key not null default nextval('event_seq'),
+	"articleId" bigint not null references article(id),
 
-	location varchar(255),
-	graduationlimits varchar(10),
-	bedpres boolean default false,
-	binding boolean default false,
-	genderAllowed char default 'A',
-	maxParticipants int default 50,
-	maxWaiting int default 50,
+	"location" varchar(255),
+	"graduationLimits" varchar(10),
+	"isBedpres" boolean default false,
+	"isBinding" boolean default false,
+	"genderAllowed" char default 'A',
+	"maxParticipants" int default 50,
+	"maxWaiting" int default 50,
 
-	signUpStart timestamp,
-	secondSignUp timestamp,
-	signUpDeadline timestamp,
-	eventHappens timestamp,
-	eventStops timestamp
+	"signUpStart" timestamp,
+	"secondSignUp" timestamp,
+	"signUpDeadline" timestamp,
+	"eventHappens" timestamp,
+	"eventStops" timestamp
 );
 alter table event add "previousEvent" bigint default null references event(id);
 
