@@ -7,6 +7,8 @@ import play.db.ebean.Model;
 public class Visible extends Model {
 
 	public static void setArticleVisible(Long articleId) {
+		if (articleId == -1)
+			return;
 		Database db = null;
 		try {
 			db = new Database();
