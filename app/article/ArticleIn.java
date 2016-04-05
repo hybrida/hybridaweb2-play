@@ -14,6 +14,7 @@ import models.*;
 
 public class ArticleIn extends Controller {
 
+	final static Form<models.ArticleSQL> articleFormSql = form(models.ArticleSQL.class);
 	final static Form<models.Article> articleForm = form(models.Article.class);
 	final static Form<models.Event> eventForm = form(models.Event.class);
 
@@ -33,7 +34,6 @@ public class ArticleIn extends Controller {
 
 		String image_link = Upload.uploadOptional("picture");
 
-		models.ArticleSQL.createNewArticle(user.getId(), "Hello", "World", "Hey!");
 
 		models.Article article;
 		try {
@@ -43,6 +43,14 @@ public class ArticleIn extends Controller {
 		}
 		if (article.validate() != null)
 			return application.Application.showUnauthorizedAccess();
+
+		models.ArticleSQL articleSql;
+		try {
+			articleSql = articleFormSql.bindFromRequest().get();
+			articleSql.createNewArticle(user.getId());
+		} catch (IllegalStateException exc) {
+			return application.Application.show400("Fikk tom input. Frykt ikke; bare trykk tilbake for å redde det du prøvde å poste.");
+		}
 
 		article.setAuthor(user);
 		if (image_link != null) article.setImagePath(image_link);

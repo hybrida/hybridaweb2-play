@@ -5,14 +5,10 @@ import models.db.Database;
 import play.db.ebean.Model;
 
 public class ArticleSQL extends Model {
-	public static Long createNewArticle(Long userId) {
-		return createNewArticle(userId, "", "", "");
-	}
 
-	public static Long createNewArticle(Long userId,
-	                                    String title,
-	                                    String ingress,
-	                                    String text) {
+	public String title, ingress, text;
+
+	public Long createNewArticle(Long userId) {
 		Database db = null;
 		Long toReturn = -1L;
 		try {
