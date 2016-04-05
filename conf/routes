@@ -12,6 +12,7 @@ GET             /insertqt                                 test.TestDatabase.inde
 # STATIC INFO PAGES
 GET             /arrkom                                   staticpages.About.arrkom()
 GET             /bedrift                                  staticpages.Bedrift.index()
+GET             /bedrift/bedriftspresentasjon             staticpages.Bedrift.bedriftspresentasjoner()
 GET             /bedkom                                   staticpages.About.bedkom()
 GET             /griffensorden                            griffensorden.GriffensOrden.index()
 GET             /griffensorden/riddere                    griffensorden.GriffensOrden.riddere()
