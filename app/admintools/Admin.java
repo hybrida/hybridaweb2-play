@@ -203,9 +203,10 @@ public class Admin extends Controller {
 		Specialization specialization = Specialization.fromDisplayName(specName);
 		if(specialization == null) output += "  Specialization not recognized: '" + specName + "'\n";
 		else user.setSpecialization(specialization);
-		user.student = Boolean.parseBoolean(userMap.get("student"));
+		user.member = Boolean.parseBoolean(userMap.get("member"));
 		user.bedkom = Boolean.parseBoolean(userMap.get("bedkom"));
 		user.admin = Boolean.parseBoolean(userMap.get("admin"));
+		user.member = Boolean.parseBoolean(userMap.get("member"));
 		user.gender = userMap.get("gender").charAt(0);
 		String dateOfBirth = userMap.get("dateOfBirth");
 		if(!dateOfBirth.isEmpty() && !dateOfBirth.equals("0000-00-00")) {
