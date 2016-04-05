@@ -15,4 +15,10 @@ public class Bedrift extends Controller {
 				)
 		);
 	}
+	public static play.mvc.Result bedriftspresentasjoner() {
+		return ok(views.html.layoutWithHead.render(
+				"Bedriftspresentasjoner",
+				staticpages.views.html.bedriftspresentasjoner.render(),
+				staticpages.views.html.staticPageHead.render()));
+	}
 }
