@@ -1,15 +1,7 @@
---
--- PostgreSQL database dump
---
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-
---
--- PostgreSQL database dump complete
---
-
+insert into specialization (description) values ('Geomatikk');
+insert into specialization (description) values ('Konstruksjonsteknikk');
+insert into specialization (description) values ('Marin teknikk');
+insert into specialization (description) values ('Produktutvikling og materialer');
+insert into specialization (description) values ('Petroleumsfag');
+insert into specialization (description) values ('Produksjonsledelse');
+insert into specialization (description) values ('Varme- og strømningsteknikk');
