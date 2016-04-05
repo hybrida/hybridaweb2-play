@@ -34,7 +34,6 @@ public class ArticleIn extends Controller {
 
 		String image_link = Upload.uploadOptional("picture");
 
-
 		models.Article article;
 		try {
 			article = articleForm.bindFromRequest().get();
