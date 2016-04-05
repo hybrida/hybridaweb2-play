@@ -132,4 +132,8 @@ public class Application extends Controller {
 		}
 		return null;
 	}
+
+	public static Result untrail(String path) {
+		return movedPermanently("/" + path);
+	}
 }
