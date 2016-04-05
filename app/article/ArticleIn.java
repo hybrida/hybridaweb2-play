@@ -33,6 +33,7 @@ public class ArticleIn extends Controller {
 			return application.Application.showUnauthorizedAccess();
 
 		String image_link = Upload.uploadOptional("picture");
+		String imagePath = image_link;
 
 		models.Article article;
 		try {
@@ -46,7 +47,11 @@ public class ArticleIn extends Controller {
 		models.ArticleSQL articleSql;
 		try {
 			articleSql = articleFormSql.bindFromRequest().get();
-			articleSql.createNewArticle(user.getId());
+			if (articleSql.validate() == null) {
+				articleSql.createNewArticle(user.getId(), imagePath);
+			} else {
+				System.out.println("HEEY");
+			}
 		} catch (IllegalStateException exc) {
 			return application.Application.show400("Fikk tom input. Frykt ikke; bare trykk tilbake for å redde det du prøvde å poste.");
 		}
