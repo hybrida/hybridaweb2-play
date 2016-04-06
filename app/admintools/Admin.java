@@ -3,6 +3,7 @@ package admintools;
 import controllers.Upload;
 import exceptions.*;
 import models.LoginState;
+import profile.*;
 import profile.models.Specialization;
 import profile.models.User;
 import play.mvc.Controller;
@@ -115,7 +116,7 @@ public class Admin extends Controller {
 		User user = User.createUserFromRequest(loginUser.isRoot());
 		user.setUsername(new HttpRequestData().get("username"));
 		user.save();
-		return redirect(admintools.routes.Admin.allUsers());
+		return redirect(profile.routes.Profile.edit(user.getUsername()));
 	}
 
 	public static Result updateUser() {

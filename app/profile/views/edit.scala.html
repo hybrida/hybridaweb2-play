@@ -99,6 +99,11 @@
                             <h3 class="big-sub-title">BRUKERINFO</h3>
                             <div class="info-block">
                                 <ul>
+                                    @infoItem("BRUKERNAVN", form("username").value)
+                                </ul>
+                            </div>
+                            <div class="info-block">
+                                <ul>
                                     @inputItem("FORNAVN", form("firstName").value, "firstName")
                                     @inputItem("MELLOMNAVN", form("middleName").value, "middleName")
                                     @inputItem("ETTERNAVN", form("lastName").value, "lastName")
