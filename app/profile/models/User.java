@@ -10,6 +10,7 @@ import play.db.ebean.Model;
 import play.mvc.Call;
 import play.twirl.api.Html;
 import renders.models.Renderable;
+import renders.models.Searchable;
 import util.Oolean;
 import util.Validator;
 
@@ -25,7 +26,7 @@ import java.util.*;
 		uniqueConstraints=
 		@UniqueConstraint(columnNames= {"username"})
 )
-public class User extends Model implements ImmutableUser, CRUDable, Renderable {
+public class User extends Model implements ImmutableUser, CRUDable, Searchable {
 
 	@Override
 	public Html render() {
@@ -551,6 +552,9 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 		return hasAccess(LoginState.getUser(), inAll, accessList);
 	}
 
+	public boolean canCreateNewArticle() {
+		return hasAccess(false, Access.ADMIN, Access.STYRET, Access.ARRKOM);
+	}
 
 	public boolean isBlockedFrom(models.Event event) {
 		if (block4FromThisEvent != null)
@@ -575,7 +579,32 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 		return find.where().eq("username", username).findUnique();
 	}
 
-	public boolean canCreateNewArticle() {
-		return hasAccess(false, Access.ADMIN, Access.STYRET, Access.ARRKOM);
+	public static List<User> search(String term) {
+		String key = "%"+ term + "%";
+		return User.find.where().disjunction()
+				.like("username", key)
+				.like("first_name", key)
+				.like("last_name", key)
+				.like("middle_name", key)
+				.like("title", key)
+				.like("email", key)
+				.like("phone", key)
+				.endJunction().findList();
+	}
+
+	@Override
+	public String getMatchString() {
+		return username + "\n"
+				+ firstName + "\n"
+				+ lastName + "\n"
+				+ middleName + "\n"
+				+ title + "\n"
+				+ email + "\n"
+				+ phone;
+	}
+
+	@Override
+	public String getSearchHandle() {
+		return getFullName();
 	}
 }

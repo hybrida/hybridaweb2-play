@@ -118,7 +118,7 @@ GET             /rfid/:status/:number                     rfid.RFIDReader.indexC
 POST            /rfid                                     rfid.RFIDReader.read()
 
 # # Search
-GET             /search                                   renders.Renders.search()
+GET             /search                                   renders.Search.search(term: String ?= "", page: Int ?= 0)
 
 # # Timeline
 GET             /tidslinje                               timeline.Timeline.index()
