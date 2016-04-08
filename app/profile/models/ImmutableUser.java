@@ -21,6 +21,7 @@ public interface ImmutableUser {
 	Specialization getSpecialization();
 	String getProfileImageFileName();
 	Call getProfileImageCall();
+	String getCardCode();
 	Timestamp getLastLoginTime();
 	char getGender();
 	boolean hasMiddleName();
@@ -31,6 +32,7 @@ public interface ImmutableUser {
 	boolean hasGraduationYear();
 	boolean hasSpecialization();
 	boolean hasProfileImage();
+	boolean hasCardCode();
 	boolean isInBedkom();
 	boolean isInArrkom();
 	boolean isInVevkom();

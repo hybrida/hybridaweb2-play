@@ -3,7 +3,7 @@ package admintools;
 import controllers.Upload;
 import exceptions.*;
 import models.LoginState;
-import play.Application;
+import profile.*;
 import profile.models.Specialization;
 import profile.models.User;
 import play.mvc.Controller;
@@ -21,9 +21,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 import admintools.models.PasswordHash;
-import views.html.layoutBoxPage;
 import admintools.views.html.*;
-import admintools.models.RingNumber;
 
 public class Admin extends Controller {
 	public static Result index() {
@@ -103,7 +101,7 @@ public class Admin extends Controller {
 			}
 			return redirect(admintools.routes.Admin.allUsers());
 		} else {
-			User toUpdate = User.getUserFromForm(loginUser.isRoot());
+			User toUpdate = User.createUserFromRequest(loginUser.isRoot());
 			toUpdate.setId(Long.parseLong(uid));
 			toUpdate.update();
 			return redirect(admintools.routes.Admin.allUsers());
@@ -115,10 +113,10 @@ public class Admin extends Controller {
 		if (!loginUser.isRoot()) {
 			return redirect(application.routes.Application.showUnauthorizedAccess().url());
 		}
-		User user = User.getUserFromForm(loginUser.isRoot());
+		User user = User.createUserFromRequest(loginUser.isRoot());
 		user.setUsername(new HttpRequestData().get("username"));
 		user.save();
-		return redirect(admintools.routes.Admin.allUsers());
+		return redirect(profile.routes.Profile.edit(user.getUsername()));
 	}
 
 	public static Result updateUser() {
