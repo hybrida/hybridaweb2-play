@@ -8,36 +8,46 @@
     display: none;
 }
 
-.option + .btn {
-    padding: .5em;
+.option + label {
+    padding: .25em;
+    margin: 0;
     width: 100%;
     font-size: 200%;
-    margin-bottom: .25em;
+    border-bottom: solid thin;
+    font-weight: normal;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: 200ms;
 }
 
-.option:checked + .btn {
+.option:checked + label {
+    color: #005675;
 }
 
-.option:checked + .btn:before {
-    content: '✔ ';
+.option + label:before {
+    font-family: "Glyphicons Halflings";
+    content: " ";
+    display: inline-block;
+    padding-right: .1em;
+    vertical-align: bottom;
 }
 
-.option:checked + .btn:after {
-    content: ' ✔';
+.option:checked + label:before {
+    content: " ";
 }
 
 #submitButton {
-    margin-top: .25em;
     padding: .5em;
     width: 100%;
     font-size: 300%;
     border-top: grey solid thin;
+    margin-top: .25em;
+}
+
+#submitContainer {
 }
 
 h1 {
     font-size: 3em;
-}
-
-.container {
-    margin-bottom: 5em;
 }
