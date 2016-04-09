@@ -1,5 +1,5 @@
 @(newsfeed: Html)
-<div data-ride="carousel" class="carousel slide" id="carousel-frontpage">
+<div data-ride="carousel" class="carousel slide" id="carousel-frontpage" data-interval="10000">
 	<ol class="carousel-indicators">
 		<li class="active" data-slide-to="0" data-target="#carousel-frontpage"></li>
 		<li data-slide-to="1" data-target="#carousel-frontpage"></li>
@@ -26,11 +26,6 @@
 		<span class="sr-only">Next</span>
 	</a>
 </div>
-<script>
-		$('.carousel').carousel({
-			interval: 10000
-		});
-</script>
 <div class="fp_white" style="margin-top: -.2%">
 </div>
 <div class="container-fluid center-container">
