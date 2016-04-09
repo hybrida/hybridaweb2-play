@@ -38,6 +38,7 @@ public class VoteController extends Controller {
             return ok("Du må være innlogget for å stemme");
 
         User loginUser = models.LoginState.getUser();
+        if (loginUser.getId() < 2) return ok("Rotbrukeren kan ikke stemme");
         if (usersThatHasVoted.contains(loginUser.getId())) {//TODO: add isMember check
             return ok("Du har allerede stemt");
         }
