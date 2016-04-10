@@ -76,7 +76,7 @@ xmlns="http://www.w3.org/1999/html">
                             for (candidate of response.results) {
                                 newResults += '<tr><th>' + candidate.name + '</th>';
                                 newResults += '<th>' + candidate.votes + '</th>';
-                                newResults += '<th>' + ((candidate.votes*100.0)/response.total) + '%</th></tr>';
+                                newResults += '<th>' + ((candidate.votes*100.0)/response.total).toFixed(1) + '%</th></tr>';
                             }
                             newResults += '<tr><th>Totalt</th>';
                             newResults += '<th>' + response.total + '</th>';
