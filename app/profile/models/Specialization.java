@@ -3,9 +3,6 @@ package profile.models;
 import java.util.Arrays;
 import java.util.Objects;
 
-/**
- * Created by ivar on 02.10.2015.
- */
 public enum Specialization {
 	NONE(""),
 	GEOMATIKK("Geomatikk"),

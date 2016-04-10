@@ -6,9 +6,6 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.layoutBoxPage;
 
-/**
- * Created by ivar on 28.10.2015.
- */
 public class ExampleStaticAccess extends Controller {
 
     static public Result index() {

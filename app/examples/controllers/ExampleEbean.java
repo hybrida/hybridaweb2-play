@@ -14,9 +14,6 @@ import java.util.List;
 
 import static play.data.Form.form;
 
-/**
- * Created by ivarhk on 30.09.14
- */
 public class ExampleEbean extends Controller {
 
     final static Form<ExampleEbeanForm> form = form(ExampleEbeanForm.class);

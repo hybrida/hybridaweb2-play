@@ -2,9 +2,6 @@ package models;
 
 import play.db.ebean.Model;
 
-/**
- * Created by ivar on 24.11.2015.
- */
 public interface Revisable<T extends CRUDable> extends CRUDable {
 	void    setPrevious(T previous);
 	T       getPrevious();

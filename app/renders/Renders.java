@@ -9,9 +9,6 @@ import renders.models.Renderable;
 
 import static play.data.Form.form;
 
-/**
- * Created by ivar on 29.10.2015.
- */
 public class Renders extends Controller {
 
 	public static List<Html> rendersHtml(List<? extends Renderable> renderables, boolean big) {
