@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/ballot.css")"
+<link rel="stylesheet" type="text/css" href="@routes.Assets.at("../../assets/stylesheets/ballot.css")"
 xmlns="http://www.w3.org/1999/html">
 <div class="container">
     <div class="row white-box">
@@ -9,6 +9,7 @@ xmlns="http://www.w3.org/1999/html">
                     <tr>
                         <th>Navn</th>
                         <th>Antall</th>
+                        <th>Prosent</th>
                     </tr>
                 </thead>
                 <tbody id="resultater">
@@ -74,8 +75,12 @@ xmlns="http://www.w3.org/1999/html">
                             var newResults = "";
                             for (candidate of response.results) {
                                 newResults += '<tr><th>' + candidate.name + '</th>';
-                                newResults += '<th>' + candidate.votes+ '</th></tr>';
+                                newResults += '<th>' + candidate.votes + '</th>';
+                                newResults += '<th>' + ((candidate.votes*100.0)/response.total) + '%</th></tr>';
                             }
+                            newResults += '<tr><th>Totalt</th>';
+                            newResults += '<th>' + response.total + '</th>';
+                            newResults += '<th></th></tr>';
                             $('#resultater').html(newResults);
                             $('#title').html(response.title);
                         }
