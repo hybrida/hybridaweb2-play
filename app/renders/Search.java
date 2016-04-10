@@ -17,7 +17,7 @@ import static play.data.Form.form;
 
 public class Search extends Controller {
 
-	private static final int PAGE_SIZE = 10;
+	private static final int RESULTS_PER_PAGE = 12;
 
 	private static HashMap<Searchable, Double> cache = new HashMap<>();
 
@@ -44,9 +44,9 @@ public class Search extends Controller {
 		}
 
 		cache = new HashMap<>();
-		int fromIndex = PAGE_SIZE * page;
-		int toIndex = fromIndex + PAGE_SIZE > results ? results : fromIndex + PAGE_SIZE;
-		if(fromIndex >= toIndex) return redirect(renders.routes.Search.search(term, (results - 1) / PAGE_SIZE));
+		int fromIndex = RESULTS_PER_PAGE * page;
+		int toIndex = fromIndex + RESULTS_PER_PAGE > results ? results : fromIndex + RESULTS_PER_PAGE;
+		if(fromIndex >= toIndex) return redirect(renders.routes.Search.search(term, (results - 1) / RESULTS_PER_PAGE));
 		return showResults("Søkeresultater", resultList.subList(fromIndex, toIndex), false, page, term);
 	}
 
