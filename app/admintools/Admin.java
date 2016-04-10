@@ -123,24 +123,38 @@ public class Admin extends Controller {
 		return ok("Not implemented 1239543890127937");
 	}
 
+	private static String[] BULK_FIELDS = new String[]{
+			"username",
+			"firstName",
+			"lastName",
+			"middleName",
+			"email",
+			"phone",
+			"graduationYear",
+			"specialization",
+			"member",
+			"bedkom",
+			"gender",
+			"dateOfBirth"};
+
 	public static Result bulkUsers() throws IOException {
 		if(!LoginState.isValidlyLoggedIn() || !LoginState.getUser().isRoot()) return application.Application.showUnauthorizedAccess();
 		BufferedReader inputReader;
 		StringBuilder output = new StringBuilder();
 		HttpRequestData formData = new HttpRequestData();
+		String inputText = formData.get("userdata");
 
 		try{
 			File inputFile = Upload.getFileFromRequest("userdataFile");
 			inputReader = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile), "UTF-8"));
 			output.append("Using file.\n");
 		} catch (NoFileInRequest|FileNotFoundException e) {
-			inputReader = new BufferedReader(new StringReader(formData.get("userdata")));
+			inputReader = new BufferedReader(new StringReader(inputText));
 			output.append("No file supplied. Using textfield instead.\n");
 		}
 
 		String line;
-		Pattern linePattern = Pattern.compile("(([^,]*),){13}");
-		Pattern attributePattern = Pattern.compile("([^,]*),");
+		Pattern linePattern = Pattern.compile("(([^,]*),){" + BULK_FIELDS.length + "}");
 		List<String> users = new ArrayList<>();
 		while((line = inputReader.readLine()) != null) {
 			if(!linePattern.matcher(line).matches()) {
@@ -149,16 +163,16 @@ public class Admin extends Controller {
 				users.add(URLEncoder.encode(line, "UTF-8"));
 			}
 		}
-		return bulkUsersForm(output.toString(), users);
+		return bulkUsersForm(output.toString(), inputText, users);
 	}
 
 	public static Result bulkUsersForm() {
 		if(!LoginState.isValidlyLoggedIn() || !LoginState.getUser().isRoot()) return application.Application.showUnauthorizedAccess();
-		return bulkUsersForm(null, new ArrayList<>());
+		return bulkUsersForm(null, null, new ArrayList<>());
 	}
 
-	private static Result bulkUsersForm(String output, List<String> users) {
-		return ok(admintools.views.html.adminLayout.render("Hybrida - legg til mange brukere", admintools.views.html.bulkUserForm.render(output, users), true));
+	private static Result bulkUsersForm(String output, String input, List<String> users) {
+		return ok(admintools.views.html.adminLayout.render("Hybrida - legg til mange brukere", admintools.views.html.bulkUserForm.render(output, input, users), true));
 	}
 
 	public static Result bulkAddSingle() throws UnsupportedEncodingException, ParseException {
@@ -168,11 +182,9 @@ public class Admin extends Controller {
 		String data = new HttpRequestData().get("data");
 //		data = new String(data.getBytes("ISO-8859-1"), "UTF-8");
 		String[] userArray = data.split(" ?+, ?+", -1);
-		String[] fieldNames = new String[]{"username", "firstName", "lastName", "middleName", "email", "phone"
-				, "graduationYear", "specialization", "student", "bedkom", "admin", "gender", "dateOfBirth"};
 		Map<String, String> userMap = new HashMap<>();
-		for(int i = 0; i < 13; i++) userMap.put(fieldNames[i], userArray[i]);
-		Map<String, String> errors = null;
+		for(int i = 0; i < BULK_FIELDS.length; i++) userMap.put(BULK_FIELDS[i], userArray[i]);
+		Map<String, String> errors;
 		Validator validator;
 		try {
 			errors = (validator = Validator.fromJSON(new File("public/json/userValidation.json"))).validate(userMap);
@@ -203,8 +215,6 @@ public class Admin extends Controller {
 		else user.setSpecialization(specialization);
 		user.member = Boolean.parseBoolean(userMap.get("member"));
 		user.bedkom = Boolean.parseBoolean(userMap.get("bedkom"));
-		user.admin = Boolean.parseBoolean(userMap.get("admin"));
-		user.member = Boolean.parseBoolean(userMap.get("member"));
 		user.gender = userMap.get("gender").charAt(0);
 		String dateOfBirth = userMap.get("dateOfBirth");
 		if(!dateOfBirth.isEmpty() && !dateOfBirth.equals("0000-00-00")) {
