@@ -39,9 +39,8 @@ public class VoteController extends Controller {
 
         User loginUser = models.LoginState.getUser();
         if (loginUser.getId() < 2) return ok("Rotbrukeren kan ikke stemme");
-        if (usersThatHasVoted.contains(loginUser.getId())) {//TODO: add isMember check
-            return ok("Du har allerede stemt");
-        }
+        if (!loginUser.isMember()) return ok("Kun medlemmer av Hybrida kan stemme");
+        if (usersThatHasVoted.contains(loginUser.getId())) return ok("Du har allerede stemt");
 
         String vote = Form.form().bindFromRequest().get("option");
         if (choices.contains(vote)) {
@@ -75,13 +74,16 @@ public class VoteController extends Controller {
     }
 
     public static Result getResults() {
+        if (!models.LoginState.isValidlyLoggedIn())
+            return redirect(sso.routes.SSOLogin.login(play.mvc.Http.Context.current().request().path()).url());
+
         User loginUser = models.LoginState.getUser();
-        if (!loginUser.isAdmin()) {//should get changed to a specific user or something
+        if (!loginUser.getUsername().equals("simennje")) {//should get changed to a specific user or something
             List<Candidate> candidates = new ArrayList<>();
             candidates.add(new Candidate("vevkom"));
             candidates.get(0).votes = 9001;
             candidates.add(new Candidate("andre"));
-            return ok(Json.toJson(candidates));
+            return ok(Json.toJson(new Ballot("Hvem er best?", candidates)));
         }
 
         List<Candidate> candidates = createCandidatesFromChoices();
@@ -105,12 +107,12 @@ public class VoteController extends Controller {
             return redirect(sso.routes.SSOLogin.login(play.mvc.Http.Context.current().request().path()).url());
 
         User loginUser = models.LoginState.getUser();
-        if (!loginUser.isAdmin()) {//should get changed to a specific user or something
+        if (!loginUser.getUsername().equals("simennje")) {
             return redirect(application.routes.Application.showUnauthorizedAccess().url());
         }
 
         createBallot(Form.form().bindFromRequest());
-        return redirect(ballot.routes.VoteController.index());
+        return redirect(ballot.routes.VoteController.overview());
     }
 
     private static void createBallot(DynamicForm dynamicForm) {
