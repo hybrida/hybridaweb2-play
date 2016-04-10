@@ -2,9 +2,6 @@ package util;
 
 import java.util.Arrays;
 
-/**
- * Created by ivar on 29.10.2015.
- */
 public class ArrayUtil {
     public static <T> String prettyJoin(T[] a) {
         StringBuilder s = new StringBuilder();

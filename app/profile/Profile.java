@@ -60,7 +60,7 @@ public class Profile extends Controller {
 		if (user == null) return application.Application.show404(request().uri());
 
 		Form<User> form = Form.form(User.class).fill(user).bindFromRequest("email", "website_url", "phone",
-			"gender", "profile_image_file_name");
+			"gender", "profile_image_file_name", "card_code"); //TODO: Find and document why some but not all fields are listed here
 
 		HashMap<String, String> messages = new HashMap<>();
 		Map<String, String> errors = null;

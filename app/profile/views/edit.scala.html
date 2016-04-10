@@ -5,7 +5,7 @@
 @infoItemTop(label:String, name: String) = {
     <li class="@name @if(messages.contains(name)){error}">
         <div class="label">
-            @label
+            @Html(label)
         </div>
         @if(messages.contains(name)) {
             <div class="hide message">@(messages(name))</div>
@@ -54,9 +54,9 @@
                 <div class="page-box">
                     <div class="row">
                         <div class="col-xs-12">
-                            <div class="buttons">
-                                <input class="pull-right btn btn-primary" type="submit" value="Lagre">
-                                <a class="pull-right btn btn-primary" href="@profile.routes.Profile.index(username)">Avbryt</a>
+                            <div class="buttons btn-group pull-right">
+                                <a class="btn btn-primary  btn-sm" href="@profile.routes.Profile.index(username)">Avbryt</a>
+                                <input class="btn btn-primary btn-sm" type="submit" value="Lagre">
                             </div>
                             <h5 class="top-text">@name</h5>
                         </div>
@@ -99,7 +99,7 @@
                             <h3 class="big-sub-title">BRUKERINFO</h3>
                             <div class="info-block">
                                 <ul>
-                                    @infoItem("NTNU-BRUKERNAVN", username)
+                                    @infoItem("BRUKERNAVN", form("username").value)
                                 </ul>
                             </div>
                             <div class="info-block">
@@ -119,9 +119,13 @@
                             <div class="info-block">
                                 <ul>
                                     @inputItem("TITTEL", form("title").value, "title")
-                                    @inputItem("AVGANGSÅR", form("graduationYear").value, "graduationYear", "number")
                                     @dropDownItem("SPESIALISERING", form("specialization").value, "specialization",
                                         Specialization.displayNames())
+                                    @infoItemTop("KORTKODE <span class=\"cardcode-help glyphicon glyphicon-info-sign\"><img src=\"" + routes.Assets.at("images/cardcode.png") +"\"></span>", "cardCode")
+                                    <div class="input-container">
+                                        <input type="text" name="cardCode" value="@form("cardCode").value">
+                                    </div>
+                                    @infoItemBottom()
                                 </ul>
                             </div>
                         </div>

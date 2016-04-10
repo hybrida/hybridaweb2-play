@@ -9,9 +9,6 @@ import java.sql.Array;
 import java.util.*;
 import java.util.regex.Pattern;
 
-/**
- * Created by ivar on 06.10.2015.
- */
 public class Validator {
 
 	private static class Field {

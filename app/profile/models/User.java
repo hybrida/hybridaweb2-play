@@ -10,6 +10,7 @@ import play.db.ebean.Model;
 import play.mvc.Call;
 import play.twirl.api.Html;
 import renders.models.Renderable;
+import renders.models.Searchable;
 import util.Oolean;
 import util.Validator;
 
@@ -25,7 +26,7 @@ import java.util.*;
 		uniqueConstraints=
 		@UniqueConstraint(columnNames= {"username"})
 )
-public class User extends Model implements ImmutableUser, CRUDable, Renderable {
+public class User extends Model implements ImmutableUser, CRUDable, Searchable {
 
 	@Override
 	public Html render() {
@@ -67,7 +68,7 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 		}
 	}
 
-	public static User getUserFromForm(boolean rootAccess) {
+	public static User createUserFromRequest(boolean rootAccess) {
 		Form<UserData> userForm = form(UserData.class);
 		UserData userData = userForm.bindFromRequest().get();
 		String error = userData.doValidation();
@@ -114,6 +115,8 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 	public Specialization specialization = Specialization.NONE;
 	@Column(name = "profile_image_file_name")
 	public String      profileImageFileName;
+	@Column(name = "card_code")
+	public String      cardCode = null;
 
 	// Privilege status
 	@Column(name = "member", columnDefinition = "boolean default false")
@@ -359,6 +362,18 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 		return profile.views.html.thumbnail.render(this);
 	}
 
+	public boolean hasCardCode() {
+		return cardCode != null && !cardCode.equals("");
+	}
+
+	public String getCardCode() {
+		return cardCode;
+	}
+
+	public void setCardCode(String cardCode) {
+		this.cardCode = cardCode;
+	}
+
 	public Timestamp getLastLoginTime() {
 		return lastLogin;
 	}
@@ -440,6 +455,7 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 		setWebsiteUrl(form.apply("websiteUrl").valueOr(getWebsiteUrl()));
 		setPhone(form.apply("phone").valueOr(getPhone()));
 		setProfileImageFileName(form.apply("profileImageFileName").valueOr(getProfileImageFileName()));
+		setCardCode(form.apply("cardCode").valueOr(getCardCode()));
 		setTitle(form.apply("title").valueOr(getTitle()));
 		setGraduationYear(Integer.parseInt(form.apply("graduationYear").valueOr(getGraduationYear().toString())));
 		setSpecialization(form.apply("specialization").valueOr(getSpecialization().toString()));
@@ -461,6 +477,7 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 		if (firstName != null) sb.append("\tfirstName: " + firstName.toString() + ", \n");
 		if (middleName != null) sb.append("\tmiddleName: " + middleName.toString() + ", \n");
 		if (profileImageFileName != null) sb.append("\tprofileImageFileName: " + profileImageFileName.toString() + ", \n");
+		if (cardCode != null) sb.append("\tcardCode: " + cardCode.toString() + ", \n");
 		if (websiteUrl != null) sb.append("\twebsiteUrl: " + websiteUrl.toString() + ", \n");
 		if (member != null) sb.append("\tmember: " + member.toString() + ", \n");
 		if (bedkom != null) sb.append("\tbedkom: " + bedkom.toString() + ", \n");
@@ -535,6 +552,9 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 		return hasAccess(LoginState.getUser(), inAll, accessList);
 	}
 
+	public boolean canCreateNewArticle() {
+		return hasAccess(false, Access.ADMIN, Access.STYRET, Access.ARRKOM);
+	}
 
 	public boolean isBlockedFrom(models.Event event) {
 		if (block4FromThisEvent != null)
@@ -559,7 +579,32 @@ public class User extends Model implements ImmutableUser, CRUDable, Renderable {
 		return find.where().eq("username", username).findUnique();
 	}
 
-	public boolean canCreateNewArticle() {
-		return hasAccess(false, Access.ADMIN, Access.STYRET, Access.ARRKOM);
+	public static List<User> search(String term) {
+		String key = "%"+ term + "%";
+		return User.find.where().disjunction()
+				.like("username", key)
+				.like("first_name", key)
+				.like("last_name", key)
+				.like("middle_name", key)
+				.like("title", key)
+				.like("email", key)
+				.like("phone", key)
+				.endJunction().findList();
+	}
+
+	@Override
+	public String getMatchString() {
+		return username + "\n"
+				+ firstName + "\n"
+				+ lastName + "\n"
+				+ middleName + "\n"
+				+ title + "\n"
+				+ email + "\n"
+				+ phone;
+	}
+
+	@Override
+	public String getSearchHandle() {
+		return getFullName();
 	}
 }

@@ -8,6 +8,11 @@
 						@renderable
 					}
 				<div class="clearfix"></div>
+				<form action="@renders.routes.Search.search()" method="get">
+					<input type="hidden" name="term" value="@term">
+					<input type="hidden" name="page" value="@(page+1)">
+					<input class="btn btn-primary" value="Neste Side" type="submit">
+				</form>
 			</div>
 		</div>
 @*	<div class="col-lg-3 col-md-4 space-above">

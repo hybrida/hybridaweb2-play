@@ -176,3 +176,37 @@
 .edit .info-block .label {
     line-height: 29px;
 }
+
+.edit .cardcode-help {
+    overflow: visible;
+    margin-top: -10px;
+    padding-top: 10px;
+}
+
+.edit .cardcode-help img {
+    position: absolute;
+    visibility: hidden;
+    bottom: 20px;
+    transform: translateX(-20%);
+    max-width: 167px;
+    width: 40vw;
+    z-index: 2;
+    opacity: 0;
+    transition: 0.1s;
+}
+
+.edit .cardcode-help:hover img {
+    visibility: visible;
+    opacity: 1;
+    width: 60vw;
+    max-width: 500px;
+}
+
+@media(max-width: 320px) {
+    .big-title {font-size: 2.5em;}
+    .info-block-container {margin-top: 15px;}
+    .info-block {background: none; padding: 15px 0;}
+    .info-block .label,
+    .info-block .info {float: none; width: auto; text-align: center; transform: none;}
+    .edit .cardcode-help img {margin-left: -70px;}
+}

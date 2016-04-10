@@ -8,18 +8,37 @@
             @for(option <- options) {
                 <div class="col-md-6">
                     <input type="radio" name="option" id="@option" class="option" value="@option">
-                    <label for="@option" class="btn btn-default">@option</label>
+                    <label for="@option" class="">@option</label>
                 </div>
             }
-            <div class="col-md-12">
-                <span id="msg"></span>
-                <button class="btn btn-primary" type="button" id="submitButton"
-                onclick="$.post('avstemning', $('#vote_form').serialize(), function(response) {
-                    $('#msg').html(response);
-                    if (response.indexOf('Du stemte') == 0 || response.indexOf('Du har') == 0)
-                        document.getElementById('vote_form').reset();
-                })">Stem</button>
+            <div class="col-md-12" id="submitContainer">
+                <a class="btn btn-primary" id="submitButton" role="button"
+                data-toggle="popover" data-trigger="focus" tabindex="0">Stem</a>
             </div>
         </div>
     </form>
 </div>
+<script>
+        var submitButton = $('#submitButton');
+        var timeoutID;
+
+        submitButton.click(function() {
+            $.post('avstemning', $('#vote_form').serialize(), function(response) {
+                if (response.indexOf('Du stemte') == 0 || response.indexOf('Du har') == 0) {
+                    document.getElementById('vote_form').reset();
+                }
+
+                submitButton.attr('data-content', response);
+                submitButton.attr('data-placement', 'top');
+                submitButton.popover('show');
+            });
+        });
+
+        submitButton.on('shown.bs.popover', function () {
+            var $pop = $(this);
+            window.clearTimeout(timeoutID);
+            timeoutID = setTimeout(function () {
+                $pop.popover('hide');
+            }, 2000);
+        });
+</script>

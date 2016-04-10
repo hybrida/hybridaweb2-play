@@ -118,7 +118,7 @@ GET             /rfid/:status/:number                     rfid.RFIDReader.indexC
 POST            /rfid                                     rfid.RFIDReader.read()
 
 # # Search
-GET             /search                                   renders.Renders.search()
+GET             /search                                   renders.Search.search(term: String ?= "", page: Int ?= 0)
 
 # # Timeline
 GET             /tidslinje                               timeline.Timeline.index()
@@ -129,6 +129,7 @@ GET             /update/utgaver                           update.Update.utgaver(
 GET             /update/redaksjon                         update.Update.redaksjon()
 
 # # Voting
+GET             /genfors                                  ballot.VoteController.index()
 GET             /avstemning/resultater                    ballot.VoteController.getResults()
 GET             /avstemning                               ballot.VoteController.index()
 POST            /avstemning                               ballot.VoteController.attemptVote()

@@ -101,6 +101,10 @@ img {
   border-radius: 0;
 }
 
+.error {
+  color: @red-purple;
+}
+
 .container-with-set-aspect-ratio {
   position: absolute;
   top: 0;
@@ -260,12 +264,7 @@ img {
 }
 
 .buttons + .top-text {
-  margin-top: 12px;
-}
-
-
-.btn + .btn {
-  /*margin-right: 2px; Denne burde ikke ha vært her i utgangspunket*/
+  margin-top: 8px;
 }
 
 .fc-state-highlight {
@@ -312,7 +311,7 @@ a.inverted{
  * where needed to make it look good on bigger screens as well
  **/
 
-@media only screen and (max-width: 1199px) and (min-width: 768px){
+@media only screen and (max-width: 1199px) and (min-width: 992px){
   #navbar-search {
     width: 64px;
   }

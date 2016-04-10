@@ -1,4 +1,4 @@
-@(output: String, serializedData:List[String])
+@(output: String, input: String, serializedData:List[String])
 <div style="text-align: left;">
     <h3>Legg til brukere</h3>
     @if(output){<pre class="output" style="height:200px;padding-top:0px;padding-bottom:0px;">@output</pre>}
@@ -13,19 +13,19 @@
     <div class="well" style="min-width: 630px;">
         <h5>Format:</h5>
         <div style="font-family: monospace; font-size:10px">
-            <strong>@("olamnor,Ola,Nordmann,Mellomnavn,ola@nordmann.no,12345678,1900,Marin teknikk,true,false,false,false,M,1814-05-17,")</strong><br>
-                @Html("brukernavn  etternavn           e-postadresse            avgangsår          medlem     admin       kjønn(M/F/U)".replaceAll(" ", "&nbsp;"))<br>
-                @Html("        fornavn      mellomnavn                 telefonnr.    spesialisering     bedkom      alumni  fødselsdato".replaceAll(" ", "&nbsp;"))<br>
+            <strong>@("olamnor,Ola,Nordmann,Mellomnavn,ola@nordmann.no,12345678,1900,Marin teknikk,true,false,M,1814-05-17,")</strong><br>
+                @Html("brukernavn  etternavn           e-postadresse            avgangsår          medlem     kjønn(M/F/U)".replaceAll(" ", "&nbsp;"))<br>
+                @Html("        fornavn      mellomnavn                 telefonnr.    spesialisering     bedkom  fødselsdato".replaceAll(" ", "&nbsp;"))<br>
         </div>
     </div>
     <form action="@admintools.routes.Admin.bulkUsers()" method="post" enctype="multipart/form-data" style="display:block;">
         <div class="form-group"><input class="form-control" type="file" name="userdataFile"></div>
-        <div class="form-group"><textarea class="form-control" name="userdata" style="display:block; width: 100%"></textarea></div>
+        <div class="form-group"><textarea class="form-control" name="userdata" style="display:block; width: 100%">@input</textarea></div>
         <div class="form-group"><input class="btn btn-primary form-control" type="submit" style="display:block; width: 100%"></div>
     </form>
 </div>
 <script>
-    function nextUser(elem, i) {
+    function nextUser(elem, i, issues) {
         $.ajax({
             url: "@admintools.routes.Admin.bulkAddSingle.url?data=" + elem.html()
             , success: function(data) {
@@ -33,13 +33,26 @@
                 output.append($("<span>").text(data));
                 elem.remove();
                 var progressBar = $(".progress-bar");
-                progressBar.attr("aria-valuenow", i).css("width",(100*i/progressBar.attr("aria-valuemax"))+"%");
+                progressBar.attr("aria-valuenow", i).css("width",(5 + 95*i/progressBar.attr("aria-valuemax"))+"%");
                 var elems = $(".user");
-                if(elems.length > 0) nextUser(elems.first(), ++i);
+                if(data.indexOf("  ") > -1) issues.push(data);
+                if(elems.length > 0) nextUser(elems.first(), ++i, issues);
                 else {
-                    output.append("Fin.\n")
+                    output.append("----------------------------------------------------------------\n");
+                    output.append("Finished with " + issues.length + " issue" + (issues.length!=1?"s":"") +".\n");
                     progressBar.removeClass("progress-bar-striped active");
+                    if(issues.length > 0) progressBar.addClass("progress-bar-warning");
+                    else progressBar.addClass("progress-bar-success");
+                    for(var issue in issues) output.append($("<span>").text(issues[issue]).addClass("error"));
                 }
+            }, error: function(jqXHR, textStatus, errorThrown) {
+                var output = $(".output");
+                output.append($("<span>").text(textStatus + ": " + errorThrown));
+                elem.addClass("error");
+                var progressBar = $(".progress-bar");
+                progressBar.attr("aria-valuenow", i).css("width",(95*i/progressBar.attr("aria-valuemax"))+"%");
+                progressBar.removeClass("progress-bar-striped active");
+                progressBar.addClass("progress-bar-danger");
             }
         });
     }
@@ -48,7 +61,7 @@
         if(elems.length > 0) {
             $(".progress").removeClass("hidden");
             $(".progress-bar").attr("aria-valuemax", elems.length);
-            nextUser(elems.first(), 1);
+            nextUser(elems.first(), 1, []);
         }
     });
 </script>

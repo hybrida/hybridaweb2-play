@@ -1,5 +1,7 @@
 package sso.models;
 
+import sso.SSOLogin;
+
 /**
  * \brief Utility class to handle everything to do with SSO.
  *
@@ -58,7 +60,7 @@ public class SSOData {
 		// Check some common arguments for soundness and validity.
 		if (Long.valueOf(login_info.get("time")) > current_unix_time + 10) {
 			return false;
-		} if (!login_info.get("target").equals("hybridawebtest")) {
+		} if (!login_info.get("target").equals(SSOLogin.getTarget())) {
 			return false;
 		} if (!login_info.get("authdom").equals("ntnu.no")) {
 			return false;
