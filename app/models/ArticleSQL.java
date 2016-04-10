@@ -17,7 +17,8 @@ public class ArticleSQL extends Model {
 		Long toReturn = -1L;
 		try {
 			db = new Database();
-			PreparedStatement statement = db.prepare("insert into article (\"authorId\", title, ingress, text, \"imagePath\") values (?, ?, ?, ?, ?);");
+			PreparedStatement statement = db.prepare(
+				"insert into article (\"authorId\", title, ingress, text, \"imagePath\") values (?, ?, ?, ?, ?);");
 			statement.setLong(1, userId);
 			statement.setString(2, title);
 			statement.setString(3, ingress);

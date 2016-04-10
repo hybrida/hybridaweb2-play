@@ -35,42 +35,18 @@ public class ArticleIn extends Controller {
 		String image_link = Upload.uploadOptional("picture");
 		String imagePath = image_link;
 
-		models.Article article;
-		try {
-			article = articleForm.bindFromRequest().get();
-		} catch (IllegalStateException exc) {
-			return application.Application.show400("Fikk tom input. Frykt ikke; bare trykk tilbake for å redde det du prøvde å poste.");
-		}
-		if (article.validate() != null)
-			return application.Application.showUnauthorizedAccess();
-
 		models.ArticleSQL articleSql;
 		try {
 			articleSql = articleFormSql.bindFromRequest().get();
 			if (articleSql.validate() == null) {
 				Long id = articleSql.createNewArticle(user.getId(), imagePath);
 				models.Visible.setArticleVisible(id);
+				return redirect(routes.Event.viewEvent("" + id));
 			} else {
-				System.out.println("HEEY");
+				return application.Application.show400("Mangler inputt for artikkelen, trykk tilbake for å fikse.");
 			}
 		} catch (IllegalStateException exc) {
 			return application.Application.show400("Fikk tom input. Frykt ikke; bare trykk tilbake for å redde det du prøvde å poste.");
-		}
-
-		article.setAuthor(user);
-		if (image_link != null) article.setImagePath(image_link);
-		else article.setDefaultImage();
-		if (thisIsAnEvent()) {
-			models.Event event = models.Event.getFromRequest();
-			article.save();
-			event.setArticle(article);
-			event.save();
-			renders.models.Renders.addEvent(event);
-			return redirect(routes.Event.viewEvent("" + event.getId()));
-		} else {
-			article.save();
-			renders.models.Renders.addArticle(article);
-			return redirect(routes.Article.viewArticle("" + article.getId()));
 		}
 	}
 
