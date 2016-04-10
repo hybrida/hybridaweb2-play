@@ -39,9 +39,9 @@ public class Search extends Controller {
 
 		List<Searchable> resultList = new ArrayList<>(resultSet);
 		resultList.sort((res1, res2) -> -Double.compare(rate(res1, term), rate(res2, term)));
-		for (Searchable res : resultList) {
-			System.out.println(res.getSearchHandle() + ": " + rate(res, term));
-		}
+//		for (Searchable res : resultList) {
+//			System.out.println(res.getSearchHandle() + ": " + rate(res, term));
+//		}
 
 		cache = new HashMap<>();
 		int fromIndex = RESULTS_PER_PAGE * page;
