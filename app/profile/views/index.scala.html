@@ -47,6 +47,7 @@
                             </div>
                             <div class="info-block">
                                 <ul>
+                                    @infoItem("MEDLEMSKAP", if(user.isMember) "Medlem" else "Ikke medlem")
                                     @if(user.hasTitle){ @infoItem("TITTEL", user.getTitle)}
                                     @if(!user.getMemberships.isEmpty){ @infoItem("MEDLEM AV", util.TextUtil.capitalized(util.ArrayUtil.prettyJoin(user.getMemberships)))}
                                     @if(user.hasGraduationYear){ @infoItem("AVGANGSÅR", user.getGraduationYear.toString)}

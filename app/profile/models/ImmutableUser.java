@@ -33,6 +33,7 @@ public interface ImmutableUser {
 	boolean hasSpecialization();
 	boolean hasProfileImage();
 	boolean hasCardCode();
+	boolean isMember();
 	boolean isInBedkom();
 	boolean isInArrkom();
 	boolean isInVevkom();
