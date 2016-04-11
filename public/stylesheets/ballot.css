@@ -4,6 +4,9 @@
     border-radius: 0;
 }
 
+#options {
+}
+
 .option {
     display: none;
 }
@@ -41,7 +44,6 @@
     padding: .5em;
     width: 100%;
     font-size: 300%;
-    border-top: grey solid thin;
     margin-top: .25em;
 }
 

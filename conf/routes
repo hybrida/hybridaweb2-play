@@ -129,12 +129,14 @@ GET             /update/utgaver                           update.Update.utgaver(
 GET             /update/redaksjon                         update.Update.redaksjon()
 
 # # Voting
-GET             /genfors                                  ballot.VoteController.index()
-GET             /avstemning/resultater                    ballot.VoteController.getResults()
+GET             /gf                                       ballot.VoteController.lazyRedirect()
+GET             /genfors                                  ballot.VoteController.lazyRedirect()
 GET             /avstemning                               ballot.VoteController.index()
 POST            /avstemning                               ballot.VoteController.attemptVote()
+GET             /avstemning/valg                          ballot.VoteController.getChoices
 GET             /avstemning/oversikt                      ballot.VoteController.overview()
 POST            /avstemning/oversikt                      ballot.VoteController.newBallot()
+GET             /avstemning/resultater                    ballot.VoteController.getResults
 
 # API
 # # Backup database

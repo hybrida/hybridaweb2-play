@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.List;
 
-public class Ballot {
+public class BallotResult {
     @JsonProperty
     public final String title;
     @JsonProperty
     public final List<Candidate> results;
 
-    public Ballot(String title, List<Candidate> results) {
+    public BallotResult(String title, List<Candidate> results) {
         this.title = title;
         this.results = results;
     }
