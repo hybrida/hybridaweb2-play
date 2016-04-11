@@ -98,6 +98,8 @@ public class Admin extends Controller {
 			User toRemove = User.find.byId(Long.parseLong(uid));
 			if (toRemove != null) {
 //				toRemove.delete(); FIXME: Needs confirmation before deleting entry
+//        Can be done in JavaScript on the client's side.
+				System.out.println("NOT IMPLEMENTED: TODO: Needs confirmation");
 			}
 			return redirect(admintools.routes.Admin.allUsers());
 		} else {
