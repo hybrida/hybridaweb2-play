@@ -52,6 +52,9 @@
 
 h1 {
     font-size: 3em;
+    -ms-word-wrap:break-word;
+    word-wrap:break-word;
+    width: 100%;
 }
 @media (min-width: 768px){
     .container {
