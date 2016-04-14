@@ -26,4 +26,10 @@ public class Ringen extends Controller {
 				staticpages.views.html.bedriftspresentasjoner.render(),
 				staticpages.views.html.staticPageHead.render()));
 	}
+	public static Result ekskursjoner() {
+		return ok(views.html.layoutWithHead.render(
+				"Ekskursjoner",
+				staticpages.views.html.ekskursjoner.render(),
+				staticpages.views.html.staticPageHead.render()));
+	}
 }
