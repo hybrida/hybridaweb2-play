@@ -26,6 +26,8 @@ public class Article extends Controller {
 	public static Result viewArticle(String id) {
 		application.Application x = new application.Application();
 		try {
+			models.ArticleSQL articlesql = new models.ArticleSQL();
+			articlesql.viewArticle(id);
 			if (models.Article.find.byId(Long.valueOf(id)) != null)
 				return ok(layout.render("Artikkel",
 					article.views.html.viewArticle.render(

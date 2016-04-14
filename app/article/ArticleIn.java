@@ -41,7 +41,7 @@ public class ArticleIn extends Controller {
 			if (articleSql.validate() == null) {
 				Long id = articleSql.createNewArticle(user.getId(), imagePath);
 				models.Visible.setArticleVisible(id);
-				return redirect(routes.Event.viewEvent("" + id));
+				return redirect(routes.Article.viewArticle("" + id));
 			} else {
 				return application.Application.show400("Mangler inputt for artikkelen, trykk tilbake for å fikse.");
 			}
