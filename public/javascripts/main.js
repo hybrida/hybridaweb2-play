@@ -54,27 +54,33 @@ $(document).ready(function() {
 
 function toggleSuggestionBox() {
     var $sb = $('#suggestionBox');
-    console.log($sb.css('right'));
     $sb.css('right', $sb.css('right') == '16px' ? '-100%' : 16);
 }
 
 function submitSuggestion() {
-    var title = window.location.href;
     var $button = $('#suggestionBox #suggestionButton');
-    var $pretext = $('#suggestionBox #suggestionPretext');
     var $suggestion = $('#suggestionBox #suggestionContent');
-    var jsonsafe = function(string) {
+
+    var title = window.location.href;
+    var suggestingUser = $('#suggestionBox #suggestingUser').val();
+    var anonymously = $('#suggestionBox #suggestAnonymously').is(":checked");
+
+    var jsonSafe = function(string) {
         return string.replaceAll('\\\\', '\\\\').replaceAll('"', '\\"');
     };
+
+    var pretext;
+    if (anonymously || suggestingUser == "") {pretext = "Nytt anonymt forslag!"}
+    else {pretext = "Nytt forslag fra "+suggestingUser+"!"}
 
     $button.prop('disabled', true);
     $.post("https://hooks.slack.com/services/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", 'payload={"attachments":[{\
         "fallback":     "Nytt forslag til forbedring!",\
-        "pretext":      "' + jsonsafe($pretext.val()) + '",\
+        "pretext":      "' + jsonSafe(pretext) + '",\
         "color":        "good",\
         "fields":[{\
-            "title":    "' + jsonsafe(title) + '",\
-            "value":    "' + jsonsafe($suggestion.val()) + '",\
+            "title":    "' + jsonSafe(title) + '",\
+            "value":    "' + jsonSafe($suggestion.val()) + '",\
             "short":    false\
     }]}]}').fail(function() {
         alert("Noe gikk galt og forslaget ble ikke sent.");
