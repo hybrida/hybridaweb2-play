@@ -2,6 +2,7 @@ package staticpages;
 
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.html.layoutWithHead;
 
 /**
  * Created by Andreas on 13/10/2015.
@@ -17,6 +18,12 @@ public class Ringen extends Controller {
 		return ok(views.html.layoutWithHead.render(
 				"Om I&IKT-Ringen",
 				staticpages.views.html.aboutRingen.render(),
+				staticpages.views.html.staticPageHead.render()));
+	}
+	public static Result bedriftspresentasjoner() {
+		return ok(views.html.layoutWithHead.render(
+				"Bedriftspresentasjoner",
+				staticpages.views.html.bedriftspresentasjoner.render(),
 				staticpages.views.html.staticPageHead.render()));
 	}
 }
