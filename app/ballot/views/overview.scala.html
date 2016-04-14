@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/ballot.css")"
+<link rel="stylesheet" type="text/css" href="@routes.Assets.at("../../assets/stylesheets/ballot.css")"
 xmlns="http://www.w3.org/1999/html">
 <div class="container">
     <div class="row white-box">
@@ -9,12 +9,12 @@ xmlns="http://www.w3.org/1999/html">
                     <tr>
                         <th>Navn</th>
                         <th>Antall</th>
+                        <th>Prosent</th>
                     </tr>
                 </thead>
                 <tbody id="resultater">
                 </tbody>
             </table>
-            <button class="btn" type="button" onclick="updateResults()">Oppdater</button>
         </div>
         <div class="col-sm-4">
             <h2>Ny avstemning</h2>
@@ -26,6 +26,11 @@ xmlns="http://www.w3.org/1999/html">
                 <div id="new-choices">
                     <span>Valg</span>
                 </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="member" checked> Kun for medlemmer
+                    </label>
+                </div>
                 <div class="btn-group btn-group-justified" role="group">
                     <div class="btn-group" role="group">
                         <button class="btn btn-success" type="button" onclick="addInput()"><span class="glyphicon glyphicon-plus"></span></button>
@@ -36,7 +41,7 @@ xmlns="http://www.w3.org/1999/html">
                 </div>
                 <div class="btn-group btn-group-justified" role="group">
                     <div class="btn-group" role="group">
-                        <button class="btn btn-primary" type="submit">Start Avstemming</button>
+                        <a role="button" class="btn btn-primary" type="submit" id="submit">Start Avstemming</a>
                     </div>
                 </div>
             </form>
@@ -74,13 +79,21 @@ xmlns="http://www.w3.org/1999/html">
                             var newResults = "";
                             for (candidate of response.results) {
                                 newResults += '<tr><th>' + candidate.name + '</th>';
-                                newResults += '<th>' + candidate.votes+ '</th></tr>';
+                                newResults += '<th>' + candidate.votes + '</th>';
+                                newResults += '<th>' + ((candidate.votes*100.0)/response.total).toFixed(1) + '%</th></tr>';
                             }
+                            newResults += '<tr><th>Totalt</th>';
+                            newResults += '<th>' + response.total + '</th>';
+                            newResults += '<th></th></tr>';
                             $('#resultater').html(newResults);
                             $('#title').html(response.title);
                         }
                     })},
                 500);
+
+        $('#submit').click(function() {
+            $.post('@ballot.routes.VoteController.newBallot()', $('#form').serialize(), function(response) {})
+        });
 
         function removeChoice(number) {
             $("#choice-"+number).remove();

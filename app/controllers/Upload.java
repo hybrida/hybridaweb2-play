@@ -16,10 +16,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by ivar on 29.09.2015.
- * Tormod helped!
- */
 public class Upload extends Controller {
 
 	private enum FileType {IMAGE, PDF, DOCUMENT, OTHER}
@@ -102,7 +98,7 @@ public class Upload extends Controller {
 		File newFile = new File(path + filename);
 		for(int i = 1; newFile.exists(); i++) newFile = new File(path + filenameNoExtension + " (" + i + ")" + extension);
 		newFile.getParentFile().mkdirs();
-		if(!tempFile.renameTo(newFile.getAbsoluteFile())) throw new ServerError();
+		if(!tempFile.renameTo(newFile.getAbsoluteFile())) throw new ServerError(510);
 		if((flags & LOCAL_PATH) == LOCAL_PATH) {
 			return newFile.getPath();
 		} else if((flags & RESTRICTED) != 0) {
@@ -202,7 +198,7 @@ public class Upload extends Controller {
 		} catch (UploadException uploadException) {
 			return badRequest();
 		} catch (ServerError serverError) {
-			return internalServerError();
+			return status(serverError.getStatusCode());
 		}
 	}
 

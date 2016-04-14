@@ -3,29 +3,30 @@
 @(user: User, showTitles: Boolean, uid: Long, rootAccess: Boolean)
 @if(showTitles){<hr>
 <div style="display: table-row">
-    <div style="display: table-cell"> Id </div>
+	<div style="display: table-cell"> Id </div>
 	<div style="display: table-cell"> Link </div>
 @*	<div style="display: table-cell"> Brukernavn </div> *@
 	<div style="display: table-cell"> Arrkom </div>
+	<div style="display: table-cell"> Medlem </div>
 	<div style="display: table-cell"> Jentekom </div>
 	<div style="display: table-cell"> Redaksjon </div>
 	<div style="display: table-cell"> Bedkom </div>
 	<div style="display: table-cell"> Vevkom </div>
-    @if(rootAccess) {
-        <div style="display: table-cell"> Admin </div>
-    }
-    <div style="display: table-cell"> Kjønn </div>
+	@if(rootAccess) {
+			<div style="display: table-cell"> Admin </div>
+	}
+	<div style="display: table-cell"> Kjønn </div>
 	<div style="display: table-cell"> Avgangsår </div>
 	<div style="display: table-cell"> </div>
-    @if(rootAccess) {
-        <div style="display: table-cell"> </div>
-    }
+	@if(rootAccess) {
+		<div style="display: table-cell"> </div>
+	}
 </div>
 }
 <div style="display: table-row">
-    <div style="display: table-cell">
-        @uid
-    </div>
+	<div style="display: table-cell">
+		@uid
+	</div>
 	<div style="display: table-cell">
 		<a href="@profile.routes.Profile.index(user.getUsername)">@user.getUsername</a>
 	</div>
@@ -34,6 +35,9 @@
 	</div> *@
 	<div style="display: table-cell">
 		<input type="checkbox" name="arrkom" form="form_@uid" @TextUtil.bool2checked(user.isInArrkom)>
+	</div>
+	<div style="display: table-cell">
+		<input type="checkbox" name="member" form="form_@uid" @TextUtil.bool2checked(user.isMember)>
 	</div>
 	<div style="display: table-cell">
 		<input type="checkbox" name="jentekom" form="form_@uid" @TextUtil.bool2checked(user.isInJentekom)>

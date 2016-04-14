@@ -4,6 +4,9 @@
     border-radius: 0;
 }
 
+#options {
+}
+
 .option {
     display: none;
 }
@@ -41,7 +44,6 @@
     padding: .5em;
     width: 100%;
     font-size: 300%;
-    border-top: grey solid thin;
     margin-top: .25em;
 }
 
@@ -50,4 +52,13 @@
 
 h1 {
     font-size: 3em;
+    -ms-word-wrap:break-word;
+    word-wrap:break-word;
+    width: 100%;
+}
+@media (min-width: 768px){
+    .container {
+        margin-top: 2em;
+        margin-bottom: 2em;
+    }
 }

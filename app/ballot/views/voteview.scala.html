@@ -1,16 +1,18 @@
-@(options: List[String], title: String)
+@(options: List[String], title: String, nr: Int)
 <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/ballot.css")">
 <div class="container white-box">
-    <h1>@title</h1>
+    <h1 id="title">@title</h1>
     <br>
     <form id="vote_form">
+        <div id="options" class="row">
+        @for(option <- options) {
+            <div class="col-md-6">
+                <input type="radio" name="option" id="@option" class="option" value="@option">
+                <label for="@option" class="">@option</label>
+            </div>
+        }
+        </div>
         <div class="row">
-            @for(option <- options) {
-                <div class="col-md-6">
-                    <input type="radio" name="option" id="@option" class="option" value="@option">
-                    <label for="@option" class="">@option</label>
-                </div>
-            }
             <div class="col-md-12" id="submitContainer">
                 <a class="btn btn-primary" id="submitButton" role="button"
                 data-toggle="popover" data-trigger="focus" tabindex="0">Stem</a>
@@ -19,6 +21,31 @@
     </form>
 </div>
 <script>
+        var lastNr = @nr;
+        setInterval(function() {
+                    $.ajax({
+                        url: 'avstemning/valg',
+                        type: 'GET',
+                        success: function(response) {
+                            if (response.nr === lastNr) {
+                                return;
+                            }
+                            lastNr = response.nr;
+                            var newChoices = "";
+                            for (option of response.choices) {
+                                newChoices += '\
+            <div class="col-md-6">\
+                <input type="radio" name="option" id="'+option+'" class="option" value="'+option+'">\
+                <label for="'+option+'">'+option+'</label>\
+            </div>';
+                            }
+                            $('#options').html(newChoices);
+                            $('#submitButton').addClass('btn-primary');
+                            $('#title').html(response.title);
+                        }
+                    })},
+                5000);
+
         var submitButton = $('#submitButton');
         var timeoutID;
 
@@ -26,6 +53,7 @@
             $.post('avstemning', $('#vote_form').serialize(), function(response) {
                 if (response.indexOf('Du stemte') == 0 || response.indexOf('Du har') == 0) {
                     document.getElementById('vote_form').reset();
+                    $('#submitButton').removeClass('btn-primary');
                 }
 
                 submitButton.attr('data-content', response);

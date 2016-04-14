@@ -56,7 +56,7 @@ public class User extends Model implements ImmutableUser, CRUDable, Searchable {
 	public static class UserData {
 		public Long uid;
 		public String username;
-		public Boolean arrkom, bedkom, root, vevkom, admin, jentekom, redaksjonen;
+		public Boolean arrkom, bedkom, root, vevkom, admin, jentekom, redaksjonen, member;
 		public Integer graduationYear;
 		public Character gender;
 
@@ -76,6 +76,7 @@ public class User extends Model implements ImmutableUser, CRUDable, Searchable {
 		User user = new User();
 		user.graduationYear = userData.graduationYear;
 		user.bedkom = userData.bedkom != null;
+		user.member = userData.member != null;
 		user.arrkom = userData.arrkom != null;
 		user.vevkom = userData.vevkom != null;
 		user.jentekom = userData.jentekom != null;
