@@ -27,3 +27,6 @@ server.pid
 .cache
 .*
 RUNNING_PID
+
+# Ignore database files
+db/
