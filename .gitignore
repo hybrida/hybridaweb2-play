@@ -1,0 +1,37 @@
+# Ignore configuration file
+conf/application.conf
+
+# Ignore Eclipse
+.classpath
+.project
+.settings/
+
+# Ignore Intellij
+.idea/
+*.iws
+
+# Ignore Play! working directory
+bin/
+.eclipse
+/logs/
+/modules
+/project/project
+/project/target
+/target
+tmp/
+test-result
+server.pid
+*.iml
+*.eml
+/dist/
+.cache
+.*
+RUNNING_PID
+
+# Ignore database files
+db/
+
+conf/evolutions/default/backup/
+data/
+public/uploads/
+^public/uploads/hybrid/
