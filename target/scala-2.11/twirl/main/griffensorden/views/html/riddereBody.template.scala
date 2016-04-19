@@ -1,0 +1,216 @@
+
+package griffensorden.views.html
+
+import play.twirl.api._
+import play.twirl.api.TemplateMagic._
+
+import play.api.templates.PlayMagic._
+import models._
+import controllers._
+import java.lang._
+import java.util._
+import scala.collection.JavaConversions._
+import scala.collection.JavaConverters._
+import play.api.i18n._
+import play.core.j.PlayMagicForJava._
+import play.mvc._
+import play.data._
+import play.api.data.Field
+import play.mvc.Http.Context.Implicit._
+import views.html._
+
+/**/
+object riddereBody extends BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with play.twirl.api.Template0[play.twirl.api.HtmlFormat.Appendable] {
+
+  /**/
+  def apply():play.twirl.api.HtmlFormat.Appendable = {
+      _display_ {
+
+Seq[Any](format.raw/*1.1*/("""<div class="helesiden">
+    <div class="container">
+        <div class="row blank"></div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-5 whitebox topright topleft GO">
+                <img src="/assets/images/GO.png" align="middle">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-5 whitebox line">
+                ________________________________________________________
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-md-offset-5 whitebox paragraph bottomleft bottomright hiddentopleft hiddentopright">
+                <div id="widget-knightPresentation">
+
+
+                    <script>
+
+                    $(document).ready(function()"""),format.raw/*22.49*/("""{"""),format.raw/*22.50*/("""
+
+                        """),format.raw/*24.25*/("""$(".reason").hide();
+
+                    """),format.raw/*26.21*/("""}"""),format.raw/*26.22*/(""");
+                    </script>
+
+
+                    <div id="hide" id="show" class="knight g-clearfix">
+                        <div class="name">Ole Magnus Urdahl</div>
+                        <div class="reason"><b>Avgangsår:</b> 2014</div>
+                        <div class="reason"><b>Begrunnelse:</b> Det er én person i Hybrida som absolutt alle vet hvem er. Til alle dere hybrider som har møtt opp i dag vil jeg si: Det er DERE som gjør at han har det bra. Det er DERE som gjør at han aldri er sur. Det er DERE som har latt han gjøre Hybrida til en så fantastisk og inkluderende linjeforening. Det er DERE som aldri får nok av han. Denne personen har vært faddergruppeleder, 2 * William Wallace, nestleder, leder og dirigent i De Ubehagelige Høye. Han får allikevel ikke denne utmerkelsen på grunn av 2 år i styret. Han får den på grunn av det fantastiske miljøet han har skapt i Hybrida, for sitt fantastiske humør, for å være den mest inkluderende personen siden krigen og fordi det ikke finnes en person innenfor bygrensa med mer Mojo. Selv etter sitt utenlandsopphold forsetter han å engasjere seg, noe sittende styre har fått merke. Det er en stor glede å tildele denne utmerkelsen til vår alles, Ole Magnus “J” Urdahl!</div>
+                    </div>
+                    <div id="hide" id="show" class="knight g-clearfix">
+                        <div class="name">Tone Wermundsen</div>
+                        <div class="reason"><b>Avgangsår:</b> 2014</div>
+                        <div class="reason"><b>Begrunnelse:</b> Denne personen var svært aktiv under sine verv både som faddersjef og festivalus. Hvis dere har vært på Hybridas Nyttårsball, så er det takket være denne personen. Hun startet det nemlig allerede da halvparten av dere nettopp hadde begynt på videregående. Gjennom vervet som festivalus var hun en viktig pådriver for å få skrevet kontrakt med Marin angående Kjelleren, noe som var en viktig start på den senere overtakelsen. Det ryktes også at hun fikk Marin til å betale hele ⅔ av beløpet da hun ville gi Kjelleren en skikkelig oppussing. På tampen av studie sitt har hun også klart å kuppe styringen av Avkom, og jobber med å få til en så bra avslutning for 5.klasse som overhodet mulig. Om du tenger hjelp til noe er det ingen som gjør det med et større smil om munnen enn Tone Wermundsen!</div>
+                    </div>
+                    <div id="hide" id="show" class="knight g-clearfix">
+                        <div class="name">Marius Hansen Røed</div>
+                        <div class="reason"><b>Avgangsår:</b> 2014</div>
+                        <div class="reason"><b>Begrunnelse:</b> Det er ikke alle som er like fremtredende som andre, og det er ikke alle som det forventes like mye av som andre. Den neste kandidaten har ikke vært med i styret, men der stopper det også med ting han ikke har gjort. Kandidaten har blitt anerkjent av Frans Erstad som en av de beste i Bedkom, han står for alt av design på Hybridas nettside gjennom Vevkom, han arrangerer avslutningsfest for 5. klasse gjennom Avkom, han har reddet utallige hybrider fra å stryke i Java gjennom kurs sammen med Sigurd Holsen og Kristian Våge, han tør virkelig å si styret i mot, han har klart mesterstykket å bli storvokter i Voktere av Griffens Orden og etter å ha vært stud.ass i Industriell IKT i en liten mannsalder vet alle på I&IKT hvem han er. Hadde det ikke vært for hans samtidige engasjement i NTNUI, hadde han sannsynligvis klart å få gjort enda mer, Marius Røed!</div>
+                    </div>
+                    <div id="hide" id="show" class="knight g-clearfix">
+                        <div class="name">Sigurd Andreas Holsen</div>
+                        <div class="reason"><b>Avgangsår:</b> 2015</div>
+                        <div class="reason"><b>Begrunnelse:</b> Neste utmerkelsen går til en person som gjennom sitt arbeid for Hybrida, har bidratt til nyutvikling, nytenkning og engasjement for Hybridas IKT. Personen har brukt utallige timer både på sitt arbeid for linjeforeningen, og på å utvikle andres ideer og kunnskap. Han blir sett på som en uvurderlig ressurs og en stor inspirasjon for hele Hybridas IKT. Som Vevsjef klarte han det 2 vevsjefer ikke klarte før han; Nemlig å gi Hybrida en ny fresh hjemmeside. Og med kåringen "kullets partyløve" bak seg, bidrar han også til mer enn bare IKT. Det er en stor glede å tildele denne utmerkelsen til Sigurd Andreas Holsen.</div>
+                    </div>
+                    <div class="knight g-clearfix">
+                        <div class="name">Sigbjørn Aukland</div>
+                        <div class="reason"><b>Avgangsår:</b> 2015</div>
+                        <div class="reason"><b>Begrunnelse:</b> Helt til sist vil vi gi en utmerkelse til en som har vært veldig synlig i Hybrida de siste årene. Han har vært med i BedKom, men de fleste har nok merket mest til innsatsen hans i styrevervet han har hatt. Han er alltid full av ville påfunn, og han får også mange av dem gjennomført. Kanskje er det derfor jubileet vårt også har blitt så stort og flott som det har vært, med en festivalus som virkelig har benyttet seg av ArrKom, og gjort den til en enda bedre komité. Man kan dessuten ikke komme utenom at han bidro stort til at Hybrida endelig fikk sin egen kjeller...og mistet den igjen på grunn av et uhell med en gummihanske. Heldigvis får vi kjelleren tilbake om en måned. Kveldens siste utmerkelse går til rabagasten som aldri blir kastet ut av et utested, han blir bare bedt om å gå, Sigbjørn Aukland!</div>
+                    </div>
+                    <div class="knight g-clearfix">
+                        <div class="name">Teodor Elstad</div>
+                        <div class="reason"><b>Avgangsår:</b> 2014</div>
+                        <div class="reason"><b>Begrunnelse:</b> I gode gamle dager var Update^k en sammenstiftet papirblekke. Men det var en av oss som hadde større planer. Nå er Update^k blitt det som man kan kalle et skikkelig blad, takket være denne personen. Men det stopper ikke der. Det er godt mulig at mange av dere har valgt I&IKT nettopp på grunn av innsatsen denne personen har gjort for rekrutteringen til studieprogrammet. Han har bidratt til å gi oss en rekrutteringsfilm, fräshet opp beskrivelsen av studieprogrammet og faktisk vært engasjert i jentedagen. Selveste Ole Ivar har til og med ytret at “det er få studenter vi har hatt større nytte av enn Teodor Elstad”.</div>
+                    </div>
+                    <div class="knight g-clearfix">
+                        <div class="name">Marianne Hønsi</div>
+                        <div class="reason"><b>Avgangsår:</b> 2014</div>
+                        <div class="reason"><b>Begrunnelse:</b> Ingen Hybrid har noen gang elsket Linjeforeningen Hybrida mer enn denne personen. Gjennom sitt styreverv som Skattmester og senere Leder har hun hatt en stor rolle i å knytte vennskap mellom Hybrida og andre linjeforeninger, da spesielt Manhulittene. Hun er kjent for å ha drevet med aktiv rekruttering og markedsføring for ”NTNUs kuleste linjeforening”, og da snakker vi til og med om stavangerfester hvor folk knapt nok vet hva Gløshaugen er. Men alle vet hvem Hybrida er etter en kveld ute med Marianne Hønsi.</div>
+                    </div>
+                    <div class="knight g-clearfix">
+                        <div class="name">Frans Erstad</div>
+                        <div class="reason"><b>Avgangsår:</b> 2013</div>
+                        <div class="reason"><b>Begrunnelse:</b> Den neste utmerkelsen går til en person som, til tross for en heller uelegant entré inn i Styret, har fått til utrolig mye. Denne tidligere redaktøren av Update^k klarte etter en lang kamp med nebb og klør å bli sjef for Bedriftskomitéen, og det skal vi alle være veldig glade for. Bedkom har aldri stått like sterkt som det gjør nå, i stor grad takket være denne personen. I tillegg til sitt engasjement i Bedkom og Update^k har han vært viktig for oppstarten av I&IKT-ringen, og han har alltid vært til stor hjelp for de som står fast på oppgavene sine på lesesalen.</div>
+                    </div>
+                    <div class="knight g-clearfix">
+                        <div class="name">Stig  Kjemperud</div>
+                        <div class="reason"><b>Avgangsår:</b> 2010</div>
+                        <div class="reason"><b>Begrunnelse:</b> Neste utmerkelse går til en virkelig «stayer» i Hybrida. Personen arbeidet for Hybrida fra 1. – 4. klasse, selv om personen etterhvert måtte ta den lange veien opp og ned til Tyholt. Personen steg raskt i gradene i Hybrida, og gikk fra å være ett ordinært Bedkom-medlem, til å være (den gang) skattmester i Bedkom, for så å bli Skattmester i Hybridas hovedstyre. Han var (u)ansvarlig initiativtager, trener og primus motor av Hybrida FK i flere år, samt pådriver og en del av gjengen som tok initiativ til å innføre kilten. Han hang på alle styrefestene lenge etter hans tid i styre, for han kunne jo ikke si farvel til Smørekopp og EMIL jentene. Det er en stor glede å tildele neste utmerkelse til Stig Kjemperud!</div>
+                    </div>
+                    <div class="knight g-clearfix">
+                        <div class="name">Daniel Aase</div>
+                        <div class="reason"><b>Avgangsår:</b> 2010</div>
+                        <div class="reason"><b>Begrunnelse:</b> Før i tiden kunne fadderperioden være en relativt uorganisert affære. Den neste utmerkelsen går til en kar som gjennom sitt engasjement som faddersjef, og senere Festivalus, fikk orden på dette. Fadderbarna hadde bare å falle inn i rekkene, ellers fikk de med en brautende bergenser med svart belte i karate å gjøre. I tillegg til å vise et stort engasjement for Hybrida, viste han også et tilsvarende stort hat for Kjemi, og gjorde gjennom sitt verv som SPR kort prosess med dette fagets framtid på I&IKT. Det var tydeligvis ikke ALT som var bedre før, så noen små forandringer måtte til. Den neste utmerkelsen går selvfølgelig til Daniel Aase.</div>
+                    </div>
+                    <div class="knight g-clearfix">
+                        <div class="name">Ivar  Marthinusen</div>
+                        <div class="reason"><b>Avgangsår:</b> 2011</div>
+                        <div class="reason"><b>Begrunnelse:</b> Hvis det er tre ord som kan beskrive oss hybrider, så er det øl, kilt og muskler. Det liker vi selv å tro, i alle fall. Våren 2009 kom det et forslag fra en sporty hybrid om å kombinere disse tre, i det som vi nå kjenner som Hybrida Games. Dette ble starten på en tradisjon som studentene med en gang tok til hjertet, og som fortsatt lever i beste velgående. Hvem kan vel motstå fristelsen til å løpe rundt i kilt, drikke øl og kaste tømmerstokker, økser og ølfat?</div>
+                    </div>
+                    <div class="knight g-clearfix">
+                        <div class="name">Christoffer Lange</div>
+                        <div class="reason"><b>Avgangsår:</b> 2007</div>
+                        <div class="reason"><b>Begrunnelse:</b> Selv om I&IKT har eksistert på Gløshaugen i 10 år nå, er det fortsatt ikke alle som kjenner til oss. Nevner du navnet “Hybrida”, derimot, er det langt flere som vet hva det er snakk om. I tillegg til å være et velklingende navn som er lett å huske, er det også utrolig passende for studieretningen. Den neste utmerkelsen går til mannen som, i tillegg til å komme på navnet vårt, har vært en engasjert IKTer siden begynnelsen. Ryktene sier at han er en ekte trønder i sjelen, selv om han er født og oppblåst i Bærum. Christoffer Lange!</div>
+                    </div>
+                    <div class="knight g-clearfix">
+                        <div class="name">Tor Christian Sandø</div>
+                        <div class="reason"><b>Avgangsår:</b> 2007</div>
+                        <div class="reason"><b>Begrunnelse:</b> (Første kjøleskapsjef)
+                            Vi har fått høre at Hybridas historie startet som smått med Badekarpadlingen i 2002 med en livlig gjeng som blant annet stjal terrormidlene sine fra Indøk. Det er også blitt fortalt at disse hybridene, etter en legendarisk fest på Singsaker Studenthjem våren 2003, lagde et provisorisk linjeforeningsstyre før Hybrida ble en realitet med slagordet «Hybrida – ad infinitum». Disse hybridene har vært med å startet gode tradisjoner som lånepils på Naboen og opptak med katapultkonkurranse. I tillegg har de vært med på å skape gode forhold til de andre «søster»-linjene ved IVT. Det er også herfra vi har fått vår gode sofa på kontoret, og våre fine hatter. </div>
+                    </div>
+                    <div class="knight g-clearfix">
+                        <div class="name">Eirik  Haar</div>
+                        <div class="reason"><b>Avgangsår:</b> 2007</div>
+                        <div class="reason"><b>Begrunnelse:</b> (Satt i første styret)
+                            Vi har fått høre at Hybridas historie startet som smått med Badekarpadlingen i 2002 med en livlig gjeng som blant annet stjal terrormidlene sine fra Indøk. Det er også blitt fortalt at disse hybridene, etter en legendarisk fest på Singsaker Studenthjem våren 2003, lagde et provisorisk linjeforeningsstyre før Hybrida ble en realitet med slagordet «Hybrida – ad infinitum». Disse hybridene har vært med å startet gode tradisjoner som lånepils på Naboen og opptak med katapultkonkurranse. I tillegg har de vært med på å skape gode forhold til de andre «søster»-linjene ved IVT. Det er også herfra vi har fått vår gode sofa på kontoret, og våre fine hatter. </div>
+                    </div>
+                    <div class="knight g-clearfix">
+                        <div class="name">Marthe Almeland</div>
+                        <div class="reason"><b>Avgangsår:</b> 2007</div>
+                        <div class="reason"><b>Begrunnelse:</b> (Første PRsjef)
+                            Vi har fått høre at Hybridas historie startet som smått med Badekarpadlingen i 2002 med en livlig gjeng som blant annet stjal terrormidlene sine fra Indøk. Det er også blitt fortalt at disse hybridene, etter en legendarisk fest på Singsaker Studenthjem våren 2003, lagde et provisorisk linjeforeningsstyre før Hybrida ble en realitet med slagordet «Hybrida – ad infinitum». Disse hybridene har vært med å startet gode tradisjoner som lånepils på Naboen og opptak med katapultkonkurranse. I tillegg har de vært med på å skape gode forhold til de andre «søster»-linjene ved IVT. Det er også herfra vi har fått vår gode sofa på kontoret, og våre fine hatter. </div>
+                    </div>
+                    <div class="knight g-clearfix">
+                        <div class="name">Eirin Mohn Lem</div>
+                        <div class="reason"><b>Avgangsår:</b> 2007</div>
+                        <div class="reason"><b>Begrunnelse:</b> (Første næringslivskontakt)
+                            Vi har fått høre at Hybridas historie startet som smått med Badekarpadlingen i 2002 med en livlig gjeng som blant annet stjal terrormidlene sine fra Indøk. Det er også blitt fortalt at disse hybridene, etter en legendarisk fest på Singsaker Studenthjem våren 2003, lagde et provisorisk linjeforeningsstyre før Hybrida ble en realitet med slagordet «Hybrida – ad infinitum». Disse hybridene har vært med å startet gode tradisjoner som lånepils på Naboen og opptak med katapultkonkurranse. I tillegg har de vært med på å skape gode forhold til de andre «søster»-linjene ved IVT. Det er også herfra vi har fått vår gode sofa på kontoret, og våre fine hatter. </div>
+                    </div>
+                    <div class="knight g-clearfix">
+                        <div class="name">Marius Flem Lunde</div>
+                        <div class="reason"><b>Avgangsår:</b> 2007</div>
+                        <div class="reason"><b>Begrunnelse:</b> (Første festivalus)
+                            Vi har fått høre at Hybridas historie startet som smått med Badekarpadlingen i 2002 med en livlig gjeng som blant annet stjal terrormidlene sine fra Indøk. Det er også blitt fortalt at disse hybridene, etter en legendarisk fest på Singsaker Studenthjem våren 2003, lagde et provisorisk linjeforeningsstyre før Hybrida ble en realitet med slagordet «Hybrida – ad infinitum». Disse hybridene har vært med å startet gode tradisjoner som lånepils på Naboen og opptak med katapultkonkurranse. I tillegg har de vært med på å skape gode forhold til de andre «søster»-linjene ved IVT. Det er også herfra vi har fått vår gode sofa på kontoret, og våre fine hatter. </div>
+                    </div>
+                    <div class="knight g-clearfix">
+                        <div class="name">Harald Wathne</div>
+                        <div class="reason"><b>Avgangsår:</b> 2007</div>
+                        <div class="reason"><b>Begrunnelse:</b> (Første formann)
+                            Vi har fått høre at Hybridas historie startet som smått med Badekarpadlingen i 2002 med en livlig gjeng som blant annet stjal terrormidlene sine fra Indøk. Det er også blitt fortalt at disse hybridene, etter en legendarisk fest på Singsaker Studenthjem våren 2003, lagde et provisorisk linjeforeningsstyre før Hybrida ble en realitet med slagordet «Hybrida – ad infinitum». Disse hybridene har vært med å startet gode tradisjoner som lånepils på Naboen og opptak med katapultkonkurranse. I tillegg har de vært med på å skape gode forhold til de andre «søster»-linjene ved IVT. Det er også herfra vi har fått vår gode sofa på kontoret, og våre fine hatter. </div>
+                    </div>
+                    <div class="knight g-clearfix">
+                        <div class="name">Bård  Gamnes</div>
+                        <div class="reason"><b>Avgangsår:</b> 2010</div>
+                        <div class="reason"><b>Begrunnelse:</b> Denne personen bidro til å gi Hybrida et av sine viktigste symboler. Som en liten linje, er det mange som ikke har hørt om oss og linjeforeninga vår, men når vi nevner kilten, viser det seg at folk har sett oss. Han gav oss kilten, og ryktene sier at han drakk alltid for mye, Bård Gamnes.
+                        </div>
+                    </div>
+
+
+                    <script type="text/javascript">
+
+                    var knights = $("#widget-knightPresentation").find(".knight");
+                    var open = false;
+                    var parent_name;
+                    var recent_name;
+                    var recent;
+                    knights.find(".name").click(function(e) """),format.raw/*141.61*/("""{"""),format.raw/*141.62*/("""
+
+                    """),format.raw/*143.21*/("""var parent = $(this).parent();
+                    parent_name = $(this).text();
+                    if (open==true && recent_name != parent_name)"""),format.raw/*145.66*/("""{"""),format.raw/*145.67*/("""
+                    """),format.raw/*146.21*/("""recent.find(".reason").toggle();
+                    """),format.raw/*147.21*/("""}"""),format.raw/*147.22*/("""
+                    """),format.raw/*148.21*/("""if (recent_name==parent_name) """),format.raw/*148.51*/("""{"""),format.raw/*148.52*/("""
+                    """),format.raw/*149.21*/("""open = false;
+                    """),format.raw/*150.21*/("""}"""),format.raw/*150.22*/(""" """),format.raw/*150.23*/("""else """),format.raw/*150.28*/("""{"""),format.raw/*150.29*/("""
+                    """),format.raw/*151.21*/("""open = true;
+                    """),format.raw/*152.21*/("""}"""),format.raw/*152.22*/("""
+                    """),format.raw/*153.21*/("""recent = parent;
+                    recent_name = $(this).text();
+                    parent.find(".reason").toggle();
+
+                    """),format.raw/*157.21*/("""}"""),format.raw/*157.22*/(""");
+
+                    </script>
+
+                </div>
+            <div>
+            </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+"""))}
+  }
+
+  def render(): play.twirl.api.HtmlFormat.Appendable = apply()
+
+  def f:(() => play.twirl.api.HtmlFormat.Appendable) = () => apply()
+
+  def ref: this.type = this
+
+}
+              /*
+                  -- GENERATED --
+                  DATE: Tue Apr 19 17:27:41 CEST 2016
+                  SOURCE: C:/Users/Bendik/hybridaweb2-play/app/griffensorden/views/riddereBody.scala.html
+                  HASH: 1d6b30e91bf421cb95c4d2a5e071abef2a2d5574
+                  MATRIX: 818->0|1642->796|1671->797|1727->825|1799->869|1828->870|20480->19493|20510->19494|20563->19518|20740->19666|20770->19667|20821->19689|20904->19743|20934->19744|20985->19766|21044->19796|21074->19797|21125->19819|21189->19854|21219->19855|21249->19856|21283->19861|21313->19862|21364->19884|21427->19918|21457->19919|21508->19941|21682->20086|21712->20087
+                  LINES: 29->1|50->22|50->22|52->24|54->26|54->26|169->141|169->141|171->143|173->145|173->145|174->146|175->147|175->147|176->148|176->148|176->148|177->149|178->150|178->150|178->150|178->150|178->150|179->151|180->152|180->152|181->153|185->157|185->157
+                  -- GENERATED --
+              */
+          

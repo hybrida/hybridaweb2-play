@@ -1,0 +1,88 @@
+
+.helesiden{
+	background: url("../images/VAGOresize2Blend.jpg") no-repeat;
+    background-color: #001124;
+	background-size: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+	min-height: 100vh;
+}
+
+.line{
+    text-align: center;
+}
+.GO{
+    padding-left: 80px;
+}
+
+.name{
+    font-weight: bold;
+    text-align: center;
+    cursor:pointer;
+}
+.reason{
+    font-size: 16px;
+}
+
+.blank {
+    height: 180px;
+}
+
+
+.whitebox{
+    background-color: #ffffff;
+    opacity: 0.7;
+}
+
+.paragraph{
+	font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    padding: 70px;
+    padding-top: 40px;
+}
+
+.topright{
+	border-top-right-radius: 10px;
+}
+.topleft{
+	border-top-left-radius: 10px;
+}
+.bottomright{
+	border-bottom-right-radius: 10px;
+}
+.bottomleft {
+    border-bottom-left-radius: 10px;
+}
+
+@media screen and (max-width: 1199px) and (min-width: 992px) {
+    .GO{
+        padding-left: 50px;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .GO{
+        display: none;
+    }
+    .line{
+        display: none;
+    }
+    .hiddentopleft{
+        border-top-left-radius: 10px;
+    }
+    .hiddentopright{
+        border-top-right-radius: 10px;
+    }
+    .helesiden{
+    }
+    .hide{
+        display: none;
+    }
+}
+
+#begrunnelsein{
+    start:atthetop;
+    height:200px;
+    font-size:14pt;
+
+}

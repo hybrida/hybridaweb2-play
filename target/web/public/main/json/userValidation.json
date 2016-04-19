@@ -1,0 +1,26 @@
+{
+  "fields": [
+    {"name": "firstName", "pattern": "\\p{Alpha}[^<>\\n\\r]{0,29}", "required": true,
+      "message": "Fornavn kan ikke inneholde vinkelparenteser eller linjeskift. Maks 30 tegn."},
+    {"name": "lastName", "pattern": "\\p{Alpha}[^<>\\n\\r]{0,29}", "required": true,
+      "message": "Etternavn kan ikke inneholde vinkelparenteser eller linjeskift. Maks 30 tegn."},
+    {"name": "middleName", "pattern": "[^<>\\n]{0,50}",
+      "message": "Mellomnavn kan ikke inneholde vinkelparenteser eller linjeskift. Maks 50 tegn."},
+    {"name": "email", "pattern": "[\\w.%+-]+@[\\p{Alpha}0-9.-]+\\.[a-z]{2,6}",
+      "message": "E-post-adressen er ikke gyldig."},
+    {"name": "websiteUrl", "pattern": "(https?://)?[\\p{Alpha}0-9.-]+\\.[a-z]{2,6}[\\w ./-]*(\\?[\\w .=&/-]*)?",
+      "message": "Webadressen er ikke gyldig."},
+    {"name": "phone", "pattern": "((\\+|00)47 ?)?\\d{2}(\\d{4}|( \\d{2}){2} |\\d \\d{2} \\d)\\d{2}",
+      "message": "Telefonnummeret er ikke gyldig."},
+    {"name": "title", "pattern": "[\\w .-]{1,20}",
+      "message": "Tittel kan kun inneholde bokstaver, mellomrom, understrek, bindestrek og punktum. Maks 20 tegn."},
+    {"name": "graduationYear", "pattern": "20\\d\\d",
+      "message": "Avgangsår må være et tall mellom 2000 og 2099."},
+    {"name": "specialization", "pattern": "[\\p{Alpha} .,-]{5,50}",
+      "message": "Noe er dårlig programmert. Eller så prøvde du å være lur. Du var ikke lur, sorry."},
+    {"name": "profileImageFileName", "pattern": "[^\\\\/:\\*\\?\"<>\\|]+\\.(jpe?g|gif|png)",
+      "message": "Noe er dårlig programmert. Eller så prøvde du å være lur. Du var ikke lur, sorry."},
+    {"name": "cardCode", "pattern": "\\d{8}",
+      "message": "Kortkoden skal bestå av åtte siffer."}
+  ]
+}

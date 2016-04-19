@@ -1,0 +1,39 @@
+2016-04-19 17:26:39,421 - [INFO] - from play in pool-4-thread-1 
+Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+
+2016-04-19 17:28:21,866 - [INFO] - from play in play-internal-execution-context-1 
+datasource [jdbc:h2:./db/file;MODE=MYSQL;DB_CLOSE_DELAY=-1] bound to JNDI as DefaultDS
+
+2016-04-19 17:28:24,330 - [INFO] - from play in play-internal-execution-context-1 
+database [default] connected at jdbc:h2:./db/file
+
+2016-04-19 17:28:25,152 - [INFO] - from play in play-internal-execution-context-1 
+Application started (Dev)
+
+2016-04-19 17:38:12,725 - [INFO] - from play in play-internal-execution-context-1 
+datasource [jdbc:h2:./db/file;MODE=MYSQL;DB_CLOSE_DELAY=-1] bound to JNDI as DefaultDS
+
+2016-04-19 17:38:12,728 - [INFO] - from play in play-internal-execution-context-1 
+database [default] connected at jdbc:h2:./db/file
+
+2016-04-19 17:38:13,049 - [INFO] - from play in play-internal-execution-context-1 
+Application started (Dev)
+
+2016-04-19 17:38:14,036 - [INFO] - from play in play-internal-execution-context-1 
+datasource [jdbc:h2:./db/file;MODE=MYSQL;DB_CLOSE_DELAY=-1] bound to JNDI as DefaultDS
+
+2016-04-19 17:38:14,040 - [INFO] - from play in play-internal-execution-context-1 
+database [default] connected at jdbc:h2:./db/file
+
+2016-04-19 17:38:14,414 - [INFO] - from play in play-internal-execution-context-1 
+Application started (Dev)
+
+2016-04-19 17:40:30,738 - [INFO] - from play in play-internal-execution-context-1 
+datasource [jdbc:h2:./db/file;MODE=MYSQL;DB_CLOSE_DELAY=-1] bound to JNDI as DefaultDS
+
+2016-04-19 17:40:30,743 - [INFO] - from play in play-internal-execution-context-1 
+database [default] connected at jdbc:h2:./db/file
+
+2016-04-19 17:40:31,036 - [INFO] - from play in play-internal-execution-context-1 
+Application started (Dev)
+
