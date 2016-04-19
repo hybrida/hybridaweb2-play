@@ -17,7 +17,7 @@ public class VoteController extends Controller {
     private static List<String> votes = new ArrayList<>();
     private static List<String> choices = new ArrayList<>();
     private static List<Long> usersThatHasVoted = new ArrayList<>();
-    private static boolean member;
+    private static boolean membersOnly;
 
     public static Result index() {
         if (choices == null || choices.size() == 0) choices = generateGenericChoices();
@@ -43,14 +43,14 @@ public class VoteController extends Controller {
         return ok(Json.toJson(new BallotChoices(nr, title, choices)));
     }
 
-    public static Result attemptVote() {
+    synchronized public static Result attemptVote() {
 
         if (!models.LoginState.isValidlyLoggedIn())
             return ok("Du må være innlogget for å stemme");
 
         User loginUser = models.LoginState.getUser();
         if (loginUser.getId() < 2) return ok("Rotbrukeren kan ikke stemme");
-        if (member && !loginUser.isMember()) return ok("Kun medlemmer av Hybrida kan stemme");
+        if (membersOnly && !loginUser.isMember()) return ok("Kun medlemmer av Hybrida kan stemme");
         if (usersThatHasVoted.contains(loginUser.getId())) return ok("Du har allerede stemt");
 
         String vote = Form.form().bindFromRequest().get("option");
@@ -128,7 +128,7 @@ public class VoteController extends Controller {
 
     private static void createBallot(DynamicForm dynamicForm) {
         title = dynamicForm.data().remove("title");
-        member = dynamicForm.data().remove("member") != null;
+        membersOnly = dynamicForm.data().remove("membersOnly") != null;
         choices = new ArrayList<String>(dynamicForm.data().values()); //TODO: input sanitizing (f.eks. ")
         votes = new ArrayList<>();
         usersThatHasVoted = new ArrayList<>();
