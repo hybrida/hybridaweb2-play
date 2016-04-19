@@ -1,8 +1,0 @@
-[debug] Copy resource mappings: 
-[debug] 	(C:\Users\Bendik\hybridaweb2-play\conf\application.conf,C:\Users\Bendik\hybridaweb2-play\target\scala-2.11\classes\application.conf)
-[debug] 	(C:\Users\Bendik\hybridaweb2-play\conf\evolutions,C:\Users\Bendik\hybridaweb2-play\target\scala-2.11\classes\evolutions)
-[debug] 	(C:\Users\Bendik\hybridaweb2-play\conf\local.example.conf,C:\Users\Bendik\hybridaweb2-play\target\scala-2.11\classes\local.example.conf)
-[debug] 	(C:\Users\Bendik\hybridaweb2-play\conf\routes,C:\Users\Bendik\hybridaweb2-play\target\scala-2.11\classes\routes)
-[debug] 	(C:\Users\Bendik\hybridaweb2-play\conf\evolutions\default,C:\Users\Bendik\hybridaweb2-play\target\scala-2.11\classes\evolutions\default)
-[debug] 	(C:\Users\Bendik\hybridaweb2-play\conf\evolutions\default\1.sql,C:\Users\Bendik\hybridaweb2-play\target\scala-2.11\classes\evolutions\default\1.sql)
-[debug] 	(C:\Users\Bendik\hybridaweb2-play\conf\evolutions\default\2.sql,C:\Users\Bendik\hybridaweb2-play\target\scala-2.11\classes\evolutions\default\2.sql)
