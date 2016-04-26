@@ -35,24 +35,30 @@
     margin: 0 auto
     width: 100%;
     height: 100%;
-    background-image: url(../images/tempbackground.jpg);
+    background-image: url(../images/IKT-Ringen-Om.jpg);
     background-repeat:no-repeat;
     background-size:cover;
     background-position:center;
 }
 #promotering {
-    width:100%;
-    height:100vh;
+    overflow: auto;
+    margin: 0 auto
+    width: 100%;
+    height: 100%;
+    background-image: url(../images/IKT-Promoteringsmetoder.jpg);
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position:center;
 }
 
 #medlemmer {
     overflow: auto;
-    margin: 0 auto;
+    margin: 0 auto
     width: 100%;
-    height: 100vh;
-    background-image: url(../images/tempbackground.jpg);
+    height: 100%;
+    background-image: url(../images/IKT-Ringen_Medlemmer.jpg);
     background-repeat:no-repeat;
-    background-size:contain;
+    background-size:cover;
     background-position:center;
     }
 
