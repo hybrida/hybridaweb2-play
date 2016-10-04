@@ -1,5 +1,6 @@
 package sso;
 
+import play.Configuration;
 import play.Play;
 import profile.models.User;
 import play.mvc.Controller;
@@ -51,17 +52,19 @@ public class SSOLogin extends Controller {
 	}
 	public static String innsida_login_link = "https://innsida.ntnu.no/sso/?target=" + getTarget() + "&returnargs=";
 
-	public static Result login(String returnarg) {
-		java.io.File file = new java.io.File(models.Certificate.getPath());
+	public static Result login(String returnarg) throws Exception {
+		java.io.File file = new java.io.File(sso.models.Certificate.getPath());
 		if (file.exists() && !file.isDirectory()) {
 			// The following page will redirect us to verifylogin when it returns.
 			return redirect(
 				innsida_login_link + (
 					returnarg == null || returnarg.length() == 0
 					? request().path() : returnarg) + ",");
-		} else {
+		} else if (Configuration.root().getString("application.env").equalsIgnoreCase("dev")){
 			session("user", play.api.libs.Crypto.encryptAES("hybrid," + String.valueOf(System.currentTimeMillis())));
 			return redirect(returnarg.length() == 0 ? request().path() : returnarg);
+		} else {
+			throw new Exception("Cannot find certificate file");
 		}
 	}
 

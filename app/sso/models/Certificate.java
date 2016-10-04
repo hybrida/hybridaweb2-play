@@ -1,4 +1,4 @@
-package models;
+package sso.models;
 
 /**
  * Holds the link to the certificate file and other information.

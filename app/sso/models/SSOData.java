@@ -67,9 +67,9 @@ public class SSOData {
 		}
 
 		java.io.FileInputStream filestream =
-			new java.io.FileInputStream(new java.io.File(models.Certificate.getPath()));
+			new java.io.FileInputStream(new java.io.File(Certificate.getPath()));
 		java.security.cert.CertificateFactory certificateFactory =
-			java.security.cert.CertificateFactory.getInstance(models.Certificate.getSignMethod());
+			java.security.cert.CertificateFactory.getInstance(Certificate.getSignMethod());
 		java.security.cert.Certificate certificate =
 			certificateFactory.generateCertificate(filestream);
 		java.security.PublicKey pubkey =
@@ -80,7 +80,7 @@ public class SSOData {
 
 	private static boolean verifySignature(String data, java.security.PublicKey key, byte[] signature) throws Exception {
 		java.security.Signature signer =
-			java.security.Signature.getInstance(models.Certificate.getEncryptionMethod());
+			java.security.Signature.getInstance(Certificate.getEncryptionMethod());
 		signer.initVerify(key);
 		signer.update(data.getBytes());
 		return (signer.verify(signature));
