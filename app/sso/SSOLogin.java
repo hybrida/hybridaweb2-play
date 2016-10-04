@@ -64,7 +64,7 @@ public class SSOLogin extends Controller {
 			session("user", play.api.libs.Crypto.encryptAES("hybrid," + String.valueOf(System.currentTimeMillis())));
 			return redirect(returnarg.length() == 0 ? request().path() : returnarg);
 		} else {
-			throw new Exception("Cannot find certificate file");
+			return internalServerError("Cannot find certificate file");
 		}
 	}
 
@@ -102,7 +102,7 @@ public class SSOLogin extends Controller {
 				return ok(escapeText.render(exc_obj.toString()));
 			}
 		} catch (Exception exc_obj) {
-			return ok("Well damn, the SSOData failed.");
+			return internalServerError("Well damn, the SSOData failed.");
 		}
 	}
 
