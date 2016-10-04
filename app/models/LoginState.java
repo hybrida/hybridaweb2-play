@@ -52,4 +52,8 @@ public class LoginState extends Model {
 		return new User();
 	}
 
+	public static boolean rootExists() {
+		return isUserInDatabase("hybrid");
+	}
+
 }

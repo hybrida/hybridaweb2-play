@@ -43,6 +43,7 @@ POST          /admin/newuser                           admintools.Admin.newUser(
 GET           /admin/bulkusers                         admintools.Admin.bulkUsersForm()
 POST          /admin/bulkusers                         admintools.Admin.bulkUsers()
 GET           /admin/api/bulkaddsingle                 admintools.Admin.bulkAddSingle()
+GET           /admin/import-test-data                  admintools.Admin.importTestData()
 
 # # Article and events
 GET           /artikkel/ny                             article.ArticleIn.index()

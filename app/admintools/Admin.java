@@ -3,6 +3,7 @@ package admintools;
 import controllers.Upload;
 import exceptions.*;
 import models.LoginState;
+import play.db.DB;
 import profile.*;
 import profile.models.Specialization;
 import profile.models.User;
@@ -14,7 +15,7 @@ import models.HttpRequestData;
 
 import java.io.*;
 import java.net.URLEncoder;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -224,5 +225,44 @@ public class Admin extends Controller {
 		}
 		user.save();
 		return ok(output);
+	}
+
+	public static Result importTestData() {
+		if(LoginState.rootExists() && (!LoginState.isValidlyLoggedIn() || !LoginState.getUser().isRoot())) return unauthorized();
+
+		Connection db = DB.getConnection();
+		try {
+			File data = new File("conf/data.sql");
+			db.setAutoCommit(false);
+			try {
+				BufferedReader reader = new BufferedReader(new FileReader(data));
+				String statementString = "";
+				String line;
+				while ((line = reader.readLine()) != null) {
+					int next = 0;
+					while ((next = line.indexOf(';', next) + 1) != 0) {
+						try {
+							db.prepareStatement(statementString + line.substring(0, next)).execute();
+						} catch (SQLException e) {
+							continue;
+						}
+						line = line.substring(next);
+						next = 0;
+					}
+					statementString += line.substring(next) + " ";
+				}
+			} catch (IOException e) {
+				return internalServerError("Bad2: " + e.getMessage());
+			}
+			db.commit();
+		} catch (SQLException e) {
+			return internalServerError("Bad3: " + e.getMessage());
+		} finally {
+			try {
+				db.setAutoCommit(true);
+			} catch (SQLException e) {
+			}
+		}
+		return ok("Cool");
 	}
 }

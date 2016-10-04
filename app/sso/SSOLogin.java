@@ -1,5 +1,7 @@
 package sso;
 
+import admintools.Admin;
+import models.LoginState;
 import play.Configuration;
 import play.Play;
 import profile.models.User;
@@ -15,9 +17,10 @@ import java.util.Date;
  *
  * How it works:
  * First we let control enter the "login(String)" function.
- * It checks if the certificate (innsida.crt in root folder) is present.
+ * It checks if the certificate file is present.
  * If the certificate is not present, the login will occur as
- * the standard root user.
+ * the standard root user in dev mode, or it will return an internal server error
+ * in any other mode.
  *
  * If the certificate is present, the user is redirected to innsida.ntnu.no
  * (see innsida_login_link for full link). The parameter "target" tells innsida
@@ -34,14 +37,14 @@ import java.util.Date;
  * timestamp, encryption, and where the HTTP request originated from.
  * This function accesses the database to check if the returned username
  * actually exists there as well.
- * If the login is succesful, verifyLogin stores the username with a timestamp.
+ * If the login is successful, verifyLogin stores the username with a timestamp.
  * It also encrypts the cookie with the last login time using a private key.
  *
  * The encryption's justification:
  * The login time is stored in the database. If anyone wishes to commit forgery
  * by creating a custom cookie, they will have a hard time doing so because they
  * will need to store unreadable text that must result in the form: "username, login_time"
- * This is extremely difficuly to do as any change to the input should give big changes to the output
+ * This is extremely difficult to do as any change to the input should give big changes to the output
  * like a hashing algorithm.
  */
 public class SSOLogin extends Controller {
@@ -53,6 +56,8 @@ public class SSOLogin extends Controller {
 	public static String innsida_login_link = "https://innsida.ntnu.no/sso/?target=" + getTarget() + "&returnargs=";
 
 	public static Result login(String returnarg) throws Exception {
+		if (!LoginState.rootExists()) Admin.importTestData();
+
 		java.io.File file = new java.io.File(sso.models.Certificate.getPath());
 		if (file.exists() && !file.isDirectory()) {
 			// The following page will redirect us to verifylogin when it returns.
