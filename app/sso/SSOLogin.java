@@ -64,7 +64,7 @@ public class SSOLogin extends Controller {
 			session("user", play.api.libs.Crypto.encryptAES("hybrid," + String.valueOf(System.currentTimeMillis())));
 			return redirect(returnarg.length() == 0 ? request().path() : returnarg);
 		} else {
-			return internalServerError("Cannot find certificate file");
+			return ok("Cannot find certificate file");
 		}
 	}
 
